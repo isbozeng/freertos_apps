@@ -1,0 +1,554 @@
+ARM GAS  /tmp/ccenSGrA.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"netbuf.c"
+  14              		.text
+  15              		.section	.text.netbuf_new,"ax",%progbits
+  16              		.align	1
+  17              		.global	netbuf_new
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	netbuf_new:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 0620     		movs	r0, #6
+  29 0004 FFF7FEFF 		bl	memp_malloc
+  30 0008 0346     		mov	r3, r0
+  31 000a 20B1     		cbz	r0, .L1
+  32 000c 0022     		movs	r2, #0
+  33 000e 0260     		str	r2, [r0]	@ unaligned
+  34 0010 4260     		str	r2, [r0, #4]	@ unaligned
+  35 0012 8260     		str	r2, [r0, #8]	@ unaligned
+  36 0014 C260     		str	r2, [r0, #12]	@ unaligned
+  37              	.L1:
+  38 0016 1846     		mov	r0, r3
+  39 0018 08BD     		pop	{r3, pc}
+  41              		.section	.text.netbuf_delete,"ax",%progbits
+  42              		.align	1
+  43              		.global	netbuf_delete
+  44              		.syntax unified
+  45              		.thumb
+  46              		.thumb_func
+  47              		.fpu fpv4-sp-d16
+  49              	netbuf_delete:
+  50              		@ args = 0, pretend = 0, frame = 0
+  51              		@ frame_needed = 0, uses_anonymous_args = 0
+  52 0000 68B1     		cbz	r0, .L8
+  53 0002 10B5     		push	{r4, lr}
+  54 0004 0446     		mov	r4, r0
+  55 0006 0068     		ldr	r0, [r0]
+  56 0008 20B1     		cbz	r0, .L6
+  57 000a FFF7FEFF 		bl	pbuf_free
+  58 000e 0023     		movs	r3, #0
+  59 0010 6360     		str	r3, [r4, #4]
+  60 0012 2360     		str	r3, [r4]
+ARM GAS  /tmp/ccenSGrA.s 			page 2
+
+
+  61              	.L6:
+  62 0014 2146     		mov	r1, r4
+  63 0016 0620     		movs	r0, #6
+  64 0018 FFF7FEFF 		bl	memp_free
+  65 001c 10BD     		pop	{r4, pc}
+  66              	.L8:
+  67 001e 7047     		bx	lr
+  69              		.section	.text.netbuf_alloc,"ax",%progbits
+  70              		.align	1
+  71              		.global	netbuf_alloc
+  72              		.syntax unified
+  73              		.thumb
+  74              		.thumb_func
+  75              		.fpu fpv4-sp-d16
+  77              	netbuf_alloc:
+  78              		@ args = 0, pretend = 0, frame = 0
+  79              		@ frame_needed = 0, uses_anonymous_args = 0
+  80 0000 38B5     		push	{r3, r4, r5, lr}
+  81 0002 0446     		mov	r4, r0
+  82 0004 98B1     		cbz	r0, .L17
+  83 0006 0D46     		mov	r5, r1
+  84 0008 0068     		ldr	r0, [r0]
+  85 000a 08B1     		cbz	r0, .L14
+  86 000c FFF7FEFF 		bl	pbuf_free
+  87              	.L14:
+  88 0010 4FF42072 		mov	r2, #640
+  89 0014 2946     		mov	r1, r5
+  90 0016 3620     		movs	r0, #54
+  91 0018 FFF7FEFF 		bl	pbuf_alloc
+  92 001c 2060     		str	r0, [r4]
+  93 001e 28B1     		cbz	r0, .L11
+  94 0020 4389     		ldrh	r3, [r0, #10]
+  95 0022 AB42     		cmp	r3, r5
+  96 0024 0BD3     		bcc	.L18
+  97              	.L15:
+  98 0026 2368     		ldr	r3, [r4]
+  99 0028 6360     		str	r3, [r4, #4]
+ 100 002a 5868     		ldr	r0, [r3, #4]
+ 101              	.L11:
+ 102 002c 38BD     		pop	{r3, r4, r5, pc}
+ 103              	.L17:
+ 104 002e 074B     		ldr	r3, .L19
+ 105 0030 6822     		movs	r2, #104
+ 106 0032 0749     		ldr	r1, .L19+4
+ 107 0034 0748     		ldr	r0, .L19+8
+ 108 0036 FFF7FEFF 		bl	printf
+ 109 003a 2046     		mov	r0, r4
+ 110 003c F6E7     		b	.L11
+ 111              	.L18:
+ 112 003e 034B     		ldr	r3, .L19
+ 113 0040 7322     		movs	r2, #115
+ 114 0042 0549     		ldr	r1, .L19+12
+ 115 0044 0348     		ldr	r0, .L19+8
+ 116 0046 FFF7FEFF 		bl	printf
+ 117 004a ECE7     		b	.L15
+ 118              	.L20:
+ 119              		.align	2
+ARM GAS  /tmp/ccenSGrA.s 			page 3
+
+
+ 120              	.L19:
+ 121 004c 00000000 		.word	.LC0
+ 122 0050 30000000 		.word	.LC1
+ 123 0054 4C000000 		.word	.LC2
+ 124 0058 74000000 		.word	.LC3
+ 126              		.section	.text.netbuf_free,"ax",%progbits
+ 127              		.align	1
+ 128              		.global	netbuf_free
+ 129              		.syntax unified
+ 130              		.thumb
+ 131              		.thumb_func
+ 132              		.fpu fpv4-sp-d16
+ 134              	netbuf_free:
+ 135              		@ args = 0, pretend = 0, frame = 0
+ 136              		@ frame_needed = 0, uses_anonymous_args = 0
+ 137 0000 10B5     		push	{r4, lr}
+ 138 0002 40B1     		cbz	r0, .L26
+ 139 0004 0446     		mov	r4, r0
+ 140 0006 0068     		ldr	r0, [r0]
+ 141 0008 08B1     		cbz	r0, .L24
+ 142 000a FFF7FEFF 		bl	pbuf_free
+ 143              	.L24:
+ 144 000e 0023     		movs	r3, #0
+ 145 0010 6360     		str	r3, [r4, #4]
+ 146 0012 2360     		str	r3, [r4]
+ 147              	.L21:
+ 148 0014 10BD     		pop	{r4, pc}
+ 149              	.L26:
+ 150 0016 034B     		ldr	r3, .L27
+ 151 0018 8122     		movs	r2, #129
+ 152 001a 0349     		ldr	r1, .L27+4
+ 153 001c 0348     		ldr	r0, .L27+8
+ 154 001e FFF7FEFF 		bl	printf
+ 155 0022 F7E7     		b	.L21
+ 156              	.L28:
+ 157              		.align	2
+ 158              	.L27:
+ 159 0024 00000000 		.word	.LC0
+ 160 0028 00000000 		.word	.LC4
+ 161 002c 4C000000 		.word	.LC2
+ 163              		.section	.text.netbuf_ref,"ax",%progbits
+ 164              		.align	1
+ 165              		.global	netbuf_ref
+ 166              		.syntax unified
+ 167              		.thumb
+ 168              		.thumb_func
+ 169              		.fpu fpv4-sp-d16
+ 171              	netbuf_ref:
+ 172              		@ args = 0, pretend = 0, frame = 0
+ 173              		@ frame_needed = 0, uses_anonymous_args = 0
+ 174 0000 70B5     		push	{r4, r5, r6, lr}
+ 175 0002 B0B1     		cbz	r0, .L35
+ 176 0004 0E46     		mov	r6, r1
+ 177 0006 1546     		mov	r5, r2
+ 178 0008 0446     		mov	r4, r0
+ 179 000a 0068     		ldr	r0, [r0]
+ 180 000c 08B1     		cbz	r0, .L32
+ARM GAS  /tmp/ccenSGrA.s 			page 4
+
+
+ 181 000e FFF7FEFF 		bl	pbuf_free
+ 182              	.L32:
+ 183 0012 4122     		movs	r2, #65
+ 184 0014 0021     		movs	r1, #0
+ 185 0016 3620     		movs	r0, #54
+ 186 0018 FFF7FEFF 		bl	pbuf_alloc
+ 187 001c 2060     		str	r0, [r4]
+ 188 001e 88B1     		cbz	r0, .L36
+ 189 0020 4660     		str	r6, [r0, #4]
+ 190 0022 2368     		ldr	r3, [r4]
+ 191 0024 1D81     		strh	r5, [r3, #8]	@ movhi
+ 192 0026 2368     		ldr	r3, [r4]
+ 193 0028 5D81     		strh	r5, [r3, #10]	@ movhi
+ 194 002a 2368     		ldr	r3, [r4]
+ 195 002c 6360     		str	r3, [r4, #4]
+ 196 002e 0020     		movs	r0, #0
+ 197              	.L31:
+ 198 0030 70BD     		pop	{r4, r5, r6, pc}
+ 199              	.L35:
+ 200 0032 074B     		ldr	r3, .L37
+ 201 0034 9922     		movs	r2, #153
+ 202 0036 0749     		ldr	r1, .L37+4
+ 203 0038 0748     		ldr	r0, .L37+8
+ 204 003a FFF7FEFF 		bl	printf
+ 205 003e 6FF00F00 		mvn	r0, #15
+ 206 0042 F5E7     		b	.L31
+ 207              	.L36:
+ 208 0044 0023     		movs	r3, #0
+ 209 0046 6360     		str	r3, [r4, #4]
+ 210 0048 4FF0FF30 		mov	r0, #-1
+ 211 004c F0E7     		b	.L31
+ 212              	.L38:
+ 213 004e 00BF     		.align	2
+ 214              	.L37:
+ 215 0050 00000000 		.word	.LC0
+ 216 0054 00000000 		.word	.LC5
+ 217 0058 4C000000 		.word	.LC2
+ 219              		.section	.text.netbuf_chain,"ax",%progbits
+ 220              		.align	1
+ 221              		.global	netbuf_chain
+ 222              		.syntax unified
+ 223              		.thumb
+ 224              		.thumb_func
+ 225              		.fpu fpv4-sp-d16
+ 227              	netbuf_chain:
+ 228              		@ args = 0, pretend = 0, frame = 0
+ 229              		@ frame_needed = 0, uses_anonymous_args = 0
+ 230 0000 38B5     		push	{r3, r4, r5, lr}
+ 231 0002 68B1     		cbz	r0, .L44
+ 232 0004 0C46     		mov	r4, r1
+ 233 0006 0546     		mov	r5, r0
+ 234 0008 89B1     		cbz	r1, .L45
+ 235 000a 0968     		ldr	r1, [r1]
+ 236 000c 0068     		ldr	r0, [r0]
+ 237 000e FFF7FEFF 		bl	pbuf_cat
+ 238 0012 2B68     		ldr	r3, [r5]
+ 239 0014 6B60     		str	r3, [r5, #4]
+ARM GAS  /tmp/ccenSGrA.s 			page 5
+
+
+ 240 0016 2146     		mov	r1, r4
+ 241 0018 0620     		movs	r0, #6
+ 242 001a FFF7FEFF 		bl	memp_free
+ 243              	.L39:
+ 244 001e 38BD     		pop	{r3, r4, r5, pc}
+ 245              	.L44:
+ 246 0020 064B     		ldr	r3, .L46
+ 247 0022 B222     		movs	r2, #178
+ 248 0024 0649     		ldr	r1, .L46+4
+ 249 0026 0748     		ldr	r0, .L46+8
+ 250 0028 FFF7FEFF 		bl	printf
+ 251 002c F7E7     		b	.L39
+ 252              	.L45:
+ 253 002e 034B     		ldr	r3, .L46
+ 254 0030 B322     		movs	r2, #179
+ 255 0032 0549     		ldr	r1, .L46+12
+ 256 0034 0348     		ldr	r0, .L46+8
+ 257 0036 FFF7FEFF 		bl	printf
+ 258 003a F0E7     		b	.L39
+ 259              	.L47:
+ 260              		.align	2
+ 261              	.L46:
+ 262 003c 00000000 		.word	.LC0
+ 263 0040 00000000 		.word	.LC6
+ 264 0044 4C000000 		.word	.LC2
+ 265 0048 1C000000 		.word	.LC7
+ 267              		.section	.text.netbuf_data,"ax",%progbits
+ 268              		.align	1
+ 269              		.global	netbuf_data
+ 270              		.syntax unified
+ 271              		.thumb
+ 272              		.thumb_func
+ 273              		.fpu fpv4-sp-d16
+ 275              	netbuf_data:
+ 276              		@ args = 0, pretend = 0, frame = 0
+ 277              		@ frame_needed = 0, uses_anonymous_args = 0
+ 278 0000 08B5     		push	{r3, lr}
+ 279 0002 58B1     		cbz	r0, .L55
+ 280 0004 0346     		mov	r3, r0
+ 281 0006 91B1     		cbz	r1, .L56
+ 282 0008 D2B1     		cbz	r2, .L57
+ 283 000a 4068     		ldr	r0, [r0, #4]
+ 284 000c 08B3     		cbz	r0, .L53
+ 285 000e 4068     		ldr	r0, [r0, #4]
+ 286 0010 0860     		str	r0, [r1]
+ 287 0012 5B68     		ldr	r3, [r3, #4]
+ 288 0014 5B89     		ldrh	r3, [r3, #10]
+ 289 0016 1380     		strh	r3, [r2]	@ movhi
+ 290 0018 0020     		movs	r0, #0
+ 291              	.L50:
+ 292 001a 08BD     		pop	{r3, pc}
+ 293              	.L55:
+ 294 001c 0E4B     		ldr	r3, .L58
+ 295 001e C622     		movs	r2, #198
+ 296 0020 0E49     		ldr	r1, .L58+4
+ 297 0022 0F48     		ldr	r0, .L58+8
+ 298 0024 FFF7FEFF 		bl	printf
+ARM GAS  /tmp/ccenSGrA.s 			page 6
+
+
+ 299 0028 6FF00F00 		mvn	r0, #15
+ 300 002c F5E7     		b	.L50
+ 301              	.L56:
+ 302 002e 0A4B     		ldr	r3, .L58
+ 303 0030 C722     		movs	r2, #199
+ 304 0032 0C49     		ldr	r1, .L58+12
+ 305 0034 0A48     		ldr	r0, .L58+8
+ 306 0036 FFF7FEFF 		bl	printf
+ 307 003a 6FF00F00 		mvn	r0, #15
+ 308 003e ECE7     		b	.L50
+ 309              	.L57:
+ 310 0040 054B     		ldr	r3, .L58
+ 311 0042 C822     		movs	r2, #200
+ 312 0044 0849     		ldr	r1, .L58+16
+ 313 0046 0648     		ldr	r0, .L58+8
+ 314 0048 FFF7FEFF 		bl	printf
+ 315 004c 6FF00F00 		mvn	r0, #15
+ 316 0050 E3E7     		b	.L50
+ 317              	.L53:
+ 318 0052 6FF00100 		mvn	r0, #1
+ 319 0056 E0E7     		b	.L50
+ 320              	.L59:
+ 321              		.align	2
+ 322              	.L58:
+ 323 0058 00000000 		.word	.LC0
+ 324 005c 00000000 		.word	.LC8
+ 325 0060 4C000000 		.word	.LC2
+ 326 0064 1C000000 		.word	.LC9
+ 327 0068 3C000000 		.word	.LC10
+ 329              		.section	.text.netbuf_next,"ax",%progbits
+ 330              		.align	1
+ 331              		.global	netbuf_next
+ 332              		.syntax unified
+ 333              		.thumb
+ 334              		.thumb_func
+ 335              		.fpu fpv4-sp-d16
+ 337              	netbuf_next:
+ 338              		@ args = 0, pretend = 0, frame = 0
+ 339              		@ frame_needed = 0, uses_anonymous_args = 0
+ 340 0000 08B5     		push	{r3, lr}
+ 341 0002 38B1     		cbz	r0, .L66
+ 342 0004 4368     		ldr	r3, [r0, #4]
+ 343 0006 1B68     		ldr	r3, [r3]
+ 344 0008 6BB1     		cbz	r3, .L63
+ 345 000a 4360     		str	r3, [r0, #4]
+ 346 000c 1B68     		ldr	r3, [r3]
+ 347 000e 6BB1     		cbz	r3, .L64
+ 348 0010 0020     		movs	r0, #0
+ 349              	.L62:
+ 350 0012 08BD     		pop	{r3, pc}
+ 351              	.L66:
+ 352 0014 064B     		ldr	r3, .L67
+ 353 0016 E022     		movs	r2, #224
+ 354 0018 0649     		ldr	r1, .L67+4
+ 355 001a 0748     		ldr	r0, .L67+8
+ 356 001c FFF7FEFF 		bl	printf
+ 357 0020 4FF0FF30 		mov	r0, #-1
+ARM GAS  /tmp/ccenSGrA.s 			page 7
+
+
+ 358 0024 F5E7     		b	.L62
+ 359              	.L63:
+ 360 0026 4FF0FF30 		mov	r0, #-1
+ 361 002a F2E7     		b	.L62
+ 362              	.L64:
+ 363 002c 0120     		movs	r0, #1
+ 364 002e F0E7     		b	.L62
+ 365              	.L68:
+ 366              		.align	2
+ 367              	.L67:
+ 368 0030 00000000 		.word	.LC0
+ 369 0034 00000000 		.word	.LC11
+ 370 0038 4C000000 		.word	.LC2
+ 372              		.section	.text.netbuf_first,"ax",%progbits
+ 373              		.align	1
+ 374              		.global	netbuf_first
+ 375              		.syntax unified
+ 376              		.thumb
+ 377              		.thumb_func
+ 378              		.fpu fpv4-sp-d16
+ 380              	netbuf_first:
+ 381              		@ args = 0, pretend = 0, frame = 0
+ 382              		@ frame_needed = 0, uses_anonymous_args = 0
+ 383 0000 08B5     		push	{r3, lr}
+ 384 0002 10B1     		cbz	r0, .L73
+ 385 0004 0268     		ldr	r2, [r0]
+ 386 0006 4260     		str	r2, [r0, #4]
+ 387              	.L69:
+ 388 0008 08BD     		pop	{r3, pc}
+ 389              	.L73:
+ 390 000a 034B     		ldr	r3, .L74
+ 391 000c F622     		movs	r2, #246
+ 392 000e 0349     		ldr	r1, .L74+4
+ 393 0010 0348     		ldr	r0, .L74+8
+ 394 0012 FFF7FEFF 		bl	printf
+ 395 0016 F7E7     		b	.L69
+ 396              	.L75:
+ 397              		.align	2
+ 398              	.L74:
+ 399 0018 00000000 		.word	.LC0
+ 400 001c 00000000 		.word	.LC12
+ 401 0020 4C000000 		.word	.LC2
+ 403              		.section	.rodata.netbuf_alloc.str1.4,"aMS",%progbits,1
+ 404              		.align	2
+ 405              	.LC0:
+ 406 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/api/netbuf.c\000"
+ 406      6C657761 
+ 406      7265732F 
+ 406      54686972 
+ 406      645F5061 
+ 407 002e 0000     		.space	2
+ 408              	.LC1:
+ 409 0030 6E657462 		.ascii	"netbuf_alloc: invalid buf\000"
+ 409      75665F61 
+ 409      6C6C6F63 
+ 409      3A20696E 
+ 409      76616C69 
+ARM GAS  /tmp/ccenSGrA.s 			page 8
+
+
+ 410 004a 0000     		.space	2
+ 411              	.LC2:
+ 412 004c 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ 412      7274696F 
+ 412      6E202225 
+ 412      73222066 
+ 412      61696C65 
+ 413              	.LC3:
+ 414 0074 63686563 		.ascii	"check that first pbuf can hold size\000"
+ 414      6B207468 
+ 414      61742066 
+ 414      69727374 
+ 414      20706275 
+ 415              		.section	.rodata.netbuf_chain.str1.4,"aMS",%progbits,1
+ 416              		.align	2
+ 417              	.LC6:
+ 418 0000 6E657462 		.ascii	"netbuf_chain: invalid head\000"
+ 418      75665F63 
+ 418      6861696E 
+ 418      3A20696E 
+ 418      76616C69 
+ 419 001b 00       		.space	1
+ 420              	.LC7:
+ 421 001c 6E657462 		.ascii	"netbuf_chain: invalid tail\000"
+ 421      75665F63 
+ 421      6861696E 
+ 421      3A20696E 
+ 421      76616C69 
+ 422              		.section	.rodata.netbuf_data.str1.4,"aMS",%progbits,1
+ 423              		.align	2
+ 424              	.LC8:
+ 425 0000 6E657462 		.ascii	"netbuf_data: invalid buf\000"
+ 425      75665F64 
+ 425      6174613A 
+ 425      20696E76 
+ 425      616C6964 
+ 426 0019 000000   		.space	3
+ 427              	.LC9:
+ 428 001c 6E657462 		.ascii	"netbuf_data: invalid dataptr\000"
+ 428      75665F64 
+ 428      6174613A 
+ 428      20696E76 
+ 428      616C6964 
+ 429 0039 000000   		.space	3
+ 430              	.LC10:
+ 431 003c 6E657462 		.ascii	"netbuf_data: invalid len\000"
+ 431      75665F64 
+ 431      6174613A 
+ 431      20696E76 
+ 431      616C6964 
+ 432              		.section	.rodata.netbuf_first.str1.4,"aMS",%progbits,1
+ 433              		.align	2
+ 434              	.LC12:
+ 435 0000 6E657462 		.ascii	"netbuf_first: invalid buf\000"
+ 435      75665F66 
+ 435      69727374 
+ 435      3A20696E 
+ARM GAS  /tmp/ccenSGrA.s 			page 9
+
+
+ 435      76616C69 
+ 436              		.section	.rodata.netbuf_free.str1.4,"aMS",%progbits,1
+ 437              		.align	2
+ 438              	.LC4:
+ 439 0000 6E657462 		.ascii	"netbuf_free: invalid buf\000"
+ 439      75665F66 
+ 439      7265653A 
+ 439      20696E76 
+ 439      616C6964 
+ 440              		.section	.rodata.netbuf_next.str1.4,"aMS",%progbits,1
+ 441              		.align	2
+ 442              	.LC11:
+ 443 0000 6E657462 		.ascii	"netbuf_next: invalid buf\000"
+ 443      75665F6E 
+ 443      6578743A 
+ 443      20696E76 
+ 443      616C6964 
+ 444              		.section	.rodata.netbuf_ref.str1.4,"aMS",%progbits,1
+ 445              		.align	2
+ 446              	.LC5:
+ 447 0000 6E657462 		.ascii	"netbuf_ref: invalid buf\000"
+ 447      75665F72 
+ 447      65663A20 
+ 447      696E7661 
+ 447      6C696420 
+ 448              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccenSGrA.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 netbuf.c
+     /tmp/ccenSGrA.s:16     .text.netbuf_new:0000000000000000 $t
+     /tmp/ccenSGrA.s:24     .text.netbuf_new:0000000000000000 netbuf_new
+     /tmp/ccenSGrA.s:42     .text.netbuf_delete:0000000000000000 $t
+     /tmp/ccenSGrA.s:49     .text.netbuf_delete:0000000000000000 netbuf_delete
+     /tmp/ccenSGrA.s:70     .text.netbuf_alloc:0000000000000000 $t
+     /tmp/ccenSGrA.s:77     .text.netbuf_alloc:0000000000000000 netbuf_alloc
+     /tmp/ccenSGrA.s:121    .text.netbuf_alloc:000000000000004c $d
+     /tmp/ccenSGrA.s:127    .text.netbuf_free:0000000000000000 $t
+     /tmp/ccenSGrA.s:134    .text.netbuf_free:0000000000000000 netbuf_free
+     /tmp/ccenSGrA.s:159    .text.netbuf_free:0000000000000024 $d
+     /tmp/ccenSGrA.s:164    .text.netbuf_ref:0000000000000000 $t
+     /tmp/ccenSGrA.s:171    .text.netbuf_ref:0000000000000000 netbuf_ref
+     /tmp/ccenSGrA.s:215    .text.netbuf_ref:0000000000000050 $d
+     /tmp/ccenSGrA.s:220    .text.netbuf_chain:0000000000000000 $t
+     /tmp/ccenSGrA.s:227    .text.netbuf_chain:0000000000000000 netbuf_chain
+     /tmp/ccenSGrA.s:262    .text.netbuf_chain:000000000000003c $d
+     /tmp/ccenSGrA.s:268    .text.netbuf_data:0000000000000000 $t
+     /tmp/ccenSGrA.s:275    .text.netbuf_data:0000000000000000 netbuf_data
+     /tmp/ccenSGrA.s:323    .text.netbuf_data:0000000000000058 $d
+     /tmp/ccenSGrA.s:330    .text.netbuf_next:0000000000000000 $t
+     /tmp/ccenSGrA.s:337    .text.netbuf_next:0000000000000000 netbuf_next
+     /tmp/ccenSGrA.s:368    .text.netbuf_next:0000000000000030 $d
+     /tmp/ccenSGrA.s:373    .text.netbuf_first:0000000000000000 $t
+     /tmp/ccenSGrA.s:380    .text.netbuf_first:0000000000000000 netbuf_first
+     /tmp/ccenSGrA.s:399    .text.netbuf_first:0000000000000018 $d
+     /tmp/ccenSGrA.s:404    .rodata.netbuf_alloc.str1.4:0000000000000000 $d
+     /tmp/ccenSGrA.s:416    .rodata.netbuf_chain.str1.4:0000000000000000 $d
+     /tmp/ccenSGrA.s:423    .rodata.netbuf_data.str1.4:0000000000000000 $d
+     /tmp/ccenSGrA.s:433    .rodata.netbuf_first.str1.4:0000000000000000 $d
+     /tmp/ccenSGrA.s:437    .rodata.netbuf_free.str1.4:0000000000000000 $d
+     /tmp/ccenSGrA.s:441    .rodata.netbuf_next.str1.4:0000000000000000 $d
+     /tmp/ccenSGrA.s:445    .rodata.netbuf_ref.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+memp_malloc
+pbuf_free
+memp_free
+pbuf_alloc
+printf
+pbuf_cat

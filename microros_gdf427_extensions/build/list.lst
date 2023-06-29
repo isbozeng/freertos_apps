@@ -1,0 +1,169 @@
+ARM GAS  /tmp/ccGF32Cv.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"list.c"
+  14              		.text
+  15              		.section	.text.vListInitialise,"ax",%progbits
+  16              		.align	1
+  17              		.global	vListInitialise
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	vListInitialise:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27              		@ link register save eliminated.
+  28 0000 00F10803 		add	r3, r0, #8
+  29 0004 4360     		str	r3, [r0, #4]
+  30 0006 4FF0FF32 		mov	r2, #-1
+  31 000a 8260     		str	r2, [r0, #8]
+  32 000c C360     		str	r3, [r0, #12]
+  33 000e 0361     		str	r3, [r0, #16]
+  34 0010 0023     		movs	r3, #0
+  35 0012 0360     		str	r3, [r0]
+  36 0014 7047     		bx	lr
+  38              		.section	.text.vListInitialiseItem,"ax",%progbits
+  39              		.align	1
+  40              		.global	vListInitialiseItem
+  41              		.syntax unified
+  42              		.thumb
+  43              		.thumb_func
+  44              		.fpu fpv4-sp-d16
+  46              	vListInitialiseItem:
+  47              		@ args = 0, pretend = 0, frame = 0
+  48              		@ frame_needed = 0, uses_anonymous_args = 0
+  49              		@ link register save eliminated.
+  50 0000 0023     		movs	r3, #0
+  51 0002 0361     		str	r3, [r0, #16]
+  52 0004 7047     		bx	lr
+  54              		.section	.text.vListInsertEnd,"ax",%progbits
+  55              		.align	1
+  56              		.global	vListInsertEnd
+  57              		.syntax unified
+  58              		.thumb
+  59              		.thumb_func
+  60              		.fpu fpv4-sp-d16
+  62              	vListInsertEnd:
+ARM GAS  /tmp/ccGF32Cv.s 			page 2
+
+
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+  66 0000 4368     		ldr	r3, [r0, #4]
+  67 0002 4B60     		str	r3, [r1, #4]
+  68 0004 9A68     		ldr	r2, [r3, #8]
+  69 0006 8A60     		str	r2, [r1, #8]
+  70 0008 5160     		str	r1, [r2, #4]
+  71 000a 9960     		str	r1, [r3, #8]
+  72 000c 0861     		str	r0, [r1, #16]
+  73 000e 0368     		ldr	r3, [r0]
+  74 0010 0133     		adds	r3, r3, #1
+  75 0012 0360     		str	r3, [r0]
+  76 0014 7047     		bx	lr
+  78              		.section	.text.vListInsert,"ax",%progbits
+  79              		.align	1
+  80              		.global	vListInsert
+  81              		.syntax unified
+  82              		.thumb
+  83              		.thumb_func
+  84              		.fpu fpv4-sp-d16
+  86              	vListInsert:
+  87              		@ args = 0, pretend = 0, frame = 0
+  88              		@ frame_needed = 0, uses_anonymous_args = 0
+  89              		@ link register save eliminated.
+  90 0000 30B4     		push	{r4, r5}
+  91 0002 0D68     		ldr	r5, [r1]
+  92 0004 B5F1FF3F 		cmp	r5, #-1
+  93 0008 02D0     		beq	.L10
+  94 000a 00F10802 		add	r2, r0, #8
+  95 000e 02E0     		b	.L7
+  96              	.L10:
+  97 0010 0269     		ldr	r2, [r0, #16]
+  98 0012 04E0     		b	.L6
+  99              	.L8:
+ 100 0014 1A46     		mov	r2, r3
+ 101              	.L7:
+ 102 0016 5368     		ldr	r3, [r2, #4]
+ 103 0018 1C68     		ldr	r4, [r3]
+ 104 001a AC42     		cmp	r4, r5
+ 105 001c FAD9     		bls	.L8
+ 106              	.L6:
+ 107 001e 5368     		ldr	r3, [r2, #4]
+ 108 0020 4B60     		str	r3, [r1, #4]
+ 109 0022 9960     		str	r1, [r3, #8]
+ 110 0024 8A60     		str	r2, [r1, #8]
+ 111 0026 5160     		str	r1, [r2, #4]
+ 112 0028 0861     		str	r0, [r1, #16]
+ 113 002a 0368     		ldr	r3, [r0]
+ 114 002c 0133     		adds	r3, r3, #1
+ 115 002e 0360     		str	r3, [r0]
+ 116 0030 30BC     		pop	{r4, r5}
+ 117 0032 7047     		bx	lr
+ 119              		.section	.text.uxListRemove,"ax",%progbits
+ 120              		.align	1
+ 121              		.global	uxListRemove
+ 122              		.syntax unified
+ARM GAS  /tmp/ccGF32Cv.s 			page 3
+
+
+ 123              		.thumb
+ 124              		.thumb_func
+ 125              		.fpu fpv4-sp-d16
+ 127              	uxListRemove:
+ 128              		@ args = 0, pretend = 0, frame = 0
+ 129              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130              		@ link register save eliminated.
+ 131 0000 0369     		ldr	r3, [r0, #16]
+ 132 0002 4168     		ldr	r1, [r0, #4]
+ 133 0004 8268     		ldr	r2, [r0, #8]
+ 134 0006 8A60     		str	r2, [r1, #8]
+ 135 0008 4168     		ldr	r1, [r0, #4]
+ 136 000a 5160     		str	r1, [r2, #4]
+ 137 000c 5A68     		ldr	r2, [r3, #4]
+ 138 000e 8242     		cmp	r2, r0
+ 139 0010 06D0     		beq	.L13
+ 140              	.L12:
+ 141 0012 0022     		movs	r2, #0
+ 142 0014 0261     		str	r2, [r0, #16]
+ 143 0016 1A68     		ldr	r2, [r3]
+ 144 0018 013A     		subs	r2, r2, #1
+ 145 001a 1A60     		str	r2, [r3]
+ 146 001c 1868     		ldr	r0, [r3]
+ 147 001e 7047     		bx	lr
+ 148              	.L13:
+ 149 0020 8268     		ldr	r2, [r0, #8]
+ 150 0022 5A60     		str	r2, [r3, #4]
+ 151 0024 F5E7     		b	.L12
+ 153              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccGF32Cv.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 list.c
+     /tmp/ccGF32Cv.s:16     .text.vListInitialise:0000000000000000 $t
+     /tmp/ccGF32Cv.s:24     .text.vListInitialise:0000000000000000 vListInitialise
+     /tmp/ccGF32Cv.s:39     .text.vListInitialiseItem:0000000000000000 $t
+     /tmp/ccGF32Cv.s:46     .text.vListInitialiseItem:0000000000000000 vListInitialiseItem
+     /tmp/ccGF32Cv.s:55     .text.vListInsertEnd:0000000000000000 $t
+     /tmp/ccGF32Cv.s:62     .text.vListInsertEnd:0000000000000000 vListInsertEnd
+     /tmp/ccGF32Cv.s:79     .text.vListInsert:0000000000000000 $t
+     /tmp/ccGF32Cv.s:86     .text.vListInsert:0000000000000000 vListInsert
+     /tmp/ccGF32Cv.s:120    .text.uxListRemove:0000000000000000 $t
+     /tmp/ccGF32Cv.s:127    .text.uxListRemove:0000000000000000 uxListRemove
+
+NO UNDEFINED SYMBOLS

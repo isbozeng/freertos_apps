@@ -1,0 +1,1515 @@
+ARM GAS  /tmp/ccBMLpuw.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"udp.c"
+  14              		.text
+  15              		.section	.text.udp_new_port,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	udp_new_port:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26              		@ link register save eliminated.
+  27 0000 0020     		movs	r0, #0
+  28              	.L2:
+  29 0002 104A     		ldr	r2, .L12
+  30 0004 1388     		ldrh	r3, [r2]
+  31 0006 591C     		adds	r1, r3, #1
+  32 0008 1180     		strh	r1, [r2]	@ movhi
+  33 000a 4FF6FF72 		movw	r2, #65535
+  34 000e 9342     		cmp	r3, r2
+  35 0010 09D0     		beq	.L9
+  36              	.L3:
+  37 0012 0D4B     		ldr	r3, .L12+4
+  38 0014 1B68     		ldr	r3, [r3]
+  39              	.L4:
+  40 0016 93B1     		cbz	r3, .L10
+  41 0018 598A     		ldrh	r1, [r3, #18]
+  42 001a 0A4A     		ldr	r2, .L12
+  43 001c 1288     		ldrh	r2, [r2]
+  44 001e 9142     		cmp	r1, r2
+  45 0020 06D0     		beq	.L11
+  46 0022 DB68     		ldr	r3, [r3, #12]
+  47 0024 F7E7     		b	.L4
+  48              	.L9:
+  49 0026 074B     		ldr	r3, .L12
+  50 0028 4FF44042 		mov	r2, #49152
+  51 002c 1A80     		strh	r2, [r3]	@ movhi
+  52 002e F0E7     		b	.L3
+  53              	.L11:
+  54 0030 0130     		adds	r0, r0, #1
+  55 0032 80B2     		uxth	r0, r0
+  56 0034 B0F5804F 		cmp	r0, #16384
+  57 0038 E3D3     		bcc	.L2
+  58 003a 0020     		movs	r0, #0
+ARM GAS  /tmp/ccBMLpuw.s 			page 2
+
+
+  59 003c 7047     		bx	lr
+  60              	.L10:
+  61 003e 014B     		ldr	r3, .L12
+  62 0040 1888     		ldrh	r0, [r3]
+  63 0042 7047     		bx	lr
+  64              	.L13:
+  65              		.align	2
+  66              	.L12:
+  67 0044 00000000 		.word	.LANCHOR0
+  68 0048 00000000 		.word	udp_pcbs
+  70              		.section	.text.udp_input_local_match,"ax",%progbits
+  71              		.align	1
+  72              		.syntax unified
+  73              		.thumb
+  74              		.thumb_func
+  75              		.fpu fpv4-sp-d16
+  77              	udp_input_local_match:
+  78              		@ args = 0, pretend = 0, frame = 0
+  79              		@ frame_needed = 0, uses_anonymous_args = 0
+  80 0000 70B5     		push	{r4, r5, r6, lr}
+  81 0002 0E46     		mov	r6, r1
+  82 0004 1446     		mov	r4, r2
+  83 0006 0546     		mov	r5, r0
+  84 0008 C8B1     		cbz	r0, .L29
+  85              	.L15:
+  86 000a FEB1     		cbz	r6, .L30
+  87              	.L16:
+  88 000c 2A7A     		ldrb	r2, [r5, #8]	@ zero_extendqisi2
+  89 000e 3AB1     		cbz	r2, .L17
+  90 0010 1E4B     		ldr	r3, .L31
+  91 0012 5B68     		ldr	r3, [r3, #4]
+  92 0014 93F83430 		ldrb	r3, [r3, #52]	@ zero_extendqisi2
+  93 0018 0133     		adds	r3, r3, #1
+  94 001a DBB2     		uxtb	r3, r3
+  95 001c 9A42     		cmp	r2, r3
+  96 001e 25D1     		bne	.L20
+  97              	.L17:
+  98 0020 DCB1     		cbz	r4, .L19
+  99 0022 2DB3     		cbz	r5, .L21
+ 100 0024 2B68     		ldr	r3, [r5]
+ 101 0026 2BB3     		cbz	r3, .L22
+ 102 0028 184A     		ldr	r2, .L31
+ 103 002a 5269     		ldr	r2, [r2, #20]
+ 104 002c B2F1FF3F 		cmp	r2, #-1
+ 105 0030 22D0     		beq	.L23
+ 106 0032 B168     		ldr	r1, [r6, #8]
+ 107 0034 5340     		eors	r3, r3, r2
+ 108 0036 0B42     		tst	r3, r1
+ 109 0038 20D0     		beq	.L24
+ 110 003a 0020     		movs	r0, #0
+ 111 003c 17E0     		b	.L18
+ 112              	.L29:
+ 113 003e 144B     		ldr	r3, .L31+4
+ 114 0040 8722     		movs	r2, #135
+ 115 0042 1449     		ldr	r1, .L31+8
+ 116 0044 1448     		ldr	r0, .L31+12
+ 117 0046 FFF7FEFF 		bl	printf
+ARM GAS  /tmp/ccBMLpuw.s 			page 3
+
+
+ 118 004a DEE7     		b	.L15
+ 119              	.L30:
+ 120 004c 104B     		ldr	r3, .L31+4
+ 121 004e 8822     		movs	r2, #136
+ 122 0050 1249     		ldr	r1, .L31+16
+ 123 0052 1148     		ldr	r0, .L31+12
+ 124 0054 FFF7FEFF 		bl	printf
+ 125 0058 D8E7     		b	.L16
+ 126              	.L19:
+ 127 005a 8DB1     		cbz	r5, .L25
+ 128 005c 2B68     		ldr	r3, [r5]
+ 129 005e 8BB1     		cbz	r3, .L26
+ 130 0060 0A4A     		ldr	r2, .L31
+ 131 0062 5269     		ldr	r2, [r2, #20]
+ 132 0064 9342     		cmp	r3, r2
+ 133 0066 0FD0     		beq	.L27
+ 134 0068 2046     		mov	r0, r4
+ 135 006a 00E0     		b	.L18
+ 136              	.L20:
+ 137 006c 0020     		movs	r0, #0
+ 138              	.L18:
+ 139 006e 70BD     		pop	{r4, r5, r6, pc}
+ 140              	.L21:
+ 141 0070 0120     		movs	r0, #1
+ 142 0072 FCE7     		b	.L18
+ 143              	.L22:
+ 144 0074 0120     		movs	r0, #1
+ 145 0076 FAE7     		b	.L18
+ 146              	.L23:
+ 147 0078 0120     		movs	r0, #1
+ 148 007a F8E7     		b	.L18
+ 149              	.L24:
+ 150 007c 0120     		movs	r0, #1
+ 151 007e F6E7     		b	.L18
+ 152              	.L25:
+ 153 0080 0120     		movs	r0, #1
+ 154 0082 F4E7     		b	.L18
+ 155              	.L26:
+ 156 0084 0120     		movs	r0, #1
+ 157 0086 F2E7     		b	.L18
+ 158              	.L27:
+ 159 0088 0120     		movs	r0, #1
+ 160 008a F0E7     		b	.L18
+ 161              	.L32:
+ 162              		.align	2
+ 163              	.L31:
+ 164 008c 00000000 		.word	ip_data
+ 165 0090 00000000 		.word	.LC0
+ 166 0094 2C000000 		.word	.LC1
+ 167 0098 50000000 		.word	.LC2
+ 168 009c 78000000 		.word	.LC3
+ 170              		.section	.text.udp_init,"ax",%progbits
+ 171              		.align	1
+ 172              		.global	udp_init
+ 173              		.syntax unified
+ 174              		.thumb
+ 175              		.thumb_func
+ARM GAS  /tmp/ccBMLpuw.s 			page 4
+
+
+ 176              		.fpu fpv4-sp-d16
+ 178              	udp_init:
+ 179              		@ args = 0, pretend = 0, frame = 0
+ 180              		@ frame_needed = 0, uses_anonymous_args = 0
+ 181 0000 08B5     		push	{r3, lr}
+ 182 0002 FFF7FEFF 		bl	rand
+ 183 0006 6FEA8040 		mvn	r0, r0, lsl #18
+ 184 000a 6FEA9040 		mvn	r0, r0, lsr #18
+ 185 000e 014B     		ldr	r3, .L35
+ 186 0010 1880     		strh	r0, [r3]	@ movhi
+ 187 0012 08BD     		pop	{r3, pc}
+ 188              	.L36:
+ 189              		.align	2
+ 190              	.L35:
+ 191 0014 00000000 		.word	.LANCHOR0
+ 193              		.section	.text.udp_input,"ax",%progbits
+ 194              		.align	1
+ 195              		.global	udp_input
+ 196              		.syntax unified
+ 197              		.thumb
+ 198              		.thumb_func
+ 199              		.fpu fpv4-sp-d16
+ 201              	udp_input:
+ 202              		@ args = 0, pretend = 0, frame = 0
+ 203              		@ frame_needed = 0, uses_anonymous_args = 0
+ 204 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 205 0004 83B0     		sub	sp, sp, #12
+ 206 0006 0F46     		mov	r7, r1
+ 207 0008 8146     		mov	r9, r0
+ 208 000a D0B1     		cbz	r0, .L59
+ 209              	.L38:
+ 210 000c 07B3     		cbz	r7, .L60
+ 211              	.L39:
+ 212 000e B9F80A30 		ldrh	r3, [r9, #10]
+ 213 0012 072B     		cmp	r3, #7
+ 214 0014 23D9     		bls	.L61
+ 215 0016 D9F80440 		ldr	r4, [r9, #4]
+ 216 001a 524B     		ldr	r3, .L67
+ 217 001c 1968     		ldr	r1, [r3]
+ 218 001e 5869     		ldr	r0, [r3, #20]
+ 219 0020 FFF7FEFF 		bl	ip4_addr_isbroadcast_u32
+ 220 0024 8046     		mov	r8, r0
+ 221 0026 2088     		ldrh	r0, [r4]	@ unaligned
+ 222 0028 FFF7FEFF 		bl	lwip_htons
+ 223 002c 8346     		mov	fp, r0
+ 224 002e 6088     		ldrh	r0, [r4, #2]	@ unaligned
+ 225 0030 FFF7FEFF 		bl	lwip_htons
+ 226 0034 0646     		mov	r6, r0
+ 227 0036 4C4B     		ldr	r3, .L67+4
+ 228 0038 1C68     		ldr	r4, [r3]
+ 229 003a 4FF0000A 		mov	r10, #0
+ 230 003e 5546     		mov	r5, r10
+ 231 0040 19E0     		b	.L42
+ 232              	.L59:
+ 233 0042 4A4B     		ldr	r3, .L67+8
+ 234 0044 CF22     		movs	r2, #207
+ 235 0046 4A49     		ldr	r1, .L67+12
+ARM GAS  /tmp/ccBMLpuw.s 			page 5
+
+
+ 236 0048 4A48     		ldr	r0, .L67+16
+ 237 004a FFF7FEFF 		bl	printf
+ 238 004e DDE7     		b	.L38
+ 239              	.L60:
+ 240 0050 464B     		ldr	r3, .L67+8
+ 241 0052 D022     		movs	r2, #208
+ 242 0054 4849     		ldr	r1, .L67+20
+ 243 0056 4748     		ldr	r0, .L67+16
+ 244 0058 FFF7FEFF 		bl	printf
+ 245 005c D7E7     		b	.L39
+ 246              	.L61:
+ 247 005e 4846     		mov	r0, r9
+ 248 0060 FFF7FEFF 		bl	pbuf_free
+ 249              	.L41:
+ 250              	.L37:
+ 251 0064 03B0     		add	sp, sp, #12
+ 252              		@ sp needed
+ 253 0066 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 254              	.L55:
+ 255 006a A246     		mov	r10, r4
+ 256              	.L44:
+ 257 006c A38A     		ldrh	r3, [r4, #20]
+ 258 006e 5B45     		cmp	r3, fp
+ 259 0070 26D0     		beq	.L62
+ 260              	.L43:
+ 261 0072 2546     		mov	r5, r4
+ 262 0074 E468     		ldr	r4, [r4, #12]
+ 263              	.L42:
+ 264 0076 002C     		cmp	r4, #0
+ 265 0078 2FD0     		beq	.L46
+ 266 007a 638A     		ldrh	r3, [r4, #18]
+ 267 007c B342     		cmp	r3, r6
+ 268 007e F8D1     		bne	.L43
+ 269 0080 4246     		mov	r2, r8
+ 270 0082 3946     		mov	r1, r7
+ 271 0084 2046     		mov	r0, r4
+ 272 0086 FFF7FEFF 		bl	udp_input_local_match
+ 273 008a 0028     		cmp	r0, #0
+ 274 008c F1D0     		beq	.L43
+ 275 008e 237C     		ldrb	r3, [r4, #16]	@ zero_extendqisi2
+ 276 0090 13F0040F 		tst	r3, #4
+ 277 0094 EAD1     		bne	.L44
+ 278 0096 BAF1000F 		cmp	r10, #0
+ 279 009a E6D0     		beq	.L55
+ 280 009c B8F1000F 		cmp	r8, #0
+ 281 00a0 E4D0     		beq	.L44
+ 282 00a2 304B     		ldr	r3, .L67
+ 283 00a4 5B69     		ldr	r3, [r3, #20]
+ 284 00a6 B3F1FF3F 		cmp	r3, #-1
+ 285 00aa DFD1     		bne	.L44
+ 286 00ac DAF80020 		ldr	r2, [r10]
+ 287 00b0 7B68     		ldr	r3, [r7, #4]
+ 288 00b2 9A42     		cmp	r2, r3
+ 289 00b4 DAD0     		beq	.L44
+ 290 00b6 2268     		ldr	r2, [r4]
+ 291 00b8 9342     		cmp	r3, r2
+ 292 00ba D7D1     		bne	.L44
+ARM GAS  /tmp/ccBMLpuw.s 			page 6
+
+
+ 293 00bc A246     		mov	r10, r4
+ 294 00be D5E7     		b	.L44
+ 295              	.L62:
+ 296 00c0 6368     		ldr	r3, [r4, #4]
+ 297 00c2 1BB1     		cbz	r3, .L45
+ 298 00c4 274A     		ldr	r2, .L67
+ 299 00c6 1269     		ldr	r2, [r2, #16]
+ 300 00c8 9342     		cmp	r3, r2
+ 301 00ca D2D1     		bne	.L43
+ 302              	.L45:
+ 303 00cc 2DB1     		cbz	r5, .L46
+ 304 00ce E368     		ldr	r3, [r4, #12]
+ 305 00d0 EB60     		str	r3, [r5, #12]
+ 306 00d2 254B     		ldr	r3, .L67+4
+ 307 00d4 1A68     		ldr	r2, [r3]
+ 308 00d6 E260     		str	r2, [r4, #12]
+ 309 00d8 1C60     		str	r4, [r3]
+ 310              	.L46:
+ 311 00da 84B1     		cbz	r4, .L63
+ 312              	.L48:
+ 313 00dc 8CB1     		cbz	r4, .L64
+ 314              	.L49:
+ 315 00de 0821     		movs	r1, #8
+ 316 00e0 4846     		mov	r0, r9
+ 317 00e2 FFF7FEFF 		bl	pbuf_remove_header
+ 318 00e6 A8B9     		cbnz	r0, .L65
+ 319 00e8 1CB3     		cbz	r4, .L52
+ 320 00ea A569     		ldr	r5, [r4, #24]
+ 321 00ec EDB1     		cbz	r5, .L53
+ 322 00ee E069     		ldr	r0, [r4, #28]
+ 323 00f0 CDF800B0 		str	fp, [sp]
+ 324 00f4 214B     		ldr	r3, .L67+24
+ 325 00f6 4A46     		mov	r2, r9
+ 326 00f8 2146     		mov	r1, r4
+ 327 00fa A847     		blx	r5
+ 328 00fc B2E7     		b	.L37
+ 329              	.L63:
+ 330 00fe 5446     		mov	r4, r10
+ 331 0100 ECE7     		b	.L48
+ 332              	.L64:
+ 333 0102 7A68     		ldr	r2, [r7, #4]
+ 334 0104 174B     		ldr	r3, .L67
+ 335 0106 5B69     		ldr	r3, [r3, #20]
+ 336 0108 9A42     		cmp	r2, r3
+ 337 010a E8D0     		beq	.L49
+ 338 010c 4846     		mov	r0, r9
+ 339 010e FFF7FEFF 		bl	pbuf_free
+ 340 0112 A7E7     		b	.L37
+ 341              	.L65:
+ 342 0114 154B     		ldr	r3, .L67+8
+ 343 0116 4FF4B872 		mov	r2, #368
+ 344 011a 1949     		ldr	r1, .L67+28
+ 345 011c 1548     		ldr	r0, .L67+16
+ 346 011e FFF7FEFF 		bl	printf
+ 347 0122 4846     		mov	r0, r9
+ 348 0124 FFF7FEFF 		bl	pbuf_free
+ 349 0128 9CE7     		b	.L37
+ARM GAS  /tmp/ccBMLpuw.s 			page 7
+
+
+ 350              	.L53:
+ 351 012a 4846     		mov	r0, r9
+ 352 012c FFF7FEFF 		bl	pbuf_free
+ 353 0130 98E7     		b	.L37
+ 354              	.L52:
+ 355 0132 B8F1000F 		cmp	r8, #0
+ 356 0136 05D1     		bne	.L54
+ 357 0138 0A4B     		ldr	r3, .L67
+ 358 013a 5B69     		ldr	r3, [r3, #20]
+ 359 013c 03F0F003 		and	r3, r3, #240
+ 360 0140 E02B     		cmp	r3, #224
+ 361 0142 03D1     		bne	.L66
+ 362              	.L54:
+ 363 0144 4846     		mov	r0, r9
+ 364 0146 FFF7FEFF 		bl	pbuf_free
+ 365 014a 8BE7     		b	.L37
+ 366              	.L66:
+ 367 014c 054B     		ldr	r3, .L67
+ 368 014e 9989     		ldrh	r1, [r3, #12]
+ 369 0150 0831     		adds	r1, r1, #8
+ 370 0152 09B2     		sxth	r1, r1
+ 371 0154 4846     		mov	r0, r9
+ 372 0156 FFF7FEFF 		bl	pbuf_header_force
+ 373 015a 0321     		movs	r1, #3
+ 374 015c 4846     		mov	r0, r9
+ 375 015e FFF7FEFF 		bl	icmp_dest_unreach
+ 376 0162 EFE7     		b	.L54
+ 377              	.L68:
+ 378              		.align	2
+ 379              	.L67:
+ 380 0164 00000000 		.word	ip_data
+ 381 0168 00000000 		.word	udp_pcbs
+ 382 016c 00000000 		.word	.LC0
+ 383 0170 00000000 		.word	.LC4
+ 384 0174 50000000 		.word	.LC2
+ 385 0178 18000000 		.word	.LC5
+ 386 017c 10000000 		.word	ip_data+16
+ 387 0180 34000000 		.word	.LC6
+ 389              		.section	.text.udp_bind,"ax",%progbits
+ 390              		.align	1
+ 391              		.global	udp_bind
+ 392              		.syntax unified
+ 393              		.thumb
+ 394              		.thumb_func
+ 395              		.fpu fpv4-sp-d16
+ 397              	udp_bind:
+ 398              		@ args = 0, pretend = 0, frame = 0
+ 399              		@ frame_needed = 0, uses_anonymous_args = 0
+ 400 0000 70B5     		push	{r4, r5, r6, lr}
+ 401 0002 0446     		mov	r4, r0
+ 402 0004 0D46     		mov	r5, r1
+ 403 0006 41B1     		cbz	r1, .L92
+ 404              	.L70:
+ 405 0008 4CB1     		cbz	r4, .L93
+ 406 000a 274B     		ldr	r3, .L96
+ 407 000c 1B68     		ldr	r3, [r3]
+ 408 000e 1946     		mov	r1, r3
+ARM GAS  /tmp/ccBMLpuw.s 			page 8
+
+
+ 409              	.L73:
+ 410 0010 79B1     		cbz	r1, .L94
+ 411 0012 A142     		cmp	r1, r4
+ 412 0014 1ED0     		beq	.L82
+ 413 0016 C968     		ldr	r1, [r1, #12]
+ 414 0018 FAE7     		b	.L73
+ 415              	.L92:
+ 416 001a 244D     		ldr	r5, .L96+4
+ 417 001c F4E7     		b	.L70
+ 418              	.L93:
+ 419 001e 244B     		ldr	r3, .L96+8
+ 420 0020 40F2B732 		movw	r2, #951
+ 421 0024 2349     		ldr	r1, .L96+12
+ 422 0026 2448     		ldr	r0, .L96+16
+ 423 0028 FFF7FEFF 		bl	printf
+ 424 002c 6FF00F00 		mvn	r0, #15
+ 425 0030 0FE0     		b	.L72
+ 426              	.L94:
+ 427 0032 0026     		movs	r6, #0
+ 428              	.L74:
+ 429 0034 8AB9     		cbnz	r2, .L76
+ 430 0036 FFF7FEFF 		bl	udp_new_port
+ 431 003a 0246     		mov	r2, r0
+ 432 003c 10B3     		cbz	r0, .L95
+ 433              	.L77:
+ 434 003e FDB1     		cbz	r5, .L89
+ 435 0040 2B68     		ldr	r3, [r5]
+ 436              	.L80:
+ 437 0042 2360     		str	r3, [r4]
+ 438 0044 6282     		strh	r2, [r4, #18]	@ movhi
+ 439 0046 66BB     		cbnz	r6, .L90
+ 440 0048 174B     		ldr	r3, .L96
+ 441 004a 1A68     		ldr	r2, [r3]
+ 442 004c E260     		str	r2, [r4, #12]
+ 443 004e 1C60     		str	r4, [r3]
+ 444 0050 0020     		movs	r0, #0
+ 445              	.L72:
+ 446 0052 70BD     		pop	{r4, r5, r6, pc}
+ 447              	.L82:
+ 448 0054 0126     		movs	r6, #1
+ 449 0056 EDE7     		b	.L74
+ 450              	.L78:
+ 451 0058 DB68     		ldr	r3, [r3, #12]
+ 452              	.L76:
+ 453 005a 002B     		cmp	r3, #0
+ 454 005c EFD0     		beq	.L77
+ 455 005e A342     		cmp	r3, r4
+ 456 0060 FAD0     		beq	.L78
+ 457 0062 598A     		ldrh	r1, [r3, #18]
+ 458 0064 9142     		cmp	r1, r2
+ 459 0066 F7D1     		bne	.L78
+ 460 0068 1868     		ldr	r0, [r3]
+ 461 006a 2968     		ldr	r1, [r5]
+ 462 006c 8842     		cmp	r0, r1
+ 463 006e 0CD0     		beq	.L84
+ 464 0070 75B1     		cbz	r5, .L85
+ 465 0072 81B1     		cbz	r1, .L86
+ARM GAS  /tmp/ccBMLpuw.s 			page 9
+
+
+ 466 0074 93B1     		cbz	r3, .L87
+ 467 0076 0028     		cmp	r0, #0
+ 468 0078 EED1     		bne	.L78
+ 469 007a 6FF00700 		mvn	r0, #7
+ 470 007e E8E7     		b	.L72
+ 471              	.L89:
+ 472 0080 0023     		movs	r3, #0
+ 473 0082 DEE7     		b	.L80
+ 474              	.L95:
+ 475 0084 6FF00700 		mvn	r0, #7
+ 476 0088 E3E7     		b	.L72
+ 477              	.L84:
+ 478 008a 6FF00700 		mvn	r0, #7
+ 479 008e E0E7     		b	.L72
+ 480              	.L85:
+ 481 0090 6FF00700 		mvn	r0, #7
+ 482 0094 DDE7     		b	.L72
+ 483              	.L86:
+ 484 0096 6FF00700 		mvn	r0, #7
+ 485 009a DAE7     		b	.L72
+ 486              	.L87:
+ 487 009c 6FF00700 		mvn	r0, #7
+ 488 00a0 D7E7     		b	.L72
+ 489              	.L90:
+ 490 00a2 0020     		movs	r0, #0
+ 491 00a4 D5E7     		b	.L72
+ 492              	.L97:
+ 493 00a6 00BF     		.align	2
+ 494              	.L96:
+ 495 00a8 00000000 		.word	udp_pcbs
+ 496 00ac 00000000 		.word	ip_addr_any
+ 497 00b0 00000000 		.word	.LC0
+ 498 00b4 00000000 		.word	.LC7
+ 499 00b8 50000000 		.word	.LC2
+ 501              		.section	.text.udp_sendto_if_src,"ax",%progbits
+ 502              		.align	1
+ 503              		.global	udp_sendto_if_src
+ 504              		.syntax unified
+ 505              		.thumb
+ 506              		.thumb_func
+ 507              		.fpu fpv4-sp-d16
+ 509              	udp_sendto_if_src:
+ 510              		@ args = 8, pretend = 0, frame = 0
+ 511              		@ frame_needed = 0, uses_anonymous_args = 0
+ 512 0000 2DE9F04D 		push	{r4, r5, r6, r7, r8, r10, fp, lr}
+ 513 0004 84B0     		sub	sp, sp, #16
+ 514 0006 DDF830A0 		ldr	r10, [sp, #48]
+ 515 000a 0028     		cmp	r0, #0
+ 516 000c 4CD0     		beq	.L112
+ 517 000e 0D46     		mov	r5, r1
+ 518 0010 1746     		mov	r7, r2
+ 519 0012 9B46     		mov	fp, r3
+ 520 0014 0646     		mov	r6, r0
+ 521 0016 0029     		cmp	r1, #0
+ 522 0018 50D0     		beq	.L113
+ 523 001a 002A     		cmp	r2, #0
+ 524 001c 58D0     		beq	.L114
+ARM GAS  /tmp/ccBMLpuw.s 			page 10
+
+
+ 525 001e 0D9B     		ldr	r3, [sp, #52]
+ 526 0020 002B     		cmp	r3, #0
+ 527 0022 5FD0     		beq	.L115
+ 528 0024 BAF1000F 		cmp	r10, #0
+ 529 0028 66D0     		beq	.L116
+ 530 002a 428A     		ldrh	r2, [r0, #18]
+ 531 002c 002A     		cmp	r2, #0
+ 532 002e 6DD0     		beq	.L117
+ 533              	.L105:
+ 534 0030 2A89     		ldrh	r2, [r5, #8]
+ 535 0032 4FF6F773 		movw	r3, #65527
+ 536 0036 9A42     		cmp	r2, r3
+ 537 0038 00F28680 		bhi	.L108
+ 538 003c 0821     		movs	r1, #8
+ 539 003e 2846     		mov	r0, r5
+ 540 0040 FFF7FEFF 		bl	pbuf_add_header
+ 541 0044 0028     		cmp	r0, #0
+ 542 0046 68D1     		bne	.L118
+ 543 0048 2C46     		mov	r4, r5
+ 544              	.L106:
+ 545 004a 6389     		ldrh	r3, [r4, #10]
+ 546 004c 072B     		cmp	r3, #7
+ 547 004e 73D9     		bls	.L119
+ 548              	.L107:
+ 549 0050 D4F80480 		ldr	r8, [r4, #4]
+ 550 0054 708A     		ldrh	r0, [r6, #18]
+ 551 0056 FFF7FEFF 		bl	lwip_htons
+ 552 005a A8F80000 		strh	r0, [r8]	@ unaligned
+ 553 005e 5846     		mov	r0, fp
+ 554 0060 FFF7FEFF 		bl	lwip_htons
+ 555 0064 A8F80200 		strh	r0, [r8, #2]	@ unaligned
+ 556 0068 0023     		movs	r3, #0
+ 557 006a 88F80630 		strb	r3, [r8, #6]
+ 558 006e 88F80730 		strb	r3, [r8, #7]
+ 559 0072 2089     		ldrh	r0, [r4, #8]
+ 560 0074 FFF7FEFF 		bl	lwip_htons
+ 561 0078 A8F80400 		strh	r0, [r8, #4]	@ unaligned
+ 562 007c CDF808A0 		str	r10, [sp, #8]
+ 563 0080 1123     		movs	r3, #17
+ 564 0082 0193     		str	r3, [sp, #4]
+ 565 0084 B37A     		ldrb	r3, [r6, #10]	@ zero_extendqisi2
+ 566 0086 0093     		str	r3, [sp]
+ 567 0088 F37A     		ldrb	r3, [r6, #11]	@ zero_extendqisi2
+ 568 008a 3A46     		mov	r2, r7
+ 569 008c 0D99     		ldr	r1, [sp, #52]
+ 570 008e 2046     		mov	r0, r4
+ 571 0090 FFF7FEFF 		bl	ip4_output_if_src
+ 572 0094 8046     		mov	r8, r0
+ 573 0096 AC42     		cmp	r4, r5
+ 574 0098 02D0     		beq	.L100
+ 575 009a 2046     		mov	r0, r4
+ 576 009c FFF7FEFF 		bl	pbuf_free
+ 577              	.L100:
+ 578 00a0 4046     		mov	r0, r8
+ 579 00a2 04B0     		add	sp, sp, #16
+ 580              		@ sp needed
+ 581 00a4 BDE8F08D 		pop	{r4, r5, r6, r7, r8, r10, fp, pc}
+ARM GAS  /tmp/ccBMLpuw.s 			page 11
+
+
+ 582              	.L112:
+ 583 00a8 2A4B     		ldr	r3, .L120
+ 584 00aa 40F2D122 		movw	r2, #721
+ 585 00ae 2A49     		ldr	r1, .L120+4
+ 586 00b0 2A48     		ldr	r0, .L120+8
+ 587 00b2 FFF7FEFF 		bl	printf
+ 588 00b6 6FF00F08 		mvn	r8, #15
+ 589 00ba F1E7     		b	.L100
+ 590              	.L113:
+ 591 00bc 254B     		ldr	r3, .L120
+ 592 00be 40F2D222 		movw	r2, #722
+ 593 00c2 2749     		ldr	r1, .L120+12
+ 594 00c4 2548     		ldr	r0, .L120+8
+ 595 00c6 FFF7FEFF 		bl	printf
+ 596 00ca 6FF00F08 		mvn	r8, #15
+ 597 00ce E7E7     		b	.L100
+ 598              	.L114:
+ 599 00d0 204B     		ldr	r3, .L120
+ 600 00d2 40F2D322 		movw	r2, #723
+ 601 00d6 2349     		ldr	r1, .L120+16
+ 602 00d8 2048     		ldr	r0, .L120+8
+ 603 00da FFF7FEFF 		bl	printf
+ 604 00de 6FF00F08 		mvn	r8, #15
+ 605 00e2 DDE7     		b	.L100
+ 606              	.L115:
+ 607 00e4 1B4B     		ldr	r3, .L120
+ 608 00e6 4FF43572 		mov	r2, #724
+ 609 00ea 1F49     		ldr	r1, .L120+20
+ 610 00ec 1B48     		ldr	r0, .L120+8
+ 611 00ee FFF7FEFF 		bl	printf
+ 612 00f2 6FF00F08 		mvn	r8, #15
+ 613 00f6 D3E7     		b	.L100
+ 614              	.L116:
+ 615 00f8 164B     		ldr	r3, .L120
+ 616 00fa 40F2D522 		movw	r2, #725
+ 617 00fe 1B49     		ldr	r1, .L120+24
+ 618 0100 1648     		ldr	r0, .L120+8
+ 619 0102 FFF7FEFF 		bl	printf
+ 620 0106 6FF00F08 		mvn	r8, #15
+ 621 010a C9E7     		b	.L100
+ 622              	.L117:
+ 623 010c 0146     		mov	r1, r0
+ 624 010e FFF7FEFF 		bl	udp_bind
+ 625 0112 8046     		mov	r8, r0
+ 626 0114 0028     		cmp	r0, #0
+ 627 0116 8BD0     		beq	.L105
+ 628 0118 C2E7     		b	.L100
+ 629              	.L118:
+ 630 011a 4FF42072 		mov	r2, #640
+ 631 011e 0821     		movs	r1, #8
+ 632 0120 2220     		movs	r0, #34
+ 633 0122 FFF7FEFF 		bl	pbuf_alloc
+ 634 0126 0446     		mov	r4, r0
+ 635 0128 88B1     		cbz	r0, .L110
+ 636 012a 2B89     		ldrh	r3, [r5, #8]
+ 637 012c 002B     		cmp	r3, #0
+ 638 012e 8CD0     		beq	.L106
+ARM GAS  /tmp/ccBMLpuw.s 			page 12
+
+
+ 639 0130 2946     		mov	r1, r5
+ 640 0132 FFF7FEFF 		bl	pbuf_chain
+ 641 0136 88E7     		b	.L106
+ 642              	.L119:
+ 643 0138 064B     		ldr	r3, .L120
+ 644 013a 40F20E32 		movw	r2, #782
+ 645 013e 0C49     		ldr	r1, .L120+28
+ 646 0140 0648     		ldr	r0, .L120+8
+ 647 0142 FFF7FEFF 		bl	printf
+ 648 0146 83E7     		b	.L107
+ 649              	.L108:
+ 650 0148 4FF0FF38 		mov	r8, #-1
+ 651 014c A8E7     		b	.L100
+ 652              	.L110:
+ 653 014e 4FF0FF38 		mov	r8, #-1
+ 654 0152 A5E7     		b	.L100
+ 655              	.L121:
+ 656              		.align	2
+ 657              	.L120:
+ 658 0154 00000000 		.word	.LC0
+ 659 0158 00000000 		.word	.LC8
+ 660 015c 50000000 		.word	.LC2
+ 661 0160 20000000 		.word	.LC9
+ 662 0164 40000000 		.word	.LC10
+ 663 0168 64000000 		.word	.LC11
+ 664 016c 88000000 		.word	.LC12
+ 665 0170 AC000000 		.word	.LC13
+ 667              		.section	.text.udp_sendto_if,"ax",%progbits
+ 668              		.align	1
+ 669              		.global	udp_sendto_if
+ 670              		.syntax unified
+ 671              		.thumb
+ 672              		.thumb_func
+ 673              		.fpu fpv4-sp-d16
+ 675              	udp_sendto_if:
+ 676              		@ args = 4, pretend = 0, frame = 0
+ 677              		@ frame_needed = 0, uses_anonymous_args = 0
+ 678 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 679 0002 83B0     		sub	sp, sp, #12
+ 680 0004 089D     		ldr	r5, [sp, #32]
+ 681 0006 88B1     		cbz	r0, .L133
+ 682 0008 0446     		mov	r4, r0
+ 683 000a C9B1     		cbz	r1, .L134
+ 684 000c 12B3     		cbz	r2, .L135
+ 685 000e 5DB3     		cbz	r5, .L136
+ 686 0010 0028     		cmp	r0, #0
+ 687 0012 33D0     		beq	.L128
+ 688 0014 0668     		ldr	r6, [r0]
+ 689 0016 8EB3     		cbz	r6, .L128
+ 690 0018 06F0F007 		and	r7, r6, #240
+ 691 001c E02F     		cmp	r7, #224
+ 692 001e 2DD0     		beq	.L128
+ 693 0020 6F68     		ldr	r7, [r5, #4]
+ 694 0022 BE42     		cmp	r6, r7
+ 695 0024 2BD0     		beq	.L130
+ 696 0026 6FF00300 		mvn	r0, #3
+ 697 002a 2DE0     		b	.L124
+ARM GAS  /tmp/ccBMLpuw.s 			page 13
+
+
+ 698              	.L133:
+ 699 002c 174B     		ldr	r3, .L137
+ 700 002e 4FF42072 		mov	r2, #640
+ 701 0032 1749     		ldr	r1, .L137+4
+ 702 0034 1748     		ldr	r0, .L137+8
+ 703 0036 FFF7FEFF 		bl	printf
+ 704 003a 6FF00F00 		mvn	r0, #15
+ 705 003e 23E0     		b	.L124
+ 706              	.L134:
+ 707 0040 124B     		ldr	r3, .L137
+ 708 0042 40F28122 		movw	r2, #641
+ 709 0046 1449     		ldr	r1, .L137+12
+ 710 0048 1248     		ldr	r0, .L137+8
+ 711 004a FFF7FEFF 		bl	printf
+ 712 004e 6FF00F00 		mvn	r0, #15
+ 713 0052 19E0     		b	.L124
+ 714              	.L135:
+ 715 0054 0D4B     		ldr	r3, .L137
+ 716 0056 40F28222 		movw	r2, #642
+ 717 005a 1049     		ldr	r1, .L137+16
+ 718 005c 0D48     		ldr	r0, .L137+8
+ 719 005e FFF7FEFF 		bl	printf
+ 720 0062 6FF00F00 		mvn	r0, #15
+ 721 0066 0FE0     		b	.L124
+ 722              	.L136:
+ 723 0068 084B     		ldr	r3, .L137
+ 724 006a 40F28322 		movw	r2, #643
+ 725 006e 0C49     		ldr	r1, .L137+20
+ 726 0070 0848     		ldr	r0, .L137+8
+ 727 0072 FFF7FEFF 		bl	printf
+ 728 0076 6FF00F00 		mvn	r0, #15
+ 729 007a 05E0     		b	.L124
+ 730              	.L128:
+ 731 007c 281D     		adds	r0, r5, #4
+ 732              	.L130:
+ 733 007e 0190     		str	r0, [sp, #4]
+ 734 0080 0095     		str	r5, [sp]
+ 735 0082 2046     		mov	r0, r4
+ 736 0084 FFF7FEFF 		bl	udp_sendto_if_src
+ 737              	.L124:
+ 738 0088 03B0     		add	sp, sp, #12
+ 739              		@ sp needed
+ 740 008a F0BD     		pop	{r4, r5, r6, r7, pc}
+ 741              	.L138:
+ 742              		.align	2
+ 743              	.L137:
+ 744 008c 00000000 		.word	.LC0
+ 745 0090 00000000 		.word	.LC14
+ 746 0094 50000000 		.word	.LC2
+ 747 0098 1C000000 		.word	.LC15
+ 748 009c 38000000 		.word	.LC16
+ 749 00a0 58000000 		.word	.LC17
+ 751              		.section	.text.udp_sendto,"ax",%progbits
+ 752              		.align	1
+ 753              		.global	udp_sendto
+ 754              		.syntax unified
+ 755              		.thumb
+ARM GAS  /tmp/ccBMLpuw.s 			page 14
+
+
+ 756              		.thumb_func
+ 757              		.fpu fpv4-sp-d16
+ 759              	udp_sendto:
+ 760              		@ args = 0, pretend = 0, frame = 0
+ 761              		@ frame_needed = 0, uses_anonymous_args = 0
+ 762 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 763 0002 83B0     		sub	sp, sp, #12
+ 764 0004 98B1     		cbz	r0, .L148
+ 765 0006 0D46     		mov	r5, r1
+ 766 0008 1446     		mov	r4, r2
+ 767 000a 1F46     		mov	r7, r3
+ 768 000c 0646     		mov	r6, r0
+ 769 000e C1B1     		cbz	r1, .L149
+ 770 0010 0AB3     		cbz	r2, .L150
+ 771 0012 007A     		ldrb	r0, [r0, #8]	@ zero_extendqisi2
+ 772 0014 48B3     		cbz	r0, .L144
+ 773 0016 FFF7FEFF 		bl	netif_get_by_index
+ 774              	.L145:
+ 775 001a 50B3     		cbz	r0, .L146
+ 776 001c 0090     		str	r0, [sp]
+ 777 001e 3B46     		mov	r3, r7
+ 778 0020 2246     		mov	r2, r4
+ 779 0022 2946     		mov	r1, r5
+ 780 0024 3046     		mov	r0, r6
+ 781 0026 FFF7FEFF 		bl	udp_sendto_if
+ 782              	.L141:
+ 783 002a 03B0     		add	sp, sp, #12
+ 784              		@ sp needed
+ 785 002c F0BD     		pop	{r4, r5, r6, r7, pc}
+ 786              	.L148:
+ 787 002e 124B     		ldr	r3, .L151
+ 788 0030 4FF40672 		mov	r2, #536
+ 789 0034 1149     		ldr	r1, .L151+4
+ 790 0036 1248     		ldr	r0, .L151+8
+ 791 0038 FFF7FEFF 		bl	printf
+ 792 003c 6FF00F00 		mvn	r0, #15
+ 793 0040 F3E7     		b	.L141
+ 794              	.L149:
+ 795 0042 0D4B     		ldr	r3, .L151
+ 796 0044 40F21922 		movw	r2, #537
+ 797 0048 0E49     		ldr	r1, .L151+12
+ 798 004a 0D48     		ldr	r0, .L151+8
+ 799 004c FFF7FEFF 		bl	printf
+ 800 0050 6FF00F00 		mvn	r0, #15
+ 801 0054 E9E7     		b	.L141
+ 802              	.L150:
+ 803 0056 084B     		ldr	r3, .L151
+ 804 0058 40F21A22 		movw	r2, #538
+ 805 005c 0A49     		ldr	r1, .L151+16
+ 806 005e 0848     		ldr	r0, .L151+8
+ 807 0060 FFF7FEFF 		bl	printf
+ 808 0064 6FF00F00 		mvn	r0, #15
+ 809 0068 DFE7     		b	.L141
+ 810              	.L144:
+ 811 006a 1046     		mov	r0, r2
+ 812 006c FFF7FEFF 		bl	ip4_route
+ 813 0070 D3E7     		b	.L145
+ARM GAS  /tmp/ccBMLpuw.s 			page 15
+
+
+ 814              	.L146:
+ 815 0072 6FF00300 		mvn	r0, #3
+ 816 0076 D8E7     		b	.L141
+ 817              	.L152:
+ 818              		.align	2
+ 819              	.L151:
+ 820 0078 00000000 		.word	.LC0
+ 821 007c 00000000 		.word	.LC18
+ 822 0080 50000000 		.word	.LC2
+ 823 0084 18000000 		.word	.LC19
+ 824 0088 34000000 		.word	.LC20
+ 826              		.section	.text.udp_send,"ax",%progbits
+ 827              		.align	1
+ 828              		.global	udp_send
+ 829              		.syntax unified
+ 830              		.thumb
+ 831              		.thumb_func
+ 832              		.fpu fpv4-sp-d16
+ 834              	udp_send:
+ 835              		@ args = 0, pretend = 0, frame = 0
+ 836              		@ frame_needed = 0, uses_anonymous_args = 0
+ 837 0000 10B5     		push	{r4, lr}
+ 838 0002 28B1     		cbz	r0, .L158
+ 839 0004 71B1     		cbz	r1, .L159
+ 840 0006 838A     		ldrh	r3, [r0, #20]
+ 841 0008 021D     		adds	r2, r0, #4
+ 842 000a FFF7FEFF 		bl	udp_sendto
+ 843              	.L155:
+ 844 000e 10BD     		pop	{r4, pc}
+ 845              	.L158:
+ 846 0010 094B     		ldr	r3, .L160
+ 847 0012 40F2D512 		movw	r2, #469
+ 848 0016 0949     		ldr	r1, .L160+4
+ 849 0018 0948     		ldr	r0, .L160+8
+ 850 001a FFF7FEFF 		bl	printf
+ 851 001e 6FF00F00 		mvn	r0, #15
+ 852 0022 F4E7     		b	.L155
+ 853              	.L159:
+ 854 0024 044B     		ldr	r3, .L160
+ 855 0026 4FF4EB72 		mov	r2, #470
+ 856 002a 0649     		ldr	r1, .L160+12
+ 857 002c 0448     		ldr	r0, .L160+8
+ 858 002e FFF7FEFF 		bl	printf
+ 859 0032 6FF00F00 		mvn	r0, #15
+ 860 0036 EAE7     		b	.L155
+ 861              	.L161:
+ 862              		.align	2
+ 863              	.L160:
+ 864 0038 00000000 		.word	.LC0
+ 865 003c 00000000 		.word	.LC21
+ 866 0040 50000000 		.word	.LC2
+ 867 0044 18000000 		.word	.LC22
+ 869              		.section	.text.udp_bind_netif,"ax",%progbits
+ 870              		.align	1
+ 871              		.global	udp_bind_netif
+ 872              		.syntax unified
+ 873              		.thumb
+ARM GAS  /tmp/ccBMLpuw.s 			page 16
+
+
+ 874              		.thumb_func
+ 875              		.fpu fpv4-sp-d16
+ 877              	udp_bind_netif:
+ 878              		@ args = 0, pretend = 0, frame = 0
+ 879              		@ frame_needed = 0, uses_anonymous_args = 0
+ 880              		@ link register save eliminated.
+ 881 0000 21B1     		cbz	r1, .L163
+ 882 0002 91F83430 		ldrb	r3, [r1, #52]	@ zero_extendqisi2
+ 883 0006 0133     		adds	r3, r3, #1
+ 884 0008 0372     		strb	r3, [r0, #8]
+ 885 000a 7047     		bx	lr
+ 886              	.L163:
+ 887 000c 0023     		movs	r3, #0
+ 888 000e 0372     		strb	r3, [r0, #8]
+ 889 0010 7047     		bx	lr
+ 891              		.section	.text.udp_connect,"ax",%progbits
+ 892              		.align	1
+ 893              		.global	udp_connect
+ 894              		.syntax unified
+ 895              		.thumb
+ 896              		.thumb_func
+ 897              		.fpu fpv4-sp-d16
+ 899              	udp_connect:
+ 900              		@ args = 0, pretend = 0, frame = 0
+ 901              		@ frame_needed = 0, uses_anonymous_args = 0
+ 902 0000 70B5     		push	{r4, r5, r6, lr}
+ 903 0002 A0B1     		cbz	r0, .L174
+ 904 0004 0D46     		mov	r5, r1
+ 905 0006 1646     		mov	r6, r2
+ 906 0008 0446     		mov	r4, r0
+ 907 000a D1B1     		cbz	r1, .L175
+ 908 000c 428A     		ldrh	r2, [r0, #18]
+ 909 000e 12B3     		cbz	r2, .L176
+ 910              	.L169:
+ 911 0010 2B68     		ldr	r3, [r5]
+ 912 0012 6360     		str	r3, [r4, #4]
+ 913 0014 A682     		strh	r6, [r4, #20]	@ movhi
+ 914 0016 237C     		ldrb	r3, [r4, #16]	@ zero_extendqisi2
+ 915 0018 43F00403 		orr	r3, r3, #4
+ 916 001c 2374     		strb	r3, [r4, #16]
+ 917 001e 154B     		ldr	r3, .L178
+ 918 0020 1A68     		ldr	r2, [r3]
+ 919 0022 1346     		mov	r3, r2
+ 920              	.L170:
+ 921 0024 F3B1     		cbz	r3, .L177
+ 922 0026 A342     		cmp	r3, r4
+ 923 0028 22D0     		beq	.L172
+ 924 002a DB68     		ldr	r3, [r3, #12]
+ 925 002c FAE7     		b	.L170
+ 926              	.L174:
+ 927 002e 124B     		ldr	r3, .L178+4
+ 928 0030 40F23542 		movw	r2, #1077
+ 929 0034 1149     		ldr	r1, .L178+8
+ 930 0036 1248     		ldr	r0, .L178+12
+ 931 0038 FFF7FEFF 		bl	printf
+ 932 003c 6FF00F03 		mvn	r3, #15
+ 933 0040 14E0     		b	.L167
+ARM GAS  /tmp/ccBMLpuw.s 			page 17
+
+
+ 934              	.L175:
+ 935 0042 0D4B     		ldr	r3, .L178+4
+ 936 0044 40F23642 		movw	r2, #1078
+ 937 0048 0E49     		ldr	r1, .L178+16
+ 938 004a 0D48     		ldr	r0, .L178+12
+ 939 004c FFF7FEFF 		bl	printf
+ 940 0050 6FF00F03 		mvn	r3, #15
+ 941 0054 0AE0     		b	.L167
+ 942              	.L176:
+ 943 0056 0146     		mov	r1, r0
+ 944 0058 FFF7FEFF 		bl	udp_bind
+ 945 005c 0346     		mov	r3, r0
+ 946 005e 0028     		cmp	r0, #0
+ 947 0060 D6D0     		beq	.L169
+ 948 0062 03E0     		b	.L167
+ 949              	.L177:
+ 950 0064 E260     		str	r2, [r4, #12]
+ 951 0066 034B     		ldr	r3, .L178
+ 952 0068 1C60     		str	r4, [r3]
+ 953 006a 0023     		movs	r3, #0
+ 954              	.L167:
+ 955 006c 1846     		mov	r0, r3
+ 956 006e 70BD     		pop	{r4, r5, r6, pc}
+ 957              	.L172:
+ 958 0070 0023     		movs	r3, #0
+ 959 0072 FBE7     		b	.L167
+ 960              	.L179:
+ 961              		.align	2
+ 962              	.L178:
+ 963 0074 00000000 		.word	udp_pcbs
+ 964 0078 00000000 		.word	.LC0
+ 965 007c 00000000 		.word	.LC23
+ 966 0080 50000000 		.word	.LC2
+ 967 0084 1C000000 		.word	.LC24
+ 969              		.section	.text.udp_disconnect,"ax",%progbits
+ 970              		.align	1
+ 971              		.global	udp_disconnect
+ 972              		.syntax unified
+ 973              		.thumb
+ 974              		.thumb_func
+ 975              		.fpu fpv4-sp-d16
+ 977              	udp_disconnect:
+ 978              		@ args = 0, pretend = 0, frame = 0
+ 979              		@ frame_needed = 0, uses_anonymous_args = 0
+ 980 0000 08B5     		push	{r3, lr}
+ 981 0002 40B1     		cbz	r0, .L184
+ 982 0004 0022     		movs	r2, #0
+ 983 0006 4260     		str	r2, [r0, #4]
+ 984 0008 8282     		strh	r2, [r0, #20]	@ movhi
+ 985 000a 0272     		strb	r2, [r0, #8]
+ 986 000c 027C     		ldrb	r2, [r0, #16]	@ zero_extendqisi2
+ 987 000e 02F0FB02 		and	r2, r2, #251
+ 988 0012 0274     		strb	r2, [r0, #16]
+ 989              	.L180:
+ 990 0014 08BD     		pop	{r3, pc}
+ 991              	.L184:
+ 992 0016 044B     		ldr	r3, .L185
+ARM GAS  /tmp/ccBMLpuw.s 			page 18
+
+
+ 993 0018 40F26A42 		movw	r2, #1130
+ 994 001c 0349     		ldr	r1, .L185+4
+ 995 001e 0448     		ldr	r0, .L185+8
+ 996 0020 FFF7FEFF 		bl	printf
+ 997 0024 F6E7     		b	.L180
+ 998              	.L186:
+ 999 0026 00BF     		.align	2
+ 1000              	.L185:
+ 1001 0028 00000000 		.word	.LC0
+ 1002 002c 00000000 		.word	.LC25
+ 1003 0030 50000000 		.word	.LC2
+ 1005              		.section	.text.udp_recv,"ax",%progbits
+ 1006              		.align	1
+ 1007              		.global	udp_recv
+ 1008              		.syntax unified
+ 1009              		.thumb
+ 1010              		.thumb_func
+ 1011              		.fpu fpv4-sp-d16
+ 1013              	udp_recv:
+ 1014              		@ args = 0, pretend = 0, frame = 0
+ 1015              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1016 0000 08B5     		push	{r3, lr}
+ 1017 0002 10B1     		cbz	r0, .L191
+ 1018 0004 8161     		str	r1, [r0, #24]
+ 1019 0006 C261     		str	r2, [r0, #28]
+ 1020              	.L187:
+ 1021 0008 08BD     		pop	{r3, pc}
+ 1022              	.L191:
+ 1023 000a 044B     		ldr	r3, .L192
+ 1024 000c 40F28A42 		movw	r2, #1162
+ 1025 0010 0349     		ldr	r1, .L192+4
+ 1026 0012 0448     		ldr	r0, .L192+8
+ 1027 0014 FFF7FEFF 		bl	printf
+ 1028 0018 F6E7     		b	.L187
+ 1029              	.L193:
+ 1030 001a 00BF     		.align	2
+ 1031              	.L192:
+ 1032 001c 00000000 		.word	.LC0
+ 1033 0020 00000000 		.word	.LC26
+ 1034 0024 50000000 		.word	.LC2
+ 1036              		.section	.text.udp_remove,"ax",%progbits
+ 1037              		.align	1
+ 1038              		.global	udp_remove
+ 1039              		.syntax unified
+ 1040              		.thumb
+ 1041              		.thumb_func
+ 1042              		.fpu fpv4-sp-d16
+ 1044              	udp_remove:
+ 1045              		@ args = 0, pretend = 0, frame = 0
+ 1046              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1047 0000 08B5     		push	{r3, lr}
+ 1048 0002 50B1     		cbz	r0, .L203
+ 1049 0004 0146     		mov	r1, r0
+ 1050 0006 0F4B     		ldr	r3, .L205
+ 1051 0008 1A68     		ldr	r2, [r3]
+ 1052 000a 8242     		cmp	r2, r0
+ 1053 000c 11D1     		bne	.L197
+ARM GAS  /tmp/ccBMLpuw.s 			page 19
+
+
+ 1054 000e D268     		ldr	r2, [r2, #12]
+ 1055 0010 1A60     		str	r2, [r3]
+ 1056              	.L198:
+ 1057 0012 0020     		movs	r0, #0
+ 1058 0014 FFF7FEFF 		bl	memp_free
+ 1059              	.L194:
+ 1060 0018 08BD     		pop	{r3, pc}
+ 1061              	.L203:
+ 1062 001a 0B4B     		ldr	r3, .L205+4
+ 1063 001c 40F2A142 		movw	r2, #1185
+ 1064 0020 0A49     		ldr	r1, .L205+8
+ 1065 0022 0B48     		ldr	r0, .L205+12
+ 1066 0024 FFF7FEFF 		bl	printf
+ 1067 0028 F6E7     		b	.L194
+ 1068              	.L204:
+ 1069 002a CB68     		ldr	r3, [r1, #12]
+ 1070 002c D360     		str	r3, [r2, #12]
+ 1071 002e F0E7     		b	.L198
+ 1072              	.L200:
+ 1073 0030 1A46     		mov	r2, r3
+ 1074              	.L197:
+ 1075 0032 002A     		cmp	r2, #0
+ 1076 0034 EDD0     		beq	.L198
+ 1077 0036 D368     		ldr	r3, [r2, #12]
+ 1078 0038 002B     		cmp	r3, #0
+ 1079 003a F9D0     		beq	.L200
+ 1080 003c 8B42     		cmp	r3, r1
+ 1081 003e F4D0     		beq	.L204
+ 1082 0040 1A46     		mov	r2, r3
+ 1083 0042 F6E7     		b	.L197
+ 1084              	.L206:
+ 1085              		.align	2
+ 1086              	.L205:
+ 1087 0044 00000000 		.word	udp_pcbs
+ 1088 0048 00000000 		.word	.LC0
+ 1089 004c 00000000 		.word	.LC27
+ 1090 0050 50000000 		.word	.LC2
+ 1092              		.section	.text.udp_new,"ax",%progbits
+ 1093              		.align	1
+ 1094              		.global	udp_new
+ 1095              		.syntax unified
+ 1096              		.thumb
+ 1097              		.thumb_func
+ 1098              		.fpu fpv4-sp-d16
+ 1100              	udp_new:
+ 1101              		@ args = 0, pretend = 0, frame = 0
+ 1102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1103 0000 10B5     		push	{r4, lr}
+ 1104 0002 0020     		movs	r0, #0
+ 1105 0004 FFF7FEFF 		bl	memp_malloc
+ 1106 0008 0446     		mov	r4, r0
+ 1107 000a 28B1     		cbz	r0, .L207
+ 1108 000c 2022     		movs	r2, #32
+ 1109 000e 0021     		movs	r1, #0
+ 1110 0010 FFF7FEFF 		bl	memset
+ 1111 0014 FF23     		movs	r3, #255
+ 1112 0016 E372     		strb	r3, [r4, #11]
+ARM GAS  /tmp/ccBMLpuw.s 			page 20
+
+
+ 1113              	.L207:
+ 1114 0018 2046     		mov	r0, r4
+ 1115 001a 10BD     		pop	{r4, pc}
+ 1117              		.section	.text.udp_new_ip_type,"ax",%progbits
+ 1118              		.align	1
+ 1119              		.global	udp_new_ip_type
+ 1120              		.syntax unified
+ 1121              		.thumb
+ 1122              		.thumb_func
+ 1123              		.fpu fpv4-sp-d16
+ 1125              	udp_new_ip_type:
+ 1126              		@ args = 0, pretend = 0, frame = 0
+ 1127              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1128 0000 08B5     		push	{r3, lr}
+ 1129 0002 FFF7FEFF 		bl	udp_new
+ 1130 0006 08BD     		pop	{r3, pc}
+ 1132              		.section	.text.udp_netif_ip_addr_changed,"ax",%progbits
+ 1133              		.align	1
+ 1134              		.global	udp_netif_ip_addr_changed
+ 1135              		.syntax unified
+ 1136              		.thumb
+ 1137              		.thumb_func
+ 1138              		.fpu fpv4-sp-d16
+ 1140              	udp_netif_ip_addr_changed:
+ 1141              		@ args = 0, pretend = 0, frame = 0
+ 1142              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1143              		@ link register save eliminated.
+ 1144 0000 B8B1     		cbz	r0, .L218
+ 1145 0002 0246     		mov	r2, r0
+ 1146 0004 0368     		ldr	r3, [r0]
+ 1147 0006 A3B1     		cbz	r3, .L218
+ 1148 0008 99B1     		cbz	r1, .L218
+ 1149 000a 0B68     		ldr	r3, [r1]
+ 1150 000c 8BB1     		cbz	r3, .L218
+ 1151 000e 094B     		ldr	r3, .L224
+ 1152 0010 1B68     		ldr	r3, [r3]
+ 1153 0012 6BB1     		cbz	r3, .L222
+ 1154 0014 10B4     		push	{r4}
+ 1155 0016 01E0     		b	.L216
+ 1156              	.L215:
+ 1157 0018 DB68     		ldr	r3, [r3, #12]
+ 1158 001a 33B1     		cbz	r3, .L223
+ 1159              	.L216:
+ 1160 001c 1C68     		ldr	r4, [r3]
+ 1161 001e 1068     		ldr	r0, [r2]
+ 1162 0020 8442     		cmp	r4, r0
+ 1163 0022 F9D1     		bne	.L215
+ 1164 0024 0868     		ldr	r0, [r1]
+ 1165 0026 1860     		str	r0, [r3]
+ 1166 0028 F6E7     		b	.L215
+ 1167              	.L223:
+ 1168 002a 5DF8044B 		ldr	r4, [sp], #4
+ 1169 002e 7047     		bx	lr
+ 1170              	.L222:
+ 1171 0030 7047     		bx	lr
+ 1172              	.L218:
+ 1173 0032 7047     		bx	lr
+ARM GAS  /tmp/ccBMLpuw.s 			page 21
+
+
+ 1174              	.L225:
+ 1175              		.align	2
+ 1176              	.L224:
+ 1177 0034 00000000 		.word	udp_pcbs
+ 1179              		.comm	udp_pcbs,4,4
+ 1180              		.section	.data.udp_port,"aw"
+ 1181              		.align	1
+ 1182              		.set	.LANCHOR0,. + 0
+ 1185              	udp_port:
+ 1186 0000 00C0     		.short	-16384
+ 1187              		.section	.rodata.udp_bind.str1.4,"aMS",%progbits,1
+ 1188              		.align	2
+ 1189              	.LC7:
+ 1190 0000 7564705F 		.ascii	"udp_bind: invalid pcb\000"
+ 1190      62696E64 
+ 1190      3A20696E 
+ 1190      76616C69 
+ 1190      64207063 
+ 1191              		.section	.rodata.udp_connect.str1.4,"aMS",%progbits,1
+ 1192              		.align	2
+ 1193              	.LC23:
+ 1194 0000 7564705F 		.ascii	"udp_connect: invalid pcb\000"
+ 1194      636F6E6E 
+ 1194      6563743A 
+ 1194      20696E76 
+ 1194      616C6964 
+ 1195 0019 000000   		.space	3
+ 1196              	.LC24:
+ 1197 001c 7564705F 		.ascii	"udp_connect: invalid ipaddr\000"
+ 1197      636F6E6E 
+ 1197      6563743A 
+ 1197      20696E76 
+ 1197      616C6964 
+ 1198              		.section	.rodata.udp_disconnect.str1.4,"aMS",%progbits,1
+ 1199              		.align	2
+ 1200              	.LC25:
+ 1201 0000 7564705F 		.ascii	"udp_disconnect: invalid pcb\000"
+ 1201      64697363 
+ 1201      6F6E6E65 
+ 1201      63743A20 
+ 1201      696E7661 
+ 1202              		.section	.rodata.udp_input.str1.4,"aMS",%progbits,1
+ 1203              		.align	2
+ 1204              	.LC4:
+ 1205 0000 7564705F 		.ascii	"udp_input: invalid pbuf\000"
+ 1205      696E7075 
+ 1205      743A2069 
+ 1205      6E76616C 
+ 1205      69642070 
+ 1206              	.LC5:
+ 1207 0018 7564705F 		.ascii	"udp_input: invalid netif\000"
+ 1207      696E7075 
+ 1207      743A2069 
+ 1207      6E76616C 
+ 1207      6964206E 
+ 1208 0031 000000   		.space	3
+ 1209              	.LC6:
+ARM GAS  /tmp/ccBMLpuw.s 			page 22
+
+
+ 1210 0034 70627566 		.ascii	"pbuf_remove_header failed\012\000"
+ 1210      5F72656D 
+ 1210      6F76655F 
+ 1210      68656164 
+ 1210      65722066 
+ 1211              		.section	.rodata.udp_input_local_match.str1.4,"aMS",%progbits,1
+ 1212              		.align	2
+ 1213              	.LC0:
+ 1214 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/core/udp.c\000"
+ 1214      6C657761 
+ 1214      7265732F 
+ 1214      54686972 
+ 1214      645F5061 
+ 1215              	.LC1:
+ 1216 002c 7564705F 		.ascii	"udp_input_local_match: invalid pcb\000"
+ 1216      696E7075 
+ 1216      745F6C6F 
+ 1216      63616C5F 
+ 1216      6D617463 
+ 1217 004f 00       		.space	1
+ 1218              	.LC2:
+ 1219 0050 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ 1219      7274696F 
+ 1219      6E202225 
+ 1219      73222066 
+ 1219      61696C65 
+ 1220              	.LC3:
+ 1221 0078 7564705F 		.ascii	"udp_input_local_match: invalid netif\000"
+ 1221      696E7075 
+ 1221      745F6C6F 
+ 1221      63616C5F 
+ 1221      6D617463 
+ 1222              		.section	.rodata.udp_recv.str1.4,"aMS",%progbits,1
+ 1223              		.align	2
+ 1224              	.LC26:
+ 1225 0000 7564705F 		.ascii	"udp_recv: invalid pcb\000"
+ 1225      72656376 
+ 1225      3A20696E 
+ 1225      76616C69 
+ 1225      64207063 
+ 1226              		.section	.rodata.udp_remove.str1.4,"aMS",%progbits,1
+ 1227              		.align	2
+ 1228              	.LC27:
+ 1229 0000 7564705F 		.ascii	"udp_remove: invalid pcb\000"
+ 1229      72656D6F 
+ 1229      76653A20 
+ 1229      696E7661 
+ 1229      6C696420 
+ 1230              		.section	.rodata.udp_send.str1.4,"aMS",%progbits,1
+ 1231              		.align	2
+ 1232              	.LC21:
+ 1233 0000 7564705F 		.ascii	"udp_send: invalid pcb\000"
+ 1233      73656E64 
+ 1233      3A20696E 
+ 1233      76616C69 
+ 1233      64207063 
+ 1234 0016 0000     		.space	2
+ARM GAS  /tmp/ccBMLpuw.s 			page 23
+
+
+ 1235              	.LC22:
+ 1236 0018 7564705F 		.ascii	"udp_send: invalid pbuf\000"
+ 1236      73656E64 
+ 1236      3A20696E 
+ 1236      76616C69 
+ 1236      64207062 
+ 1237              		.section	.rodata.udp_sendto.str1.4,"aMS",%progbits,1
+ 1238              		.align	2
+ 1239              	.LC18:
+ 1240 0000 7564705F 		.ascii	"udp_sendto: invalid pcb\000"
+ 1240      73656E64 
+ 1240      746F3A20 
+ 1240      696E7661 
+ 1240      6C696420 
+ 1241              	.LC19:
+ 1242 0018 7564705F 		.ascii	"udp_sendto: invalid pbuf\000"
+ 1242      73656E64 
+ 1242      746F3A20 
+ 1242      696E7661 
+ 1242      6C696420 
+ 1243 0031 000000   		.space	3
+ 1244              	.LC20:
+ 1245 0034 7564705F 		.ascii	"udp_sendto: invalid dst_ip\000"
+ 1245      73656E64 
+ 1245      746F3A20 
+ 1245      696E7661 
+ 1245      6C696420 
+ 1246              		.section	.rodata.udp_sendto_if.str1.4,"aMS",%progbits,1
+ 1247              		.align	2
+ 1248              	.LC14:
+ 1249 0000 7564705F 		.ascii	"udp_sendto_if: invalid pcb\000"
+ 1249      73656E64 
+ 1249      746F5F69 
+ 1249      663A2069 
+ 1249      6E76616C 
+ 1250 001b 00       		.space	1
+ 1251              	.LC15:
+ 1252 001c 7564705F 		.ascii	"udp_sendto_if: invalid pbuf\000"
+ 1252      73656E64 
+ 1252      746F5F69 
+ 1252      663A2069 
+ 1252      6E76616C 
+ 1253              	.LC16:
+ 1254 0038 7564705F 		.ascii	"udp_sendto_if: invalid dst_ip\000"
+ 1254      73656E64 
+ 1254      746F5F69 
+ 1254      663A2069 
+ 1254      6E76616C 
+ 1255 0056 0000     		.space	2
+ 1256              	.LC17:
+ 1257 0058 7564705F 		.ascii	"udp_sendto_if: invalid netif\000"
+ 1257      73656E64 
+ 1257      746F5F69 
+ 1257      663A2069 
+ 1257      6E76616C 
+ 1258              		.section	.rodata.udp_sendto_if_src.str1.4,"aMS",%progbits,1
+ 1259              		.align	2
+ARM GAS  /tmp/ccBMLpuw.s 			page 24
+
+
+ 1260              	.LC8:
+ 1261 0000 7564705F 		.ascii	"udp_sendto_if_src: invalid pcb\000"
+ 1261      73656E64 
+ 1261      746F5F69 
+ 1261      665F7372 
+ 1261      633A2069 
+ 1262 001f 00       		.space	1
+ 1263              	.LC9:
+ 1264 0020 7564705F 		.ascii	"udp_sendto_if_src: invalid pbuf\000"
+ 1264      73656E64 
+ 1264      746F5F69 
+ 1264      665F7372 
+ 1264      633A2069 
+ 1265              	.LC10:
+ 1266 0040 7564705F 		.ascii	"udp_sendto_if_src: invalid dst_ip\000"
+ 1266      73656E64 
+ 1266      746F5F69 
+ 1266      665F7372 
+ 1266      633A2069 
+ 1267 0062 0000     		.space	2
+ 1268              	.LC11:
+ 1269 0064 7564705F 		.ascii	"udp_sendto_if_src: invalid src_ip\000"
+ 1269      73656E64 
+ 1269      746F5F69 
+ 1269      665F7372 
+ 1269      633A2069 
+ 1270 0086 0000     		.space	2
+ 1271              	.LC12:
+ 1272 0088 7564705F 		.ascii	"udp_sendto_if_src: invalid netif\000"
+ 1272      73656E64 
+ 1272      746F5F69 
+ 1272      665F7372 
+ 1272      633A2069 
+ 1273 00a9 000000   		.space	3
+ 1274              	.LC13:
+ 1275 00ac 63686563 		.ascii	"check that first pbuf can hold struct udp_hdr\000"
+ 1275      6B207468 
+ 1275      61742066 
+ 1275      69727374 
+ 1275      20706275 
+ 1276              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccBMLpuw.s 			page 25
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 udp.c
+     /tmp/ccBMLpuw.s:16     .text.udp_new_port:0000000000000000 $t
+     /tmp/ccBMLpuw.s:23     .text.udp_new_port:0000000000000000 udp_new_port
+     /tmp/ccBMLpuw.s:67     .text.udp_new_port:0000000000000044 $d
+                            *COM*:0000000000000004 udp_pcbs
+     /tmp/ccBMLpuw.s:71     .text.udp_input_local_match:0000000000000000 $t
+     /tmp/ccBMLpuw.s:77     .text.udp_input_local_match:0000000000000000 udp_input_local_match
+     /tmp/ccBMLpuw.s:164    .text.udp_input_local_match:000000000000008c $d
+     /tmp/ccBMLpuw.s:171    .text.udp_init:0000000000000000 $t
+     /tmp/ccBMLpuw.s:178    .text.udp_init:0000000000000000 udp_init
+     /tmp/ccBMLpuw.s:191    .text.udp_init:0000000000000014 $d
+     /tmp/ccBMLpuw.s:194    .text.udp_input:0000000000000000 $t
+     /tmp/ccBMLpuw.s:201    .text.udp_input:0000000000000000 udp_input
+     /tmp/ccBMLpuw.s:380    .text.udp_input:0000000000000164 $d
+     /tmp/ccBMLpuw.s:390    .text.udp_bind:0000000000000000 $t
+     /tmp/ccBMLpuw.s:397    .text.udp_bind:0000000000000000 udp_bind
+     /tmp/ccBMLpuw.s:495    .text.udp_bind:00000000000000a8 $d
+     /tmp/ccBMLpuw.s:502    .text.udp_sendto_if_src:0000000000000000 $t
+     /tmp/ccBMLpuw.s:509    .text.udp_sendto_if_src:0000000000000000 udp_sendto_if_src
+     /tmp/ccBMLpuw.s:658    .text.udp_sendto_if_src:0000000000000154 $d
+     /tmp/ccBMLpuw.s:668    .text.udp_sendto_if:0000000000000000 $t
+     /tmp/ccBMLpuw.s:675    .text.udp_sendto_if:0000000000000000 udp_sendto_if
+     /tmp/ccBMLpuw.s:744    .text.udp_sendto_if:000000000000008c $d
+     /tmp/ccBMLpuw.s:752    .text.udp_sendto:0000000000000000 $t
+     /tmp/ccBMLpuw.s:759    .text.udp_sendto:0000000000000000 udp_sendto
+     /tmp/ccBMLpuw.s:820    .text.udp_sendto:0000000000000078 $d
+     /tmp/ccBMLpuw.s:827    .text.udp_send:0000000000000000 $t
+     /tmp/ccBMLpuw.s:834    .text.udp_send:0000000000000000 udp_send
+     /tmp/ccBMLpuw.s:864    .text.udp_send:0000000000000038 $d
+     /tmp/ccBMLpuw.s:870    .text.udp_bind_netif:0000000000000000 $t
+     /tmp/ccBMLpuw.s:877    .text.udp_bind_netif:0000000000000000 udp_bind_netif
+     /tmp/ccBMLpuw.s:892    .text.udp_connect:0000000000000000 $t
+     /tmp/ccBMLpuw.s:899    .text.udp_connect:0000000000000000 udp_connect
+     /tmp/ccBMLpuw.s:963    .text.udp_connect:0000000000000074 $d
+     /tmp/ccBMLpuw.s:970    .text.udp_disconnect:0000000000000000 $t
+     /tmp/ccBMLpuw.s:977    .text.udp_disconnect:0000000000000000 udp_disconnect
+     /tmp/ccBMLpuw.s:1001   .text.udp_disconnect:0000000000000028 $d
+     /tmp/ccBMLpuw.s:1006   .text.udp_recv:0000000000000000 $t
+     /tmp/ccBMLpuw.s:1013   .text.udp_recv:0000000000000000 udp_recv
+     /tmp/ccBMLpuw.s:1032   .text.udp_recv:000000000000001c $d
+     /tmp/ccBMLpuw.s:1037   .text.udp_remove:0000000000000000 $t
+     /tmp/ccBMLpuw.s:1044   .text.udp_remove:0000000000000000 udp_remove
+     /tmp/ccBMLpuw.s:1087   .text.udp_remove:0000000000000044 $d
+     /tmp/ccBMLpuw.s:1093   .text.udp_new:0000000000000000 $t
+     /tmp/ccBMLpuw.s:1100   .text.udp_new:0000000000000000 udp_new
+     /tmp/ccBMLpuw.s:1118   .text.udp_new_ip_type:0000000000000000 $t
+     /tmp/ccBMLpuw.s:1125   .text.udp_new_ip_type:0000000000000000 udp_new_ip_type
+     /tmp/ccBMLpuw.s:1133   .text.udp_netif_ip_addr_changed:0000000000000000 $t
+     /tmp/ccBMLpuw.s:1140   .text.udp_netif_ip_addr_changed:0000000000000000 udp_netif_ip_addr_changed
+     /tmp/ccBMLpuw.s:1177   .text.udp_netif_ip_addr_changed:0000000000000034 $d
+     /tmp/ccBMLpuw.s:1181   .data.udp_port:0000000000000000 $d
+     /tmp/ccBMLpuw.s:1185   .data.udp_port:0000000000000000 udp_port
+     /tmp/ccBMLpuw.s:1188   .rodata.udp_bind.str1.4:0000000000000000 $d
+     /tmp/ccBMLpuw.s:1192   .rodata.udp_connect.str1.4:0000000000000000 $d
+     /tmp/ccBMLpuw.s:1199   .rodata.udp_disconnect.str1.4:0000000000000000 $d
+     /tmp/ccBMLpuw.s:1203   .rodata.udp_input.str1.4:0000000000000000 $d
+ARM GAS  /tmp/ccBMLpuw.s 			page 26
+
+
+     /tmp/ccBMLpuw.s:1212   .rodata.udp_input_local_match.str1.4:0000000000000000 $d
+     /tmp/ccBMLpuw.s:1223   .rodata.udp_recv.str1.4:0000000000000000 $d
+     /tmp/ccBMLpuw.s:1227   .rodata.udp_remove.str1.4:0000000000000000 $d
+     /tmp/ccBMLpuw.s:1231   .rodata.udp_send.str1.4:0000000000000000 $d
+     /tmp/ccBMLpuw.s:1238   .rodata.udp_sendto.str1.4:0000000000000000 $d
+     /tmp/ccBMLpuw.s:1247   .rodata.udp_sendto_if.str1.4:0000000000000000 $d
+     /tmp/ccBMLpuw.s:1259   .rodata.udp_sendto_if_src.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+printf
+ip_data
+rand
+ip4_addr_isbroadcast_u32
+lwip_htons
+pbuf_free
+pbuf_remove_header
+pbuf_header_force
+icmp_dest_unreach
+ip_addr_any
+pbuf_add_header
+ip4_output_if_src
+pbuf_alloc
+pbuf_chain
+netif_get_by_index
+ip4_route
+memp_free
+memp_malloc
+memset

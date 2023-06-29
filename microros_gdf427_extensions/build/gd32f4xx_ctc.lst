@@ -1,0 +1,625 @@
+ARM GAS  /tmp/ccgmioMs.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_ctc.c"
+  14              		.text
+  15              		.section	.text.ctc_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	ctc_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	ctc_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 43F61B00 		movw	r0, #14363
+  29 0006 FFF7FEFF 		bl	rcu_periph_reset_enable
+  30 000a 43F61B00 		movw	r0, #14363
+  31 000e FFF7FEFF 		bl	rcu_periph_reset_disable
+  32 0012 08BD     		pop	{r3, pc}
+  34              		.section	.text.ctc_counter_enable,"ax",%progbits
+  35              		.align	1
+  36              		.global	ctc_counter_enable
+  37              		.syntax unified
+  38              		.thumb
+  39              		.thumb_func
+  40              		.fpu fpv4-sp-d16
+  42              	ctc_counter_enable:
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 0, uses_anonymous_args = 0
+  45              		@ link register save eliminated.
+  46 0000 024A     		ldr	r2, .L4
+  47 0002 1368     		ldr	r3, [r2]
+  48 0004 43F02003 		orr	r3, r3, #32
+  49 0008 1360     		str	r3, [r2]
+  50 000a 7047     		bx	lr
+  51              	.L5:
+  52              		.align	2
+  53              	.L4:
+  54 000c 006C0040 		.word	1073769472
+  56              		.section	.text.ctc_counter_disable,"ax",%progbits
+  57              		.align	1
+  58              		.global	ctc_counter_disable
+  59              		.syntax unified
+  60              		.thumb
+  61              		.thumb_func
+ARM GAS  /tmp/ccgmioMs.s 			page 2
+
+
+  62              		.fpu fpv4-sp-d16
+  64              	ctc_counter_disable:
+  65              		@ args = 0, pretend = 0, frame = 0
+  66              		@ frame_needed = 0, uses_anonymous_args = 0
+  67              		@ link register save eliminated.
+  68 0000 024A     		ldr	r2, .L7
+  69 0002 1368     		ldr	r3, [r2]
+  70 0004 23F02003 		bic	r3, r3, #32
+  71 0008 1360     		str	r3, [r2]
+  72 000a 7047     		bx	lr
+  73              	.L8:
+  74              		.align	2
+  75              	.L7:
+  76 000c 006C0040 		.word	1073769472
+  78              		.section	.text.ctc_irc48m_trim_value_config,"ax",%progbits
+  79              		.align	1
+  80              		.global	ctc_irc48m_trim_value_config
+  81              		.syntax unified
+  82              		.thumb
+  83              		.thumb_func
+  84              		.fpu fpv4-sp-d16
+  86              	ctc_irc48m_trim_value_config:
+  87              		@ args = 0, pretend = 0, frame = 0
+  88              		@ frame_needed = 0, uses_anonymous_args = 0
+  89              		@ link register save eliminated.
+  90 0000 044B     		ldr	r3, .L10
+  91 0002 1A68     		ldr	r2, [r3]
+  92 0004 22F47C52 		bic	r2, r2, #16128
+  93 0008 1A60     		str	r2, [r3]
+  94 000a 1A68     		ldr	r2, [r3]
+  95 000c 42EA0020 		orr	r0, r2, r0, lsl #8
+  96 0010 1860     		str	r0, [r3]
+  97 0012 7047     		bx	lr
+  98              	.L11:
+  99              		.align	2
+ 100              	.L10:
+ 101 0014 006C0040 		.word	1073769472
+ 103              		.section	.text.ctc_software_refsource_pulse_generate,"ax",%progbits
+ 104              		.align	1
+ 105              		.global	ctc_software_refsource_pulse_generate
+ 106              		.syntax unified
+ 107              		.thumb
+ 108              		.thumb_func
+ 109              		.fpu fpv4-sp-d16
+ 111              	ctc_software_refsource_pulse_generate:
+ 112              		@ args = 0, pretend = 0, frame = 0
+ 113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 114              		@ link register save eliminated.
+ 115 0000 024A     		ldr	r2, .L13
+ 116 0002 1368     		ldr	r3, [r2]
+ 117 0004 43F08003 		orr	r3, r3, #128
+ 118 0008 1360     		str	r3, [r2]
+ 119 000a 7047     		bx	lr
+ 120              	.L14:
+ 121              		.align	2
+ 122              	.L13:
+ 123 000c 006C0040 		.word	1073769472
+ARM GAS  /tmp/ccgmioMs.s 			page 3
+
+
+ 125              		.section	.text.ctc_hardware_trim_mode_config,"ax",%progbits
+ 126              		.align	1
+ 127              		.global	ctc_hardware_trim_mode_config
+ 128              		.syntax unified
+ 129              		.thumb
+ 130              		.thumb_func
+ 131              		.fpu fpv4-sp-d16
+ 133              	ctc_hardware_trim_mode_config:
+ 134              		@ args = 0, pretend = 0, frame = 0
+ 135              		@ frame_needed = 0, uses_anonymous_args = 0
+ 136              		@ link register save eliminated.
+ 137 0000 044B     		ldr	r3, .L16
+ 138 0002 1A68     		ldr	r2, [r3]
+ 139 0004 22F04002 		bic	r2, r2, #64
+ 140 0008 1A60     		str	r2, [r3]
+ 141 000a 1A68     		ldr	r2, [r3]
+ 142 000c 1043     		orrs	r0, r0, r2
+ 143 000e 1860     		str	r0, [r3]
+ 144 0010 7047     		bx	lr
+ 145              	.L17:
+ 146 0012 00BF     		.align	2
+ 147              	.L16:
+ 148 0014 006C0040 		.word	1073769472
+ 150              		.section	.text.ctc_refsource_polarity_config,"ax",%progbits
+ 151              		.align	1
+ 152              		.global	ctc_refsource_polarity_config
+ 153              		.syntax unified
+ 154              		.thumb
+ 155              		.thumb_func
+ 156              		.fpu fpv4-sp-d16
+ 158              	ctc_refsource_polarity_config:
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161              		@ link register save eliminated.
+ 162 0000 044B     		ldr	r3, .L19
+ 163 0002 1A68     		ldr	r2, [r3]
+ 164 0004 22F00042 		bic	r2, r2, #-2147483648
+ 165 0008 1A60     		str	r2, [r3]
+ 166 000a 1A68     		ldr	r2, [r3]
+ 167 000c 1043     		orrs	r0, r0, r2
+ 168 000e 1860     		str	r0, [r3]
+ 169 0010 7047     		bx	lr
+ 170              	.L20:
+ 171 0012 00BF     		.align	2
+ 172              	.L19:
+ 173 0014 046C0040 		.word	1073769476
+ 175              		.section	.text.ctc_usbsof_signal_select,"ax",%progbits
+ 176              		.align	1
+ 177              		.global	ctc_usbsof_signal_select
+ 178              		.syntax unified
+ 179              		.thumb
+ 180              		.thumb_func
+ 181              		.fpu fpv4-sp-d16
+ 183              	ctc_usbsof_signal_select:
+ 184              		@ args = 0, pretend = 0, frame = 0
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186              		@ link register save eliminated.
+ARM GAS  /tmp/ccgmioMs.s 			page 4
+
+
+ 187 0000 044B     		ldr	r3, .L22
+ 188 0002 1A68     		ldr	r2, [r3]
+ 189 0004 22F08042 		bic	r2, r2, #1073741824
+ 190 0008 1A60     		str	r2, [r3]
+ 191 000a 1A68     		ldr	r2, [r3]
+ 192 000c 1043     		orrs	r0, r0, r2
+ 193 000e 1860     		str	r0, [r3]
+ 194 0010 7047     		bx	lr
+ 195              	.L23:
+ 196 0012 00BF     		.align	2
+ 197              	.L22:
+ 198 0014 046C0040 		.word	1073769476
+ 200              		.section	.text.ctc_refsource_signal_select,"ax",%progbits
+ 201              		.align	1
+ 202              		.global	ctc_refsource_signal_select
+ 203              		.syntax unified
+ 204              		.thumb
+ 205              		.thumb_func
+ 206              		.fpu fpv4-sp-d16
+ 208              	ctc_refsource_signal_select:
+ 209              		@ args = 0, pretend = 0, frame = 0
+ 210              		@ frame_needed = 0, uses_anonymous_args = 0
+ 211              		@ link register save eliminated.
+ 212 0000 044B     		ldr	r3, .L25
+ 213 0002 1A68     		ldr	r2, [r3]
+ 214 0004 22F04052 		bic	r2, r2, #805306368
+ 215 0008 1A60     		str	r2, [r3]
+ 216 000a 1A68     		ldr	r2, [r3]
+ 217 000c 1043     		orrs	r0, r0, r2
+ 218 000e 1860     		str	r0, [r3]
+ 219 0010 7047     		bx	lr
+ 220              	.L26:
+ 221 0012 00BF     		.align	2
+ 222              	.L25:
+ 223 0014 046C0040 		.word	1073769476
+ 225              		.section	.text.ctc_refsource_prescaler_config,"ax",%progbits
+ 226              		.align	1
+ 227              		.global	ctc_refsource_prescaler_config
+ 228              		.syntax unified
+ 229              		.thumb
+ 230              		.thumb_func
+ 231              		.fpu fpv4-sp-d16
+ 233              	ctc_refsource_prescaler_config:
+ 234              		@ args = 0, pretend = 0, frame = 0
+ 235              		@ frame_needed = 0, uses_anonymous_args = 0
+ 236              		@ link register save eliminated.
+ 237 0000 044B     		ldr	r3, .L28
+ 238 0002 1A68     		ldr	r2, [r3]
+ 239 0004 22F0E062 		bic	r2, r2, #117440512
+ 240 0008 1A60     		str	r2, [r3]
+ 241 000a 1A68     		ldr	r2, [r3]
+ 242 000c 1043     		orrs	r0, r0, r2
+ 243 000e 1860     		str	r0, [r3]
+ 244 0010 7047     		bx	lr
+ 245              	.L29:
+ 246 0012 00BF     		.align	2
+ 247              	.L28:
+ARM GAS  /tmp/ccgmioMs.s 			page 5
+
+
+ 248 0014 046C0040 		.word	1073769476
+ 250              		.section	.text.ctc_clock_limit_value_config,"ax",%progbits
+ 251              		.align	1
+ 252              		.global	ctc_clock_limit_value_config
+ 253              		.syntax unified
+ 254              		.thumb
+ 255              		.thumb_func
+ 256              		.fpu fpv4-sp-d16
+ 258              	ctc_clock_limit_value_config:
+ 259              		@ args = 0, pretend = 0, frame = 0
+ 260              		@ frame_needed = 0, uses_anonymous_args = 0
+ 261              		@ link register save eliminated.
+ 262 0000 044B     		ldr	r3, .L31
+ 263 0002 1A68     		ldr	r2, [r3]
+ 264 0004 22F47F02 		bic	r2, r2, #16711680
+ 265 0008 1A60     		str	r2, [r3]
+ 266 000a 1A68     		ldr	r2, [r3]
+ 267 000c 42EA0040 		orr	r0, r2, r0, lsl #16
+ 268 0010 1860     		str	r0, [r3]
+ 269 0012 7047     		bx	lr
+ 270              	.L32:
+ 271              		.align	2
+ 272              	.L31:
+ 273 0014 046C0040 		.word	1073769476
+ 275              		.section	.text.ctc_counter_reload_value_config,"ax",%progbits
+ 276              		.align	1
+ 277              		.global	ctc_counter_reload_value_config
+ 278              		.syntax unified
+ 279              		.thumb
+ 280              		.thumb_func
+ 281              		.fpu fpv4-sp-d16
+ 283              	ctc_counter_reload_value_config:
+ 284              		@ args = 0, pretend = 0, frame = 0
+ 285              		@ frame_needed = 0, uses_anonymous_args = 0
+ 286              		@ link register save eliminated.
+ 287 0000 044A     		ldr	r2, .L34
+ 288 0002 1368     		ldr	r3, [r2]
+ 289 0004 1B0C     		lsrs	r3, r3, #16
+ 290 0006 1B04     		lsls	r3, r3, #16
+ 291 0008 1360     		str	r3, [r2]
+ 292 000a 1368     		ldr	r3, [r2]
+ 293 000c 1843     		orrs	r0, r0, r3
+ 294 000e 1060     		str	r0, [r2]
+ 295 0010 7047     		bx	lr
+ 296              	.L35:
+ 297 0012 00BF     		.align	2
+ 298              	.L34:
+ 299 0014 046C0040 		.word	1073769476
+ 301              		.section	.text.ctc_counter_capture_value_read,"ax",%progbits
+ 302              		.align	1
+ 303              		.global	ctc_counter_capture_value_read
+ 304              		.syntax unified
+ 305              		.thumb
+ 306              		.thumb_func
+ 307              		.fpu fpv4-sp-d16
+ 309              	ctc_counter_capture_value_read:
+ 310              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/ccgmioMs.s 			page 6
+
+
+ 311              		@ frame_needed = 0, uses_anonymous_args = 0
+ 312              		@ link register save eliminated.
+ 313 0000 014B     		ldr	r3, .L37
+ 314 0002 1868     		ldr	r0, [r3]
+ 315 0004 000C     		lsrs	r0, r0, #16
+ 316 0006 7047     		bx	lr
+ 317              	.L38:
+ 318              		.align	2
+ 319              	.L37:
+ 320 0008 086C0040 		.word	1073769480
+ 322              		.section	.text.ctc_counter_direction_read,"ax",%progbits
+ 323              		.align	1
+ 324              		.global	ctc_counter_direction_read
+ 325              		.syntax unified
+ 326              		.thumb
+ 327              		.thumb_func
+ 328              		.fpu fpv4-sp-d16
+ 330              	ctc_counter_direction_read:
+ 331              		@ args = 0, pretend = 0, frame = 0
+ 332              		@ frame_needed = 0, uses_anonymous_args = 0
+ 333              		@ link register save eliminated.
+ 334 0000 044B     		ldr	r3, .L42
+ 335 0002 1B68     		ldr	r3, [r3]
+ 336 0004 13F4004F 		tst	r3, #32768
+ 337 0008 01D0     		beq	.L41
+ 338 000a 0120     		movs	r0, #1
+ 339 000c 7047     		bx	lr
+ 340              	.L41:
+ 341 000e 0020     		movs	r0, #0
+ 342 0010 7047     		bx	lr
+ 343              	.L43:
+ 344 0012 00BF     		.align	2
+ 345              	.L42:
+ 346 0014 086C0040 		.word	1073769480
+ 348              		.section	.text.ctc_counter_reload_value_read,"ax",%progbits
+ 349              		.align	1
+ 350              		.global	ctc_counter_reload_value_read
+ 351              		.syntax unified
+ 352              		.thumb
+ 353              		.thumb_func
+ 354              		.fpu fpv4-sp-d16
+ 356              	ctc_counter_reload_value_read:
+ 357              		@ args = 0, pretend = 0, frame = 0
+ 358              		@ frame_needed = 0, uses_anonymous_args = 0
+ 359              		@ link register save eliminated.
+ 360 0000 014B     		ldr	r3, .L45
+ 361 0002 1868     		ldr	r0, [r3]
+ 362 0004 80B2     		uxth	r0, r0
+ 363 0006 7047     		bx	lr
+ 364              	.L46:
+ 365              		.align	2
+ 366              	.L45:
+ 367 0008 046C0040 		.word	1073769476
+ 369              		.section	.text.ctc_irc48m_trim_value_read,"ax",%progbits
+ 370              		.align	1
+ 371              		.global	ctc_irc48m_trim_value_read
+ 372              		.syntax unified
+ARM GAS  /tmp/ccgmioMs.s 			page 7
+
+
+ 373              		.thumb
+ 374              		.thumb_func
+ 375              		.fpu fpv4-sp-d16
+ 377              	ctc_irc48m_trim_value_read:
+ 378              		@ args = 0, pretend = 0, frame = 0
+ 379              		@ frame_needed = 0, uses_anonymous_args = 0
+ 380              		@ link register save eliminated.
+ 381 0000 024B     		ldr	r3, .L48
+ 382 0002 1868     		ldr	r0, [r3]
+ 383 0004 C0F30520 		ubfx	r0, r0, #8, #6
+ 384 0008 7047     		bx	lr
+ 385              	.L49:
+ 386 000a 00BF     		.align	2
+ 387              	.L48:
+ 388 000c 006C0040 		.word	1073769472
+ 390              		.section	.text.ctc_interrupt_enable,"ax",%progbits
+ 391              		.align	1
+ 392              		.global	ctc_interrupt_enable
+ 393              		.syntax unified
+ 394              		.thumb
+ 395              		.thumb_func
+ 396              		.fpu fpv4-sp-d16
+ 398              	ctc_interrupt_enable:
+ 399              		@ args = 0, pretend = 0, frame = 0
+ 400              		@ frame_needed = 0, uses_anonymous_args = 0
+ 401              		@ link register save eliminated.
+ 402 0000 024A     		ldr	r2, .L51
+ 403 0002 1368     		ldr	r3, [r2]
+ 404 0004 1843     		orrs	r0, r0, r3
+ 405 0006 1060     		str	r0, [r2]
+ 406 0008 7047     		bx	lr
+ 407              	.L52:
+ 408 000a 00BF     		.align	2
+ 409              	.L51:
+ 410 000c 006C0040 		.word	1073769472
+ 412              		.section	.text.ctc_interrupt_disable,"ax",%progbits
+ 413              		.align	1
+ 414              		.global	ctc_interrupt_disable
+ 415              		.syntax unified
+ 416              		.thumb
+ 417              		.thumb_func
+ 418              		.fpu fpv4-sp-d16
+ 420              	ctc_interrupt_disable:
+ 421              		@ args = 0, pretend = 0, frame = 0
+ 422              		@ frame_needed = 0, uses_anonymous_args = 0
+ 423              		@ link register save eliminated.
+ 424 0000 024A     		ldr	r2, .L54
+ 425 0002 1368     		ldr	r3, [r2]
+ 426 0004 23EA0000 		bic	r0, r3, r0
+ 427 0008 1060     		str	r0, [r2]
+ 428 000a 7047     		bx	lr
+ 429              	.L55:
+ 430              		.align	2
+ 431              	.L54:
+ 432 000c 006C0040 		.word	1073769472
+ 434              		.section	.text.ctc_interrupt_flag_get,"ax",%progbits
+ 435              		.align	1
+ARM GAS  /tmp/ccgmioMs.s 			page 8
+
+
+ 436              		.global	ctc_interrupt_flag_get
+ 437              		.syntax unified
+ 438              		.thumb
+ 439              		.thumb_func
+ 440              		.fpu fpv4-sp-d16
+ 442              	ctc_interrupt_flag_get:
+ 443              		@ args = 0, pretend = 0, frame = 0
+ 444              		@ frame_needed = 0, uses_anonymous_args = 0
+ 445              		@ link register save eliminated.
+ 446 0000 10F4E06F 		tst	r0, #1792
+ 447 0004 0AD0     		beq	.L57
+ 448 0006 094B     		ldr	r3, .L62
+ 449 0008 1B68     		ldr	r3, [r3]
+ 450 000a 03F00403 		and	r3, r3, #4
+ 451              	.L58:
+ 452 000e 084A     		ldr	r2, .L62+4
+ 453 0010 1268     		ldr	r2, [r2]
+ 454 0012 0242     		tst	r2, r0
+ 455 0014 06D0     		beq	.L60
+ 456 0016 3BB9     		cbnz	r3, .L61
+ 457 0018 0020     		movs	r0, #0
+ 458 001a 7047     		bx	lr
+ 459              	.L57:
+ 460 001c 034B     		ldr	r3, .L62
+ 461 001e 1B68     		ldr	r3, [r3]
+ 462 0020 0340     		ands	r3, r3, r0
+ 463 0022 F4E7     		b	.L58
+ 464              	.L60:
+ 465 0024 0020     		movs	r0, #0
+ 466 0026 7047     		bx	lr
+ 467              	.L61:
+ 468 0028 0120     		movs	r0, #1
+ 469 002a 7047     		bx	lr
+ 470              	.L63:
+ 471              		.align	2
+ 472              	.L62:
+ 473 002c 006C0040 		.word	1073769472
+ 474 0030 086C0040 		.word	1073769480
+ 476              		.section	.text.ctc_interrupt_flag_clear,"ax",%progbits
+ 477              		.align	1
+ 478              		.global	ctc_interrupt_flag_clear
+ 479              		.syntax unified
+ 480              		.thumb
+ 481              		.thumb_func
+ 482              		.fpu fpv4-sp-d16
+ 484              	ctc_interrupt_flag_clear:
+ 485              		@ args = 0, pretend = 0, frame = 0
+ 486              		@ frame_needed = 0, uses_anonymous_args = 0
+ 487              		@ link register save eliminated.
+ 488 0000 10F4E06F 		tst	r0, #1792
+ 489 0004 05D0     		beq	.L65
+ 490 0006 054A     		ldr	r2, .L67
+ 491 0008 1368     		ldr	r3, [r2]
+ 492 000a 43F00403 		orr	r3, r3, #4
+ 493 000e 1360     		str	r3, [r2]
+ 494 0010 7047     		bx	lr
+ 495              	.L65:
+ARM GAS  /tmp/ccgmioMs.s 			page 9
+
+
+ 496 0012 024A     		ldr	r2, .L67
+ 497 0014 1368     		ldr	r3, [r2]
+ 498 0016 1843     		orrs	r0, r0, r3
+ 499 0018 1060     		str	r0, [r2]
+ 500 001a 7047     		bx	lr
+ 501              	.L68:
+ 502              		.align	2
+ 503              	.L67:
+ 504 001c 0C6C0040 		.word	1073769484
+ 506              		.section	.text.ctc_flag_get,"ax",%progbits
+ 507              		.align	1
+ 508              		.global	ctc_flag_get
+ 509              		.syntax unified
+ 510              		.thumb
+ 511              		.thumb_func
+ 512              		.fpu fpv4-sp-d16
+ 514              	ctc_flag_get:
+ 515              		@ args = 0, pretend = 0, frame = 0
+ 516              		@ frame_needed = 0, uses_anonymous_args = 0
+ 517              		@ link register save eliminated.
+ 518 0000 034B     		ldr	r3, .L72
+ 519 0002 1B68     		ldr	r3, [r3]
+ 520 0004 0342     		tst	r3, r0
+ 521 0006 01D0     		beq	.L71
+ 522 0008 0120     		movs	r0, #1
+ 523 000a 7047     		bx	lr
+ 524              	.L71:
+ 525 000c 0020     		movs	r0, #0
+ 526 000e 7047     		bx	lr
+ 527              	.L73:
+ 528              		.align	2
+ 529              	.L72:
+ 530 0010 086C0040 		.word	1073769480
+ 532              		.section	.text.ctc_flag_clear,"ax",%progbits
+ 533              		.align	1
+ 534              		.global	ctc_flag_clear
+ 535              		.syntax unified
+ 536              		.thumb
+ 537              		.thumb_func
+ 538              		.fpu fpv4-sp-d16
+ 540              	ctc_flag_clear:
+ 541              		@ args = 0, pretend = 0, frame = 0
+ 542              		@ frame_needed = 0, uses_anonymous_args = 0
+ 543              		@ link register save eliminated.
+ 544 0000 10F4E06F 		tst	r0, #1792
+ 545 0004 05D0     		beq	.L75
+ 546 0006 054A     		ldr	r2, .L77
+ 547 0008 1368     		ldr	r3, [r2]
+ 548 000a 43F00403 		orr	r3, r3, #4
+ 549 000e 1360     		str	r3, [r2]
+ 550 0010 7047     		bx	lr
+ 551              	.L75:
+ 552 0012 024A     		ldr	r2, .L77
+ 553 0014 1368     		ldr	r3, [r2]
+ 554 0016 1843     		orrs	r0, r0, r3
+ 555 0018 1060     		str	r0, [r2]
+ 556 001a 7047     		bx	lr
+ARM GAS  /tmp/ccgmioMs.s 			page 10
+
+
+ 557              	.L78:
+ 558              		.align	2
+ 559              	.L77:
+ 560 001c 0C6C0040 		.word	1073769484
+ 562              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccgmioMs.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_ctc.c
+     /tmp/ccgmioMs.s:16     .text.ctc_deinit:0000000000000000 $t
+     /tmp/ccgmioMs.s:24     .text.ctc_deinit:0000000000000000 ctc_deinit
+     /tmp/ccgmioMs.s:35     .text.ctc_counter_enable:0000000000000000 $t
+     /tmp/ccgmioMs.s:42     .text.ctc_counter_enable:0000000000000000 ctc_counter_enable
+     /tmp/ccgmioMs.s:54     .text.ctc_counter_enable:000000000000000c $d
+     /tmp/ccgmioMs.s:57     .text.ctc_counter_disable:0000000000000000 $t
+     /tmp/ccgmioMs.s:64     .text.ctc_counter_disable:0000000000000000 ctc_counter_disable
+     /tmp/ccgmioMs.s:76     .text.ctc_counter_disable:000000000000000c $d
+     /tmp/ccgmioMs.s:79     .text.ctc_irc48m_trim_value_config:0000000000000000 $t
+     /tmp/ccgmioMs.s:86     .text.ctc_irc48m_trim_value_config:0000000000000000 ctc_irc48m_trim_value_config
+     /tmp/ccgmioMs.s:101    .text.ctc_irc48m_trim_value_config:0000000000000014 $d
+     /tmp/ccgmioMs.s:104    .text.ctc_software_refsource_pulse_generate:0000000000000000 $t
+     /tmp/ccgmioMs.s:111    .text.ctc_software_refsource_pulse_generate:0000000000000000 ctc_software_refsource_pulse_generate
+     /tmp/ccgmioMs.s:123    .text.ctc_software_refsource_pulse_generate:000000000000000c $d
+     /tmp/ccgmioMs.s:126    .text.ctc_hardware_trim_mode_config:0000000000000000 $t
+     /tmp/ccgmioMs.s:133    .text.ctc_hardware_trim_mode_config:0000000000000000 ctc_hardware_trim_mode_config
+     /tmp/ccgmioMs.s:148    .text.ctc_hardware_trim_mode_config:0000000000000014 $d
+     /tmp/ccgmioMs.s:151    .text.ctc_refsource_polarity_config:0000000000000000 $t
+     /tmp/ccgmioMs.s:158    .text.ctc_refsource_polarity_config:0000000000000000 ctc_refsource_polarity_config
+     /tmp/ccgmioMs.s:173    .text.ctc_refsource_polarity_config:0000000000000014 $d
+     /tmp/ccgmioMs.s:176    .text.ctc_usbsof_signal_select:0000000000000000 $t
+     /tmp/ccgmioMs.s:183    .text.ctc_usbsof_signal_select:0000000000000000 ctc_usbsof_signal_select
+     /tmp/ccgmioMs.s:198    .text.ctc_usbsof_signal_select:0000000000000014 $d
+     /tmp/ccgmioMs.s:201    .text.ctc_refsource_signal_select:0000000000000000 $t
+     /tmp/ccgmioMs.s:208    .text.ctc_refsource_signal_select:0000000000000000 ctc_refsource_signal_select
+     /tmp/ccgmioMs.s:223    .text.ctc_refsource_signal_select:0000000000000014 $d
+     /tmp/ccgmioMs.s:226    .text.ctc_refsource_prescaler_config:0000000000000000 $t
+     /tmp/ccgmioMs.s:233    .text.ctc_refsource_prescaler_config:0000000000000000 ctc_refsource_prescaler_config
+     /tmp/ccgmioMs.s:248    .text.ctc_refsource_prescaler_config:0000000000000014 $d
+     /tmp/ccgmioMs.s:251    .text.ctc_clock_limit_value_config:0000000000000000 $t
+     /tmp/ccgmioMs.s:258    .text.ctc_clock_limit_value_config:0000000000000000 ctc_clock_limit_value_config
+     /tmp/ccgmioMs.s:273    .text.ctc_clock_limit_value_config:0000000000000014 $d
+     /tmp/ccgmioMs.s:276    .text.ctc_counter_reload_value_config:0000000000000000 $t
+     /tmp/ccgmioMs.s:283    .text.ctc_counter_reload_value_config:0000000000000000 ctc_counter_reload_value_config
+     /tmp/ccgmioMs.s:299    .text.ctc_counter_reload_value_config:0000000000000014 $d
+     /tmp/ccgmioMs.s:302    .text.ctc_counter_capture_value_read:0000000000000000 $t
+     /tmp/ccgmioMs.s:309    .text.ctc_counter_capture_value_read:0000000000000000 ctc_counter_capture_value_read
+     /tmp/ccgmioMs.s:320    .text.ctc_counter_capture_value_read:0000000000000008 $d
+     /tmp/ccgmioMs.s:323    .text.ctc_counter_direction_read:0000000000000000 $t
+     /tmp/ccgmioMs.s:330    .text.ctc_counter_direction_read:0000000000000000 ctc_counter_direction_read
+     /tmp/ccgmioMs.s:346    .text.ctc_counter_direction_read:0000000000000014 $d
+     /tmp/ccgmioMs.s:349    .text.ctc_counter_reload_value_read:0000000000000000 $t
+     /tmp/ccgmioMs.s:356    .text.ctc_counter_reload_value_read:0000000000000000 ctc_counter_reload_value_read
+     /tmp/ccgmioMs.s:367    .text.ctc_counter_reload_value_read:0000000000000008 $d
+     /tmp/ccgmioMs.s:370    .text.ctc_irc48m_trim_value_read:0000000000000000 $t
+     /tmp/ccgmioMs.s:377    .text.ctc_irc48m_trim_value_read:0000000000000000 ctc_irc48m_trim_value_read
+     /tmp/ccgmioMs.s:388    .text.ctc_irc48m_trim_value_read:000000000000000c $d
+     /tmp/ccgmioMs.s:391    .text.ctc_interrupt_enable:0000000000000000 $t
+     /tmp/ccgmioMs.s:398    .text.ctc_interrupt_enable:0000000000000000 ctc_interrupt_enable
+     /tmp/ccgmioMs.s:410    .text.ctc_interrupt_enable:000000000000000c $d
+     /tmp/ccgmioMs.s:413    .text.ctc_interrupt_disable:0000000000000000 $t
+     /tmp/ccgmioMs.s:420    .text.ctc_interrupt_disable:0000000000000000 ctc_interrupt_disable
+     /tmp/ccgmioMs.s:432    .text.ctc_interrupt_disable:000000000000000c $d
+     /tmp/ccgmioMs.s:435    .text.ctc_interrupt_flag_get:0000000000000000 $t
+     /tmp/ccgmioMs.s:442    .text.ctc_interrupt_flag_get:0000000000000000 ctc_interrupt_flag_get
+ARM GAS  /tmp/ccgmioMs.s 			page 12
+
+
+     /tmp/ccgmioMs.s:473    .text.ctc_interrupt_flag_get:000000000000002c $d
+     /tmp/ccgmioMs.s:477    .text.ctc_interrupt_flag_clear:0000000000000000 $t
+     /tmp/ccgmioMs.s:484    .text.ctc_interrupt_flag_clear:0000000000000000 ctc_interrupt_flag_clear
+     /tmp/ccgmioMs.s:504    .text.ctc_interrupt_flag_clear:000000000000001c $d
+     /tmp/ccgmioMs.s:507    .text.ctc_flag_get:0000000000000000 $t
+     /tmp/ccgmioMs.s:514    .text.ctc_flag_get:0000000000000000 ctc_flag_get
+     /tmp/ccgmioMs.s:530    .text.ctc_flag_get:0000000000000010 $d
+     /tmp/ccgmioMs.s:533    .text.ctc_flag_clear:0000000000000000 $t
+     /tmp/ccgmioMs.s:540    .text.ctc_flag_clear:0000000000000000 ctc_flag_clear
+     /tmp/ccgmioMs.s:560    .text.ctc_flag_clear:000000000000001c $d
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable

@@ -1,0 +1,602 @@
+ARM GAS  /tmp/cc0xTAya.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"sys_arch.c"
+  14              		.text
+  15              		.section	.text.sys_mbox_new,"ax",%progbits
+  16              		.align	1
+  17              		.global	sys_mbox_new
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	sys_mbox_new:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 10B5     		push	{r4, lr}
+  28 0002 0446     		mov	r4, r0
+  29 0004 0846     		mov	r0, r1
+  30 0006 0022     		movs	r2, #0
+  31 0008 0421     		movs	r1, #4
+  32 000a FFF7FEFF 		bl	osMessageQueueNew
+  33 000e 2060     		str	r0, [r4]
+  34 0010 08B1     		cbz	r0, .L3
+  35 0012 0020     		movs	r0, #0
+  36              	.L2:
+  37 0014 10BD     		pop	{r4, pc}
+  38              	.L3:
+  39 0016 4FF0FF30 		mov	r0, #-1
+  40 001a FBE7     		b	.L2
+  42              		.section	.text.sys_mbox_free,"ax",%progbits
+  43              		.align	1
+  44              		.global	sys_mbox_free
+  45              		.syntax unified
+  46              		.thumb
+  47              		.thumb_func
+  48              		.fpu fpv4-sp-d16
+  50              	sys_mbox_free:
+  51              		@ args = 0, pretend = 0, frame = 0
+  52              		@ frame_needed = 0, uses_anonymous_args = 0
+  53 0000 10B5     		push	{r4, lr}
+  54 0002 0446     		mov	r4, r0
+  55 0004 0068     		ldr	r0, [r0]
+  56 0006 FFF7FEFF 		bl	osMessageQueueGetCount
+  57 000a 2068     		ldr	r0, [r4]
+  58 000c FFF7FEFF 		bl	osMessageQueueDelete
+  59 0010 10BD     		pop	{r4, pc}
+  61              		.section	.text.sys_mbox_post,"ax",%progbits
+ARM GAS  /tmp/cc0xTAya.s 			page 2
+
+
+  62              		.align	1
+  63              		.global	sys_mbox_post
+  64              		.syntax unified
+  65              		.thumb
+  66              		.thumb_func
+  67              		.fpu fpv4-sp-d16
+  69              	sys_mbox_post:
+  70              		@ args = 0, pretend = 0, frame = 8
+  71              		@ frame_needed = 0, uses_anonymous_args = 0
+  72 0000 10B5     		push	{r4, lr}
+  73 0002 82B0     		sub	sp, sp, #8
+  74 0004 0446     		mov	r4, r0
+  75 0006 0191     		str	r1, [sp, #4]
+  76              	.L8:
+  77 0008 4FF0FF33 		mov	r3, #-1
+  78 000c 0022     		movs	r2, #0
+  79 000e 01A9     		add	r1, sp, #4
+  80 0010 2068     		ldr	r0, [r4]
+  81 0012 FFF7FEFF 		bl	osMessageQueuePut
+  82 0016 0028     		cmp	r0, #0
+  83 0018 F6D1     		bne	.L8
+  84 001a 02B0     		add	sp, sp, #8
+  85              		@ sp needed
+  86 001c 10BD     		pop	{r4, pc}
+  88              		.section	.text.sys_mbox_trypost,"ax",%progbits
+  89              		.align	1
+  90              		.global	sys_mbox_trypost
+  91              		.syntax unified
+  92              		.thumb
+  93              		.thumb_func
+  94              		.fpu fpv4-sp-d16
+  96              	sys_mbox_trypost:
+  97              		@ args = 0, pretend = 0, frame = 8
+  98              		@ frame_needed = 0, uses_anonymous_args = 0
+  99 0000 00B5     		push	{lr}
+ 100 0002 83B0     		sub	sp, sp, #12
+ 101 0004 0191     		str	r1, [sp, #4]
+ 102 0006 0023     		movs	r3, #0
+ 103 0008 1A46     		mov	r2, r3
+ 104 000a 01A9     		add	r1, sp, #4
+ 105 000c 0068     		ldr	r0, [r0]
+ 106 000e FFF7FEFF 		bl	osMessageQueuePut
+ 107 0012 10B9     		cbnz	r0, .L14
+ 108              	.L11:
+ 109 0014 03B0     		add	sp, sp, #12
+ 110              		@ sp needed
+ 111 0016 5DF804FB 		ldr	pc, [sp], #4
+ 112              	.L14:
+ 113 001a 4FF0FF30 		mov	r0, #-1
+ 114 001e F9E7     		b	.L11
+ 116              		.section	.text.sys_mbox_trypost_fromisr,"ax",%progbits
+ 117              		.align	1
+ 118              		.global	sys_mbox_trypost_fromisr
+ 119              		.syntax unified
+ 120              		.thumb
+ 121              		.thumb_func
+ 122              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/cc0xTAya.s 			page 3
+
+
+ 124              	sys_mbox_trypost_fromisr:
+ 125              		@ args = 0, pretend = 0, frame = 0
+ 126              		@ frame_needed = 0, uses_anonymous_args = 0
+ 127 0000 08B5     		push	{r3, lr}
+ 128 0002 FFF7FEFF 		bl	sys_mbox_trypost
+ 129 0006 08BD     		pop	{r3, pc}
+ 131              		.section	.text.sys_arch_mbox_fetch,"ax",%progbits
+ 132              		.align	1
+ 133              		.global	sys_arch_mbox_fetch
+ 134              		.syntax unified
+ 135              		.thumb
+ 136              		.thumb_func
+ 137              		.fpu fpv4-sp-d16
+ 139              	sys_arch_mbox_fetch:
+ 140              		@ args = 0, pretend = 0, frame = 0
+ 141              		@ frame_needed = 0, uses_anonymous_args = 0
+ 142 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 143 0002 0646     		mov	r6, r0
+ 144 0004 0F46     		mov	r7, r1
+ 145 0006 1546     		mov	r5, r2
+ 146 0008 FFF7FEFF 		bl	osKernelGetTickCount
+ 147 000c 0446     		mov	r4, r0
+ 148 000e 6DB1     		cbz	r5, .L18
+ 149 0010 2B46     		mov	r3, r5
+ 150 0012 0022     		movs	r2, #0
+ 151 0014 3946     		mov	r1, r7
+ 152 0016 3068     		ldr	r0, [r6]
+ 153 0018 FFF7FEFF 		bl	osMessageQueueGet
+ 154 001c 10B1     		cbz	r0, .L22
+ 155 001e 4FF0FF30 		mov	r0, #-1
+ 156              	.L17:
+ 157 0022 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 158              	.L22:
+ 159 0024 FFF7FEFF 		bl	osKernelGetTickCount
+ 160 0028 001B     		subs	r0, r0, r4
+ 161 002a FAE7     		b	.L17
+ 162              	.L18:
+ 163 002c 4FF0FF33 		mov	r3, #-1
+ 164 0030 0022     		movs	r2, #0
+ 165 0032 3946     		mov	r1, r7
+ 166 0034 3068     		ldr	r0, [r6]
+ 167 0036 FFF7FEFF 		bl	osMessageQueueGet
+ 168 003a FFF7FEFF 		bl	osKernelGetTickCount
+ 169 003e 001B     		subs	r0, r0, r4
+ 170 0040 EFE7     		b	.L17
+ 172              		.section	.text.sys_arch_mbox_tryfetch,"ax",%progbits
+ 173              		.align	1
+ 174              		.global	sys_arch_mbox_tryfetch
+ 175              		.syntax unified
+ 176              		.thumb
+ 177              		.thumb_func
+ 178              		.fpu fpv4-sp-d16
+ 180              	sys_arch_mbox_tryfetch:
+ 181              		@ args = 0, pretend = 0, frame = 0
+ 182              		@ frame_needed = 0, uses_anonymous_args = 0
+ 183 0000 08B5     		push	{r3, lr}
+ 184 0002 0023     		movs	r3, #0
+ARM GAS  /tmp/cc0xTAya.s 			page 4
+
+
+ 185 0004 1A46     		mov	r2, r3
+ 186 0006 0068     		ldr	r0, [r0]
+ 187 0008 FFF7FEFF 		bl	osMessageQueueGet
+ 188 000c 00B9     		cbnz	r0, .L27
+ 189              	.L23:
+ 190 000e 08BD     		pop	{r3, pc}
+ 191              	.L27:
+ 192 0010 4FF0FF30 		mov	r0, #-1
+ 193 0014 FBE7     		b	.L23
+ 195              		.section	.text.sys_mbox_valid,"ax",%progbits
+ 196              		.align	1
+ 197              		.global	sys_mbox_valid
+ 198              		.syntax unified
+ 199              		.thumb
+ 200              		.thumb_func
+ 201              		.fpu fpv4-sp-d16
+ 203              	sys_mbox_valid:
+ 204              		@ args = 0, pretend = 0, frame = 0
+ 205              		@ frame_needed = 0, uses_anonymous_args = 0
+ 206              		@ link register save eliminated.
+ 207 0000 0368     		ldr	r3, [r0]
+ 208 0002 0BB1     		cbz	r3, .L31
+ 209 0004 0120     		movs	r0, #1
+ 210 0006 7047     		bx	lr
+ 211              	.L31:
+ 212 0008 0020     		movs	r0, #0
+ 213 000a 7047     		bx	lr
+ 215              		.section	.text.sys_mbox_set_invalid,"ax",%progbits
+ 216              		.align	1
+ 217              		.global	sys_mbox_set_invalid
+ 218              		.syntax unified
+ 219              		.thumb
+ 220              		.thumb_func
+ 221              		.fpu fpv4-sp-d16
+ 223              	sys_mbox_set_invalid:
+ 224              		@ args = 0, pretend = 0, frame = 0
+ 225              		@ frame_needed = 0, uses_anonymous_args = 0
+ 226              		@ link register save eliminated.
+ 227 0000 0023     		movs	r3, #0
+ 228 0002 0360     		str	r3, [r0]
+ 229 0004 7047     		bx	lr
+ 231              		.section	.text.sys_sem_new,"ax",%progbits
+ 232              		.align	1
+ 233              		.global	sys_sem_new
+ 234              		.syntax unified
+ 235              		.thumb
+ 236              		.thumb_func
+ 237              		.fpu fpv4-sp-d16
+ 239              	sys_sem_new:
+ 240              		@ args = 0, pretend = 0, frame = 0
+ 241              		@ frame_needed = 0, uses_anonymous_args = 0
+ 242 0000 38B5     		push	{r3, r4, r5, lr}
+ 243 0002 0446     		mov	r4, r0
+ 244 0004 0D46     		mov	r5, r1
+ 245 0006 0022     		movs	r2, #0
+ 246 0008 4FF6FF70 		movw	r0, #65535
+ 247 000c FFF7FEFF 		bl	osSemaphoreNew
+ARM GAS  /tmp/cc0xTAya.s 			page 5
+
+
+ 248 0010 2060     		str	r0, [r4]
+ 249 0012 38B1     		cbz	r0, .L35
+ 250 0014 0DB1     		cbz	r5, .L38
+ 251 0016 0020     		movs	r0, #0
+ 252              	.L34:
+ 253 0018 38BD     		pop	{r3, r4, r5, pc}
+ 254              	.L38:
+ 255 001a 0021     		movs	r1, #0
+ 256 001c FFF7FEFF 		bl	osSemaphoreAcquire
+ 257 0020 0020     		movs	r0, #0
+ 258 0022 F9E7     		b	.L34
+ 259              	.L35:
+ 260 0024 4FF0FF30 		mov	r0, #-1
+ 261 0028 F6E7     		b	.L34
+ 263              		.section	.text.sys_arch_sem_wait,"ax",%progbits
+ 264              		.align	1
+ 265              		.global	sys_arch_sem_wait
+ 266              		.syntax unified
+ 267              		.thumb
+ 268              		.thumb_func
+ 269              		.fpu fpv4-sp-d16
+ 271              	sys_arch_sem_wait:
+ 272              		@ args = 0, pretend = 0, frame = 0
+ 273              		@ frame_needed = 0, uses_anonymous_args = 0
+ 274 0000 70B5     		push	{r4, r5, r6, lr}
+ 275 0002 0446     		mov	r4, r0
+ 276 0004 0E46     		mov	r6, r1
+ 277 0006 FFF7FEFF 		bl	osKernelGetTickCount
+ 278 000a 0546     		mov	r5, r0
+ 279 000c 56B9     		cbnz	r6, .L44
+ 280              	.L40:
+ 281 000e 4FF0FF31 		mov	r1, #-1
+ 282 0012 2068     		ldr	r0, [r4]
+ 283 0014 FFF7FEFF 		bl	osSemaphoreAcquire
+ 284 0018 0028     		cmp	r0, #0
+ 285 001a F8D1     		bne	.L40
+ 286 001c FFF7FEFF 		bl	osKernelGetTickCount
+ 287 0020 401B     		subs	r0, r0, r5
+ 288              	.L39:
+ 289 0022 70BD     		pop	{r4, r5, r6, pc}
+ 290              	.L44:
+ 291 0024 3146     		mov	r1, r6
+ 292 0026 2068     		ldr	r0, [r4]
+ 293 0028 FFF7FEFF 		bl	osSemaphoreAcquire
+ 294 002c 10B1     		cbz	r0, .L45
+ 295 002e 4FF0FF30 		mov	r0, #-1
+ 296 0032 F6E7     		b	.L39
+ 297              	.L45:
+ 298 0034 FFF7FEFF 		bl	osKernelGetTickCount
+ 299 0038 401B     		subs	r0, r0, r5
+ 300 003a F2E7     		b	.L39
+ 302              		.section	.text.sys_sem_signal,"ax",%progbits
+ 303              		.align	1
+ 304              		.global	sys_sem_signal
+ 305              		.syntax unified
+ 306              		.thumb
+ 307              		.thumb_func
+ARM GAS  /tmp/cc0xTAya.s 			page 6
+
+
+ 308              		.fpu fpv4-sp-d16
+ 310              	sys_sem_signal:
+ 311              		@ args = 0, pretend = 0, frame = 0
+ 312              		@ frame_needed = 0, uses_anonymous_args = 0
+ 313 0000 08B5     		push	{r3, lr}
+ 314 0002 0068     		ldr	r0, [r0]
+ 315 0004 FFF7FEFF 		bl	osSemaphoreRelease
+ 316 0008 08BD     		pop	{r3, pc}
+ 318              		.section	.text.sys_sem_free,"ax",%progbits
+ 319              		.align	1
+ 320              		.global	sys_sem_free
+ 321              		.syntax unified
+ 322              		.thumb
+ 323              		.thumb_func
+ 324              		.fpu fpv4-sp-d16
+ 326              	sys_sem_free:
+ 327              		@ args = 0, pretend = 0, frame = 0
+ 328              		@ frame_needed = 0, uses_anonymous_args = 0
+ 329 0000 08B5     		push	{r3, lr}
+ 330 0002 0068     		ldr	r0, [r0]
+ 331 0004 FFF7FEFF 		bl	osSemaphoreDelete
+ 332 0008 08BD     		pop	{r3, pc}
+ 334              		.section	.text.sys_sem_valid,"ax",%progbits
+ 335              		.align	1
+ 336              		.global	sys_sem_valid
+ 337              		.syntax unified
+ 338              		.thumb
+ 339              		.thumb_func
+ 340              		.fpu fpv4-sp-d16
+ 342              	sys_sem_valid:
+ 343              		@ args = 0, pretend = 0, frame = 0
+ 344              		@ frame_needed = 0, uses_anonymous_args = 0
+ 345              		@ link register save eliminated.
+ 346 0000 0368     		ldr	r3, [r0]
+ 347 0002 0BB1     		cbz	r3, .L53
+ 348 0004 0120     		movs	r0, #1
+ 349 0006 7047     		bx	lr
+ 350              	.L53:
+ 351 0008 0020     		movs	r0, #0
+ 352 000a 7047     		bx	lr
+ 354              		.section	.text.sys_sem_set_invalid,"ax",%progbits
+ 355              		.align	1
+ 356              		.global	sys_sem_set_invalid
+ 357              		.syntax unified
+ 358              		.thumb
+ 359              		.thumb_func
+ 360              		.fpu fpv4-sp-d16
+ 362              	sys_sem_set_invalid:
+ 363              		@ args = 0, pretend = 0, frame = 0
+ 364              		@ frame_needed = 0, uses_anonymous_args = 0
+ 365              		@ link register save eliminated.
+ 366 0000 0023     		movs	r3, #0
+ 367 0002 0360     		str	r3, [r0]
+ 368 0004 7047     		bx	lr
+ 370              		.section	.text.sys_init,"ax",%progbits
+ 371              		.align	1
+ 372              		.global	sys_init
+ARM GAS  /tmp/cc0xTAya.s 			page 7
+
+
+ 373              		.syntax unified
+ 374              		.thumb
+ 375              		.thumb_func
+ 376              		.fpu fpv4-sp-d16
+ 378              	sys_init:
+ 379              		@ args = 0, pretend = 0, frame = 0
+ 380              		@ frame_needed = 0, uses_anonymous_args = 0
+ 381 0000 08B5     		push	{r3, lr}
+ 382 0002 0020     		movs	r0, #0
+ 383 0004 FFF7FEFF 		bl	osMutexNew
+ 384 0008 014B     		ldr	r3, .L57
+ 385 000a 1860     		str	r0, [r3]
+ 386 000c 08BD     		pop	{r3, pc}
+ 387              	.L58:
+ 388 000e 00BF     		.align	2
+ 389              	.L57:
+ 390 0010 00000000 		.word	lwip_sys_mutex
+ 392              		.section	.text.sys_mutex_new,"ax",%progbits
+ 393              		.align	1
+ 394              		.global	sys_mutex_new
+ 395              		.syntax unified
+ 396              		.thumb
+ 397              		.thumb_func
+ 398              		.fpu fpv4-sp-d16
+ 400              	sys_mutex_new:
+ 401              		@ args = 0, pretend = 0, frame = 0
+ 402              		@ frame_needed = 0, uses_anonymous_args = 0
+ 403 0000 10B5     		push	{r4, lr}
+ 404 0002 0446     		mov	r4, r0
+ 405 0004 0020     		movs	r0, #0
+ 406 0006 FFF7FEFF 		bl	osMutexNew
+ 407 000a 2060     		str	r0, [r4]
+ 408 000c 08B1     		cbz	r0, .L61
+ 409 000e 0020     		movs	r0, #0
+ 410              	.L60:
+ 411 0010 10BD     		pop	{r4, pc}
+ 412              	.L61:
+ 413 0012 4FF0FF30 		mov	r0, #-1
+ 414 0016 FBE7     		b	.L60
+ 416              		.section	.text.sys_mutex_free,"ax",%progbits
+ 417              		.align	1
+ 418              		.global	sys_mutex_free
+ 419              		.syntax unified
+ 420              		.thumb
+ 421              		.thumb_func
+ 422              		.fpu fpv4-sp-d16
+ 424              	sys_mutex_free:
+ 425              		@ args = 0, pretend = 0, frame = 0
+ 426              		@ frame_needed = 0, uses_anonymous_args = 0
+ 427 0000 08B5     		push	{r3, lr}
+ 428 0002 0068     		ldr	r0, [r0]
+ 429 0004 FFF7FEFF 		bl	osMutexDelete
+ 430 0008 08BD     		pop	{r3, pc}
+ 432              		.section	.text.sys_mutex_lock,"ax",%progbits
+ 433              		.align	1
+ 434              		.global	sys_mutex_lock
+ 435              		.syntax unified
+ARM GAS  /tmp/cc0xTAya.s 			page 8
+
+
+ 436              		.thumb
+ 437              		.thumb_func
+ 438              		.fpu fpv4-sp-d16
+ 440              	sys_mutex_lock:
+ 441              		@ args = 0, pretend = 0, frame = 0
+ 442              		@ frame_needed = 0, uses_anonymous_args = 0
+ 443 0000 08B5     		push	{r3, lr}
+ 444 0002 4FF0FF31 		mov	r1, #-1
+ 445 0006 0068     		ldr	r0, [r0]
+ 446 0008 FFF7FEFF 		bl	osMutexAcquire
+ 447 000c 08BD     		pop	{r3, pc}
+ 449              		.section	.text.sys_mutex_unlock,"ax",%progbits
+ 450              		.align	1
+ 451              		.global	sys_mutex_unlock
+ 452              		.syntax unified
+ 453              		.thumb
+ 454              		.thumb_func
+ 455              		.fpu fpv4-sp-d16
+ 457              	sys_mutex_unlock:
+ 458              		@ args = 0, pretend = 0, frame = 0
+ 459              		@ frame_needed = 0, uses_anonymous_args = 0
+ 460 0000 08B5     		push	{r3, lr}
+ 461 0002 0068     		ldr	r0, [r0]
+ 462 0004 FFF7FEFF 		bl	osMutexRelease
+ 463 0008 08BD     		pop	{r3, pc}
+ 465              		.section	.text.sys_thread_new,"ax",%progbits
+ 466              		.align	1
+ 467              		.global	sys_thread_new
+ 468              		.syntax unified
+ 469              		.thumb
+ 470              		.thumb_func
+ 471              		.fpu fpv4-sp-d16
+ 473              	sys_thread_new:
+ 474              		@ args = 4, pretend = 0, frame = 40
+ 475              		@ frame_needed = 0, uses_anonymous_args = 0
+ 476 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 477 0002 8BB0     		sub	sp, sp, #44
+ 478 0004 0746     		mov	r7, r0
+ 479 0006 0C46     		mov	r4, r1
+ 480 0008 1546     		mov	r5, r2
+ 481 000a 1E46     		mov	r6, r3
+ 482 000c 2022     		movs	r2, #32
+ 483 000e 0021     		movs	r1, #0
+ 484 0010 02A8     		add	r0, sp, #8
+ 485 0012 FFF7FEFF 		bl	memset
+ 486 0016 0197     		str	r7, [sp, #4]
+ 487 0018 0696     		str	r6, [sp, #24]
+ 488 001a 109B     		ldr	r3, [sp, #64]
+ 489 001c 0793     		str	r3, [sp, #28]
+ 490 001e 01AA     		add	r2, sp, #4
+ 491 0020 2946     		mov	r1, r5
+ 492 0022 2046     		mov	r0, r4
+ 493 0024 FFF7FEFF 		bl	osThreadNew
+ 494 0028 0BB0     		add	sp, sp, #44
+ 495              		@ sp needed
+ 496 002a F0BD     		pop	{r4, r5, r6, r7, pc}
+ 498              		.section	.text.sys_arch_protect,"ax",%progbits
+ARM GAS  /tmp/cc0xTAya.s 			page 9
+
+
+ 499              		.align	1
+ 500              		.global	sys_arch_protect
+ 501              		.syntax unified
+ 502              		.thumb
+ 503              		.thumb_func
+ 504              		.fpu fpv4-sp-d16
+ 506              	sys_arch_protect:
+ 507              		@ args = 0, pretend = 0, frame = 0
+ 508              		@ frame_needed = 0, uses_anonymous_args = 0
+ 509 0000 08B5     		push	{r3, lr}
+ 510 0002 4FF0FF31 		mov	r1, #-1
+ 511 0006 034B     		ldr	r3, .L73
+ 512 0008 1868     		ldr	r0, [r3]
+ 513 000a FFF7FEFF 		bl	osMutexAcquire
+ 514 000e 0120     		movs	r0, #1
+ 515 0010 08BD     		pop	{r3, pc}
+ 516              	.L74:
+ 517 0012 00BF     		.align	2
+ 518              	.L73:
+ 519 0014 00000000 		.word	lwip_sys_mutex
+ 521              		.section	.text.sys_arch_unprotect,"ax",%progbits
+ 522              		.align	1
+ 523              		.global	sys_arch_unprotect
+ 524              		.syntax unified
+ 525              		.thumb
+ 526              		.thumb_func
+ 527              		.fpu fpv4-sp-d16
+ 529              	sys_arch_unprotect:
+ 530              		@ args = 0, pretend = 0, frame = 0
+ 531              		@ frame_needed = 0, uses_anonymous_args = 0
+ 532 0000 08B5     		push	{r3, lr}
+ 533 0002 024B     		ldr	r3, .L77
+ 534 0004 1868     		ldr	r0, [r3]
+ 535 0006 FFF7FEFF 		bl	osMutexRelease
+ 536 000a 08BD     		pop	{r3, pc}
+ 537              	.L78:
+ 538              		.align	2
+ 539              	.L77:
+ 540 000c 00000000 		.word	lwip_sys_mutex
+ 542              		.comm	lwip_sys_mutex,4,4
+ 543              		.comm	errno,4,4
+ 544              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/cc0xTAya.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 sys_arch.c
+     /tmp/cc0xTAya.s:16     .text.sys_mbox_new:0000000000000000 $t
+     /tmp/cc0xTAya.s:24     .text.sys_mbox_new:0000000000000000 sys_mbox_new
+     /tmp/cc0xTAya.s:43     .text.sys_mbox_free:0000000000000000 $t
+     /tmp/cc0xTAya.s:50     .text.sys_mbox_free:0000000000000000 sys_mbox_free
+     /tmp/cc0xTAya.s:62     .text.sys_mbox_post:0000000000000000 $t
+     /tmp/cc0xTAya.s:69     .text.sys_mbox_post:0000000000000000 sys_mbox_post
+     /tmp/cc0xTAya.s:89     .text.sys_mbox_trypost:0000000000000000 $t
+     /tmp/cc0xTAya.s:96     .text.sys_mbox_trypost:0000000000000000 sys_mbox_trypost
+     /tmp/cc0xTAya.s:117    .text.sys_mbox_trypost_fromisr:0000000000000000 $t
+     /tmp/cc0xTAya.s:124    .text.sys_mbox_trypost_fromisr:0000000000000000 sys_mbox_trypost_fromisr
+     /tmp/cc0xTAya.s:132    .text.sys_arch_mbox_fetch:0000000000000000 $t
+     /tmp/cc0xTAya.s:139    .text.sys_arch_mbox_fetch:0000000000000000 sys_arch_mbox_fetch
+     /tmp/cc0xTAya.s:173    .text.sys_arch_mbox_tryfetch:0000000000000000 $t
+     /tmp/cc0xTAya.s:180    .text.sys_arch_mbox_tryfetch:0000000000000000 sys_arch_mbox_tryfetch
+     /tmp/cc0xTAya.s:196    .text.sys_mbox_valid:0000000000000000 $t
+     /tmp/cc0xTAya.s:203    .text.sys_mbox_valid:0000000000000000 sys_mbox_valid
+     /tmp/cc0xTAya.s:216    .text.sys_mbox_set_invalid:0000000000000000 $t
+     /tmp/cc0xTAya.s:223    .text.sys_mbox_set_invalid:0000000000000000 sys_mbox_set_invalid
+     /tmp/cc0xTAya.s:232    .text.sys_sem_new:0000000000000000 $t
+     /tmp/cc0xTAya.s:239    .text.sys_sem_new:0000000000000000 sys_sem_new
+     /tmp/cc0xTAya.s:264    .text.sys_arch_sem_wait:0000000000000000 $t
+     /tmp/cc0xTAya.s:271    .text.sys_arch_sem_wait:0000000000000000 sys_arch_sem_wait
+     /tmp/cc0xTAya.s:303    .text.sys_sem_signal:0000000000000000 $t
+     /tmp/cc0xTAya.s:310    .text.sys_sem_signal:0000000000000000 sys_sem_signal
+     /tmp/cc0xTAya.s:319    .text.sys_sem_free:0000000000000000 $t
+     /tmp/cc0xTAya.s:326    .text.sys_sem_free:0000000000000000 sys_sem_free
+     /tmp/cc0xTAya.s:335    .text.sys_sem_valid:0000000000000000 $t
+     /tmp/cc0xTAya.s:342    .text.sys_sem_valid:0000000000000000 sys_sem_valid
+     /tmp/cc0xTAya.s:355    .text.sys_sem_set_invalid:0000000000000000 $t
+     /tmp/cc0xTAya.s:362    .text.sys_sem_set_invalid:0000000000000000 sys_sem_set_invalid
+     /tmp/cc0xTAya.s:371    .text.sys_init:0000000000000000 $t
+     /tmp/cc0xTAya.s:378    .text.sys_init:0000000000000000 sys_init
+     /tmp/cc0xTAya.s:390    .text.sys_init:0000000000000010 $d
+                            *COM*:0000000000000004 lwip_sys_mutex
+     /tmp/cc0xTAya.s:393    .text.sys_mutex_new:0000000000000000 $t
+     /tmp/cc0xTAya.s:400    .text.sys_mutex_new:0000000000000000 sys_mutex_new
+     /tmp/cc0xTAya.s:417    .text.sys_mutex_free:0000000000000000 $t
+     /tmp/cc0xTAya.s:424    .text.sys_mutex_free:0000000000000000 sys_mutex_free
+     /tmp/cc0xTAya.s:433    .text.sys_mutex_lock:0000000000000000 $t
+     /tmp/cc0xTAya.s:440    .text.sys_mutex_lock:0000000000000000 sys_mutex_lock
+     /tmp/cc0xTAya.s:450    .text.sys_mutex_unlock:0000000000000000 $t
+     /tmp/cc0xTAya.s:457    .text.sys_mutex_unlock:0000000000000000 sys_mutex_unlock
+     /tmp/cc0xTAya.s:466    .text.sys_thread_new:0000000000000000 $t
+     /tmp/cc0xTAya.s:473    .text.sys_thread_new:0000000000000000 sys_thread_new
+     /tmp/cc0xTAya.s:499    .text.sys_arch_protect:0000000000000000 $t
+     /tmp/cc0xTAya.s:506    .text.sys_arch_protect:0000000000000000 sys_arch_protect
+     /tmp/cc0xTAya.s:519    .text.sys_arch_protect:0000000000000014 $d
+     /tmp/cc0xTAya.s:522    .text.sys_arch_unprotect:0000000000000000 $t
+     /tmp/cc0xTAya.s:529    .text.sys_arch_unprotect:0000000000000000 sys_arch_unprotect
+     /tmp/cc0xTAya.s:540    .text.sys_arch_unprotect:000000000000000c $d
+                            *COM*:0000000000000004 errno
+
+UNDEFINED SYMBOLS
+osMessageQueueNew
+osMessageQueueGetCount
+ARM GAS  /tmp/cc0xTAya.s 			page 11
+
+
+osMessageQueueDelete
+osMessageQueuePut
+osKernelGetTickCount
+osMessageQueueGet
+osSemaphoreNew
+osSemaphoreAcquire
+osSemaphoreRelease
+osSemaphoreDelete
+osMutexNew
+osMutexDelete
+osMutexAcquire
+osMutexRelease
+memset
+osThreadNew

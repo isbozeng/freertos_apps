@@ -1,0 +1,1043 @@
+ARM GAS  /tmp/cc4wskxx.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_ipa.c"
+  14              		.text
+  15              		.section	.text.ipa_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	ipa_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	ipa_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 40F21740 		movw	r0, #1047
+  29 0006 FFF7FEFF 		bl	rcu_periph_reset_enable
+  30 000a 40F21740 		movw	r0, #1047
+  31 000e FFF7FEFF 		bl	rcu_periph_reset_disable
+  32 0012 08BD     		pop	{r3, pc}
+  34              		.section	.text.ipa_transfer_enable,"ax",%progbits
+  35              		.align	1
+  36              		.global	ipa_transfer_enable
+  37              		.syntax unified
+  38              		.thumb
+  39              		.thumb_func
+  40              		.fpu fpv4-sp-d16
+  42              	ipa_transfer_enable:
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 0, uses_anonymous_args = 0
+  45              		@ link register save eliminated.
+  46 0000 024A     		ldr	r2, .L4
+  47 0002 1368     		ldr	r3, [r2]
+  48 0004 43F00103 		orr	r3, r3, #1
+  49 0008 1360     		str	r3, [r2]
+  50 000a 7047     		bx	lr
+  51              	.L5:
+  52              		.align	2
+  53              	.L4:
+  54 000c 00B00240 		.word	1073917952
+  56              		.section	.text.ipa_transfer_hangup_enable,"ax",%progbits
+  57              		.align	1
+  58              		.global	ipa_transfer_hangup_enable
+  59              		.syntax unified
+  60              		.thumb
+  61              		.thumb_func
+ARM GAS  /tmp/cc4wskxx.s 			page 2
+
+
+  62              		.fpu fpv4-sp-d16
+  64              	ipa_transfer_hangup_enable:
+  65              		@ args = 0, pretend = 0, frame = 0
+  66              		@ frame_needed = 0, uses_anonymous_args = 0
+  67              		@ link register save eliminated.
+  68 0000 024A     		ldr	r2, .L7
+  69 0002 1368     		ldr	r3, [r2]
+  70 0004 43F00203 		orr	r3, r3, #2
+  71 0008 1360     		str	r3, [r2]
+  72 000a 7047     		bx	lr
+  73              	.L8:
+  74              		.align	2
+  75              	.L7:
+  76 000c 00B00240 		.word	1073917952
+  78              		.section	.text.ipa_transfer_hangup_disable,"ax",%progbits
+  79              		.align	1
+  80              		.global	ipa_transfer_hangup_disable
+  81              		.syntax unified
+  82              		.thumb
+  83              		.thumb_func
+  84              		.fpu fpv4-sp-d16
+  86              	ipa_transfer_hangup_disable:
+  87              		@ args = 0, pretend = 0, frame = 0
+  88              		@ frame_needed = 0, uses_anonymous_args = 0
+  89              		@ link register save eliminated.
+  90 0000 024A     		ldr	r2, .L10
+  91 0002 1368     		ldr	r3, [r2]
+  92 0004 23F00203 		bic	r3, r3, #2
+  93 0008 1360     		str	r3, [r2]
+  94 000a 7047     		bx	lr
+  95              	.L11:
+  96              		.align	2
+  97              	.L10:
+  98 000c 00B00240 		.word	1073917952
+ 100              		.section	.text.ipa_transfer_stop_enable,"ax",%progbits
+ 101              		.align	1
+ 102              		.global	ipa_transfer_stop_enable
+ 103              		.syntax unified
+ 104              		.thumb
+ 105              		.thumb_func
+ 106              		.fpu fpv4-sp-d16
+ 108              	ipa_transfer_stop_enable:
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111              		@ link register save eliminated.
+ 112 0000 024A     		ldr	r2, .L13
+ 113 0002 1368     		ldr	r3, [r2]
+ 114 0004 43F00403 		orr	r3, r3, #4
+ 115 0008 1360     		str	r3, [r2]
+ 116 000a 7047     		bx	lr
+ 117              	.L14:
+ 118              		.align	2
+ 119              	.L13:
+ 120 000c 00B00240 		.word	1073917952
+ 122              		.section	.text.ipa_transfer_stop_disable,"ax",%progbits
+ 123              		.align	1
+ 124              		.global	ipa_transfer_stop_disable
+ARM GAS  /tmp/cc4wskxx.s 			page 3
+
+
+ 125              		.syntax unified
+ 126              		.thumb
+ 127              		.thumb_func
+ 128              		.fpu fpv4-sp-d16
+ 130              	ipa_transfer_stop_disable:
+ 131              		@ args = 0, pretend = 0, frame = 0
+ 132              		@ frame_needed = 0, uses_anonymous_args = 0
+ 133              		@ link register save eliminated.
+ 134 0000 024A     		ldr	r2, .L16
+ 135 0002 1368     		ldr	r3, [r2]
+ 136 0004 23F00403 		bic	r3, r3, #4
+ 137 0008 1360     		str	r3, [r2]
+ 138 000a 7047     		bx	lr
+ 139              	.L17:
+ 140              		.align	2
+ 141              	.L16:
+ 142 000c 00B00240 		.word	1073917952
+ 144              		.section	.text.ipa_foreground_lut_loading_enable,"ax",%progbits
+ 145              		.align	1
+ 146              		.global	ipa_foreground_lut_loading_enable
+ 147              		.syntax unified
+ 148              		.thumb
+ 149              		.thumb_func
+ 150              		.fpu fpv4-sp-d16
+ 152              	ipa_foreground_lut_loading_enable:
+ 153              		@ args = 0, pretend = 0, frame = 0
+ 154              		@ frame_needed = 0, uses_anonymous_args = 0
+ 155              		@ link register save eliminated.
+ 156 0000 024A     		ldr	r2, .L19
+ 157 0002 1368     		ldr	r3, [r2]
+ 158 0004 43F02003 		orr	r3, r3, #32
+ 159 0008 1360     		str	r3, [r2]
+ 160 000a 7047     		bx	lr
+ 161              	.L20:
+ 162              		.align	2
+ 163              	.L19:
+ 164 000c 1CB00240 		.word	1073917980
+ 166              		.section	.text.ipa_background_lut_loading_enable,"ax",%progbits
+ 167              		.align	1
+ 168              		.global	ipa_background_lut_loading_enable
+ 169              		.syntax unified
+ 170              		.thumb
+ 171              		.thumb_func
+ 172              		.fpu fpv4-sp-d16
+ 174              	ipa_background_lut_loading_enable:
+ 175              		@ args = 0, pretend = 0, frame = 0
+ 176              		@ frame_needed = 0, uses_anonymous_args = 0
+ 177              		@ link register save eliminated.
+ 178 0000 024A     		ldr	r2, .L22
+ 179 0002 1368     		ldr	r3, [r2]
+ 180 0004 43F02003 		orr	r3, r3, #32
+ 181 0008 1360     		str	r3, [r2]
+ 182 000a 7047     		bx	lr
+ 183              	.L23:
+ 184              		.align	2
+ 185              	.L22:
+ 186 000c 24B00240 		.word	1073917988
+ARM GAS  /tmp/cc4wskxx.s 			page 4
+
+
+ 188              		.section	.text.ipa_pixel_format_convert_mode_set,"ax",%progbits
+ 189              		.align	1
+ 190              		.global	ipa_pixel_format_convert_mode_set
+ 191              		.syntax unified
+ 192              		.thumb
+ 193              		.thumb_func
+ 194              		.fpu fpv4-sp-d16
+ 196              	ipa_pixel_format_convert_mode_set:
+ 197              		@ args = 0, pretend = 0, frame = 0
+ 198              		@ frame_needed = 0, uses_anonymous_args = 0
+ 199              		@ link register save eliminated.
+ 200 0000 024A     		ldr	r2, .L25
+ 201 0002 1368     		ldr	r3, [r2]
+ 202 0004 1843     		orrs	r0, r0, r3
+ 203 0006 1060     		str	r0, [r2]
+ 204 0008 7047     		bx	lr
+ 205              	.L26:
+ 206 000a 00BF     		.align	2
+ 207              	.L25:
+ 208 000c 00B00240 		.word	1073917952
+ 210              		.section	.text.ipa_foreground_struct_para_init,"ax",%progbits
+ 211              		.align	1
+ 212              		.global	ipa_foreground_struct_para_init
+ 213              		.syntax unified
+ 214              		.thumb
+ 215              		.thumb_func
+ 216              		.fpu fpv4-sp-d16
+ 218              	ipa_foreground_struct_para_init:
+ 219              		@ args = 0, pretend = 0, frame = 0
+ 220              		@ frame_needed = 0, uses_anonymous_args = 0
+ 221              		@ link register save eliminated.
+ 222 0000 0023     		movs	r3, #0
+ 223 0002 0360     		str	r3, [r0]
+ 224 0004 4360     		str	r3, [r0, #4]
+ 225 0006 8360     		str	r3, [r0, #8]
+ 226 0008 C360     		str	r3, [r0, #12]
+ 227 000a 0361     		str	r3, [r0, #16]
+ 228 000c 4361     		str	r3, [r0, #20]
+ 229 000e 8361     		str	r3, [r0, #24]
+ 230 0010 C361     		str	r3, [r0, #28]
+ 231 0012 7047     		bx	lr
+ 233              		.section	.text.ipa_foreground_init,"ax",%progbits
+ 234              		.align	1
+ 235              		.global	ipa_foreground_init
+ 236              		.syntax unified
+ 237              		.thumb
+ 238              		.thumb_func
+ 239              		.fpu fpv4-sp-d16
+ 241              	ipa_foreground_init:
+ 242              		@ args = 0, pretend = 0, frame = 0
+ 243              		@ frame_needed = 0, uses_anonymous_args = 0
+ 244              		@ link register save eliminated.
+ 245 0000 30B4     		push	{r4, r5}
+ 246 0002 234B     		ldr	r3, .L34
+ 247 0004 1B68     		ldr	r3, [r3]
+ 248 0006 13F0010F 		tst	r3, #1
+ 249 000a 06D0     		beq	.L31
+ARM GAS  /tmp/cc4wskxx.s 			page 5
+
+
+ 250 000c 204A     		ldr	r2, .L34
+ 251 000e 1368     		ldr	r3, [r2]
+ 252 0010 23F00103 		bic	r3, r3, #1
+ 253 0014 1360     		str	r3, [r2]
+ 254 0016 0124     		movs	r4, #1
+ 255 0018 00E0     		b	.L29
+ 256              	.L31:
+ 257 001a 0024     		movs	r4, #0
+ 258              	.L29:
+ 259 001c 1D4B     		ldr	r3, .L34+4
+ 260 001e 1A68     		ldr	r2, [r3]
+ 261 0020 0022     		movs	r2, #0
+ 262 0022 1A60     		str	r2, [r3]
+ 263 0024 0268     		ldr	r2, [r0]
+ 264 0026 1A60     		str	r2, [r3]
+ 265 0028 1B4A     		ldr	r2, .L34+8
+ 266 002a 1368     		ldr	r3, [r2]
+ 267 002c 23F47F53 		bic	r3, r3, #16320
+ 268 0030 23F03F03 		bic	r3, r3, #63
+ 269 0034 1360     		str	r3, [r2]
+ 270 0036 4368     		ldr	r3, [r0, #4]
+ 271 0038 1360     		str	r3, [r2]
+ 272 003a 184B     		ldr	r3, .L34+12
+ 273 003c 1968     		ldr	r1, [r3]
+ 274 003e 184A     		ldr	r2, .L34+16
+ 275 0040 0A40     		ands	r2, r2, r1
+ 276 0042 1A60     		str	r2, [r3]
+ 277 0044 1A68     		ldr	r2, [r3]
+ 278 0046 8168     		ldr	r1, [r0, #8]
+ 279 0048 42EA0162 		orr	r2, r2, r1, lsl #24
+ 280 004c 1A60     		str	r2, [r3]
+ 281 004e 1A68     		ldr	r2, [r3]
+ 282 0050 C168     		ldr	r1, [r0, #12]
+ 283 0052 0A43     		orrs	r2, r2, r1
+ 284 0054 1A60     		str	r2, [r3]
+ 285 0056 1A68     		ldr	r2, [r3]
+ 286 0058 0169     		ldr	r1, [r0, #16]
+ 287 005a 0A43     		orrs	r2, r2, r1
+ 288 005c 1A60     		str	r2, [r3]
+ 289 005e 114A     		ldr	r2, .L34+20
+ 290 0060 1368     		ldr	r3, [r2]
+ 291 0062 03F07F43 		and	r3, r3, #-16777216
+ 292 0066 1360     		str	r3, [r2]
+ 293 0068 1168     		ldr	r1, [r2]
+ 294 006a 4569     		ldr	r5, [r0, #20]
+ 295 006c 8369     		ldr	r3, [r0, #24]
+ 296 006e 1B02     		lsls	r3, r3, #8
+ 297 0070 43EA0543 		orr	r3, r3, r5, lsl #16
+ 298 0074 C069     		ldr	r0, [r0, #28]
+ 299 0076 0343     		orrs	r3, r3, r0
+ 300 0078 0B43     		orrs	r3, r3, r1
+ 301 007a 1360     		str	r3, [r2]
+ 302 007c 0CB9     		cbnz	r4, .L33
+ 303              	.L28:
+ 304 007e 30BC     		pop	{r4, r5}
+ 305 0080 7047     		bx	lr
+ 306              	.L33:
+ARM GAS  /tmp/cc4wskxx.s 			page 6
+
+
+ 307 0082 203A     		subs	r2, r2, #32
+ 308 0084 1368     		ldr	r3, [r2]
+ 309 0086 43F00103 		orr	r3, r3, #1
+ 310 008a 1360     		str	r3, [r2]
+ 311 008c F7E7     		b	.L28
+ 312              	.L35:
+ 313 008e 00BF     		.align	2
+ 314              	.L34:
+ 315 0090 00B00240 		.word	1073917952
+ 316 0094 0CB00240 		.word	1073917964
+ 317 0098 10B00240 		.word	1073917968
+ 318 009c 1CB00240 		.word	1073917980
+ 319 00a0 F0FFFC00 		.word	16580592
+ 320 00a4 20B00240 		.word	1073917984
+ 322              		.section	.text.ipa_background_struct_para_init,"ax",%progbits
+ 323              		.align	1
+ 324              		.global	ipa_background_struct_para_init
+ 325              		.syntax unified
+ 326              		.thumb
+ 327              		.thumb_func
+ 328              		.fpu fpv4-sp-d16
+ 330              	ipa_background_struct_para_init:
+ 331              		@ args = 0, pretend = 0, frame = 0
+ 332              		@ frame_needed = 0, uses_anonymous_args = 0
+ 333              		@ link register save eliminated.
+ 334 0000 0023     		movs	r3, #0
+ 335 0002 0360     		str	r3, [r0]
+ 336 0004 4360     		str	r3, [r0, #4]
+ 337 0006 8360     		str	r3, [r0, #8]
+ 338 0008 C360     		str	r3, [r0, #12]
+ 339 000a 0361     		str	r3, [r0, #16]
+ 340 000c 4361     		str	r3, [r0, #20]
+ 341 000e 8361     		str	r3, [r0, #24]
+ 342 0010 C361     		str	r3, [r0, #28]
+ 343 0012 7047     		bx	lr
+ 345              		.section	.text.ipa_background_init,"ax",%progbits
+ 346              		.align	1
+ 347              		.global	ipa_background_init
+ 348              		.syntax unified
+ 349              		.thumb
+ 350              		.thumb_func
+ 351              		.fpu fpv4-sp-d16
+ 353              	ipa_background_init:
+ 354              		@ args = 0, pretend = 0, frame = 0
+ 355              		@ frame_needed = 0, uses_anonymous_args = 0
+ 356              		@ link register save eliminated.
+ 357 0000 30B4     		push	{r4, r5}
+ 358 0002 234B     		ldr	r3, .L43
+ 359 0004 1B68     		ldr	r3, [r3]
+ 360 0006 13F0010F 		tst	r3, #1
+ 361 000a 06D0     		beq	.L40
+ 362 000c 204A     		ldr	r2, .L43
+ 363 000e 1368     		ldr	r3, [r2]
+ 364 0010 23F00103 		bic	r3, r3, #1
+ 365 0014 1360     		str	r3, [r2]
+ 366 0016 0124     		movs	r4, #1
+ 367 0018 00E0     		b	.L38
+ARM GAS  /tmp/cc4wskxx.s 			page 7
+
+
+ 368              	.L40:
+ 369 001a 0024     		movs	r4, #0
+ 370              	.L38:
+ 371 001c 1D4B     		ldr	r3, .L43+4
+ 372 001e 1A68     		ldr	r2, [r3]
+ 373 0020 0022     		movs	r2, #0
+ 374 0022 1A60     		str	r2, [r3]
+ 375 0024 0268     		ldr	r2, [r0]
+ 376 0026 1A60     		str	r2, [r3]
+ 377 0028 1B4A     		ldr	r2, .L43+8
+ 378 002a 1368     		ldr	r3, [r2]
+ 379 002c 23F47F53 		bic	r3, r3, #16320
+ 380 0030 23F03F03 		bic	r3, r3, #63
+ 381 0034 1360     		str	r3, [r2]
+ 382 0036 4368     		ldr	r3, [r0, #4]
+ 383 0038 1360     		str	r3, [r2]
+ 384 003a 184B     		ldr	r3, .L43+12
+ 385 003c 1968     		ldr	r1, [r3]
+ 386 003e 184A     		ldr	r2, .L43+16
+ 387 0040 0A40     		ands	r2, r2, r1
+ 388 0042 1A60     		str	r2, [r3]
+ 389 0044 1A68     		ldr	r2, [r3]
+ 390 0046 8168     		ldr	r1, [r0, #8]
+ 391 0048 42EA0162 		orr	r2, r2, r1, lsl #24
+ 392 004c 1A60     		str	r2, [r3]
+ 393 004e 1A68     		ldr	r2, [r3]
+ 394 0050 C168     		ldr	r1, [r0, #12]
+ 395 0052 0A43     		orrs	r2, r2, r1
+ 396 0054 1A60     		str	r2, [r3]
+ 397 0056 1A68     		ldr	r2, [r3]
+ 398 0058 0169     		ldr	r1, [r0, #16]
+ 399 005a 0A43     		orrs	r2, r2, r1
+ 400 005c 1A60     		str	r2, [r3]
+ 401 005e 114A     		ldr	r2, .L43+20
+ 402 0060 1368     		ldr	r3, [r2]
+ 403 0062 03F07F43 		and	r3, r3, #-16777216
+ 404 0066 1360     		str	r3, [r2]
+ 405 0068 1168     		ldr	r1, [r2]
+ 406 006a 4569     		ldr	r5, [r0, #20]
+ 407 006c 8369     		ldr	r3, [r0, #24]
+ 408 006e 1B02     		lsls	r3, r3, #8
+ 409 0070 43EA0543 		orr	r3, r3, r5, lsl #16
+ 410 0074 C069     		ldr	r0, [r0, #28]
+ 411 0076 0343     		orrs	r3, r3, r0
+ 412 0078 0B43     		orrs	r3, r3, r1
+ 413 007a 1360     		str	r3, [r2]
+ 414 007c 0CB9     		cbnz	r4, .L42
+ 415              	.L37:
+ 416 007e 30BC     		pop	{r4, r5}
+ 417 0080 7047     		bx	lr
+ 418              	.L42:
+ 419 0082 283A     		subs	r2, r2, #40
+ 420 0084 1368     		ldr	r3, [r2]
+ 421 0086 43F00103 		orr	r3, r3, #1
+ 422 008a 1360     		str	r3, [r2]
+ 423 008c F7E7     		b	.L37
+ 424              	.L44:
+ARM GAS  /tmp/cc4wskxx.s 			page 8
+
+
+ 425 008e 00BF     		.align	2
+ 426              	.L43:
+ 427 0090 00B00240 		.word	1073917952
+ 428 0094 14B00240 		.word	1073917972
+ 429 0098 18B00240 		.word	1073917976
+ 430 009c 24B00240 		.word	1073917988
+ 431 00a0 F0FFFC00 		.word	16580592
+ 432 00a4 28B00240 		.word	1073917992
+ 434              		.section	.text.ipa_destination_struct_para_init,"ax",%progbits
+ 435              		.align	1
+ 436              		.global	ipa_destination_struct_para_init
+ 437              		.syntax unified
+ 438              		.thumb
+ 439              		.thumb_func
+ 440              		.fpu fpv4-sp-d16
+ 442              	ipa_destination_struct_para_init:
+ 443              		@ args = 0, pretend = 0, frame = 0
+ 444              		@ frame_needed = 0, uses_anonymous_args = 0
+ 445              		@ link register save eliminated.
+ 446 0000 0023     		movs	r3, #0
+ 447 0002 C360     		str	r3, [r0, #12]
+ 448 0004 4360     		str	r3, [r0, #4]
+ 449 0006 8360     		str	r3, [r0, #8]
+ 450 0008 0361     		str	r3, [r0, #16]
+ 451 000a 4361     		str	r3, [r0, #20]
+ 452 000c 8361     		str	r3, [r0, #24]
+ 453 000e 0360     		str	r3, [r0]
+ 454 0010 C361     		str	r3, [r0, #28]
+ 455 0012 0362     		str	r3, [r0, #32]
+ 456 0014 7047     		bx	lr
+ 458              		.section	.text.ipa_destination_init,"ax",%progbits
+ 459              		.align	1
+ 460              		.global	ipa_destination_init
+ 461              		.syntax unified
+ 462              		.thumb
+ 463              		.thumb_func
+ 464              		.fpu fpv4-sp-d16
+ 466              	ipa_destination_init:
+ 467              		@ args = 0, pretend = 0, frame = 0
+ 468              		@ frame_needed = 0, uses_anonymous_args = 0
+ 469              		@ link register save eliminated.
+ 470 0000 30B4     		push	{r4, r5}
+ 471 0002 464B     		ldr	r3, .L59
+ 472 0004 1B68     		ldr	r3, [r3]
+ 473 0006 13F0010F 		tst	r3, #1
+ 474 000a 06D0     		beq	.L56
+ 475 000c 434A     		ldr	r2, .L59
+ 476 000e 1368     		ldr	r3, [r2]
+ 477 0010 23F00103 		bic	r3, r3, #1
+ 478 0014 1360     		str	r3, [r2]
+ 479 0016 0124     		movs	r4, #1
+ 480 0018 00E0     		b	.L47
+ 481              	.L56:
+ 482 001a 0024     		movs	r4, #0
+ 483              	.L47:
+ 484 001c 404A     		ldr	r2, .L59+4
+ 485 001e 1368     		ldr	r3, [r2]
+ARM GAS  /tmp/cc4wskxx.s 			page 9
+
+
+ 486 0020 23F00703 		bic	r3, r3, #7
+ 487 0024 1360     		str	r3, [r2]
+ 488 0026 C368     		ldr	r3, [r0, #12]
+ 489 0028 1360     		str	r3, [r2]
+ 490 002a 042B     		cmp	r3, #4
+ 491 002c 13D8     		bhi	.L48
+ 492 002e DFE803F0 		tbb	[pc, r3]
+ 493              	.L50:
+ 494 0032 03       		.byte	(.L54-.L50)/2
+ 495 0033 31       		.byte	(.L53-.L50)/2
+ 496 0034 3F       		.byte	(.L52-.L50)/2
+ 497 0035 4D       		.byte	(.L51-.L50)/2
+ 498 0036 5E       		.byte	(.L49-.L50)/2
+ 499 0037 00       		.p2align 1
+ 500              	.L54:
+ 501 0038 3A4A     		ldr	r2, .L59+8
+ 502 003a 1368     		ldr	r3, [r2]
+ 503 003c 0023     		movs	r3, #0
+ 504 003e 1360     		str	r3, [r2]
+ 505 0040 8369     		ldr	r3, [r0, #24]
+ 506 0042 4169     		ldr	r1, [r0, #20]
+ 507 0044 43EA0123 		orr	r3, r3, r1, lsl #8
+ 508 0048 0169     		ldr	r1, [r0, #16]
+ 509 004a 43EA0143 		orr	r3, r3, r1, lsl #16
+ 510 004e 8168     		ldr	r1, [r0, #8]
+ 511 0050 43EA0163 		orr	r3, r3, r1, lsl #24
+ 512 0054 1360     		str	r3, [r2]
+ 513              	.L48:
+ 514 0056 344B     		ldr	r3, .L59+12
+ 515 0058 1A68     		ldr	r2, [r3]
+ 516 005a 0022     		movs	r2, #0
+ 517 005c 1A60     		str	r2, [r3]
+ 518 005e 0268     		ldr	r2, [r0]
+ 519 0060 1A60     		str	r2, [r3]
+ 520 0062 324A     		ldr	r2, .L59+16
+ 521 0064 1368     		ldr	r3, [r2]
+ 522 0066 23F47F53 		bic	r3, r3, #16320
+ 523 006a 23F03F03 		bic	r3, r3, #63
+ 524 006e 1360     		str	r3, [r2]
+ 525 0070 4368     		ldr	r3, [r0, #4]
+ 526 0072 1360     		str	r3, [r2]
+ 527 0074 2E4B     		ldr	r3, .L59+20
+ 528 0076 1A68     		ldr	r2, [r3]
+ 529 0078 02F04042 		and	r2, r2, #-1073741824
+ 530 007c 1A60     		str	r2, [r3]
+ 531 007e 1A68     		ldr	r2, [r3]
+ 532 0080 C569     		ldr	r5, [r0, #28]
+ 533 0082 016A     		ldr	r1, [r0, #32]
+ 534 0084 41EA0541 		orr	r1, r1, r5, lsl #16
+ 535 0088 0A43     		orrs	r2, r2, r1
+ 536 008a 1A60     		str	r2, [r3]
+ 537 008c 002C     		cmp	r4, #0
+ 538 008e 3FD1     		bne	.L58
+ 539              	.L46:
+ 540 0090 30BC     		pop	{r4, r5}
+ 541 0092 7047     		bx	lr
+ 542              	.L53:
+ARM GAS  /tmp/cc4wskxx.s 			page 10
+
+
+ 543 0094 234A     		ldr	r2, .L59+8
+ 544 0096 1368     		ldr	r3, [r2]
+ 545 0098 03F07F43 		and	r3, r3, #-16777216
+ 546 009c 1360     		str	r3, [r2]
+ 547 009e 8369     		ldr	r3, [r0, #24]
+ 548 00a0 4169     		ldr	r1, [r0, #20]
+ 549 00a2 43EA0123 		orr	r3, r3, r1, lsl #8
+ 550 00a6 0169     		ldr	r1, [r0, #16]
+ 551 00a8 43EA0143 		orr	r3, r3, r1, lsl #16
+ 552 00ac 1360     		str	r3, [r2]
+ 553 00ae D2E7     		b	.L48
+ 554              	.L52:
+ 555 00b0 1C4A     		ldr	r2, .L59+8
+ 556 00b2 1368     		ldr	r3, [r2]
+ 557 00b4 1B0C     		lsrs	r3, r3, #16
+ 558 00b6 1B04     		lsls	r3, r3, #16
+ 559 00b8 1360     		str	r3, [r2]
+ 560 00ba 8369     		ldr	r3, [r0, #24]
+ 561 00bc 4169     		ldr	r1, [r0, #20]
+ 562 00be 43EA4113 		orr	r3, r3, r1, lsl #5
+ 563 00c2 0169     		ldr	r1, [r0, #16]
+ 564 00c4 43EAC123 		orr	r3, r3, r1, lsl #11
+ 565 00c8 1360     		str	r3, [r2]
+ 566 00ca C4E7     		b	.L48
+ 567              	.L51:
+ 568 00cc 154A     		ldr	r2, .L59+8
+ 569 00ce 1368     		ldr	r3, [r2]
+ 570 00d0 1B0C     		lsrs	r3, r3, #16
+ 571 00d2 1B04     		lsls	r3, r3, #16
+ 572 00d4 1360     		str	r3, [r2]
+ 573 00d6 8369     		ldr	r3, [r0, #24]
+ 574 00d8 4169     		ldr	r1, [r0, #20]
+ 575 00da 43EA4113 		orr	r3, r3, r1, lsl #5
+ 576 00de 0169     		ldr	r1, [r0, #16]
+ 577 00e0 43EA8123 		orr	r3, r3, r1, lsl #10
+ 578 00e4 8168     		ldr	r1, [r0, #8]
+ 579 00e6 43EAC133 		orr	r3, r3, r1, lsl #15
+ 580 00ea 1360     		str	r3, [r2]
+ 581 00ec B3E7     		b	.L48
+ 582              	.L49:
+ 583 00ee 0D4A     		ldr	r2, .L59+8
+ 584 00f0 1368     		ldr	r3, [r2]
+ 585 00f2 1B0C     		lsrs	r3, r3, #16
+ 586 00f4 1B04     		lsls	r3, r3, #16
+ 587 00f6 1360     		str	r3, [r2]
+ 588 00f8 8369     		ldr	r3, [r0, #24]
+ 589 00fa 4169     		ldr	r1, [r0, #20]
+ 590 00fc 43EA0113 		orr	r3, r3, r1, lsl #4
+ 591 0100 0169     		ldr	r1, [r0, #16]
+ 592 0102 43EA0123 		orr	r3, r3, r1, lsl #8
+ 593 0106 8168     		ldr	r1, [r0, #8]
+ 594 0108 43EA0133 		orr	r3, r3, r1, lsl #12
+ 595 010c 1360     		str	r3, [r2]
+ 596 010e A2E7     		b	.L48
+ 597              	.L58:
+ 598 0110 024A     		ldr	r2, .L59
+ 599 0112 1368     		ldr	r3, [r2]
+ARM GAS  /tmp/cc4wskxx.s 			page 11
+
+
+ 600 0114 43F00103 		orr	r3, r3, #1
+ 601 0118 1360     		str	r3, [r2]
+ 602 011a B9E7     		b	.L46
+ 603              	.L60:
+ 604              		.align	2
+ 605              	.L59:
+ 606 011c 00B00240 		.word	1073917952
+ 607 0120 34B00240 		.word	1073918004
+ 608 0124 38B00240 		.word	1073918008
+ 609 0128 3CB00240 		.word	1073918012
+ 610 012c 40B00240 		.word	1073918016
+ 611 0130 44B00240 		.word	1073918020
+ 613              		.section	.text.ipa_foreground_lut_init,"ax",%progbits
+ 614              		.align	1
+ 615              		.global	ipa_foreground_lut_init
+ 616              		.syntax unified
+ 617              		.thumb
+ 618              		.thumb_func
+ 619              		.fpu fpv4-sp-d16
+ 621              	ipa_foreground_lut_init:
+ 622              		@ args = 0, pretend = 0, frame = 0
+ 623              		@ frame_needed = 0, uses_anonymous_args = 0
+ 624              		@ link register save eliminated.
+ 625 0000 30B4     		push	{r4, r5}
+ 626 0002 164B     		ldr	r3, .L70
+ 627 0004 1B68     		ldr	r3, [r3]
+ 628 0006 13F0200F 		tst	r3, #32
+ 629 000a 06D0     		beq	.L66
+ 630 000c 134C     		ldr	r4, .L70
+ 631 000e 2368     		ldr	r3, [r4]
+ 632 0010 23F02003 		bic	r3, r3, #32
+ 633 0014 2360     		str	r3, [r4]
+ 634 0016 0125     		movs	r5, #1
+ 635 0018 00E0     		b	.L62
+ 636              	.L66:
+ 637 001a 0025     		movs	r5, #0
+ 638              	.L62:
+ 639 001c 0F4C     		ldr	r4, .L70
+ 640 001e 2368     		ldr	r3, [r4]
+ 641 0020 43EA0023 		orr	r3, r3, r0, lsl #8
+ 642 0024 2360     		str	r3, [r4]
+ 643 0026 0129     		cmp	r1, #1
+ 644 0028 0CD0     		beq	.L68
+ 645 002a 0C49     		ldr	r1, .L70
+ 646 002c 0B68     		ldr	r3, [r1]
+ 647 002e 23F01003 		bic	r3, r3, #16
+ 648 0032 0B60     		str	r3, [r1]
+ 649              	.L64:
+ 650 0034 0A4B     		ldr	r3, .L70+4
+ 651 0036 1968     		ldr	r1, [r3]
+ 652 0038 0021     		movs	r1, #0
+ 653 003a 1960     		str	r1, [r3]
+ 654 003c 1A60     		str	r2, [r3]
+ 655 003e 35B9     		cbnz	r5, .L69
+ 656              	.L61:
+ 657 0040 30BC     		pop	{r4, r5}
+ 658 0042 7047     		bx	lr
+ARM GAS  /tmp/cc4wskxx.s 			page 12
+
+
+ 659              	.L68:
+ 660 0044 2368     		ldr	r3, [r4]
+ 661 0046 43F01003 		orr	r3, r3, #16
+ 662 004a 2360     		str	r3, [r4]
+ 663 004c F2E7     		b	.L64
+ 664              	.L69:
+ 665 004e 034A     		ldr	r2, .L70
+ 666 0050 1368     		ldr	r3, [r2]
+ 667 0052 43F02003 		orr	r3, r3, #32
+ 668 0056 1360     		str	r3, [r2]
+ 669 0058 F2E7     		b	.L61
+ 670              	.L71:
+ 671 005a 00BF     		.align	2
+ 672              	.L70:
+ 673 005c 1CB00240 		.word	1073917980
+ 674 0060 2CB00240 		.word	1073917996
+ 676              		.section	.text.ipa_background_lut_init,"ax",%progbits
+ 677              		.align	1
+ 678              		.global	ipa_background_lut_init
+ 679              		.syntax unified
+ 680              		.thumb
+ 681              		.thumb_func
+ 682              		.fpu fpv4-sp-d16
+ 684              	ipa_background_lut_init:
+ 685              		@ args = 0, pretend = 0, frame = 0
+ 686              		@ frame_needed = 0, uses_anonymous_args = 0
+ 687              		@ link register save eliminated.
+ 688 0000 30B4     		push	{r4, r5}
+ 689 0002 164B     		ldr	r3, .L81
+ 690 0004 1B68     		ldr	r3, [r3]
+ 691 0006 13F0200F 		tst	r3, #32
+ 692 000a 06D0     		beq	.L77
+ 693 000c 134C     		ldr	r4, .L81
+ 694 000e 2368     		ldr	r3, [r4]
+ 695 0010 23F02003 		bic	r3, r3, #32
+ 696 0014 2360     		str	r3, [r4]
+ 697 0016 0125     		movs	r5, #1
+ 698 0018 00E0     		b	.L73
+ 699              	.L77:
+ 700 001a 0025     		movs	r5, #0
+ 701              	.L73:
+ 702 001c 0F4C     		ldr	r4, .L81
+ 703 001e 2368     		ldr	r3, [r4]
+ 704 0020 43EA0023 		orr	r3, r3, r0, lsl #8
+ 705 0024 2360     		str	r3, [r4]
+ 706 0026 0129     		cmp	r1, #1
+ 707 0028 0CD0     		beq	.L79
+ 708 002a 0C49     		ldr	r1, .L81
+ 709 002c 0B68     		ldr	r3, [r1]
+ 710 002e 23F01003 		bic	r3, r3, #16
+ 711 0032 0B60     		str	r3, [r1]
+ 712              	.L75:
+ 713 0034 0A4B     		ldr	r3, .L81+4
+ 714 0036 1968     		ldr	r1, [r3]
+ 715 0038 0021     		movs	r1, #0
+ 716 003a 1960     		str	r1, [r3]
+ 717 003c 1A60     		str	r2, [r3]
+ARM GAS  /tmp/cc4wskxx.s 			page 13
+
+
+ 718 003e 35B9     		cbnz	r5, .L80
+ 719              	.L72:
+ 720 0040 30BC     		pop	{r4, r5}
+ 721 0042 7047     		bx	lr
+ 722              	.L79:
+ 723 0044 2368     		ldr	r3, [r4]
+ 724 0046 43F01003 		orr	r3, r3, #16
+ 725 004a 2360     		str	r3, [r4]
+ 726 004c F2E7     		b	.L75
+ 727              	.L80:
+ 728 004e 034A     		ldr	r2, .L81
+ 729 0050 1368     		ldr	r3, [r2]
+ 730 0052 43F02003 		orr	r3, r3, #32
+ 731 0056 1360     		str	r3, [r2]
+ 732 0058 F2E7     		b	.L72
+ 733              	.L82:
+ 734 005a 00BF     		.align	2
+ 735              	.L81:
+ 736 005c 24B00240 		.word	1073917988
+ 737 0060 30B00240 		.word	1073918000
+ 739              		.section	.text.ipa_line_mark_config,"ax",%progbits
+ 740              		.align	1
+ 741              		.global	ipa_line_mark_config
+ 742              		.syntax unified
+ 743              		.thumb
+ 744              		.thumb_func
+ 745              		.fpu fpv4-sp-d16
+ 747              	ipa_line_mark_config:
+ 748              		@ args = 0, pretend = 0, frame = 0
+ 749              		@ frame_needed = 0, uses_anonymous_args = 0
+ 750              		@ link register save eliminated.
+ 751 0000 034A     		ldr	r2, .L84
+ 752 0002 1368     		ldr	r3, [r2]
+ 753 0004 1B0C     		lsrs	r3, r3, #16
+ 754 0006 1B04     		lsls	r3, r3, #16
+ 755 0008 1360     		str	r3, [r2]
+ 756 000a 1060     		str	r0, [r2]
+ 757 000c 7047     		bx	lr
+ 758              	.L85:
+ 759 000e 00BF     		.align	2
+ 760              	.L84:
+ 761 0010 48B00240 		.word	1073918024
+ 763              		.section	.text.ipa_inter_timer_config,"ax",%progbits
+ 764              		.align	1
+ 765              		.global	ipa_inter_timer_config
+ 766              		.syntax unified
+ 767              		.thumb
+ 768              		.thumb_func
+ 769              		.fpu fpv4-sp-d16
+ 771              	ipa_inter_timer_config:
+ 772              		@ args = 0, pretend = 0, frame = 0
+ 773              		@ frame_needed = 0, uses_anonymous_args = 0
+ 774              		@ link register save eliminated.
+ 775 0000 0128     		cmp	r0, #1
+ 776 0002 05D0     		beq	.L89
+ 777 0004 054A     		ldr	r2, .L90
+ 778 0006 1368     		ldr	r3, [r2]
+ARM GAS  /tmp/cc4wskxx.s 			page 14
+
+
+ 779 0008 23F00103 		bic	r3, r3, #1
+ 780 000c 1360     		str	r3, [r2]
+ 781 000e 7047     		bx	lr
+ 782              	.L89:
+ 783 0010 024A     		ldr	r2, .L90
+ 784 0012 1368     		ldr	r3, [r2]
+ 785 0014 43F00103 		orr	r3, r3, #1
+ 786 0018 1360     		str	r3, [r2]
+ 787 001a 7047     		bx	lr
+ 788              	.L91:
+ 789              		.align	2
+ 790              	.L90:
+ 791 001c 4CB00240 		.word	1073918028
+ 793              		.section	.text.ipa_interval_clock_num_config,"ax",%progbits
+ 794              		.align	1
+ 795              		.global	ipa_interval_clock_num_config
+ 796              		.syntax unified
+ 797              		.thumb
+ 798              		.thumb_func
+ 799              		.fpu fpv4-sp-d16
+ 801              	ipa_interval_clock_num_config:
+ 802              		@ args = 0, pretend = 0, frame = 0
+ 803              		@ frame_needed = 0, uses_anonymous_args = 0
+ 804              		@ link register save eliminated.
+ 805 0000 044B     		ldr	r3, .L93
+ 806 0002 1A68     		ldr	r2, [r3]
+ 807 0004 22F47F42 		bic	r2, r2, #65280
+ 808 0008 1A60     		str	r2, [r3]
+ 809 000a 1A68     		ldr	r2, [r3]
+ 810 000c 42EA0020 		orr	r0, r2, r0, lsl #8
+ 811 0010 1860     		str	r0, [r3]
+ 812 0012 7047     		bx	lr
+ 813              	.L94:
+ 814              		.align	2
+ 815              	.L93:
+ 816 0014 4CB00240 		.word	1073918028
+ 818              		.section	.text.ipa_flag_get,"ax",%progbits
+ 819              		.align	1
+ 820              		.global	ipa_flag_get
+ 821              		.syntax unified
+ 822              		.thumb
+ 823              		.thumb_func
+ 824              		.fpu fpv4-sp-d16
+ 826              	ipa_flag_get:
+ 827              		@ args = 0, pretend = 0, frame = 0
+ 828              		@ frame_needed = 0, uses_anonymous_args = 0
+ 829              		@ link register save eliminated.
+ 830 0000 034B     		ldr	r3, .L98
+ 831 0002 1B68     		ldr	r3, [r3]
+ 832 0004 0342     		tst	r3, r0
+ 833 0006 01D0     		beq	.L97
+ 834 0008 0120     		movs	r0, #1
+ 835 000a 7047     		bx	lr
+ 836              	.L97:
+ 837 000c 0020     		movs	r0, #0
+ 838 000e 7047     		bx	lr
+ 839              	.L99:
+ARM GAS  /tmp/cc4wskxx.s 			page 15
+
+
+ 840              		.align	2
+ 841              	.L98:
+ 842 0010 04B00240 		.word	1073917956
+ 844              		.section	.text.ipa_flag_clear,"ax",%progbits
+ 845              		.align	1
+ 846              		.global	ipa_flag_clear
+ 847              		.syntax unified
+ 848              		.thumb
+ 849              		.thumb_func
+ 850              		.fpu fpv4-sp-d16
+ 852              	ipa_flag_clear:
+ 853              		@ args = 0, pretend = 0, frame = 0
+ 854              		@ frame_needed = 0, uses_anonymous_args = 0
+ 855              		@ link register save eliminated.
+ 856 0000 024A     		ldr	r2, .L101
+ 857 0002 1368     		ldr	r3, [r2]
+ 858 0004 1843     		orrs	r0, r0, r3
+ 859 0006 1060     		str	r0, [r2]
+ 860 0008 7047     		bx	lr
+ 861              	.L102:
+ 862 000a 00BF     		.align	2
+ 863              	.L101:
+ 864 000c 08B00240 		.word	1073917960
+ 866              		.section	.text.ipa_interrupt_enable,"ax",%progbits
+ 867              		.align	1
+ 868              		.global	ipa_interrupt_enable
+ 869              		.syntax unified
+ 870              		.thumb
+ 871              		.thumb_func
+ 872              		.fpu fpv4-sp-d16
+ 874              	ipa_interrupt_enable:
+ 875              		@ args = 0, pretend = 0, frame = 0
+ 876              		@ frame_needed = 0, uses_anonymous_args = 0
+ 877              		@ link register save eliminated.
+ 878 0000 024A     		ldr	r2, .L104
+ 879 0002 1368     		ldr	r3, [r2]
+ 880 0004 1843     		orrs	r0, r0, r3
+ 881 0006 1060     		str	r0, [r2]
+ 882 0008 7047     		bx	lr
+ 883              	.L105:
+ 884 000a 00BF     		.align	2
+ 885              	.L104:
+ 886 000c 00B00240 		.word	1073917952
+ 888              		.section	.text.ipa_interrupt_disable,"ax",%progbits
+ 889              		.align	1
+ 890              		.global	ipa_interrupt_disable
+ 891              		.syntax unified
+ 892              		.thumb
+ 893              		.thumb_func
+ 894              		.fpu fpv4-sp-d16
+ 896              	ipa_interrupt_disable:
+ 897              		@ args = 0, pretend = 0, frame = 0
+ 898              		@ frame_needed = 0, uses_anonymous_args = 0
+ 899              		@ link register save eliminated.
+ 900 0000 024A     		ldr	r2, .L107
+ 901 0002 1368     		ldr	r3, [r2]
+ 902 0004 23EA0000 		bic	r0, r3, r0
+ARM GAS  /tmp/cc4wskxx.s 			page 16
+
+
+ 903 0008 1060     		str	r0, [r2]
+ 904 000a 7047     		bx	lr
+ 905              	.L108:
+ 906              		.align	2
+ 907              	.L107:
+ 908 000c 00B00240 		.word	1073917952
+ 910              		.section	.text.ipa_interrupt_flag_get,"ax",%progbits
+ 911              		.align	1
+ 912              		.global	ipa_interrupt_flag_get
+ 913              		.syntax unified
+ 914              		.thumb
+ 915              		.thumb_func
+ 916              		.fpu fpv4-sp-d16
+ 918              	ipa_interrupt_flag_get:
+ 919              		@ args = 0, pretend = 0, frame = 0
+ 920              		@ frame_needed = 0, uses_anonymous_args = 0
+ 921              		@ link register save eliminated.
+ 922 0000 034B     		ldr	r3, .L112
+ 923 0002 1B68     		ldr	r3, [r3]
+ 924 0004 0342     		tst	r3, r0
+ 925 0006 01D0     		beq	.L111
+ 926 0008 0120     		movs	r0, #1
+ 927 000a 7047     		bx	lr
+ 928              	.L111:
+ 929 000c 0020     		movs	r0, #0
+ 930 000e 7047     		bx	lr
+ 931              	.L113:
+ 932              		.align	2
+ 933              	.L112:
+ 934 0010 04B00240 		.word	1073917956
+ 936              		.section	.text.ipa_interrupt_flag_clear,"ax",%progbits
+ 937              		.align	1
+ 938              		.global	ipa_interrupt_flag_clear
+ 939              		.syntax unified
+ 940              		.thumb
+ 941              		.thumb_func
+ 942              		.fpu fpv4-sp-d16
+ 944              	ipa_interrupt_flag_clear:
+ 945              		@ args = 0, pretend = 0, frame = 0
+ 946              		@ frame_needed = 0, uses_anonymous_args = 0
+ 947              		@ link register save eliminated.
+ 948 0000 024A     		ldr	r2, .L115
+ 949 0002 1368     		ldr	r3, [r2]
+ 950 0004 1843     		orrs	r0, r0, r3
+ 951 0006 1060     		str	r0, [r2]
+ 952 0008 7047     		bx	lr
+ 953              	.L116:
+ 954 000a 00BF     		.align	2
+ 955              	.L115:
+ 956 000c 08B00240 		.word	1073917960
+ 958              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/cc4wskxx.s 			page 17
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_ipa.c
+     /tmp/cc4wskxx.s:16     .text.ipa_deinit:0000000000000000 $t
+     /tmp/cc4wskxx.s:24     .text.ipa_deinit:0000000000000000 ipa_deinit
+     /tmp/cc4wskxx.s:35     .text.ipa_transfer_enable:0000000000000000 $t
+     /tmp/cc4wskxx.s:42     .text.ipa_transfer_enable:0000000000000000 ipa_transfer_enable
+     /tmp/cc4wskxx.s:54     .text.ipa_transfer_enable:000000000000000c $d
+     /tmp/cc4wskxx.s:57     .text.ipa_transfer_hangup_enable:0000000000000000 $t
+     /tmp/cc4wskxx.s:64     .text.ipa_transfer_hangup_enable:0000000000000000 ipa_transfer_hangup_enable
+     /tmp/cc4wskxx.s:76     .text.ipa_transfer_hangup_enable:000000000000000c $d
+     /tmp/cc4wskxx.s:79     .text.ipa_transfer_hangup_disable:0000000000000000 $t
+     /tmp/cc4wskxx.s:86     .text.ipa_transfer_hangup_disable:0000000000000000 ipa_transfer_hangup_disable
+     /tmp/cc4wskxx.s:98     .text.ipa_transfer_hangup_disable:000000000000000c $d
+     /tmp/cc4wskxx.s:101    .text.ipa_transfer_stop_enable:0000000000000000 $t
+     /tmp/cc4wskxx.s:108    .text.ipa_transfer_stop_enable:0000000000000000 ipa_transfer_stop_enable
+     /tmp/cc4wskxx.s:120    .text.ipa_transfer_stop_enable:000000000000000c $d
+     /tmp/cc4wskxx.s:123    .text.ipa_transfer_stop_disable:0000000000000000 $t
+     /tmp/cc4wskxx.s:130    .text.ipa_transfer_stop_disable:0000000000000000 ipa_transfer_stop_disable
+     /tmp/cc4wskxx.s:142    .text.ipa_transfer_stop_disable:000000000000000c $d
+     /tmp/cc4wskxx.s:145    .text.ipa_foreground_lut_loading_enable:0000000000000000 $t
+     /tmp/cc4wskxx.s:152    .text.ipa_foreground_lut_loading_enable:0000000000000000 ipa_foreground_lut_loading_enable
+     /tmp/cc4wskxx.s:164    .text.ipa_foreground_lut_loading_enable:000000000000000c $d
+     /tmp/cc4wskxx.s:167    .text.ipa_background_lut_loading_enable:0000000000000000 $t
+     /tmp/cc4wskxx.s:174    .text.ipa_background_lut_loading_enable:0000000000000000 ipa_background_lut_loading_enable
+     /tmp/cc4wskxx.s:186    .text.ipa_background_lut_loading_enable:000000000000000c $d
+     /tmp/cc4wskxx.s:189    .text.ipa_pixel_format_convert_mode_set:0000000000000000 $t
+     /tmp/cc4wskxx.s:196    .text.ipa_pixel_format_convert_mode_set:0000000000000000 ipa_pixel_format_convert_mode_set
+     /tmp/cc4wskxx.s:208    .text.ipa_pixel_format_convert_mode_set:000000000000000c $d
+     /tmp/cc4wskxx.s:211    .text.ipa_foreground_struct_para_init:0000000000000000 $t
+     /tmp/cc4wskxx.s:218    .text.ipa_foreground_struct_para_init:0000000000000000 ipa_foreground_struct_para_init
+     /tmp/cc4wskxx.s:234    .text.ipa_foreground_init:0000000000000000 $t
+     /tmp/cc4wskxx.s:241    .text.ipa_foreground_init:0000000000000000 ipa_foreground_init
+     /tmp/cc4wskxx.s:315    .text.ipa_foreground_init:0000000000000090 $d
+     /tmp/cc4wskxx.s:323    .text.ipa_background_struct_para_init:0000000000000000 $t
+     /tmp/cc4wskxx.s:330    .text.ipa_background_struct_para_init:0000000000000000 ipa_background_struct_para_init
+     /tmp/cc4wskxx.s:346    .text.ipa_background_init:0000000000000000 $t
+     /tmp/cc4wskxx.s:353    .text.ipa_background_init:0000000000000000 ipa_background_init
+     /tmp/cc4wskxx.s:427    .text.ipa_background_init:0000000000000090 $d
+     /tmp/cc4wskxx.s:435    .text.ipa_destination_struct_para_init:0000000000000000 $t
+     /tmp/cc4wskxx.s:442    .text.ipa_destination_struct_para_init:0000000000000000 ipa_destination_struct_para_init
+     /tmp/cc4wskxx.s:459    .text.ipa_destination_init:0000000000000000 $t
+     /tmp/cc4wskxx.s:466    .text.ipa_destination_init:0000000000000000 ipa_destination_init
+     /tmp/cc4wskxx.s:494    .text.ipa_destination_init:0000000000000032 $d
+     /tmp/cc4wskxx.s:606    .text.ipa_destination_init:000000000000011c $d
+     /tmp/cc4wskxx.s:614    .text.ipa_foreground_lut_init:0000000000000000 $t
+     /tmp/cc4wskxx.s:621    .text.ipa_foreground_lut_init:0000000000000000 ipa_foreground_lut_init
+     /tmp/cc4wskxx.s:673    .text.ipa_foreground_lut_init:000000000000005c $d
+     /tmp/cc4wskxx.s:677    .text.ipa_background_lut_init:0000000000000000 $t
+     /tmp/cc4wskxx.s:684    .text.ipa_background_lut_init:0000000000000000 ipa_background_lut_init
+     /tmp/cc4wskxx.s:736    .text.ipa_background_lut_init:000000000000005c $d
+     /tmp/cc4wskxx.s:740    .text.ipa_line_mark_config:0000000000000000 $t
+     /tmp/cc4wskxx.s:747    .text.ipa_line_mark_config:0000000000000000 ipa_line_mark_config
+     /tmp/cc4wskxx.s:761    .text.ipa_line_mark_config:0000000000000010 $d
+     /tmp/cc4wskxx.s:764    .text.ipa_inter_timer_config:0000000000000000 $t
+     /tmp/cc4wskxx.s:771    .text.ipa_inter_timer_config:0000000000000000 ipa_inter_timer_config
+     /tmp/cc4wskxx.s:791    .text.ipa_inter_timer_config:000000000000001c $d
+     /tmp/cc4wskxx.s:794    .text.ipa_interval_clock_num_config:0000000000000000 $t
+ARM GAS  /tmp/cc4wskxx.s 			page 18
+
+
+     /tmp/cc4wskxx.s:801    .text.ipa_interval_clock_num_config:0000000000000000 ipa_interval_clock_num_config
+     /tmp/cc4wskxx.s:816    .text.ipa_interval_clock_num_config:0000000000000014 $d
+     /tmp/cc4wskxx.s:819    .text.ipa_flag_get:0000000000000000 $t
+     /tmp/cc4wskxx.s:826    .text.ipa_flag_get:0000000000000000 ipa_flag_get
+     /tmp/cc4wskxx.s:842    .text.ipa_flag_get:0000000000000010 $d
+     /tmp/cc4wskxx.s:845    .text.ipa_flag_clear:0000000000000000 $t
+     /tmp/cc4wskxx.s:852    .text.ipa_flag_clear:0000000000000000 ipa_flag_clear
+     /tmp/cc4wskxx.s:864    .text.ipa_flag_clear:000000000000000c $d
+     /tmp/cc4wskxx.s:867    .text.ipa_interrupt_enable:0000000000000000 $t
+     /tmp/cc4wskxx.s:874    .text.ipa_interrupt_enable:0000000000000000 ipa_interrupt_enable
+     /tmp/cc4wskxx.s:886    .text.ipa_interrupt_enable:000000000000000c $d
+     /tmp/cc4wskxx.s:889    .text.ipa_interrupt_disable:0000000000000000 $t
+     /tmp/cc4wskxx.s:896    .text.ipa_interrupt_disable:0000000000000000 ipa_interrupt_disable
+     /tmp/cc4wskxx.s:908    .text.ipa_interrupt_disable:000000000000000c $d
+     /tmp/cc4wskxx.s:911    .text.ipa_interrupt_flag_get:0000000000000000 $t
+     /tmp/cc4wskxx.s:918    .text.ipa_interrupt_flag_get:0000000000000000 ipa_interrupt_flag_get
+     /tmp/cc4wskxx.s:934    .text.ipa_interrupt_flag_get:0000000000000010 $d
+     /tmp/cc4wskxx.s:937    .text.ipa_interrupt_flag_clear:0000000000000000 $t
+     /tmp/cc4wskxx.s:944    .text.ipa_interrupt_flag_clear:0000000000000000 ipa_interrupt_flag_clear
+     /tmp/cc4wskxx.s:956    .text.ipa_interrupt_flag_clear:000000000000000c $d
+     /tmp/cc4wskxx.s:499    .text.ipa_destination_init:0000000000000037 $d
+     /tmp/cc4wskxx.s:499    .text.ipa_destination_init:0000000000000038 $t
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable

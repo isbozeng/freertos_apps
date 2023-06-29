@@ -1,0 +1,1364 @@
+ARM GAS  /tmp/ccQCXXBz.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_usart.c"
+  14              		.text
+  15              		.section	.text.usart_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	usart_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	usart_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 344B     		ldr	r3, .L17
+  29 0004 9842     		cmp	r0, r3
+  30 0006 52D0     		beq	.L2
+  31 0008 13D9     		bls	.L14
+  32 000a 334B     		ldr	r3, .L17+4
+  33 000c 9842     		cmp	r0, r3
+  34 000e 57D0     		beq	.L8
+  35 0010 1CD9     		bls	.L15
+  36 0012 324B     		ldr	r3, .L17+8
+  37 0014 9842     		cmp	r0, r3
+  38 0016 26D0     		beq	.L11
+  39 0018 03F58063 		add	r3, r3, #1024
+  40 001c 9842     		cmp	r0, r3
+  41 001e 14D1     		bne	.L1
+  42 0020 40F60510 		movw	r0, #2309
+  43 0024 FFF7FEFF 		bl	rcu_periph_reset_enable
+  44 0028 40F60510 		movw	r0, #2309
+  45 002c FFF7FEFF 		bl	rcu_periph_reset_disable
+  46 0030 0BE0     		b	.L1
+  47              	.L14:
+  48 0032 A3F50063 		sub	r3, r3, #2048
+  49 0036 9842     		cmp	r0, r3
+  50 0038 27D0     		beq	.L4
+  51 003a 03F58063 		add	r3, r3, #1024
+  52 003e 9842     		cmp	r0, r3
+  53 0040 2CD0     		beq	.L5
+  54 0042 A3F50063 		sub	r3, r3, #2048
+  55 0046 9842     		cmp	r0, r3
+  56 0048 16D0     		beq	.L16
+  57              	.L1:
+  58 004a 08BD     		pop	{r3, pc}
+ARM GAS  /tmp/ccQCXXBz.s 			page 2
+
+
+  59              	.L15:
+  60 004c A3F58063 		sub	r3, r3, #1024
+  61 0050 9842     		cmp	r0, r3
+  62 0052 FAD1     		bne	.L1
+  63 0054 40F61E00 		movw	r0, #2078
+  64 0058 FFF7FEFF 		bl	rcu_periph_reset_enable
+  65 005c 40F61E00 		movw	r0, #2078
+  66 0060 FFF7FEFF 		bl	rcu_periph_reset_disable
+  67 0064 F1E7     		b	.L1
+  68              	.L11:
+  69 0066 40F60410 		movw	r0, #2308
+  70 006a FFF7FEFF 		bl	rcu_periph_reset_enable
+  71 006e 40F60410 		movw	r0, #2308
+  72 0072 FFF7FEFF 		bl	rcu_periph_reset_disable
+  73 0076 E8E7     		b	.L1
+  74              	.L16:
+  75 0078 40F61100 		movw	r0, #2065
+  76 007c FFF7FEFF 		bl	rcu_periph_reset_enable
+  77 0080 40F61100 		movw	r0, #2065
+  78 0084 FFF7FEFF 		bl	rcu_periph_reset_disable
+  79 0088 DFE7     		b	.L1
+  80              	.L4:
+  81 008a 40F61200 		movw	r0, #2066
+  82 008e FFF7FEFF 		bl	rcu_periph_reset_enable
+  83 0092 40F61200 		movw	r0, #2066
+  84 0096 FFF7FEFF 		bl	rcu_periph_reset_disable
+  85 009a D6E7     		b	.L1
+  86              	.L5:
+  87 009c 40F61300 		movw	r0, #2067
+  88 00a0 FFF7FEFF 		bl	rcu_periph_reset_enable
+  89 00a4 40F61300 		movw	r0, #2067
+  90 00a8 FFF7FEFF 		bl	rcu_periph_reset_disable
+  91 00ac CDE7     		b	.L1
+  92              	.L2:
+  93 00ae 40F61400 		movw	r0, #2068
+  94 00b2 FFF7FEFF 		bl	rcu_periph_reset_enable
+  95 00b6 40F61400 		movw	r0, #2068
+  96 00ba FFF7FEFF 		bl	rcu_periph_reset_disable
+  97 00be C4E7     		b	.L1
+  98              	.L8:
+  99 00c0 40F61F00 		movw	r0, #2079
+ 100 00c4 FFF7FEFF 		bl	rcu_periph_reset_enable
+ 101 00c8 40F61F00 		movw	r0, #2079
+ 102 00cc FFF7FEFF 		bl	rcu_periph_reset_disable
+ 103 00d0 BBE7     		b	.L1
+ 104              	.L18:
+ 105 00d2 00BF     		.align	2
+ 106              	.L17:
+ 107 00d4 00500040 		.word	1073762304
+ 108 00d8 007C0040 		.word	1073773568
+ 109 00dc 00100140 		.word	1073811456
+ 111              		.section	.text.usart_baudrate_set,"ax",%progbits
+ 112              		.align	1
+ 113              		.global	usart_baudrate_set
+ 114              		.syntax unified
+ 115              		.thumb
+ 116              		.thumb_func
+ARM GAS  /tmp/ccQCXXBz.s 			page 3
+
+
+ 117              		.fpu fpv4-sp-d16
+ 119              	usart_baudrate_set:
+ 120              		@ args = 0, pretend = 0, frame = 0
+ 121              		@ frame_needed = 0, uses_anonymous_args = 0
+ 122 0000 38B5     		push	{r3, r4, r5, lr}
+ 123 0002 0446     		mov	r4, r0
+ 124 0004 0D46     		mov	r5, r1
+ 125 0006 2E4B     		ldr	r3, .L38
+ 126 0008 9842     		cmp	r0, r3
+ 127 000a 49D0     		beq	.L20
+ 128 000c 0ED9     		bls	.L34
+ 129 000e 2D4B     		ldr	r3, .L38+4
+ 130 0010 9842     		cmp	r0, r3
+ 131 0012 49D0     		beq	.L26
+ 132 0014 28D9     		bls	.L35
+ 133 0016 2C4B     		ldr	r3, .L38+8
+ 134 0018 9842     		cmp	r0, r3
+ 135 001a 31D0     		beq	.L29
+ 136 001c 03F58063 		add	r3, r3, #1024
+ 137 0020 9842     		cmp	r0, r3
+ 138 0022 2BD1     		bne	.L36
+ 139 0024 0320     		movs	r0, #3
+ 140 0026 FFF7FEFF 		bl	rcu_clock_freq_get
+ 141 002a 0CE0     		b	.L25
+ 142              	.L34:
+ 143 002c A3F50063 		sub	r3, r3, #2048
+ 144 0030 9842     		cmp	r0, r3
+ 145 0032 2DD0     		beq	.L22
+ 146 0034 03F58063 		add	r3, r3, #1024
+ 147 0038 9842     		cmp	r0, r3
+ 148 003a 2DD0     		beq	.L23
+ 149 003c A3F50063 		sub	r3, r3, #2048
+ 150 0040 9842     		cmp	r0, r3
+ 151 0042 21D0     		beq	.L24
+ 152 0044 0020     		movs	r0, #0
+ 153              	.L25:
+ 154 0046 E368     		ldr	r3, [r4, #12]
+ 155 0048 13F4004F 		tst	r3, #32768
+ 156 004c 30D0     		beq	.L31
+ 157 004e 6B08     		lsrs	r3, r5, #1
+ 158 0050 03EB4000 		add	r0, r3, r0, lsl #1
+ 159 0054 B0FBF5F0 		udiv	r0, r0, r5
+ 160 0058 4FF6F073 		movw	r3, #65520
+ 161 005c 0340     		ands	r3, r3, r0
+ 162 005e C0F34200 		ubfx	r0, r0, #1, #3
+ 163 0062 1843     		orrs	r0, r0, r3
+ 164 0064 A060     		str	r0, [r4, #8]
+ 165              	.L19:
+ 166 0066 38BD     		pop	{r3, r4, r5, pc}
+ 167              	.L35:
+ 168 0068 A3F58063 		sub	r3, r3, #1024
+ 169 006c 9842     		cmp	r0, r3
+ 170 006e 03D1     		bne	.L37
+ 171 0070 0220     		movs	r0, #2
+ 172 0072 FFF7FEFF 		bl	rcu_clock_freq_get
+ 173 0076 E6E7     		b	.L25
+ 174              	.L37:
+ARM GAS  /tmp/ccQCXXBz.s 			page 4
+
+
+ 175 0078 0020     		movs	r0, #0
+ 176 007a E4E7     		b	.L25
+ 177              	.L36:
+ 178 007c 0020     		movs	r0, #0
+ 179 007e E2E7     		b	.L25
+ 180              	.L29:
+ 181 0080 0320     		movs	r0, #3
+ 182 0082 FFF7FEFF 		bl	rcu_clock_freq_get
+ 183 0086 DEE7     		b	.L25
+ 184              	.L24:
+ 185 0088 0220     		movs	r0, #2
+ 186 008a FFF7FEFF 		bl	rcu_clock_freq_get
+ 187 008e DAE7     		b	.L25
+ 188              	.L22:
+ 189 0090 0220     		movs	r0, #2
+ 190 0092 FFF7FEFF 		bl	rcu_clock_freq_get
+ 191 0096 D6E7     		b	.L25
+ 192              	.L23:
+ 193 0098 0220     		movs	r0, #2
+ 194 009a FFF7FEFF 		bl	rcu_clock_freq_get
+ 195 009e D2E7     		b	.L25
+ 196              	.L20:
+ 197 00a0 0220     		movs	r0, #2
+ 198 00a2 FFF7FEFF 		bl	rcu_clock_freq_get
+ 199 00a6 CEE7     		b	.L25
+ 200              	.L26:
+ 201 00a8 0220     		movs	r0, #2
+ 202 00aa FFF7FEFF 		bl	rcu_clock_freq_get
+ 203 00ae CAE7     		b	.L25
+ 204              	.L31:
+ 205 00b0 00EB5500 		add	r0, r0, r5, lsr #1
+ 206 00b4 B0FBF5F0 		udiv	r0, r0, r5
+ 207 00b8 80B2     		uxth	r0, r0
+ 208 00ba A060     		str	r0, [r4, #8]
+ 209 00bc D3E7     		b	.L19
+ 210              	.L39:
+ 211 00be 00BF     		.align	2
+ 212              	.L38:
+ 213 00c0 00500040 		.word	1073762304
+ 214 00c4 007C0040 		.word	1073773568
+ 215 00c8 00100140 		.word	1073811456
+ 217              		.section	.text.usart_parity_config,"ax",%progbits
+ 218              		.align	1
+ 219              		.global	usart_parity_config
+ 220              		.syntax unified
+ 221              		.thumb
+ 222              		.thumb_func
+ 223              		.fpu fpv4-sp-d16
+ 225              	usart_parity_config:
+ 226              		@ args = 0, pretend = 0, frame = 0
+ 227              		@ frame_needed = 0, uses_anonymous_args = 0
+ 228              		@ link register save eliminated.
+ 229 0000 C368     		ldr	r3, [r0, #12]
+ 230 0002 23F4C063 		bic	r3, r3, #1536
+ 231 0006 C360     		str	r3, [r0, #12]
+ 232 0008 C368     		ldr	r3, [r0, #12]
+ 233 000a 1943     		orrs	r1, r1, r3
+ARM GAS  /tmp/ccQCXXBz.s 			page 5
+
+
+ 234 000c C160     		str	r1, [r0, #12]
+ 235 000e 7047     		bx	lr
+ 237              		.section	.text.usart_word_length_set,"ax",%progbits
+ 238              		.align	1
+ 239              		.global	usart_word_length_set
+ 240              		.syntax unified
+ 241              		.thumb
+ 242              		.thumb_func
+ 243              		.fpu fpv4-sp-d16
+ 245              	usart_word_length_set:
+ 246              		@ args = 0, pretend = 0, frame = 0
+ 247              		@ frame_needed = 0, uses_anonymous_args = 0
+ 248              		@ link register save eliminated.
+ 249 0000 C368     		ldr	r3, [r0, #12]
+ 250 0002 23F48053 		bic	r3, r3, #4096
+ 251 0006 C360     		str	r3, [r0, #12]
+ 252 0008 C368     		ldr	r3, [r0, #12]
+ 253 000a 1943     		orrs	r1, r1, r3
+ 254 000c C160     		str	r1, [r0, #12]
+ 255 000e 7047     		bx	lr
+ 257              		.section	.text.usart_stop_bit_set,"ax",%progbits
+ 258              		.align	1
+ 259              		.global	usart_stop_bit_set
+ 260              		.syntax unified
+ 261              		.thumb
+ 262              		.thumb_func
+ 263              		.fpu fpv4-sp-d16
+ 265              	usart_stop_bit_set:
+ 266              		@ args = 0, pretend = 0, frame = 0
+ 267              		@ frame_needed = 0, uses_anonymous_args = 0
+ 268              		@ link register save eliminated.
+ 269 0000 0369     		ldr	r3, [r0, #16]
+ 270 0002 23F44053 		bic	r3, r3, #12288
+ 271 0006 0361     		str	r3, [r0, #16]
+ 272 0008 0369     		ldr	r3, [r0, #16]
+ 273 000a 1943     		orrs	r1, r1, r3
+ 274 000c 0161     		str	r1, [r0, #16]
+ 275 000e 7047     		bx	lr
+ 277              		.section	.text.usart_enable,"ax",%progbits
+ 278              		.align	1
+ 279              		.global	usart_enable
+ 280              		.syntax unified
+ 281              		.thumb
+ 282              		.thumb_func
+ 283              		.fpu fpv4-sp-d16
+ 285              	usart_enable:
+ 286              		@ args = 0, pretend = 0, frame = 0
+ 287              		@ frame_needed = 0, uses_anonymous_args = 0
+ 288              		@ link register save eliminated.
+ 289 0000 C368     		ldr	r3, [r0, #12]
+ 290 0002 43F40053 		orr	r3, r3, #8192
+ 291 0006 C360     		str	r3, [r0, #12]
+ 292 0008 7047     		bx	lr
+ 294              		.section	.text.usart_disable,"ax",%progbits
+ 295              		.align	1
+ 296              		.global	usart_disable
+ 297              		.syntax unified
+ARM GAS  /tmp/ccQCXXBz.s 			page 6
+
+
+ 298              		.thumb
+ 299              		.thumb_func
+ 300              		.fpu fpv4-sp-d16
+ 302              	usart_disable:
+ 303              		@ args = 0, pretend = 0, frame = 0
+ 304              		@ frame_needed = 0, uses_anonymous_args = 0
+ 305              		@ link register save eliminated.
+ 306 0000 C368     		ldr	r3, [r0, #12]
+ 307 0002 23F40053 		bic	r3, r3, #8192
+ 308 0006 C360     		str	r3, [r0, #12]
+ 309 0008 7047     		bx	lr
+ 311              		.section	.text.usart_transmit_config,"ax",%progbits
+ 312              		.align	1
+ 313              		.global	usart_transmit_config
+ 314              		.syntax unified
+ 315              		.thumb
+ 316              		.thumb_func
+ 317              		.fpu fpv4-sp-d16
+ 319              	usart_transmit_config:
+ 320              		@ args = 0, pretend = 0, frame = 0
+ 321              		@ frame_needed = 0, uses_anonymous_args = 0
+ 322              		@ link register save eliminated.
+ 323 0000 C368     		ldr	r3, [r0, #12]
+ 324 0002 23F00803 		bic	r3, r3, #8
+ 325 0006 1943     		orrs	r1, r1, r3
+ 326 0008 C160     		str	r1, [r0, #12]
+ 327 000a 7047     		bx	lr
+ 329              		.section	.text.usart_receive_config,"ax",%progbits
+ 330              		.align	1
+ 331              		.global	usart_receive_config
+ 332              		.syntax unified
+ 333              		.thumb
+ 334              		.thumb_func
+ 335              		.fpu fpv4-sp-d16
+ 337              	usart_receive_config:
+ 338              		@ args = 0, pretend = 0, frame = 0
+ 339              		@ frame_needed = 0, uses_anonymous_args = 0
+ 340              		@ link register save eliminated.
+ 341 0000 C368     		ldr	r3, [r0, #12]
+ 342 0002 23F00403 		bic	r3, r3, #4
+ 343 0006 1943     		orrs	r1, r1, r3
+ 344 0008 C160     		str	r1, [r0, #12]
+ 345 000a 7047     		bx	lr
+ 347              		.section	.text.usart_data_first_config,"ax",%progbits
+ 348              		.align	1
+ 349              		.global	usart_data_first_config
+ 350              		.syntax unified
+ 351              		.thumb
+ 352              		.thumb_func
+ 353              		.fpu fpv4-sp-d16
+ 355              	usart_data_first_config:
+ 356              		@ args = 0, pretend = 0, frame = 0
+ 357              		@ frame_needed = 0, uses_anonymous_args = 0
+ 358              		@ link register save eliminated.
+ 359 0000 D0F88030 		ldr	r3, [r0, #128]
+ 360 0004 23F40063 		bic	r3, r3, #2048
+ 361 0008 1943     		orrs	r1, r1, r3
+ARM GAS  /tmp/ccQCXXBz.s 			page 7
+
+
+ 362 000a C0F88010 		str	r1, [r0, #128]
+ 363 000e 7047     		bx	lr
+ 365              		.section	.text.usart_invert_config,"ax",%progbits
+ 366              		.align	1
+ 367              		.global	usart_invert_config
+ 368              		.syntax unified
+ 369              		.thumb
+ 370              		.thumb_func
+ 371              		.fpu fpv4-sp-d16
+ 373              	usart_invert_config:
+ 374              		@ args = 0, pretend = 0, frame = 0
+ 375              		@ frame_needed = 0, uses_anonymous_args = 0
+ 376              		@ link register save eliminated.
+ 377 0000 0529     		cmp	r1, #5
+ 378 0002 2DD8     		bhi	.L48
+ 379 0004 DFE801F0 		tbb	[pc, r1]
+ 380              	.L51:
+ 381 0008 03       		.byte	(.L56-.L51)/2
+ 382 0009 18       		.byte	(.L55-.L51)/2
+ 383 000a 0A       		.byte	(.L54-.L51)/2
+ 384 000b 1F       		.byte	(.L53-.L51)/2
+ 385 000c 11       		.byte	(.L52-.L51)/2
+ 386 000d 26       		.byte	(.L50-.L51)/2
+ 387              		.p2align 1
+ 388              	.L56:
+ 389 000e D0F88030 		ldr	r3, [r0, #128]
+ 390 0012 43F48063 		orr	r3, r3, #1024
+ 391 0016 C0F88030 		str	r3, [r0, #128]
+ 392 001a 7047     		bx	lr
+ 393              	.L54:
+ 394 001c D0F88030 		ldr	r3, [r0, #128]
+ 395 0020 43F40073 		orr	r3, r3, #512
+ 396 0024 C0F88030 		str	r3, [r0, #128]
+ 397 0028 7047     		bx	lr
+ 398              	.L52:
+ 399 002a D0F88030 		ldr	r3, [r0, #128]
+ 400 002e 43F48073 		orr	r3, r3, #256
+ 401 0032 C0F88030 		str	r3, [r0, #128]
+ 402 0036 7047     		bx	lr
+ 403              	.L55:
+ 404 0038 D0F88030 		ldr	r3, [r0, #128]
+ 405 003c 23F48063 		bic	r3, r3, #1024
+ 406 0040 C0F88030 		str	r3, [r0, #128]
+ 407 0044 7047     		bx	lr
+ 408              	.L53:
+ 409 0046 D0F88030 		ldr	r3, [r0, #128]
+ 410 004a 23F40073 		bic	r3, r3, #512
+ 411 004e C0F88030 		str	r3, [r0, #128]
+ 412 0052 7047     		bx	lr
+ 413              	.L50:
+ 414 0054 D0F88030 		ldr	r3, [r0, #128]
+ 415 0058 23F48073 		bic	r3, r3, #256
+ 416 005c C0F88030 		str	r3, [r0, #128]
+ 417              	.L48:
+ 418 0060 7047     		bx	lr
+ 420              		.section	.text.usart_oversample_config,"ax",%progbits
+ 421              		.align	1
+ARM GAS  /tmp/ccQCXXBz.s 			page 8
+
+
+ 422              		.global	usart_oversample_config
+ 423              		.syntax unified
+ 424              		.thumb
+ 425              		.thumb_func
+ 426              		.fpu fpv4-sp-d16
+ 428              	usart_oversample_config:
+ 429              		@ args = 0, pretend = 0, frame = 0
+ 430              		@ frame_needed = 0, uses_anonymous_args = 0
+ 431              		@ link register save eliminated.
+ 432 0000 C368     		ldr	r3, [r0, #12]
+ 433 0002 23F40043 		bic	r3, r3, #32768
+ 434 0006 C360     		str	r3, [r0, #12]
+ 435 0008 C368     		ldr	r3, [r0, #12]
+ 436 000a 1943     		orrs	r1, r1, r3
+ 437 000c C160     		str	r1, [r0, #12]
+ 438 000e 7047     		bx	lr
+ 440              		.section	.text.usart_sample_bit_config,"ax",%progbits
+ 441              		.align	1
+ 442              		.global	usart_sample_bit_config
+ 443              		.syntax unified
+ 444              		.thumb
+ 445              		.thumb_func
+ 446              		.fpu fpv4-sp-d16
+ 448              	usart_sample_bit_config:
+ 449              		@ args = 0, pretend = 0, frame = 0
+ 450              		@ frame_needed = 0, uses_anonymous_args = 0
+ 451              		@ link register save eliminated.
+ 452 0000 4369     		ldr	r3, [r0, #20]
+ 453 0002 23F40063 		bic	r3, r3, #2048
+ 454 0006 4361     		str	r3, [r0, #20]
+ 455 0008 4369     		ldr	r3, [r0, #20]
+ 456 000a 1943     		orrs	r1, r1, r3
+ 457 000c 4161     		str	r1, [r0, #20]
+ 458 000e 7047     		bx	lr
+ 460              		.section	.text.usart_receiver_timeout_enable,"ax",%progbits
+ 461              		.align	1
+ 462              		.global	usart_receiver_timeout_enable
+ 463              		.syntax unified
+ 464              		.thumb
+ 465              		.thumb_func
+ 466              		.fpu fpv4-sp-d16
+ 468              	usart_receiver_timeout_enable:
+ 469              		@ args = 0, pretend = 0, frame = 0
+ 470              		@ frame_needed = 0, uses_anonymous_args = 0
+ 471              		@ link register save eliminated.
+ 472 0000 D0F88030 		ldr	r3, [r0, #128]
+ 473 0004 43F00103 		orr	r3, r3, #1
+ 474 0008 C0F88030 		str	r3, [r0, #128]
+ 475 000c 7047     		bx	lr
+ 477              		.section	.text.usart_receiver_timeout_disable,"ax",%progbits
+ 478              		.align	1
+ 479              		.global	usart_receiver_timeout_disable
+ 480              		.syntax unified
+ 481              		.thumb
+ 482              		.thumb_func
+ 483              		.fpu fpv4-sp-d16
+ 485              	usart_receiver_timeout_disable:
+ARM GAS  /tmp/ccQCXXBz.s 			page 9
+
+
+ 486              		@ args = 0, pretend = 0, frame = 0
+ 487              		@ frame_needed = 0, uses_anonymous_args = 0
+ 488              		@ link register save eliminated.
+ 489 0000 D0F88030 		ldr	r3, [r0, #128]
+ 490 0004 23F00103 		bic	r3, r3, #1
+ 491 0008 C0F88030 		str	r3, [r0, #128]
+ 492 000c 7047     		bx	lr
+ 494              		.section	.text.usart_receiver_timeout_threshold_config,"ax",%progbits
+ 495              		.align	1
+ 496              		.global	usart_receiver_timeout_threshold_config
+ 497              		.syntax unified
+ 498              		.thumb
+ 499              		.thumb_func
+ 500              		.fpu fpv4-sp-d16
+ 502              	usart_receiver_timeout_threshold_config:
+ 503              		@ args = 0, pretend = 0, frame = 0
+ 504              		@ frame_needed = 0, uses_anonymous_args = 0
+ 505              		@ link register save eliminated.
+ 506 0000 D0F88430 		ldr	r3, [r0, #132]
+ 507 0004 03F07F43 		and	r3, r3, #-16777216
+ 508 0008 C0F88430 		str	r3, [r0, #132]
+ 509 000c D0F88430 		ldr	r3, [r0, #132]
+ 510 0010 1943     		orrs	r1, r1, r3
+ 511 0012 C0F88410 		str	r1, [r0, #132]
+ 512 0016 7047     		bx	lr
+ 514              		.section	.text.usart_data_transmit,"ax",%progbits
+ 515              		.align	1
+ 516              		.global	usart_data_transmit
+ 517              		.syntax unified
+ 518              		.thumb
+ 519              		.thumb_func
+ 520              		.fpu fpv4-sp-d16
+ 522              	usart_data_transmit:
+ 523              		@ args = 0, pretend = 0, frame = 0
+ 524              		@ frame_needed = 0, uses_anonymous_args = 0
+ 525              		@ link register save eliminated.
+ 526 0000 C1F30801 		ubfx	r1, r1, #0, #9
+ 527 0004 4160     		str	r1, [r0, #4]
+ 528 0006 7047     		bx	lr
+ 530              		.section	.text.usart_data_receive,"ax",%progbits
+ 531              		.align	1
+ 532              		.global	usart_data_receive
+ 533              		.syntax unified
+ 534              		.thumb
+ 535              		.thumb_func
+ 536              		.fpu fpv4-sp-d16
+ 538              	usart_data_receive:
+ 539              		@ args = 0, pretend = 0, frame = 0
+ 540              		@ frame_needed = 0, uses_anonymous_args = 0
+ 541              		@ link register save eliminated.
+ 542 0000 4068     		ldr	r0, [r0, #4]
+ 543 0002 C0F30800 		ubfx	r0, r0, #0, #9
+ 544 0006 7047     		bx	lr
+ 546              		.section	.text.usart_address_config,"ax",%progbits
+ 547              		.align	1
+ 548              		.global	usart_address_config
+ 549              		.syntax unified
+ARM GAS  /tmp/ccQCXXBz.s 			page 10
+
+
+ 550              		.thumb
+ 551              		.thumb_func
+ 552              		.fpu fpv4-sp-d16
+ 554              	usart_address_config:
+ 555              		@ args = 0, pretend = 0, frame = 0
+ 556              		@ frame_needed = 0, uses_anonymous_args = 0
+ 557              		@ link register save eliminated.
+ 558 0000 0369     		ldr	r3, [r0, #16]
+ 559 0002 23F00F03 		bic	r3, r3, #15
+ 560 0006 0361     		str	r3, [r0, #16]
+ 561 0008 0369     		ldr	r3, [r0, #16]
+ 562 000a 01F00F01 		and	r1, r1, #15
+ 563 000e 0B43     		orrs	r3, r3, r1
+ 564 0010 0361     		str	r3, [r0, #16]
+ 565 0012 7047     		bx	lr
+ 567              		.section	.text.usart_mute_mode_enable,"ax",%progbits
+ 568              		.align	1
+ 569              		.global	usart_mute_mode_enable
+ 570              		.syntax unified
+ 571              		.thumb
+ 572              		.thumb_func
+ 573              		.fpu fpv4-sp-d16
+ 575              	usart_mute_mode_enable:
+ 576              		@ args = 0, pretend = 0, frame = 0
+ 577              		@ frame_needed = 0, uses_anonymous_args = 0
+ 578              		@ link register save eliminated.
+ 579 0000 C368     		ldr	r3, [r0, #12]
+ 580 0002 43F00203 		orr	r3, r3, #2
+ 581 0006 C360     		str	r3, [r0, #12]
+ 582 0008 7047     		bx	lr
+ 584              		.section	.text.usart_mute_mode_disable,"ax",%progbits
+ 585              		.align	1
+ 586              		.global	usart_mute_mode_disable
+ 587              		.syntax unified
+ 588              		.thumb
+ 589              		.thumb_func
+ 590              		.fpu fpv4-sp-d16
+ 592              	usart_mute_mode_disable:
+ 593              		@ args = 0, pretend = 0, frame = 0
+ 594              		@ frame_needed = 0, uses_anonymous_args = 0
+ 595              		@ link register save eliminated.
+ 596 0000 C368     		ldr	r3, [r0, #12]
+ 597 0002 23F00203 		bic	r3, r3, #2
+ 598 0006 C360     		str	r3, [r0, #12]
+ 599 0008 7047     		bx	lr
+ 601              		.section	.text.usart_mute_mode_wakeup_config,"ax",%progbits
+ 602              		.align	1
+ 603              		.global	usart_mute_mode_wakeup_config
+ 604              		.syntax unified
+ 605              		.thumb
+ 606              		.thumb_func
+ 607              		.fpu fpv4-sp-d16
+ 609              	usart_mute_mode_wakeup_config:
+ 610              		@ args = 0, pretend = 0, frame = 0
+ 611              		@ frame_needed = 0, uses_anonymous_args = 0
+ 612              		@ link register save eliminated.
+ 613 0000 C368     		ldr	r3, [r0, #12]
+ARM GAS  /tmp/ccQCXXBz.s 			page 11
+
+
+ 614 0002 23F40063 		bic	r3, r3, #2048
+ 615 0006 C360     		str	r3, [r0, #12]
+ 616 0008 C368     		ldr	r3, [r0, #12]
+ 617 000a 1943     		orrs	r1, r1, r3
+ 618 000c C160     		str	r1, [r0, #12]
+ 619 000e 7047     		bx	lr
+ 621              		.section	.text.usart_lin_mode_enable,"ax",%progbits
+ 622              		.align	1
+ 623              		.global	usart_lin_mode_enable
+ 624              		.syntax unified
+ 625              		.thumb
+ 626              		.thumb_func
+ 627              		.fpu fpv4-sp-d16
+ 629              	usart_lin_mode_enable:
+ 630              		@ args = 0, pretend = 0, frame = 0
+ 631              		@ frame_needed = 0, uses_anonymous_args = 0
+ 632              		@ link register save eliminated.
+ 633 0000 0369     		ldr	r3, [r0, #16]
+ 634 0002 43F48043 		orr	r3, r3, #16384
+ 635 0006 0361     		str	r3, [r0, #16]
+ 636 0008 7047     		bx	lr
+ 638              		.section	.text.usart_lin_mode_disable,"ax",%progbits
+ 639              		.align	1
+ 640              		.global	usart_lin_mode_disable
+ 641              		.syntax unified
+ 642              		.thumb
+ 643              		.thumb_func
+ 644              		.fpu fpv4-sp-d16
+ 646              	usart_lin_mode_disable:
+ 647              		@ args = 0, pretend = 0, frame = 0
+ 648              		@ frame_needed = 0, uses_anonymous_args = 0
+ 649              		@ link register save eliminated.
+ 650 0000 0369     		ldr	r3, [r0, #16]
+ 651 0002 23F48043 		bic	r3, r3, #16384
+ 652 0006 0361     		str	r3, [r0, #16]
+ 653 0008 7047     		bx	lr
+ 655              		.section	.text.usart_lin_break_detection_length_config,"ax",%progbits
+ 656              		.align	1
+ 657              		.global	usart_lin_break_detection_length_config
+ 658              		.syntax unified
+ 659              		.thumb
+ 660              		.thumb_func
+ 661              		.fpu fpv4-sp-d16
+ 663              	usart_lin_break_detection_length_config:
+ 664              		@ args = 0, pretend = 0, frame = 0
+ 665              		@ frame_needed = 0, uses_anonymous_args = 0
+ 666              		@ link register save eliminated.
+ 667 0000 0369     		ldr	r3, [r0, #16]
+ 668 0002 23F02003 		bic	r3, r3, #32
+ 669 0006 0361     		str	r3, [r0, #16]
+ 670 0008 0369     		ldr	r3, [r0, #16]
+ 671 000a 01F02001 		and	r1, r1, #32
+ 672 000e 0B43     		orrs	r3, r3, r1
+ 673 0010 0361     		str	r3, [r0, #16]
+ 674 0012 7047     		bx	lr
+ 676              		.section	.text.usart_send_break,"ax",%progbits
+ 677              		.align	1
+ARM GAS  /tmp/ccQCXXBz.s 			page 12
+
+
+ 678              		.global	usart_send_break
+ 679              		.syntax unified
+ 680              		.thumb
+ 681              		.thumb_func
+ 682              		.fpu fpv4-sp-d16
+ 684              	usart_send_break:
+ 685              		@ args = 0, pretend = 0, frame = 0
+ 686              		@ frame_needed = 0, uses_anonymous_args = 0
+ 687              		@ link register save eliminated.
+ 688 0000 C368     		ldr	r3, [r0, #12]
+ 689 0002 43F00103 		orr	r3, r3, #1
+ 690 0006 C360     		str	r3, [r0, #12]
+ 691 0008 7047     		bx	lr
+ 693              		.section	.text.usart_halfduplex_enable,"ax",%progbits
+ 694              		.align	1
+ 695              		.global	usart_halfduplex_enable
+ 696              		.syntax unified
+ 697              		.thumb
+ 698              		.thumb_func
+ 699              		.fpu fpv4-sp-d16
+ 701              	usart_halfduplex_enable:
+ 702              		@ args = 0, pretend = 0, frame = 0
+ 703              		@ frame_needed = 0, uses_anonymous_args = 0
+ 704              		@ link register save eliminated.
+ 705 0000 4369     		ldr	r3, [r0, #20]
+ 706 0002 43F00803 		orr	r3, r3, #8
+ 707 0006 4361     		str	r3, [r0, #20]
+ 708 0008 7047     		bx	lr
+ 710              		.section	.text.usart_halfduplex_disable,"ax",%progbits
+ 711              		.align	1
+ 712              		.global	usart_halfduplex_disable
+ 713              		.syntax unified
+ 714              		.thumb
+ 715              		.thumb_func
+ 716              		.fpu fpv4-sp-d16
+ 718              	usart_halfduplex_disable:
+ 719              		@ args = 0, pretend = 0, frame = 0
+ 720              		@ frame_needed = 0, uses_anonymous_args = 0
+ 721              		@ link register save eliminated.
+ 722 0000 4369     		ldr	r3, [r0, #20]
+ 723 0002 23F00803 		bic	r3, r3, #8
+ 724 0006 4361     		str	r3, [r0, #20]
+ 725 0008 7047     		bx	lr
+ 727              		.section	.text.usart_synchronous_clock_enable,"ax",%progbits
+ 728              		.align	1
+ 729              		.global	usart_synchronous_clock_enable
+ 730              		.syntax unified
+ 731              		.thumb
+ 732              		.thumb_func
+ 733              		.fpu fpv4-sp-d16
+ 735              	usart_synchronous_clock_enable:
+ 736              		@ args = 0, pretend = 0, frame = 0
+ 737              		@ frame_needed = 0, uses_anonymous_args = 0
+ 738              		@ link register save eliminated.
+ 739 0000 0369     		ldr	r3, [r0, #16]
+ 740 0002 43F40063 		orr	r3, r3, #2048
+ 741 0006 0361     		str	r3, [r0, #16]
+ARM GAS  /tmp/ccQCXXBz.s 			page 13
+
+
+ 742 0008 7047     		bx	lr
+ 744              		.section	.text.usart_synchronous_clock_disable,"ax",%progbits
+ 745              		.align	1
+ 746              		.global	usart_synchronous_clock_disable
+ 747              		.syntax unified
+ 748              		.thumb
+ 749              		.thumb_func
+ 750              		.fpu fpv4-sp-d16
+ 752              	usart_synchronous_clock_disable:
+ 753              		@ args = 0, pretend = 0, frame = 0
+ 754              		@ frame_needed = 0, uses_anonymous_args = 0
+ 755              		@ link register save eliminated.
+ 756 0000 0369     		ldr	r3, [r0, #16]
+ 757 0002 23F40063 		bic	r3, r3, #2048
+ 758 0006 0361     		str	r3, [r0, #16]
+ 759 0008 7047     		bx	lr
+ 761              		.section	.text.usart_synchronous_clock_config,"ax",%progbits
+ 762              		.align	1
+ 763              		.global	usart_synchronous_clock_config
+ 764              		.syntax unified
+ 765              		.thumb
+ 766              		.thumb_func
+ 767              		.fpu fpv4-sp-d16
+ 769              	usart_synchronous_clock_config:
+ 770              		@ args = 0, pretend = 0, frame = 0
+ 771              		@ frame_needed = 0, uses_anonymous_args = 0
+ 772              		@ link register save eliminated.
+ 773 0000 10B4     		push	{r4}
+ 774 0002 0469     		ldr	r4, [r0, #16]
+ 775 0004 24F4E064 		bic	r4, r4, #1792
+ 776 0008 01F48071 		and	r1, r1, #256
+ 777 000c 02F40072 		and	r2, r2, #512
+ 778 0010 1143     		orrs	r1, r1, r2
+ 779 0012 03F48063 		and	r3, r3, #1024
+ 780 0016 1943     		orrs	r1, r1, r3
+ 781 0018 2143     		orrs	r1, r1, r4
+ 782 001a 0161     		str	r1, [r0, #16]
+ 783 001c 5DF8044B 		ldr	r4, [sp], #4
+ 784 0020 7047     		bx	lr
+ 786              		.section	.text.usart_guard_time_config,"ax",%progbits
+ 787              		.align	1
+ 788              		.global	usart_guard_time_config
+ 789              		.syntax unified
+ 790              		.thumb
+ 791              		.thumb_func
+ 792              		.fpu fpv4-sp-d16
+ 794              	usart_guard_time_config:
+ 795              		@ args = 0, pretend = 0, frame = 0
+ 796              		@ frame_needed = 0, uses_anonymous_args = 0
+ 797              		@ link register save eliminated.
+ 798 0000 8369     		ldr	r3, [r0, #24]
+ 799 0002 23F47F43 		bic	r3, r3, #65280
+ 800 0006 8361     		str	r3, [r0, #24]
+ 801 0008 8369     		ldr	r3, [r0, #24]
+ 802 000a 0902     		lsls	r1, r1, #8
+ 803 000c 89B2     		uxth	r1, r1
+ 804 000e 0B43     		orrs	r3, r3, r1
+ARM GAS  /tmp/ccQCXXBz.s 			page 14
+
+
+ 805 0010 8361     		str	r3, [r0, #24]
+ 806 0012 7047     		bx	lr
+ 808              		.section	.text.usart_smartcard_mode_enable,"ax",%progbits
+ 809              		.align	1
+ 810              		.global	usart_smartcard_mode_enable
+ 811              		.syntax unified
+ 812              		.thumb
+ 813              		.thumb_func
+ 814              		.fpu fpv4-sp-d16
+ 816              	usart_smartcard_mode_enable:
+ 817              		@ args = 0, pretend = 0, frame = 0
+ 818              		@ frame_needed = 0, uses_anonymous_args = 0
+ 819              		@ link register save eliminated.
+ 820 0000 4369     		ldr	r3, [r0, #20]
+ 821 0002 43F02003 		orr	r3, r3, #32
+ 822 0006 4361     		str	r3, [r0, #20]
+ 823 0008 7047     		bx	lr
+ 825              		.section	.text.usart_smartcard_mode_disable,"ax",%progbits
+ 826              		.align	1
+ 827              		.global	usart_smartcard_mode_disable
+ 828              		.syntax unified
+ 829              		.thumb
+ 830              		.thumb_func
+ 831              		.fpu fpv4-sp-d16
+ 833              	usart_smartcard_mode_disable:
+ 834              		@ args = 0, pretend = 0, frame = 0
+ 835              		@ frame_needed = 0, uses_anonymous_args = 0
+ 836              		@ link register save eliminated.
+ 837 0000 4369     		ldr	r3, [r0, #20]
+ 838 0002 23F02003 		bic	r3, r3, #32
+ 839 0006 4361     		str	r3, [r0, #20]
+ 840 0008 7047     		bx	lr
+ 842              		.section	.text.usart_smartcard_mode_nack_enable,"ax",%progbits
+ 843              		.align	1
+ 844              		.global	usart_smartcard_mode_nack_enable
+ 845              		.syntax unified
+ 846              		.thumb
+ 847              		.thumb_func
+ 848              		.fpu fpv4-sp-d16
+ 850              	usart_smartcard_mode_nack_enable:
+ 851              		@ args = 0, pretend = 0, frame = 0
+ 852              		@ frame_needed = 0, uses_anonymous_args = 0
+ 853              		@ link register save eliminated.
+ 854 0000 4369     		ldr	r3, [r0, #20]
+ 855 0002 43F01003 		orr	r3, r3, #16
+ 856 0006 4361     		str	r3, [r0, #20]
+ 857 0008 7047     		bx	lr
+ 859              		.section	.text.usart_smartcard_mode_nack_disable,"ax",%progbits
+ 860              		.align	1
+ 861              		.global	usart_smartcard_mode_nack_disable
+ 862              		.syntax unified
+ 863              		.thumb
+ 864              		.thumb_func
+ 865              		.fpu fpv4-sp-d16
+ 867              	usart_smartcard_mode_nack_disable:
+ 868              		@ args = 0, pretend = 0, frame = 0
+ 869              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccQCXXBz.s 			page 15
+
+
+ 870              		@ link register save eliminated.
+ 871 0000 4369     		ldr	r3, [r0, #20]
+ 872 0002 23F01003 		bic	r3, r3, #16
+ 873 0006 4361     		str	r3, [r0, #20]
+ 874 0008 7047     		bx	lr
+ 876              		.section	.text.usart_smartcard_autoretry_config,"ax",%progbits
+ 877              		.align	1
+ 878              		.global	usart_smartcard_autoretry_config
+ 879              		.syntax unified
+ 880              		.thumb
+ 881              		.thumb_func
+ 882              		.fpu fpv4-sp-d16
+ 884              	usart_smartcard_autoretry_config:
+ 885              		@ args = 0, pretend = 0, frame = 0
+ 886              		@ frame_needed = 0, uses_anonymous_args = 0
+ 887              		@ link register save eliminated.
+ 888 0000 D0F88030 		ldr	r3, [r0, #128]
+ 889 0004 23F00E03 		bic	r3, r3, #14
+ 890 0008 C0F88030 		str	r3, [r0, #128]
+ 891 000c D0F88030 		ldr	r3, [r0, #128]
+ 892 0010 4900     		lsls	r1, r1, #1
+ 893 0012 01F00E01 		and	r1, r1, #14
+ 894 0016 0B43     		orrs	r3, r3, r1
+ 895 0018 C0F88030 		str	r3, [r0, #128]
+ 896 001c 7047     		bx	lr
+ 898              		.section	.text.usart_block_length_config,"ax",%progbits
+ 899              		.align	1
+ 900              		.global	usart_block_length_config
+ 901              		.syntax unified
+ 902              		.thumb
+ 903              		.thumb_func
+ 904              		.fpu fpv4-sp-d16
+ 906              	usart_block_length_config:
+ 907              		@ args = 0, pretend = 0, frame = 0
+ 908              		@ frame_needed = 0, uses_anonymous_args = 0
+ 909              		@ link register save eliminated.
+ 910 0000 D0F88430 		ldr	r3, [r0, #132]
+ 911 0004 23F07F43 		bic	r3, r3, #-16777216
+ 912 0008 C0F88430 		str	r3, [r0, #132]
+ 913 000c D0F88430 		ldr	r3, [r0, #132]
+ 914 0010 43EA0161 		orr	r1, r3, r1, lsl #24
+ 915 0014 C0F88410 		str	r1, [r0, #132]
+ 916 0018 7047     		bx	lr
+ 918              		.section	.text.usart_irda_mode_enable,"ax",%progbits
+ 919              		.align	1
+ 920              		.global	usart_irda_mode_enable
+ 921              		.syntax unified
+ 922              		.thumb
+ 923              		.thumb_func
+ 924              		.fpu fpv4-sp-d16
+ 926              	usart_irda_mode_enable:
+ 927              		@ args = 0, pretend = 0, frame = 0
+ 928              		@ frame_needed = 0, uses_anonymous_args = 0
+ 929              		@ link register save eliminated.
+ 930 0000 4369     		ldr	r3, [r0, #20]
+ 931 0002 43F00203 		orr	r3, r3, #2
+ 932 0006 4361     		str	r3, [r0, #20]
+ARM GAS  /tmp/ccQCXXBz.s 			page 16
+
+
+ 933 0008 7047     		bx	lr
+ 935              		.section	.text.usart_irda_mode_disable,"ax",%progbits
+ 936              		.align	1
+ 937              		.global	usart_irda_mode_disable
+ 938              		.syntax unified
+ 939              		.thumb
+ 940              		.thumb_func
+ 941              		.fpu fpv4-sp-d16
+ 943              	usart_irda_mode_disable:
+ 944              		@ args = 0, pretend = 0, frame = 0
+ 945              		@ frame_needed = 0, uses_anonymous_args = 0
+ 946              		@ link register save eliminated.
+ 947 0000 4369     		ldr	r3, [r0, #20]
+ 948 0002 23F00203 		bic	r3, r3, #2
+ 949 0006 4361     		str	r3, [r0, #20]
+ 950 0008 7047     		bx	lr
+ 952              		.section	.text.usart_prescaler_config,"ax",%progbits
+ 953              		.align	1
+ 954              		.global	usart_prescaler_config
+ 955              		.syntax unified
+ 956              		.thumb
+ 957              		.thumb_func
+ 958              		.fpu fpv4-sp-d16
+ 960              	usart_prescaler_config:
+ 961              		@ args = 0, pretend = 0, frame = 0
+ 962              		@ frame_needed = 0, uses_anonymous_args = 0
+ 963              		@ link register save eliminated.
+ 964 0000 8369     		ldr	r3, [r0, #24]
+ 965 0002 23F0FF03 		bic	r3, r3, #255
+ 966 0006 8361     		str	r3, [r0, #24]
+ 967 0008 8369     		ldr	r3, [r0, #24]
+ 968 000a 1943     		orrs	r1, r1, r3
+ 969 000c 8161     		str	r1, [r0, #24]
+ 970 000e 7047     		bx	lr
+ 972              		.section	.text.usart_irda_lowpower_config,"ax",%progbits
+ 973              		.align	1
+ 974              		.global	usart_irda_lowpower_config
+ 975              		.syntax unified
+ 976              		.thumb
+ 977              		.thumb_func
+ 978              		.fpu fpv4-sp-d16
+ 980              	usart_irda_lowpower_config:
+ 981              		@ args = 0, pretend = 0, frame = 0
+ 982              		@ frame_needed = 0, uses_anonymous_args = 0
+ 983              		@ link register save eliminated.
+ 984 0000 4369     		ldr	r3, [r0, #20]
+ 985 0002 23F00403 		bic	r3, r3, #4
+ 986 0006 4361     		str	r3, [r0, #20]
+ 987 0008 4369     		ldr	r3, [r0, #20]
+ 988 000a 01F00401 		and	r1, r1, #4
+ 989 000e 0B43     		orrs	r3, r3, r1
+ 990 0010 4361     		str	r3, [r0, #20]
+ 991 0012 7047     		bx	lr
+ 993              		.section	.text.usart_hardware_flow_rts_config,"ax",%progbits
+ 994              		.align	1
+ 995              		.global	usart_hardware_flow_rts_config
+ 996              		.syntax unified
+ARM GAS  /tmp/ccQCXXBz.s 			page 17
+
+
+ 997              		.thumb
+ 998              		.thumb_func
+ 999              		.fpu fpv4-sp-d16
+ 1001              	usart_hardware_flow_rts_config:
+ 1002              		@ args = 0, pretend = 0, frame = 0
+ 1003              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1004              		@ link register save eliminated.
+ 1005 0000 4369     		ldr	r3, [r0, #20]
+ 1006 0002 23F48073 		bic	r3, r3, #256
+ 1007 0006 1943     		orrs	r1, r1, r3
+ 1008 0008 4161     		str	r1, [r0, #20]
+ 1009 000a 7047     		bx	lr
+ 1011              		.section	.text.usart_hardware_flow_cts_config,"ax",%progbits
+ 1012              		.align	1
+ 1013              		.global	usart_hardware_flow_cts_config
+ 1014              		.syntax unified
+ 1015              		.thumb
+ 1016              		.thumb_func
+ 1017              		.fpu fpv4-sp-d16
+ 1019              	usart_hardware_flow_cts_config:
+ 1020              		@ args = 0, pretend = 0, frame = 0
+ 1021              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1022              		@ link register save eliminated.
+ 1023 0000 4369     		ldr	r3, [r0, #20]
+ 1024 0002 23F40073 		bic	r3, r3, #512
+ 1025 0006 1943     		orrs	r1, r1, r3
+ 1026 0008 4161     		str	r1, [r0, #20]
+ 1027 000a 7047     		bx	lr
+ 1029              		.section	.text.usart_break_frame_coherence_config,"ax",%progbits
+ 1030              		.align	1
+ 1031              		.global	usart_break_frame_coherence_config
+ 1032              		.syntax unified
+ 1033              		.thumb
+ 1034              		.thumb_func
+ 1035              		.fpu fpv4-sp-d16
+ 1037              	usart_break_frame_coherence_config:
+ 1038              		@ args = 0, pretend = 0, frame = 0
+ 1039              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1040              		@ link register save eliminated.
+ 1041 0000 D0F8C030 		ldr	r3, [r0, #192]
+ 1042 0004 23F00403 		bic	r3, r3, #4
+ 1043 0008 C0F8C030 		str	r3, [r0, #192]
+ 1044 000c D0F8C030 		ldr	r3, [r0, #192]
+ 1045 0010 01F00401 		and	r1, r1, #4
+ 1046 0014 0B43     		orrs	r3, r3, r1
+ 1047 0016 C0F8C030 		str	r3, [r0, #192]
+ 1048 001a 7047     		bx	lr
+ 1050              		.section	.text.usart_parity_check_coherence_config,"ax",%progbits
+ 1051              		.align	1
+ 1052              		.global	usart_parity_check_coherence_config
+ 1053              		.syntax unified
+ 1054              		.thumb
+ 1055              		.thumb_func
+ 1056              		.fpu fpv4-sp-d16
+ 1058              	usart_parity_check_coherence_config:
+ 1059              		@ args = 0, pretend = 0, frame = 0
+ 1060              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccQCXXBz.s 			page 18
+
+
+ 1061              		@ link register save eliminated.
+ 1062 0000 D0F8C030 		ldr	r3, [r0, #192]
+ 1063 0004 23F00203 		bic	r3, r3, #2
+ 1064 0008 C0F8C030 		str	r3, [r0, #192]
+ 1065 000c D0F8C030 		ldr	r3, [r0, #192]
+ 1066 0010 01F00201 		and	r1, r1, #2
+ 1067 0014 0B43     		orrs	r3, r3, r1
+ 1068 0016 C0F8C030 		str	r3, [r0, #192]
+ 1069 001a 7047     		bx	lr
+ 1071              		.section	.text.usart_hardware_flow_coherence_config,"ax",%progbits
+ 1072              		.align	1
+ 1073              		.global	usart_hardware_flow_coherence_config
+ 1074              		.syntax unified
+ 1075              		.thumb
+ 1076              		.thumb_func
+ 1077              		.fpu fpv4-sp-d16
+ 1079              	usart_hardware_flow_coherence_config:
+ 1080              		@ args = 0, pretend = 0, frame = 0
+ 1081              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1082              		@ link register save eliminated.
+ 1083 0000 D0F8C030 		ldr	r3, [r0, #192]
+ 1084 0004 23F00103 		bic	r3, r3, #1
+ 1085 0008 C0F8C030 		str	r3, [r0, #192]
+ 1086 000c D0F8C030 		ldr	r3, [r0, #192]
+ 1087 0010 01F00101 		and	r1, r1, #1
+ 1088 0014 0B43     		orrs	r3, r3, r1
+ 1089 0016 C0F8C030 		str	r3, [r0, #192]
+ 1090 001a 7047     		bx	lr
+ 1092              		.section	.text.usart_dma_receive_config,"ax",%progbits
+ 1093              		.align	1
+ 1094              		.global	usart_dma_receive_config
+ 1095              		.syntax unified
+ 1096              		.thumb
+ 1097              		.thumb_func
+ 1098              		.fpu fpv4-sp-d16
+ 1100              	usart_dma_receive_config:
+ 1101              		@ args = 0, pretend = 0, frame = 0
+ 1102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1103              		@ link register save eliminated.
+ 1104 0000 4369     		ldr	r3, [r0, #20]
+ 1105 0002 23F04003 		bic	r3, r3, #64
+ 1106 0006 1943     		orrs	r1, r1, r3
+ 1107 0008 4161     		str	r1, [r0, #20]
+ 1108 000a 7047     		bx	lr
+ 1110              		.section	.text.usart_dma_transmit_config,"ax",%progbits
+ 1111              		.align	1
+ 1112              		.global	usart_dma_transmit_config
+ 1113              		.syntax unified
+ 1114              		.thumb
+ 1115              		.thumb_func
+ 1116              		.fpu fpv4-sp-d16
+ 1118              	usart_dma_transmit_config:
+ 1119              		@ args = 0, pretend = 0, frame = 0
+ 1120              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1121              		@ link register save eliminated.
+ 1122 0000 4369     		ldr	r3, [r0, #20]
+ 1123 0002 23F08003 		bic	r3, r3, #128
+ARM GAS  /tmp/ccQCXXBz.s 			page 19
+
+
+ 1124 0006 1943     		orrs	r1, r1, r3
+ 1125 0008 4161     		str	r1, [r0, #20]
+ 1126 000a 7047     		bx	lr
+ 1128              		.section	.text.usart_flag_get,"ax",%progbits
+ 1129              		.align	1
+ 1130              		.global	usart_flag_get
+ 1131              		.syntax unified
+ 1132              		.thumb
+ 1133              		.thumb_func
+ 1134              		.fpu fpv4-sp-d16
+ 1136              	usart_flag_get:
+ 1137              		@ args = 0, pretend = 0, frame = 0
+ 1138              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1139              		@ link register save eliminated.
+ 1140 0000 8B09     		lsrs	r3, r1, #6
+ 1141 0002 1B58     		ldr	r3, [r3, r0]
+ 1142 0004 01F01F01 		and	r1, r1, #31
+ 1143 0008 23FA01F1 		lsr	r1, r3, r1
+ 1144 000c 11F0010F 		tst	r1, #1
+ 1145 0010 01D0     		beq	.L98
+ 1146 0012 0120     		movs	r0, #1
+ 1147 0014 7047     		bx	lr
+ 1148              	.L98:
+ 1149 0016 0020     		movs	r0, #0
+ 1150 0018 7047     		bx	lr
+ 1152              		.section	.text.usart_flag_clear,"ax",%progbits
+ 1153              		.align	1
+ 1154              		.global	usart_flag_clear
+ 1155              		.syntax unified
+ 1156              		.thumb
+ 1157              		.thumb_func
+ 1158              		.fpu fpv4-sp-d16
+ 1160              	usart_flag_clear:
+ 1161              		@ args = 0, pretend = 0, frame = 0
+ 1162              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1163              		@ link register save eliminated.
+ 1164 0000 10B4     		push	{r4}
+ 1165 0002 8C09     		lsrs	r4, r1, #6
+ 1166 0004 2358     		ldr	r3, [r4, r0]
+ 1167 0006 01F01F01 		and	r1, r1, #31
+ 1168 000a 0122     		movs	r2, #1
+ 1169 000c 02FA01F1 		lsl	r1, r2, r1
+ 1170 0010 23EA0103 		bic	r3, r3, r1
+ 1171 0014 2350     		str	r3, [r4, r0]
+ 1172 0016 5DF8044B 		ldr	r4, [sp], #4
+ 1173 001a 7047     		bx	lr
+ 1175              		.section	.text.usart_interrupt_enable,"ax",%progbits
+ 1176              		.align	1
+ 1177              		.global	usart_interrupt_enable
+ 1178              		.syntax unified
+ 1179              		.thumb
+ 1180              		.thumb_func
+ 1181              		.fpu fpv4-sp-d16
+ 1183              	usart_interrupt_enable:
+ 1184              		@ args = 0, pretend = 0, frame = 0
+ 1185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1186              		@ link register save eliminated.
+ARM GAS  /tmp/ccQCXXBz.s 			page 20
+
+
+ 1187 0000 10B4     		push	{r4}
+ 1188 0002 8C09     		lsrs	r4, r1, #6
+ 1189 0004 2358     		ldr	r3, [r4, r0]
+ 1190 0006 01F01F01 		and	r1, r1, #31
+ 1191 000a 0122     		movs	r2, #1
+ 1192 000c 02FA01F1 		lsl	r1, r2, r1
+ 1193 0010 0B43     		orrs	r3, r3, r1
+ 1194 0012 2350     		str	r3, [r4, r0]
+ 1195 0014 5DF8044B 		ldr	r4, [sp], #4
+ 1196 0018 7047     		bx	lr
+ 1198              		.section	.text.usart_interrupt_disable,"ax",%progbits
+ 1199              		.align	1
+ 1200              		.global	usart_interrupt_disable
+ 1201              		.syntax unified
+ 1202              		.thumb
+ 1203              		.thumb_func
+ 1204              		.fpu fpv4-sp-d16
+ 1206              	usart_interrupt_disable:
+ 1207              		@ args = 0, pretend = 0, frame = 0
+ 1208              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1209              		@ link register save eliminated.
+ 1210 0000 10B4     		push	{r4}
+ 1211 0002 8C09     		lsrs	r4, r1, #6
+ 1212 0004 2358     		ldr	r3, [r4, r0]
+ 1213 0006 01F01F01 		and	r1, r1, #31
+ 1214 000a 0122     		movs	r2, #1
+ 1215 000c 02FA01F1 		lsl	r1, r2, r1
+ 1216 0010 23EA0103 		bic	r3, r3, r1
+ 1217 0014 2350     		str	r3, [r4, r0]
+ 1218 0016 5DF8044B 		ldr	r4, [sp], #4
+ 1219 001a 7047     		bx	lr
+ 1221              		.section	.text.usart_interrupt_flag_get,"ax",%progbits
+ 1222              		.align	1
+ 1223              		.global	usart_interrupt_flag_get
+ 1224              		.syntax unified
+ 1225              		.thumb
+ 1226              		.thumb_func
+ 1227              		.fpu fpv4-sp-d16
+ 1229              	usart_interrupt_flag_get:
+ 1230              		@ args = 0, pretend = 0, frame = 0
+ 1231              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1232              		@ link register save eliminated.
+ 1233 0000 10B4     		push	{r4}
+ 1234 0002 C1F38913 		ubfx	r3, r1, #6, #10
+ 1235 0006 1C58     		ldr	r4, [r3, r0]
+ 1236 0008 01F01F02 		and	r2, r1, #31
+ 1237 000c 0123     		movs	r3, #1
+ 1238 000e 03FA02F2 		lsl	r2, r3, r2
+ 1239 0012 2240     		ands	r2, r2, r4
+ 1240 0014 8C0D     		lsrs	r4, r1, #22
+ 1241 0016 2058     		ldr	r0, [r4, r0]
+ 1242 0018 C1F30441 		ubfx	r1, r1, #16, #5
+ 1243 001c 03FA01F1 		lsl	r1, r3, r1
+ 1244 0020 0842     		tst	r0, r1
+ 1245 0022 02D0     		beq	.L107
+ 1246 0024 2AB9     		cbnz	r2, .L108
+ 1247 0026 0020     		movs	r0, #0
+ARM GAS  /tmp/ccQCXXBz.s 			page 21
+
+
+ 1248 0028 00E0     		b	.L106
+ 1249              	.L107:
+ 1250 002a 0020     		movs	r0, #0
+ 1251              	.L106:
+ 1252 002c 5DF8044B 		ldr	r4, [sp], #4
+ 1253 0030 7047     		bx	lr
+ 1254              	.L108:
+ 1255 0032 0120     		movs	r0, #1
+ 1256 0034 FAE7     		b	.L106
+ 1258              		.section	.text.usart_interrupt_flag_clear,"ax",%progbits
+ 1259              		.align	1
+ 1260              		.global	usart_interrupt_flag_clear
+ 1261              		.syntax unified
+ 1262              		.thumb
+ 1263              		.thumb_func
+ 1264              		.fpu fpv4-sp-d16
+ 1266              	usart_interrupt_flag_clear:
+ 1267              		@ args = 0, pretend = 0, frame = 0
+ 1268              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1269              		@ link register save eliminated.
+ 1270 0000 10B4     		push	{r4}
+ 1271 0002 8C0D     		lsrs	r4, r1, #22
+ 1272 0004 2358     		ldr	r3, [r4, r0]
+ 1273 0006 C1F30441 		ubfx	r1, r1, #16, #5
+ 1274 000a 0122     		movs	r2, #1
+ 1275 000c 02FA01F1 		lsl	r1, r2, r1
+ 1276 0010 23EA0103 		bic	r3, r3, r1
+ 1277 0014 2350     		str	r3, [r4, r0]
+ 1278 0016 5DF8044B 		ldr	r4, [sp], #4
+ 1279 001a 7047     		bx	lr
+ 1281              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccQCXXBz.s 			page 22
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_usart.c
+     /tmp/ccQCXXBz.s:16     .text.usart_deinit:0000000000000000 $t
+     /tmp/ccQCXXBz.s:24     .text.usart_deinit:0000000000000000 usart_deinit
+     /tmp/ccQCXXBz.s:107    .text.usart_deinit:00000000000000d4 $d
+     /tmp/ccQCXXBz.s:112    .text.usart_baudrate_set:0000000000000000 $t
+     /tmp/ccQCXXBz.s:119    .text.usart_baudrate_set:0000000000000000 usart_baudrate_set
+     /tmp/ccQCXXBz.s:213    .text.usart_baudrate_set:00000000000000c0 $d
+     /tmp/ccQCXXBz.s:218    .text.usart_parity_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:225    .text.usart_parity_config:0000000000000000 usart_parity_config
+     /tmp/ccQCXXBz.s:238    .text.usart_word_length_set:0000000000000000 $t
+     /tmp/ccQCXXBz.s:245    .text.usart_word_length_set:0000000000000000 usart_word_length_set
+     /tmp/ccQCXXBz.s:258    .text.usart_stop_bit_set:0000000000000000 $t
+     /tmp/ccQCXXBz.s:265    .text.usart_stop_bit_set:0000000000000000 usart_stop_bit_set
+     /tmp/ccQCXXBz.s:278    .text.usart_enable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:285    .text.usart_enable:0000000000000000 usart_enable
+     /tmp/ccQCXXBz.s:295    .text.usart_disable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:302    .text.usart_disable:0000000000000000 usart_disable
+     /tmp/ccQCXXBz.s:312    .text.usart_transmit_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:319    .text.usart_transmit_config:0000000000000000 usart_transmit_config
+     /tmp/ccQCXXBz.s:330    .text.usart_receive_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:337    .text.usart_receive_config:0000000000000000 usart_receive_config
+     /tmp/ccQCXXBz.s:348    .text.usart_data_first_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:355    .text.usart_data_first_config:0000000000000000 usart_data_first_config
+     /tmp/ccQCXXBz.s:366    .text.usart_invert_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:373    .text.usart_invert_config:0000000000000000 usart_invert_config
+     /tmp/ccQCXXBz.s:381    .text.usart_invert_config:0000000000000008 $d
+     /tmp/ccQCXXBz.s:387    .text.usart_invert_config:000000000000000e $t
+     /tmp/ccQCXXBz.s:421    .text.usart_oversample_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:428    .text.usart_oversample_config:0000000000000000 usart_oversample_config
+     /tmp/ccQCXXBz.s:441    .text.usart_sample_bit_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:448    .text.usart_sample_bit_config:0000000000000000 usart_sample_bit_config
+     /tmp/ccQCXXBz.s:461    .text.usart_receiver_timeout_enable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:468    .text.usart_receiver_timeout_enable:0000000000000000 usart_receiver_timeout_enable
+     /tmp/ccQCXXBz.s:478    .text.usart_receiver_timeout_disable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:485    .text.usart_receiver_timeout_disable:0000000000000000 usart_receiver_timeout_disable
+     /tmp/ccQCXXBz.s:495    .text.usart_receiver_timeout_threshold_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:502    .text.usart_receiver_timeout_threshold_config:0000000000000000 usart_receiver_timeout_threshold_config
+     /tmp/ccQCXXBz.s:515    .text.usart_data_transmit:0000000000000000 $t
+     /tmp/ccQCXXBz.s:522    .text.usart_data_transmit:0000000000000000 usart_data_transmit
+     /tmp/ccQCXXBz.s:531    .text.usart_data_receive:0000000000000000 $t
+     /tmp/ccQCXXBz.s:538    .text.usart_data_receive:0000000000000000 usart_data_receive
+     /tmp/ccQCXXBz.s:547    .text.usart_address_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:554    .text.usart_address_config:0000000000000000 usart_address_config
+     /tmp/ccQCXXBz.s:568    .text.usart_mute_mode_enable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:575    .text.usart_mute_mode_enable:0000000000000000 usart_mute_mode_enable
+     /tmp/ccQCXXBz.s:585    .text.usart_mute_mode_disable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:592    .text.usart_mute_mode_disable:0000000000000000 usart_mute_mode_disable
+     /tmp/ccQCXXBz.s:602    .text.usart_mute_mode_wakeup_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:609    .text.usart_mute_mode_wakeup_config:0000000000000000 usart_mute_mode_wakeup_config
+     /tmp/ccQCXXBz.s:622    .text.usart_lin_mode_enable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:629    .text.usart_lin_mode_enable:0000000000000000 usart_lin_mode_enable
+     /tmp/ccQCXXBz.s:639    .text.usart_lin_mode_disable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:646    .text.usart_lin_mode_disable:0000000000000000 usart_lin_mode_disable
+     /tmp/ccQCXXBz.s:656    .text.usart_lin_break_detection_length_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:663    .text.usart_lin_break_detection_length_config:0000000000000000 usart_lin_break_detection_length_config
+     /tmp/ccQCXXBz.s:677    .text.usart_send_break:0000000000000000 $t
+ARM GAS  /tmp/ccQCXXBz.s 			page 23
+
+
+     /tmp/ccQCXXBz.s:684    .text.usart_send_break:0000000000000000 usart_send_break
+     /tmp/ccQCXXBz.s:694    .text.usart_halfduplex_enable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:701    .text.usart_halfduplex_enable:0000000000000000 usart_halfduplex_enable
+     /tmp/ccQCXXBz.s:711    .text.usart_halfduplex_disable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:718    .text.usart_halfduplex_disable:0000000000000000 usart_halfduplex_disable
+     /tmp/ccQCXXBz.s:728    .text.usart_synchronous_clock_enable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:735    .text.usart_synchronous_clock_enable:0000000000000000 usart_synchronous_clock_enable
+     /tmp/ccQCXXBz.s:745    .text.usart_synchronous_clock_disable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:752    .text.usart_synchronous_clock_disable:0000000000000000 usart_synchronous_clock_disable
+     /tmp/ccQCXXBz.s:762    .text.usart_synchronous_clock_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:769    .text.usart_synchronous_clock_config:0000000000000000 usart_synchronous_clock_config
+     /tmp/ccQCXXBz.s:787    .text.usart_guard_time_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:794    .text.usart_guard_time_config:0000000000000000 usart_guard_time_config
+     /tmp/ccQCXXBz.s:809    .text.usart_smartcard_mode_enable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:816    .text.usart_smartcard_mode_enable:0000000000000000 usart_smartcard_mode_enable
+     /tmp/ccQCXXBz.s:826    .text.usart_smartcard_mode_disable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:833    .text.usart_smartcard_mode_disable:0000000000000000 usart_smartcard_mode_disable
+     /tmp/ccQCXXBz.s:843    .text.usart_smartcard_mode_nack_enable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:850    .text.usart_smartcard_mode_nack_enable:0000000000000000 usart_smartcard_mode_nack_enable
+     /tmp/ccQCXXBz.s:860    .text.usart_smartcard_mode_nack_disable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:867    .text.usart_smartcard_mode_nack_disable:0000000000000000 usart_smartcard_mode_nack_disable
+     /tmp/ccQCXXBz.s:877    .text.usart_smartcard_autoretry_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:884    .text.usart_smartcard_autoretry_config:0000000000000000 usart_smartcard_autoretry_config
+     /tmp/ccQCXXBz.s:899    .text.usart_block_length_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:906    .text.usart_block_length_config:0000000000000000 usart_block_length_config
+     /tmp/ccQCXXBz.s:919    .text.usart_irda_mode_enable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:926    .text.usart_irda_mode_enable:0000000000000000 usart_irda_mode_enable
+     /tmp/ccQCXXBz.s:936    .text.usart_irda_mode_disable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:943    .text.usart_irda_mode_disable:0000000000000000 usart_irda_mode_disable
+     /tmp/ccQCXXBz.s:953    .text.usart_prescaler_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:960    .text.usart_prescaler_config:0000000000000000 usart_prescaler_config
+     /tmp/ccQCXXBz.s:973    .text.usart_irda_lowpower_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:980    .text.usart_irda_lowpower_config:0000000000000000 usart_irda_lowpower_config
+     /tmp/ccQCXXBz.s:994    .text.usart_hardware_flow_rts_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:1001   .text.usart_hardware_flow_rts_config:0000000000000000 usart_hardware_flow_rts_config
+     /tmp/ccQCXXBz.s:1012   .text.usart_hardware_flow_cts_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:1019   .text.usart_hardware_flow_cts_config:0000000000000000 usart_hardware_flow_cts_config
+     /tmp/ccQCXXBz.s:1030   .text.usart_break_frame_coherence_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:1037   .text.usart_break_frame_coherence_config:0000000000000000 usart_break_frame_coherence_config
+     /tmp/ccQCXXBz.s:1051   .text.usart_parity_check_coherence_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:1058   .text.usart_parity_check_coherence_config:0000000000000000 usart_parity_check_coherence_config
+     /tmp/ccQCXXBz.s:1072   .text.usart_hardware_flow_coherence_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:1079   .text.usart_hardware_flow_coherence_config:0000000000000000 usart_hardware_flow_coherence_config
+     /tmp/ccQCXXBz.s:1093   .text.usart_dma_receive_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:1100   .text.usart_dma_receive_config:0000000000000000 usart_dma_receive_config
+     /tmp/ccQCXXBz.s:1111   .text.usart_dma_transmit_config:0000000000000000 $t
+     /tmp/ccQCXXBz.s:1118   .text.usart_dma_transmit_config:0000000000000000 usart_dma_transmit_config
+     /tmp/ccQCXXBz.s:1129   .text.usart_flag_get:0000000000000000 $t
+     /tmp/ccQCXXBz.s:1136   .text.usart_flag_get:0000000000000000 usart_flag_get
+     /tmp/ccQCXXBz.s:1153   .text.usart_flag_clear:0000000000000000 $t
+     /tmp/ccQCXXBz.s:1160   .text.usart_flag_clear:0000000000000000 usart_flag_clear
+     /tmp/ccQCXXBz.s:1176   .text.usart_interrupt_enable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:1183   .text.usart_interrupt_enable:0000000000000000 usart_interrupt_enable
+     /tmp/ccQCXXBz.s:1199   .text.usart_interrupt_disable:0000000000000000 $t
+     /tmp/ccQCXXBz.s:1206   .text.usart_interrupt_disable:0000000000000000 usart_interrupt_disable
+     /tmp/ccQCXXBz.s:1222   .text.usart_interrupt_flag_get:0000000000000000 $t
+     /tmp/ccQCXXBz.s:1229   .text.usart_interrupt_flag_get:0000000000000000 usart_interrupt_flag_get
+ARM GAS  /tmp/ccQCXXBz.s 			page 24
+
+
+     /tmp/ccQCXXBz.s:1259   .text.usart_interrupt_flag_clear:0000000000000000 $t
+     /tmp/ccQCXXBz.s:1266   .text.usart_interrupt_flag_clear:0000000000000000 usart_interrupt_flag_clear
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable
+rcu_clock_freq_get

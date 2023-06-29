@@ -1,0 +1,4141 @@
+ARM GAS  /tmp/ccG0NqrR.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"tcp.c"
+  14              		.text
+  15              		.section	.text.tcp_new_port,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	tcp_new_port:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26              		@ link register save eliminated.
+  27 0000 10B4     		push	{r4}
+  28 0002 0024     		movs	r4, #0
+  29 0004 09E0     		b	.L2
+  30              	.L13:
+  31 0006 164B     		ldr	r3, .L17
+  32 0008 4FF44042 		mov	r2, #49152
+  33 000c 1A80     		strh	r2, [r3]	@ movhi
+  34 000e 0DE0     		b	.L3
+  35              	.L16:
+  36 0010 0134     		adds	r4, r4, #1
+  37 0012 A4B2     		uxth	r4, r4
+  38 0014 B4F5804F 		cmp	r4, #16384
+  39 0018 1FD2     		bcs	.L12
+  40              	.L2:
+  41 001a 114A     		ldr	r2, .L17
+  42 001c 1388     		ldrh	r3, [r2]
+  43 001e 0133     		adds	r3, r3, #1
+  44 0020 9BB2     		uxth	r3, r3
+  45 0022 1380     		strh	r3, [r2]	@ movhi
+  46 0024 4FF6FF72 		movw	r2, #65535
+  47 0028 9342     		cmp	r3, r2
+  48 002a ECD0     		beq	.L13
+  49              	.L3:
+  50 002c 0020     		movs	r0, #0
+  51              	.L4:
+  52 002e 0328     		cmp	r0, #3
+  53 0030 0ED8     		bhi	.L14
+  54 0032 0C4B     		ldr	r3, .L17+4
+  55 0034 53F82030 		ldr	r3, [r3, r0, lsl #2]
+  56 0038 1B68     		ldr	r3, [r3]
+  57              	.L5:
+  58 003a 33B1     		cbz	r3, .L15
+ARM GAS  /tmp/ccG0NqrR.s 			page 2
+
+
+  59 003c D98A     		ldrh	r1, [r3, #22]
+  60 003e 084A     		ldr	r2, .L17
+  61 0040 1288     		ldrh	r2, [r2]
+  62 0042 9142     		cmp	r1, r2
+  63 0044 E4D0     		beq	.L16
+  64 0046 DB68     		ldr	r3, [r3, #12]
+  65 0048 F7E7     		b	.L5
+  66              	.L15:
+  67 004a 0130     		adds	r0, r0, #1
+  68 004c C0B2     		uxtb	r0, r0
+  69 004e EEE7     		b	.L4
+  70              	.L14:
+  71 0050 034B     		ldr	r3, .L17
+  72 0052 1888     		ldrh	r0, [r3]
+  73              	.L7:
+  74 0054 5DF8044B 		ldr	r4, [sp], #4
+  75 0058 7047     		bx	lr
+  76              	.L12:
+  77 005a 0020     		movs	r0, #0
+  78 005c FAE7     		b	.L7
+  79              	.L18:
+  80 005e 00BF     		.align	2
+  81              	.L17:
+  82 0060 00000000 		.word	.LANCHOR0
+  83 0064 00000000 		.word	.LANCHOR1
+  85              		.section	.text.tcp_remove_listener,"ax",%progbits
+  86              		.align	1
+  87              		.syntax unified
+  88              		.thumb
+  89              		.thumb_func
+  90              		.fpu fpv4-sp-d16
+  92              	tcp_remove_listener:
+  93              		@ args = 0, pretend = 0, frame = 0
+  94              		@ frame_needed = 0, uses_anonymous_args = 0
+  95 0000 38B5     		push	{r3, r4, r5, lr}
+  96 0002 0446     		mov	r4, r0
+  97 0004 0D46     		mov	r5, r1
+  98 0006 49B9     		cbnz	r1, .L21
+  99 0008 074B     		ldr	r3, .L27
+ 100 000a FF22     		movs	r2, #255
+ 101 000c 0749     		ldr	r1, .L27+4
+ 102 000e 0848     		ldr	r0, .L27+8
+ 103 0010 FFF7FEFF 		bl	printf
+ 104 0014 02E0     		b	.L21
+ 105              	.L26:
+ 106 0016 0023     		movs	r3, #0
+ 107 0018 E367     		str	r3, [r4, #124]
+ 108              	.L22:
+ 109 001a E468     		ldr	r4, [r4, #12]
+ 110              	.L21:
+ 111 001c 1CB1     		cbz	r4, .L25
+ 112 001e E36F     		ldr	r3, [r4, #124]
+ 113 0020 AB42     		cmp	r3, r5
+ 114 0022 FAD1     		bne	.L22
+ 115 0024 F7E7     		b	.L26
+ 116              	.L25:
+ 117 0026 38BD     		pop	{r3, r4, r5, pc}
+ARM GAS  /tmp/ccG0NqrR.s 			page 3
+
+
+ 118              	.L28:
+ 119              		.align	2
+ 120              	.L27:
+ 121 0028 00000000 		.word	.LC0
+ 122 002c 2C000000 		.word	.LC1
+ 123 0030 54000000 		.word	.LC2
+ 125              		.section	.text.tcp_listen_closed,"ax",%progbits
+ 126              		.align	1
+ 127              		.syntax unified
+ 128              		.thumb
+ 129              		.thumb_func
+ 130              		.fpu fpv4-sp-d16
+ 132              	tcp_listen_closed:
+ 133              		@ args = 0, pretend = 0, frame = 0
+ 134              		@ frame_needed = 0, uses_anonymous_args = 0
+ 135 0000 38B5     		push	{r3, r4, r5, lr}
+ 136 0002 0546     		mov	r5, r0
+ 137 0004 70B1     		cbz	r0, .L35
+ 138              	.L30:
+ 139 0006 2B7D     		ldrb	r3, [r5, #20]	@ zero_extendqisi2
+ 140 0008 012B     		cmp	r3, #1
+ 141 000a 13D1     		bne	.L36
+ 142              	.L31:
+ 143 000c 0124     		movs	r4, #1
+ 144              	.L32:
+ 145 000e 032C     		cmp	r4, #3
+ 146 0010 18D8     		bhi	.L37
+ 147 0012 0D4B     		ldr	r3, .L38
+ 148 0014 53F82430 		ldr	r3, [r3, r4, lsl #2]
+ 149 0018 2946     		mov	r1, r5
+ 150 001a 1868     		ldr	r0, [r3]
+ 151 001c FFF7FEFF 		bl	tcp_remove_listener
+ 152 0020 0134     		adds	r4, r4, #1
+ 153 0022 F4E7     		b	.L32
+ 154              	.L35:
+ 155 0024 094B     		ldr	r3, .L38+4
+ 156 0026 40F21112 		movw	r2, #273
+ 157 002a 0949     		ldr	r1, .L38+8
+ 158 002c 0948     		ldr	r0, .L38+12
+ 159 002e FFF7FEFF 		bl	printf
+ 160 0032 E8E7     		b	.L30
+ 161              	.L36:
+ 162 0034 054B     		ldr	r3, .L38+4
+ 163 0036 4FF48972 		mov	r2, #274
+ 164 003a 0749     		ldr	r1, .L38+16
+ 165 003c 0548     		ldr	r0, .L38+12
+ 166 003e FFF7FEFF 		bl	printf
+ 167 0042 E3E7     		b	.L31
+ 168              	.L37:
+ 169 0044 38BD     		pop	{r3, r4, r5, pc}
+ 170              	.L39:
+ 171 0046 00BF     		.align	2
+ 172              	.L38:
+ 173 0048 00000000 		.word	.LANCHOR1
+ 174 004c 00000000 		.word	.LC0
+ 175 0050 00000000 		.word	.LC3
+ 176 0054 54000000 		.word	.LC2
+ARM GAS  /tmp/ccG0NqrR.s 			page 4
+
+
+ 177 0058 0C000000 		.word	.LC4
+ 179              		.section	.text.tcp_free_listen,"ax",%progbits
+ 180              		.align	1
+ 181              		.syntax unified
+ 182              		.thumb
+ 183              		.thumb_func
+ 184              		.fpu fpv4-sp-d16
+ 186              	tcp_free_listen:
+ 187              		@ args = 0, pretend = 0, frame = 0
+ 188              		@ frame_needed = 0, uses_anonymous_args = 0
+ 189 0000 10B5     		push	{r4, lr}
+ 190 0002 0446     		mov	r4, r0
+ 191 0004 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ 192 0006 012B     		cmp	r3, #1
+ 193 0008 04D0     		beq	.L43
+ 194              	.L41:
+ 195 000a 2146     		mov	r1, r4
+ 196 000c 0220     		movs	r0, #2
+ 197 000e FFF7FEFF 		bl	memp_free
+ 198 0012 10BD     		pop	{r4, pc}
+ 199              	.L43:
+ 200 0014 034B     		ldr	r3, .L44
+ 201 0016 DF22     		movs	r2, #223
+ 202 0018 0349     		ldr	r1, .L44+4
+ 203 001a 0448     		ldr	r0, .L44+8
+ 204 001c FFF7FEFF 		bl	printf
+ 205 0020 F3E7     		b	.L41
+ 206              	.L45:
+ 207 0022 00BF     		.align	2
+ 208              	.L44:
+ 209 0024 00000000 		.word	.LC0
+ 210 0028 00000000 		.word	.LC5
+ 211 002c 54000000 		.word	.LC2
+ 213              		.section	.text.tcp_close_shutdown_fin,"ax",%progbits
+ 214              		.align	1
+ 215              		.syntax unified
+ 216              		.thumb
+ 217              		.thumb_func
+ 218              		.fpu fpv4-sp-d16
+ 220              	tcp_close_shutdown_fin:
+ 221              		@ args = 0, pretend = 0, frame = 0
+ 222              		@ frame_needed = 0, uses_anonymous_args = 0
+ 223 0000 38B5     		push	{r3, r4, r5, lr}
+ 224 0002 0546     		mov	r5, r0
+ 225 0004 48B1     		cbz	r0, .L55
+ 226              	.L47:
+ 227 0006 2B7D     		ldrb	r3, [r5, #20]	@ zero_extendqisi2
+ 228 0008 042B     		cmp	r3, #4
+ 229 000a 1FD0     		beq	.L48
+ 230 000c 072B     		cmp	r3, #7
+ 231 000e 26D0     		beq	.L49
+ 232 0010 032B     		cmp	r3, #3
+ 233 0012 0AD0     		beq	.L56
+ 234 0014 0024     		movs	r4, #0
+ 235              	.L50:
+ 236 0016 2046     		mov	r0, r4
+ 237 0018 38BD     		pop	{r3, r4, r5, pc}
+ARM GAS  /tmp/ccG0NqrR.s 			page 5
+
+
+ 238              	.L55:
+ 239 001a 174B     		ldr	r3, .L58
+ 240 001c 4FF4CE72 		mov	r2, #412
+ 241 0020 1649     		ldr	r1, .L58+4
+ 242 0022 1748     		ldr	r0, .L58+8
+ 243 0024 FFF7FEFF 		bl	printf
+ 244 0028 EDE7     		b	.L47
+ 245              	.L56:
+ 246 002a 2846     		mov	r0, r5
+ 247 002c FFF7FEFF 		bl	tcp_send_fin
+ 248 0030 0446     		mov	r4, r0
+ 249 0032 08B9     		cbnz	r0, .L51
+ 250 0034 0523     		movs	r3, #5
+ 251 0036 2B75     		strb	r3, [r5, #20]
+ 252              	.L51:
+ 253 0038 D4B1     		cbz	r4, .L57
+ 254 003a B4F1FF3F 		cmp	r4, #-1
+ 255 003e EAD1     		bne	.L50
+ 256 0040 6B8B     		ldrh	r3, [r5, #26]
+ 257 0042 43F00803 		orr	r3, r3, #8
+ 258 0046 6B83     		strh	r3, [r5, #26]	@ movhi
+ 259 0048 0024     		movs	r4, #0
+ 260 004a E4E7     		b	.L50
+ 261              	.L48:
+ 262 004c 2846     		mov	r0, r5
+ 263 004e FFF7FEFF 		bl	tcp_send_fin
+ 264 0052 0446     		mov	r4, r0
+ 265 0054 0028     		cmp	r0, #0
+ 266 0056 EFD1     		bne	.L51
+ 267 0058 0523     		movs	r3, #5
+ 268 005a 2B75     		strb	r3, [r5, #20]
+ 269 005c ECE7     		b	.L51
+ 270              	.L49:
+ 271 005e 2846     		mov	r0, r5
+ 272 0060 FFF7FEFF 		bl	tcp_send_fin
+ 273 0064 0446     		mov	r4, r0
+ 274 0066 0028     		cmp	r0, #0
+ 275 0068 E6D1     		bne	.L51
+ 276 006a 0923     		movs	r3, #9
+ 277 006c 2B75     		strb	r3, [r5, #20]
+ 278 006e E3E7     		b	.L51
+ 279              	.L57:
+ 280 0070 2846     		mov	r0, r5
+ 281 0072 FFF7FEFF 		bl	tcp_output
+ 282 0076 CEE7     		b	.L50
+ 283              	.L59:
+ 284              		.align	2
+ 285              	.L58:
+ 286 0078 00000000 		.word	.LC0
+ 287 007c 00000000 		.word	.LC3
+ 288 0080 54000000 		.word	.LC2
+ 290              		.section	.text.tcp_handle_closepend,"ax",%progbits
+ 291              		.align	1
+ 292              		.syntax unified
+ 293              		.thumb
+ 294              		.thumb_func
+ 295              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccG0NqrR.s 			page 6
+
+
+ 297              	tcp_handle_closepend:
+ 298              		@ args = 0, pretend = 0, frame = 0
+ 299              		@ frame_needed = 0, uses_anonymous_args = 0
+ 300 0000 094B     		ldr	r3, .L70
+ 301 0002 1868     		ldr	r0, [r3]
+ 302 0004 78B1     		cbz	r0, .L67
+ 303 0006 10B5     		push	{r4, lr}
+ 304 0008 06E0     		b	.L63
+ 305              	.L69:
+ 306 000a 23F00803 		bic	r3, r3, #8
+ 307 000e 4383     		strh	r3, [r0, #26]	@ movhi
+ 308 0010 FFF7FEFF 		bl	tcp_close_shutdown_fin
+ 309              	.L62:
+ 310 0014 2046     		mov	r0, r4
+ 311 0016 2CB1     		cbz	r4, .L68
+ 312              	.L63:
+ 313 0018 C468     		ldr	r4, [r0, #12]
+ 314 001a 438B     		ldrh	r3, [r0, #26]
+ 315 001c 13F0080F 		tst	r3, #8
+ 316 0020 F8D0     		beq	.L62
+ 317 0022 F2E7     		b	.L69
+ 318              	.L68:
+ 319 0024 10BD     		pop	{r4, pc}
+ 320              	.L67:
+ 321 0026 7047     		bx	lr
+ 322              	.L71:
+ 323              		.align	2
+ 324              	.L70:
+ 325 0028 00000000 		.word	tcp_active_pcbs
+ 327              		.section	.text.tcp_init,"ax",%progbits
+ 328              		.align	1
+ 329              		.global	tcp_init
+ 330              		.syntax unified
+ 331              		.thumb
+ 332              		.thumb_func
+ 333              		.fpu fpv4-sp-d16
+ 335              	tcp_init:
+ 336              		@ args = 0, pretend = 0, frame = 0
+ 337              		@ frame_needed = 0, uses_anonymous_args = 0
+ 338 0000 08B5     		push	{r3, lr}
+ 339 0002 FFF7FEFF 		bl	rand
+ 340 0006 6FEA8040 		mvn	r0, r0, lsl #18
+ 341 000a 6FEA9040 		mvn	r0, r0, lsr #18
+ 342 000e 014B     		ldr	r3, .L74
+ 343 0010 1880     		strh	r0, [r3]	@ movhi
+ 344 0012 08BD     		pop	{r3, pc}
+ 345              	.L75:
+ 346              		.align	2
+ 347              	.L74:
+ 348 0014 00000000 		.word	.LANCHOR0
+ 350              		.section	.text.tcp_free,"ax",%progbits
+ 351              		.align	1
+ 352              		.global	tcp_free
+ 353              		.syntax unified
+ 354              		.thumb
+ 355              		.thumb_func
+ 356              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccG0NqrR.s 			page 7
+
+
+ 358              	tcp_free:
+ 359              		@ args = 0, pretend = 0, frame = 0
+ 360              		@ frame_needed = 0, uses_anonymous_args = 0
+ 361 0000 10B5     		push	{r4, lr}
+ 362 0002 0446     		mov	r4, r0
+ 363 0004 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ 364 0006 012B     		cmp	r3, #1
+ 365 0008 04D0     		beq	.L79
+ 366              	.L77:
+ 367 000a 2146     		mov	r1, r4
+ 368 000c 0120     		movs	r0, #1
+ 369 000e FFF7FEFF 		bl	memp_free
+ 370 0012 10BD     		pop	{r4, pc}
+ 371              	.L79:
+ 372 0014 034B     		ldr	r3, .L80
+ 373 0016 D422     		movs	r2, #212
+ 374 0018 0349     		ldr	r1, .L80+4
+ 375 001a 0448     		ldr	r0, .L80+8
+ 376 001c FFF7FEFF 		bl	printf
+ 377 0020 F3E7     		b	.L77
+ 378              	.L81:
+ 379 0022 00BF     		.align	2
+ 380              	.L80:
+ 381 0024 00000000 		.word	.LC0
+ 382 0028 00000000 		.word	.LC6
+ 383 002c 54000000 		.word	.LC2
+ 385              		.section	.text.tcp_bind,"ax",%progbits
+ 386              		.align	1
+ 387              		.global	tcp_bind
+ 388              		.syntax unified
+ 389              		.thumb
+ 390              		.thumb_func
+ 391              		.fpu fpv4-sp-d16
+ 393              	tcp_bind:
+ 394              		@ args = 0, pretend = 0, frame = 0
+ 395              		@ frame_needed = 0, uses_anonymous_args = 0
+ 396 0000 70B5     		push	{r4, r5, r6, lr}
+ 397 0002 0546     		mov	r5, r0
+ 398 0004 0C46     		mov	r4, r1
+ 399 0006 59B1     		cbz	r1, .L103
+ 400              	.L83:
+ 401 0008 65B1     		cbz	r5, .L104
+ 402 000a 2B7D     		ldrb	r3, [r5, #20]	@ zero_extendqisi2
+ 403 000c A3B9     		cbnz	r3, .L105
+ 404 000e EAB1     		cbz	r2, .L106
+ 405 0010 0026     		movs	r6, #0
+ 406              	.L87:
+ 407 0012 032E     		cmp	r6, #3
+ 408 0014 1EDC     		bgt	.L88
+ 409 0016 264B     		ldr	r3, .L109
+ 410 0018 53F82630 		ldr	r3, [r3, r6, lsl #2]
+ 411 001c 1B68     		ldr	r3, [r3]
+ 412 001e 27E0     		b	.L89
+ 413              	.L103:
+ 414 0020 244C     		ldr	r4, .L109+4
+ 415 0022 F1E7     		b	.L83
+ 416              	.L104:
+ARM GAS  /tmp/ccG0NqrR.s 			page 8
+
+
+ 417 0024 244B     		ldr	r3, .L109+8
+ 418 0026 40F2A922 		movw	r2, #681
+ 419 002a 2449     		ldr	r1, .L109+12
+ 420 002c 2448     		ldr	r0, .L109+16
+ 421 002e FFF7FEFF 		bl	printf
+ 422 0032 6FF00F00 		mvn	r0, #15
+ 423 0036 19E0     		b	.L85
+ 424              	.L105:
+ 425 0038 1F4B     		ldr	r3, .L109+8
+ 426 003a 40F2AB22 		movw	r2, #683
+ 427 003e 2149     		ldr	r1, .L109+20
+ 428 0040 1F48     		ldr	r0, .L109+16
+ 429 0042 FFF7FEFF 		bl	printf
+ 430 0046 6FF00500 		mvn	r0, #5
+ 431 004a 0FE0     		b	.L85
+ 432              	.L106:
+ 433 004c FFF7FEFF 		bl	tcp_new_port
+ 434 0050 0246     		mov	r2, r0
+ 435 0052 F0B1     		cbz	r0, .L107
+ 436              	.L88:
+ 437 0054 14B1     		cbz	r4, .L93
+ 438 0056 2368     		ldr	r3, [r4]
+ 439 0058 03B1     		cbz	r3, .L93
+ 440 005a 2B60     		str	r3, [r5]
+ 441              	.L93:
+ 442 005c EA82     		strh	r2, [r5, #22]	@ movhi
+ 443 005e 1A4B     		ldr	r3, .L109+24
+ 444 0060 1A68     		ldr	r2, [r3]
+ 445 0062 EA60     		str	r2, [r5, #12]
+ 446 0064 1D60     		str	r5, [r3]
+ 447 0066 FFF7FEFF 		bl	tcp_timer_needed
+ 448 006a 0020     		movs	r0, #0
+ 449              	.L85:
+ 450 006c 70BD     		pop	{r4, r5, r6, pc}
+ 451              	.L90:
+ 452 006e DB68     		ldr	r3, [r3, #12]
+ 453              	.L89:
+ 454 0070 6BB1     		cbz	r3, .L108
+ 455 0072 D98A     		ldrh	r1, [r3, #22]
+ 456 0074 9142     		cmp	r1, r2
+ 457 0076 FAD1     		bne	.L90
+ 458 0078 73B1     		cbz	r3, .L97
+ 459 007a 1968     		ldr	r1, [r3]
+ 460 007c 79B1     		cbz	r1, .L98
+ 461 007e 8CB1     		cbz	r4, .L99
+ 462 0080 2068     		ldr	r0, [r4]
+ 463 0082 90B1     		cbz	r0, .L100
+ 464 0084 8142     		cmp	r1, r0
+ 465 0086 F2D1     		bne	.L90
+ 466 0088 6FF00700 		mvn	r0, #7
+ 467 008c EEE7     		b	.L85
+ 468              	.L108:
+ 469 008e 0136     		adds	r6, r6, #1
+ 470 0090 BFE7     		b	.L87
+ 471              	.L107:
+ 472 0092 6FF00100 		mvn	r0, #1
+ 473 0096 E9E7     		b	.L85
+ARM GAS  /tmp/ccG0NqrR.s 			page 9
+
+
+ 474              	.L97:
+ 475 0098 6FF00700 		mvn	r0, #7
+ 476 009c E6E7     		b	.L85
+ 477              	.L98:
+ 478 009e 6FF00700 		mvn	r0, #7
+ 479 00a2 E3E7     		b	.L85
+ 480              	.L99:
+ 481 00a4 6FF00700 		mvn	r0, #7
+ 482 00a8 E0E7     		b	.L85
+ 483              	.L100:
+ 484 00aa 6FF00700 		mvn	r0, #7
+ 485 00ae DDE7     		b	.L85
+ 486              	.L110:
+ 487              		.align	2
+ 488              	.L109:
+ 489 00b0 00000000 		.word	.LANCHOR1
+ 490 00b4 00000000 		.word	ip_addr_any
+ 491 00b8 00000000 		.word	.LC0
+ 492 00bc 00000000 		.word	.LC7
+ 493 00c0 54000000 		.word	.LC2
+ 494 00c4 18000000 		.word	.LC8
+ 495 00c8 00000000 		.word	tcp_bound_pcbs
+ 497              		.section	.text.tcp_bind_netif,"ax",%progbits
+ 498              		.align	1
+ 499              		.global	tcp_bind_netif
+ 500              		.syntax unified
+ 501              		.thumb
+ 502              		.thumb_func
+ 503              		.fpu fpv4-sp-d16
+ 505              	tcp_bind_netif:
+ 506              		@ args = 0, pretend = 0, frame = 0
+ 507              		@ frame_needed = 0, uses_anonymous_args = 0
+ 508              		@ link register save eliminated.
+ 509 0000 21B1     		cbz	r1, .L112
+ 510 0002 91F83430 		ldrb	r3, [r1, #52]	@ zero_extendqisi2
+ 511 0006 0133     		adds	r3, r3, #1
+ 512 0008 0372     		strb	r3, [r0, #8]
+ 513 000a 7047     		bx	lr
+ 514              	.L112:
+ 515 000c 0023     		movs	r3, #0
+ 516 000e 0372     		strb	r3, [r0, #8]
+ 517 0010 7047     		bx	lr
+ 519              		.section	.text.tcp_listen_with_backlog_and_err,"ax",%progbits
+ 520              		.align	1
+ 521              		.global	tcp_listen_with_backlog_and_err
+ 522              		.syntax unified
+ 523              		.thumb
+ 524              		.thumb_func
+ 525              		.fpu fpv4-sp-d16
+ 527              	tcp_listen_with_backlog_and_err:
+ 528              		@ args = 0, pretend = 0, frame = 0
+ 529              		@ frame_needed = 0, uses_anonymous_args = 0
+ 530 0000 70B5     		push	{r4, r5, r6, lr}
+ 531 0002 1646     		mov	r6, r2
+ 532 0004 0446     		mov	r4, r0
+ 533 0006 40B3     		cbz	r0, .L127
+ 534 0008 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ARM GAS  /tmp/ccG0NqrR.s 			page 10
+
+
+ 535 000a 002B     		cmp	r3, #0
+ 536 000c 30D1     		bne	.L128
+ 537 000e 012B     		cmp	r3, #1
+ 538 0010 51D0     		beq	.L123
+ 539 0012 0220     		movs	r0, #2
+ 540 0014 FFF7FEFF 		bl	memp_malloc
+ 541 0018 0546     		mov	r5, r0
+ 542 001a 0028     		cmp	r0, #0
+ 543 001c 4FD0     		beq	.L124
+ 544 001e 2369     		ldr	r3, [r4, #16]
+ 545 0020 0361     		str	r3, [r0, #16]
+ 546 0022 E38A     		ldrh	r3, [r4, #22]
+ 547 0024 C382     		strh	r3, [r0, #22]	@ movhi
+ 548 0026 0123     		movs	r3, #1
+ 549 0028 0375     		strb	r3, [r0, #20]
+ 550 002a 637D     		ldrb	r3, [r4, #21]	@ zero_extendqisi2
+ 551 002c 4375     		strb	r3, [r0, #21]
+ 552 002e 637A     		ldrb	r3, [r4, #9]	@ zero_extendqisi2
+ 553 0030 4372     		strb	r3, [r0, #9]
+ 554 0032 0023     		movs	r3, #0
+ 555 0034 0372     		strb	r3, [r0, #8]
+ 556 0036 E37A     		ldrb	r3, [r4, #11]	@ zero_extendqisi2
+ 557 0038 C372     		strb	r3, [r0, #11]
+ 558 003a A37A     		ldrb	r3, [r4, #10]	@ zero_extendqisi2
+ 559 003c 8372     		strb	r3, [r0, #10]
+ 560 003e 2368     		ldr	r3, [r4]
+ 561 0040 0360     		str	r3, [r0]
+ 562 0042 E38A     		ldrh	r3, [r4, #22]
+ 563 0044 3BB3     		cbz	r3, .L118
+ 564 0046 1F4B     		ldr	r3, .L131
+ 565 0048 1B68     		ldr	r3, [r3]
+ 566 004a A342     		cmp	r3, r4
+ 567 004c 1BD0     		beq	.L129
+ 568              	.L119:
+ 569 004e 03B3     		cbz	r3, .L120
+ 570 0050 DA68     		ldr	r2, [r3, #12]
+ 571 0052 A242     		cmp	r2, r4
+ 572 0054 1BD0     		beq	.L130
+ 573 0056 1346     		mov	r3, r2
+ 574 0058 F9E7     		b	.L119
+ 575              	.L127:
+ 576 005a 1B4B     		ldr	r3, .L131+4
+ 577 005c 40F25932 		movw	r2, #857
+ 578 0060 1A49     		ldr	r1, .L131+8
+ 579 0062 1B48     		ldr	r0, .L131+12
+ 580 0064 FFF7FEFF 		bl	printf
+ 581 0068 2546     		mov	r5, r4
+ 582 006a 6FF00F03 		mvn	r3, #15
+ 583 006e 1EE0     		b	.L116
+ 584              	.L128:
+ 585 0070 154B     		ldr	r3, .L131+4
+ 586 0072 40F25A32 		movw	r2, #858
+ 587 0076 1749     		ldr	r1, .L131+16
+ 588 0078 1548     		ldr	r0, .L131+12
+ 589 007a FFF7FEFF 		bl	printf
+ 590 007e 6FF00E03 		mvn	r3, #14
+ 591 0082 0025     		movs	r5, #0
+ARM GAS  /tmp/ccG0NqrR.s 			page 11
+
+
+ 592 0084 13E0     		b	.L116
+ 593              	.L129:
+ 594 0086 DA68     		ldr	r2, [r3, #12]
+ 595 0088 0E4B     		ldr	r3, .L131
+ 596 008a 1A60     		str	r2, [r3]
+ 597 008c 01E0     		b	.L120
+ 598              	.L130:
+ 599 008e E268     		ldr	r2, [r4, #12]
+ 600 0090 DA60     		str	r2, [r3, #12]
+ 601              	.L120:
+ 602 0092 0023     		movs	r3, #0
+ 603 0094 E360     		str	r3, [r4, #12]
+ 604              	.L118:
+ 605 0096 2046     		mov	r0, r4
+ 606 0098 FFF7FEFF 		bl	tcp_free
+ 607 009c 0E4B     		ldr	r3, .L131+20
+ 608 009e AB61     		str	r3, [r5, #24]
+ 609 00a0 0E4B     		ldr	r3, .L131+24
+ 610 00a2 1A68     		ldr	r2, [r3]
+ 611 00a4 EA60     		str	r2, [r5, #12]
+ 612 00a6 1D60     		str	r5, [r3]
+ 613 00a8 FFF7FEFF 		bl	tcp_timer_needed
+ 614 00ac 0023     		movs	r3, #0
+ 615              	.L116:
+ 616 00ae 06B1     		cbz	r6, .L114
+ 617 00b0 3370     		strb	r3, [r6]
+ 618              	.L114:
+ 619 00b2 2846     		mov	r0, r5
+ 620 00b4 70BD     		pop	{r4, r5, r6, pc}
+ 621              	.L123:
+ 622 00b6 0546     		mov	r5, r0
+ 623 00b8 6FF00803 		mvn	r3, #8
+ 624 00bc F7E7     		b	.L116
+ 625              	.L124:
+ 626 00be 4FF0FF33 		mov	r3, #-1
+ 627 00c2 F4E7     		b	.L116
+ 628              	.L132:
+ 629              		.align	2
+ 630              	.L131:
+ 631 00c4 00000000 		.word	tcp_bound_pcbs
+ 632 00c8 00000000 		.word	.LC0
+ 633 00cc 00000000 		.word	.LC9
+ 634 00d0 54000000 		.word	.LC2
+ 635 00d4 30000000 		.word	.LC10
+ 636 00d8 00000000 		.word	tcp_accept_null
+ 637 00dc 00000000 		.word	tcp_listen_pcbs
+ 639              		.section	.text.tcp_listen_with_backlog,"ax",%progbits
+ 640              		.align	1
+ 641              		.global	tcp_listen_with_backlog
+ 642              		.syntax unified
+ 643              		.thumb
+ 644              		.thumb_func
+ 645              		.fpu fpv4-sp-d16
+ 647              	tcp_listen_with_backlog:
+ 648              		@ args = 0, pretend = 0, frame = 0
+ 649              		@ frame_needed = 0, uses_anonymous_args = 0
+ 650 0000 08B5     		push	{r3, lr}
+ARM GAS  /tmp/ccG0NqrR.s 			page 12
+
+
+ 651 0002 0022     		movs	r2, #0
+ 652 0004 FFF7FEFF 		bl	tcp_listen_with_backlog_and_err
+ 653 0008 08BD     		pop	{r3, pc}
+ 655              		.section	.text.tcp_update_rcv_ann_wnd,"ax",%progbits
+ 656              		.align	1
+ 657              		.global	tcp_update_rcv_ann_wnd
+ 658              		.syntax unified
+ 659              		.thumb
+ 660              		.thumb_func
+ 661              		.fpu fpv4-sp-d16
+ 663              	tcp_update_rcv_ann_wnd:
+ 664              		@ args = 0, pretend = 0, frame = 0
+ 665              		@ frame_needed = 0, uses_anonymous_args = 0
+ 666 0000 38B5     		push	{r3, r4, r5, lr}
+ 667 0002 0446     		mov	r4, r0
+ 668 0004 80B1     		cbz	r0, .L143
+ 669              	.L136:
+ 670 0006 656A     		ldr	r5, [r4, #36]
+ 671 0008 218D     		ldrh	r1, [r4, #40]
+ 672 000a 6818     		adds	r0, r5, r1
+ 673 000c E26A     		ldr	r2, [r4, #44]
+ 674 000e 638E     		ldrh	r3, [r4, #50]
+ 675 0010 B3F5866F 		cmp	r3, #1072
+ 676 0014 94BF     		ite	ls
+ 677 0016 D318     		addls	r3, r2, r3
+ 678 0018 02F58663 		addhi	r3, r2, #1072
+ 679 001c C31A     		subs	r3, r0, r3
+ 680 001e 002B     		cmp	r3, #0
+ 681 0020 0ADB     		blt	.L137
+ 682 0022 6185     		strh	r1, [r4, #42]	@ movhi
+ 683 0024 801A     		subs	r0, r0, r2
+ 684              	.L135:
+ 685 0026 38BD     		pop	{r3, r4, r5, pc}
+ 686              	.L143:
+ 687 0028 0E4B     		ldr	r3, .L145
+ 688 002a 40F2A632 		movw	r2, #934
+ 689 002e 0E49     		ldr	r1, .L145+4
+ 690 0030 0E48     		ldr	r0, .L145+8
+ 691 0032 FFF7FEFF 		bl	printf
+ 692 0036 E6E7     		b	.L136
+ 693              	.L137:
+ 694 0038 AB1A     		subs	r3, r5, r2
+ 695 003a 002B     		cmp	r3, #0
+ 696 003c 03DD     		ble	.L139
+ 697 003e 0023     		movs	r3, #0
+ 698 0040 6385     		strh	r3, [r4, #42]	@ movhi
+ 699              	.L140:
+ 700 0042 0020     		movs	r0, #0
+ 701 0044 EFE7     		b	.L135
+ 702              	.L139:
+ 703 0046 551B     		subs	r5, r2, r5
+ 704 0048 B5F5803F 		cmp	r5, #65536
+ 705 004c 01D2     		bcs	.L144
+ 706              	.L141:
+ 707 004e 6585     		strh	r5, [r4, #42]	@ movhi
+ 708 0050 F7E7     		b	.L140
+ 709              	.L144:
+ARM GAS  /tmp/ccG0NqrR.s 			page 13
+
+
+ 710 0052 044B     		ldr	r3, .L145
+ 711 0054 40F2B632 		movw	r2, #950
+ 712 0058 0549     		ldr	r1, .L145+12
+ 713 005a 0448     		ldr	r0, .L145+8
+ 714 005c FFF7FEFF 		bl	printf
+ 715 0060 F5E7     		b	.L141
+ 716              	.L146:
+ 717 0062 00BF     		.align	2
+ 718              	.L145:
+ 719 0064 00000000 		.word	.LC0
+ 720 0068 00000000 		.word	.LC11
+ 721 006c 54000000 		.word	.LC2
+ 722 0070 24000000 		.word	.LC12
+ 724              		.section	.text.tcp_recved,"ax",%progbits
+ 725              		.align	1
+ 726              		.global	tcp_recved
+ 727              		.syntax unified
+ 728              		.thumb
+ 729              		.thumb_func
+ 730              		.fpu fpv4-sp-d16
+ 732              	tcp_recved:
+ 733              		@ args = 0, pretend = 0, frame = 0
+ 734              		@ frame_needed = 0, uses_anonymous_args = 0
+ 735 0000 38B5     		push	{r3, r4, r5, lr}
+ 736 0002 B0B1     		cbz	r0, .L155
+ 737 0004 0C46     		mov	r4, r1
+ 738 0006 0546     		mov	r5, r0
+ 739 0008 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ 740 000a 012B     		cmp	r3, #1
+ 741 000c 19D0     		beq	.L156
+ 742              	.L150:
+ 743 000e 2B8D     		ldrh	r3, [r5, #40]
+ 744 0010 1919     		adds	r1, r3, r4
+ 745 0012 89B2     		uxth	r1, r1
+ 746 0014 B1F5066F 		cmp	r1, #2144
+ 747 0018 01D8     		bhi	.L151
+ 748 001a 8B42     		cmp	r3, r1
+ 749 001c 19D9     		bls	.L152
+ 750              	.L151:
+ 751 001e 4FF40663 		mov	r3, #2144
+ 752 0022 2B85     		strh	r3, [r5, #40]	@ movhi
+ 753              	.L153:
+ 754 0024 2846     		mov	r0, r5
+ 755 0026 FFF7FEFF 		bl	tcp_update_rcv_ann_wnd
+ 756 002a B0F5067F 		cmp	r0, #536
+ 757 002e 12D2     		bcs	.L157
+ 758              	.L147:
+ 759 0030 38BD     		pop	{r3, r4, r5, pc}
+ 760              	.L155:
+ 761 0032 0D4B     		ldr	r3, .L158
+ 762 0034 40F2CF32 		movw	r2, #975
+ 763 0038 0C49     		ldr	r1, .L158+4
+ 764 003a 0D48     		ldr	r0, .L158+8
+ 765 003c FFF7FEFF 		bl	printf
+ 766 0040 F6E7     		b	.L147
+ 767              	.L156:
+ 768 0042 094B     		ldr	r3, .L158
+ARM GAS  /tmp/ccG0NqrR.s 			page 14
+
+
+ 769 0044 40F2D332 		movw	r2, #979
+ 770 0048 0A49     		ldr	r1, .L158+12
+ 771 004a 0948     		ldr	r0, .L158+8
+ 772 004c FFF7FEFF 		bl	printf
+ 773 0050 DDE7     		b	.L150
+ 774              	.L152:
+ 775 0052 2985     		strh	r1, [r5, #40]	@ movhi
+ 776 0054 E6E7     		b	.L153
+ 777              	.L157:
+ 778 0056 6B8B     		ldrh	r3, [r5, #26]
+ 779 0058 43F00203 		orr	r3, r3, #2
+ 780 005c 6B83     		strh	r3, [r5, #26]	@ movhi
+ 781 005e 2846     		mov	r0, r5
+ 782 0060 FFF7FEFF 		bl	tcp_output
+ 783 0064 E4E7     		b	.L147
+ 784              	.L159:
+ 785 0066 00BF     		.align	2
+ 786              	.L158:
+ 787 0068 00000000 		.word	.LC0
+ 788 006c 00000000 		.word	.LC13
+ 789 0070 54000000 		.word	.LC2
+ 790 0074 18000000 		.word	.LC14
+ 792              		.section	.text.tcp_txnow,"ax",%progbits
+ 793              		.align	1
+ 794              		.global	tcp_txnow
+ 795              		.syntax unified
+ 796              		.thumb
+ 797              		.thumb_func
+ 798              		.fpu fpv4-sp-d16
+ 800              	tcp_txnow:
+ 801              		@ args = 0, pretend = 0, frame = 0
+ 802              		@ frame_needed = 0, uses_anonymous_args = 0
+ 803 0000 10B5     		push	{r4, lr}
+ 804 0002 074B     		ldr	r3, .L167
+ 805 0004 1C68     		ldr	r4, [r3]
+ 806 0006 03E0     		b	.L161
+ 807              	.L166:
+ 808 0008 2046     		mov	r0, r4
+ 809 000a FFF7FEFF 		bl	tcp_output
+ 810              	.L162:
+ 811 000e E468     		ldr	r4, [r4, #12]
+ 812              	.L161:
+ 813 0010 24B1     		cbz	r4, .L165
+ 814 0012 638B     		ldrh	r3, [r4, #26]
+ 815 0014 13F0800F 		tst	r3, #128
+ 816 0018 F9D0     		beq	.L162
+ 817 001a F5E7     		b	.L166
+ 818              	.L165:
+ 819 001c 10BD     		pop	{r4, pc}
+ 820              	.L168:
+ 821 001e 00BF     		.align	2
+ 822              	.L167:
+ 823 0020 00000000 		.word	tcp_active_pcbs
+ 825              		.section	.text.tcp_seg_free,"ax",%progbits
+ 826              		.align	1
+ 827              		.global	tcp_seg_free
+ 828              		.syntax unified
+ARM GAS  /tmp/ccG0NqrR.s 			page 15
+
+
+ 829              		.thumb
+ 830              		.thumb_func
+ 831              		.fpu fpv4-sp-d16
+ 833              	tcp_seg_free:
+ 834              		@ args = 0, pretend = 0, frame = 0
+ 835              		@ frame_needed = 0, uses_anonymous_args = 0
+ 836 0000 50B1     		cbz	r0, .L173
+ 837 0002 10B5     		push	{r4, lr}
+ 838 0004 0446     		mov	r4, r0
+ 839 0006 4068     		ldr	r0, [r0, #4]
+ 840 0008 08B1     		cbz	r0, .L171
+ 841 000a FFF7FEFF 		bl	pbuf_free
+ 842              	.L171:
+ 843 000e 2146     		mov	r1, r4
+ 844 0010 0320     		movs	r0, #3
+ 845 0012 FFF7FEFF 		bl	memp_free
+ 846 0016 10BD     		pop	{r4, pc}
+ 847              	.L173:
+ 848 0018 7047     		bx	lr
+ 850              		.section	.text.tcp_segs_free,"ax",%progbits
+ 851              		.align	1
+ 852              		.global	tcp_segs_free
+ 853              		.syntax unified
+ 854              		.thumb
+ 855              		.thumb_func
+ 856              		.fpu fpv4-sp-d16
+ 858              	tcp_segs_free:
+ 859              		@ args = 0, pretend = 0, frame = 0
+ 860              		@ frame_needed = 0, uses_anonymous_args = 0
+ 861 0000 38B1     		cbz	r0, .L182
+ 862 0002 10B5     		push	{r4, lr}
+ 863              	.L178:
+ 864 0004 0468     		ldr	r4, [r0]
+ 865 0006 FFF7FEFF 		bl	tcp_seg_free
+ 866 000a 2046     		mov	r0, r4
+ 867 000c 002C     		cmp	r4, #0
+ 868 000e F9D1     		bne	.L178
+ 869 0010 10BD     		pop	{r4, pc}
+ 870              	.L182:
+ 871 0012 7047     		bx	lr
+ 873              		.section	.text.tcp_setprio,"ax",%progbits
+ 874              		.align	1
+ 875              		.global	tcp_setprio
+ 876              		.syntax unified
+ 877              		.thumb
+ 878              		.thumb_func
+ 879              		.fpu fpv4-sp-d16
+ 881              	tcp_setprio:
+ 882              		@ args = 0, pretend = 0, frame = 0
+ 883              		@ frame_needed = 0, uses_anonymous_args = 0
+ 884 0000 08B5     		push	{r3, lr}
+ 885 0002 08B1     		cbz	r0, .L187
+ 886 0004 4175     		strb	r1, [r0, #21]
+ 887              	.L183:
+ 888 0006 08BD     		pop	{r3, pc}
+ 889              	.L187:
+ 890 0008 034B     		ldr	r3, .L188
+ARM GAS  /tmp/ccG0NqrR.s 			page 16
+
+
+ 891 000a 4FF4CE62 		mov	r2, #1648
+ 892 000e 0349     		ldr	r1, .L188+4
+ 893 0010 0348     		ldr	r0, .L188+8
+ 894 0012 FFF7FEFF 		bl	printf
+ 895 0016 F6E7     		b	.L183
+ 896              	.L189:
+ 897              		.align	2
+ 898              	.L188:
+ 899 0018 00000000 		.word	.LC0
+ 900 001c 00000000 		.word	.LC15
+ 901 0020 54000000 		.word	.LC2
+ 903              		.section	.text.tcp_seg_copy,"ax",%progbits
+ 904              		.align	1
+ 905              		.global	tcp_seg_copy
+ 906              		.syntax unified
+ 907              		.thumb
+ 908              		.thumb_func
+ 909              		.fpu fpv4-sp-d16
+ 911              	tcp_seg_copy:
+ 912              		@ args = 0, pretend = 0, frame = 0
+ 913              		@ frame_needed = 0, uses_anonymous_args = 0
+ 914 0000 38B5     		push	{r3, r4, r5, lr}
+ 915 0002 0546     		mov	r5, r0
+ 916 0004 88B1     		cbz	r0, .L194
+ 917              	.L191:
+ 918 0006 0320     		movs	r0, #3
+ 919 0008 FFF7FEFF 		bl	memp_malloc
+ 920 000c 0446     		mov	r4, r0
+ 921 000e 50B1     		cbz	r0, .L190
+ 922 0010 2868     		ldr	r0, [r5]	@ unaligned
+ 923 0012 6968     		ldr	r1, [r5, #4]	@ unaligned
+ 924 0014 AA68     		ldr	r2, [r5, #8]	@ unaligned
+ 925 0016 EB68     		ldr	r3, [r5, #12]	@ unaligned
+ 926 0018 2060     		str	r0, [r4]	@ unaligned
+ 927 001a 6160     		str	r1, [r4, #4]	@ unaligned
+ 928 001c A260     		str	r2, [r4, #8]	@ unaligned
+ 929 001e E360     		str	r3, [r4, #12]	@ unaligned
+ 930 0020 6068     		ldr	r0, [r4, #4]
+ 931 0022 FFF7FEFF 		bl	pbuf_ref
+ 932              	.L190:
+ 933 0026 2046     		mov	r0, r4
+ 934 0028 38BD     		pop	{r3, r4, r5, pc}
+ 935              	.L194:
+ 936 002a 044B     		ldr	r3, .L195
+ 937 002c 40F28262 		movw	r2, #1666
+ 938 0030 0349     		ldr	r1, .L195+4
+ 939 0032 0448     		ldr	r0, .L195+8
+ 940 0034 FFF7FEFF 		bl	printf
+ 941 0038 E5E7     		b	.L191
+ 942              	.L196:
+ 943 003a 00BF     		.align	2
+ 944              	.L195:
+ 945 003c 00000000 		.word	.LC0
+ 946 0040 00000000 		.word	.LC16
+ 947 0044 54000000 		.word	.LC2
+ 949              		.section	.text.tcp_arg,"ax",%progbits
+ 950              		.align	1
+ARM GAS  /tmp/ccG0NqrR.s 			page 17
+
+
+ 951              		.global	tcp_arg
+ 952              		.syntax unified
+ 953              		.thumb
+ 954              		.thumb_func
+ 955              		.fpu fpv4-sp-d16
+ 957              	tcp_arg:
+ 958              		@ args = 0, pretend = 0, frame = 0
+ 959              		@ frame_needed = 0, uses_anonymous_args = 0
+ 960              		@ link register save eliminated.
+ 961 0000 00B1     		cbz	r0, .L197
+ 962 0002 0161     		str	r1, [r0, #16]
+ 963              	.L197:
+ 964 0004 7047     		bx	lr
+ 966              		.section	.text.tcp_recv,"ax",%progbits
+ 967              		.align	1
+ 968              		.global	tcp_recv
+ 969              		.syntax unified
+ 970              		.thumb
+ 971              		.thumb_func
+ 972              		.fpu fpv4-sp-d16
+ 974              	tcp_recv:
+ 975              		@ args = 0, pretend = 0, frame = 0
+ 976              		@ frame_needed = 0, uses_anonymous_args = 0
+ 977 0000 80B1     		cbz	r0, .L203
+ 978 0002 38B5     		push	{r3, r4, r5, lr}
+ 979 0004 0446     		mov	r4, r0
+ 980 0006 0D46     		mov	r5, r1
+ 981 0008 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ 982 000a 012B     		cmp	r3, #1
+ 983 000c 02D0     		beq	.L206
+ 984              	.L201:
+ 985 000e C4F88450 		str	r5, [r4, #132]
+ 986 0012 38BD     		pop	{r3, r4, r5, pc}
+ 987              	.L206:
+ 988 0014 044B     		ldr	r3, .L207
+ 989 0016 40F2DF72 		movw	r2, #2015
+ 990 001a 0449     		ldr	r1, .L207+4
+ 991 001c 0448     		ldr	r0, .L207+8
+ 992 001e FFF7FEFF 		bl	printf
+ 993 0022 F4E7     		b	.L201
+ 994              	.L203:
+ 995 0024 7047     		bx	lr
+ 996              	.L208:
+ 997 0026 00BF     		.align	2
+ 998              	.L207:
+ 999 0028 00000000 		.word	.LC0
+ 1000 002c 00000000 		.word	.LC17
+ 1001 0030 54000000 		.word	.LC2
+ 1003              		.section	.text.tcp_sent,"ax",%progbits
+ 1004              		.align	1
+ 1005              		.global	tcp_sent
+ 1006              		.syntax unified
+ 1007              		.thumb
+ 1008              		.thumb_func
+ 1009              		.fpu fpv4-sp-d16
+ 1011              	tcp_sent:
+ 1012              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/ccG0NqrR.s 			page 18
+
+
+ 1013              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1014 0000 80B1     		cbz	r0, .L213
+ 1015 0002 38B5     		push	{r3, r4, r5, lr}
+ 1016 0004 0446     		mov	r4, r0
+ 1017 0006 0D46     		mov	r5, r1
+ 1018 0008 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ 1019 000a 012B     		cmp	r3, #1
+ 1020 000c 02D0     		beq	.L216
+ 1021              	.L211:
+ 1022 000e C4F88050 		str	r5, [r4, #128]
+ 1023 0012 38BD     		pop	{r3, r4, r5, pc}
+ 1024              	.L216:
+ 1025 0014 044B     		ldr	r3, .L217
+ 1026 0016 40F2F372 		movw	r2, #2035
+ 1027 001a 0449     		ldr	r1, .L217+4
+ 1028 001c 0448     		ldr	r0, .L217+8
+ 1029 001e FFF7FEFF 		bl	printf
+ 1030 0022 F4E7     		b	.L211
+ 1031              	.L213:
+ 1032 0024 7047     		bx	lr
+ 1033              	.L218:
+ 1034 0026 00BF     		.align	2
+ 1035              	.L217:
+ 1036 0028 00000000 		.word	.LC0
+ 1037 002c 00000000 		.word	.LC18
+ 1038 0030 54000000 		.word	.LC2
+ 1040              		.section	.text.tcp_err,"ax",%progbits
+ 1041              		.align	1
+ 1042              		.global	tcp_err
+ 1043              		.syntax unified
+ 1044              		.thumb
+ 1045              		.thumb_func
+ 1046              		.fpu fpv4-sp-d16
+ 1048              	tcp_err:
+ 1049              		@ args = 0, pretend = 0, frame = 0
+ 1050              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1051 0000 80B1     		cbz	r0, .L223
+ 1052 0002 38B5     		push	{r3, r4, r5, lr}
+ 1053 0004 0446     		mov	r4, r0
+ 1054 0006 0D46     		mov	r5, r1
+ 1055 0008 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ 1056 000a 012B     		cmp	r3, #1
+ 1057 000c 02D0     		beq	.L226
+ 1058              	.L221:
+ 1059 000e C4F89050 		str	r5, [r4, #144]
+ 1060 0012 38BD     		pop	{r3, r4, r5, pc}
+ 1061              	.L226:
+ 1062 0014 044B     		ldr	r3, .L227
+ 1063 0016 40F60D02 		movw	r2, #2061
+ 1064 001a 0449     		ldr	r1, .L227+4
+ 1065 001c 0448     		ldr	r0, .L227+8
+ 1066 001e FFF7FEFF 		bl	printf
+ 1067 0022 F4E7     		b	.L221
+ 1068              	.L223:
+ 1069 0024 7047     		bx	lr
+ 1070              	.L228:
+ 1071 0026 00BF     		.align	2
+ARM GAS  /tmp/ccG0NqrR.s 			page 19
+
+
+ 1072              	.L227:
+ 1073 0028 00000000 		.word	.LC0
+ 1074 002c 00000000 		.word	.LC19
+ 1075 0030 54000000 		.word	.LC2
+ 1077              		.section	.text.tcp_accept,"ax",%progbits
+ 1078              		.align	1
+ 1079              		.global	tcp_accept
+ 1080              		.syntax unified
+ 1081              		.thumb
+ 1082              		.thumb_func
+ 1083              		.fpu fpv4-sp-d16
+ 1085              	tcp_accept:
+ 1086              		@ args = 0, pretend = 0, frame = 0
+ 1087              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1088              		@ link register save eliminated.
+ 1089 0000 10B1     		cbz	r0, .L229
+ 1090 0002 027D     		ldrb	r2, [r0, #20]	@ zero_extendqisi2
+ 1091 0004 012A     		cmp	r2, #1
+ 1092 0006 00D0     		beq	.L231
+ 1093              	.L229:
+ 1094 0008 7047     		bx	lr
+ 1095              	.L231:
+ 1096 000a 8161     		str	r1, [r0, #24]
+ 1097 000c FCE7     		b	.L229
+ 1099              		.section	.text.tcp_poll,"ax",%progbits
+ 1100              		.align	1
+ 1101              		.global	tcp_poll
+ 1102              		.syntax unified
+ 1103              		.thumb
+ 1104              		.thumb_func
+ 1105              		.fpu fpv4-sp-d16
+ 1107              	tcp_poll:
+ 1108              		@ args = 0, pretend = 0, frame = 0
+ 1109              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1110 0000 70B5     		push	{r4, r5, r6, lr}
+ 1111 0002 48B1     		cbz	r0, .L237
+ 1112 0004 0E46     		mov	r6, r1
+ 1113 0006 1546     		mov	r5, r2
+ 1114 0008 0446     		mov	r4, r0
+ 1115 000a 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ 1116 000c 012B     		cmp	r3, #1
+ 1117 000e 0BD0     		beq	.L238
+ 1118              	.L235:
+ 1119 0010 C4F88C60 		str	r6, [r4, #140]
+ 1120 0014 6577     		strb	r5, [r4, #29]
+ 1121              	.L232:
+ 1122 0016 70BD     		pop	{r4, r5, r6, pc}
+ 1123              	.L237:
+ 1124 0018 074B     		ldr	r3, .L239
+ 1125 001a 40F63D02 		movw	r2, #2109
+ 1126 001e 0749     		ldr	r1, .L239+4
+ 1127 0020 0748     		ldr	r0, .L239+8
+ 1128 0022 FFF7FEFF 		bl	printf
+ 1129 0026 F6E7     		b	.L232
+ 1130              	.L238:
+ 1131 0028 034B     		ldr	r3, .L239
+ 1132 002a 40F63E02 		movw	r2, #2110
+ARM GAS  /tmp/ccG0NqrR.s 			page 20
+
+
+ 1133 002e 0549     		ldr	r1, .L239+12
+ 1134 0030 0348     		ldr	r0, .L239+8
+ 1135 0032 FFF7FEFF 		bl	printf
+ 1136 0036 EBE7     		b	.L235
+ 1137              	.L240:
+ 1138              		.align	2
+ 1139              	.L239:
+ 1140 0038 00000000 		.word	.LC0
+ 1141 003c 00000000 		.word	.LC20
+ 1142 0040 54000000 		.word	.LC2
+ 1143 0044 18000000 		.word	.LC21
+ 1145              		.section	.text.tcp_next_iss,"ax",%progbits
+ 1146              		.align	1
+ 1147              		.global	tcp_next_iss
+ 1148              		.syntax unified
+ 1149              		.thumb
+ 1150              		.thumb_func
+ 1151              		.fpu fpv4-sp-d16
+ 1153              	tcp_next_iss:
+ 1154              		@ args = 0, pretend = 0, frame = 0
+ 1155              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1156 0000 08B5     		push	{r3, lr}
+ 1157 0002 30B1     		cbz	r0, .L244
+ 1158              	.L242:
+ 1159 0004 074B     		ldr	r3, .L245
+ 1160 0006 1868     		ldr	r0, [r3]
+ 1161 0008 074A     		ldr	r2, .L245+4
+ 1162 000a 1268     		ldr	r2, [r2]
+ 1163 000c 1044     		add	r0, r0, r2
+ 1164 000e 1860     		str	r0, [r3]
+ 1165 0010 08BD     		pop	{r3, pc}
+ 1166              	.L244:
+ 1167 0012 064B     		ldr	r3, .L245+8
+ 1168 0014 40F6AF02 		movw	r2, #2223
+ 1169 0018 0549     		ldr	r1, .L245+12
+ 1170 001a 0648     		ldr	r0, .L245+16
+ 1171 001c FFF7FEFF 		bl	printf
+ 1172 0020 F0E7     		b	.L242
+ 1173              	.L246:
+ 1174 0022 00BF     		.align	2
+ 1175              	.L245:
+ 1176 0024 00000000 		.word	.LANCHOR2
+ 1177 0028 00000000 		.word	tcp_ticks
+ 1178 002c 00000000 		.word	.LC0
+ 1179 0030 00000000 		.word	.LC22
+ 1180 0034 54000000 		.word	.LC2
+ 1182              		.section	.text.tcp_eff_send_mss_netif,"ax",%progbits
+ 1183              		.align	1
+ 1184              		.global	tcp_eff_send_mss_netif
+ 1185              		.syntax unified
+ 1186              		.thumb
+ 1187              		.thumb_func
+ 1188              		.fpu fpv4-sp-d16
+ 1190              	tcp_eff_send_mss_netif:
+ 1191              		@ args = 0, pretend = 0, frame = 0
+ 1192              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1193 0000 38B5     		push	{r3, r4, r5, lr}
+ARM GAS  /tmp/ccG0NqrR.s 			page 21
+
+
+ 1194 0002 0546     		mov	r5, r0
+ 1195 0004 0C46     		mov	r4, r1
+ 1196 0006 5AB1     		cbz	r2, .L253
+ 1197              	.L248:
+ 1198 0008 44B1     		cbz	r4, .L249
+ 1199 000a 238D     		ldrh	r3, [r4, #40]
+ 1200 000c 33B1     		cbz	r3, .L249
+ 1201 000e 282B     		cmp	r3, #40
+ 1202 0010 0ED9     		bls	.L251
+ 1203 0012 283B     		subs	r3, r3, #40
+ 1204 0014 9BB2     		uxth	r3, r3
+ 1205              	.L250:
+ 1206 0016 9D42     		cmp	r5, r3
+ 1207 0018 28BF     		it	cs
+ 1208 001a 1D46     		movcs	r5, r3
+ 1209              	.L249:
+ 1210 001c 2846     		mov	r0, r5
+ 1211 001e 38BD     		pop	{r3, r4, r5, pc}
+ 1212              	.L253:
+ 1213 0020 044B     		ldr	r3, .L254
+ 1214 0022 40F6C502 		movw	r2, #2245
+ 1215 0026 0449     		ldr	r1, .L254+4
+ 1216 0028 0448     		ldr	r0, .L254+8
+ 1217 002a FFF7FEFF 		bl	printf
+ 1218 002e EBE7     		b	.L248
+ 1219              	.L251:
+ 1220 0030 0023     		movs	r3, #0
+ 1221 0032 F0E7     		b	.L250
+ 1222              	.L255:
+ 1223              		.align	2
+ 1224              	.L254:
+ 1225 0034 00000000 		.word	.LC0
+ 1226 0038 00000000 		.word	.LC23
+ 1227 003c 54000000 		.word	.LC2
+ 1229              		.section	.text.tcp_connect,"ax",%progbits
+ 1230              		.align	1
+ 1231              		.global	tcp_connect
+ 1232              		.syntax unified
+ 1233              		.thumb
+ 1234              		.thumb_func
+ 1235              		.fpu fpv4-sp-d16
+ 1237              	tcp_connect:
+ 1238              		@ args = 0, pretend = 0, frame = 0
+ 1239              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1240 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1241 0002 0028     		cmp	r0, #0
+ 1242 0004 53D0     		beq	.L275
+ 1243 0006 1E46     		mov	r6, r3
+ 1244 0008 0446     		mov	r4, r0
+ 1245 000a 0029     		cmp	r1, #0
+ 1246 000c 59D0     		beq	.L276
+ 1247 000e 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ 1248 0010 002B     		cmp	r3, #0
+ 1249 0012 60D1     		bne	.L277
+ 1250 0014 0B68     		ldr	r3, [r1]
+ 1251 0016 4360     		str	r3, [r0, #4]
+ 1252 0018 0283     		strh	r2, [r0, #24]	@ movhi
+ARM GAS  /tmp/ccG0NqrR.s 			page 22
+
+
+ 1253 001a 007A     		ldrb	r0, [r0, #8]	@ zero_extendqisi2
+ 1254 001c 0028     		cmp	r0, #0
+ 1255 001e 64D0     		beq	.L261
+ 1256 0020 FFF7FEFF 		bl	netif_get_by_index
+ 1257 0024 0546     		mov	r5, r0
+ 1258              	.L262:
+ 1259 0026 002D     		cmp	r5, #0
+ 1260 0028 78D0     		beq	.L270
+ 1261 002a 0CB1     		cbz	r4, .L263
+ 1262 002c 2368     		ldr	r3, [r4]
+ 1263 002e 23B9     		cbnz	r3, .L264
+ 1264              	.L263:
+ 1265 0030 15F1040F 		cmn	r5, #4
+ 1266 0034 75D0     		beq	.L271
+ 1267 0036 6B68     		ldr	r3, [r5, #4]
+ 1268 0038 2360     		str	r3, [r4]
+ 1269              	.L264:
+ 1270 003a E78A     		ldrh	r7, [r4, #22]
+ 1271 003c 27B9     		cbnz	r7, .L265
+ 1272 003e FFF7FEFF 		bl	tcp_new_port
+ 1273 0042 E082     		strh	r0, [r4, #22]	@ movhi
+ 1274 0044 0028     		cmp	r0, #0
+ 1275 0046 6FD0     		beq	.L272
+ 1276              	.L265:
+ 1277 0048 2046     		mov	r0, r4
+ 1278 004a FFF7FEFF 		bl	tcp_next_iss
+ 1279 004e 0022     		movs	r2, #0
+ 1280 0050 6262     		str	r2, [r4, #36]
+ 1281 0052 2065     		str	r0, [r4, #80]
+ 1282 0054 0138     		subs	r0, r0, #1
+ 1283 0056 6064     		str	r0, [r4, #68]
+ 1284 0058 A065     		str	r0, [r4, #88]
+ 1285 005a E065     		str	r0, [r4, #92]
+ 1286 005c 4FF40663 		mov	r3, #2144
+ 1287 0060 6385     		strh	r3, [r4, #42]	@ movhi
+ 1288 0062 2385     		strh	r3, [r4, #40]	@ movhi
+ 1289 0064 E262     		str	r2, [r4, #44]
+ 1290 0066 A4F86030 		strh	r3, [r4, #96]	@ movhi
+ 1291 006a 4FF40670 		mov	r0, #536
+ 1292 006e 6086     		strh	r0, [r4, #50]	@ movhi
+ 1293 0070 221D     		adds	r2, r4, #4
+ 1294 0072 2946     		mov	r1, r5
+ 1295 0074 FFF7FEFF 		bl	tcp_eff_send_mss_netif
+ 1296 0078 6086     		strh	r0, [r4, #50]	@ movhi
+ 1297 007a 0123     		movs	r3, #1
+ 1298 007c A4F84830 		strh	r3, [r4, #72]	@ movhi
+ 1299 0080 C4F88860 		str	r6, [r4, #136]
+ 1300 0084 0221     		movs	r1, #2
+ 1301 0086 2046     		mov	r0, r4
+ 1302 0088 FFF7FEFF 		bl	tcp_enqueue_flags
+ 1303 008c 0546     		mov	r5, r0
+ 1304 008e 0028     		cmp	r0, #0
+ 1305 0090 42D1     		bne	.L258
+ 1306 0092 0223     		movs	r3, #2
+ 1307 0094 2375     		strb	r3, [r4, #20]
+ 1308 0096 002F     		cmp	r7, #0
+ 1309 0098 32D0     		beq	.L266
+ARM GAS  /tmp/ccG0NqrR.s 			page 23
+
+
+ 1310 009a 254B     		ldr	r3, .L280
+ 1311 009c 1B68     		ldr	r3, [r3]
+ 1312 009e A342     		cmp	r3, r4
+ 1313 00a0 28D0     		beq	.L278
+ 1314              	.L267:
+ 1315 00a2 6BB3     		cbz	r3, .L266
+ 1316 00a4 DA68     		ldr	r2, [r3, #12]
+ 1317 00a6 A242     		cmp	r2, r4
+ 1318 00a8 28D0     		beq	.L279
+ 1319 00aa 1346     		mov	r3, r2
+ 1320 00ac F9E7     		b	.L267
+ 1321              	.L275:
+ 1322 00ae 214B     		ldr	r3, .L280+4
+ 1323 00b0 40F23542 		movw	r2, #1077
+ 1324 00b4 2049     		ldr	r1, .L280+8
+ 1325 00b6 2148     		ldr	r0, .L280+12
+ 1326 00b8 FFF7FEFF 		bl	printf
+ 1327 00bc 6FF00F05 		mvn	r5, #15
+ 1328 00c0 2AE0     		b	.L258
+ 1329              	.L276:
+ 1330 00c2 1C4B     		ldr	r3, .L280+4
+ 1331 00c4 40F23642 		movw	r2, #1078
+ 1332 00c8 1D49     		ldr	r1, .L280+16
+ 1333 00ca 1C48     		ldr	r0, .L280+12
+ 1334 00cc FFF7FEFF 		bl	printf
+ 1335 00d0 6FF00F05 		mvn	r5, #15
+ 1336 00d4 20E0     		b	.L258
+ 1337              	.L277:
+ 1338 00d6 174B     		ldr	r3, .L280+4
+ 1339 00d8 4FF48762 		mov	r2, #1080
+ 1340 00dc 1949     		ldr	r1, .L280+20
+ 1341 00de 1748     		ldr	r0, .L280+12
+ 1342 00e0 FFF7FEFF 		bl	printf
+ 1343 00e4 6FF00905 		mvn	r5, #9
+ 1344 00e8 16E0     		b	.L258
+ 1345              	.L261:
+ 1346 00ea 201D     		adds	r0, r4, #4
+ 1347 00ec FFF7FEFF 		bl	ip4_route
+ 1348 00f0 0546     		mov	r5, r0
+ 1349 00f2 98E7     		b	.L262
+ 1350              	.L278:
+ 1351 00f4 DA68     		ldr	r2, [r3, #12]
+ 1352 00f6 0E4B     		ldr	r3, .L280
+ 1353 00f8 1A60     		str	r2, [r3]
+ 1354 00fa 01E0     		b	.L266
+ 1355              	.L279:
+ 1356 00fc E268     		ldr	r2, [r4, #12]
+ 1357 00fe DA60     		str	r2, [r3, #12]
+ 1358              	.L266:
+ 1359 0100 114B     		ldr	r3, .L280+24
+ 1360 0102 1A68     		ldr	r2, [r3]
+ 1361 0104 E260     		str	r2, [r4, #12]
+ 1362 0106 1C60     		str	r4, [r3]
+ 1363 0108 FFF7FEFF 		bl	tcp_timer_needed
+ 1364 010c 0F4B     		ldr	r3, .L280+28
+ 1365 010e 0122     		movs	r2, #1
+ 1366 0110 1A70     		strb	r2, [r3]
+ARM GAS  /tmp/ccG0NqrR.s 			page 24
+
+
+ 1367 0112 2046     		mov	r0, r4
+ 1368 0114 FFF7FEFF 		bl	tcp_output
+ 1369              	.L258:
+ 1370 0118 2846     		mov	r0, r5
+ 1371 011a F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1372              	.L270:
+ 1373 011c 6FF00305 		mvn	r5, #3
+ 1374 0120 FAE7     		b	.L258
+ 1375              	.L271:
+ 1376 0122 6FF00305 		mvn	r5, #3
+ 1377 0126 F7E7     		b	.L258
+ 1378              	.L272:
+ 1379 0128 6FF00105 		mvn	r5, #1
+ 1380 012c F4E7     		b	.L258
+ 1381              	.L281:
+ 1382 012e 00BF     		.align	2
+ 1383              	.L280:
+ 1384 0130 00000000 		.word	tcp_bound_pcbs
+ 1385 0134 00000000 		.word	.LC0
+ 1386 0138 00000000 		.word	.LC24
+ 1387 013c 54000000 		.word	.LC2
+ 1388 0140 1C000000 		.word	.LC25
+ 1389 0144 38000000 		.word	.LC26
+ 1390 0148 00000000 		.word	tcp_active_pcbs
+ 1391 014c 00000000 		.word	tcp_active_pcbs_changed
+ 1393              		.section	.text.tcp_debug_state_str,"ax",%progbits
+ 1394              		.align	1
+ 1395              		.global	tcp_debug_state_str
+ 1396              		.syntax unified
+ 1397              		.thumb
+ 1398              		.thumb_func
+ 1399              		.fpu fpv4-sp-d16
+ 1401              	tcp_debug_state_str:
+ 1402              		@ args = 0, pretend = 0, frame = 0
+ 1403              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1404              		@ link register save eliminated.
+ 1405 0000 014B     		ldr	r3, .L283
+ 1406 0002 53F82000 		ldr	r0, [r3, r0, lsl #2]
+ 1407 0006 7047     		bx	lr
+ 1408              	.L284:
+ 1409              		.align	2
+ 1410              	.L283:
+ 1411 0008 00000000 		.word	.LANCHOR3
+ 1413              		.section	.text.tcp_tcp_get_tcp_addrinfo,"ax",%progbits
+ 1414              		.align	1
+ 1415              		.global	tcp_tcp_get_tcp_addrinfo
+ 1416              		.syntax unified
+ 1417              		.thumb
+ 1418              		.thumb_func
+ 1419              		.fpu fpv4-sp-d16
+ 1421              	tcp_tcp_get_tcp_addrinfo:
+ 1422              		@ args = 0, pretend = 0, frame = 0
+ 1423              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1424              		@ link register save eliminated.
+ 1425 0000 A0B1     		cbz	r0, .L291
+ 1426 0002 10B4     		push	{r4}
+ 1427 0004 0446     		mov	r4, r0
+ARM GAS  /tmp/ccG0NqrR.s 			page 25
+
+
+ 1428 0006 49B1     		cbz	r1, .L287
+ 1429 0008 0AB1     		cbz	r2, .L288
+ 1430 000a 0168     		ldr	r1, [r0]
+ 1431 000c 1160     		str	r1, [r2]
+ 1432              	.L288:
+ 1433 000e 0BB1     		cbz	r3, .L289
+ 1434 0010 E28A     		ldrh	r2, [r4, #22]
+ 1435 0012 1A80     		strh	r2, [r3]	@ movhi
+ 1436              	.L289:
+ 1437 0014 0020     		movs	r0, #0
+ 1438 0016 5DF8044B 		ldr	r4, [sp], #4
+ 1439 001a 7047     		bx	lr
+ 1440              	.L287:
+ 1441 001c 0AB1     		cbz	r2, .L290
+ 1442 001e 4168     		ldr	r1, [r0, #4]
+ 1443 0020 1160     		str	r1, [r2]
+ 1444              	.L290:
+ 1445 0022 002B     		cmp	r3, #0
+ 1446 0024 F6D0     		beq	.L289
+ 1447 0026 228B     		ldrh	r2, [r4, #24]
+ 1448 0028 1A80     		strh	r2, [r3]	@ movhi
+ 1449 002a F3E7     		b	.L289
+ 1450              	.L291:
+ 1451 002c 6FF00500 		mvn	r0, #5
+ 1452 0030 7047     		bx	lr
+ 1454              		.section	.text.tcp_free_ooseq,"ax",%progbits
+ 1455              		.align	1
+ 1456              		.global	tcp_free_ooseq
+ 1457              		.syntax unified
+ 1458              		.thumb
+ 1459              		.thumb_func
+ 1460              		.fpu fpv4-sp-d16
+ 1462              	tcp_free_ooseq:
+ 1463              		@ args = 0, pretend = 0, frame = 0
+ 1464              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1465 0000 436F     		ldr	r3, [r0, #116]
+ 1466 0002 3BB1     		cbz	r3, .L299
+ 1467 0004 10B5     		push	{r4, lr}
+ 1468 0006 0446     		mov	r4, r0
+ 1469 0008 1846     		mov	r0, r3
+ 1470 000a FFF7FEFF 		bl	tcp_segs_free
+ 1471 000e 0023     		movs	r3, #0
+ 1472 0010 6367     		str	r3, [r4, #116]
+ 1473 0012 10BD     		pop	{r4, pc}
+ 1474              	.L299:
+ 1475 0014 7047     		bx	lr
+ 1477              		.section	.text.tcp_pcb_purge,"ax",%progbits
+ 1478              		.align	1
+ 1479              		.global	tcp_pcb_purge
+ 1480              		.syntax unified
+ 1481              		.thumb
+ 1482              		.thumb_func
+ 1483              		.fpu fpv4-sp-d16
+ 1485              	tcp_pcb_purge:
+ 1486              		@ args = 0, pretend = 0, frame = 0
+ 1487              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1488 0000 10B5     		push	{r4, lr}
+ARM GAS  /tmp/ccG0NqrR.s 			page 26
+
+
+ 1489 0002 00B3     		cbz	r0, .L308
+ 1490 0004 0446     		mov	r4, r0
+ 1491 0006 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ 1492 0008 E3B1     		cbz	r3, .L302
+ 1493 000a 0A2B     		cmp	r3, #10
+ 1494 000c 1AD0     		beq	.L302
+ 1495 000e 012B     		cmp	r3, #1
+ 1496 0010 18D0     		beq	.L302
+ 1497 0012 806F     		ldr	r0, [r0, #120]
+ 1498 0014 18B1     		cbz	r0, .L305
+ 1499 0016 FFF7FEFF 		bl	pbuf_free
+ 1500 001a 0023     		movs	r3, #0
+ 1501 001c A367     		str	r3, [r4, #120]
+ 1502              	.L305:
+ 1503 001e 636F     		ldr	r3, [r4, #116]
+ 1504 0020 13B1     		cbz	r3, .L306
+ 1505 0022 2046     		mov	r0, r4
+ 1506 0024 FFF7FEFF 		bl	tcp_free_ooseq
+ 1507              	.L306:
+ 1508 0028 4FF6FF73 		movw	r3, #65535
+ 1509 002c 2386     		strh	r3, [r4, #48]	@ movhi
+ 1510 002e E06E     		ldr	r0, [r4, #108]
+ 1511 0030 FFF7FEFF 		bl	tcp_segs_free
+ 1512 0034 206F     		ldr	r0, [r4, #112]
+ 1513 0036 FFF7FEFF 		bl	tcp_segs_free
+ 1514 003a 0023     		movs	r3, #0
+ 1515 003c E366     		str	r3, [r4, #108]
+ 1516 003e 2367     		str	r3, [r4, #112]
+ 1517 0040 A4F86830 		strh	r3, [r4, #104]	@ movhi
+ 1518              	.L302:
+ 1519 0044 10BD     		pop	{r4, pc}
+ 1520              	.L308:
+ 1521 0046 044B     		ldr	r3, .L309
+ 1522 0048 40F65102 		movw	r2, #2129
+ 1523 004c 0349     		ldr	r1, .L309+4
+ 1524 004e 0448     		ldr	r0, .L309+8
+ 1525 0050 FFF7FEFF 		bl	printf
+ 1526 0054 F6E7     		b	.L302
+ 1527              	.L310:
+ 1528 0056 00BF     		.align	2
+ 1529              	.L309:
+ 1530 0058 00000000 		.word	.LC0
+ 1531 005c 00000000 		.word	.LC27
+ 1532 0060 54000000 		.word	.LC2
+ 1534              		.section	.text.tcp_pcb_remove,"ax",%progbits
+ 1535              		.align	1
+ 1536              		.global	tcp_pcb_remove
+ 1537              		.syntax unified
+ 1538              		.thumb
+ 1539              		.thumb_func
+ 1540              		.fpu fpv4-sp-d16
+ 1542              	tcp_pcb_remove:
+ 1543              		@ args = 0, pretend = 0, frame = 0
+ 1544              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1545 0000 38B5     		push	{r3, r4, r5, lr}
+ 1546 0002 0546     		mov	r5, r0
+ 1547 0004 0C46     		mov	r4, r1
+ARM GAS  /tmp/ccG0NqrR.s 			page 27
+
+
+ 1548 0006 49B1     		cbz	r1, .L323
+ 1549              	.L312:
+ 1550 0008 85B1     		cbz	r5, .L324
+ 1551              	.L313:
+ 1552 000a 2B68     		ldr	r3, [r5]
+ 1553 000c A342     		cmp	r3, r4
+ 1554 000e 15D0     		beq	.L325
+ 1555              	.L314:
+ 1556 0010 CBB1     		cbz	r3, .L315
+ 1557 0012 DA68     		ldr	r2, [r3, #12]
+ 1558 0014 A242     		cmp	r2, r4
+ 1559 0016 14D0     		beq	.L326
+ 1560 0018 1346     		mov	r3, r2
+ 1561 001a F9E7     		b	.L314
+ 1562              	.L323:
+ 1563 001c 254B     		ldr	r3, .L328
+ 1564 001e 40F68302 		movw	r2, #2179
+ 1565 0022 2549     		ldr	r1, .L328+4
+ 1566 0024 2548     		ldr	r0, .L328+8
+ 1567 0026 FFF7FEFF 		bl	printf
+ 1568 002a EDE7     		b	.L312
+ 1569              	.L324:
+ 1570 002c 214B     		ldr	r3, .L328
+ 1571 002e 40F68402 		movw	r2, #2180
+ 1572 0032 2349     		ldr	r1, .L328+12
+ 1573 0034 2148     		ldr	r0, .L328+8
+ 1574 0036 FFF7FEFF 		bl	printf
+ 1575 003a E6E7     		b	.L313
+ 1576              	.L325:
+ 1577 003c DB68     		ldr	r3, [r3, #12]
+ 1578 003e 2B60     		str	r3, [r5]
+ 1579 0040 01E0     		b	.L315
+ 1580              	.L326:
+ 1581 0042 E268     		ldr	r2, [r4, #12]
+ 1582 0044 DA60     		str	r2, [r3, #12]
+ 1583              	.L315:
+ 1584 0046 0023     		movs	r3, #0
+ 1585 0048 E360     		str	r3, [r4, #12]
+ 1586 004a 2046     		mov	r0, r4
+ 1587 004c FFF7FEFF 		bl	tcp_pcb_purge
+ 1588 0050 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 1589 0052 0A2B     		cmp	r3, #10
+ 1590 0054 05D0     		beq	.L317
+ 1591 0056 012B     		cmp	r3, #1
+ 1592 0058 03D0     		beq	.L317
+ 1593 005a 638B     		ldrh	r3, [r4, #26]
+ 1594 005c 13F0010F 		tst	r3, #1
+ 1595 0060 21D1     		bne	.L327
+ 1596              	.L317:
+ 1597 0062 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 1598 0064 012B     		cmp	r3, #1
+ 1599 0066 1AD0     		beq	.L318
+ 1600 0068 E36E     		ldr	r3, [r4, #108]
+ 1601 006a 33B1     		cbz	r3, .L319
+ 1602 006c 114B     		ldr	r3, .L328
+ 1603 006e 40F69302 		movw	r2, #2195
+ 1604 0072 1449     		ldr	r1, .L328+16
+ARM GAS  /tmp/ccG0NqrR.s 			page 28
+
+
+ 1605 0074 1148     		ldr	r0, .L328+8
+ 1606 0076 FFF7FEFF 		bl	printf
+ 1607              	.L319:
+ 1608 007a 236F     		ldr	r3, [r4, #112]
+ 1609 007c 33B1     		cbz	r3, .L320
+ 1610 007e 0D4B     		ldr	r3, .L328
+ 1611 0080 40F69402 		movw	r2, #2196
+ 1612 0084 1049     		ldr	r1, .L328+20
+ 1613 0086 0D48     		ldr	r0, .L328+8
+ 1614 0088 FFF7FEFF 		bl	printf
+ 1615              	.L320:
+ 1616 008c 636F     		ldr	r3, [r4, #116]
+ 1617 008e 33B1     		cbz	r3, .L318
+ 1618 0090 084B     		ldr	r3, .L328
+ 1619 0092 40F69602 		movw	r2, #2198
+ 1620 0096 0D49     		ldr	r1, .L328+24
+ 1621 0098 0848     		ldr	r0, .L328+8
+ 1622 009a FFF7FEFF 		bl	printf
+ 1623              	.L318:
+ 1624 009e 0023     		movs	r3, #0
+ 1625 00a0 2375     		strb	r3, [r4, #20]
+ 1626 00a2 E382     		strh	r3, [r4, #22]	@ movhi
+ 1627 00a4 38BD     		pop	{r3, r4, r5, pc}
+ 1628              	.L327:
+ 1629 00a6 43F00203 		orr	r3, r3, #2
+ 1630 00aa 6383     		strh	r3, [r4, #26]	@ movhi
+ 1631 00ac 2046     		mov	r0, r4
+ 1632 00ae FFF7FEFF 		bl	tcp_output
+ 1633 00b2 D6E7     		b	.L317
+ 1634              	.L329:
+ 1635              		.align	2
+ 1636              	.L328:
+ 1637 00b4 00000000 		.word	.LC0
+ 1638 00b8 00000000 		.word	.LC28
+ 1639 00bc 54000000 		.word	.LC2
+ 1640 00c0 1C000000 		.word	.LC29
+ 1641 00c4 3C000000 		.word	.LC30
+ 1642 00c8 54000000 		.word	.LC31
+ 1643 00cc 70000000 		.word	.LC32
+ 1645              		.section	.text.tcp_abandon,"ax",%progbits
+ 1646              		.align	1
+ 1647              		.global	tcp_abandon
+ 1648              		.syntax unified
+ 1649              		.thumb
+ 1650              		.thumb_func
+ 1651              		.fpu fpv4-sp-d16
+ 1653              	tcp_abandon:
+ 1654              		@ args = 0, pretend = 0, frame = 0
+ 1655              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1656 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 1657 0004 84B0     		sub	sp, sp, #16
+ 1658 0006 F8B1     		cbz	r0, .L347
+ 1659 0008 0D46     		mov	r5, r1
+ 1660 000a 0446     		mov	r4, r0
+ 1661 000c 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ 1662 000e 012B     		cmp	r3, #1
+ 1663 0010 22D0     		beq	.L348
+ARM GAS  /tmp/ccG0NqrR.s 			page 29
+
+
+ 1664              	.L333:
+ 1665 0012 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 1666 0014 0A2B     		cmp	r3, #10
+ 1667 0016 27D0     		beq	.L349
+ 1668 0018 D4F85080 		ldr	r8, [r4, #80]
+ 1669 001c D4F82490 		ldr	r9, [r4, #36]
+ 1670 0020 D4F89060 		ldr	r6, [r4, #144]
+ 1671 0024 2769     		ldr	r7, [r4, #16]
+ 1672 0026 002B     		cmp	r3, #0
+ 1673 0028 47D1     		bne	.L335
+ 1674 002a B4F816A0 		ldrh	r10, [r4, #22]
+ 1675 002e BAF1000F 		cmp	r10, #0
+ 1676 0032 4CD0     		beq	.L344
+ 1677 0034 2D4B     		ldr	r3, .L353
+ 1678 0036 1B68     		ldr	r3, [r3]
+ 1679 0038 A342     		cmp	r3, r4
+ 1680 003a 1DD0     		beq	.L350
+ 1681              	.L337:
+ 1682 003c 13B3     		cbz	r3, .L338
+ 1683 003e DA68     		ldr	r2, [r3, #12]
+ 1684 0040 A242     		cmp	r2, r4
+ 1685 0042 1DD0     		beq	.L351
+ 1686 0044 1346     		mov	r3, r2
+ 1687 0046 F9E7     		b	.L337
+ 1688              	.L347:
+ 1689 0048 294B     		ldr	r3, .L353+4
+ 1690 004a 40F23D22 		movw	r2, #573
+ 1691 004e 2949     		ldr	r1, .L353+8
+ 1692 0050 2948     		ldr	r0, .L353+12
+ 1693 0052 FFF7FEFF 		bl	printf
+ 1694 0056 2DE0     		b	.L330
+ 1695              	.L348:
+ 1696 0058 254B     		ldr	r3, .L353+4
+ 1697 005a 40F24122 		movw	r2, #577
+ 1698 005e 2749     		ldr	r1, .L353+16
+ 1699 0060 2548     		ldr	r0, .L353+12
+ 1700 0062 FFF7FEFF 		bl	printf
+ 1701 0066 D4E7     		b	.L333
+ 1702              	.L349:
+ 1703 0068 2146     		mov	r1, r4
+ 1704 006a 2548     		ldr	r0, .L353+20
+ 1705 006c FFF7FEFF 		bl	tcp_pcb_remove
+ 1706 0070 2046     		mov	r0, r4
+ 1707 0072 FFF7FEFF 		bl	tcp_free
+ 1708 0076 1DE0     		b	.L330
+ 1709              	.L350:
+ 1710 0078 DA68     		ldr	r2, [r3, #12]
+ 1711 007a 1C4B     		ldr	r3, .L353
+ 1712 007c 1A60     		str	r2, [r3]
+ 1713 007e 01E0     		b	.L338
+ 1714              	.L351:
+ 1715 0080 E268     		ldr	r2, [r4, #12]
+ 1716 0082 DA60     		str	r2, [r3, #12]
+ 1717              	.L338:
+ 1718 0084 0025     		movs	r5, #0
+ 1719 0086 E560     		str	r5, [r4, #12]
+ 1720 0088 AA46     		mov	r10, r5
+ARM GAS  /tmp/ccG0NqrR.s 			page 30
+
+
+ 1721              	.L336:
+ 1722 008a 206F     		ldr	r0, [r4, #112]
+ 1723 008c 08B1     		cbz	r0, .L340
+ 1724 008e FFF7FEFF 		bl	tcp_segs_free
+ 1725              	.L340:
+ 1726 0092 E06E     		ldr	r0, [r4, #108]
+ 1727 0094 08B1     		cbz	r0, .L341
+ 1728 0096 FFF7FEFF 		bl	tcp_segs_free
+ 1729              	.L341:
+ 1730 009a 606F     		ldr	r0, [r4, #116]
+ 1731 009c 08B1     		cbz	r0, .L342
+ 1732 009e FFF7FEFF 		bl	tcp_segs_free
+ 1733              	.L342:
+ 1734 00a2 B5B9     		cbnz	r5, .L352
+ 1735              	.L343:
+ 1736 00a4 2046     		mov	r0, r4
+ 1737 00a6 FFF7FEFF 		bl	tcp_free
+ 1738 00aa 1EB1     		cbz	r6, .L330
+ 1739 00ac 6FF00C01 		mvn	r1, #12
+ 1740 00b0 3846     		mov	r0, r7
+ 1741 00b2 B047     		blx	r6
+ 1742              	.L330:
+ 1743 00b4 04B0     		add	sp, sp, #16
+ 1744              		@ sp needed
+ 1745 00b6 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 1746              	.L335:
+ 1747 00ba B4F816A0 		ldrh	r10, [r4, #22]
+ 1748 00be 2146     		mov	r1, r4
+ 1749 00c0 1048     		ldr	r0, .L353+24
+ 1750 00c2 FFF7FEFF 		bl	tcp_pcb_remove
+ 1751 00c6 104B     		ldr	r3, .L353+28
+ 1752 00c8 0122     		movs	r2, #1
+ 1753 00ca 1A70     		strb	r2, [r3]
+ 1754 00cc DDE7     		b	.L336
+ 1755              	.L344:
+ 1756 00ce 0025     		movs	r5, #0
+ 1757 00d0 DBE7     		b	.L336
+ 1758              	.L352:
+ 1759 00d2 231D     		adds	r3, r4, #4
+ 1760 00d4 228B     		ldrh	r2, [r4, #24]
+ 1761 00d6 0292     		str	r2, [sp, #8]
+ 1762 00d8 CDF804A0 		str	r10, [sp, #4]
+ 1763 00dc 0093     		str	r3, [sp]
+ 1764 00de 2346     		mov	r3, r4
+ 1765 00e0 4A46     		mov	r2, r9
+ 1766 00e2 4146     		mov	r1, r8
+ 1767 00e4 2046     		mov	r0, r4
+ 1768 00e6 FFF7FEFF 		bl	tcp_rst
+ 1769 00ea DBE7     		b	.L343
+ 1770              	.L354:
+ 1771              		.align	2
+ 1772              	.L353:
+ 1773 00ec 00000000 		.word	tcp_bound_pcbs
+ 1774 00f0 00000000 		.word	.LC0
+ 1775 00f4 00000000 		.word	.LC33
+ 1776 00f8 54000000 		.word	.LC2
+ 1777 00fc 1C000000 		.word	.LC34
+ARM GAS  /tmp/ccG0NqrR.s 			page 31
+
+
+ 1778 0100 00000000 		.word	tcp_tw_pcbs
+ 1779 0104 00000000 		.word	tcp_active_pcbs
+ 1780 0108 00000000 		.word	tcp_active_pcbs_changed
+ 1782              		.section	.text.tcp_abort,"ax",%progbits
+ 1783              		.align	1
+ 1784              		.global	tcp_abort
+ 1785              		.syntax unified
+ 1786              		.thumb
+ 1787              		.thumb_func
+ 1788              		.fpu fpv4-sp-d16
+ 1790              	tcp_abort:
+ 1791              		@ args = 0, pretend = 0, frame = 0
+ 1792              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1793 0000 08B5     		push	{r3, lr}
+ 1794 0002 0121     		movs	r1, #1
+ 1795 0004 FFF7FEFF 		bl	tcp_abandon
+ 1796 0008 08BD     		pop	{r3, pc}
+ 1798              		.section	.text.tcp_accept_null,"ax",%progbits
+ 1799              		.align	1
+ 1800              		.syntax unified
+ 1801              		.thumb
+ 1802              		.thumb_func
+ 1803              		.fpu fpv4-sp-d16
+ 1805              	tcp_accept_null:
+ 1806              		@ args = 0, pretend = 0, frame = 0
+ 1807              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1808 0000 10B5     		push	{r4, lr}
+ 1809 0002 0C46     		mov	r4, r1
+ 1810 0004 29B1     		cbz	r1, .L360
+ 1811              	.L358:
+ 1812 0006 2046     		mov	r0, r4
+ 1813 0008 FFF7FEFF 		bl	tcp_abort
+ 1814 000c 6FF00C00 		mvn	r0, #12
+ 1815 0010 10BD     		pop	{r4, pc}
+ 1816              	.L360:
+ 1817 0012 044B     		ldr	r3, .L361
+ 1818 0014 40F20F32 		movw	r2, #783
+ 1819 0018 0349     		ldr	r1, .L361+4
+ 1820 001a 0448     		ldr	r0, .L361+8
+ 1821 001c FFF7FEFF 		bl	printf
+ 1822 0020 F1E7     		b	.L358
+ 1823              	.L362:
+ 1824 0022 00BF     		.align	2
+ 1825              	.L361:
+ 1826 0024 00000000 		.word	.LC0
+ 1827 0028 00000000 		.word	.LC35
+ 1828 002c 54000000 		.word	.LC2
+ 1830              		.section	.text.tcp_kill_timewait,"ax",%progbits
+ 1831              		.align	1
+ 1832              		.syntax unified
+ 1833              		.thumb
+ 1834              		.thumb_func
+ 1835              		.fpu fpv4-sp-d16
+ 1837              	tcp_kill_timewait:
+ 1838              		@ args = 0, pretend = 0, frame = 0
+ 1839              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1840 0000 10B5     		push	{r4, lr}
+ARM GAS  /tmp/ccG0NqrR.s 			page 32
+
+
+ 1841 0002 0A4B     		ldr	r3, .L371
+ 1842 0004 1B68     		ldr	r3, [r3]
+ 1843 0006 0024     		movs	r4, #0
+ 1844 0008 2046     		mov	r0, r4
+ 1845 000a 00E0     		b	.L364
+ 1846              	.L365:
+ 1847 000c DB68     		ldr	r3, [r3, #12]
+ 1848              	.L364:
+ 1849 000e 43B1     		cbz	r3, .L370
+ 1850 0010 196A     		ldr	r1, [r3, #32]
+ 1851 0012 074A     		ldr	r2, .L371+4
+ 1852 0014 1268     		ldr	r2, [r2]
+ 1853 0016 521A     		subs	r2, r2, r1
+ 1854 0018 A242     		cmp	r2, r4
+ 1855 001a F7D3     		bcc	.L365
+ 1856 001c 1446     		mov	r4, r2
+ 1857 001e 1846     		mov	r0, r3
+ 1858 0020 F4E7     		b	.L365
+ 1859              	.L370:
+ 1860 0022 08B1     		cbz	r0, .L363
+ 1861 0024 FFF7FEFF 		bl	tcp_abort
+ 1862              	.L363:
+ 1863 0028 10BD     		pop	{r4, pc}
+ 1864              	.L372:
+ 1865 002a 00BF     		.align	2
+ 1866              	.L371:
+ 1867 002c 00000000 		.word	tcp_tw_pcbs
+ 1868 0030 00000000 		.word	tcp_ticks
+ 1870              		.section	.text.tcp_kill_prio,"ax",%progbits
+ 1871              		.align	1
+ 1872              		.syntax unified
+ 1873              		.thumb
+ 1874              		.thumb_func
+ 1875              		.fpu fpv4-sp-d16
+ 1877              	tcp_kill_prio:
+ 1878              		@ args = 0, pretend = 0, frame = 0
+ 1879              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1880 0000 10F0800F 		tst	r0, #128
+ 1881 0004 01D1     		bne	.L380
+ 1882 0006 08B9     		cbnz	r0, .L374
+ 1883 0008 7047     		bx	lr
+ 1884              	.L380:
+ 1885 000a 7F20     		movs	r0, #127
+ 1886              	.L374:
+ 1887 000c 70B5     		push	{r4, r5, r6, lr}
+ 1888 000e 0138     		subs	r0, r0, #1
+ 1889 0010 C1B2     		uxtb	r1, r0
+ 1890 0012 0E4B     		ldr	r3, .L385
+ 1891 0014 1B68     		ldr	r3, [r3]
+ 1892 0016 0024     		movs	r4, #0
+ 1893 0018 2046     		mov	r0, r4
+ 1894 001a 06E0     		b	.L376
+ 1895              	.L377:
+ 1896 001c 0C49     		ldr	r1, .L385+4
+ 1897 001e 0968     		ldr	r1, [r1]
+ 1898 0020 1C6A     		ldr	r4, [r3, #32]
+ 1899 0022 0C1B     		subs	r4, r1, r4
+ARM GAS  /tmp/ccG0NqrR.s 			page 33
+
+
+ 1900 0024 1146     		mov	r1, r2
+ 1901 0026 1846     		mov	r0, r3
+ 1902              	.L378:
+ 1903 0028 DB68     		ldr	r3, [r3, #12]
+ 1904              	.L376:
+ 1905 002a 53B1     		cbz	r3, .L384
+ 1906 002c 5A7D     		ldrb	r2, [r3, #21]	@ zero_extendqisi2
+ 1907 002e 8A42     		cmp	r2, r1
+ 1908 0030 F4D3     		bcc	.L377
+ 1909 0032 F9D1     		bne	.L378
+ 1910 0034 1E6A     		ldr	r6, [r3, #32]
+ 1911 0036 064D     		ldr	r5, .L385+4
+ 1912 0038 2D68     		ldr	r5, [r5]
+ 1913 003a AD1B     		subs	r5, r5, r6
+ 1914 003c A542     		cmp	r5, r4
+ 1915 003e F3D3     		bcc	.L378
+ 1916 0040 ECE7     		b	.L377
+ 1917              	.L384:
+ 1918 0042 08B1     		cbz	r0, .L373
+ 1919 0044 FFF7FEFF 		bl	tcp_abort
+ 1920              	.L373:
+ 1921 0048 70BD     		pop	{r4, r5, r6, pc}
+ 1922              	.L386:
+ 1923 004a 00BF     		.align	2
+ 1924              	.L385:
+ 1925 004c 00000000 		.word	tcp_active_pcbs
+ 1926 0050 00000000 		.word	tcp_ticks
+ 1928              		.section	.text.tcp_netif_ip_addr_changed_pcblist,"ax",%progbits
+ 1929              		.align	1
+ 1930              		.syntax unified
+ 1931              		.thumb
+ 1932              		.thumb_func
+ 1933              		.fpu fpv4-sp-d16
+ 1935              	tcp_netif_ip_addr_changed_pcblist:
+ 1936              		@ args = 0, pretend = 0, frame = 0
+ 1937              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1938 0000 70B5     		push	{r4, r5, r6, lr}
+ 1939 0002 0C46     		mov	r4, r1
+ 1940 0004 0546     		mov	r5, r0
+ 1941 0006 60B9     		cbnz	r0, .L389
+ 1942 0008 0A4B     		ldr	r3, .L396
+ 1943 000a 4FF41062 		mov	r2, #2304
+ 1944 000e 0A49     		ldr	r1, .L396+4
+ 1945 0010 0A48     		ldr	r0, .L396+8
+ 1946 0012 FFF7FEFF 		bl	printf
+ 1947 0016 04E0     		b	.L389
+ 1948              	.L395:
+ 1949 0018 E668     		ldr	r6, [r4, #12]
+ 1950 001a 2046     		mov	r0, r4
+ 1951 001c FFF7FEFF 		bl	tcp_abort
+ 1952 0020 3446     		mov	r4, r6
+ 1953              	.L389:
+ 1954 0022 2CB1     		cbz	r4, .L394
+ 1955 0024 2268     		ldr	r2, [r4]
+ 1956 0026 2B68     		ldr	r3, [r5]
+ 1957 0028 9A42     		cmp	r2, r3
+ 1958 002a F5D0     		beq	.L395
+ARM GAS  /tmp/ccG0NqrR.s 			page 34
+
+
+ 1959 002c E468     		ldr	r4, [r4, #12]
+ 1960 002e F8E7     		b	.L389
+ 1961              	.L394:
+ 1962 0030 70BD     		pop	{r4, r5, r6, pc}
+ 1963              	.L397:
+ 1964 0032 00BF     		.align	2
+ 1965              	.L396:
+ 1966 0034 00000000 		.word	.LC0
+ 1967 0038 00000000 		.word	.LC36
+ 1968 003c 54000000 		.word	.LC2
+ 1970              		.section	.text.tcp_netif_ip_addr_changed,"ax",%progbits
+ 1971              		.align	1
+ 1972              		.global	tcp_netif_ip_addr_changed
+ 1973              		.syntax unified
+ 1974              		.thumb
+ 1975              		.thumb_func
+ 1976              		.fpu fpv4-sp-d16
+ 1978              	tcp_netif_ip_addr_changed:
+ 1979              		@ args = 0, pretend = 0, frame = 0
+ 1980              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1981 0000 00B3     		cbz	r0, .L404
+ 1982 0002 38B5     		push	{r3, r4, r5, lr}
+ 1983 0004 0446     		mov	r4, r0
+ 1984 0006 0268     		ldr	r2, [r0]
+ 1985 0008 02B9     		cbnz	r2, .L407
+ 1986              	.L398:
+ 1987 000a 38BD     		pop	{r3, r4, r5, pc}
+ 1988              	.L407:
+ 1989 000c 0D46     		mov	r5, r1
+ 1990 000e 0E4B     		ldr	r3, .L408
+ 1991 0010 1968     		ldr	r1, [r3]
+ 1992 0012 FFF7FEFF 		bl	tcp_netif_ip_addr_changed_pcblist
+ 1993 0016 0D4B     		ldr	r3, .L408+4
+ 1994 0018 1968     		ldr	r1, [r3]
+ 1995 001a 2046     		mov	r0, r4
+ 1996 001c FFF7FEFF 		bl	tcp_netif_ip_addr_changed_pcblist
+ 1997 0020 002D     		cmp	r5, #0
+ 1998 0022 F2D0     		beq	.L398
+ 1999 0024 2B68     		ldr	r3, [r5]
+ 2000 0026 002B     		cmp	r3, #0
+ 2001 0028 EFD0     		beq	.L398
+ 2002 002a 094B     		ldr	r3, .L408+8
+ 2003 002c 1B68     		ldr	r3, [r3]
+ 2004 002e 00E0     		b	.L400
+ 2005              	.L401:
+ 2006 0030 DB68     		ldr	r3, [r3, #12]
+ 2007              	.L400:
+ 2008 0032 002B     		cmp	r3, #0
+ 2009 0034 E9D0     		beq	.L398
+ 2010 0036 1868     		ldr	r0, [r3]
+ 2011 0038 2268     		ldr	r2, [r4]
+ 2012 003a 9042     		cmp	r0, r2
+ 2013 003c F8D1     		bne	.L401
+ 2014 003e 2A68     		ldr	r2, [r5]
+ 2015 0040 1A60     		str	r2, [r3]
+ 2016 0042 F5E7     		b	.L401
+ 2017              	.L404:
+ARM GAS  /tmp/ccG0NqrR.s 			page 35
+
+
+ 2018 0044 7047     		bx	lr
+ 2019              	.L409:
+ 2020 0046 00BF     		.align	2
+ 2021              	.L408:
+ 2022 0048 00000000 		.word	tcp_active_pcbs
+ 2023 004c 00000000 		.word	tcp_bound_pcbs
+ 2024 0050 00000000 		.word	tcp_listen_pcbs
+ 2026              		.section	.text.tcp_kill_state,"ax",%progbits
+ 2027              		.align	1
+ 2028              		.syntax unified
+ 2029              		.thumb
+ 2030              		.thumb_func
+ 2031              		.fpu fpv4-sp-d16
+ 2033              	tcp_kill_state:
+ 2034              		@ args = 0, pretend = 0, frame = 0
+ 2035              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2036 0000 38B5     		push	{r3, r4, r5, lr}
+ 2037 0002 0446     		mov	r4, r0
+ 2038 0004 A0F10803 		sub	r3, r0, #8
+ 2039 0008 DBB2     		uxtb	r3, r3
+ 2040 000a 012B     		cmp	r3, #1
+ 2041 000c 04D8     		bhi	.L418
+ 2042              	.L411:
+ 2043 000e 104B     		ldr	r3, .L420
+ 2044 0010 1B68     		ldr	r3, [r3]
+ 2045 0012 0021     		movs	r1, #0
+ 2046 0014 0846     		mov	r0, r1
+ 2047 0016 08E0     		b	.L412
+ 2048              	.L418:
+ 2049 0018 0E4B     		ldr	r3, .L420+4
+ 2050 001a 40F2DD62 		movw	r2, #1757
+ 2051 001e 0E49     		ldr	r1, .L420+8
+ 2052 0020 0E48     		ldr	r0, .L420+12
+ 2053 0022 FFF7FEFF 		bl	printf
+ 2054 0026 F2E7     		b	.L411
+ 2055              	.L413:
+ 2056 0028 DB68     		ldr	r3, [r3, #12]
+ 2057              	.L412:
+ 2058 002a 5BB1     		cbz	r3, .L419
+ 2059 002c 1A7D     		ldrb	r2, [r3, #20]	@ zero_extendqisi2
+ 2060 002e A242     		cmp	r2, r4
+ 2061 0030 FAD1     		bne	.L413
+ 2062 0032 1D6A     		ldr	r5, [r3, #32]
+ 2063 0034 0A4A     		ldr	r2, .L420+16
+ 2064 0036 1268     		ldr	r2, [r2]
+ 2065 0038 521B     		subs	r2, r2, r5
+ 2066 003a 8A42     		cmp	r2, r1
+ 2067 003c F4D3     		bcc	.L413
+ 2068 003e 1146     		mov	r1, r2
+ 2069 0040 1846     		mov	r0, r3
+ 2070 0042 F1E7     		b	.L413
+ 2071              	.L419:
+ 2072 0044 10B1     		cbz	r0, .L410
+ 2073 0046 0021     		movs	r1, #0
+ 2074 0048 FFF7FEFF 		bl	tcp_abandon
+ 2075              	.L410:
+ 2076 004c 38BD     		pop	{r3, r4, r5, pc}
+ARM GAS  /tmp/ccG0NqrR.s 			page 36
+
+
+ 2077              	.L421:
+ 2078 004e 00BF     		.align	2
+ 2079              	.L420:
+ 2080 0050 00000000 		.word	tcp_active_pcbs
+ 2081 0054 00000000 		.word	.LC0
+ 2082 0058 00000000 		.word	.LC37
+ 2083 005c 54000000 		.word	.LC2
+ 2084 0060 00000000 		.word	tcp_ticks
+ 2086              		.section	.text.tcp_alloc,"ax",%progbits
+ 2087              		.align	1
+ 2088              		.global	tcp_alloc
+ 2089              		.syntax unified
+ 2090              		.thumb
+ 2091              		.thumb_func
+ 2092              		.fpu fpv4-sp-d16
+ 2094              	tcp_alloc:
+ 2095              		@ args = 0, pretend = 0, frame = 0
+ 2096              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2097 0000 38B5     		push	{r3, r4, r5, lr}
+ 2098 0002 0546     		mov	r5, r0
+ 2099 0004 0120     		movs	r0, #1
+ 2100 0006 FFF7FEFF 		bl	memp_malloc
+ 2101 000a 0446     		mov	r4, r0
+ 2102 000c 68B3     		cbz	r0, .L426
+ 2103              	.L423:
+ 2104 000e 54B3     		cbz	r4, .L422
+ 2105 0010 9C22     		movs	r2, #156
+ 2106 0012 0021     		movs	r1, #0
+ 2107 0014 2046     		mov	r0, r4
+ 2108 0016 FFF7FEFF 		bl	memset
+ 2109 001a 6575     		strb	r5, [r4, #21]
+ 2110 001c 4FF48663 		mov	r3, #1072
+ 2111 0020 A4F86430 		strh	r3, [r4, #100]	@ movhi
+ 2112 0024 4FF40662 		mov	r2, #2144
+ 2113 0028 6285     		strh	r2, [r4, #42]	@ movhi
+ 2114 002a 2285     		strh	r2, [r4, #40]	@ movhi
+ 2115 002c FF22     		movs	r2, #255
+ 2116 002e E272     		strb	r2, [r4, #11]
+ 2117 0030 4FF40672 		mov	r2, #536
+ 2118 0034 6286     		strh	r2, [r4, #50]	@ movhi
+ 2119 0036 0622     		movs	r2, #6
+ 2120 0038 A4F84020 		strh	r2, [r4, #64]	@ movhi
+ 2121 003c E287     		strh	r2, [r4, #62]	@ movhi
+ 2122 003e 4FF6FF72 		movw	r2, #65535
+ 2123 0042 2286     		strh	r2, [r4, #48]	@ movhi
+ 2124 0044 0122     		movs	r2, #1
+ 2125 0046 A4F84820 		strh	r2, [r4, #72]	@ movhi
+ 2126 004a 1A4A     		ldr	r2, .L427
+ 2127 004c 1268     		ldr	r2, [r2]
+ 2128 004e 2262     		str	r2, [r4, #32]
+ 2129 0050 194A     		ldr	r2, .L427+4
+ 2130 0052 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 2131 0054 A277     		strb	r2, [r4, #30]
+ 2132 0056 A4F84A30 		strh	r3, [r4, #74]	@ movhi
+ 2133 005a 184B     		ldr	r3, .L427+8
+ 2134 005c C4F88430 		str	r3, [r4, #132]
+ 2135 0060 174B     		ldr	r3, .L427+12
+ARM GAS  /tmp/ccG0NqrR.s 			page 37
+
+
+ 2136 0062 C4F89430 		str	r3, [r4, #148]
+ 2137              	.L422:
+ 2138 0066 2046     		mov	r0, r4
+ 2139 0068 38BD     		pop	{r3, r4, r5, pc}
+ 2140              	.L426:
+ 2141 006a FFF7FEFF 		bl	tcp_handle_closepend
+ 2142 006e FFF7FEFF 		bl	tcp_kill_timewait
+ 2143 0072 0120     		movs	r0, #1
+ 2144 0074 FFF7FEFF 		bl	memp_malloc
+ 2145 0078 0446     		mov	r4, r0
+ 2146 007a 0028     		cmp	r0, #0
+ 2147 007c C7D1     		bne	.L423
+ 2148 007e 0920     		movs	r0, #9
+ 2149 0080 FFF7FEFF 		bl	tcp_kill_state
+ 2150 0084 0120     		movs	r0, #1
+ 2151 0086 FFF7FEFF 		bl	memp_malloc
+ 2152 008a 0446     		mov	r4, r0
+ 2153 008c 0028     		cmp	r0, #0
+ 2154 008e BED1     		bne	.L423
+ 2155 0090 0820     		movs	r0, #8
+ 2156 0092 FFF7FEFF 		bl	tcp_kill_state
+ 2157 0096 0120     		movs	r0, #1
+ 2158 0098 FFF7FEFF 		bl	memp_malloc
+ 2159 009c 0446     		mov	r4, r0
+ 2160 009e 0028     		cmp	r0, #0
+ 2161 00a0 B5D1     		bne	.L423
+ 2162 00a2 2846     		mov	r0, r5
+ 2163 00a4 FFF7FEFF 		bl	tcp_kill_prio
+ 2164 00a8 0120     		movs	r0, #1
+ 2165 00aa FFF7FEFF 		bl	memp_malloc
+ 2166 00ae 0446     		mov	r4, r0
+ 2167 00b0 ADE7     		b	.L423
+ 2168              	.L428:
+ 2169 00b2 00BF     		.align	2
+ 2170              	.L427:
+ 2171 00b4 00000000 		.word	tcp_ticks
+ 2172 00b8 00000000 		.word	.LANCHOR4
+ 2173 00bc 00000000 		.word	tcp_recv_null
+ 2174 00c0 00DD6D00 		.word	7200000
+ 2176              		.section	.text.tcp_new,"ax",%progbits
+ 2177              		.align	1
+ 2178              		.global	tcp_new
+ 2179              		.syntax unified
+ 2180              		.thumb
+ 2181              		.thumb_func
+ 2182              		.fpu fpv4-sp-d16
+ 2184              	tcp_new:
+ 2185              		@ args = 0, pretend = 0, frame = 0
+ 2186              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2187 0000 08B5     		push	{r3, lr}
+ 2188 0002 4020     		movs	r0, #64
+ 2189 0004 FFF7FEFF 		bl	tcp_alloc
+ 2190 0008 08BD     		pop	{r3, pc}
+ 2192              		.section	.text.tcp_new_ip_type,"ax",%progbits
+ 2193              		.align	1
+ 2194              		.global	tcp_new_ip_type
+ 2195              		.syntax unified
+ARM GAS  /tmp/ccG0NqrR.s 			page 38
+
+
+ 2196              		.thumb
+ 2197              		.thumb_func
+ 2198              		.fpu fpv4-sp-d16
+ 2200              	tcp_new_ip_type:
+ 2201              		@ args = 0, pretend = 0, frame = 0
+ 2202              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2203 0000 08B5     		push	{r3, lr}
+ 2204 0002 4020     		movs	r0, #64
+ 2205 0004 FFF7FEFF 		bl	tcp_alloc
+ 2206 0008 08BD     		pop	{r3, pc}
+ 2208              		.section	.text.tcp_close_shutdown,"ax",%progbits
+ 2209              		.align	1
+ 2210              		.syntax unified
+ 2211              		.thumb
+ 2212              		.thumb_func
+ 2213              		.fpu fpv4-sp-d16
+ 2215              	tcp_close_shutdown:
+ 2216              		@ args = 0, pretend = 0, frame = 0
+ 2217              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2218 0000 30B5     		push	{r4, r5, lr}
+ 2219 0002 85B0     		sub	sp, sp, #20
+ 2220 0004 0D46     		mov	r5, r1
+ 2221 0006 0446     		mov	r4, r0
+ 2222 0008 88B1     		cbz	r0, .L457
+ 2223              	.L434:
+ 2224 000a 25B1     		cbz	r5, .L435
+ 2225 000c 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 2226 000e 042B     		cmp	r3, #4
+ 2227 0010 15D0     		beq	.L436
+ 2228 0012 072B     		cmp	r3, #7
+ 2229 0014 13D0     		beq	.L436
+ 2230              	.L435:
+ 2231 0016 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 2232 0018 012B     		cmp	r3, #1
+ 2233 001a 6DD0     		beq	.L445
+ 2234 001c 5AB2     		sxtb	r2, r3
+ 2235 001e 002A     		cmp	r2, #0
+ 2236 0020 51D0     		beq	.L446
+ 2237 0022 022B     		cmp	r3, #2
+ 2238 0024 74D0     		beq	.L447
+ 2239 0026 2046     		mov	r0, r4
+ 2240 0028 FFF7FEFF 		bl	tcp_close_shutdown_fin
+ 2241 002c 46E0     		b	.L444
+ 2242              	.L457:
+ 2243 002e 3E4B     		ldr	r3, .L465
+ 2244 0030 4FF4AF72 		mov	r2, #350
+ 2245 0034 3D49     		ldr	r1, .L465+4
+ 2246 0036 3E48     		ldr	r0, .L465+8
+ 2247 0038 FFF7FEFF 		bl	printf
+ 2248 003c E5E7     		b	.L434
+ 2249              	.L436:
+ 2250 003e A36F     		ldr	r3, [r4, #120]
+ 2251 0040 E3B1     		cbz	r3, .L458
+ 2252              	.L437:
+ 2253 0042 638B     		ldrh	r3, [r4, #26]
+ 2254 0044 13F0100F 		tst	r3, #16
+ 2255 0048 1DD0     		beq	.L459
+ARM GAS  /tmp/ccG0NqrR.s 			page 39
+
+
+ 2256              	.L438:
+ 2257 004a 231D     		adds	r3, r4, #4
+ 2258 004c 228B     		ldrh	r2, [r4, #24]
+ 2259 004e 0292     		str	r2, [sp, #8]
+ 2260 0050 E28A     		ldrh	r2, [r4, #22]
+ 2261 0052 0192     		str	r2, [sp, #4]
+ 2262 0054 0093     		str	r3, [sp]
+ 2263 0056 2346     		mov	r3, r4
+ 2264 0058 626A     		ldr	r2, [r4, #36]
+ 2265 005a 216D     		ldr	r1, [r4, #80]
+ 2266 005c 2046     		mov	r0, r4
+ 2267 005e FFF7FEFF 		bl	tcp_rst
+ 2268 0062 2046     		mov	r0, r4
+ 2269 0064 FFF7FEFF 		bl	tcp_pcb_purge
+ 2270 0068 324B     		ldr	r3, .L465+12
+ 2271 006a 1B68     		ldr	r3, [r3]
+ 2272 006c A342     		cmp	r3, r4
+ 2273 006e 12D0     		beq	.L460
+ 2274              	.L439:
+ 2275 0070 BBB1     		cbz	r3, .L440
+ 2276 0072 DA68     		ldr	r2, [r3, #12]
+ 2277 0074 A242     		cmp	r2, r4
+ 2278 0076 12D0     		beq	.L461
+ 2279 0078 1346     		mov	r3, r2
+ 2280 007a F9E7     		b	.L439
+ 2281              	.L458:
+ 2282 007c 238D     		ldrh	r3, [r4, #40]
+ 2283 007e B3F5066F 		cmp	r3, #2144
+ 2284 0082 C8D0     		beq	.L435
+ 2285 0084 DDE7     		b	.L437
+ 2286              	.L459:
+ 2287 0086 284B     		ldr	r3, .L465
+ 2288 0088 4FF4B272 		mov	r2, #356
+ 2289 008c 2A49     		ldr	r1, .L465+16
+ 2290 008e 2848     		ldr	r0, .L465+8
+ 2291 0090 FFF7FEFF 		bl	printf
+ 2292 0094 D9E7     		b	.L438
+ 2293              	.L460:
+ 2294 0096 DA68     		ldr	r2, [r3, #12]
+ 2295 0098 264B     		ldr	r3, .L465+12
+ 2296 009a 1A60     		str	r2, [r3]
+ 2297 009c 01E0     		b	.L440
+ 2298              	.L461:
+ 2299 009e E268     		ldr	r2, [r4, #12]
+ 2300 00a0 DA60     		str	r2, [r3, #12]
+ 2301              	.L440:
+ 2302 00a2 0023     		movs	r3, #0
+ 2303 00a4 E360     		str	r3, [r4, #12]
+ 2304 00a6 254B     		ldr	r3, .L465+20
+ 2305 00a8 0122     		movs	r2, #1
+ 2306 00aa 1A70     		strb	r2, [r3]
+ 2307 00ac 244B     		ldr	r3, .L465+24
+ 2308 00ae 1B68     		ldr	r3, [r3]
+ 2309 00b0 A342     		cmp	r3, r4
+ 2310 00b2 05D0     		beq	.L462
+ 2311 00b4 2046     		mov	r0, r4
+ 2312 00b6 FFF7FEFF 		bl	tcp_free
+ARM GAS  /tmp/ccG0NqrR.s 			page 40
+
+
+ 2313              	.L443:
+ 2314 00ba 0020     		movs	r0, #0
+ 2315              	.L444:
+ 2316 00bc 05B0     		add	sp, sp, #20
+ 2317              		@ sp needed
+ 2318 00be 30BD     		pop	{r4, r5, pc}
+ 2319              	.L462:
+ 2320 00c0 FFF7FEFF 		bl	tcp_trigger_input_pcb_close
+ 2321 00c4 F9E7     		b	.L443
+ 2322              	.L446:
+ 2323 00c6 E38A     		ldrh	r3, [r4, #22]
+ 2324 00c8 8BB1     		cbz	r3, .L449
+ 2325 00ca 1E4B     		ldr	r3, .L465+28
+ 2326 00cc 1B68     		ldr	r3, [r3]
+ 2327 00ce A342     		cmp	r3, r4
+ 2328 00d0 05D0     		beq	.L463
+ 2329              	.L450:
+ 2330 00d2 53B1     		cbz	r3, .L451
+ 2331 00d4 DA68     		ldr	r2, [r3, #12]
+ 2332 00d6 A242     		cmp	r2, r4
+ 2333 00d8 05D0     		beq	.L464
+ 2334 00da 1346     		mov	r3, r2
+ 2335 00dc F9E7     		b	.L450
+ 2336              	.L463:
+ 2337 00de DA68     		ldr	r2, [r3, #12]
+ 2338 00e0 184B     		ldr	r3, .L465+28
+ 2339 00e2 1A60     		str	r2, [r3]
+ 2340 00e4 01E0     		b	.L451
+ 2341              	.L464:
+ 2342 00e6 E268     		ldr	r2, [r4, #12]
+ 2343 00e8 DA60     		str	r2, [r3, #12]
+ 2344              	.L451:
+ 2345 00ea 0023     		movs	r3, #0
+ 2346 00ec E360     		str	r3, [r4, #12]
+ 2347              	.L449:
+ 2348 00ee 2046     		mov	r0, r4
+ 2349 00f0 FFF7FEFF 		bl	tcp_free
+ 2350 00f4 0020     		movs	r0, #0
+ 2351 00f6 E1E7     		b	.L444
+ 2352              	.L445:
+ 2353 00f8 2046     		mov	r0, r4
+ 2354 00fa FFF7FEFF 		bl	tcp_listen_closed
+ 2355 00fe 2146     		mov	r1, r4
+ 2356 0100 1148     		ldr	r0, .L465+32
+ 2357 0102 FFF7FEFF 		bl	tcp_pcb_remove
+ 2358 0106 2046     		mov	r0, r4
+ 2359 0108 FFF7FEFF 		bl	tcp_free_listen
+ 2360 010c 0020     		movs	r0, #0
+ 2361 010e D5E7     		b	.L444
+ 2362              	.L447:
+ 2363 0110 2146     		mov	r1, r4
+ 2364 0112 0848     		ldr	r0, .L465+12
+ 2365 0114 FFF7FEFF 		bl	tcp_pcb_remove
+ 2366 0118 084B     		ldr	r3, .L465+20
+ 2367 011a 0122     		movs	r2, #1
+ 2368 011c 1A70     		strb	r2, [r3]
+ 2369 011e 2046     		mov	r0, r4
+ARM GAS  /tmp/ccG0NqrR.s 			page 41
+
+
+ 2370 0120 FFF7FEFF 		bl	tcp_free
+ 2371 0124 0020     		movs	r0, #0
+ 2372 0126 C9E7     		b	.L444
+ 2373              	.L466:
+ 2374              		.align	2
+ 2375              	.L465:
+ 2376 0128 00000000 		.word	.LC0
+ 2377 012c 00000000 		.word	.LC38
+ 2378 0130 54000000 		.word	.LC2
+ 2379 0134 00000000 		.word	tcp_active_pcbs
+ 2380 0138 20000000 		.word	.LC39
+ 2381 013c 00000000 		.word	tcp_active_pcbs_changed
+ 2382 0140 00000000 		.word	tcp_input_pcb
+ 2383 0144 00000000 		.word	tcp_bound_pcbs
+ 2384 0148 00000000 		.word	tcp_listen_pcbs
+ 2386              		.section	.text.tcp_close,"ax",%progbits
+ 2387              		.align	1
+ 2388              		.global	tcp_close
+ 2389              		.syntax unified
+ 2390              		.thumb
+ 2391              		.thumb_func
+ 2392              		.fpu fpv4-sp-d16
+ 2394              	tcp_close:
+ 2395              		@ args = 0, pretend = 0, frame = 0
+ 2396              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2397 0000 08B5     		push	{r3, lr}
+ 2398 0002 60B1     		cbz	r0, .L472
+ 2399 0004 0346     		mov	r3, r0
+ 2400 0006 027D     		ldrb	r2, [r0, #20]	@ zero_extendqisi2
+ 2401 0008 012A     		cmp	r2, #1
+ 2402 000a 03D0     		beq	.L470
+ 2403 000c 428B     		ldrh	r2, [r0, #26]
+ 2404 000e 42F01002 		orr	r2, r2, #16
+ 2405 0012 4283     		strh	r2, [r0, #26]	@ movhi
+ 2406              	.L470:
+ 2407 0014 0121     		movs	r1, #1
+ 2408 0016 1846     		mov	r0, r3
+ 2409 0018 FFF7FEFF 		bl	tcp_close_shutdown
+ 2410              	.L469:
+ 2411 001c 08BD     		pop	{r3, pc}
+ 2412              	.L472:
+ 2413 001e 054B     		ldr	r3, .L473
+ 2414 0020 4FF4F472 		mov	r2, #488
+ 2415 0024 0449     		ldr	r1, .L473+4
+ 2416 0026 0548     		ldr	r0, .L473+8
+ 2417 0028 FFF7FEFF 		bl	printf
+ 2418 002c 6FF00F00 		mvn	r0, #15
+ 2419 0030 F4E7     		b	.L469
+ 2420              	.L474:
+ 2421 0032 00BF     		.align	2
+ 2422              	.L473:
+ 2423 0034 00000000 		.word	.LC0
+ 2424 0038 00000000 		.word	.LC40
+ 2425 003c 54000000 		.word	.LC2
+ 2427              		.section	.text.tcp_recv_null,"ax",%progbits
+ 2428              		.align	1
+ 2429              		.global	tcp_recv_null
+ARM GAS  /tmp/ccG0NqrR.s 			page 42
+
+
+ 2430              		.syntax unified
+ 2431              		.thumb
+ 2432              		.thumb_func
+ 2433              		.fpu fpv4-sp-d16
+ 2435              	tcp_recv_null:
+ 2436              		@ args = 0, pretend = 0, frame = 0
+ 2437              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2438 0000 10B5     		push	{r4, lr}
+ 2439 0002 51B1     		cbz	r1, .L481
+ 2440 0004 1446     		mov	r4, r2
+ 2441 0006 0846     		mov	r0, r1
+ 2442 0008 8AB1     		cbz	r2, .L478
+ 2443 000a 1189     		ldrh	r1, [r2, #8]
+ 2444 000c FFF7FEFF 		bl	tcp_recved
+ 2445 0010 2046     		mov	r0, r4
+ 2446 0012 FFF7FEFF 		bl	pbuf_free
+ 2447 0016 0020     		movs	r0, #0
+ 2448              	.L477:
+ 2449 0018 10BD     		pop	{r4, pc}
+ 2450              	.L481:
+ 2451 001a 084B     		ldr	r3, .L483
+ 2452 001c 4FF4D362 		mov	r2, #1688
+ 2453 0020 0749     		ldr	r1, .L483+4
+ 2454 0022 0848     		ldr	r0, .L483+8
+ 2455 0024 FFF7FEFF 		bl	printf
+ 2456 0028 6FF00F00 		mvn	r0, #15
+ 2457 002c F4E7     		b	.L477
+ 2458              	.L478:
+ 2459 002e 0BB1     		cbz	r3, .L482
+ 2460 0030 0020     		movs	r0, #0
+ 2461 0032 F1E7     		b	.L477
+ 2462              	.L482:
+ 2463 0034 FFF7FEFF 		bl	tcp_close
+ 2464 0038 EEE7     		b	.L477
+ 2465              	.L484:
+ 2466 003a 00BF     		.align	2
+ 2467              	.L483:
+ 2468 003c 00000000 		.word	.LC0
+ 2469 0040 00000000 		.word	.LC41
+ 2470 0044 54000000 		.word	.LC2
+ 2472              		.section	.text.tcp_process_refused_data,"ax",%progbits
+ 2473              		.align	1
+ 2474              		.global	tcp_process_refused_data
+ 2475              		.syntax unified
+ 2476              		.thumb
+ 2477              		.thumb_func
+ 2478              		.fpu fpv4-sp-d16
+ 2480              	tcp_process_refused_data:
+ 2481              		@ args = 0, pretend = 0, frame = 0
+ 2482              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2483 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 2484 0002 18B3     		cbz	r0, .L494
+ 2485 0004 0446     		mov	r4, r0
+ 2486 0006 866F     		ldr	r6, [r0, #120]
+ 2487 0008 777B     		ldrb	r7, [r6, #13]	@ zero_extendqisi2
+ 2488 000a 0023     		movs	r3, #0
+ 2489 000c 8367     		str	r3, [r0, #120]
+ARM GAS  /tmp/ccG0NqrR.s 			page 43
+
+
+ 2490 000e D0F88450 		ldr	r5, [r0, #132]
+ 2491 0012 2DB3     		cbz	r5, .L488
+ 2492 0014 3246     		mov	r2, r6
+ 2493 0016 0146     		mov	r1, r0
+ 2494 0018 0069     		ldr	r0, [r0, #16]
+ 2495 001a A847     		blx	r5
+ 2496 001c 0546     		mov	r5, r0
+ 2497              	.L489:
+ 2498 001e 3DBB     		cbnz	r5, .L490
+ 2499 0020 17F0200F 		tst	r7, #32
+ 2500 0024 2AD0     		beq	.L487
+ 2501 0026 238D     		ldrh	r3, [r4, #40]
+ 2502 0028 B3F5066F 		cmp	r3, #2144
+ 2503 002c 01D0     		beq	.L491
+ 2504 002e 0133     		adds	r3, r3, #1
+ 2505 0030 2385     		strh	r3, [r4, #40]	@ movhi
+ 2506              	.L491:
+ 2507 0032 D4F88460 		ldr	r6, [r4, #132]
+ 2508 0036 0EB3     		cbz	r6, .L487
+ 2509 0038 0023     		movs	r3, #0
+ 2510 003a 1A46     		mov	r2, r3
+ 2511 003c 2146     		mov	r1, r4
+ 2512 003e 2069     		ldr	r0, [r4, #16]
+ 2513 0040 B047     		blx	r6
+ 2514 0042 10F10D0F 		cmn	r0, #13
+ 2515 0046 19D1     		bne	.L487
+ 2516 0048 0546     		mov	r5, r0
+ 2517 004a 17E0     		b	.L487
+ 2518              	.L494:
+ 2519 004c 0C4B     		ldr	r3, .L495
+ 2520 004e 40F20962 		movw	r2, #1545
+ 2521 0052 0C49     		ldr	r1, .L495+4
+ 2522 0054 0C48     		ldr	r0, .L495+8
+ 2523 0056 FFF7FEFF 		bl	printf
+ 2524 005a 6FF00F05 		mvn	r5, #15
+ 2525 005e 0DE0     		b	.L487
+ 2526              	.L488:
+ 2527 0060 0023     		movs	r3, #0
+ 2528 0062 3246     		mov	r2, r6
+ 2529 0064 0146     		mov	r1, r0
+ 2530 0066 1846     		mov	r0, r3
+ 2531 0068 FFF7FEFF 		bl	tcp_recv_null
+ 2532 006c 0546     		mov	r5, r0
+ 2533 006e D6E7     		b	.L489
+ 2534              	.L490:
+ 2535 0070 15F10D0F 		cmn	r5, #13
+ 2536 0074 02D0     		beq	.L487
+ 2537 0076 A667     		str	r6, [r4, #120]
+ 2538 0078 6FF00405 		mvn	r5, #4
+ 2539              	.L487:
+ 2540 007c 2846     		mov	r0, r5
+ 2541 007e F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 2542              	.L496:
+ 2543              		.align	2
+ 2544              	.L495:
+ 2545 0080 00000000 		.word	.LC0
+ 2546 0084 00000000 		.word	.LC42
+ARM GAS  /tmp/ccG0NqrR.s 			page 44
+
+
+ 2547 0088 54000000 		.word	.LC2
+ 2549              		.section	.text.tcp_fasttmr,"ax",%progbits
+ 2550              		.align	1
+ 2551              		.global	tcp_fasttmr
+ 2552              		.syntax unified
+ 2553              		.thumb
+ 2554              		.thumb_func
+ 2555              		.fpu fpv4-sp-d16
+ 2557              	tcp_fasttmr:
+ 2558              		@ args = 0, pretend = 0, frame = 0
+ 2559              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2560 0000 70B5     		push	{r4, r5, r6, lr}
+ 2561 0002 1C4A     		ldr	r2, .L509
+ 2562 0004 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 2563 0006 0133     		adds	r3, r3, #1
+ 2564 0008 1370     		strb	r3, [r2]
+ 2565              	.L498:
+ 2566 000a 1B4B     		ldr	r3, .L509+4
+ 2567 000c 1C68     		ldr	r4, [r3]
+ 2568 000e 13E0     		b	.L499
+ 2569              	.L507:
+ 2570 0010 43F00203 		orr	r3, r3, #2
+ 2571 0014 6383     		strh	r3, [r4, #26]	@ movhi
+ 2572 0016 2046     		mov	r0, r4
+ 2573 0018 FFF7FEFF 		bl	tcp_output
+ 2574 001c 638B     		ldrh	r3, [r4, #26]
+ 2575 001e 23F00303 		bic	r3, r3, #3
+ 2576 0022 6383     		strh	r3, [r4, #26]	@ movhi
+ 2577 0024 13E0     		b	.L501
+ 2578              	.L508:
+ 2579 0026 23F00803 		bic	r3, r3, #8
+ 2580 002a 6383     		strh	r3, [r4, #26]	@ movhi
+ 2581 002c 2046     		mov	r0, r4
+ 2582 002e FFF7FEFF 		bl	tcp_close_shutdown_fin
+ 2583 0032 10E0     		b	.L502
+ 2584              	.L500:
+ 2585 0034 E568     		ldr	r5, [r4, #12]
+ 2586              	.L503:
+ 2587 0036 2C46     		mov	r4, r5
+ 2588              	.L499:
+ 2589 0038 DCB1     		cbz	r4, .L506
+ 2590 003a A27F     		ldrb	r2, [r4, #30]	@ zero_extendqisi2
+ 2591 003c 0D4B     		ldr	r3, .L509
+ 2592 003e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2593 0040 9A42     		cmp	r2, r3
+ 2594 0042 F7D0     		beq	.L500
+ 2595 0044 A377     		strb	r3, [r4, #30]
+ 2596 0046 638B     		ldrh	r3, [r4, #26]
+ 2597 0048 13F0010F 		tst	r3, #1
+ 2598 004c E0D1     		bne	.L507
+ 2599              	.L501:
+ 2600 004e 638B     		ldrh	r3, [r4, #26]
+ 2601 0050 13F0080F 		tst	r3, #8
+ 2602 0054 E7D1     		bne	.L508
+ 2603              	.L502:
+ 2604 0056 E568     		ldr	r5, [r4, #12]
+ 2605 0058 A36F     		ldr	r3, [r4, #120]
+ARM GAS  /tmp/ccG0NqrR.s 			page 45
+
+
+ 2606 005a 002B     		cmp	r3, #0
+ 2607 005c EBD0     		beq	.L503
+ 2608 005e 074E     		ldr	r6, .L509+8
+ 2609 0060 0023     		movs	r3, #0
+ 2610 0062 3370     		strb	r3, [r6]
+ 2611 0064 2046     		mov	r0, r4
+ 2612 0066 FFF7FEFF 		bl	tcp_process_refused_data
+ 2613 006a 3378     		ldrb	r3, [r6]	@ zero_extendqisi2
+ 2614 006c 002B     		cmp	r3, #0
+ 2615 006e E2D0     		beq	.L503
+ 2616 0070 CBE7     		b	.L498
+ 2617              	.L506:
+ 2618 0072 70BD     		pop	{r4, r5, r6, pc}
+ 2619              	.L510:
+ 2620              		.align	2
+ 2621              	.L509:
+ 2622 0074 00000000 		.word	.LANCHOR4
+ 2623 0078 00000000 		.word	tcp_active_pcbs
+ 2624 007c 00000000 		.word	tcp_active_pcbs_changed
+ 2626              		.section	.text.tcp_shutdown,"ax",%progbits
+ 2627              		.align	1
+ 2628              		.global	tcp_shutdown
+ 2629              		.syntax unified
+ 2630              		.thumb
+ 2631              		.thumb_func
+ 2632              		.fpu fpv4-sp-d16
+ 2634              	tcp_shutdown:
+ 2635              		@ args = 0, pretend = 0, frame = 0
+ 2636              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2637 0000 70B5     		push	{r4, r5, r6, lr}
+ 2638 0002 F0B1     		cbz	r0, .L522
+ 2639 0004 0D46     		mov	r5, r1
+ 2640 0006 1646     		mov	r6, r2
+ 2641 0008 0446     		mov	r4, r0
+ 2642 000a 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ 2643 000c 012B     		cmp	r3, #1
+ 2644 000e 26D0     		beq	.L517
+ 2645 0010 51B1     		cbz	r1, .L514
+ 2646 0012 438B     		ldrh	r3, [r0, #26]
+ 2647 0014 43F01003 		orr	r3, r3, #16
+ 2648 0018 4383     		strh	r3, [r0, #26]	@ movhi
+ 2649 001a E2B9     		cbnz	r2, .L523
+ 2650 001c 806F     		ldr	r0, [r0, #120]
+ 2651 001e 18B1     		cbz	r0, .L514
+ 2652 0020 FFF7FEFF 		bl	pbuf_free
+ 2653 0024 0023     		movs	r3, #0
+ 2654 0026 A367     		str	r3, [r4, #120]
+ 2655              	.L514:
+ 2656 0028 E6B1     		cbz	r6, .L518
+ 2657 002a 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 2658 002c 032B     		cmp	r3, #3
+ 2659 002e 1BD3     		bcc	.L519
+ 2660 0030 042B     		cmp	r3, #4
+ 2661 0032 01D9     		bls	.L516
+ 2662 0034 072B     		cmp	r3, #7
+ 2663 0036 1AD1     		bne	.L520
+ 2664              	.L516:
+ARM GAS  /tmp/ccG0NqrR.s 			page 46
+
+
+ 2665 0038 E9B2     		uxtb	r1, r5
+ 2666 003a 2046     		mov	r0, r4
+ 2667 003c FFF7FEFF 		bl	tcp_close_shutdown
+ 2668 0040 11E0     		b	.L513
+ 2669              	.L522:
+ 2670 0042 0C4B     		ldr	r3, .L524
+ 2671 0044 40F20722 		movw	r2, #519
+ 2672 0048 0B49     		ldr	r1, .L524+4
+ 2673 004a 0C48     		ldr	r0, .L524+8
+ 2674 004c FFF7FEFF 		bl	printf
+ 2675 0050 6FF00F00 		mvn	r0, #15
+ 2676 0054 07E0     		b	.L513
+ 2677              	.L523:
+ 2678 0056 0121     		movs	r1, #1
+ 2679 0058 FFF7FEFF 		bl	tcp_close_shutdown
+ 2680 005c 03E0     		b	.L513
+ 2681              	.L517:
+ 2682 005e 6FF00A00 		mvn	r0, #10
+ 2683 0062 00E0     		b	.L513
+ 2684              	.L518:
+ 2685 0064 0020     		movs	r0, #0
+ 2686              	.L513:
+ 2687 0066 70BD     		pop	{r4, r5, r6, pc}
+ 2688              	.L519:
+ 2689 0068 6FF00A00 		mvn	r0, #10
+ 2690 006c FBE7     		b	.L513
+ 2691              	.L520:
+ 2692 006e 6FF00A00 		mvn	r0, #10
+ 2693 0072 F8E7     		b	.L513
+ 2694              	.L525:
+ 2695              		.align	2
+ 2696              	.L524:
+ 2697 0074 00000000 		.word	.LC0
+ 2698 0078 00000000 		.word	.LC43
+ 2699 007c 54000000 		.word	.LC2
+ 2701              		.section	.text.tcp_slowtmr,"ax",%progbits
+ 2702              		.align	1
+ 2703              		.global	tcp_slowtmr
+ 2704              		.syntax unified
+ 2705              		.thumb
+ 2706              		.thumb_func
+ 2707              		.fpu fpv4-sp-d16
+ 2709              	tcp_slowtmr:
+ 2710              		@ args = 0, pretend = 0, frame = 0
+ 2711              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2712 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 2713 0004 84B0     		sub	sp, sp, #16
+ 2714 0006 AD4A     		ldr	r2, .L612
+ 2715 0008 1368     		ldr	r3, [r2]
+ 2716 000a 0133     		adds	r3, r3, #1
+ 2717 000c 1360     		str	r3, [r2]
+ 2718 000e AC4A     		ldr	r2, .L612+4
+ 2719 0010 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 2720 0012 0133     		adds	r3, r3, #1
+ 2721 0014 1370     		strb	r3, [r2]
+ 2722              	.L528:
+ 2723              	.L527:
+ARM GAS  /tmp/ccG0NqrR.s 			page 47
+
+
+ 2724 0016 AB4B     		ldr	r3, .L612+8
+ 2725 0018 1C68     		ldr	r4, [r3]
+ 2726 001a 0026     		movs	r6, #0
+ 2727 001c 96E1     		b	.L529
+ 2728              	.L601:
+ 2729 001e AA4B     		ldr	r3, .L612+12
+ 2730 0020 40F2BE42 		movw	r2, #1214
+ 2731 0024 A949     		ldr	r1, .L612+16
+ 2732 0026 AA48     		ldr	r0, .L612+20
+ 2733 0028 FFF7FEFF 		bl	printf
+ 2734 002c 94E1     		b	.L530
+ 2735              	.L602:
+ 2736 002e A64B     		ldr	r3, .L612+12
+ 2737 0030 40F2BF42 		movw	r2, #1215
+ 2738 0034 A749     		ldr	r1, .L612+24
+ 2739 0036 A648     		ldr	r0, .L612+20
+ 2740 0038 FFF7FEFF 		bl	printf
+ 2741 003c 90E1     		b	.L531
+ 2742              	.L603:
+ 2743 003e A24B     		ldr	r3, .L612+12
+ 2744 0040 4FF49862 		mov	r2, #1216
+ 2745 0044 A449     		ldr	r1, .L612+28
+ 2746 0046 A248     		ldr	r0, .L612+20
+ 2747 0048 FFF7FEFF 		bl	printf
+ 2748 004c 8CE1     		b	.L532
+ 2749              	.L604:
+ 2750 004e 2646     		mov	r6, r4
+ 2751 0050 E468     		ldr	r4, [r4, #12]
+ 2752 0052 7BE1     		b	.L529
+ 2753              	.L605:
+ 2754 0054 94F84230 		ldrb	r3, [r4, #66]	@ zero_extendqisi2
+ 2755 0058 052B     		cmp	r3, #5
+ 2756 005a 40F29081 		bls	.L535
+ 2757 005e 0125     		movs	r5, #1
+ 2758 0060 70E0     		b	.L536
+ 2759              	.L606:
+ 2760 0062 994B     		ldr	r3, .L612+12
+ 2761 0064 40F2D542 		movw	r2, #1237
+ 2762 0068 9C49     		ldr	r1, .L612+32
+ 2763 006a 9948     		ldr	r0, .L612+20
+ 2764 006c FFF7FEFF 		bl	printf
+ 2765 0070 9CE1     		b	.L539
+ 2766              	.L541:
+ 2767 0072 2046     		mov	r0, r4
+ 2768 0074 FFF7FEFF 		bl	tcp_split_unsent_seg
+ 2769 0078 60B1     		cbz	r0, .L590
+ 2770              	.L542:
+ 2771 007a 0023     		movs	r3, #0
+ 2772 007c 84F89830 		strb	r3, [r4, #152]
+ 2773 0080 94F89930 		ldrb	r3, [r4, #153]	@ zero_extendqisi2
+ 2774 0084 062B     		cmp	r3, #6
+ 2775 0086 00F2A180 		bhi	.L580
+ 2776 008a 0133     		adds	r3, r3, #1
+ 2777 008c 84F89930 		strb	r3, [r4, #153]
+ 2778 0090 0025     		movs	r5, #0
+ 2779 0092 57E0     		b	.L536
+ 2780              	.L590:
+ARM GAS  /tmp/ccG0NqrR.s 			page 48
+
+
+ 2781 0094 2046     		mov	r0, r4
+ 2782 0096 FFF7FEFF 		bl	tcp_output
+ 2783 009a 0028     		cmp	r0, #0
+ 2784 009c EDD1     		bne	.L542
+ 2785 009e 0025     		movs	r5, #0
+ 2786 00a0 50E0     		b	.L536
+ 2787              	.L537:
+ 2788 00a2 B4F93030 		ldrsh	r3, [r4, #48]
+ 2789 00a6 002B     		cmp	r3, #0
+ 2790 00a8 05DB     		blt	.L543
+ 2791 00aa 47F6FF72 		movw	r2, #32767
+ 2792 00ae 9342     		cmp	r3, r2
+ 2793 00b0 01D0     		beq	.L543
+ 2794 00b2 0133     		adds	r3, r3, #1
+ 2795 00b4 2386     		strh	r3, [r4, #48]	@ movhi
+ 2796              	.L543:
+ 2797 00b6 B4F93020 		ldrsh	r2, [r4, #48]
+ 2798 00ba B4F94030 		ldrsh	r3, [r4, #64]
+ 2799 00be 9A42     		cmp	r2, r3
+ 2800 00c0 40DB     		blt	.L536
+ 2801 00c2 2046     		mov	r0, r4
+ 2802 00c4 FFF7FEFF 		bl	tcp_rexmit_rto_prepare
+ 2803 00c8 20B1     		cbz	r0, .L544
+ 2804 00ca 236F     		ldr	r3, [r4, #112]
+ 2805 00cc 002B     		cmp	r3, #0
+ 2806 00ce 39D1     		bne	.L536
+ 2807 00d0 E36E     		ldr	r3, [r4, #108]
+ 2808 00d2 BBB3     		cbz	r3, .L536
+ 2809              	.L544:
+ 2810 00d4 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 2811 00d6 022B     		cmp	r3, #2
+ 2812 00d8 14D0     		beq	.L545
+ 2813 00da 94F84220 		ldrb	r2, [r4, #66]	@ zero_extendqisi2
+ 2814 00de 0C2A     		cmp	r2, #12
+ 2815 00e0 28BF     		it	cs
+ 2816 00e2 0C22     		movcs	r2, #12
+ 2817 00e4 B4F93C10 		ldrsh	r1, [r4, #60]
+ 2818 00e8 B4F93E30 		ldrsh	r3, [r4, #62]
+ 2819 00ec 03EBE103 		add	r3, r3, r1, asr #3
+ 2820 00f0 7B49     		ldr	r1, .L612+36
+ 2821 00f2 8A5C     		ldrb	r2, [r1, r2]	@ zero_extendqisi2
+ 2822 00f4 9340     		lsls	r3, r3, r2
+ 2823 00f6 47F6FE72 		movw	r2, #32766
+ 2824 00fa 9342     		cmp	r3, r2
+ 2825 00fc 1EDC     		bgt	.L581
+ 2826 00fe 1BB2     		sxth	r3, r3
+ 2827              	.L546:
+ 2828 0100 A4F84030 		strh	r3, [r4, #64]	@ movhi
+ 2829              	.L545:
+ 2830 0104 0023     		movs	r3, #0
+ 2831 0106 2386     		strh	r3, [r4, #48]	@ movhi
+ 2832 0108 B4F86030 		ldrh	r3, [r4, #96]
+ 2833 010c B4F84820 		ldrh	r2, [r4, #72]
+ 2834 0110 9342     		cmp	r3, r2
+ 2835 0112 28BF     		it	cs
+ 2836 0114 1346     		movcs	r3, r2
+ 2837 0116 5B08     		lsrs	r3, r3, #1
+ARM GAS  /tmp/ccG0NqrR.s 			page 49
+
+
+ 2838 0118 A4F84A30 		strh	r3, [r4, #74]	@ movhi
+ 2839 011c 618E     		ldrh	r1, [r4, #50]
+ 2840 011e 4A00     		lsls	r2, r1, #1
+ 2841 0120 92B2     		uxth	r2, r2
+ 2842 0122 9342     		cmp	r3, r2
+ 2843 0124 01D2     		bcs	.L547
+ 2844 0126 A4F84A20 		strh	r2, [r4, #74]	@ movhi
+ 2845              	.L547:
+ 2846 012a A4F84810 		strh	r1, [r4, #72]	@ movhi
+ 2847 012e 0023     		movs	r3, #0
+ 2848 0130 A4F86A30 		strh	r3, [r4, #106]	@ movhi
+ 2849 0134 2046     		mov	r0, r4
+ 2850 0136 FFF7FEFF 		bl	tcp_rexmit_rto_commit
+ 2851 013a 03E0     		b	.L536
+ 2852              	.L581:
+ 2853 013c 47F6FF73 		movw	r3, #32767
+ 2854 0140 DEE7     		b	.L546
+ 2855              	.L575:
+ 2856 0142 0125     		movs	r5, #1
+ 2857              	.L536:
+ 2858 0144 227D     		ldrb	r2, [r4, #20]	@ zero_extendqisi2
+ 2859 0146 062A     		cmp	r2, #6
+ 2860 0148 42D0     		beq	.L591
+ 2861              	.L548:
+ 2862 014a 637A     		ldrb	r3, [r4, #9]	@ zero_extendqisi2
+ 2863 014c 13F00807 		ands	r7, r3, #8
+ 2864 0150 04D0     		beq	.L549
+ 2865 0152 042A     		cmp	r2, #4
+ 2866 0154 49D0     		beq	.L550
+ 2867 0156 072A     		cmp	r2, #7
+ 2868 0158 47D0     		beq	.L550
+ 2869 015a 0027     		movs	r7, #0
+ 2870              	.L549:
+ 2871 015c 636F     		ldr	r3, [r4, #116]
+ 2872 015e 53B1     		cbz	r3, .L552
+ 2873 0160 236A     		ldr	r3, [r4, #32]
+ 2874 0162 564A     		ldr	r2, .L612
+ 2875 0164 1268     		ldr	r2, [r2]
+ 2876 0166 D21A     		subs	r2, r2, r3
+ 2877 0168 B4F94030 		ldrsh	r3, [r4, #64]
+ 2878 016c 03EB4303 		add	r3, r3, r3, lsl #1
+ 2879 0170 5900     		lsls	r1, r3, #1
+ 2880 0172 8A42     		cmp	r2, r1
+ 2881 0174 67D2     		bcs	.L592
+ 2882              	.L552:
+ 2883 0176 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 2884 0178 032B     		cmp	r3, #3
+ 2885 017a 68D0     		beq	.L593
+ 2886              	.L553:
+ 2887 017c 092B     		cmp	r3, #9
+ 2888 017e 6FD0     		beq	.L594
+ 2889              	.L554:
+ 2890 0180 002D     		cmp	r5, #0
+ 2891 0182 76D1     		bne	.L595
+ 2892 0184 E568     		ldr	r5, [r4, #12]
+ 2893 0186 237F     		ldrb	r3, [r4, #28]	@ zero_extendqisi2
+ 2894 0188 0133     		adds	r3, r3, #1
+ARM GAS  /tmp/ccG0NqrR.s 			page 50
+
+
+ 2895 018a DBB2     		uxtb	r3, r3
+ 2896 018c 2377     		strb	r3, [r4, #28]
+ 2897 018e 627F     		ldrb	r2, [r4, #29]	@ zero_extendqisi2
+ 2898 0190 9342     		cmp	r3, r2
+ 2899 0192 C0F0D980 		bcc	.L585
+ 2900 0196 0023     		movs	r3, #0
+ 2901 0198 2377     		strb	r3, [r4, #28]
+ 2902 019a 524A     		ldr	r2, .L612+40
+ 2903 019c 1370     		strb	r3, [r2]
+ 2904 019e D4F88C30 		ldr	r3, [r4, #140]
+ 2905 01a2 002B     		cmp	r3, #0
+ 2906 01a4 00F0C880 		beq	.L586
+ 2907 01a8 2146     		mov	r1, r4
+ 2908 01aa 2069     		ldr	r0, [r4, #16]
+ 2909 01ac 9847     		blx	r3
+ 2910              	.L562:
+ 2911 01ae 4D4B     		ldr	r3, .L612+40
+ 2912 01b0 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2913 01b2 002B     		cmp	r3, #0
+ 2914 01b4 7FF42FAF 		bne	.L527
+ 2915 01b8 0028     		cmp	r0, #0
+ 2916 01ba 00F0BF80 		beq	.L596
+ 2917 01be 2646     		mov	r6, r4
+ 2918 01c0 2C46     		mov	r4, r5
+ 2919 01c2 C3E0     		b	.L529
+ 2920              	.L576:
+ 2921 01c4 0125     		movs	r5, #1
+ 2922 01c6 BDE7     		b	.L536
+ 2923              	.L577:
+ 2924 01c8 0025     		movs	r5, #0
+ 2925 01ca BBE7     		b	.L536
+ 2926              	.L580:
+ 2927 01cc 0025     		movs	r5, #0
+ 2928 01ce B9E7     		b	.L536
+ 2929              	.L591:
+ 2930 01d0 638B     		ldrh	r3, [r4, #26]
+ 2931 01d2 13F0100F 		tst	r3, #16
+ 2932 01d6 B8D0     		beq	.L548
+ 2933 01d8 216A     		ldr	r1, [r4, #32]
+ 2934 01da 384B     		ldr	r3, .L612
+ 2935 01dc 1B68     		ldr	r3, [r3]
+ 2936 01de 5B1A     		subs	r3, r3, r1
+ 2937 01e0 282B     		cmp	r3, #40
+ 2938 01e2 B2D9     		bls	.L548
+ 2939 01e4 0135     		adds	r5, r5, #1
+ 2940 01e6 EDB2     		uxtb	r5, r5
+ 2941 01e8 AFE7     		b	.L548
+ 2942              	.L550:
+ 2943 01ea 344B     		ldr	r3, .L612
+ 2944 01ec 1A68     		ldr	r2, [r3]
+ 2945 01ee 236A     		ldr	r3, [r4, #32]
+ 2946 01f0 D21A     		subs	r2, r2, r3
+ 2947 01f2 D4F89410 		ldr	r1, [r4, #148]
+ 2948 01f6 01F52423 		add	r3, r1, #671744
+ 2949 01fa 03F6B843 		addw	r3, r3, #3256
+ 2950 01fe 3A48     		ldr	r0, .L612+44
+ 2951 0200 A0FB0303 		umull	r0, r3, r0, r3
+ARM GAS  /tmp/ccG0NqrR.s 			page 51
+
+
+ 2952 0204 B2EB531F 		cmp	r2, r3, lsr #5
+ 2953 0208 03D9     		bls	.L551
+ 2954 020a 0135     		adds	r5, r5, #1
+ 2955 020c EDB2     		uxtb	r5, r5
+ 2956 020e 0127     		movs	r7, #1
+ 2957 0210 A4E7     		b	.L549
+ 2958              	.L551:
+ 2959 0212 94F89B30 		ldrb	r3, [r4, #155]	@ zero_extendqisi2
+ 2960 0216 3548     		ldr	r0, .L612+48
+ 2961 0218 00FB0313 		mla	r3, r0, r3, r1
+ 2962 021c 3249     		ldr	r1, .L612+44
+ 2963 021e A1FB0313 		umull	r1, r3, r1, r3
+ 2964 0222 B2EB531F 		cmp	r2, r3, lsr #5
+ 2965 0226 01D8     		bhi	.L597
+ 2966 0228 0027     		movs	r7, #0
+ 2967 022a 97E7     		b	.L549
+ 2968              	.L597:
+ 2969 022c 2046     		mov	r0, r4
+ 2970 022e FFF7FEFF 		bl	tcp_keepalive
+ 2971 0232 30B9     		cbnz	r0, .L584
+ 2972 0234 94F89B30 		ldrb	r3, [r4, #155]	@ zero_extendqisi2
+ 2973 0238 0133     		adds	r3, r3, #1
+ 2974 023a 84F89B30 		strb	r3, [r4, #155]
+ 2975 023e 0027     		movs	r7, #0
+ 2976 0240 8CE7     		b	.L549
+ 2977              	.L584:
+ 2978 0242 0027     		movs	r7, #0
+ 2979 0244 8AE7     		b	.L549
+ 2980              	.L592:
+ 2981 0246 2046     		mov	r0, r4
+ 2982 0248 FFF7FEFF 		bl	tcp_free_ooseq
+ 2983 024c 93E7     		b	.L552
+ 2984              	.L593:
+ 2985 024e 216A     		ldr	r1, [r4, #32]
+ 2986 0250 1A4A     		ldr	r2, .L612
+ 2987 0252 1268     		ldr	r2, [r2]
+ 2988 0254 521A     		subs	r2, r2, r1
+ 2989 0256 282A     		cmp	r2, #40
+ 2990 0258 90D9     		bls	.L553
+ 2991 025a 0135     		adds	r5, r5, #1
+ 2992 025c EDB2     		uxtb	r5, r5
+ 2993 025e 8DE7     		b	.L553
+ 2994              	.L594:
+ 2995 0260 226A     		ldr	r2, [r4, #32]
+ 2996 0262 164B     		ldr	r3, .L612
+ 2997 0264 1B68     		ldr	r3, [r3]
+ 2998 0266 9B1A     		subs	r3, r3, r2
+ 2999 0268 F02B     		cmp	r3, #240
+ 3000 026a 89D9     		bls	.L554
+ 3001 026c 0135     		adds	r5, r5, #1
+ 3002 026e EDB2     		uxtb	r5, r5
+ 3003 0270 86E7     		b	.L554
+ 3004              	.L595:
+ 3005 0272 D4F89050 		ldr	r5, [r4, #144]
+ 3006 0276 2046     		mov	r0, r4
+ 3007 0278 FFF7FEFF 		bl	tcp_pcb_purge
+ 3008 027c 002E     		cmp	r6, #0
+ARM GAS  /tmp/ccG0NqrR.s 			page 52
+
+
+ 3009 027e 3FD0     		beq	.L556
+ 3010 0280 104B     		ldr	r3, .L612+8
+ 3011 0282 1B68     		ldr	r3, [r3]
+ 3012 0284 A342     		cmp	r3, r4
+ 3013 0286 33D0     		beq	.L598
+ 3014              	.L557:
+ 3015 0288 E368     		ldr	r3, [r4, #12]
+ 3016 028a F360     		str	r3, [r6, #12]
+ 3017              	.L558:
+ 3018 028c 002F     		cmp	r7, #0
+ 3019 028e 46D1     		bne	.L599
+ 3020              	.L560:
+ 3021 0290 D4F81080 		ldr	r8, [r4, #16]
+ 3022 0294 E768     		ldr	r7, [r4, #12]
+ 3023 0296 2046     		mov	r0, r4
+ 3024 0298 FFF7FEFF 		bl	tcp_free
+ 3025 029c 114B     		ldr	r3, .L612+40
+ 3026 029e 0022     		movs	r2, #0
+ 3027 02a0 1A70     		strb	r2, [r3]
+ 3028 02a2 1DB1     		cbz	r5, .L561
+ 3029 02a4 6FF00C01 		mvn	r1, #12
+ 3030 02a8 4046     		mov	r0, r8
+ 3031 02aa A847     		blx	r5
+ 3032              	.L561:
+ 3033 02ac 0D4B     		ldr	r3, .L612+40
+ 3034 02ae 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 3035 02b0 002B     		cmp	r3, #0
+ 3036 02b2 7FF4B0AE 		bne	.L527
+ 3037 02b6 3C46     		mov	r4, r7
+ 3038 02b8 48E0     		b	.L529
+ 3039              	.L613:
+ 3040 02ba 00BF     		.align	2
+ 3041              	.L612:
+ 3042 02bc 00000000 		.word	tcp_ticks
+ 3043 02c0 00000000 		.word	.LANCHOR4
+ 3044 02c4 00000000 		.word	tcp_active_pcbs
+ 3045 02c8 00000000 		.word	.LC0
+ 3046 02cc 00000000 		.word	.LC44
+ 3047 02d0 54000000 		.word	.LC2
+ 3048 02d4 2C000000 		.word	.LC45
+ 3049 02d8 58000000 		.word	.LC46
+ 3050 02dc BC000000 		.word	.LC48
+ 3051 02e0 00000000 		.word	.LANCHOR6
+ 3052 02e4 00000000 		.word	tcp_active_pcbs_changed
+ 3053 02e8 D34D6210 		.word	274877907
+ 3054 02ec F8240100 		.word	75000
+ 3055              	.L598:
+ 3056 02f0 604B     		ldr	r3, .L614
+ 3057 02f2 40F26D52 		movw	r2, #1389
+ 3058 02f6 6049     		ldr	r1, .L614+4
+ 3059 02f8 6048     		ldr	r0, .L614+8
+ 3060 02fa FFF7FEFF 		bl	printf
+ 3061 02fe C3E7     		b	.L557
+ 3062              	.L556:
+ 3063 0300 5F4B     		ldr	r3, .L614+12
+ 3064 0302 1B68     		ldr	r3, [r3]
+ 3065 0304 A342     		cmp	r3, r4
+ARM GAS  /tmp/ccG0NqrR.s 			page 53
+
+
+ 3066 0306 06D0     		beq	.L559
+ 3067 0308 5A4B     		ldr	r3, .L614
+ 3068 030a 40F27152 		movw	r2, #1393
+ 3069 030e 5D49     		ldr	r1, .L614+16
+ 3070 0310 5A48     		ldr	r0, .L614+8
+ 3071 0312 FFF7FEFF 		bl	printf
+ 3072              	.L559:
+ 3073 0316 E268     		ldr	r2, [r4, #12]
+ 3074 0318 594B     		ldr	r3, .L614+12
+ 3075 031a 1A60     		str	r2, [r3]
+ 3076 031c B6E7     		b	.L558
+ 3077              	.L599:
+ 3078 031e 231D     		adds	r3, r4, #4
+ 3079 0320 626A     		ldr	r2, [r4, #36]
+ 3080 0322 216D     		ldr	r1, [r4, #80]
+ 3081 0324 208B     		ldrh	r0, [r4, #24]
+ 3082 0326 0290     		str	r0, [sp, #8]
+ 3083 0328 E08A     		ldrh	r0, [r4, #22]
+ 3084 032a 0190     		str	r0, [sp, #4]
+ 3085 032c 0093     		str	r3, [sp]
+ 3086 032e 2346     		mov	r3, r4
+ 3087 0330 2046     		mov	r0, r4
+ 3088 0332 FFF7FEFF 		bl	tcp_rst
+ 3089 0336 ABE7     		b	.L560
+ 3090              	.L586:
+ 3091 0338 0020     		movs	r0, #0
+ 3092 033a 38E7     		b	.L562
+ 3093              	.L596:
+ 3094 033c 2046     		mov	r0, r4
+ 3095 033e FFF7FEFF 		bl	tcp_output
+ 3096 0342 2646     		mov	r6, r4
+ 3097 0344 2C46     		mov	r4, r5
+ 3098 0346 01E0     		b	.L529
+ 3099              	.L585:
+ 3100 0348 2646     		mov	r6, r4
+ 3101 034a 2C46     		mov	r4, r5
+ 3102              	.L529:
+ 3103 034c 002C     		cmp	r4, #0
+ 3104 034e 50D0     		beq	.L600
+ 3105 0350 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 3106 0352 002B     		cmp	r3, #0
+ 3107 0354 3FF463AE 		beq	.L601
+ 3108              	.L530:
+ 3109 0358 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 3110 035a 012B     		cmp	r3, #1
+ 3111 035c 3FF467AE 		beq	.L602
+ 3112              	.L531:
+ 3113 0360 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 3114 0362 0A2B     		cmp	r3, #10
+ 3115 0364 3FF46BAE 		beq	.L603
+ 3116              	.L532:
+ 3117 0368 A27F     		ldrb	r2, [r4, #30]	@ zero_extendqisi2
+ 3118 036a 474B     		ldr	r3, .L614+20
+ 3119 036c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 3120 036e 9A42     		cmp	r2, r3
+ 3121 0370 3FF46DAE 		beq	.L604
+ 3122 0374 A377     		strb	r3, [r4, #30]
+ARM GAS  /tmp/ccG0NqrR.s 			page 54
+
+
+ 3123 0376 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 3124 0378 022B     		cmp	r3, #2
+ 3125 037a 3FF46BAE 		beq	.L605
+ 3126              	.L535:
+ 3127 037e 94F84230 		ldrb	r3, [r4, #66]	@ zero_extendqisi2
+ 3128 0382 0B2B     		cmp	r3, #11
+ 3129 0384 3FF6DDAE 		bhi	.L575
+ 3130 0388 94F89950 		ldrb	r5, [r4, #153]	@ zero_extendqisi2
+ 3131 038c 002D     		cmp	r5, #0
+ 3132 038e 3FF488AE 		beq	.L537
+ 3133 0392 236F     		ldr	r3, [r4, #112]
+ 3134 0394 33B1     		cbz	r3, .L538
+ 3135 0396 374B     		ldr	r3, .L614
+ 3136 0398 40F2D442 		movw	r2, #1236
+ 3137 039c 3B49     		ldr	r1, .L614+24
+ 3138 039e 3748     		ldr	r0, .L614+8
+ 3139 03a0 FFF7FEFF 		bl	printf
+ 3140              	.L538:
+ 3141 03a4 E36E     		ldr	r3, [r4, #108]
+ 3142 03a6 002B     		cmp	r3, #0
+ 3143 03a8 3FF45BAE 		beq	.L606
+ 3144              	.L539:
+ 3145 03ac 94F89A30 		ldrb	r3, [r4, #154]	@ zero_extendqisi2
+ 3146 03b0 0B2B     		cmp	r3, #11
+ 3147 03b2 3FF607AF 		bhi	.L576
+ 3148 03b6 94F89930 		ldrb	r3, [r4, #153]	@ zero_extendqisi2
+ 3149 03ba 013B     		subs	r3, r3, #1
+ 3150 03bc 344A     		ldr	r2, .L614+28
+ 3151 03be D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 3152 03c0 94F89830 		ldrb	r3, [r4, #152]	@ zero_extendqisi2
+ 3153 03c4 9342     		cmp	r3, r2
+ 3154 03c6 02D2     		bcs	.L540
+ 3155 03c8 0133     		adds	r3, r3, #1
+ 3156 03ca 84F89830 		strb	r3, [r4, #152]
+ 3157              	.L540:
+ 3158 03ce 94F89830 		ldrb	r3, [r4, #152]	@ zero_extendqisi2
+ 3159 03d2 9342     		cmp	r3, r2
+ 3160 03d4 FFF4F8AE 		bcc	.L577
+ 3161 03d8 B4F86010 		ldrh	r1, [r4, #96]
+ 3162 03dc 0029     		cmp	r1, #0
+ 3163 03de 7FF448AE 		bne	.L541
+ 3164 03e2 2046     		mov	r0, r4
+ 3165 03e4 FFF7FEFF 		bl	tcp_zero_window_probe
+ 3166 03e8 0028     		cmp	r0, #0
+ 3167 03ea 3FF446AE 		beq	.L542
+ 3168 03ee 0025     		movs	r5, #0
+ 3169 03f0 A8E6     		b	.L536
+ 3170              	.L600:
+ 3171 03f2 284B     		ldr	r3, .L614+32
+ 3172 03f4 1D68     		ldr	r5, [r3]
+ 3173 03f6 0EE0     		b	.L564
+ 3174              	.L609:
+ 3175 03f8 1E4B     		ldr	r3, .L614
+ 3176 03fa 40F2A152 		movw	r2, #1441
+ 3177 03fe 2649     		ldr	r1, .L614+36
+ 3178 0400 1E48     		ldr	r0, .L614+8
+ 3179 0402 FFF7FEFF 		bl	printf
+ARM GAS  /tmp/ccG0NqrR.s 			page 55
+
+
+ 3180              	.L565:
+ 3181 0406 2A6A     		ldr	r2, [r5, #32]
+ 3182 0408 244B     		ldr	r3, .L614+40
+ 3183 040a 1B68     		ldr	r3, [r3]
+ 3184 040c 9B1A     		subs	r3, r3, r2
+ 3185 040e F02B     		cmp	r3, #240
+ 3186 0410 06D8     		bhi	.L607
+ 3187 0412 2C46     		mov	r4, r5
+ 3188 0414 ED68     		ldr	r5, [r5, #12]
+ 3189              	.L564:
+ 3190 0416 55B3     		cbz	r5, .L608
+ 3191 0418 2B7D     		ldrb	r3, [r5, #20]	@ zero_extendqisi2
+ 3192 041a 0A2B     		cmp	r3, #10
+ 3193 041c F3D0     		beq	.L565
+ 3194 041e EBE7     		b	.L609
+ 3195              	.L607:
+ 3196 0420 2846     		mov	r0, r5
+ 3197 0422 FFF7FEFF 		bl	tcp_pcb_purge
+ 3198 0426 9CB1     		cbz	r4, .L610
+ 3199 0428 1A4B     		ldr	r3, .L614+32
+ 3200 042a 1B68     		ldr	r3, [r3]
+ 3201 042c AB42     		cmp	r3, r5
+ 3202 042e 07D0     		beq	.L611
+ 3203              	.L570:
+ 3204 0430 EB68     		ldr	r3, [r5, #12]
+ 3205 0432 E360     		str	r3, [r4, #12]
+ 3206              	.L571:
+ 3207 0434 EE68     		ldr	r6, [r5, #12]
+ 3208 0436 2846     		mov	r0, r5
+ 3209 0438 FFF7FEFF 		bl	tcp_free
+ 3210 043c 3546     		mov	r5, r6
+ 3211 043e EAE7     		b	.L564
+ 3212              	.L611:
+ 3213 0440 0C4B     		ldr	r3, .L614
+ 3214 0442 40F2AF52 		movw	r2, #1455
+ 3215 0446 1649     		ldr	r1, .L614+44
+ 3216 0448 0C48     		ldr	r0, .L614+8
+ 3217 044a FFF7FEFF 		bl	printf
+ 3218 044e EFE7     		b	.L570
+ 3219              	.L610:
+ 3220 0450 104B     		ldr	r3, .L614+32
+ 3221 0452 1B68     		ldr	r3, [r3]
+ 3222 0454 AB42     		cmp	r3, r5
+ 3223 0456 06D0     		beq	.L572
+ 3224 0458 064B     		ldr	r3, .L614
+ 3225 045a 40F2B352 		movw	r2, #1459
+ 3226 045e 1149     		ldr	r1, .L614+48
+ 3227 0460 0648     		ldr	r0, .L614+8
+ 3228 0462 FFF7FEFF 		bl	printf
+ 3229              	.L572:
+ 3230 0466 EA68     		ldr	r2, [r5, #12]
+ 3231 0468 0A4B     		ldr	r3, .L614+32
+ 3232 046a 1A60     		str	r2, [r3]
+ 3233 046c E2E7     		b	.L571
+ 3234              	.L608:
+ 3235 046e 04B0     		add	sp, sp, #16
+ 3236              		@ sp needed
+ARM GAS  /tmp/ccG0NqrR.s 			page 56
+
+
+ 3237 0470 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 3238              	.L615:
+ 3239              		.align	2
+ 3240              	.L614:
+ 3241 0474 00000000 		.word	.LC0
+ 3242 0478 F4000000 		.word	.LC49
+ 3243 047c 54000000 		.word	.LC2
+ 3244 0480 00000000 		.word	tcp_active_pcbs
+ 3245 0484 20010000 		.word	.LC50
+ 3246 0488 00000000 		.word	.LANCHOR4
+ 3247 048c 88000000 		.word	.LC47
+ 3248 0490 00000000 		.word	.LANCHOR5
+ 3249 0494 00000000 		.word	tcp_tw_pcbs
+ 3250 0498 4C010000 		.word	.LC51
+ 3251 049c 00000000 		.word	tcp_ticks
+ 3252 04a0 7C010000 		.word	.LC52
+ 3253 04a4 A4010000 		.word	.LC53
+ 3255              		.section	.text.tcp_tmr,"ax",%progbits
+ 3256              		.align	1
+ 3257              		.global	tcp_tmr
+ 3258              		.syntax unified
+ 3259              		.thumb
+ 3260              		.thumb_func
+ 3261              		.fpu fpv4-sp-d16
+ 3263              	tcp_tmr:
+ 3264              		@ args = 0, pretend = 0, frame = 0
+ 3265              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3266 0000 08B5     		push	{r3, lr}
+ 3267 0002 FFF7FEFF 		bl	tcp_fasttmr
+ 3268 0006 064A     		ldr	r2, .L620
+ 3269 0008 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 3270 000a 0133     		adds	r3, r3, #1
+ 3271 000c DBB2     		uxtb	r3, r3
+ 3272 000e 1370     		strb	r3, [r2]
+ 3273 0010 13F0010F 		tst	r3, #1
+ 3274 0014 00D1     		bne	.L619
+ 3275              	.L616:
+ 3276 0016 08BD     		pop	{r3, pc}
+ 3277              	.L619:
+ 3278 0018 FFF7FEFF 		bl	tcp_slowtmr
+ 3279 001c FBE7     		b	.L616
+ 3280              	.L621:
+ 3281 001e 00BF     		.align	2
+ 3282              	.L620:
+ 3283 0020 00000000 		.word	.LANCHOR7
+ 3285              		.comm	tcp_active_pcbs_changed,1,1
+ 3286              		.global	tcp_pcb_lists
+ 3287              		.comm	tcp_tw_pcbs,4,4
+ 3288              		.comm	tcp_active_pcbs,4,4
+ 3289              		.comm	tcp_listen_pcbs,4,4
+ 3290              		.comm	tcp_bound_pcbs,4,4
+ 3291              		.comm	tcp_ticks,4,4
+ 3292              		.section	.bss.tcp_timer,"aw",%nobits
+ 3293              		.set	.LANCHOR7,. + 0
+ 3296              	tcp_timer:
+ 3297 0000 00       		.space	1
+ 3298              		.section	.bss.tcp_timer_ctr,"aw",%nobits
+ARM GAS  /tmp/ccG0NqrR.s 			page 57
+
+
+ 3299              		.set	.LANCHOR4,. + 0
+ 3302              	tcp_timer_ctr:
+ 3303 0000 00       		.space	1
+ 3304              		.section	.data.iss.8383,"aw"
+ 3305              		.align	2
+ 3306              		.set	.LANCHOR2,. + 0
+ 3309              	iss.8383:
+ 3310 0000 6E190000 		.word	6510
+ 3311              		.section	.data.tcp_port,"aw"
+ 3312              		.align	1
+ 3313              		.set	.LANCHOR0,. + 0
+ 3316              	tcp_port:
+ 3317 0000 00C0     		.short	-16384
+ 3318              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 3319              		.align	2
+ 3320              	.LC54:
+ 3321 0000 434C4F53 		.ascii	"CLOSED\000"
+ 3321      454400
+ 3322 0007 00       		.space	1
+ 3323              	.LC55:
+ 3324 0008 4C495354 		.ascii	"LISTEN\000"
+ 3324      454E00
+ 3325 000f 00       		.space	1
+ 3326              	.LC56:
+ 3327 0010 53594E5F 		.ascii	"SYN_SENT\000"
+ 3327      53454E54 
+ 3327      00
+ 3328 0019 000000   		.space	3
+ 3329              	.LC57:
+ 3330 001c 53594E5F 		.ascii	"SYN_RCVD\000"
+ 3330      52435644 
+ 3330      00
+ 3331 0025 000000   		.space	3
+ 3332              	.LC58:
+ 3333 0028 45535441 		.ascii	"ESTABLISHED\000"
+ 3333      424C4953 
+ 3333      48454400 
+ 3334              	.LC59:
+ 3335 0034 46494E5F 		.ascii	"FIN_WAIT_1\000"
+ 3335      57414954 
+ 3335      5F3100
+ 3336 003f 00       		.space	1
+ 3337              	.LC60:
+ 3338 0040 46494E5F 		.ascii	"FIN_WAIT_2\000"
+ 3338      57414954 
+ 3338      5F3200
+ 3339 004b 00       		.space	1
+ 3340              	.LC61:
+ 3341 004c 434C4F53 		.ascii	"CLOSE_WAIT\000"
+ 3341      455F5741 
+ 3341      495400
+ 3342 0057 00       		.space	1
+ 3343              	.LC62:
+ 3344 0058 434C4F53 		.ascii	"CLOSING\000"
+ 3344      494E4700 
+ 3345              	.LC63:
+ 3346 0060 4C415354 		.ascii	"LAST_ACK\000"
+ARM GAS  /tmp/ccG0NqrR.s 			page 58
+
+
+ 3346      5F41434B 
+ 3346      00
+ 3347 0069 000000   		.space	3
+ 3348              	.LC64:
+ 3349 006c 54494D45 		.ascii	"TIME_WAIT\000"
+ 3349      5F574149 
+ 3349      5400
+ 3350              		.section	.rodata.tcp_abandon.str1.4,"aMS",%progbits,1
+ 3351              		.align	2
+ 3352              	.LC33:
+ 3353 0000 7463705F 		.ascii	"tcp_abandon: invalid pcb\000"
+ 3353      6162616E 
+ 3353      646F6E3A 
+ 3353      20696E76 
+ 3353      616C6964 
+ 3354 0019 000000   		.space	3
+ 3355              	.LC34:
+ 3356 001c 646F6E27 		.ascii	"don't call tcp_abort/tcp_abandon for listen-pcbs\000"
+ 3356      74206361 
+ 3356      6C6C2074 
+ 3356      63705F61 
+ 3356      626F7274 
+ 3357              		.section	.rodata.tcp_accept_null.str1.4,"aMS",%progbits,1
+ 3358              		.align	2
+ 3359              	.LC35:
+ 3360 0000 7463705F 		.ascii	"tcp_accept_null: invalid pcb\000"
+ 3360      61636365 
+ 3360      70745F6E 
+ 3360      756C6C3A 
+ 3360      20696E76 
+ 3361              		.section	.rodata.tcp_backoff,"a"
+ 3362              		.align	2
+ 3363              		.set	.LANCHOR6,. + 0
+ 3366              	tcp_backoff:
+ 3367 0000 01       		.byte	1
+ 3368 0001 02       		.byte	2
+ 3369 0002 03       		.byte	3
+ 3370 0003 04       		.byte	4
+ 3371 0004 05       		.byte	5
+ 3372 0005 06       		.byte	6
+ 3373 0006 07       		.byte	7
+ 3374 0007 07       		.byte	7
+ 3375 0008 07       		.byte	7
+ 3376 0009 07       		.byte	7
+ 3377 000a 07       		.byte	7
+ 3378 000b 07       		.byte	7
+ 3379 000c 07       		.byte	7
+ 3380              		.section	.rodata.tcp_bind.str1.4,"aMS",%progbits,1
+ 3381              		.align	2
+ 3382              	.LC7:
+ 3383 0000 7463705F 		.ascii	"tcp_bind: invalid pcb\000"
+ 3383      62696E64 
+ 3383      3A20696E 
+ 3383      76616C69 
+ 3383      64207063 
+ 3384 0016 0000     		.space	2
+ 3385              	.LC8:
+ARM GAS  /tmp/ccG0NqrR.s 			page 59
+
+
+ 3386 0018 7463705F 		.ascii	"tcp_bind: can only bind in state CLOSED\000"
+ 3386      62696E64 
+ 3386      3A206361 
+ 3386      6E206F6E 
+ 3386      6C792062 
+ 3387              		.section	.rodata.tcp_close.str1.4,"aMS",%progbits,1
+ 3388              		.align	2
+ 3389              	.LC40:
+ 3390 0000 7463705F 		.ascii	"tcp_close: invalid pcb\000"
+ 3390      636C6F73 
+ 3390      653A2069 
+ 3390      6E76616C 
+ 3390      69642070 
+ 3391              		.section	.rodata.tcp_close_shutdown.str1.4,"aMS",%progbits,1
+ 3392              		.align	2
+ 3393              	.LC38:
+ 3394 0000 7463705F 		.ascii	"tcp_close_shutdown: invalid pcb\000"
+ 3394      636C6F73 
+ 3394      655F7368 
+ 3394      7574646F 
+ 3394      776E3A20 
+ 3395              	.LC39:
+ 3396 0020 7063622D 		.ascii	"pcb->flags & TF_RXCLOSED\000"
+ 3396      3E666C61 
+ 3396      67732026 
+ 3396      2054465F 
+ 3396      5258434C 
+ 3397              		.section	.rodata.tcp_connect.str1.4,"aMS",%progbits,1
+ 3398              		.align	2
+ 3399              	.LC24:
+ 3400 0000 7463705F 		.ascii	"tcp_connect: invalid pcb\000"
+ 3400      636F6E6E 
+ 3400      6563743A 
+ 3400      20696E76 
+ 3400      616C6964 
+ 3401 0019 000000   		.space	3
+ 3402              	.LC25:
+ 3403 001c 7463705F 		.ascii	"tcp_connect: invalid ipaddr\000"
+ 3403      636F6E6E 
+ 3403      6563743A 
+ 3403      20696E76 
+ 3403      616C6964 
+ 3404              	.LC26:
+ 3405 0038 7463705F 		.ascii	"tcp_connect: can only connect from state CLOSED\000"
+ 3405      636F6E6E 
+ 3405      6563743A 
+ 3405      2063616E 
+ 3405      206F6E6C 
+ 3406              		.section	.rodata.tcp_eff_send_mss_netif.str1.4,"aMS",%progbits,1
+ 3407              		.align	2
+ 3408              	.LC23:
+ 3409 0000 7463705F 		.ascii	"tcp_eff_send_mss_netif: invalid dst_ip\000"
+ 3409      6566665F 
+ 3409      73656E64 
+ 3409      5F6D7373 
+ 3409      5F6E6574 
+ 3410              		.section	.rodata.tcp_err.str1.4,"aMS",%progbits,1
+ARM GAS  /tmp/ccG0NqrR.s 			page 60
+
+
+ 3411              		.align	2
+ 3412              	.LC19:
+ 3413 0000 696E7661 		.ascii	"invalid socket state for err callback\000"
+ 3413      6C696420 
+ 3413      736F636B 
+ 3413      65742073 
+ 3413      74617465 
+ 3414              		.section	.rodata.tcp_free.str1.4,"aMS",%progbits,1
+ 3415              		.align	2
+ 3416              	.LC6:
+ 3417 0000 7463705F 		.ascii	"tcp_free: LISTEN\000"
+ 3417      66726565 
+ 3417      3A204C49 
+ 3417      5354454E 
+ 3417      00
+ 3418              		.section	.rodata.tcp_free_listen.str1.4,"aMS",%progbits,1
+ 3419              		.align	2
+ 3420              	.LC5:
+ 3421 0000 7463705F 		.ascii	"tcp_free_listen: !LISTEN\000"
+ 3421      66726565 
+ 3421      5F6C6973 
+ 3421      74656E3A 
+ 3421      20214C49 
+ 3422              		.section	.rodata.tcp_kill_state.str1.4,"aMS",%progbits,1
+ 3423              		.align	2
+ 3424              	.LC37:
+ 3425 0000 696E7661 		.ascii	"invalid state\000"
+ 3425      6C696420 
+ 3425      73746174 
+ 3425      6500
+ 3426              		.section	.rodata.tcp_listen_closed.str1.4,"aMS",%progbits,1
+ 3427              		.align	2
+ 3428              	.LC3:
+ 3429 0000 70636220 		.ascii	"pcb != NULL\000"
+ 3429      213D204E 
+ 3429      554C4C00 
+ 3430              	.LC4:
+ 3431 000c 7063622D 		.ascii	"pcb->state == LISTEN\000"
+ 3431      3E737461 
+ 3431      7465203D 
+ 3431      3D204C49 
+ 3431      5354454E 
+ 3432              		.section	.rodata.tcp_listen_with_backlog_and_err.str1.4,"aMS",%progbits,1
+ 3433              		.align	2
+ 3434              	.LC9:
+ 3435 0000 7463705F 		.ascii	"tcp_listen_with_backlog_and_err: invalid pcb\000"
+ 3435      6C697374 
+ 3435      656E5F77 
+ 3435      6974685F 
+ 3435      6261636B 
+ 3436 002d 000000   		.space	3
+ 3437              	.LC10:
+ 3438 0030 7463705F 		.ascii	"tcp_listen_with_backlog_and_err: pcb already connec"
+ 3438      6C697374 
+ 3438      656E5F77 
+ 3438      6974685F 
+ 3438      6261636B 
+ARM GAS  /tmp/ccG0NqrR.s 			page 61
+
+
+ 3439 0063 74656400 		.ascii	"ted\000"
+ 3440              		.section	.rodata.tcp_netif_ip_addr_changed_pcblist.str1.4,"aMS",%progbits,1
+ 3441              		.align	2
+ 3442              	.LC36:
+ 3443 0000 7463705F 		.ascii	"tcp_netif_ip_addr_changed_pcblist: invalid old_addr"
+ 3443      6E657469 
+ 3443      665F6970 
+ 3443      5F616464 
+ 3443      725F6368 
+ 3444 0033 00       		.ascii	"\000"
+ 3445              		.section	.rodata.tcp_next_iss.str1.4,"aMS",%progbits,1
+ 3446              		.align	2
+ 3447              	.LC22:
+ 3448 0000 7463705F 		.ascii	"tcp_next_iss: invalid pcb\000"
+ 3448      6E657874 
+ 3448      5F697373 
+ 3448      3A20696E 
+ 3448      76616C69 
+ 3449              		.section	.rodata.tcp_pcb_lists,"a"
+ 3450              		.align	2
+ 3451              		.set	.LANCHOR1,. + 0
+ 3454              	tcp_pcb_lists:
+ 3455 0000 00000000 		.word	tcp_listen_pcbs
+ 3456 0004 00000000 		.word	tcp_bound_pcbs
+ 3457 0008 00000000 		.word	tcp_active_pcbs
+ 3458 000c 00000000 		.word	tcp_tw_pcbs
+ 3459              		.section	.rodata.tcp_pcb_purge.str1.4,"aMS",%progbits,1
+ 3460              		.align	2
+ 3461              	.LC27:
+ 3462 0000 7463705F 		.ascii	"tcp_pcb_purge: invalid pcb\000"
+ 3462      7063625F 
+ 3462      70757267 
+ 3462      653A2069 
+ 3462      6E76616C 
+ 3463              		.section	.rodata.tcp_pcb_remove.str1.4,"aMS",%progbits,1
+ 3464              		.align	2
+ 3465              	.LC28:
+ 3466 0000 7463705F 		.ascii	"tcp_pcb_remove: invalid pcb\000"
+ 3466      7063625F 
+ 3466      72656D6F 
+ 3466      76653A20 
+ 3466      696E7661 
+ 3467              	.LC29:
+ 3468 001c 7463705F 		.ascii	"tcp_pcb_remove: invalid pcblist\000"
+ 3468      7063625F 
+ 3468      72656D6F 
+ 3468      76653A20 
+ 3468      696E7661 
+ 3469              	.LC30:
+ 3470 003c 756E7365 		.ascii	"unsent segments leaking\000"
+ 3470      6E742073 
+ 3470      65676D65 
+ 3470      6E747320 
+ 3470      6C65616B 
+ 3471              	.LC31:
+ 3472 0054 756E6163 		.ascii	"unacked segments leaking\000"
+ 3472      6B656420 
+ARM GAS  /tmp/ccG0NqrR.s 			page 62
+
+
+ 3472      7365676D 
+ 3472      656E7473 
+ 3472      206C6561 
+ 3473 006d 000000   		.space	3
+ 3474              	.LC32:
+ 3475 0070 6F6F7365 		.ascii	"ooseq segments leaking\000"
+ 3475      71207365 
+ 3475      676D656E 
+ 3475      7473206C 
+ 3475      65616B69 
+ 3476              		.section	.rodata.tcp_persist_backoff,"a"
+ 3477              		.align	2
+ 3478              		.set	.LANCHOR5,. + 0
+ 3481              	tcp_persist_backoff:
+ 3482 0000 03       		.byte	3
+ 3483 0001 06       		.byte	6
+ 3484 0002 0C       		.byte	12
+ 3485 0003 18       		.byte	24
+ 3486 0004 30       		.byte	48
+ 3487 0005 60       		.byte	96
+ 3488 0006 78       		.byte	120
+ 3489              		.section	.rodata.tcp_poll.str1.4,"aMS",%progbits,1
+ 3490              		.align	2
+ 3491              	.LC20:
+ 3492 0000 7463705F 		.ascii	"tcp_poll: invalid pcb\000"
+ 3492      706F6C6C 
+ 3492      3A20696E 
+ 3492      76616C69 
+ 3492      64207063 
+ 3493 0016 0000     		.space	2
+ 3494              	.LC21:
+ 3495 0018 696E7661 		.ascii	"invalid socket state for poll\000"
+ 3495      6C696420 
+ 3495      736F636B 
+ 3495      65742073 
+ 3495      74617465 
+ 3496              		.section	.rodata.tcp_process_refused_data.str1.4,"aMS",%progbits,1
+ 3497              		.align	2
+ 3498              	.LC42:
+ 3499 0000 7463705F 		.ascii	"tcp_process_refused_data: invalid pcb\000"
+ 3499      70726F63 
+ 3499      6573735F 
+ 3499      72656675 
+ 3499      7365645F 
+ 3500              		.section	.rodata.tcp_recv.str1.4,"aMS",%progbits,1
+ 3501              		.align	2
+ 3502              	.LC17:
+ 3503 0000 696E7661 		.ascii	"invalid socket state for recv callback\000"
+ 3503      6C696420 
+ 3503      736F636B 
+ 3503      65742073 
+ 3503      74617465 
+ 3504              		.section	.rodata.tcp_recv_null.str1.4,"aMS",%progbits,1
+ 3505              		.align	2
+ 3506              	.LC41:
+ 3507 0000 7463705F 		.ascii	"tcp_recv_null: invalid pcb\000"
+ 3507      72656376 
+ARM GAS  /tmp/ccG0NqrR.s 			page 63
+
+
+ 3507      5F6E756C 
+ 3507      6C3A2069 
+ 3507      6E76616C 
+ 3508              		.section	.rodata.tcp_recved.str1.4,"aMS",%progbits,1
+ 3509              		.align	2
+ 3510              	.LC13:
+ 3511 0000 7463705F 		.ascii	"tcp_recved: invalid pcb\000"
+ 3511      72656376 
+ 3511      65643A20 
+ 3511      696E7661 
+ 3511      6C696420 
+ 3512              	.LC14:
+ 3513 0018 646F6E27 		.ascii	"don't call tcp_recved for listen-pcbs\000"
+ 3513      74206361 
+ 3513      6C6C2074 
+ 3513      63705F72 
+ 3513      65637665 
+ 3514              		.section	.rodata.tcp_remove_listener.str1.4,"aMS",%progbits,1
+ 3515              		.align	2
+ 3516              	.LC0:
+ 3517 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/core/tcp.c\000"
+ 3517      6C657761 
+ 3517      7265732F 
+ 3517      54686972 
+ 3517      645F5061 
+ 3518              	.LC1:
+ 3519 002c 7463705F 		.ascii	"tcp_remove_listener: invalid listener\000"
+ 3519      72656D6F 
+ 3519      76655F6C 
+ 3519      69737465 
+ 3519      6E65723A 
+ 3520 0052 0000     		.space	2
+ 3521              	.LC2:
+ 3522 0054 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ 3522      7274696F 
+ 3522      6E202225 
+ 3522      73222066 
+ 3522      61696C65 
+ 3523              		.section	.rodata.tcp_seg_copy.str1.4,"aMS",%progbits,1
+ 3524              		.align	2
+ 3525              	.LC16:
+ 3526 0000 7463705F 		.ascii	"tcp_seg_copy: invalid seg\000"
+ 3526      7365675F 
+ 3526      636F7079 
+ 3526      3A20696E 
+ 3526      76616C69 
+ 3527              		.section	.rodata.tcp_sent.str1.4,"aMS",%progbits,1
+ 3528              		.align	2
+ 3529              	.LC18:
+ 3530 0000 696E7661 		.ascii	"invalid socket state for sent callback\000"
+ 3530      6C696420 
+ 3530      736F636B 
+ 3530      65742073 
+ 3530      74617465 
+ 3531              		.section	.rodata.tcp_setprio.str1.4,"aMS",%progbits,1
+ 3532              		.align	2
+ 3533              	.LC15:
+ARM GAS  /tmp/ccG0NqrR.s 			page 64
+
+
+ 3534 0000 7463705F 		.ascii	"tcp_setprio: invalid pcb\000"
+ 3534      73657470 
+ 3534      72696F3A 
+ 3534      20696E76 
+ 3534      616C6964 
+ 3535              		.section	.rodata.tcp_shutdown.str1.4,"aMS",%progbits,1
+ 3536              		.align	2
+ 3537              	.LC43:
+ 3538 0000 7463705F 		.ascii	"tcp_shutdown: invalid pcb\000"
+ 3538      73687574 
+ 3538      646F776E 
+ 3538      3A20696E 
+ 3538      76616C69 
+ 3539              		.section	.rodata.tcp_slowtmr.str1.4,"aMS",%progbits,1
+ 3540              		.align	2
+ 3541              	.LC44:
+ 3542 0000 7463705F 		.ascii	"tcp_slowtmr: active pcb->state != CLOSED\012\000"
+ 3542      736C6F77 
+ 3542      746D723A 
+ 3542      20616374 
+ 3542      69766520 
+ 3543 002a 0000     		.space	2
+ 3544              	.LC45:
+ 3545 002c 7463705F 		.ascii	"tcp_slowtmr: active pcb->state != LISTEN\012\000"
+ 3545      736C6F77 
+ 3545      746D723A 
+ 3545      20616374 
+ 3545      69766520 
+ 3546 0056 0000     		.space	2
+ 3547              	.LC46:
+ 3548 0058 7463705F 		.ascii	"tcp_slowtmr: active pcb->state != TIME-WAIT\012\000"
+ 3548      736C6F77 
+ 3548      746D723A 
+ 3548      20616374 
+ 3548      69766520 
+ 3549 0085 000000   		.space	3
+ 3550              	.LC47:
+ 3551 0088 7463705F 		.ascii	"tcp_slowtimr: persist ticking with in-flight data\000"
+ 3551      736C6F77 
+ 3551      74696D72 
+ 3551      3A207065 
+ 3551      72736973 
+ 3552 00ba 0000     		.space	2
+ 3553              	.LC48:
+ 3554 00bc 7463705F 		.ascii	"tcp_slowtimr: persist ticking with empty send buffe"
+ 3554      736C6F77 
+ 3554      74696D72 
+ 3554      3A207065 
+ 3554      72736973 
+ 3555 00ef 7200     		.ascii	"r\000"
+ 3556 00f1 000000   		.space	3
+ 3557              	.LC49:
+ 3558 00f4 7463705F 		.ascii	"tcp_slowtmr: middle tcp != tcp_active_pcbs\000"
+ 3558      736C6F77 
+ 3558      746D723A 
+ 3558      206D6964 
+ 3558      646C6520 
+ARM GAS  /tmp/ccG0NqrR.s 			page 65
+
+
+ 3559 011f 00       		.space	1
+ 3560              	.LC50:
+ 3561 0120 7463705F 		.ascii	"tcp_slowtmr: first pcb == tcp_active_pcbs\000"
+ 3561      736C6F77 
+ 3561      746D723A 
+ 3561      20666972 
+ 3561      73742070 
+ 3562 014a 0000     		.space	2
+ 3563              	.LC51:
+ 3564 014c 7463705F 		.ascii	"tcp_slowtmr: TIME-WAIT pcb->state == TIME-WAIT\000"
+ 3564      736C6F77 
+ 3564      746D723A 
+ 3564      2054494D 
+ 3564      452D5741 
+ 3565 017b 00       		.space	1
+ 3566              	.LC52:
+ 3567 017c 7463705F 		.ascii	"tcp_slowtmr: middle tcp != tcp_tw_pcbs\000"
+ 3567      736C6F77 
+ 3567      746D723A 
+ 3567      206D6964 
+ 3567      646C6520 
+ 3568 01a3 00       		.space	1
+ 3569              	.LC53:
+ 3570 01a4 7463705F 		.ascii	"tcp_slowtmr: first pcb == tcp_tw_pcbs\000"
+ 3570      736C6F77 
+ 3570      746D723A 
+ 3570      20666972 
+ 3570      73742070 
+ 3571              		.section	.rodata.tcp_state_str,"a"
+ 3572              		.align	2
+ 3573              		.set	.LANCHOR3,. + 0
+ 3576              	tcp_state_str:
+ 3577 0000 00000000 		.word	.LC54
+ 3578 0004 08000000 		.word	.LC55
+ 3579 0008 10000000 		.word	.LC56
+ 3580 000c 1C000000 		.word	.LC57
+ 3581 0010 28000000 		.word	.LC58
+ 3582 0014 34000000 		.word	.LC59
+ 3583 0018 40000000 		.word	.LC60
+ 3584 001c 4C000000 		.word	.LC61
+ 3585 0020 58000000 		.word	.LC62
+ 3586 0024 60000000 		.word	.LC63
+ 3587 0028 6C000000 		.word	.LC64
+ 3588              		.section	.rodata.tcp_update_rcv_ann_wnd.str1.4,"aMS",%progbits,1
+ 3589              		.align	2
+ 3590              	.LC11:
+ 3591 0000 7463705F 		.ascii	"tcp_update_rcv_ann_wnd: invalid pcb\000"
+ 3591      75706461 
+ 3591      74655F72 
+ 3591      63765F61 
+ 3591      6E6E5F77 
+ 3592              	.LC12:
+ 3593 0024 6E65775F 		.ascii	"new_rcv_ann_wnd <= 0xffff\000"
+ 3593      7263765F 
+ 3593      616E6E5F 
+ 3593      776E6420 
+ 3593      3C3D2030 
+ARM GAS  /tmp/ccG0NqrR.s 			page 66
+
+
+ 3594              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccG0NqrR.s 			page 67
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 tcp.c
+     /tmp/ccG0NqrR.s:16     .text.tcp_new_port:0000000000000000 $t
+     /tmp/ccG0NqrR.s:23     .text.tcp_new_port:0000000000000000 tcp_new_port
+     /tmp/ccG0NqrR.s:82     .text.tcp_new_port:0000000000000060 $d
+     /tmp/ccG0NqrR.s:86     .text.tcp_remove_listener:0000000000000000 $t
+     /tmp/ccG0NqrR.s:92     .text.tcp_remove_listener:0000000000000000 tcp_remove_listener
+     /tmp/ccG0NqrR.s:121    .text.tcp_remove_listener:0000000000000028 $d
+     /tmp/ccG0NqrR.s:126    .text.tcp_listen_closed:0000000000000000 $t
+     /tmp/ccG0NqrR.s:132    .text.tcp_listen_closed:0000000000000000 tcp_listen_closed
+     /tmp/ccG0NqrR.s:173    .text.tcp_listen_closed:0000000000000048 $d
+     /tmp/ccG0NqrR.s:180    .text.tcp_free_listen:0000000000000000 $t
+     /tmp/ccG0NqrR.s:186    .text.tcp_free_listen:0000000000000000 tcp_free_listen
+     /tmp/ccG0NqrR.s:209    .text.tcp_free_listen:0000000000000024 $d
+     /tmp/ccG0NqrR.s:214    .text.tcp_close_shutdown_fin:0000000000000000 $t
+     /tmp/ccG0NqrR.s:220    .text.tcp_close_shutdown_fin:0000000000000000 tcp_close_shutdown_fin
+     /tmp/ccG0NqrR.s:286    .text.tcp_close_shutdown_fin:0000000000000078 $d
+     /tmp/ccG0NqrR.s:291    .text.tcp_handle_closepend:0000000000000000 $t
+     /tmp/ccG0NqrR.s:297    .text.tcp_handle_closepend:0000000000000000 tcp_handle_closepend
+     /tmp/ccG0NqrR.s:325    .text.tcp_handle_closepend:0000000000000028 $d
+                            *COM*:0000000000000004 tcp_active_pcbs
+     /tmp/ccG0NqrR.s:328    .text.tcp_init:0000000000000000 $t
+     /tmp/ccG0NqrR.s:335    .text.tcp_init:0000000000000000 tcp_init
+     /tmp/ccG0NqrR.s:348    .text.tcp_init:0000000000000014 $d
+     /tmp/ccG0NqrR.s:351    .text.tcp_free:0000000000000000 $t
+     /tmp/ccG0NqrR.s:358    .text.tcp_free:0000000000000000 tcp_free
+     /tmp/ccG0NqrR.s:381    .text.tcp_free:0000000000000024 $d
+     /tmp/ccG0NqrR.s:386    .text.tcp_bind:0000000000000000 $t
+     /tmp/ccG0NqrR.s:393    .text.tcp_bind:0000000000000000 tcp_bind
+     /tmp/ccG0NqrR.s:489    .text.tcp_bind:00000000000000b0 $d
+                            *COM*:0000000000000004 tcp_bound_pcbs
+     /tmp/ccG0NqrR.s:498    .text.tcp_bind_netif:0000000000000000 $t
+     /tmp/ccG0NqrR.s:505    .text.tcp_bind_netif:0000000000000000 tcp_bind_netif
+     /tmp/ccG0NqrR.s:520    .text.tcp_listen_with_backlog_and_err:0000000000000000 $t
+     /tmp/ccG0NqrR.s:527    .text.tcp_listen_with_backlog_and_err:0000000000000000 tcp_listen_with_backlog_and_err
+     /tmp/ccG0NqrR.s:631    .text.tcp_listen_with_backlog_and_err:00000000000000c4 $d
+     /tmp/ccG0NqrR.s:1805   .text.tcp_accept_null:0000000000000000 tcp_accept_null
+                            *COM*:0000000000000004 tcp_listen_pcbs
+     /tmp/ccG0NqrR.s:640    .text.tcp_listen_with_backlog:0000000000000000 $t
+     /tmp/ccG0NqrR.s:647    .text.tcp_listen_with_backlog:0000000000000000 tcp_listen_with_backlog
+     /tmp/ccG0NqrR.s:656    .text.tcp_update_rcv_ann_wnd:0000000000000000 $t
+     /tmp/ccG0NqrR.s:663    .text.tcp_update_rcv_ann_wnd:0000000000000000 tcp_update_rcv_ann_wnd
+     /tmp/ccG0NqrR.s:719    .text.tcp_update_rcv_ann_wnd:0000000000000064 $d
+     /tmp/ccG0NqrR.s:725    .text.tcp_recved:0000000000000000 $t
+     /tmp/ccG0NqrR.s:732    .text.tcp_recved:0000000000000000 tcp_recved
+     /tmp/ccG0NqrR.s:787    .text.tcp_recved:0000000000000068 $d
+     /tmp/ccG0NqrR.s:793    .text.tcp_txnow:0000000000000000 $t
+     /tmp/ccG0NqrR.s:800    .text.tcp_txnow:0000000000000000 tcp_txnow
+     /tmp/ccG0NqrR.s:823    .text.tcp_txnow:0000000000000020 $d
+     /tmp/ccG0NqrR.s:826    .text.tcp_seg_free:0000000000000000 $t
+     /tmp/ccG0NqrR.s:833    .text.tcp_seg_free:0000000000000000 tcp_seg_free
+     /tmp/ccG0NqrR.s:851    .text.tcp_segs_free:0000000000000000 $t
+     /tmp/ccG0NqrR.s:858    .text.tcp_segs_free:0000000000000000 tcp_segs_free
+     /tmp/ccG0NqrR.s:874    .text.tcp_setprio:0000000000000000 $t
+     /tmp/ccG0NqrR.s:881    .text.tcp_setprio:0000000000000000 tcp_setprio
+     /tmp/ccG0NqrR.s:899    .text.tcp_setprio:0000000000000018 $d
+     /tmp/ccG0NqrR.s:904    .text.tcp_seg_copy:0000000000000000 $t
+ARM GAS  /tmp/ccG0NqrR.s 			page 68
+
+
+     /tmp/ccG0NqrR.s:911    .text.tcp_seg_copy:0000000000000000 tcp_seg_copy
+     /tmp/ccG0NqrR.s:945    .text.tcp_seg_copy:000000000000003c $d
+     /tmp/ccG0NqrR.s:950    .text.tcp_arg:0000000000000000 $t
+     /tmp/ccG0NqrR.s:957    .text.tcp_arg:0000000000000000 tcp_arg
+     /tmp/ccG0NqrR.s:967    .text.tcp_recv:0000000000000000 $t
+     /tmp/ccG0NqrR.s:974    .text.tcp_recv:0000000000000000 tcp_recv
+     /tmp/ccG0NqrR.s:999    .text.tcp_recv:0000000000000028 $d
+     /tmp/ccG0NqrR.s:1004   .text.tcp_sent:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1011   .text.tcp_sent:0000000000000000 tcp_sent
+     /tmp/ccG0NqrR.s:1036   .text.tcp_sent:0000000000000028 $d
+     /tmp/ccG0NqrR.s:1041   .text.tcp_err:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1048   .text.tcp_err:0000000000000000 tcp_err
+     /tmp/ccG0NqrR.s:1073   .text.tcp_err:0000000000000028 $d
+     /tmp/ccG0NqrR.s:1078   .text.tcp_accept:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1085   .text.tcp_accept:0000000000000000 tcp_accept
+     /tmp/ccG0NqrR.s:1100   .text.tcp_poll:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1107   .text.tcp_poll:0000000000000000 tcp_poll
+     /tmp/ccG0NqrR.s:1140   .text.tcp_poll:0000000000000038 $d
+     /tmp/ccG0NqrR.s:1146   .text.tcp_next_iss:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1153   .text.tcp_next_iss:0000000000000000 tcp_next_iss
+     /tmp/ccG0NqrR.s:1176   .text.tcp_next_iss:0000000000000024 $d
+                            *COM*:0000000000000004 tcp_ticks
+     /tmp/ccG0NqrR.s:1183   .text.tcp_eff_send_mss_netif:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1190   .text.tcp_eff_send_mss_netif:0000000000000000 tcp_eff_send_mss_netif
+     /tmp/ccG0NqrR.s:1225   .text.tcp_eff_send_mss_netif:0000000000000034 $d
+     /tmp/ccG0NqrR.s:1230   .text.tcp_connect:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1237   .text.tcp_connect:0000000000000000 tcp_connect
+     /tmp/ccG0NqrR.s:1384   .text.tcp_connect:0000000000000130 $d
+                            *COM*:0000000000000001 tcp_active_pcbs_changed
+     /tmp/ccG0NqrR.s:1394   .text.tcp_debug_state_str:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1401   .text.tcp_debug_state_str:0000000000000000 tcp_debug_state_str
+     /tmp/ccG0NqrR.s:1411   .text.tcp_debug_state_str:0000000000000008 $d
+     /tmp/ccG0NqrR.s:1414   .text.tcp_tcp_get_tcp_addrinfo:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1421   .text.tcp_tcp_get_tcp_addrinfo:0000000000000000 tcp_tcp_get_tcp_addrinfo
+     /tmp/ccG0NqrR.s:1455   .text.tcp_free_ooseq:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1462   .text.tcp_free_ooseq:0000000000000000 tcp_free_ooseq
+     /tmp/ccG0NqrR.s:1478   .text.tcp_pcb_purge:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1485   .text.tcp_pcb_purge:0000000000000000 tcp_pcb_purge
+     /tmp/ccG0NqrR.s:1530   .text.tcp_pcb_purge:0000000000000058 $d
+     /tmp/ccG0NqrR.s:1535   .text.tcp_pcb_remove:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1542   .text.tcp_pcb_remove:0000000000000000 tcp_pcb_remove
+     /tmp/ccG0NqrR.s:1637   .text.tcp_pcb_remove:00000000000000b4 $d
+     /tmp/ccG0NqrR.s:1646   .text.tcp_abandon:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1653   .text.tcp_abandon:0000000000000000 tcp_abandon
+     /tmp/ccG0NqrR.s:1773   .text.tcp_abandon:00000000000000ec $d
+                            *COM*:0000000000000004 tcp_tw_pcbs
+     /tmp/ccG0NqrR.s:1783   .text.tcp_abort:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1790   .text.tcp_abort:0000000000000000 tcp_abort
+     /tmp/ccG0NqrR.s:1799   .text.tcp_accept_null:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1826   .text.tcp_accept_null:0000000000000024 $d
+     /tmp/ccG0NqrR.s:1831   .text.tcp_kill_timewait:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1837   .text.tcp_kill_timewait:0000000000000000 tcp_kill_timewait
+     /tmp/ccG0NqrR.s:1867   .text.tcp_kill_timewait:000000000000002c $d
+     /tmp/ccG0NqrR.s:1871   .text.tcp_kill_prio:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1877   .text.tcp_kill_prio:0000000000000000 tcp_kill_prio
+     /tmp/ccG0NqrR.s:1925   .text.tcp_kill_prio:000000000000004c $d
+     /tmp/ccG0NqrR.s:1929   .text.tcp_netif_ip_addr_changed_pcblist:0000000000000000 $t
+ARM GAS  /tmp/ccG0NqrR.s 			page 69
+
+
+     /tmp/ccG0NqrR.s:1935   .text.tcp_netif_ip_addr_changed_pcblist:0000000000000000 tcp_netif_ip_addr_changed_pcblist
+     /tmp/ccG0NqrR.s:1966   .text.tcp_netif_ip_addr_changed_pcblist:0000000000000034 $d
+     /tmp/ccG0NqrR.s:1971   .text.tcp_netif_ip_addr_changed:0000000000000000 $t
+     /tmp/ccG0NqrR.s:1978   .text.tcp_netif_ip_addr_changed:0000000000000000 tcp_netif_ip_addr_changed
+     /tmp/ccG0NqrR.s:2022   .text.tcp_netif_ip_addr_changed:0000000000000048 $d
+     /tmp/ccG0NqrR.s:2027   .text.tcp_kill_state:0000000000000000 $t
+     /tmp/ccG0NqrR.s:2033   .text.tcp_kill_state:0000000000000000 tcp_kill_state
+     /tmp/ccG0NqrR.s:2080   .text.tcp_kill_state:0000000000000050 $d
+     /tmp/ccG0NqrR.s:2087   .text.tcp_alloc:0000000000000000 $t
+     /tmp/ccG0NqrR.s:2094   .text.tcp_alloc:0000000000000000 tcp_alloc
+     /tmp/ccG0NqrR.s:2171   .text.tcp_alloc:00000000000000b4 $d
+     /tmp/ccG0NqrR.s:2435   .text.tcp_recv_null:0000000000000000 tcp_recv_null
+     /tmp/ccG0NqrR.s:2177   .text.tcp_new:0000000000000000 $t
+     /tmp/ccG0NqrR.s:2184   .text.tcp_new:0000000000000000 tcp_new
+     /tmp/ccG0NqrR.s:2193   .text.tcp_new_ip_type:0000000000000000 $t
+     /tmp/ccG0NqrR.s:2200   .text.tcp_new_ip_type:0000000000000000 tcp_new_ip_type
+     /tmp/ccG0NqrR.s:2209   .text.tcp_close_shutdown:0000000000000000 $t
+     /tmp/ccG0NqrR.s:2215   .text.tcp_close_shutdown:0000000000000000 tcp_close_shutdown
+     /tmp/ccG0NqrR.s:2376   .text.tcp_close_shutdown:0000000000000128 $d
+     /tmp/ccG0NqrR.s:2387   .text.tcp_close:0000000000000000 $t
+     /tmp/ccG0NqrR.s:2394   .text.tcp_close:0000000000000000 tcp_close
+     /tmp/ccG0NqrR.s:2423   .text.tcp_close:0000000000000034 $d
+     /tmp/ccG0NqrR.s:2428   .text.tcp_recv_null:0000000000000000 $t
+     /tmp/ccG0NqrR.s:2468   .text.tcp_recv_null:000000000000003c $d
+     /tmp/ccG0NqrR.s:2473   .text.tcp_process_refused_data:0000000000000000 $t
+     /tmp/ccG0NqrR.s:2480   .text.tcp_process_refused_data:0000000000000000 tcp_process_refused_data
+     /tmp/ccG0NqrR.s:2545   .text.tcp_process_refused_data:0000000000000080 $d
+     /tmp/ccG0NqrR.s:2550   .text.tcp_fasttmr:0000000000000000 $t
+     /tmp/ccG0NqrR.s:2557   .text.tcp_fasttmr:0000000000000000 tcp_fasttmr
+     /tmp/ccG0NqrR.s:2622   .text.tcp_fasttmr:0000000000000074 $d
+     /tmp/ccG0NqrR.s:2627   .text.tcp_shutdown:0000000000000000 $t
+     /tmp/ccG0NqrR.s:2634   .text.tcp_shutdown:0000000000000000 tcp_shutdown
+     /tmp/ccG0NqrR.s:2697   .text.tcp_shutdown:0000000000000074 $d
+     /tmp/ccG0NqrR.s:2702   .text.tcp_slowtmr:0000000000000000 $t
+     /tmp/ccG0NqrR.s:2709   .text.tcp_slowtmr:0000000000000000 tcp_slowtmr
+     /tmp/ccG0NqrR.s:3042   .text.tcp_slowtmr:00000000000002bc $d
+     /tmp/ccG0NqrR.s:3056   .text.tcp_slowtmr:00000000000002f0 $t
+     /tmp/ccG0NqrR.s:3241   .text.tcp_slowtmr:0000000000000474 $d
+     /tmp/ccG0NqrR.s:3256   .text.tcp_tmr:0000000000000000 $t
+     /tmp/ccG0NqrR.s:3263   .text.tcp_tmr:0000000000000000 tcp_tmr
+     /tmp/ccG0NqrR.s:3283   .text.tcp_tmr:0000000000000020 $d
+     /tmp/ccG0NqrR.s:3454   .rodata.tcp_pcb_lists:0000000000000000 tcp_pcb_lists
+     /tmp/ccG0NqrR.s:3296   .bss.tcp_timer:0000000000000000 tcp_timer
+     /tmp/ccG0NqrR.s:3297   .bss.tcp_timer:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3302   .bss.tcp_timer_ctr:0000000000000000 tcp_timer_ctr
+     /tmp/ccG0NqrR.s:3303   .bss.tcp_timer_ctr:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3305   .data.iss.8383:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3309   .data.iss.8383:0000000000000000 iss.8383
+     /tmp/ccG0NqrR.s:3312   .data.tcp_port:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3316   .data.tcp_port:0000000000000000 tcp_port
+     /tmp/ccG0NqrR.s:3319   .rodata.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3351   .rodata.tcp_abandon.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3358   .rodata.tcp_accept_null.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3362   .rodata.tcp_backoff:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3366   .rodata.tcp_backoff:0000000000000000 tcp_backoff
+     /tmp/ccG0NqrR.s:3381   .rodata.tcp_bind.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3388   .rodata.tcp_close.str1.4:0000000000000000 $d
+ARM GAS  /tmp/ccG0NqrR.s 			page 70
+
+
+     /tmp/ccG0NqrR.s:3392   .rodata.tcp_close_shutdown.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3398   .rodata.tcp_connect.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3407   .rodata.tcp_eff_send_mss_netif.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3411   .rodata.tcp_err.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3415   .rodata.tcp_free.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3419   .rodata.tcp_free_listen.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3423   .rodata.tcp_kill_state.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3427   .rodata.tcp_listen_closed.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3433   .rodata.tcp_listen_with_backlog_and_err.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3441   .rodata.tcp_netif_ip_addr_changed_pcblist.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3446   .rodata.tcp_next_iss.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3450   .rodata.tcp_pcb_lists:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3460   .rodata.tcp_pcb_purge.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3464   .rodata.tcp_pcb_remove.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3477   .rodata.tcp_persist_backoff:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3481   .rodata.tcp_persist_backoff:0000000000000000 tcp_persist_backoff
+     /tmp/ccG0NqrR.s:3490   .rodata.tcp_poll.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3497   .rodata.tcp_process_refused_data.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3501   .rodata.tcp_recv.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3505   .rodata.tcp_recv_null.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3509   .rodata.tcp_recved.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3515   .rodata.tcp_remove_listener.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3524   .rodata.tcp_seg_copy.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3528   .rodata.tcp_sent.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3532   .rodata.tcp_setprio.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3536   .rodata.tcp_shutdown.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3540   .rodata.tcp_slowtmr.str1.4:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3572   .rodata.tcp_state_str:0000000000000000 $d
+     /tmp/ccG0NqrR.s:3576   .rodata.tcp_state_str:0000000000000000 tcp_state_str
+     /tmp/ccG0NqrR.s:3589   .rodata.tcp_update_rcv_ann_wnd.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+printf
+memp_free
+tcp_send_fin
+tcp_output
+rand
+tcp_timer_needed
+ip_addr_any
+memp_malloc
+pbuf_free
+pbuf_ref
+netif_get_by_index
+tcp_enqueue_flags
+ip4_route
+tcp_rst
+memset
+tcp_trigger_input_pcb_close
+tcp_input_pcb
+tcp_split_unsent_seg
+tcp_rexmit_rto_prepare
+tcp_rexmit_rto_commit
+tcp_keepalive
+tcp_zero_window_probe

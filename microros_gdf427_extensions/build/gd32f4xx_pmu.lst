@@ -1,0 +1,694 @@
+ARM GAS  /tmp/ccy4Et45.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_pmu.c"
+  14              		.text
+  15              		.section	.text.pmu_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	pmu_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	pmu_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 40F61C00 		movw	r0, #2076
+  29 0006 FFF7FEFF 		bl	rcu_periph_reset_enable
+  30 000a 40F61C00 		movw	r0, #2076
+  31 000e FFF7FEFF 		bl	rcu_periph_reset_disable
+  32 0012 08BD     		pop	{r3, pc}
+  34              		.section	.text.pmu_lvd_select,"ax",%progbits
+  35              		.align	1
+  36              		.global	pmu_lvd_select
+  37              		.syntax unified
+  38              		.thumb
+  39              		.thumb_func
+  40              		.fpu fpv4-sp-d16
+  42              	pmu_lvd_select:
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 0, uses_anonymous_args = 0
+  45              		@ link register save eliminated.
+  46 0000 084B     		ldr	r3, .L4
+  47 0002 1A68     		ldr	r2, [r3]
+  48 0004 22F01002 		bic	r2, r2, #16
+  49 0008 1A60     		str	r2, [r3]
+  50 000a 1A68     		ldr	r2, [r3]
+  51 000c 22F0E002 		bic	r2, r2, #224
+  52 0010 1A60     		str	r2, [r3]
+  53 0012 1A68     		ldr	r2, [r3]
+  54 0014 1043     		orrs	r0, r0, r2
+  55 0016 1860     		str	r0, [r3]
+  56 0018 1A68     		ldr	r2, [r3]
+  57 001a 42F01002 		orr	r2, r2, #16
+  58 001e 1A60     		str	r2, [r3]
+  59 0020 7047     		bx	lr
+  60              	.L5:
+ARM GAS  /tmp/ccy4Et45.s 			page 2
+
+
+  61 0022 00BF     		.align	2
+  62              	.L4:
+  63 0024 00700040 		.word	1073770496
+  65              		.section	.text.pmu_ldo_output_select,"ax",%progbits
+  66              		.align	1
+  67              		.global	pmu_ldo_output_select
+  68              		.syntax unified
+  69              		.thumb
+  70              		.thumb_func
+  71              		.fpu fpv4-sp-d16
+  73              	pmu_ldo_output_select:
+  74              		@ args = 0, pretend = 0, frame = 0
+  75              		@ frame_needed = 0, uses_anonymous_args = 0
+  76              		@ link register save eliminated.
+  77 0000 044B     		ldr	r3, .L7
+  78 0002 1A68     		ldr	r2, [r3]
+  79 0004 22F44042 		bic	r2, r2, #49152
+  80 0008 1A60     		str	r2, [r3]
+  81 000a 1A68     		ldr	r2, [r3]
+  82 000c 1043     		orrs	r0, r0, r2
+  83 000e 1860     		str	r0, [r3]
+  84 0010 7047     		bx	lr
+  85              	.L8:
+  86 0012 00BF     		.align	2
+  87              	.L7:
+  88 0014 00700040 		.word	1073770496
+  90              		.section	.text.pmu_low_driver_mode_enable,"ax",%progbits
+  91              		.align	1
+  92              		.global	pmu_low_driver_mode_enable
+  93              		.syntax unified
+  94              		.thumb
+  95              		.thumb_func
+  96              		.fpu fpv4-sp-d16
+  98              	pmu_low_driver_mode_enable:
+  99              		@ args = 0, pretend = 0, frame = 0
+ 100              		@ frame_needed = 0, uses_anonymous_args = 0
+ 101              		@ link register save eliminated.
+ 102 0000 044B     		ldr	r3, .L10
+ 103 0002 1A68     		ldr	r2, [r3]
+ 104 0004 22F44022 		bic	r2, r2, #786432
+ 105 0008 1A60     		str	r2, [r3]
+ 106 000a 1A68     		ldr	r2, [r3]
+ 107 000c 1043     		orrs	r0, r0, r2
+ 108 000e 1860     		str	r0, [r3]
+ 109 0010 7047     		bx	lr
+ 110              	.L11:
+ 111 0012 00BF     		.align	2
+ 112              	.L10:
+ 113 0014 00700040 		.word	1073770496
+ 115              		.section	.text.pmu_highdriver_mode_enable,"ax",%progbits
+ 116              		.align	1
+ 117              		.global	pmu_highdriver_mode_enable
+ 118              		.syntax unified
+ 119              		.thumb
+ 120              		.thumb_func
+ 121              		.fpu fpv4-sp-d16
+ 123              	pmu_highdriver_mode_enable:
+ARM GAS  /tmp/ccy4Et45.s 			page 3
+
+
+ 124              		@ args = 0, pretend = 0, frame = 0
+ 125              		@ frame_needed = 0, uses_anonymous_args = 0
+ 126              		@ link register save eliminated.
+ 127 0000 024A     		ldr	r2, .L13
+ 128 0002 1368     		ldr	r3, [r2]
+ 129 0004 43F48033 		orr	r3, r3, #65536
+ 130 0008 1360     		str	r3, [r2]
+ 131 000a 7047     		bx	lr
+ 132              	.L14:
+ 133              		.align	2
+ 134              	.L13:
+ 135 000c 00700040 		.word	1073770496
+ 137              		.section	.text.pmu_highdriver_mode_disable,"ax",%progbits
+ 138              		.align	1
+ 139              		.global	pmu_highdriver_mode_disable
+ 140              		.syntax unified
+ 141              		.thumb
+ 142              		.thumb_func
+ 143              		.fpu fpv4-sp-d16
+ 145              	pmu_highdriver_mode_disable:
+ 146              		@ args = 0, pretend = 0, frame = 0
+ 147              		@ frame_needed = 0, uses_anonymous_args = 0
+ 148              		@ link register save eliminated.
+ 149 0000 024A     		ldr	r2, .L16
+ 150 0002 1368     		ldr	r3, [r2]
+ 151 0004 23F48033 		bic	r3, r3, #65536
+ 152 0008 1360     		str	r3, [r2]
+ 153 000a 7047     		bx	lr
+ 154              	.L17:
+ 155              		.align	2
+ 156              	.L16:
+ 157 000c 00700040 		.word	1073770496
+ 159              		.section	.text.pmu_lvd_disable,"ax",%progbits
+ 160              		.align	1
+ 161              		.global	pmu_lvd_disable
+ 162              		.syntax unified
+ 163              		.thumb
+ 164              		.thumb_func
+ 165              		.fpu fpv4-sp-d16
+ 167              	pmu_lvd_disable:
+ 168              		@ args = 0, pretend = 0, frame = 0
+ 169              		@ frame_needed = 0, uses_anonymous_args = 0
+ 170              		@ link register save eliminated.
+ 171 0000 024A     		ldr	r2, .L19
+ 172 0002 1368     		ldr	r3, [r2]
+ 173 0004 23F01003 		bic	r3, r3, #16
+ 174 0008 1360     		str	r3, [r2]
+ 175 000a 7047     		bx	lr
+ 176              	.L20:
+ 177              		.align	2
+ 178              	.L19:
+ 179 000c 00700040 		.word	1073770496
+ 181              		.section	.text.pmu_lowdriver_lowpower_config,"ax",%progbits
+ 182              		.align	1
+ 183              		.global	pmu_lowdriver_lowpower_config
+ 184              		.syntax unified
+ 185              		.thumb
+ARM GAS  /tmp/ccy4Et45.s 			page 4
+
+
+ 186              		.thumb_func
+ 187              		.fpu fpv4-sp-d16
+ 189              	pmu_lowdriver_lowpower_config:
+ 190              		@ args = 0, pretend = 0, frame = 0
+ 191              		@ frame_needed = 0, uses_anonymous_args = 0
+ 192              		@ link register save eliminated.
+ 193 0000 044B     		ldr	r3, .L22
+ 194 0002 1A68     		ldr	r2, [r3]
+ 195 0004 22F48062 		bic	r2, r2, #1024
+ 196 0008 1A60     		str	r2, [r3]
+ 197 000a 1A68     		ldr	r2, [r3]
+ 198 000c 1043     		orrs	r0, r0, r2
+ 199 000e 1860     		str	r0, [r3]
+ 200 0010 7047     		bx	lr
+ 201              	.L23:
+ 202 0012 00BF     		.align	2
+ 203              	.L22:
+ 204 0014 00700040 		.word	1073770496
+ 206              		.section	.text.pmu_lowdriver_normalpower_config,"ax",%progbits
+ 207              		.align	1
+ 208              		.global	pmu_lowdriver_normalpower_config
+ 209              		.syntax unified
+ 210              		.thumb
+ 211              		.thumb_func
+ 212              		.fpu fpv4-sp-d16
+ 214              	pmu_lowdriver_normalpower_config:
+ 215              		@ args = 0, pretend = 0, frame = 0
+ 216              		@ frame_needed = 0, uses_anonymous_args = 0
+ 217              		@ link register save eliminated.
+ 218 0000 044B     		ldr	r3, .L25
+ 219 0002 1A68     		ldr	r2, [r3]
+ 220 0004 22F40062 		bic	r2, r2, #2048
+ 221 0008 1A60     		str	r2, [r3]
+ 222 000a 1A68     		ldr	r2, [r3]
+ 223 000c 1043     		orrs	r0, r0, r2
+ 224 000e 1860     		str	r0, [r3]
+ 225 0010 7047     		bx	lr
+ 226              	.L26:
+ 227 0012 00BF     		.align	2
+ 228              	.L25:
+ 229 0014 00700040 		.word	1073770496
+ 231              		.section	.text.pmu_to_sleepmode,"ax",%progbits
+ 232              		.align	1
+ 233              		.global	pmu_to_sleepmode
+ 234              		.syntax unified
+ 235              		.thumb
+ 236              		.thumb_func
+ 237              		.fpu fpv4-sp-d16
+ 239              	pmu_to_sleepmode:
+ 240              		@ args = 0, pretend = 0, frame = 0
+ 241              		@ frame_needed = 0, uses_anonymous_args = 0
+ 242              		@ link register save eliminated.
+ 243 0000 044A     		ldr	r2, .L30
+ 244 0002 1369     		ldr	r3, [r2, #16]
+ 245 0004 23F00403 		bic	r3, r3, #4
+ 246 0008 1361     		str	r3, [r2, #16]
+ 247 000a 08B9     		cbnz	r0, .L28
+ARM GAS  /tmp/ccy4Et45.s 			page 5
+
+
+ 248              		.syntax unified
+ 249              	@ 204 "Drivers/GD32F4xx_standard_peripheral/Source/gd32f4xx_pmu.c" 1
+ 250 000c 30BF     		wfi
+ 251              	@ 0 "" 2
+ 252              		.thumb
+ 253              		.syntax unified
+ 254 000e 7047     		bx	lr
+ 255              	.L28:
+ 256              		.syntax unified
+ 257              	@ 206 "Drivers/GD32F4xx_standard_peripheral/Source/gd32f4xx_pmu.c" 1
+ 258 0010 20BF     		wfe
+ 259              	@ 0 "" 2
+ 260              		.thumb
+ 261              		.syntax unified
+ 262 0012 7047     		bx	lr
+ 263              	.L31:
+ 264              		.align	2
+ 265              	.L30:
+ 266 0014 00ED00E0 		.word	-536810240
+ 268              		.section	.text.pmu_to_deepsleepmode,"ax",%progbits
+ 269              		.align	1
+ 270              		.global	pmu_to_deepsleepmode
+ 271              		.syntax unified
+ 272              		.thumb
+ 273              		.thumb_func
+ 274              		.fpu fpv4-sp-d16
+ 276              	pmu_to_deepsleepmode:
+ 277              		@ args = 0, pretend = 0, frame = 0
+ 278              		@ frame_needed = 0, uses_anonymous_args = 0
+ 279              		@ link register save eliminated.
+ 280 0000 204B     		ldr	r3, .L35
+ 281 0002 1A68     		ldr	r2, [r3]
+ 282 0004 22F00302 		bic	r2, r2, #3
+ 283 0008 1A60     		str	r2, [r3]
+ 284 000a 1A68     		ldr	r2, [r3]
+ 285 000c 1043     		orrs	r0, r0, r2
+ 286 000e 1860     		str	r0, [r3]
+ 287 0010 1D4A     		ldr	r2, .L35+4
+ 288 0012 1369     		ldr	r3, [r2, #16]
+ 289 0014 43F00403 		orr	r3, r3, #4
+ 290 0018 1361     		str	r3, [r2, #16]
+ 291 001a A2F54F62 		sub	r2, r2, #3312
+ 292 001e 1068     		ldr	r0, [r2]
+ 293 0020 1A4B     		ldr	r3, .L35+8
+ 294 0022 1860     		str	r0, [r3]
+ 295 0024 1A48     		ldr	r0, .L35+12
+ 296 0026 0068     		ldr	r0, [r0]
+ 297 0028 5860     		str	r0, [r3, #4]
+ 298 002a 1A48     		ldr	r0, .L35+16
+ 299 002c 0068     		ldr	r0, [r0]
+ 300 002e 9860     		str	r0, [r3, #8]
+ 301 0030 1948     		ldr	r0, .L35+20
+ 302 0032 0068     		ldr	r0, [r0]
+ 303 0034 D860     		str	r0, [r3, #12]
+ 304 0036 1068     		ldr	r0, [r2]
+ 305 0038 184B     		ldr	r3, .L35+24
+ 306 003a 0340     		ands	r3, r3, r0
+ARM GAS  /tmp/ccy4Et45.s 			page 6
+
+
+ 307 003c 1360     		str	r3, [r2]
+ 308 003e 184B     		ldr	r3, .L35+28
+ 309 0040 184A     		ldr	r2, .L35+32
+ 310 0042 1A60     		str	r2, [r3]
+ 311 0044 0433     		adds	r3, r3, #4
+ 312 0046 184A     		ldr	r2, .L35+36
+ 313 0048 1A60     		str	r2, [r3]
+ 314 004a 0433     		adds	r3, r3, #4
+ 315 004c 6FF48052 		mvn	r2, #4096
+ 316 0050 1A60     		str	r2, [r3]
+ 317 0052 99B9     		cbnz	r1, .L33
+ 318              		.syntax unified
+ 319              	@ 245 "Drivers/GD32F4xx_standard_peripheral/Source/gd32f4xx_pmu.c" 1
+ 320 0054 30BF     		wfi
+ 321              	@ 0 "" 2
+ 322              		.thumb
+ 323              		.syntax unified
+ 324              	.L34:
+ 325 0056 0D4B     		ldr	r3, .L35+8
+ 326 0058 1968     		ldr	r1, [r3]
+ 327 005a 144A     		ldr	r2, .L35+40
+ 328 005c 1160     		str	r1, [r2]
+ 329 005e 5968     		ldr	r1, [r3, #4]
+ 330 0060 F032     		adds	r2, r2, #240
+ 331 0062 1160     		str	r1, [r2]
+ 332 0064 9968     		ldr	r1, [r3, #8]
+ 333 0066 0432     		adds	r2, r2, #4
+ 334 0068 1160     		str	r1, [r2]
+ 335 006a DA68     		ldr	r2, [r3, #12]
+ 336 006c 0A4B     		ldr	r3, .L35+20
+ 337 006e 1A60     		str	r2, [r3]
+ 338 0070 054A     		ldr	r2, .L35+4
+ 339 0072 1369     		ldr	r3, [r2, #16]
+ 340 0074 23F00403 		bic	r3, r3, #4
+ 341 0078 1361     		str	r3, [r2, #16]
+ 342 007a 7047     		bx	lr
+ 343              	.L33:
+ 344              		.syntax unified
+ 345              	@ 247 "Drivers/GD32F4xx_standard_peripheral/Source/gd32f4xx_pmu.c" 1
+ 346 007c 40BF     		sev
+ 347              	@ 0 "" 2
+ 348              	@ 248 "Drivers/GD32F4xx_standard_peripheral/Source/gd32f4xx_pmu.c" 1
+ 349 007e 20BF     		wfe
+ 350              	@ 0 "" 2
+ 351              	@ 249 "Drivers/GD32F4xx_standard_peripheral/Source/gd32f4xx_pmu.c" 1
+ 352 0080 20BF     		wfe
+ 353              	@ 0 "" 2
+ 354              		.thumb
+ 355              		.syntax unified
+ 356 0082 E8E7     		b	.L34
+ 357              	.L36:
+ 358              		.align	2
+ 359              	.L35:
+ 360 0084 00700040 		.word	1073770496
+ 361 0088 00ED00E0 		.word	-536810240
+ 362 008c 00000000 		.word	.LANCHOR0
+ 363 0090 00E100E0 		.word	-536813312
+ARM GAS  /tmp/ccy4Et45.s 			page 7
+
+
+ 364 0094 04E100E0 		.word	-536813308
+ 365 0098 08E100E0 		.word	-536813304
+ 366 009c 04000100 		.word	65540
+ 367 00a0 80E100E0 		.word	-536813184
+ 368 00a4 31F87FFF 		.word	-8390607
+ 369 00a8 FFF8FFBF 		.word	-1073743617
+ 370 00ac 10E000E0 		.word	-536813552
+ 372              		.section	.text.pmu_to_standbymode,"ax",%progbits
+ 373              		.align	1
+ 374              		.global	pmu_to_standbymode
+ 375              		.syntax unified
+ 376              		.thumb
+ 377              		.thumb_func
+ 378              		.fpu fpv4-sp-d16
+ 380              	pmu_to_standbymode:
+ 381              		@ args = 0, pretend = 0, frame = 0
+ 382              		@ frame_needed = 0, uses_anonymous_args = 0
+ 383              		@ link register save eliminated.
+ 384 0000 094A     		ldr	r2, .L40
+ 385 0002 1369     		ldr	r3, [r2, #16]
+ 386 0004 43F00403 		orr	r3, r3, #4
+ 387 0008 1361     		str	r3, [r2, #16]
+ 388 000a 084B     		ldr	r3, .L40+4
+ 389 000c 1A68     		ldr	r2, [r3]
+ 390 000e 42F00202 		orr	r2, r2, #2
+ 391 0012 1A60     		str	r2, [r3]
+ 392 0014 1A68     		ldr	r2, [r3]
+ 393 0016 42F00402 		orr	r2, r2, #4
+ 394 001a 1A60     		str	r2, [r3]
+ 395 001c 08B9     		cbnz	r0, .L38
+ 396              		.syntax unified
+ 397              	@ 282 "Drivers/GD32F4xx_standard_peripheral/Source/gd32f4xx_pmu.c" 1
+ 398 001e 30BF     		wfi
+ 399              	@ 0 "" 2
+ 400              		.thumb
+ 401              		.syntax unified
+ 402 0020 7047     		bx	lr
+ 403              	.L38:
+ 404              		.syntax unified
+ 405              	@ 284 "Drivers/GD32F4xx_standard_peripheral/Source/gd32f4xx_pmu.c" 1
+ 406 0022 20BF     		wfe
+ 407              	@ 0 "" 2
+ 408              		.thumb
+ 409              		.syntax unified
+ 410 0024 7047     		bx	lr
+ 411              	.L41:
+ 412 0026 00BF     		.align	2
+ 413              	.L40:
+ 414 0028 00ED00E0 		.word	-536810240
+ 415 002c 00700040 		.word	1073770496
+ 417              		.section	.text.pmu_backup_ldo_config,"ax",%progbits
+ 418              		.align	1
+ 419              		.global	pmu_backup_ldo_config
+ 420              		.syntax unified
+ 421              		.thumb
+ 422              		.thumb_func
+ 423              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccy4Et45.s 			page 8
+
+
+ 425              	pmu_backup_ldo_config:
+ 426              		@ args = 0, pretend = 0, frame = 0
+ 427              		@ frame_needed = 0, uses_anonymous_args = 0
+ 428              		@ link register save eliminated.
+ 429 0000 044B     		ldr	r3, .L43
+ 430 0002 1A68     		ldr	r2, [r3]
+ 431 0004 22F40072 		bic	r2, r2, #512
+ 432 0008 1A60     		str	r2, [r3]
+ 433 000a 1A68     		ldr	r2, [r3]
+ 434 000c 1043     		orrs	r0, r0, r2
+ 435 000e 1860     		str	r0, [r3]
+ 436 0010 7047     		bx	lr
+ 437              	.L44:
+ 438 0012 00BF     		.align	2
+ 439              	.L43:
+ 440 0014 04700040 		.word	1073770500
+ 442              		.section	.text.pmu_flag_reset,"ax",%progbits
+ 443              		.align	1
+ 444              		.global	pmu_flag_reset
+ 445              		.syntax unified
+ 446              		.thumb
+ 447              		.thumb_func
+ 448              		.fpu fpv4-sp-d16
+ 450              	pmu_flag_reset:
+ 451              		@ args = 0, pretend = 0, frame = 0
+ 452              		@ frame_needed = 0, uses_anonymous_args = 0
+ 453              		@ link register save eliminated.
+ 454 0000 10B1     		cbz	r0, .L46
+ 455 0002 0128     		cmp	r0, #1
+ 456 0004 06D0     		beq	.L47
+ 457 0006 7047     		bx	lr
+ 458              	.L46:
+ 459 0008 054A     		ldr	r2, .L49
+ 460 000a 1368     		ldr	r3, [r2]
+ 461 000c 43F00403 		orr	r3, r3, #4
+ 462 0010 1360     		str	r3, [r2]
+ 463 0012 7047     		bx	lr
+ 464              	.L47:
+ 465 0014 024A     		ldr	r2, .L49
+ 466 0016 1368     		ldr	r3, [r2]
+ 467 0018 43F00803 		orr	r3, r3, #8
+ 468 001c 1360     		str	r3, [r2]
+ 469 001e 7047     		bx	lr
+ 470              	.L50:
+ 471              		.align	2
+ 472              	.L49:
+ 473 0020 00700040 		.word	1073770496
+ 475              		.section	.text.pmu_flag_get,"ax",%progbits
+ 476              		.align	1
+ 477              		.global	pmu_flag_get
+ 478              		.syntax unified
+ 479              		.thumb
+ 480              		.thumb_func
+ 481              		.fpu fpv4-sp-d16
+ 483              	pmu_flag_get:
+ 484              		@ args = 0, pretend = 0, frame = 0
+ 485              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccy4Et45.s 			page 9
+
+
+ 486              		@ link register save eliminated.
+ 487 0000 034B     		ldr	r3, .L54
+ 488 0002 1B68     		ldr	r3, [r3]
+ 489 0004 0342     		tst	r3, r0
+ 490 0006 01D0     		beq	.L53
+ 491 0008 0120     		movs	r0, #1
+ 492 000a 7047     		bx	lr
+ 493              	.L53:
+ 494 000c 0020     		movs	r0, #0
+ 495 000e 7047     		bx	lr
+ 496              	.L55:
+ 497              		.align	2
+ 498              	.L54:
+ 499 0010 04700040 		.word	1073770500
+ 501              		.section	.text.pmu_highdriver_switch_select,"ax",%progbits
+ 502              		.align	1
+ 503              		.global	pmu_highdriver_switch_select
+ 504              		.syntax unified
+ 505              		.thumb
+ 506              		.thumb_func
+ 507              		.fpu fpv4-sp-d16
+ 509              	pmu_highdriver_switch_select:
+ 510              		@ args = 0, pretend = 0, frame = 0
+ 511              		@ frame_needed = 0, uses_anonymous_args = 0
+ 512 0000 10B5     		push	{r4, lr}
+ 513 0002 0446     		mov	r4, r0
+ 514              	.L57:
+ 515 0004 4FF48030 		mov	r0, #65536
+ 516 0008 FFF7FEFF 		bl	pmu_flag_get
+ 517 000c 0128     		cmp	r0, #1
+ 518 000e F9D1     		bne	.L57
+ 519 0010 044B     		ldr	r3, .L59
+ 520 0012 1A68     		ldr	r2, [r3]
+ 521 0014 22F40032 		bic	r2, r2, #131072
+ 522 0018 1A60     		str	r2, [r3]
+ 523 001a 1868     		ldr	r0, [r3]
+ 524 001c 2043     		orrs	r0, r0, r4
+ 525 001e 1860     		str	r0, [r3]
+ 526 0020 10BD     		pop	{r4, pc}
+ 527              	.L60:
+ 528 0022 00BF     		.align	2
+ 529              	.L59:
+ 530 0024 00700040 		.word	1073770496
+ 532              		.section	.text.pmu_backup_write_enable,"ax",%progbits
+ 533              		.align	1
+ 534              		.global	pmu_backup_write_enable
+ 535              		.syntax unified
+ 536              		.thumb
+ 537              		.thumb_func
+ 538              		.fpu fpv4-sp-d16
+ 540              	pmu_backup_write_enable:
+ 541              		@ args = 0, pretend = 0, frame = 0
+ 542              		@ frame_needed = 0, uses_anonymous_args = 0
+ 543              		@ link register save eliminated.
+ 544 0000 024A     		ldr	r2, .L62
+ 545 0002 1368     		ldr	r3, [r2]
+ 546 0004 43F48073 		orr	r3, r3, #256
+ARM GAS  /tmp/ccy4Et45.s 			page 10
+
+
+ 547 0008 1360     		str	r3, [r2]
+ 548 000a 7047     		bx	lr
+ 549              	.L63:
+ 550              		.align	2
+ 551              	.L62:
+ 552 000c 00700040 		.word	1073770496
+ 554              		.section	.text.pmu_backup_write_disable,"ax",%progbits
+ 555              		.align	1
+ 556              		.global	pmu_backup_write_disable
+ 557              		.syntax unified
+ 558              		.thumb
+ 559              		.thumb_func
+ 560              		.fpu fpv4-sp-d16
+ 562              	pmu_backup_write_disable:
+ 563              		@ args = 0, pretend = 0, frame = 0
+ 564              		@ frame_needed = 0, uses_anonymous_args = 0
+ 565              		@ link register save eliminated.
+ 566 0000 024A     		ldr	r2, .L65
+ 567 0002 1368     		ldr	r3, [r2]
+ 568 0004 23F48073 		bic	r3, r3, #256
+ 569 0008 1360     		str	r3, [r2]
+ 570 000a 7047     		bx	lr
+ 571              	.L66:
+ 572              		.align	2
+ 573              	.L65:
+ 574 000c 00700040 		.word	1073770496
+ 576              		.section	.text.pmu_wakeup_pin_enable,"ax",%progbits
+ 577              		.align	1
+ 578              		.global	pmu_wakeup_pin_enable
+ 579              		.syntax unified
+ 580              		.thumb
+ 581              		.thumb_func
+ 582              		.fpu fpv4-sp-d16
+ 584              	pmu_wakeup_pin_enable:
+ 585              		@ args = 0, pretend = 0, frame = 0
+ 586              		@ frame_needed = 0, uses_anonymous_args = 0
+ 587              		@ link register save eliminated.
+ 588 0000 024A     		ldr	r2, .L68
+ 589 0002 1368     		ldr	r3, [r2]
+ 590 0004 43F48073 		orr	r3, r3, #256
+ 591 0008 1360     		str	r3, [r2]
+ 592 000a 7047     		bx	lr
+ 593              	.L69:
+ 594              		.align	2
+ 595              	.L68:
+ 596 000c 04700040 		.word	1073770500
+ 598              		.section	.text.pmu_wakeup_pin_disable,"ax",%progbits
+ 599              		.align	1
+ 600              		.global	pmu_wakeup_pin_disable
+ 601              		.syntax unified
+ 602              		.thumb
+ 603              		.thumb_func
+ 604              		.fpu fpv4-sp-d16
+ 606              	pmu_wakeup_pin_disable:
+ 607              		@ args = 0, pretend = 0, frame = 0
+ 608              		@ frame_needed = 0, uses_anonymous_args = 0
+ 609              		@ link register save eliminated.
+ARM GAS  /tmp/ccy4Et45.s 			page 11
+
+
+ 610 0000 024A     		ldr	r2, .L71
+ 611 0002 1368     		ldr	r3, [r2]
+ 612 0004 23F48073 		bic	r3, r3, #256
+ 613 0008 1360     		str	r3, [r2]
+ 614 000a 7047     		bx	lr
+ 615              	.L72:
+ 616              		.align	2
+ 617              	.L71:
+ 618 000c 04700040 		.word	1073770500
+ 620              		.section	.bss.reg_snap.8919,"aw",%nobits
+ 621              		.align	2
+ 622              		.set	.LANCHOR0,. + 0
+ 625              	reg_snap.8919:
+ 626 0000 00000000 		.space	16
+ 626      00000000 
+ 626      00000000 
+ 626      00000000 
+ 627              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccy4Et45.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_pmu.c
+     /tmp/ccy4Et45.s:16     .text.pmu_deinit:0000000000000000 $t
+     /tmp/ccy4Et45.s:24     .text.pmu_deinit:0000000000000000 pmu_deinit
+     /tmp/ccy4Et45.s:35     .text.pmu_lvd_select:0000000000000000 $t
+     /tmp/ccy4Et45.s:42     .text.pmu_lvd_select:0000000000000000 pmu_lvd_select
+     /tmp/ccy4Et45.s:63     .text.pmu_lvd_select:0000000000000024 $d
+     /tmp/ccy4Et45.s:66     .text.pmu_ldo_output_select:0000000000000000 $t
+     /tmp/ccy4Et45.s:73     .text.pmu_ldo_output_select:0000000000000000 pmu_ldo_output_select
+     /tmp/ccy4Et45.s:88     .text.pmu_ldo_output_select:0000000000000014 $d
+     /tmp/ccy4Et45.s:91     .text.pmu_low_driver_mode_enable:0000000000000000 $t
+     /tmp/ccy4Et45.s:98     .text.pmu_low_driver_mode_enable:0000000000000000 pmu_low_driver_mode_enable
+     /tmp/ccy4Et45.s:113    .text.pmu_low_driver_mode_enable:0000000000000014 $d
+     /tmp/ccy4Et45.s:116    .text.pmu_highdriver_mode_enable:0000000000000000 $t
+     /tmp/ccy4Et45.s:123    .text.pmu_highdriver_mode_enable:0000000000000000 pmu_highdriver_mode_enable
+     /tmp/ccy4Et45.s:135    .text.pmu_highdriver_mode_enable:000000000000000c $d
+     /tmp/ccy4Et45.s:138    .text.pmu_highdriver_mode_disable:0000000000000000 $t
+     /tmp/ccy4Et45.s:145    .text.pmu_highdriver_mode_disable:0000000000000000 pmu_highdriver_mode_disable
+     /tmp/ccy4Et45.s:157    .text.pmu_highdriver_mode_disable:000000000000000c $d
+     /tmp/ccy4Et45.s:160    .text.pmu_lvd_disable:0000000000000000 $t
+     /tmp/ccy4Et45.s:167    .text.pmu_lvd_disable:0000000000000000 pmu_lvd_disable
+     /tmp/ccy4Et45.s:179    .text.pmu_lvd_disable:000000000000000c $d
+     /tmp/ccy4Et45.s:182    .text.pmu_lowdriver_lowpower_config:0000000000000000 $t
+     /tmp/ccy4Et45.s:189    .text.pmu_lowdriver_lowpower_config:0000000000000000 pmu_lowdriver_lowpower_config
+     /tmp/ccy4Et45.s:204    .text.pmu_lowdriver_lowpower_config:0000000000000014 $d
+     /tmp/ccy4Et45.s:207    .text.pmu_lowdriver_normalpower_config:0000000000000000 $t
+     /tmp/ccy4Et45.s:214    .text.pmu_lowdriver_normalpower_config:0000000000000000 pmu_lowdriver_normalpower_config
+     /tmp/ccy4Et45.s:229    .text.pmu_lowdriver_normalpower_config:0000000000000014 $d
+     /tmp/ccy4Et45.s:232    .text.pmu_to_sleepmode:0000000000000000 $t
+     /tmp/ccy4Et45.s:239    .text.pmu_to_sleepmode:0000000000000000 pmu_to_sleepmode
+     /tmp/ccy4Et45.s:266    .text.pmu_to_sleepmode:0000000000000014 $d
+     /tmp/ccy4Et45.s:269    .text.pmu_to_deepsleepmode:0000000000000000 $t
+     /tmp/ccy4Et45.s:276    .text.pmu_to_deepsleepmode:0000000000000000 pmu_to_deepsleepmode
+     /tmp/ccy4Et45.s:360    .text.pmu_to_deepsleepmode:0000000000000084 $d
+     /tmp/ccy4Et45.s:373    .text.pmu_to_standbymode:0000000000000000 $t
+     /tmp/ccy4Et45.s:380    .text.pmu_to_standbymode:0000000000000000 pmu_to_standbymode
+     /tmp/ccy4Et45.s:414    .text.pmu_to_standbymode:0000000000000028 $d
+     /tmp/ccy4Et45.s:418    .text.pmu_backup_ldo_config:0000000000000000 $t
+     /tmp/ccy4Et45.s:425    .text.pmu_backup_ldo_config:0000000000000000 pmu_backup_ldo_config
+     /tmp/ccy4Et45.s:440    .text.pmu_backup_ldo_config:0000000000000014 $d
+     /tmp/ccy4Et45.s:443    .text.pmu_flag_reset:0000000000000000 $t
+     /tmp/ccy4Et45.s:450    .text.pmu_flag_reset:0000000000000000 pmu_flag_reset
+     /tmp/ccy4Et45.s:473    .text.pmu_flag_reset:0000000000000020 $d
+     /tmp/ccy4Et45.s:476    .text.pmu_flag_get:0000000000000000 $t
+     /tmp/ccy4Et45.s:483    .text.pmu_flag_get:0000000000000000 pmu_flag_get
+     /tmp/ccy4Et45.s:499    .text.pmu_flag_get:0000000000000010 $d
+     /tmp/ccy4Et45.s:502    .text.pmu_highdriver_switch_select:0000000000000000 $t
+     /tmp/ccy4Et45.s:509    .text.pmu_highdriver_switch_select:0000000000000000 pmu_highdriver_switch_select
+     /tmp/ccy4Et45.s:530    .text.pmu_highdriver_switch_select:0000000000000024 $d
+     /tmp/ccy4Et45.s:533    .text.pmu_backup_write_enable:0000000000000000 $t
+     /tmp/ccy4Et45.s:540    .text.pmu_backup_write_enable:0000000000000000 pmu_backup_write_enable
+     /tmp/ccy4Et45.s:552    .text.pmu_backup_write_enable:000000000000000c $d
+     /tmp/ccy4Et45.s:555    .text.pmu_backup_write_disable:0000000000000000 $t
+     /tmp/ccy4Et45.s:562    .text.pmu_backup_write_disable:0000000000000000 pmu_backup_write_disable
+     /tmp/ccy4Et45.s:574    .text.pmu_backup_write_disable:000000000000000c $d
+     /tmp/ccy4Et45.s:577    .text.pmu_wakeup_pin_enable:0000000000000000 $t
+     /tmp/ccy4Et45.s:584    .text.pmu_wakeup_pin_enable:0000000000000000 pmu_wakeup_pin_enable
+ARM GAS  /tmp/ccy4Et45.s 			page 13
+
+
+     /tmp/ccy4Et45.s:596    .text.pmu_wakeup_pin_enable:000000000000000c $d
+     /tmp/ccy4Et45.s:599    .text.pmu_wakeup_pin_disable:0000000000000000 $t
+     /tmp/ccy4Et45.s:606    .text.pmu_wakeup_pin_disable:0000000000000000 pmu_wakeup_pin_disable
+     /tmp/ccy4Et45.s:618    .text.pmu_wakeup_pin_disable:000000000000000c $d
+     /tmp/ccy4Et45.s:621    .bss.reg_snap.8919:0000000000000000 $d
+     /tmp/ccy4Et45.s:625    .bss.reg_snap.8919:0000000000000000 reg_snap.8919
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable

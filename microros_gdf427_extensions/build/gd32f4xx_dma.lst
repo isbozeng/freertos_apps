@@ -1,0 +1,1326 @@
+ARM GAS  /tmp/cckvPCcE.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_dma.c"
+  14              		.text
+  15              		.section	.text.dma_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	dma_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	dma_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27              		@ link register save eliminated.
+  28 0000 10B4     		push	{r4}
+  29 0002 01EB4102 		add	r2, r1, r1, lsl #1
+  30 0006 D300     		lsls	r3, r2, #3
+  31 0008 0344     		add	r3, r3, r0
+  32 000a 1A69     		ldr	r2, [r3, #16]
+  33 000c 22F00102 		bic	r2, r2, #1
+  34 0010 1A61     		str	r2, [r3, #16]
+  35 0012 0022     		movs	r2, #0
+  36 0014 1A61     		str	r2, [r3, #16]
+  37 0016 5A61     		str	r2, [r3, #20]
+  38 0018 9A61     		str	r2, [r3, #24]
+  39 001a DA61     		str	r2, [r3, #28]
+  40 001c 1A62     		str	r2, [r3, #32]
+  41 001e 5A62     		str	r2, [r3, #36]
+  42 0020 0329     		cmp	r1, #3
+  43 0022 0FD8     		bhi	.L2
+  44 0024 8268     		ldr	r2, [r0, #8]
+  45 0026 01EB4104 		add	r4, r1, r1, lsl #1
+  46 002a 6300     		lsls	r3, r4, #1
+  47 002c C1F34001 		ubfx	r1, r1, #1, #1
+  48 0030 03EB8101 		add	r1, r3, r1, lsl #2
+  49 0034 3D23     		movs	r3, #61
+  50 0036 03FA01F1 		lsl	r1, r3, r1
+  51 003a 0A43     		orrs	r2, r2, r1
+  52 003c 8260     		str	r2, [r0, #8]
+  53              	.L1:
+  54 003e 5DF8044B 		ldr	r4, [sp], #4
+  55 0042 7047     		bx	lr
+  56              	.L2:
+  57 0044 0439     		subs	r1, r1, #4
+  58 0046 C9B2     		uxtb	r1, r1
+ARM GAS  /tmp/cckvPCcE.s 			page 2
+
+
+  59 0048 C268     		ldr	r2, [r0, #12]
+  60 004a 01EB4104 		add	r4, r1, r1, lsl #1
+  61 004e 6300     		lsls	r3, r4, #1
+  62 0050 C1F34001 		ubfx	r1, r1, #1, #1
+  63 0054 03EB8101 		add	r1, r3, r1, lsl #2
+  64 0058 3D23     		movs	r3, #61
+  65 005a 03FA01F1 		lsl	r1, r3, r1
+  66 005e 1143     		orrs	r1, r1, r2
+  67 0060 C160     		str	r1, [r0, #12]
+  68 0062 ECE7     		b	.L1
+  70              		.section	.text.dma_single_data_para_struct_init,"ax",%progbits
+  71              		.align	1
+  72              		.global	dma_single_data_para_struct_init
+  73              		.syntax unified
+  74              		.thumb
+  75              		.thumb_func
+  76              		.fpu fpv4-sp-d16
+  78              	dma_single_data_para_struct_init:
+  79              		@ args = 0, pretend = 0, frame = 0
+  80              		@ frame_needed = 0, uses_anonymous_args = 0
+  81              		@ link register save eliminated.
+  82 0000 0023     		movs	r3, #0
+  83 0002 0360     		str	r3, [r0]
+  84 0004 0122     		movs	r2, #1
+  85 0006 4260     		str	r2, [r0, #4]
+  86 0008 8360     		str	r3, [r0, #8]
+  87 000a C260     		str	r2, [r0, #12]
+  88 000c 0361     		str	r3, [r0, #16]
+  89 000e 4261     		str	r2, [r0, #20]
+  90 0010 8361     		str	r3, [r0, #24]
+  91 0012 C361     		str	r3, [r0, #28]
+  92 0014 0362     		str	r3, [r0, #32]
+  93 0016 7047     		bx	lr
+  95              		.section	.text.dma_multi_data_para_struct_init,"ax",%progbits
+  96              		.align	1
+  97              		.global	dma_multi_data_para_struct_init
+  98              		.syntax unified
+  99              		.thumb
+ 100              		.thumb_func
+ 101              		.fpu fpv4-sp-d16
+ 103              	dma_multi_data_para_struct_init:
+ 104              		@ args = 0, pretend = 0, frame = 0
+ 105              		@ frame_needed = 0, uses_anonymous_args = 0
+ 106              		@ link register save eliminated.
+ 107 0000 0023     		movs	r3, #0
+ 108 0002 0360     		str	r3, [r0]
+ 109 0004 4360     		str	r3, [r0, #4]
+ 110 0006 0122     		movs	r2, #1
+ 111 0008 8260     		str	r2, [r0, #8]
+ 112 000a C360     		str	r3, [r0, #12]
+ 113 000c 0361     		str	r3, [r0, #16]
+ 114 000e 4261     		str	r2, [r0, #20]
+ 115 0010 8361     		str	r3, [r0, #24]
+ 116 0012 C361     		str	r3, [r0, #28]
+ 117 0014 4262     		str	r2, [r0, #36]
+ 118 0016 8362     		str	r3, [r0, #40]
+ 119 0018 C362     		str	r3, [r0, #44]
+ARM GAS  /tmp/cckvPCcE.s 			page 3
+
+
+ 120 001a 0363     		str	r3, [r0, #48]
+ 121 001c 7047     		bx	lr
+ 123              		.section	.text.dma_single_data_mode_init,"ax",%progbits
+ 124              		.align	1
+ 125              		.global	dma_single_data_mode_init
+ 126              		.syntax unified
+ 127              		.thumb
+ 128              		.thumb_func
+ 129              		.fpu fpv4-sp-d16
+ 131              	dma_single_data_mode_init:
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 0, uses_anonymous_args = 0
+ 134              		@ link register save eliminated.
+ 135 0000 10B4     		push	{r4}
+ 136 0002 01EB4101 		add	r1, r1, r1, lsl #1
+ 137 0006 CB00     		lsls	r3, r1, #3
+ 138 0008 1844     		add	r0, r0, r3
+ 139 000a 436A     		ldr	r3, [r0, #36]
+ 140 000c 23F00403 		bic	r3, r3, #4
+ 141 0010 4362     		str	r3, [r0, #36]
+ 142 0012 1368     		ldr	r3, [r2]
+ 143 0014 8361     		str	r3, [r0, #24]
+ 144 0016 9368     		ldr	r3, [r2, #8]
+ 145 0018 C361     		str	r3, [r0, #28]
+ 146 001a D369     		ldr	r3, [r2, #28]
+ 147 001c 4361     		str	r3, [r0, #20]
+ 148 001e 0169     		ldr	r1, [r0, #16]
+ 149 0020 21F45E31 		bic	r1, r1, #227328
+ 150 0024 21F0C001 		bic	r1, r1, #192
+ 151 0028 1369     		ldr	r3, [r2, #16]
+ 152 002a 43EA8303 		orr	r3, r3, r3, lsl #2
+ 153 002e 146A     		ldr	r4, [r2, #32]
+ 154 0030 2343     		orrs	r3, r3, r4
+ 155 0032 9469     		ldr	r4, [r2, #24]
+ 156 0034 2343     		orrs	r3, r3, r4
+ 157 0036 0B43     		orrs	r3, r3, r1
+ 158 0038 0361     		str	r3, [r0, #16]
+ 159 003a 5368     		ldr	r3, [r2, #4]
+ 160 003c 93B9     		cbnz	r3, .L8
+ 161 003e 0369     		ldr	r3, [r0, #16]
+ 162 0040 43F40073 		orr	r3, r3, #512
+ 163 0044 0361     		str	r3, [r0, #16]
+ 164              	.L9:
+ 165 0046 D368     		ldr	r3, [r2, #12]
+ 166 0048 C3B9     		cbnz	r3, .L11
+ 167 004a 0369     		ldr	r3, [r0, #16]
+ 168 004c 43F48063 		orr	r3, r3, #1024
+ 169 0050 0361     		str	r3, [r0, #16]
+ 170              	.L12:
+ 171 0052 5369     		ldr	r3, [r2, #20]
+ 172 0054 BBB9     		cbnz	r3, .L13
+ 173 0056 0369     		ldr	r3, [r0, #16]
+ 174 0058 43F48073 		orr	r3, r3, #256
+ 175 005c 0361     		str	r3, [r0, #16]
+ 176              	.L7:
+ 177 005e 5DF8044B 		ldr	r4, [sp], #4
+ 178 0062 7047     		bx	lr
+ARM GAS  /tmp/cckvPCcE.s 			page 4
+
+
+ 179              	.L8:
+ 180 0064 012B     		cmp	r3, #1
+ 181 0066 04D0     		beq	.L16
+ 182 0068 0369     		ldr	r3, [r0, #16]
+ 183 006a 43F40043 		orr	r3, r3, #32768
+ 184 006e 0361     		str	r3, [r0, #16]
+ 185 0070 E9E7     		b	.L9
+ 186              	.L16:
+ 187 0072 0369     		ldr	r3, [r0, #16]
+ 188 0074 23F40073 		bic	r3, r3, #512
+ 189 0078 0361     		str	r3, [r0, #16]
+ 190 007a E4E7     		b	.L9
+ 191              	.L11:
+ 192 007c 0369     		ldr	r3, [r0, #16]
+ 193 007e 23F48063 		bic	r3, r3, #1024
+ 194 0082 0361     		str	r3, [r0, #16]
+ 195 0084 E5E7     		b	.L12
+ 196              	.L13:
+ 197 0086 0369     		ldr	r3, [r0, #16]
+ 198 0088 23F48073 		bic	r3, r3, #256
+ 199 008c 0361     		str	r3, [r0, #16]
+ 200 008e E6E7     		b	.L7
+ 202              		.section	.text.dma_multi_data_mode_init,"ax",%progbits
+ 203              		.align	1
+ 204              		.global	dma_multi_data_mode_init
+ 205              		.syntax unified
+ 206              		.thumb
+ 207              		.thumb_func
+ 208              		.fpu fpv4-sp-d16
+ 210              	dma_multi_data_mode_init:
+ 211              		@ args = 0, pretend = 0, frame = 0
+ 212              		@ frame_needed = 0, uses_anonymous_args = 0
+ 213              		@ link register save eliminated.
+ 214 0000 10B4     		push	{r4}
+ 215 0002 01EB4101 		add	r1, r1, r1, lsl #1
+ 216 0006 CB00     		lsls	r3, r1, #3
+ 217 0008 1844     		add	r0, r0, r3
+ 218 000a 436A     		ldr	r3, [r0, #36]
+ 219 000c 116A     		ldr	r1, [r2, #32]
+ 220 000e 0B43     		orrs	r3, r3, r1
+ 221 0010 43F00403 		orr	r3, r3, #4
+ 222 0014 4362     		str	r3, [r0, #36]
+ 223 0016 1368     		ldr	r3, [r2]
+ 224 0018 8361     		str	r3, [r0, #24]
+ 225 001a D368     		ldr	r3, [r2, #12]
+ 226 001c C361     		str	r3, [r0, #28]
+ 227 001e D36A     		ldr	r3, [r2, #44]
+ 228 0020 4361     		str	r3, [r0, #20]
+ 229 0022 0369     		ldr	r3, [r0, #16]
+ 230 0024 1C49     		ldr	r1, .L27
+ 231 0026 1940     		ands	r1, r1, r3
+ 232 0028 5368     		ldr	r3, [r2, #4]
+ 233 002a 1469     		ldr	r4, [r2, #16]
+ 234 002c 2343     		orrs	r3, r3, r4
+ 235 002e 146B     		ldr	r4, [r2, #48]
+ 236 0030 2343     		orrs	r3, r3, r4
+ 237 0032 946A     		ldr	r4, [r2, #40]
+ARM GAS  /tmp/cckvPCcE.s 			page 5
+
+
+ 238 0034 2343     		orrs	r3, r3, r4
+ 239 0036 9469     		ldr	r4, [r2, #24]
+ 240 0038 2343     		orrs	r3, r3, r4
+ 241 003a D469     		ldr	r4, [r2, #28]
+ 242 003c 2343     		orrs	r3, r3, r4
+ 243 003e 0B43     		orrs	r3, r3, r1
+ 244 0040 0361     		str	r3, [r0, #16]
+ 245 0042 9368     		ldr	r3, [r2, #8]
+ 246 0044 93B9     		cbnz	r3, .L18
+ 247 0046 0369     		ldr	r3, [r0, #16]
+ 248 0048 43F40073 		orr	r3, r3, #512
+ 249 004c 0361     		str	r3, [r0, #16]
+ 250              	.L19:
+ 251 004e 5369     		ldr	r3, [r2, #20]
+ 252 0050 C3B9     		cbnz	r3, .L21
+ 253 0052 0369     		ldr	r3, [r0, #16]
+ 254 0054 43F48063 		orr	r3, r3, #1024
+ 255 0058 0361     		str	r3, [r0, #16]
+ 256              	.L22:
+ 257 005a 536A     		ldr	r3, [r2, #36]
+ 258 005c BBB9     		cbnz	r3, .L23
+ 259 005e 0369     		ldr	r3, [r0, #16]
+ 260 0060 43F48073 		orr	r3, r3, #256
+ 261 0064 0361     		str	r3, [r0, #16]
+ 262              	.L17:
+ 263 0066 5DF8044B 		ldr	r4, [sp], #4
+ 264 006a 7047     		bx	lr
+ 265              	.L18:
+ 266 006c 012B     		cmp	r3, #1
+ 267 006e 04D0     		beq	.L26
+ 268 0070 0369     		ldr	r3, [r0, #16]
+ 269 0072 43F40043 		orr	r3, r3, #32768
+ 270 0076 0361     		str	r3, [r0, #16]
+ 271 0078 E9E7     		b	.L19
+ 272              	.L26:
+ 273 007a 0369     		ldr	r3, [r0, #16]
+ 274 007c 23F40073 		bic	r3, r3, #512
+ 275 0080 0361     		str	r3, [r0, #16]
+ 276 0082 E4E7     		b	.L19
+ 277              	.L21:
+ 278 0084 0369     		ldr	r3, [r0, #16]
+ 279 0086 23F48063 		bic	r3, r3, #1024
+ 280 008a 0361     		str	r3, [r0, #16]
+ 281 008c E5E7     		b	.L22
+ 282              	.L23:
+ 283 008e 0369     		ldr	r3, [r0, #16]
+ 284 0090 23F48073 		bic	r3, r3, #256
+ 285 0094 0361     		str	r3, [r0, #16]
+ 286 0096 E6E7     		b	.L17
+ 287              	.L28:
+ 288              		.align	2
+ 289              	.L27:
+ 290 0098 3F871CFE 		.word	-31684801
+ 292              		.section	.text.dma_periph_address_config,"ax",%progbits
+ 293              		.align	1
+ 294              		.global	dma_periph_address_config
+ 295              		.syntax unified
+ARM GAS  /tmp/cckvPCcE.s 			page 6
+
+
+ 296              		.thumb
+ 297              		.thumb_func
+ 298              		.fpu fpv4-sp-d16
+ 300              	dma_periph_address_config:
+ 301              		@ args = 0, pretend = 0, frame = 0
+ 302              		@ frame_needed = 0, uses_anonymous_args = 0
+ 303              		@ link register save eliminated.
+ 304 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 305 0004 CB00     		lsls	r3, r1, #3
+ 306 0006 1844     		add	r0, r0, r3
+ 307 0008 8261     		str	r2, [r0, #24]
+ 308 000a 7047     		bx	lr
+ 310              		.section	.text.dma_memory_address_config,"ax",%progbits
+ 311              		.align	1
+ 312              		.global	dma_memory_address_config
+ 313              		.syntax unified
+ 314              		.thumb
+ 315              		.thumb_func
+ 316              		.fpu fpv4-sp-d16
+ 318              	dma_memory_address_config:
+ 319              		@ args = 0, pretend = 0, frame = 0
+ 320              		@ frame_needed = 0, uses_anonymous_args = 0
+ 321              		@ link register save eliminated.
+ 322 0000 2AB1     		cbz	r2, .L31
+ 323 0002 01EB4101 		add	r1, r1, r1, lsl #1
+ 324 0006 CA00     		lsls	r2, r1, #3
+ 325 0008 0244     		add	r2, r2, r0
+ 326 000a 1362     		str	r3, [r2, #32]
+ 327 000c 7047     		bx	lr
+ 328              	.L31:
+ 329 000e 01EB4101 		add	r1, r1, r1, lsl #1
+ 330 0012 CA00     		lsls	r2, r1, #3
+ 331 0014 0244     		add	r2, r2, r0
+ 332 0016 D361     		str	r3, [r2, #28]
+ 333 0018 7047     		bx	lr
+ 335              		.section	.text.dma_transfer_number_config,"ax",%progbits
+ 336              		.align	1
+ 337              		.global	dma_transfer_number_config
+ 338              		.syntax unified
+ 339              		.thumb
+ 340              		.thumb_func
+ 341              		.fpu fpv4-sp-d16
+ 343              	dma_transfer_number_config:
+ 344              		@ args = 0, pretend = 0, frame = 0
+ 345              		@ frame_needed = 0, uses_anonymous_args = 0
+ 346              		@ link register save eliminated.
+ 347 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 348 0004 CB00     		lsls	r3, r1, #3
+ 349 0006 1844     		add	r0, r0, r3
+ 350 0008 4261     		str	r2, [r0, #20]
+ 351 000a 7047     		bx	lr
+ 353              		.section	.text.dma_transfer_number_get,"ax",%progbits
+ 354              		.align	1
+ 355              		.global	dma_transfer_number_get
+ 356              		.syntax unified
+ 357              		.thumb
+ 358              		.thumb_func
+ARM GAS  /tmp/cckvPCcE.s 			page 7
+
+
+ 359              		.fpu fpv4-sp-d16
+ 361              	dma_transfer_number_get:
+ 362              		@ args = 0, pretend = 0, frame = 0
+ 363              		@ frame_needed = 0, uses_anonymous_args = 0
+ 364              		@ link register save eliminated.
+ 365 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 366 0004 CB00     		lsls	r3, r1, #3
+ 367 0006 1844     		add	r0, r0, r3
+ 368 0008 4069     		ldr	r0, [r0, #20]
+ 369 000a 7047     		bx	lr
+ 371              		.section	.text.dma_priority_config,"ax",%progbits
+ 372              		.align	1
+ 373              		.global	dma_priority_config
+ 374              		.syntax unified
+ 375              		.thumb
+ 376              		.thumb_func
+ 377              		.fpu fpv4-sp-d16
+ 379              	dma_priority_config:
+ 380              		@ args = 0, pretend = 0, frame = 0
+ 381              		@ frame_needed = 0, uses_anonymous_args = 0
+ 382              		@ link register save eliminated.
+ 383 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 384 0004 CB00     		lsls	r3, r1, #3
+ 385 0006 1844     		add	r0, r0, r3
+ 386 0008 0369     		ldr	r3, [r0, #16]
+ 387 000a 23F44033 		bic	r3, r3, #196608
+ 388 000e 1A43     		orrs	r2, r2, r3
+ 389 0010 0261     		str	r2, [r0, #16]
+ 390 0012 7047     		bx	lr
+ 392              		.section	.text.dma_memory_burst_beats_config,"ax",%progbits
+ 393              		.align	1
+ 394              		.global	dma_memory_burst_beats_config
+ 395              		.syntax unified
+ 396              		.thumb
+ 397              		.thumb_func
+ 398              		.fpu fpv4-sp-d16
+ 400              	dma_memory_burst_beats_config:
+ 401              		@ args = 0, pretend = 0, frame = 0
+ 402              		@ frame_needed = 0, uses_anonymous_args = 0
+ 403              		@ link register save eliminated.
+ 404 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 405 0004 CB00     		lsls	r3, r1, #3
+ 406 0006 1844     		add	r0, r0, r3
+ 407 0008 0369     		ldr	r3, [r0, #16]
+ 408 000a 23F0C073 		bic	r3, r3, #25165824
+ 409 000e 1A43     		orrs	r2, r2, r3
+ 410 0010 0261     		str	r2, [r0, #16]
+ 411 0012 7047     		bx	lr
+ 413              		.section	.text.dma_periph_burst_beats_config,"ax",%progbits
+ 414              		.align	1
+ 415              		.global	dma_periph_burst_beats_config
+ 416              		.syntax unified
+ 417              		.thumb
+ 418              		.thumb_func
+ 419              		.fpu fpv4-sp-d16
+ 421              	dma_periph_burst_beats_config:
+ 422              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/cckvPCcE.s 			page 8
+
+
+ 423              		@ frame_needed = 0, uses_anonymous_args = 0
+ 424              		@ link register save eliminated.
+ 425 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 426 0004 CB00     		lsls	r3, r1, #3
+ 427 0006 1844     		add	r0, r0, r3
+ 428 0008 0369     		ldr	r3, [r0, #16]
+ 429 000a 23F4C003 		bic	r3, r3, #6291456
+ 430 000e 1A43     		orrs	r2, r2, r3
+ 431 0010 0261     		str	r2, [r0, #16]
+ 432 0012 7047     		bx	lr
+ 434              		.section	.text.dma_memory_width_config,"ax",%progbits
+ 435              		.align	1
+ 436              		.global	dma_memory_width_config
+ 437              		.syntax unified
+ 438              		.thumb
+ 439              		.thumb_func
+ 440              		.fpu fpv4-sp-d16
+ 442              	dma_memory_width_config:
+ 443              		@ args = 0, pretend = 0, frame = 0
+ 444              		@ frame_needed = 0, uses_anonymous_args = 0
+ 445              		@ link register save eliminated.
+ 446 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 447 0004 CB00     		lsls	r3, r1, #3
+ 448 0006 1844     		add	r0, r0, r3
+ 449 0008 0369     		ldr	r3, [r0, #16]
+ 450 000a 23F4C043 		bic	r3, r3, #24576
+ 451 000e 1A43     		orrs	r2, r2, r3
+ 452 0010 0261     		str	r2, [r0, #16]
+ 453 0012 7047     		bx	lr
+ 455              		.section	.text.dma_periph_width_config,"ax",%progbits
+ 456              		.align	1
+ 457              		.global	dma_periph_width_config
+ 458              		.syntax unified
+ 459              		.thumb
+ 460              		.thumb_func
+ 461              		.fpu fpv4-sp-d16
+ 463              	dma_periph_width_config:
+ 464              		@ args = 0, pretend = 0, frame = 0
+ 465              		@ frame_needed = 0, uses_anonymous_args = 0
+ 466              		@ link register save eliminated.
+ 467 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 468 0004 CB00     		lsls	r3, r1, #3
+ 469 0006 1844     		add	r0, r0, r3
+ 470 0008 0369     		ldr	r3, [r0, #16]
+ 471 000a 23F4C053 		bic	r3, r3, #6144
+ 472 000e 1A43     		orrs	r2, r2, r3
+ 473 0010 0261     		str	r2, [r0, #16]
+ 474 0012 7047     		bx	lr
+ 476              		.section	.text.dma_memory_address_generation_config,"ax",%progbits
+ 477              		.align	1
+ 478              		.global	dma_memory_address_generation_config
+ 479              		.syntax unified
+ 480              		.thumb
+ 481              		.thumb_func
+ 482              		.fpu fpv4-sp-d16
+ 484              	dma_memory_address_generation_config:
+ 485              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/cckvPCcE.s 			page 9
+
+
+ 486              		@ frame_needed = 0, uses_anonymous_args = 0
+ 487              		@ link register save eliminated.
+ 488 0000 42B9     		cbnz	r2, .L41
+ 489 0002 01EB4101 		add	r1, r1, r1, lsl #1
+ 490 0006 CA00     		lsls	r2, r1, #3
+ 491 0008 0244     		add	r2, r2, r0
+ 492 000a 1369     		ldr	r3, [r2, #16]
+ 493 000c 43F48063 		orr	r3, r3, #1024
+ 494 0010 1361     		str	r3, [r2, #16]
+ 495 0012 7047     		bx	lr
+ 496              	.L41:
+ 497 0014 01EB4101 		add	r1, r1, r1, lsl #1
+ 498 0018 CB00     		lsls	r3, r1, #3
+ 499 001a 0344     		add	r3, r3, r0
+ 500 001c 1A69     		ldr	r2, [r3, #16]
+ 501 001e 22F48062 		bic	r2, r2, #1024
+ 502 0022 1A61     		str	r2, [r3, #16]
+ 503 0024 7047     		bx	lr
+ 505              		.section	.text.dma_peripheral_address_generation_config,"ax",%progbits
+ 506              		.align	1
+ 507              		.global	dma_peripheral_address_generation_config
+ 508              		.syntax unified
+ 509              		.thumb
+ 510              		.thumb_func
+ 511              		.fpu fpv4-sp-d16
+ 513              	dma_peripheral_address_generation_config:
+ 514              		@ args = 0, pretend = 0, frame = 0
+ 515              		@ frame_needed = 0, uses_anonymous_args = 0
+ 516              		@ link register save eliminated.
+ 517 0000 42B9     		cbnz	r2, .L44
+ 518 0002 01EB4101 		add	r1, r1, r1, lsl #1
+ 519 0006 CB00     		lsls	r3, r1, #3
+ 520 0008 0344     		add	r3, r3, r0
+ 521 000a 1A69     		ldr	r2, [r3, #16]
+ 522 000c 42F40072 		orr	r2, r2, #512
+ 523 0010 1A61     		str	r2, [r3, #16]
+ 524 0012 7047     		bx	lr
+ 525              	.L44:
+ 526 0014 012A     		cmp	r2, #1
+ 527 0016 0CD0     		beq	.L47
+ 528 0018 01EB4101 		add	r1, r1, r1, lsl #1
+ 529 001c CB00     		lsls	r3, r1, #3
+ 530 001e 0344     		add	r3, r3, r0
+ 531 0020 1A69     		ldr	r2, [r3, #16]
+ 532 0022 42F40072 		orr	r2, r2, #512
+ 533 0026 1A61     		str	r2, [r3, #16]
+ 534 0028 1A69     		ldr	r2, [r3, #16]
+ 535 002a 42F40042 		orr	r2, r2, #32768
+ 536 002e 1A61     		str	r2, [r3, #16]
+ 537 0030 7047     		bx	lr
+ 538              	.L47:
+ 539 0032 01EB4101 		add	r1, r1, r1, lsl #1
+ 540 0036 CB00     		lsls	r3, r1, #3
+ 541 0038 0344     		add	r3, r3, r0
+ 542 003a 1A69     		ldr	r2, [r3, #16]
+ 543 003c 22F40072 		bic	r2, r2, #512
+ 544 0040 1A61     		str	r2, [r3, #16]
+ARM GAS  /tmp/cckvPCcE.s 			page 10
+
+
+ 545 0042 7047     		bx	lr
+ 547              		.section	.text.dma_circulation_enable,"ax",%progbits
+ 548              		.align	1
+ 549              		.global	dma_circulation_enable
+ 550              		.syntax unified
+ 551              		.thumb
+ 552              		.thumb_func
+ 553              		.fpu fpv4-sp-d16
+ 555              	dma_circulation_enable:
+ 556              		@ args = 0, pretend = 0, frame = 0
+ 557              		@ frame_needed = 0, uses_anonymous_args = 0
+ 558              		@ link register save eliminated.
+ 559 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 560 0004 CB00     		lsls	r3, r1, #3
+ 561 0006 1844     		add	r0, r0, r3
+ 562 0008 0369     		ldr	r3, [r0, #16]
+ 563 000a 43F48073 		orr	r3, r3, #256
+ 564 000e 0361     		str	r3, [r0, #16]
+ 565 0010 7047     		bx	lr
+ 567              		.section	.text.dma_circulation_disable,"ax",%progbits
+ 568              		.align	1
+ 569              		.global	dma_circulation_disable
+ 570              		.syntax unified
+ 571              		.thumb
+ 572              		.thumb_func
+ 573              		.fpu fpv4-sp-d16
+ 575              	dma_circulation_disable:
+ 576              		@ args = 0, pretend = 0, frame = 0
+ 577              		@ frame_needed = 0, uses_anonymous_args = 0
+ 578              		@ link register save eliminated.
+ 579 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 580 0004 CB00     		lsls	r3, r1, #3
+ 581 0006 1844     		add	r0, r0, r3
+ 582 0008 0369     		ldr	r3, [r0, #16]
+ 583 000a 23F48073 		bic	r3, r3, #256
+ 584 000e 0361     		str	r3, [r0, #16]
+ 585 0010 7047     		bx	lr
+ 587              		.section	.text.dma_channel_enable,"ax",%progbits
+ 588              		.align	1
+ 589              		.global	dma_channel_enable
+ 590              		.syntax unified
+ 591              		.thumb
+ 592              		.thumb_func
+ 593              		.fpu fpv4-sp-d16
+ 595              	dma_channel_enable:
+ 596              		@ args = 0, pretend = 0, frame = 0
+ 597              		@ frame_needed = 0, uses_anonymous_args = 0
+ 598              		@ link register save eliminated.
+ 599 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 600 0004 CB00     		lsls	r3, r1, #3
+ 601 0006 1844     		add	r0, r0, r3
+ 602 0008 0369     		ldr	r3, [r0, #16]
+ 603 000a 43F00103 		orr	r3, r3, #1
+ 604 000e 0361     		str	r3, [r0, #16]
+ 605 0010 7047     		bx	lr
+ 607              		.section	.text.dma_channel_disable,"ax",%progbits
+ 608              		.align	1
+ARM GAS  /tmp/cckvPCcE.s 			page 11
+
+
+ 609              		.global	dma_channel_disable
+ 610              		.syntax unified
+ 611              		.thumb
+ 612              		.thumb_func
+ 613              		.fpu fpv4-sp-d16
+ 615              	dma_channel_disable:
+ 616              		@ args = 0, pretend = 0, frame = 0
+ 617              		@ frame_needed = 0, uses_anonymous_args = 0
+ 618              		@ link register save eliminated.
+ 619 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 620 0004 CB00     		lsls	r3, r1, #3
+ 621 0006 1844     		add	r0, r0, r3
+ 622 0008 0369     		ldr	r3, [r0, #16]
+ 623 000a 23F00103 		bic	r3, r3, #1
+ 624 000e 0361     		str	r3, [r0, #16]
+ 625 0010 7047     		bx	lr
+ 627              		.section	.text.dma_transfer_direction_config,"ax",%progbits
+ 628              		.align	1
+ 629              		.global	dma_transfer_direction_config
+ 630              		.syntax unified
+ 631              		.thumb
+ 632              		.thumb_func
+ 633              		.fpu fpv4-sp-d16
+ 635              	dma_transfer_direction_config:
+ 636              		@ args = 0, pretend = 0, frame = 0
+ 637              		@ frame_needed = 0, uses_anonymous_args = 0
+ 638              		@ link register save eliminated.
+ 639 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 640 0004 CB00     		lsls	r3, r1, #3
+ 641 0006 1844     		add	r0, r0, r3
+ 642 0008 0369     		ldr	r3, [r0, #16]
+ 643 000a 23F0C003 		bic	r3, r3, #192
+ 644 000e 1A43     		orrs	r2, r2, r3
+ 645 0010 0261     		str	r2, [r0, #16]
+ 646 0012 7047     		bx	lr
+ 648              		.section	.text.dma_switch_buffer_mode_config,"ax",%progbits
+ 649              		.align	1
+ 650              		.global	dma_switch_buffer_mode_config
+ 651              		.syntax unified
+ 652              		.thumb
+ 653              		.thumb_func
+ 654              		.fpu fpv4-sp-d16
+ 656              	dma_switch_buffer_mode_config:
+ 657              		@ args = 0, pretend = 0, frame = 0
+ 658              		@ frame_needed = 0, uses_anonymous_args = 0
+ 659              		@ link register save eliminated.
+ 660 0000 10B4     		push	{r4}
+ 661 0002 01EB4101 		add	r1, r1, r1, lsl #1
+ 662 0006 CC00     		lsls	r4, r1, #3
+ 663 0008 2044     		add	r0, r0, r4
+ 664 000a 0262     		str	r2, [r0, #32]
+ 665 000c 33B9     		cbnz	r3, .L54
+ 666 000e 0369     		ldr	r3, [r0, #16]
+ 667 0010 23F40023 		bic	r3, r3, #524288
+ 668 0014 0361     		str	r3, [r0, #16]
+ 669              	.L53:
+ 670 0016 5DF8044B 		ldr	r4, [sp], #4
+ARM GAS  /tmp/cckvPCcE.s 			page 12
+
+
+ 671 001a 7047     		bx	lr
+ 672              	.L54:
+ 673 001c 0369     		ldr	r3, [r0, #16]
+ 674 001e 43F40023 		orr	r3, r3, #524288
+ 675 0022 0361     		str	r3, [r0, #16]
+ 676 0024 F7E7     		b	.L53
+ 678              		.section	.text.dma_using_memory_get,"ax",%progbits
+ 679              		.align	1
+ 680              		.global	dma_using_memory_get
+ 681              		.syntax unified
+ 682              		.thumb
+ 683              		.thumb_func
+ 684              		.fpu fpv4-sp-d16
+ 686              	dma_using_memory_get:
+ 687              		@ args = 0, pretend = 0, frame = 0
+ 688              		@ frame_needed = 0, uses_anonymous_args = 0
+ 689              		@ link register save eliminated.
+ 690 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 691 0004 CB00     		lsls	r3, r1, #3
+ 692 0006 1844     		add	r0, r0, r3
+ 693 0008 0069     		ldr	r0, [r0, #16]
+ 694 000a 10F40020 		ands	r0, r0, #524288
+ 695 000e 00D0     		beq	.L57
+ 696 0010 0120     		movs	r0, #1
+ 697              	.L57:
+ 698 0012 7047     		bx	lr
+ 700              		.section	.text.dma_channel_subperipheral_select,"ax",%progbits
+ 701              		.align	1
+ 702              		.global	dma_channel_subperipheral_select
+ 703              		.syntax unified
+ 704              		.thumb
+ 705              		.thumb_func
+ 706              		.fpu fpv4-sp-d16
+ 708              	dma_channel_subperipheral_select:
+ 709              		@ args = 0, pretend = 0, frame = 0
+ 710              		@ frame_needed = 0, uses_anonymous_args = 0
+ 711              		@ link register save eliminated.
+ 712 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 713 0004 CB00     		lsls	r3, r1, #3
+ 714 0006 1844     		add	r0, r0, r3
+ 715 0008 0369     		ldr	r3, [r0, #16]
+ 716 000a 23F06063 		bic	r3, r3, #234881024
+ 717 000e 43EA4262 		orr	r2, r3, r2, lsl #25
+ 718 0012 0261     		str	r2, [r0, #16]
+ 719 0014 7047     		bx	lr
+ 721              		.section	.text.dma_flow_controller_config,"ax",%progbits
+ 722              		.align	1
+ 723              		.global	dma_flow_controller_config
+ 724              		.syntax unified
+ 725              		.thumb
+ 726              		.thumb_func
+ 727              		.fpu fpv4-sp-d16
+ 729              	dma_flow_controller_config:
+ 730              		@ args = 0, pretend = 0, frame = 0
+ 731              		@ frame_needed = 0, uses_anonymous_args = 0
+ 732              		@ link register save eliminated.
+ 733 0000 42B9     		cbnz	r2, .L61
+ARM GAS  /tmp/cckvPCcE.s 			page 13
+
+
+ 734 0002 01EB4101 		add	r1, r1, r1, lsl #1
+ 735 0006 CA00     		lsls	r2, r1, #3
+ 736 0008 0244     		add	r2, r2, r0
+ 737 000a 1369     		ldr	r3, [r2, #16]
+ 738 000c 23F02003 		bic	r3, r3, #32
+ 739 0010 1361     		str	r3, [r2, #16]
+ 740 0012 7047     		bx	lr
+ 741              	.L61:
+ 742 0014 01EB4101 		add	r1, r1, r1, lsl #1
+ 743 0018 CB00     		lsls	r3, r1, #3
+ 744 001a 0344     		add	r3, r3, r0
+ 745 001c 1A69     		ldr	r2, [r3, #16]
+ 746 001e 42F02002 		orr	r2, r2, #32
+ 747 0022 1A61     		str	r2, [r3, #16]
+ 748 0024 7047     		bx	lr
+ 750              		.section	.text.dma_switch_buffer_mode_enable,"ax",%progbits
+ 751              		.align	1
+ 752              		.global	dma_switch_buffer_mode_enable
+ 753              		.syntax unified
+ 754              		.thumb
+ 755              		.thumb_func
+ 756              		.fpu fpv4-sp-d16
+ 758              	dma_switch_buffer_mode_enable:
+ 759              		@ args = 0, pretend = 0, frame = 0
+ 760              		@ frame_needed = 0, uses_anonymous_args = 0
+ 761              		@ link register save eliminated.
+ 762 0000 012A     		cmp	r2, #1
+ 763 0002 08D0     		beq	.L66
+ 764 0004 01EB4101 		add	r1, r1, r1, lsl #1
+ 765 0008 CB00     		lsls	r3, r1, #3
+ 766 000a 0344     		add	r3, r3, r0
+ 767 000c 1A69     		ldr	r2, [r3, #16]
+ 768 000e 22F48022 		bic	r2, r2, #262144
+ 769 0012 1A61     		str	r2, [r3, #16]
+ 770 0014 7047     		bx	lr
+ 771              	.L66:
+ 772 0016 01EB4101 		add	r1, r1, r1, lsl #1
+ 773 001a CA00     		lsls	r2, r1, #3
+ 774 001c 0244     		add	r2, r2, r0
+ 775 001e 1369     		ldr	r3, [r2, #16]
+ 776 0020 43F48023 		orr	r3, r3, #262144
+ 777 0024 1361     		str	r3, [r2, #16]
+ 778 0026 7047     		bx	lr
+ 780              		.section	.text.dma_fifo_status_get,"ax",%progbits
+ 781              		.align	1
+ 782              		.global	dma_fifo_status_get
+ 783              		.syntax unified
+ 784              		.thumb
+ 785              		.thumb_func
+ 786              		.fpu fpv4-sp-d16
+ 788              	dma_fifo_status_get:
+ 789              		@ args = 0, pretend = 0, frame = 0
+ 790              		@ frame_needed = 0, uses_anonymous_args = 0
+ 791              		@ link register save eliminated.
+ 792 0000 01EB4101 		add	r1, r1, r1, lsl #1
+ 793 0004 CB00     		lsls	r3, r1, #3
+ 794 0006 1844     		add	r0, r0, r3
+ARM GAS  /tmp/cckvPCcE.s 			page 14
+
+
+ 795 0008 406A     		ldr	r0, [r0, #36]
+ 796 000a 00F03800 		and	r0, r0, #56
+ 797 000e 7047     		bx	lr
+ 799              		.section	.text.dma_flag_get,"ax",%progbits
+ 800              		.align	1
+ 801              		.global	dma_flag_get
+ 802              		.syntax unified
+ 803              		.thumb
+ 804              		.thumb_func
+ 805              		.fpu fpv4-sp-d16
+ 807              	dma_flag_get:
+ 808              		@ args = 0, pretend = 0, frame = 0
+ 809              		@ frame_needed = 0, uses_anonymous_args = 0
+ 810              		@ link register save eliminated.
+ 811 0000 10B4     		push	{r4}
+ 812 0002 0329     		cmp	r1, #3
+ 813 0004 0FD8     		bhi	.L69
+ 814 0006 0468     		ldr	r4, [r0]
+ 815 0008 01EB4100 		add	r0, r1, r1, lsl #1
+ 816 000c 4300     		lsls	r3, r0, #1
+ 817 000e C1F34001 		ubfx	r1, r1, #1, #1
+ 818 0012 03EB8101 		add	r1, r3, r1, lsl #2
+ 819 0016 02FA01F1 		lsl	r1, r2, r1
+ 820 001a 0C42     		tst	r4, r1
+ 821 001c 13D0     		beq	.L71
+ 822 001e 0120     		movs	r0, #1
+ 823              	.L70:
+ 824 0020 5DF8044B 		ldr	r4, [sp], #4
+ 825 0024 7047     		bx	lr
+ 826              	.L69:
+ 827 0026 0439     		subs	r1, r1, #4
+ 828 0028 C9B2     		uxtb	r1, r1
+ 829 002a 4468     		ldr	r4, [r0, #4]
+ 830 002c 01EB4100 		add	r0, r1, r1, lsl #1
+ 831 0030 4300     		lsls	r3, r0, #1
+ 832 0032 C1F34001 		ubfx	r1, r1, #1, #1
+ 833 0036 03EB8101 		add	r1, r3, r1, lsl #2
+ 834 003a 02FA01F1 		lsl	r1, r2, r1
+ 835 003e 0C42     		tst	r4, r1
+ 836 0040 03D0     		beq	.L72
+ 837 0042 0120     		movs	r0, #1
+ 838 0044 ECE7     		b	.L70
+ 839              	.L71:
+ 840 0046 0020     		movs	r0, #0
+ 841 0048 EAE7     		b	.L70
+ 842              	.L72:
+ 843 004a 0020     		movs	r0, #0
+ 844 004c E8E7     		b	.L70
+ 846              		.section	.text.dma_flag_clear,"ax",%progbits
+ 847              		.align	1
+ 848              		.global	dma_flag_clear
+ 849              		.syntax unified
+ 850              		.thumb
+ 851              		.thumb_func
+ 852              		.fpu fpv4-sp-d16
+ 854              	dma_flag_clear:
+ 855              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/cckvPCcE.s 			page 15
+
+
+ 856              		@ frame_needed = 0, uses_anonymous_args = 0
+ 857              		@ link register save eliminated.
+ 858 0000 30B4     		push	{r4, r5}
+ 859 0002 0329     		cmp	r1, #3
+ 860 0004 0DD8     		bhi	.L75
+ 861 0006 8468     		ldr	r4, [r0, #8]
+ 862 0008 01EB4105 		add	r5, r1, r1, lsl #1
+ 863 000c 6B00     		lsls	r3, r5, #1
+ 864 000e C1F34001 		ubfx	r1, r1, #1, #1
+ 865 0012 03EB8101 		add	r1, r3, r1, lsl #2
+ 866 0016 02FA01F1 		lsl	r1, r2, r1
+ 867 001a 2143     		orrs	r1, r1, r4
+ 868 001c 8160     		str	r1, [r0, #8]
+ 869              	.L74:
+ 870 001e 30BC     		pop	{r4, r5}
+ 871 0020 7047     		bx	lr
+ 872              	.L75:
+ 873 0022 0439     		subs	r1, r1, #4
+ 874 0024 C9B2     		uxtb	r1, r1
+ 875 0026 C468     		ldr	r4, [r0, #12]
+ 876 0028 01EB4105 		add	r5, r1, r1, lsl #1
+ 877 002c 6B00     		lsls	r3, r5, #1
+ 878 002e C1F34001 		ubfx	r1, r1, #1, #1
+ 879 0032 03EB8101 		add	r1, r3, r1, lsl #2
+ 880 0036 02FA01F1 		lsl	r1, r2, r1
+ 881 003a 2143     		orrs	r1, r1, r4
+ 882 003c C160     		str	r1, [r0, #12]
+ 883 003e EEE7     		b	.L74
+ 885              		.section	.text.dma_interrupt_flag_get,"ax",%progbits
+ 886              		.align	1
+ 887              		.global	dma_interrupt_flag_get
+ 888              		.syntax unified
+ 889              		.thumb
+ 890              		.thumb_func
+ 891              		.fpu fpv4-sp-d16
+ 893              	dma_interrupt_flag_get:
+ 894              		@ args = 0, pretend = 0, frame = 0
+ 895              		@ frame_needed = 0, uses_anonymous_args = 0
+ 896              		@ link register save eliminated.
+ 897 0000 70B4     		push	{r4, r5, r6}
+ 898 0002 0329     		cmp	r1, #3
+ 899 0004 71D8     		bhi	.L79
+ 900 0006 541E     		subs	r4, r2, #1
+ 901 0008 1F2C     		cmp	r4, #31
+ 902 000a 00F2DF80 		bhi	.L94
+ 903 000e DFE804F0 		tbb	[pc, r4]
+ 904              	.L82:
+ 905 0012 10       		.byte	(.L86-.L82)/2
+ 906 0013 DD       		.byte	(.L94-.L82)/2
+ 907 0014 DD       		.byte	(.L94-.L82)/2
+ 908 0015 28       		.byte	(.L85-.L82)/2
+ 909 0016 DD       		.byte	(.L94-.L82)/2
+ 910 0017 DD       		.byte	(.L94-.L82)/2
+ 911 0018 DD       		.byte	(.L94-.L82)/2
+ 912 0019 39       		.byte	(.L84-.L82)/2
+ 913 001a DD       		.byte	(.L94-.L82)/2
+ 914 001b DD       		.byte	(.L94-.L82)/2
+ARM GAS  /tmp/cckvPCcE.s 			page 16
+
+
+ 915 001c DD       		.byte	(.L94-.L82)/2
+ 916 001d DD       		.byte	(.L94-.L82)/2
+ 917 001e DD       		.byte	(.L94-.L82)/2
+ 918 001f DD       		.byte	(.L94-.L82)/2
+ 919 0020 DD       		.byte	(.L94-.L82)/2
+ 920 0021 4A       		.byte	(.L83-.L82)/2
+ 921 0022 DD       		.byte	(.L94-.L82)/2
+ 922 0023 DD       		.byte	(.L94-.L82)/2
+ 923 0024 DD       		.byte	(.L94-.L82)/2
+ 924 0025 DD       		.byte	(.L94-.L82)/2
+ 925 0026 DD       		.byte	(.L94-.L82)/2
+ 926 0027 DD       		.byte	(.L94-.L82)/2
+ 927 0028 DD       		.byte	(.L94-.L82)/2
+ 928 0029 DD       		.byte	(.L94-.L82)/2
+ 929 002a DD       		.byte	(.L94-.L82)/2
+ 930 002b DD       		.byte	(.L94-.L82)/2
+ 931 002c DD       		.byte	(.L94-.L82)/2
+ 932 002d DD       		.byte	(.L94-.L82)/2
+ 933 002e DD       		.byte	(.L94-.L82)/2
+ 934 002f DD       		.byte	(.L94-.L82)/2
+ 935 0030 DD       		.byte	(.L94-.L82)/2
+ 936 0031 5B       		.byte	(.L81-.L82)/2
+ 937              		.p2align 1
+ 938              	.L86:
+ 939 0032 0668     		ldr	r6, [r0]
+ 940 0034 4C00     		lsls	r4, r1, #1
+ 941 0036 6518     		adds	r5, r4, r1
+ 942 0038 6B00     		lsls	r3, r5, #1
+ 943 003a C1F34005 		ubfx	r5, r1, #1, #1
+ 944 003e 03EB8503 		add	r3, r3, r5, lsl #2
+ 945 0042 9A40     		lsls	r2, r2, r3
+ 946 0044 3240     		ands	r2, r2, r6
+ 947 0046 2144     		add	r1, r1, r4
+ 948 0048 CB00     		lsls	r3, r1, #3
+ 949 004a 1844     		add	r0, r0, r3
+ 950 004c 436A     		ldr	r3, [r0, #36]
+ 951 004e 03F08003 		and	r3, r3, #128
+ 952              	.L87:
+ 953 0052 002A     		cmp	r2, #0
+ 954 0054 00F0BE80 		beq	.L96
+ 955 0058 002B     		cmp	r3, #0
+ 956 005a 40F0BE80 		bne	.L97
+ 957 005e 0020     		movs	r0, #0
+ 958 0060 B9E0     		b	.L80
+ 959              	.L85:
+ 960 0062 0668     		ldr	r6, [r0]
+ 961 0064 4C00     		lsls	r4, r1, #1
+ 962 0066 6518     		adds	r5, r4, r1
+ 963 0068 6B00     		lsls	r3, r5, #1
+ 964 006a C1F34005 		ubfx	r5, r1, #1, #1
+ 965 006e 03EB8503 		add	r3, r3, r5, lsl #2
+ 966 0072 9A40     		lsls	r2, r2, r3
+ 967 0074 3240     		ands	r2, r2, r6
+ 968 0076 2144     		add	r1, r1, r4
+ 969 0078 CB00     		lsls	r3, r1, #3
+ 970 007a 1844     		add	r0, r0, r3
+ 971 007c 0369     		ldr	r3, [r0, #16]
+ARM GAS  /tmp/cckvPCcE.s 			page 17
+
+
+ 972 007e 03F00203 		and	r3, r3, #2
+ 973 0082 E6E7     		b	.L87
+ 974              	.L84:
+ 975 0084 0668     		ldr	r6, [r0]
+ 976 0086 4C00     		lsls	r4, r1, #1
+ 977 0088 6518     		adds	r5, r4, r1
+ 978 008a 6B00     		lsls	r3, r5, #1
+ 979 008c C1F34005 		ubfx	r5, r1, #1, #1
+ 980 0090 03EB8503 		add	r3, r3, r5, lsl #2
+ 981 0094 9A40     		lsls	r2, r2, r3
+ 982 0096 3240     		ands	r2, r2, r6
+ 983 0098 2144     		add	r1, r1, r4
+ 984 009a CB00     		lsls	r3, r1, #3
+ 985 009c 1844     		add	r0, r0, r3
+ 986 009e 0369     		ldr	r3, [r0, #16]
+ 987 00a0 03F00403 		and	r3, r3, #4
+ 988 00a4 D5E7     		b	.L87
+ 989              	.L83:
+ 990 00a6 0668     		ldr	r6, [r0]
+ 991 00a8 4C00     		lsls	r4, r1, #1
+ 992 00aa 6518     		adds	r5, r4, r1
+ 993 00ac 6B00     		lsls	r3, r5, #1
+ 994 00ae C1F34005 		ubfx	r5, r1, #1, #1
+ 995 00b2 03EB8503 		add	r3, r3, r5, lsl #2
+ 996 00b6 9A40     		lsls	r2, r2, r3
+ 997 00b8 3240     		ands	r2, r2, r6
+ 998 00ba 2144     		add	r1, r1, r4
+ 999 00bc CB00     		lsls	r3, r1, #3
+ 1000 00be 1844     		add	r0, r0, r3
+ 1001 00c0 0369     		ldr	r3, [r0, #16]
+ 1002 00c2 03F00803 		and	r3, r3, #8
+ 1003 00c6 C4E7     		b	.L87
+ 1004              	.L81:
+ 1005 00c8 0668     		ldr	r6, [r0]
+ 1006 00ca 4C00     		lsls	r4, r1, #1
+ 1007 00cc 6518     		adds	r5, r4, r1
+ 1008 00ce 6B00     		lsls	r3, r5, #1
+ 1009 00d0 C1F34005 		ubfx	r5, r1, #1, #1
+ 1010 00d4 03EB8503 		add	r3, r3, r5, lsl #2
+ 1011 00d8 9A40     		lsls	r2, r2, r3
+ 1012 00da 3240     		ands	r2, r2, r6
+ 1013 00dc 2144     		add	r1, r1, r4
+ 1014 00de CB00     		lsls	r3, r1, #3
+ 1015 00e0 1844     		add	r0, r0, r3
+ 1016 00e2 0369     		ldr	r3, [r0, #16]
+ 1017 00e4 03F01003 		and	r3, r3, #16
+ 1018 00e8 B3E7     		b	.L87
+ 1019              	.L79:
+ 1020 00ea 0B1F     		subs	r3, r1, #4
+ 1021 00ec DBB2     		uxtb	r3, r3
+ 1022 00ee 541E     		subs	r4, r2, #1
+ 1023 00f0 1F2C     		cmp	r4, #31
+ 1024 00f2 6DD8     		bhi	.L95
+ 1025 00f4 DFE804F0 		tbb	[pc, r4]
+ 1026              	.L89:
+ 1027 00f8 10       		.byte	(.L93-.L89)/2
+ 1028 00f9 6C       		.byte	(.L95-.L89)/2
+ARM GAS  /tmp/cckvPCcE.s 			page 18
+
+
+ 1029 00fa 6C       		.byte	(.L95-.L89)/2
+ 1030 00fb 22       		.byte	(.L92-.L89)/2
+ 1031 00fc 6C       		.byte	(.L95-.L89)/2
+ 1032 00fd 6C       		.byte	(.L95-.L89)/2
+ 1033 00fe 6C       		.byte	(.L95-.L89)/2
+ 1034 00ff 34       		.byte	(.L91-.L89)/2
+ 1035 0100 6C       		.byte	(.L95-.L89)/2
+ 1036 0101 6C       		.byte	(.L95-.L89)/2
+ 1037 0102 6C       		.byte	(.L95-.L89)/2
+ 1038 0103 6C       		.byte	(.L95-.L89)/2
+ 1039 0104 6C       		.byte	(.L95-.L89)/2
+ 1040 0105 6C       		.byte	(.L95-.L89)/2
+ 1041 0106 6C       		.byte	(.L95-.L89)/2
+ 1042 0107 46       		.byte	(.L90-.L89)/2
+ 1043 0108 6C       		.byte	(.L95-.L89)/2
+ 1044 0109 6C       		.byte	(.L95-.L89)/2
+ 1045 010a 6C       		.byte	(.L95-.L89)/2
+ 1046 010b 6C       		.byte	(.L95-.L89)/2
+ 1047 010c 6C       		.byte	(.L95-.L89)/2
+ 1048 010d 6C       		.byte	(.L95-.L89)/2
+ 1049 010e 6C       		.byte	(.L95-.L89)/2
+ 1050 010f 6C       		.byte	(.L95-.L89)/2
+ 1051 0110 6C       		.byte	(.L95-.L89)/2
+ 1052 0111 6C       		.byte	(.L95-.L89)/2
+ 1053 0112 6C       		.byte	(.L95-.L89)/2
+ 1054 0113 6C       		.byte	(.L95-.L89)/2
+ 1055 0114 6C       		.byte	(.L95-.L89)/2
+ 1056 0115 6C       		.byte	(.L95-.L89)/2
+ 1057 0116 6C       		.byte	(.L95-.L89)/2
+ 1058 0117 58       		.byte	(.L88-.L89)/2
+ 1059              		.p2align 1
+ 1060              	.L93:
+ 1061 0118 4668     		ldr	r6, [r0, #4]
+ 1062 011a 03EB4305 		add	r5, r3, r3, lsl #1
+ 1063 011e 6C00     		lsls	r4, r5, #1
+ 1064 0120 C3F34003 		ubfx	r3, r3, #1, #1
+ 1065 0124 04EB8304 		add	r4, r4, r3, lsl #2
+ 1066 0128 A240     		lsls	r2, r2, r4
+ 1067 012a 3240     		ands	r2, r2, r6
+ 1068 012c 01EB4101 		add	r1, r1, r1, lsl #1
+ 1069 0130 CB00     		lsls	r3, r1, #3
+ 1070 0132 1844     		add	r0, r0, r3
+ 1071 0134 436A     		ldr	r3, [r0, #36]
+ 1072 0136 03F08003 		and	r3, r3, #128
+ 1073 013a 8AE7     		b	.L87
+ 1074              	.L92:
+ 1075 013c 4668     		ldr	r6, [r0, #4]
+ 1076 013e 03EB4305 		add	r5, r3, r3, lsl #1
+ 1077 0142 6C00     		lsls	r4, r5, #1
+ 1078 0144 C3F34003 		ubfx	r3, r3, #1, #1
+ 1079 0148 04EB8304 		add	r4, r4, r3, lsl #2
+ 1080 014c A240     		lsls	r2, r2, r4
+ 1081 014e 3240     		ands	r2, r2, r6
+ 1082 0150 01EB4101 		add	r1, r1, r1, lsl #1
+ 1083 0154 CB00     		lsls	r3, r1, #3
+ 1084 0156 1844     		add	r0, r0, r3
+ 1085 0158 0369     		ldr	r3, [r0, #16]
+ARM GAS  /tmp/cckvPCcE.s 			page 19
+
+
+ 1086 015a 03F00203 		and	r3, r3, #2
+ 1087 015e 78E7     		b	.L87
+ 1088              	.L91:
+ 1089 0160 4668     		ldr	r6, [r0, #4]
+ 1090 0162 03EB4305 		add	r5, r3, r3, lsl #1
+ 1091 0166 6C00     		lsls	r4, r5, #1
+ 1092 0168 C3F34003 		ubfx	r3, r3, #1, #1
+ 1093 016c 04EB8304 		add	r4, r4, r3, lsl #2
+ 1094 0170 A240     		lsls	r2, r2, r4
+ 1095 0172 3240     		ands	r2, r2, r6
+ 1096 0174 01EB4101 		add	r1, r1, r1, lsl #1
+ 1097 0178 CB00     		lsls	r3, r1, #3
+ 1098 017a 1844     		add	r0, r0, r3
+ 1099 017c 0369     		ldr	r3, [r0, #16]
+ 1100 017e 03F00403 		and	r3, r3, #4
+ 1101 0182 66E7     		b	.L87
+ 1102              	.L90:
+ 1103 0184 4668     		ldr	r6, [r0, #4]
+ 1104 0186 03EB4305 		add	r5, r3, r3, lsl #1
+ 1105 018a 6C00     		lsls	r4, r5, #1
+ 1106 018c C3F34003 		ubfx	r3, r3, #1, #1
+ 1107 0190 04EB8304 		add	r4, r4, r3, lsl #2
+ 1108 0194 A240     		lsls	r2, r2, r4
+ 1109 0196 3240     		ands	r2, r2, r6
+ 1110 0198 01EB4101 		add	r1, r1, r1, lsl #1
+ 1111 019c CB00     		lsls	r3, r1, #3
+ 1112 019e 1844     		add	r0, r0, r3
+ 1113 01a0 0369     		ldr	r3, [r0, #16]
+ 1114 01a2 03F00803 		and	r3, r3, #8
+ 1115 01a6 54E7     		b	.L87
+ 1116              	.L88:
+ 1117 01a8 4668     		ldr	r6, [r0, #4]
+ 1118 01aa 03EB4305 		add	r5, r3, r3, lsl #1
+ 1119 01ae 6C00     		lsls	r4, r5, #1
+ 1120 01b0 C3F34003 		ubfx	r3, r3, #1, #1
+ 1121 01b4 04EB8303 		add	r3, r4, r3, lsl #2
+ 1122 01b8 9A40     		lsls	r2, r2, r3
+ 1123 01ba 3240     		ands	r2, r2, r6
+ 1124 01bc 01EB4101 		add	r1, r1, r1, lsl #1
+ 1125 01c0 CB00     		lsls	r3, r1, #3
+ 1126 01c2 1844     		add	r0, r0, r3
+ 1127 01c4 0369     		ldr	r3, [r0, #16]
+ 1128 01c6 03F01003 		and	r3, r3, #16
+ 1129 01ca 42E7     		b	.L87
+ 1130              	.L94:
+ 1131 01cc 0020     		movs	r0, #0
+ 1132 01ce 02E0     		b	.L80
+ 1133              	.L95:
+ 1134 01d0 0020     		movs	r0, #0
+ 1135 01d2 00E0     		b	.L80
+ 1136              	.L96:
+ 1137 01d4 0020     		movs	r0, #0
+ 1138              	.L80:
+ 1139 01d6 70BC     		pop	{r4, r5, r6}
+ 1140 01d8 7047     		bx	lr
+ 1141              	.L97:
+ 1142 01da 0120     		movs	r0, #1
+ARM GAS  /tmp/cckvPCcE.s 			page 20
+
+
+ 1143 01dc FBE7     		b	.L80
+ 1145              		.section	.text.dma_interrupt_flag_clear,"ax",%progbits
+ 1146              		.align	1
+ 1147              		.global	dma_interrupt_flag_clear
+ 1148              		.syntax unified
+ 1149              		.thumb
+ 1150              		.thumb_func
+ 1151              		.fpu fpv4-sp-d16
+ 1153              	dma_interrupt_flag_clear:
+ 1154              		@ args = 0, pretend = 0, frame = 0
+ 1155              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1156              		@ link register save eliminated.
+ 1157 0000 30B4     		push	{r4, r5}
+ 1158 0002 0329     		cmp	r1, #3
+ 1159 0004 0DD8     		bhi	.L100
+ 1160 0006 8468     		ldr	r4, [r0, #8]
+ 1161 0008 01EB4105 		add	r5, r1, r1, lsl #1
+ 1162 000c 6B00     		lsls	r3, r5, #1
+ 1163 000e C1F34001 		ubfx	r1, r1, #1, #1
+ 1164 0012 03EB8101 		add	r1, r3, r1, lsl #2
+ 1165 0016 02FA01F1 		lsl	r1, r2, r1
+ 1166 001a 2143     		orrs	r1, r1, r4
+ 1167 001c 8160     		str	r1, [r0, #8]
+ 1168              	.L99:
+ 1169 001e 30BC     		pop	{r4, r5}
+ 1170 0020 7047     		bx	lr
+ 1171              	.L100:
+ 1172 0022 0439     		subs	r1, r1, #4
+ 1173 0024 C9B2     		uxtb	r1, r1
+ 1174 0026 C468     		ldr	r4, [r0, #12]
+ 1175 0028 01EB4105 		add	r5, r1, r1, lsl #1
+ 1176 002c 6B00     		lsls	r3, r5, #1
+ 1177 002e C1F34001 		ubfx	r1, r1, #1, #1
+ 1178 0032 03EB8101 		add	r1, r3, r1, lsl #2
+ 1179 0036 02FA01F1 		lsl	r1, r2, r1
+ 1180 003a 2143     		orrs	r1, r1, r4
+ 1181 003c C160     		str	r1, [r0, #12]
+ 1182 003e EEE7     		b	.L99
+ 1184              		.section	.text.dma_interrupt_enable,"ax",%progbits
+ 1185              		.align	1
+ 1186              		.global	dma_interrupt_enable
+ 1187              		.syntax unified
+ 1188              		.thumb
+ 1189              		.thumb_func
+ 1190              		.fpu fpv4-sp-d16
+ 1192              	dma_interrupt_enable:
+ 1193              		@ args = 0, pretend = 0, frame = 0
+ 1194              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1195              		@ link register save eliminated.
+ 1196 0000 802A     		cmp	r2, #128
+ 1197 0002 07D0     		beq	.L104
+ 1198 0004 01EB4101 		add	r1, r1, r1, lsl #1
+ 1199 0008 CB00     		lsls	r3, r1, #3
+ 1200 000a 0344     		add	r3, r3, r0
+ 1201 000c 1969     		ldr	r1, [r3, #16]
+ 1202 000e 0A43     		orrs	r2, r2, r1
+ 1203 0010 1A61     		str	r2, [r3, #16]
+ARM GAS  /tmp/cckvPCcE.s 			page 21
+
+
+ 1204 0012 7047     		bx	lr
+ 1205              	.L104:
+ 1206 0014 10B4     		push	{r4}
+ 1207 0016 01EB4101 		add	r1, r1, r1, lsl #1
+ 1208 001a CC00     		lsls	r4, r1, #3
+ 1209 001c 0444     		add	r4, r4, r0
+ 1210 001e 636A     		ldr	r3, [r4, #36]
+ 1211 0020 1A43     		orrs	r2, r2, r3
+ 1212 0022 6262     		str	r2, [r4, #36]
+ 1213 0024 5DF8044B 		ldr	r4, [sp], #4
+ 1214 0028 7047     		bx	lr
+ 1216              		.section	.text.dma_interrupt_disable,"ax",%progbits
+ 1217              		.align	1
+ 1218              		.global	dma_interrupt_disable
+ 1219              		.syntax unified
+ 1220              		.thumb
+ 1221              		.thumb_func
+ 1222              		.fpu fpv4-sp-d16
+ 1224              	dma_interrupt_disable:
+ 1225              		@ args = 0, pretend = 0, frame = 0
+ 1226              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1227              		@ link register save eliminated.
+ 1228 0000 802A     		cmp	r2, #128
+ 1229 0002 08D0     		beq	.L110
+ 1230 0004 01EB4101 		add	r1, r1, r1, lsl #1
+ 1231 0008 CB00     		lsls	r3, r1, #3
+ 1232 000a 0344     		add	r3, r3, r0
+ 1233 000c 1969     		ldr	r1, [r3, #16]
+ 1234 000e 21EA0202 		bic	r2, r1, r2
+ 1235 0012 1A61     		str	r2, [r3, #16]
+ 1236 0014 7047     		bx	lr
+ 1237              	.L110:
+ 1238 0016 10B4     		push	{r4}
+ 1239 0018 01EB4101 		add	r1, r1, r1, lsl #1
+ 1240 001c CC00     		lsls	r4, r1, #3
+ 1241 001e 0444     		add	r4, r4, r0
+ 1242 0020 636A     		ldr	r3, [r4, #36]
+ 1243 0022 23EA0202 		bic	r2, r3, r2
+ 1244 0026 6262     		str	r2, [r4, #36]
+ 1245 0028 5DF8044B 		ldr	r4, [sp], #4
+ 1246 002c 7047     		bx	lr
+ 1248              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/cckvPCcE.s 			page 22
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_dma.c
+     /tmp/cckvPCcE.s:16     .text.dma_deinit:0000000000000000 $t
+     /tmp/cckvPCcE.s:24     .text.dma_deinit:0000000000000000 dma_deinit
+     /tmp/cckvPCcE.s:71     .text.dma_single_data_para_struct_init:0000000000000000 $t
+     /tmp/cckvPCcE.s:78     .text.dma_single_data_para_struct_init:0000000000000000 dma_single_data_para_struct_init
+     /tmp/cckvPCcE.s:96     .text.dma_multi_data_para_struct_init:0000000000000000 $t
+     /tmp/cckvPCcE.s:103    .text.dma_multi_data_para_struct_init:0000000000000000 dma_multi_data_para_struct_init
+     /tmp/cckvPCcE.s:124    .text.dma_single_data_mode_init:0000000000000000 $t
+     /tmp/cckvPCcE.s:131    .text.dma_single_data_mode_init:0000000000000000 dma_single_data_mode_init
+     /tmp/cckvPCcE.s:203    .text.dma_multi_data_mode_init:0000000000000000 $t
+     /tmp/cckvPCcE.s:210    .text.dma_multi_data_mode_init:0000000000000000 dma_multi_data_mode_init
+     /tmp/cckvPCcE.s:290    .text.dma_multi_data_mode_init:0000000000000098 $d
+     /tmp/cckvPCcE.s:293    .text.dma_periph_address_config:0000000000000000 $t
+     /tmp/cckvPCcE.s:300    .text.dma_periph_address_config:0000000000000000 dma_periph_address_config
+     /tmp/cckvPCcE.s:311    .text.dma_memory_address_config:0000000000000000 $t
+     /tmp/cckvPCcE.s:318    .text.dma_memory_address_config:0000000000000000 dma_memory_address_config
+     /tmp/cckvPCcE.s:336    .text.dma_transfer_number_config:0000000000000000 $t
+     /tmp/cckvPCcE.s:343    .text.dma_transfer_number_config:0000000000000000 dma_transfer_number_config
+     /tmp/cckvPCcE.s:354    .text.dma_transfer_number_get:0000000000000000 $t
+     /tmp/cckvPCcE.s:361    .text.dma_transfer_number_get:0000000000000000 dma_transfer_number_get
+     /tmp/cckvPCcE.s:372    .text.dma_priority_config:0000000000000000 $t
+     /tmp/cckvPCcE.s:379    .text.dma_priority_config:0000000000000000 dma_priority_config
+     /tmp/cckvPCcE.s:393    .text.dma_memory_burst_beats_config:0000000000000000 $t
+     /tmp/cckvPCcE.s:400    .text.dma_memory_burst_beats_config:0000000000000000 dma_memory_burst_beats_config
+     /tmp/cckvPCcE.s:414    .text.dma_periph_burst_beats_config:0000000000000000 $t
+     /tmp/cckvPCcE.s:421    .text.dma_periph_burst_beats_config:0000000000000000 dma_periph_burst_beats_config
+     /tmp/cckvPCcE.s:435    .text.dma_memory_width_config:0000000000000000 $t
+     /tmp/cckvPCcE.s:442    .text.dma_memory_width_config:0000000000000000 dma_memory_width_config
+     /tmp/cckvPCcE.s:456    .text.dma_periph_width_config:0000000000000000 $t
+     /tmp/cckvPCcE.s:463    .text.dma_periph_width_config:0000000000000000 dma_periph_width_config
+     /tmp/cckvPCcE.s:477    .text.dma_memory_address_generation_config:0000000000000000 $t
+     /tmp/cckvPCcE.s:484    .text.dma_memory_address_generation_config:0000000000000000 dma_memory_address_generation_config
+     /tmp/cckvPCcE.s:506    .text.dma_peripheral_address_generation_config:0000000000000000 $t
+     /tmp/cckvPCcE.s:513    .text.dma_peripheral_address_generation_config:0000000000000000 dma_peripheral_address_generation_config
+     /tmp/cckvPCcE.s:548    .text.dma_circulation_enable:0000000000000000 $t
+     /tmp/cckvPCcE.s:555    .text.dma_circulation_enable:0000000000000000 dma_circulation_enable
+     /tmp/cckvPCcE.s:568    .text.dma_circulation_disable:0000000000000000 $t
+     /tmp/cckvPCcE.s:575    .text.dma_circulation_disable:0000000000000000 dma_circulation_disable
+     /tmp/cckvPCcE.s:588    .text.dma_channel_enable:0000000000000000 $t
+     /tmp/cckvPCcE.s:595    .text.dma_channel_enable:0000000000000000 dma_channel_enable
+     /tmp/cckvPCcE.s:608    .text.dma_channel_disable:0000000000000000 $t
+     /tmp/cckvPCcE.s:615    .text.dma_channel_disable:0000000000000000 dma_channel_disable
+     /tmp/cckvPCcE.s:628    .text.dma_transfer_direction_config:0000000000000000 $t
+     /tmp/cckvPCcE.s:635    .text.dma_transfer_direction_config:0000000000000000 dma_transfer_direction_config
+     /tmp/cckvPCcE.s:649    .text.dma_switch_buffer_mode_config:0000000000000000 $t
+     /tmp/cckvPCcE.s:656    .text.dma_switch_buffer_mode_config:0000000000000000 dma_switch_buffer_mode_config
+     /tmp/cckvPCcE.s:679    .text.dma_using_memory_get:0000000000000000 $t
+     /tmp/cckvPCcE.s:686    .text.dma_using_memory_get:0000000000000000 dma_using_memory_get
+     /tmp/cckvPCcE.s:701    .text.dma_channel_subperipheral_select:0000000000000000 $t
+     /tmp/cckvPCcE.s:708    .text.dma_channel_subperipheral_select:0000000000000000 dma_channel_subperipheral_select
+     /tmp/cckvPCcE.s:722    .text.dma_flow_controller_config:0000000000000000 $t
+     /tmp/cckvPCcE.s:729    .text.dma_flow_controller_config:0000000000000000 dma_flow_controller_config
+     /tmp/cckvPCcE.s:751    .text.dma_switch_buffer_mode_enable:0000000000000000 $t
+     /tmp/cckvPCcE.s:758    .text.dma_switch_buffer_mode_enable:0000000000000000 dma_switch_buffer_mode_enable
+     /tmp/cckvPCcE.s:781    .text.dma_fifo_status_get:0000000000000000 $t
+     /tmp/cckvPCcE.s:788    .text.dma_fifo_status_get:0000000000000000 dma_fifo_status_get
+ARM GAS  /tmp/cckvPCcE.s 			page 23
+
+
+     /tmp/cckvPCcE.s:800    .text.dma_flag_get:0000000000000000 $t
+     /tmp/cckvPCcE.s:807    .text.dma_flag_get:0000000000000000 dma_flag_get
+     /tmp/cckvPCcE.s:847    .text.dma_flag_clear:0000000000000000 $t
+     /tmp/cckvPCcE.s:854    .text.dma_flag_clear:0000000000000000 dma_flag_clear
+     /tmp/cckvPCcE.s:886    .text.dma_interrupt_flag_get:0000000000000000 $t
+     /tmp/cckvPCcE.s:893    .text.dma_interrupt_flag_get:0000000000000000 dma_interrupt_flag_get
+     /tmp/cckvPCcE.s:905    .text.dma_interrupt_flag_get:0000000000000012 $d
+     /tmp/cckvPCcE.s:937    .text.dma_interrupt_flag_get:0000000000000032 $t
+     /tmp/cckvPCcE.s:1027   .text.dma_interrupt_flag_get:00000000000000f8 $d
+     /tmp/cckvPCcE.s:1059   .text.dma_interrupt_flag_get:0000000000000118 $t
+     /tmp/cckvPCcE.s:1146   .text.dma_interrupt_flag_clear:0000000000000000 $t
+     /tmp/cckvPCcE.s:1153   .text.dma_interrupt_flag_clear:0000000000000000 dma_interrupt_flag_clear
+     /tmp/cckvPCcE.s:1185   .text.dma_interrupt_enable:0000000000000000 $t
+     /tmp/cckvPCcE.s:1192   .text.dma_interrupt_enable:0000000000000000 dma_interrupt_enable
+     /tmp/cckvPCcE.s:1217   .text.dma_interrupt_disable:0000000000000000 $t
+     /tmp/cckvPCcE.s:1224   .text.dma_interrupt_disable:0000000000000000 dma_interrupt_disable
+
+NO UNDEFINED SYMBOLS

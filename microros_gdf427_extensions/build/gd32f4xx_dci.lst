@@ -1,0 +1,567 @@
+ARM GAS  /tmp/cclrQDkx.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_dci.c"
+  14              		.text
+  15              		.section	.text.dci_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	dci_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	dci_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 4FF4A060 		mov	r0, #1280
+  29 0006 FFF7FEFF 		bl	rcu_periph_reset_enable
+  30 000a 4FF4A060 		mov	r0, #1280
+  31 000e FFF7FEFF 		bl	rcu_periph_reset_disable
+  32 0012 08BD     		pop	{r3, pc}
+  34              		.section	.text.dci_init,"ax",%progbits
+  35              		.align	1
+  36              		.global	dci_init
+  37              		.syntax unified
+  38              		.thumb
+  39              		.thumb_func
+  40              		.fpu fpv4-sp-d16
+  42              	dci_init:
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 0, uses_anonymous_args = 0
+  45              		@ link register save eliminated.
+  46 0000 094A     		ldr	r2, .L4
+  47 0002 1368     		ldr	r3, [r2]
+  48 0004 23F48043 		bic	r3, r3, #16384
+  49 0008 23F00103 		bic	r3, r3, #1
+  50 000c 1360     		str	r3, [r2]
+  51 000e 0368     		ldr	r3, [r0]
+  52 0010 4168     		ldr	r1, [r0, #4]
+  53 0012 1943     		orrs	r1, r1, r3
+  54 0014 8368     		ldr	r3, [r0, #8]
+  55 0016 1943     		orrs	r1, r1, r3
+  56 0018 C368     		ldr	r3, [r0, #12]
+  57 001a 1943     		orrs	r1, r1, r3
+  58 001c 0369     		ldr	r3, [r0, #16]
+  59 001e 1943     		orrs	r1, r1, r3
+  60 0020 4369     		ldr	r3, [r0, #20]
+ARM GAS  /tmp/cclrQDkx.s 			page 2
+
+
+  61 0022 0B43     		orrs	r3, r3, r1
+  62 0024 1360     		str	r3, [r2]
+  63 0026 7047     		bx	lr
+  64              	.L5:
+  65              		.align	2
+  66              	.L4:
+  67 0028 00000550 		.word	1342504960
+  69              		.section	.text.dci_enable,"ax",%progbits
+  70              		.align	1
+  71              		.global	dci_enable
+  72              		.syntax unified
+  73              		.thumb
+  74              		.thumb_func
+  75              		.fpu fpv4-sp-d16
+  77              	dci_enable:
+  78              		@ args = 0, pretend = 0, frame = 0
+  79              		@ frame_needed = 0, uses_anonymous_args = 0
+  80              		@ link register save eliminated.
+  81 0000 024A     		ldr	r2, .L7
+  82 0002 1368     		ldr	r3, [r2]
+  83 0004 43F48043 		orr	r3, r3, #16384
+  84 0008 1360     		str	r3, [r2]
+  85 000a 7047     		bx	lr
+  86              	.L8:
+  87              		.align	2
+  88              	.L7:
+  89 000c 00000550 		.word	1342504960
+  91              		.section	.text.dci_disable,"ax",%progbits
+  92              		.align	1
+  93              		.global	dci_disable
+  94              		.syntax unified
+  95              		.thumb
+  96              		.thumb_func
+  97              		.fpu fpv4-sp-d16
+  99              	dci_disable:
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 0, uses_anonymous_args = 0
+ 102              		@ link register save eliminated.
+ 103 0000 024A     		ldr	r2, .L10
+ 104 0002 1368     		ldr	r3, [r2]
+ 105 0004 23F48043 		bic	r3, r3, #16384
+ 106 0008 1360     		str	r3, [r2]
+ 107 000a 7047     		bx	lr
+ 108              	.L11:
+ 109              		.align	2
+ 110              	.L10:
+ 111 000c 00000550 		.word	1342504960
+ 113              		.section	.text.dci_capture_enable,"ax",%progbits
+ 114              		.align	1
+ 115              		.global	dci_capture_enable
+ 116              		.syntax unified
+ 117              		.thumb
+ 118              		.thumb_func
+ 119              		.fpu fpv4-sp-d16
+ 121              	dci_capture_enable:
+ 122              		@ args = 0, pretend = 0, frame = 0
+ 123              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/cclrQDkx.s 			page 3
+
+
+ 124              		@ link register save eliminated.
+ 125 0000 024A     		ldr	r2, .L13
+ 126 0002 1368     		ldr	r3, [r2]
+ 127 0004 43F00103 		orr	r3, r3, #1
+ 128 0008 1360     		str	r3, [r2]
+ 129 000a 7047     		bx	lr
+ 130              	.L14:
+ 131              		.align	2
+ 132              	.L13:
+ 133 000c 00000550 		.word	1342504960
+ 135              		.section	.text.dci_capture_disable,"ax",%progbits
+ 136              		.align	1
+ 137              		.global	dci_capture_disable
+ 138              		.syntax unified
+ 139              		.thumb
+ 140              		.thumb_func
+ 141              		.fpu fpv4-sp-d16
+ 143              	dci_capture_disable:
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 0, uses_anonymous_args = 0
+ 146              		@ link register save eliminated.
+ 147 0000 024A     		ldr	r2, .L16
+ 148 0002 1368     		ldr	r3, [r2]
+ 149 0004 23F00103 		bic	r3, r3, #1
+ 150 0008 1360     		str	r3, [r2]
+ 151 000a 7047     		bx	lr
+ 152              	.L17:
+ 153              		.align	2
+ 154              	.L16:
+ 155 000c 00000550 		.word	1342504960
+ 157              		.section	.text.dci_jpeg_enable,"ax",%progbits
+ 158              		.align	1
+ 159              		.global	dci_jpeg_enable
+ 160              		.syntax unified
+ 161              		.thumb
+ 162              		.thumb_func
+ 163              		.fpu fpv4-sp-d16
+ 165              	dci_jpeg_enable:
+ 166              		@ args = 0, pretend = 0, frame = 0
+ 167              		@ frame_needed = 0, uses_anonymous_args = 0
+ 168              		@ link register save eliminated.
+ 169 0000 024A     		ldr	r2, .L19
+ 170 0002 1368     		ldr	r3, [r2]
+ 171 0004 43F00803 		orr	r3, r3, #8
+ 172 0008 1360     		str	r3, [r2]
+ 173 000a 7047     		bx	lr
+ 174              	.L20:
+ 175              		.align	2
+ 176              	.L19:
+ 177 000c 00000550 		.word	1342504960
+ 179              		.section	.text.dci_jpeg_disable,"ax",%progbits
+ 180              		.align	1
+ 181              		.global	dci_jpeg_disable
+ 182              		.syntax unified
+ 183              		.thumb
+ 184              		.thumb_func
+ 185              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/cclrQDkx.s 			page 4
+
+
+ 187              	dci_jpeg_disable:
+ 188              		@ args = 0, pretend = 0, frame = 0
+ 189              		@ frame_needed = 0, uses_anonymous_args = 0
+ 190              		@ link register save eliminated.
+ 191 0000 024A     		ldr	r2, .L22
+ 192 0002 1368     		ldr	r3, [r2]
+ 193 0004 23F00803 		bic	r3, r3, #8
+ 194 0008 1360     		str	r3, [r2]
+ 195 000a 7047     		bx	lr
+ 196              	.L23:
+ 197              		.align	2
+ 198              	.L22:
+ 199 000c 00000550 		.word	1342504960
+ 201              		.section	.text.dci_crop_window_enable,"ax",%progbits
+ 202              		.align	1
+ 203              		.global	dci_crop_window_enable
+ 204              		.syntax unified
+ 205              		.thumb
+ 206              		.thumb_func
+ 207              		.fpu fpv4-sp-d16
+ 209              	dci_crop_window_enable:
+ 210              		@ args = 0, pretend = 0, frame = 0
+ 211              		@ frame_needed = 0, uses_anonymous_args = 0
+ 212              		@ link register save eliminated.
+ 213 0000 024A     		ldr	r2, .L25
+ 214 0002 1368     		ldr	r3, [r2]
+ 215 0004 43F00403 		orr	r3, r3, #4
+ 216 0008 1360     		str	r3, [r2]
+ 217 000a 7047     		bx	lr
+ 218              	.L26:
+ 219              		.align	2
+ 220              	.L25:
+ 221 000c 00000550 		.word	1342504960
+ 223              		.section	.text.dci_crop_window_disable,"ax",%progbits
+ 224              		.align	1
+ 225              		.global	dci_crop_window_disable
+ 226              		.syntax unified
+ 227              		.thumb
+ 228              		.thumb_func
+ 229              		.fpu fpv4-sp-d16
+ 231              	dci_crop_window_disable:
+ 232              		@ args = 0, pretend = 0, frame = 0
+ 233              		@ frame_needed = 0, uses_anonymous_args = 0
+ 234              		@ link register save eliminated.
+ 235 0000 024A     		ldr	r2, .L28
+ 236 0002 1368     		ldr	r3, [r2]
+ 237 0004 23F00403 		bic	r3, r3, #4
+ 238 0008 1360     		str	r3, [r2]
+ 239 000a 7047     		bx	lr
+ 240              	.L29:
+ 241              		.align	2
+ 242              	.L28:
+ 243 000c 00000550 		.word	1342504960
+ 245              		.section	.text.dci_crop_window_config,"ax",%progbits
+ 246              		.align	1
+ 247              		.global	dci_crop_window_config
+ 248              		.syntax unified
+ARM GAS  /tmp/cclrQDkx.s 			page 5
+
+
+ 249              		.thumb
+ 250              		.thumb_func
+ 251              		.fpu fpv4-sp-d16
+ 253              	dci_crop_window_config:
+ 254              		@ args = 0, pretend = 0, frame = 0
+ 255              		@ frame_needed = 0, uses_anonymous_args = 0
+ 256              		@ link register save eliminated.
+ 257 0000 10B4     		push	{r4}
+ 258 0002 40EA0141 		orr	r1, r0, r1, lsl #16
+ 259 0006 044C     		ldr	r4, .L32
+ 260 0008 2160     		str	r1, [r4]
+ 261 000a 42EA0343 		orr	r3, r2, r3, lsl #16
+ 262 000e 0349     		ldr	r1, .L32+4
+ 263 0010 0B60     		str	r3, [r1]
+ 264 0012 5DF8044B 		ldr	r4, [sp], #4
+ 265 0016 7047     		bx	lr
+ 266              	.L33:
+ 267              		.align	2
+ 268              	.L32:
+ 269 0018 20000550 		.word	1342504992
+ 270 001c 24000550 		.word	1342504996
+ 272              		.section	.text.dci_embedded_sync_enable,"ax",%progbits
+ 273              		.align	1
+ 274              		.global	dci_embedded_sync_enable
+ 275              		.syntax unified
+ 276              		.thumb
+ 277              		.thumb_func
+ 278              		.fpu fpv4-sp-d16
+ 280              	dci_embedded_sync_enable:
+ 281              		@ args = 0, pretend = 0, frame = 0
+ 282              		@ frame_needed = 0, uses_anonymous_args = 0
+ 283              		@ link register save eliminated.
+ 284 0000 024A     		ldr	r2, .L35
+ 285 0002 1368     		ldr	r3, [r2]
+ 286 0004 43F01003 		orr	r3, r3, #16
+ 287 0008 1360     		str	r3, [r2]
+ 288 000a 7047     		bx	lr
+ 289              	.L36:
+ 290              		.align	2
+ 291              	.L35:
+ 292 000c 00000550 		.word	1342504960
+ 294              		.section	.text.dci_embedded_sync_disable,"ax",%progbits
+ 295              		.align	1
+ 296              		.global	dci_embedded_sync_disable
+ 297              		.syntax unified
+ 298              		.thumb
+ 299              		.thumb_func
+ 300              		.fpu fpv4-sp-d16
+ 302              	dci_embedded_sync_disable:
+ 303              		@ args = 0, pretend = 0, frame = 0
+ 304              		@ frame_needed = 0, uses_anonymous_args = 0
+ 305              		@ link register save eliminated.
+ 306 0000 024A     		ldr	r2, .L38
+ 307 0002 1368     		ldr	r3, [r2]
+ 308 0004 23F01003 		bic	r3, r3, #16
+ 309 0008 1360     		str	r3, [r2]
+ 310 000a 7047     		bx	lr
+ARM GAS  /tmp/cclrQDkx.s 			page 6
+
+
+ 311              	.L39:
+ 312              		.align	2
+ 313              	.L38:
+ 314 000c 00000550 		.word	1342504960
+ 316              		.section	.text.dci_sync_codes_config,"ax",%progbits
+ 317              		.align	1
+ 318              		.global	dci_sync_codes_config
+ 319              		.syntax unified
+ 320              		.thumb
+ 321              		.thumb_func
+ 322              		.fpu fpv4-sp-d16
+ 324              	dci_sync_codes_config:
+ 325              		@ args = 0, pretend = 0, frame = 0
+ 326              		@ frame_needed = 0, uses_anonymous_args = 0
+ 327              		@ link register save eliminated.
+ 328 0000 40EA0121 		orr	r1, r0, r1, lsl #8
+ 329 0004 41EA0241 		orr	r1, r1, r2, lsl #16
+ 330 0008 41EA0361 		orr	r1, r1, r3, lsl #24
+ 331 000c 014B     		ldr	r3, .L41
+ 332 000e 1960     		str	r1, [r3]
+ 333 0010 7047     		bx	lr
+ 334              	.L42:
+ 335 0012 00BF     		.align	2
+ 336              	.L41:
+ 337 0014 18000550 		.word	1342504984
+ 339              		.section	.text.dci_sync_codes_unmask_config,"ax",%progbits
+ 340              		.align	1
+ 341              		.global	dci_sync_codes_unmask_config
+ 342              		.syntax unified
+ 343              		.thumb
+ 344              		.thumb_func
+ 345              		.fpu fpv4-sp-d16
+ 347              	dci_sync_codes_unmask_config:
+ 348              		@ args = 0, pretend = 0, frame = 0
+ 349              		@ frame_needed = 0, uses_anonymous_args = 0
+ 350              		@ link register save eliminated.
+ 351 0000 40EA0121 		orr	r1, r0, r1, lsl #8
+ 352 0004 41EA0241 		orr	r1, r1, r2, lsl #16
+ 353 0008 41EA0361 		orr	r1, r1, r3, lsl #24
+ 354 000c 014B     		ldr	r3, .L44
+ 355 000e 1960     		str	r1, [r3]
+ 356 0010 7047     		bx	lr
+ 357              	.L45:
+ 358 0012 00BF     		.align	2
+ 359              	.L44:
+ 360 0014 1C000550 		.word	1342504988
+ 362              		.section	.text.dci_data_read,"ax",%progbits
+ 363              		.align	1
+ 364              		.global	dci_data_read
+ 365              		.syntax unified
+ 366              		.thumb
+ 367              		.thumb_func
+ 368              		.fpu fpv4-sp-d16
+ 370              	dci_data_read:
+ 371              		@ args = 0, pretend = 0, frame = 0
+ 372              		@ frame_needed = 0, uses_anonymous_args = 0
+ 373              		@ link register save eliminated.
+ARM GAS  /tmp/cclrQDkx.s 			page 7
+
+
+ 374 0000 014B     		ldr	r3, .L47
+ 375 0002 1868     		ldr	r0, [r3]
+ 376 0004 7047     		bx	lr
+ 377              	.L48:
+ 378 0006 00BF     		.align	2
+ 379              	.L47:
+ 380 0008 28000550 		.word	1342505000
+ 382              		.section	.text.dci_flag_get,"ax",%progbits
+ 383              		.align	1
+ 384              		.global	dci_flag_get
+ 385              		.syntax unified
+ 386              		.thumb
+ 387              		.thumb_func
+ 388              		.fpu fpv4-sp-d16
+ 390              	dci_flag_get:
+ 391              		@ args = 0, pretend = 0, frame = 0
+ 392              		@ frame_needed = 0, uses_anonymous_args = 0
+ 393              		@ link register save eliminated.
+ 394 0000 0028     		cmp	r0, #0
+ 395 0002 05DB     		blt	.L54
+ 396 0004 054B     		ldr	r3, .L55
+ 397 0006 1B68     		ldr	r3, [r3]
+ 398              	.L51:
+ 399 0008 0342     		tst	r3, r0
+ 400 000a 04D0     		beq	.L53
+ 401 000c 0120     		movs	r0, #1
+ 402 000e 7047     		bx	lr
+ 403              	.L54:
+ 404 0010 034B     		ldr	r3, .L55+4
+ 405 0012 1B68     		ldr	r3, [r3]
+ 406 0014 F8E7     		b	.L51
+ 407              	.L53:
+ 408 0016 0020     		movs	r0, #0
+ 409 0018 7047     		bx	lr
+ 410              	.L56:
+ 411 001a 00BF     		.align	2
+ 412              	.L55:
+ 413 001c 04000550 		.word	1342504964
+ 414 0020 08000550 		.word	1342504968
+ 416              		.section	.text.dci_interrupt_enable,"ax",%progbits
+ 417              		.align	1
+ 418              		.global	dci_interrupt_enable
+ 419              		.syntax unified
+ 420              		.thumb
+ 421              		.thumb_func
+ 422              		.fpu fpv4-sp-d16
+ 424              	dci_interrupt_enable:
+ 425              		@ args = 0, pretend = 0, frame = 0
+ 426              		@ frame_needed = 0, uses_anonymous_args = 0
+ 427              		@ link register save eliminated.
+ 428 0000 024A     		ldr	r2, .L58
+ 429 0002 1368     		ldr	r3, [r2]
+ 430 0004 1843     		orrs	r0, r0, r3
+ 431 0006 1060     		str	r0, [r2]
+ 432 0008 7047     		bx	lr
+ 433              	.L59:
+ 434 000a 00BF     		.align	2
+ARM GAS  /tmp/cclrQDkx.s 			page 8
+
+
+ 435              	.L58:
+ 436 000c 0C000550 		.word	1342504972
+ 438              		.section	.text.dci_interrupt_disable,"ax",%progbits
+ 439              		.align	1
+ 440              		.global	dci_interrupt_disable
+ 441              		.syntax unified
+ 442              		.thumb
+ 443              		.thumb_func
+ 444              		.fpu fpv4-sp-d16
+ 446              	dci_interrupt_disable:
+ 447              		@ args = 0, pretend = 0, frame = 0
+ 448              		@ frame_needed = 0, uses_anonymous_args = 0
+ 449              		@ link register save eliminated.
+ 450 0000 024A     		ldr	r2, .L61
+ 451 0002 1368     		ldr	r3, [r2]
+ 452 0004 23EA0000 		bic	r0, r3, r0
+ 453 0008 1060     		str	r0, [r2]
+ 454 000a 7047     		bx	lr
+ 455              	.L62:
+ 456              		.align	2
+ 457              	.L61:
+ 458 000c 0C000550 		.word	1342504972
+ 460              		.section	.text.dci_interrupt_flag_clear,"ax",%progbits
+ 461              		.align	1
+ 462              		.global	dci_interrupt_flag_clear
+ 463              		.syntax unified
+ 464              		.thumb
+ 465              		.thumb_func
+ 466              		.fpu fpv4-sp-d16
+ 468              	dci_interrupt_flag_clear:
+ 469              		@ args = 0, pretend = 0, frame = 0
+ 470              		@ frame_needed = 0, uses_anonymous_args = 0
+ 471              		@ link register save eliminated.
+ 472 0000 024A     		ldr	r2, .L64
+ 473 0002 1368     		ldr	r3, [r2]
+ 474 0004 1843     		orrs	r0, r0, r3
+ 475 0006 1060     		str	r0, [r2]
+ 476 0008 7047     		bx	lr
+ 477              	.L65:
+ 478 000a 00BF     		.align	2
+ 479              	.L64:
+ 480 000c 14000550 		.word	1342504980
+ 482              		.section	.text.dci_interrupt_flag_get,"ax",%progbits
+ 483              		.align	1
+ 484              		.global	dci_interrupt_flag_get
+ 485              		.syntax unified
+ 486              		.thumb
+ 487              		.thumb_func
+ 488              		.fpu fpv4-sp-d16
+ 490              	dci_interrupt_flag_get:
+ 491              		@ args = 0, pretend = 0, frame = 0
+ 492              		@ frame_needed = 0, uses_anonymous_args = 0
+ 493              		@ link register save eliminated.
+ 494 0000 034B     		ldr	r3, .L69
+ 495 0002 1B68     		ldr	r3, [r3]
+ 496 0004 0342     		tst	r3, r0
+ 497 0006 01D1     		bne	.L68
+ARM GAS  /tmp/cclrQDkx.s 			page 9
+
+
+ 498 0008 0020     		movs	r0, #0
+ 499 000a 7047     		bx	lr
+ 500              	.L68:
+ 501 000c 0120     		movs	r0, #1
+ 502 000e 7047     		bx	lr
+ 503              	.L70:
+ 504              		.align	2
+ 505              	.L69:
+ 506 0010 10000550 		.word	1342504976
+ 508              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/cclrQDkx.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_dci.c
+     /tmp/cclrQDkx.s:16     .text.dci_deinit:0000000000000000 $t
+     /tmp/cclrQDkx.s:24     .text.dci_deinit:0000000000000000 dci_deinit
+     /tmp/cclrQDkx.s:35     .text.dci_init:0000000000000000 $t
+     /tmp/cclrQDkx.s:42     .text.dci_init:0000000000000000 dci_init
+     /tmp/cclrQDkx.s:67     .text.dci_init:0000000000000028 $d
+     /tmp/cclrQDkx.s:70     .text.dci_enable:0000000000000000 $t
+     /tmp/cclrQDkx.s:77     .text.dci_enable:0000000000000000 dci_enable
+     /tmp/cclrQDkx.s:89     .text.dci_enable:000000000000000c $d
+     /tmp/cclrQDkx.s:92     .text.dci_disable:0000000000000000 $t
+     /tmp/cclrQDkx.s:99     .text.dci_disable:0000000000000000 dci_disable
+     /tmp/cclrQDkx.s:111    .text.dci_disable:000000000000000c $d
+     /tmp/cclrQDkx.s:114    .text.dci_capture_enable:0000000000000000 $t
+     /tmp/cclrQDkx.s:121    .text.dci_capture_enable:0000000000000000 dci_capture_enable
+     /tmp/cclrQDkx.s:133    .text.dci_capture_enable:000000000000000c $d
+     /tmp/cclrQDkx.s:136    .text.dci_capture_disable:0000000000000000 $t
+     /tmp/cclrQDkx.s:143    .text.dci_capture_disable:0000000000000000 dci_capture_disable
+     /tmp/cclrQDkx.s:155    .text.dci_capture_disable:000000000000000c $d
+     /tmp/cclrQDkx.s:158    .text.dci_jpeg_enable:0000000000000000 $t
+     /tmp/cclrQDkx.s:165    .text.dci_jpeg_enable:0000000000000000 dci_jpeg_enable
+     /tmp/cclrQDkx.s:177    .text.dci_jpeg_enable:000000000000000c $d
+     /tmp/cclrQDkx.s:180    .text.dci_jpeg_disable:0000000000000000 $t
+     /tmp/cclrQDkx.s:187    .text.dci_jpeg_disable:0000000000000000 dci_jpeg_disable
+     /tmp/cclrQDkx.s:199    .text.dci_jpeg_disable:000000000000000c $d
+     /tmp/cclrQDkx.s:202    .text.dci_crop_window_enable:0000000000000000 $t
+     /tmp/cclrQDkx.s:209    .text.dci_crop_window_enable:0000000000000000 dci_crop_window_enable
+     /tmp/cclrQDkx.s:221    .text.dci_crop_window_enable:000000000000000c $d
+     /tmp/cclrQDkx.s:224    .text.dci_crop_window_disable:0000000000000000 $t
+     /tmp/cclrQDkx.s:231    .text.dci_crop_window_disable:0000000000000000 dci_crop_window_disable
+     /tmp/cclrQDkx.s:243    .text.dci_crop_window_disable:000000000000000c $d
+     /tmp/cclrQDkx.s:246    .text.dci_crop_window_config:0000000000000000 $t
+     /tmp/cclrQDkx.s:253    .text.dci_crop_window_config:0000000000000000 dci_crop_window_config
+     /tmp/cclrQDkx.s:269    .text.dci_crop_window_config:0000000000000018 $d
+     /tmp/cclrQDkx.s:273    .text.dci_embedded_sync_enable:0000000000000000 $t
+     /tmp/cclrQDkx.s:280    .text.dci_embedded_sync_enable:0000000000000000 dci_embedded_sync_enable
+     /tmp/cclrQDkx.s:292    .text.dci_embedded_sync_enable:000000000000000c $d
+     /tmp/cclrQDkx.s:295    .text.dci_embedded_sync_disable:0000000000000000 $t
+     /tmp/cclrQDkx.s:302    .text.dci_embedded_sync_disable:0000000000000000 dci_embedded_sync_disable
+     /tmp/cclrQDkx.s:314    .text.dci_embedded_sync_disable:000000000000000c $d
+     /tmp/cclrQDkx.s:317    .text.dci_sync_codes_config:0000000000000000 $t
+     /tmp/cclrQDkx.s:324    .text.dci_sync_codes_config:0000000000000000 dci_sync_codes_config
+     /tmp/cclrQDkx.s:337    .text.dci_sync_codes_config:0000000000000014 $d
+     /tmp/cclrQDkx.s:340    .text.dci_sync_codes_unmask_config:0000000000000000 $t
+     /tmp/cclrQDkx.s:347    .text.dci_sync_codes_unmask_config:0000000000000000 dci_sync_codes_unmask_config
+     /tmp/cclrQDkx.s:360    .text.dci_sync_codes_unmask_config:0000000000000014 $d
+     /tmp/cclrQDkx.s:363    .text.dci_data_read:0000000000000000 $t
+     /tmp/cclrQDkx.s:370    .text.dci_data_read:0000000000000000 dci_data_read
+     /tmp/cclrQDkx.s:380    .text.dci_data_read:0000000000000008 $d
+     /tmp/cclrQDkx.s:383    .text.dci_flag_get:0000000000000000 $t
+     /tmp/cclrQDkx.s:390    .text.dci_flag_get:0000000000000000 dci_flag_get
+     /tmp/cclrQDkx.s:413    .text.dci_flag_get:000000000000001c $d
+     /tmp/cclrQDkx.s:417    .text.dci_interrupt_enable:0000000000000000 $t
+     /tmp/cclrQDkx.s:424    .text.dci_interrupt_enable:0000000000000000 dci_interrupt_enable
+     /tmp/cclrQDkx.s:436    .text.dci_interrupt_enable:000000000000000c $d
+     /tmp/cclrQDkx.s:439    .text.dci_interrupt_disable:0000000000000000 $t
+     /tmp/cclrQDkx.s:446    .text.dci_interrupt_disable:0000000000000000 dci_interrupt_disable
+ARM GAS  /tmp/cclrQDkx.s 			page 11
+
+
+     /tmp/cclrQDkx.s:458    .text.dci_interrupt_disable:000000000000000c $d
+     /tmp/cclrQDkx.s:461    .text.dci_interrupt_flag_clear:0000000000000000 $t
+     /tmp/cclrQDkx.s:468    .text.dci_interrupt_flag_clear:0000000000000000 dci_interrupt_flag_clear
+     /tmp/cclrQDkx.s:480    .text.dci_interrupt_flag_clear:000000000000000c $d
+     /tmp/cclrQDkx.s:483    .text.dci_interrupt_flag_get:0000000000000000 $t
+     /tmp/cclrQDkx.s:490    .text.dci_interrupt_flag_get:0000000000000000 dci_interrupt_flag_get
+     /tmp/cclrQDkx.s:506    .text.dci_interrupt_flag_get:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable

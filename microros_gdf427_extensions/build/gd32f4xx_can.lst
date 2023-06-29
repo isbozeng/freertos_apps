@@ -1,0 +1,1328 @@
+ARM GAS  /tmp/ccccIeJm.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_can.c"
+  14              		.text
+  15              		.section	.text.can_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	can_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	can_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 0A4B     		ldr	r3, .L6
+  29 0004 9842     		cmp	r0, r3
+  30 0006 08D0     		beq	.L5
+  31 0008 40F61A00 		movw	r0, #2074
+  32 000c FFF7FEFF 		bl	rcu_periph_reset_enable
+  33 0010 40F61A00 		movw	r0, #2074
+  34 0014 FFF7FEFF 		bl	rcu_periph_reset_disable
+  35              	.L1:
+  36 0018 08BD     		pop	{r3, pc}
+  37              	.L5:
+  38 001a 40F61900 		movw	r0, #2073
+  39 001e FFF7FEFF 		bl	rcu_periph_reset_enable
+  40 0022 40F61900 		movw	r0, #2073
+  41 0026 FFF7FEFF 		bl	rcu_periph_reset_disable
+  42 002a F5E7     		b	.L1
+  43              	.L7:
+  44              		.align	2
+  45              	.L6:
+  46 002c 00640040 		.word	1073767424
+  48              		.section	.text.can_struct_para_init,"ax",%progbits
+  49              		.align	1
+  50              		.global	can_struct_para_init
+  51              		.syntax unified
+  52              		.thumb
+  53              		.thumb_func
+  54              		.fpu fpv4-sp-d16
+  56              	can_struct_para_init:
+  57              		@ args = 0, pretend = 0, frame = 0
+  58              		@ frame_needed = 0, uses_anonymous_args = 0
+  59              		@ link register save eliminated.
+  60 0000 0328     		cmp	r0, #3
+ARM GAS  /tmp/ccccIeJm.s 			page 2
+
+
+  61 0002 40D8     		bhi	.L9
+  62 0004 DFE800F0 		tbb	[pc, r0]
+  63              	.L11:
+  64 0008 02       		.byte	(.L14-.L11)/2
+  65 0009 12       		.byte	(.L13-.L11)/2
+  66 000a 2C       		.byte	(.L18-.L11)/2
+  67 000b 3D       		.byte	(.L19-.L11)/2
+  68              		.p2align 1
+  69              	.L14:
+  70 000c 0023     		movs	r3, #0
+  71 000e 4B71     		strb	r3, [r1, #5]
+  72 0010 CB71     		strb	r3, [r1, #7]
+  73 0012 8B71     		strb	r3, [r1, #6]
+  74 0014 40F2FF32 		movw	r2, #1023
+  75 0018 4A81     		strh	r2, [r1, #10]	@ movhi
+  76 001a 0B72     		strb	r3, [r1, #8]
+  77 001c 4B70     		strb	r3, [r1, #1]
+  78 001e 0222     		movs	r2, #2
+  79 0020 8A70     		strb	r2, [r1, #2]
+  80 0022 CB70     		strb	r3, [r1, #3]
+  81 0024 0B71     		strb	r3, [r1, #4]
+  82 0026 4B72     		strb	r3, [r1, #9]
+  83 0028 0B70     		strb	r3, [r1]
+  84 002a 7047     		bx	lr
+  85              	.L13:
+  86 002c 0123     		movs	r3, #1
+  87 002e CB81     		strh	r3, [r1, #14]	@ movhi
+  88 0030 0023     		movs	r3, #0
+  89 0032 0B74     		strb	r3, [r1, #16]
+  90 0034 0B81     		strh	r3, [r1, #8]	@ movhi
+  91 0036 0B80     		strh	r3, [r1]	@ movhi
+  92 0038 4B80     		strh	r3, [r1, #2]	@ movhi
+  93 003a 8B80     		strh	r3, [r1, #4]	@ movhi
+  94 003c CB80     		strh	r3, [r1, #6]	@ movhi
+  95 003e 8B81     		strh	r3, [r1, #12]	@ movhi
+  96 0040 4B81     		strh	r3, [r1, #10]	@ movhi
+  97 0042 7047     		bx	lr
+  98              	.L16:
+  99 0044 CA18     		adds	r2, r1, r3
+ 100 0046 0020     		movs	r0, #0
+ 101 0048 D072     		strb	r0, [r2, #11]
+ 102 004a 0133     		adds	r3, r3, #1
+ 103 004c DBB2     		uxtb	r3, r3
+ 104              	.L12:
+ 105 004e 072B     		cmp	r3, #7
+ 106 0050 F8D9     		bls	.L16
+ 107 0052 0023     		movs	r3, #0
+ 108 0054 8B72     		strb	r3, [r1, #10]
+ 109 0056 4B60     		str	r3, [r1, #4]
+ 110 0058 0B72     		strb	r3, [r1, #8]
+ 111 005a 4B72     		strb	r3, [r1, #9]
+ 112 005c 0B60     		str	r3, [r1]
+ 113 005e 7047     		bx	lr
+ 114              	.L18:
+ 115 0060 0023     		movs	r3, #0
+ 116 0062 F4E7     		b	.L12
+ 117              	.L17:
+ARM GAS  /tmp/ccccIeJm.s 			page 3
+
+
+ 118 0064 CA18     		adds	r2, r1, r3
+ 119 0066 0020     		movs	r0, #0
+ 120 0068 D072     		strb	r0, [r2, #11]
+ 121 006a 0133     		adds	r3, r3, #1
+ 122 006c DBB2     		uxtb	r3, r3
+ 123              	.L10:
+ 124 006e 072B     		cmp	r3, #7
+ 125 0070 F8D9     		bls	.L17
+ 126 0072 0023     		movs	r3, #0
+ 127 0074 8B72     		strb	r3, [r1, #10]
+ 128 0076 4B60     		str	r3, [r1, #4]
+ 129 0078 0B72     		strb	r3, [r1, #8]
+ 130 007a CB74     		strb	r3, [r1, #19]
+ 131 007c 4B72     		strb	r3, [r1, #9]
+ 132 007e 0B60     		str	r3, [r1]
+ 133 0080 7047     		bx	lr
+ 134              	.L19:
+ 135 0082 0023     		movs	r3, #0
+ 136 0084 F3E7     		b	.L10
+ 137              	.L9:
+ 138 0086 FEE7     		b	.L9
+ 140              		.section	.text.can_init,"ax",%progbits
+ 141              		.align	1
+ 142              		.global	can_init
+ 143              		.syntax unified
+ 144              		.thumb
+ 145              		.thumb_func
+ 146              		.fpu fpv4-sp-d16
+ 148              	can_init:
+ 149              		@ args = 0, pretend = 0, frame = 0
+ 150              		@ frame_needed = 0, uses_anonymous_args = 0
+ 151              		@ link register save eliminated.
+ 152 0000 10B4     		push	{r4}
+ 153 0002 0368     		ldr	r3, [r0]
+ 154 0004 23F00203 		bic	r3, r3, #2
+ 155 0008 0360     		str	r3, [r0]
+ 156 000a 0368     		ldr	r3, [r0]
+ 157 000c 43F00103 		orr	r3, r3, #1
+ 158 0010 0360     		str	r3, [r0]
+ 159 0012 4FF6FF73 		movw	r3, #65535
+ 160              	.L21:
+ 161 0016 041D     		adds	r4, r0, #4
+ 162 0018 4268     		ldr	r2, [r0, #4]
+ 163 001a 12F0010F 		tst	r2, #1
+ 164 001e 02D1     		bne	.L22
+ 165 0020 0BB1     		cbz	r3, .L22
+ 166 0022 013B     		subs	r3, r3, #1
+ 167 0024 F7E7     		b	.L21
+ 168              	.L22:
+ 169 0026 2368     		ldr	r3, [r4]
+ 170 0028 13F0010F 		tst	r3, #1
+ 171 002c 6ED0     		beq	.L40
+ 172 002e 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
+ 173 0030 4B78     		ldrb	r3, [r1, #1]	@ zero_extendqisi2
+ 174 0032 1B06     		lsls	r3, r3, #24
+ 175 0034 03F04073 		and	r3, r3, #50331648
+ 176 0038 43EA8273 		orr	r3, r3, r2, lsl #30
+ARM GAS  /tmp/ccccIeJm.s 			page 4
+
+
+ 177 003c 8A78     		ldrb	r2, [r1, #2]	@ zero_extendqisi2
+ 178 003e 1204     		lsls	r2, r2, #16
+ 179 0040 02F47022 		and	r2, r2, #983040
+ 180 0044 1343     		orrs	r3, r3, r2
+ 181 0046 CA78     		ldrb	r2, [r1, #3]	@ zero_extendqisi2
+ 182 0048 1205     		lsls	r2, r2, #20
+ 183 004a 02F4E002 		and	r2, r2, #7340032
+ 184 004e 1343     		orrs	r3, r3, r2
+ 185 0050 4A89     		ldrh	r2, [r1, #10]
+ 186 0052 013A     		subs	r2, r2, #1
+ 187 0054 C2F30902 		ubfx	r2, r2, #0, #10
+ 188 0058 1343     		orrs	r3, r3, r2
+ 189 005a C361     		str	r3, [r0, #28]
+ 190 005c 0B79     		ldrb	r3, [r1, #4]	@ zero_extendqisi2
+ 191 005e 012B     		cmp	r3, #1
+ 192 0060 33D0     		beq	.L43
+ 193 0062 0368     		ldr	r3, [r0]
+ 194 0064 23F08003 		bic	r3, r3, #128
+ 195 0068 0360     		str	r3, [r0]
+ 196              	.L26:
+ 197 006a 4B79     		ldrb	r3, [r1, #5]	@ zero_extendqisi2
+ 198 006c 012B     		cmp	r3, #1
+ 199 006e 31D0     		beq	.L44
+ 200 0070 0368     		ldr	r3, [r0]
+ 201 0072 23F04003 		bic	r3, r3, #64
+ 202 0076 0360     		str	r3, [r0]
+ 203              	.L28:
+ 204 0078 8B79     		ldrb	r3, [r1, #6]	@ zero_extendqisi2
+ 205 007a 012B     		cmp	r3, #1
+ 206 007c 2FD0     		beq	.L45
+ 207 007e 0368     		ldr	r3, [r0]
+ 208 0080 23F02003 		bic	r3, r3, #32
+ 209 0084 0360     		str	r3, [r0]
+ 210              	.L30:
+ 211 0086 CB79     		ldrb	r3, [r1, #7]	@ zero_extendqisi2
+ 212 0088 012B     		cmp	r3, #1
+ 213 008a 2DD0     		beq	.L46
+ 214 008c 0368     		ldr	r3, [r0]
+ 215 008e 23F01003 		bic	r3, r3, #16
+ 216 0092 0360     		str	r3, [r0]
+ 217              	.L32:
+ 218 0094 0B7A     		ldrb	r3, [r1, #8]	@ zero_extendqisi2
+ 219 0096 012B     		cmp	r3, #1
+ 220 0098 2BD0     		beq	.L47
+ 221 009a 0368     		ldr	r3, [r0]
+ 222 009c 23F00803 		bic	r3, r3, #8
+ 223 00a0 0360     		str	r3, [r0]
+ 224              	.L34:
+ 225 00a2 4B7A     		ldrb	r3, [r1, #9]	@ zero_extendqisi2
+ 226 00a4 012B     		cmp	r3, #1
+ 227 00a6 29D0     		beq	.L48
+ 228 00a8 0368     		ldr	r3, [r0]
+ 229 00aa 23F00403 		bic	r3, r3, #4
+ 230 00ae 0360     		str	r3, [r0]
+ 231              	.L36:
+ 232 00b0 0368     		ldr	r3, [r0]
+ 233 00b2 23F00103 		bic	r3, r3, #1
+ARM GAS  /tmp/ccccIeJm.s 			page 5
+
+
+ 234 00b6 0360     		str	r3, [r0]
+ 235 00b8 4FF6FF73 		movw	r3, #65535
+ 236              	.L37:
+ 237 00bc 2268     		ldr	r2, [r4]
+ 238 00be 12F0010F 		tst	r2, #1
+ 239 00c2 20D0     		beq	.L38
+ 240 00c4 FBB1     		cbz	r3, .L38
+ 241 00c6 013B     		subs	r3, r3, #1
+ 242 00c8 F8E7     		b	.L37
+ 243              	.L43:
+ 244 00ca 0368     		ldr	r3, [r0]
+ 245 00cc 43F08003 		orr	r3, r3, #128
+ 246 00d0 0360     		str	r3, [r0]
+ 247 00d2 CAE7     		b	.L26
+ 248              	.L44:
+ 249 00d4 0368     		ldr	r3, [r0]
+ 250 00d6 43F04003 		orr	r3, r3, #64
+ 251 00da 0360     		str	r3, [r0]
+ 252 00dc CCE7     		b	.L28
+ 253              	.L45:
+ 254 00de 0368     		ldr	r3, [r0]
+ 255 00e0 43F02003 		orr	r3, r3, #32
+ 256 00e4 0360     		str	r3, [r0]
+ 257 00e6 CEE7     		b	.L30
+ 258              	.L46:
+ 259 00e8 0368     		ldr	r3, [r0]
+ 260 00ea 43F01003 		orr	r3, r3, #16
+ 261 00ee 0360     		str	r3, [r0]
+ 262 00f0 D0E7     		b	.L32
+ 263              	.L47:
+ 264 00f2 0368     		ldr	r3, [r0]
+ 265 00f4 43F00803 		orr	r3, r3, #8
+ 266 00f8 0360     		str	r3, [r0]
+ 267 00fa D2E7     		b	.L34
+ 268              	.L48:
+ 269 00fc 0368     		ldr	r3, [r0]
+ 270 00fe 43F00403 		orr	r3, r3, #4
+ 271 0102 0360     		str	r3, [r0]
+ 272 0104 D4E7     		b	.L36
+ 273              	.L38:
+ 274 0106 2BB9     		cbnz	r3, .L41
+ 275 0108 0020     		movs	r0, #0
+ 276 010a 00E0     		b	.L24
+ 277              	.L40:
+ 278 010c 0020     		movs	r0, #0
+ 279              	.L24:
+ 280 010e 5DF8044B 		ldr	r4, [sp], #4
+ 281 0112 7047     		bx	lr
+ 282              	.L41:
+ 283 0114 0120     		movs	r0, #1
+ 284 0116 FAE7     		b	.L24
+ 286              		.section	.text.can_filter_init,"ax",%progbits
+ 287              		.align	1
+ 288              		.global	can_filter_init
+ 289              		.syntax unified
+ 290              		.thumb
+ 291              		.thumb_func
+ARM GAS  /tmp/ccccIeJm.s 			page 6
+
+
+ 292              		.fpu fpv4-sp-d16
+ 294              	can_filter_init:
+ 295              		@ args = 0, pretend = 0, frame = 0
+ 296              		@ frame_needed = 0, uses_anonymous_args = 0
+ 297              		@ link register save eliminated.
+ 298 0000 30B4     		push	{r4, r5}
+ 299 0002 4389     		ldrh	r3, [r0, #10]
+ 300 0004 0122     		movs	r2, #1
+ 301 0006 02FA03F3 		lsl	r3, r2, r3
+ 302 000a 3549     		ldr	r1, .L60
+ 303 000c 0A68     		ldr	r2, [r1]
+ 304 000e 42F00102 		orr	r2, r2, #1
+ 305 0012 0A60     		str	r2, [r1]
+ 306 0014 334C     		ldr	r4, .L60+4
+ 307 0016 2168     		ldr	r1, [r4]
+ 308 0018 DA43     		mvns	r2, r3
+ 309 001a 1140     		ands	r1, r1, r2
+ 310 001c 2160     		str	r1, [r4]
+ 311 001e C189     		ldrh	r1, [r0, #14]
+ 312 0020 C9B9     		cbnz	r1, .L50
+ 313 0022 103C     		subs	r4, r4, #16
+ 314 0024 2168     		ldr	r1, [r4]
+ 315 0026 1140     		ands	r1, r1, r2
+ 316 0028 2160     		str	r1, [r4]
+ 317 002a C588     		ldrh	r5, [r0, #6]
+ 318 002c 4488     		ldrh	r4, [r0, #2]
+ 319 002e 4189     		ldrh	r1, [r0, #10]
+ 320 0030 01F10061 		add	r1, r1, #134217728
+ 321 0034 01F6C841 		addw	r1, r1, #3272
+ 322 0038 C900     		lsls	r1, r1, #3
+ 323 003a 44EA0544 		orr	r4, r4, r5, lsl #16
+ 324 003e 0C60     		str	r4, [r1]
+ 325 0040 8588     		ldrh	r5, [r0, #4]
+ 326 0042 0488     		ldrh	r4, [r0]
+ 327 0044 4189     		ldrh	r1, [r0, #10]
+ 328 0046 01F10061 		add	r1, r1, #134217728
+ 329 004a 01F6C841 		addw	r1, r1, #3272
+ 330 004e C900     		lsls	r1, r1, #3
+ 331 0050 44EA0544 		orr	r4, r4, r5, lsl #16
+ 332 0054 4C60     		str	r4, [r1, #4]
+ 333              	.L50:
+ 334 0056 C189     		ldrh	r1, [r0, #14]
+ 335 0058 0129     		cmp	r1, #1
+ 336 005a 17D0     		beq	.L58
+ 337              	.L51:
+ 338 005c 8189     		ldrh	r1, [r0, #12]
+ 339 005e 0029     		cmp	r1, #0
+ 340 0060 2FD1     		bne	.L52
+ 341 0062 214C     		ldr	r4, .L60+8
+ 342 0064 2168     		ldr	r1, [r4]
+ 343 0066 1140     		ands	r1, r1, r2
+ 344 0068 2160     		str	r1, [r4]
+ 345              	.L53:
+ 346 006a 0189     		ldrh	r1, [r0, #8]
+ 347 006c 0029     		cmp	r1, #0
+ 348 006e 2DD1     		bne	.L54
+ 349 0070 1E49     		ldr	r1, .L60+12
+ARM GAS  /tmp/ccccIeJm.s 			page 7
+
+
+ 350 0072 0C68     		ldr	r4, [r1]
+ 351 0074 2240     		ands	r2, r2, r4
+ 352 0076 0A60     		str	r2, [r1]
+ 353              	.L55:
+ 354 0078 027C     		ldrb	r2, [r0, #16]	@ zero_extendqisi2
+ 355 007a 012A     		cmp	r2, #1
+ 356 007c 2BD0     		beq	.L59
+ 357              	.L56:
+ 358 007e 184A     		ldr	r2, .L60
+ 359 0080 1368     		ldr	r3, [r2]
+ 360 0082 23F00103 		bic	r3, r3, #1
+ 361 0086 1360     		str	r3, [r2]
+ 362 0088 30BC     		pop	{r4, r5}
+ 363 008a 7047     		bx	lr
+ 364              	.L58:
+ 365 008c 184C     		ldr	r4, .L60+16
+ 366 008e 2168     		ldr	r1, [r4]
+ 367 0090 1943     		orrs	r1, r1, r3
+ 368 0092 2160     		str	r1, [r4]
+ 369 0094 0588     		ldrh	r5, [r0]
+ 370 0096 4488     		ldrh	r4, [r0, #2]
+ 371 0098 4189     		ldrh	r1, [r0, #10]
+ 372 009a 01F10061 		add	r1, r1, #134217728
+ 373 009e 01F6C841 		addw	r1, r1, #3272
+ 374 00a2 C900     		lsls	r1, r1, #3
+ 375 00a4 44EA0544 		orr	r4, r4, r5, lsl #16
+ 376 00a8 0C60     		str	r4, [r1]
+ 377 00aa 8588     		ldrh	r5, [r0, #4]
+ 378 00ac C488     		ldrh	r4, [r0, #6]
+ 379 00ae 4189     		ldrh	r1, [r0, #10]
+ 380 00b0 01F10061 		add	r1, r1, #134217728
+ 381 00b4 01F6C841 		addw	r1, r1, #3272
+ 382 00b8 C900     		lsls	r1, r1, #3
+ 383 00ba 44EA0544 		orr	r4, r4, r5, lsl #16
+ 384 00be 4C60     		str	r4, [r1, #4]
+ 385 00c0 CCE7     		b	.L51
+ 386              	.L52:
+ 387 00c2 094C     		ldr	r4, .L60+8
+ 388 00c4 2168     		ldr	r1, [r4]
+ 389 00c6 1943     		orrs	r1, r1, r3
+ 390 00c8 2160     		str	r1, [r4]
+ 391 00ca CEE7     		b	.L53
+ 392              	.L54:
+ 393 00cc 0749     		ldr	r1, .L60+12
+ 394 00ce 0A68     		ldr	r2, [r1]
+ 395 00d0 1A43     		orrs	r2, r2, r3
+ 396 00d2 0A60     		str	r2, [r1]
+ 397 00d4 D0E7     		b	.L55
+ 398              	.L59:
+ 399 00d6 0349     		ldr	r1, .L60+4
+ 400 00d8 0A68     		ldr	r2, [r1]
+ 401 00da 1343     		orrs	r3, r3, r2
+ 402 00dc 0B60     		str	r3, [r1]
+ 403 00de CEE7     		b	.L56
+ 404              	.L61:
+ 405              		.align	2
+ 406              	.L60:
+ARM GAS  /tmp/ccccIeJm.s 			page 8
+
+
+ 407 00e0 00660040 		.word	1073767936
+ 408 00e4 1C660040 		.word	1073767964
+ 409 00e8 04660040 		.word	1073767940
+ 410 00ec 14660040 		.word	1073767956
+ 411 00f0 0C660040 		.word	1073767948
+ 413              		.section	.text.can1_filter_start_bank,"ax",%progbits
+ 414              		.align	1
+ 415              		.global	can1_filter_start_bank
+ 416              		.syntax unified
+ 417              		.thumb
+ 418              		.thumb_func
+ 419              		.fpu fpv4-sp-d16
+ 421              	can1_filter_start_bank:
+ 422              		@ args = 0, pretend = 0, frame = 0
+ 423              		@ frame_needed = 0, uses_anonymous_args = 0
+ 424              		@ link register save eliminated.
+ 425 0000 094B     		ldr	r3, .L63
+ 426 0002 1A68     		ldr	r2, [r3]
+ 427 0004 42F00102 		orr	r2, r2, #1
+ 428 0008 1A60     		str	r2, [r3]
+ 429 000a 1A68     		ldr	r2, [r3]
+ 430 000c 22F47C52 		bic	r2, r2, #16128
+ 431 0010 1A60     		str	r2, [r3]
+ 432 0012 1A68     		ldr	r2, [r3]
+ 433 0014 0002     		lsls	r0, r0, #8
+ 434 0016 00F47C50 		and	r0, r0, #16128
+ 435 001a 0243     		orrs	r2, r2, r0
+ 436 001c 1A60     		str	r2, [r3]
+ 437 001e 1A68     		ldr	r2, [r3]
+ 438 0020 22F00102 		bic	r2, r2, #1
+ 439 0024 1A60     		str	r2, [r3]
+ 440 0026 7047     		bx	lr
+ 441              	.L64:
+ 442              		.align	2
+ 443              	.L63:
+ 444 0028 00660040 		.word	1073767936
+ 446              		.section	.text.can_debug_freeze_enable,"ax",%progbits
+ 447              		.align	1
+ 448              		.global	can_debug_freeze_enable
+ 449              		.syntax unified
+ 450              		.thumb
+ 451              		.thumb_func
+ 452              		.fpu fpv4-sp-d16
+ 454              	can_debug_freeze_enable:
+ 455              		@ args = 0, pretend = 0, frame = 0
+ 456              		@ frame_needed = 0, uses_anonymous_args = 0
+ 457 0000 08B5     		push	{r3, lr}
+ 458 0002 0368     		ldr	r3, [r0]
+ 459 0004 43F48033 		orr	r3, r3, #65536
+ 460 0008 0360     		str	r3, [r0]
+ 461 000a 064B     		ldr	r3, .L70
+ 462 000c 9842     		cmp	r0, r3
+ 463 000e 04D0     		beq	.L69
+ 464 0010 40F21A20 		movw	r0, #538
+ 465 0014 FFF7FEFF 		bl	dbg_periph_enable
+ 466              	.L65:
+ 467 0018 08BD     		pop	{r3, pc}
+ARM GAS  /tmp/ccccIeJm.s 			page 9
+
+
+ 468              	.L69:
+ 469 001a 40F21920 		movw	r0, #537
+ 470 001e FFF7FEFF 		bl	dbg_periph_enable
+ 471 0022 F9E7     		b	.L65
+ 472              	.L71:
+ 473              		.align	2
+ 474              	.L70:
+ 475 0024 00640040 		.word	1073767424
+ 477              		.section	.text.can_debug_freeze_disable,"ax",%progbits
+ 478              		.align	1
+ 479              		.global	can_debug_freeze_disable
+ 480              		.syntax unified
+ 481              		.thumb
+ 482              		.thumb_func
+ 483              		.fpu fpv4-sp-d16
+ 485              	can_debug_freeze_disable:
+ 486              		@ args = 0, pretend = 0, frame = 0
+ 487              		@ frame_needed = 0, uses_anonymous_args = 0
+ 488 0000 08B5     		push	{r3, lr}
+ 489 0002 0368     		ldr	r3, [r0]
+ 490 0004 23F48033 		bic	r3, r3, #65536
+ 491 0008 0360     		str	r3, [r0]
+ 492 000a 064B     		ldr	r3, .L77
+ 493 000c 9842     		cmp	r0, r3
+ 494 000e 04D0     		beq	.L76
+ 495 0010 40F21A20 		movw	r0, #538
+ 496 0014 FFF7FEFF 		bl	dbg_periph_disable
+ 497              	.L72:
+ 498 0018 08BD     		pop	{r3, pc}
+ 499              	.L76:
+ 500 001a 40F21920 		movw	r0, #537
+ 501 001e FFF7FEFF 		bl	dbg_periph_disable
+ 502 0022 F9E7     		b	.L72
+ 503              	.L78:
+ 504              		.align	2
+ 505              	.L77:
+ 506 0024 00640040 		.word	1073767424
+ 508              		.section	.text.can_time_trigger_mode_enable,"ax",%progbits
+ 509              		.align	1
+ 510              		.global	can_time_trigger_mode_enable
+ 511              		.syntax unified
+ 512              		.thumb
+ 513              		.thumb_func
+ 514              		.fpu fpv4-sp-d16
+ 516              	can_time_trigger_mode_enable:
+ 517              		@ args = 0, pretend = 0, frame = 0
+ 518              		@ frame_needed = 0, uses_anonymous_args = 0
+ 519              		@ link register save eliminated.
+ 520 0000 0368     		ldr	r3, [r0]
+ 521 0002 43F08003 		orr	r3, r3, #128
+ 522 0006 0360     		str	r3, [r0]
+ 523 0008 0023     		movs	r3, #0
+ 524              	.L80:
+ 525 000a 022B     		cmp	r3, #2
+ 526 000c 0AD8     		bhi	.L82
+ 527 000e 00EB0311 		add	r1, r0, r3, lsl #4
+ 528 0012 D1F88421 		ldr	r2, [r1, #388]
+ARM GAS  /tmp/ccccIeJm.s 			page 10
+
+
+ 529 0016 42F48072 		orr	r2, r2, #256
+ 530 001a C1F88421 		str	r2, [r1, #388]
+ 531 001e 0133     		adds	r3, r3, #1
+ 532 0020 DBB2     		uxtb	r3, r3
+ 533 0022 F2E7     		b	.L80
+ 534              	.L82:
+ 535 0024 7047     		bx	lr
+ 537              		.section	.text.can_time_trigger_mode_disable,"ax",%progbits
+ 538              		.align	1
+ 539              		.global	can_time_trigger_mode_disable
+ 540              		.syntax unified
+ 541              		.thumb
+ 542              		.thumb_func
+ 543              		.fpu fpv4-sp-d16
+ 545              	can_time_trigger_mode_disable:
+ 546              		@ args = 0, pretend = 0, frame = 0
+ 547              		@ frame_needed = 0, uses_anonymous_args = 0
+ 548              		@ link register save eliminated.
+ 549 0000 0368     		ldr	r3, [r0]
+ 550 0002 23F08003 		bic	r3, r3, #128
+ 551 0006 0360     		str	r3, [r0]
+ 552 0008 0023     		movs	r3, #0
+ 553              	.L84:
+ 554 000a 022B     		cmp	r3, #2
+ 555 000c 0AD8     		bhi	.L86
+ 556 000e 00EB0311 		add	r1, r0, r3, lsl #4
+ 557 0012 D1F88421 		ldr	r2, [r1, #388]
+ 558 0016 22F48072 		bic	r2, r2, #256
+ 559 001a C1F88421 		str	r2, [r1, #388]
+ 560 001e 0133     		adds	r3, r3, #1
+ 561 0020 DBB2     		uxtb	r3, r3
+ 562 0022 F2E7     		b	.L84
+ 563              	.L86:
+ 564 0024 7047     		bx	lr
+ 566              		.section	.text.can_message_transmit,"ax",%progbits
+ 567              		.align	1
+ 568              		.global	can_message_transmit
+ 569              		.syntax unified
+ 570              		.thumb
+ 571              		.thumb_func
+ 572              		.fpu fpv4-sp-d16
+ 574              	can_message_transmit:
+ 575              		@ args = 0, pretend = 0, frame = 0
+ 576              		@ frame_needed = 0, uses_anonymous_args = 0
+ 577              		@ link register save eliminated.
+ 578 0000 30B4     		push	{r4, r5}
+ 579 0002 8368     		ldr	r3, [r0, #8]
+ 580 0004 13F0806F 		tst	r3, #67108864
+ 581 0008 09D1     		bne	.L92
+ 582 000a 8368     		ldr	r3, [r0, #8]
+ 583 000c 13F0006F 		tst	r3, #134217728
+ 584 0010 47D1     		bne	.L93
+ 585 0012 8368     		ldr	r3, [r0, #8]
+ 586 0014 13F0805F 		tst	r3, #268435456
+ 587 0018 50D0     		beq	.L94
+ 588 001a 0224     		movs	r4, #2
+ 589 001c 00E0     		b	.L88
+ARM GAS  /tmp/ccccIeJm.s 			page 11
+
+
+ 590              	.L92:
+ 591 001e 0024     		movs	r4, #0
+ 592              	.L88:
+ 593 0020 00EB0413 		add	r3, r0, r4, lsl #4
+ 594 0024 D3F88021 		ldr	r2, [r3, #384]
+ 595 0028 02F00102 		and	r2, r2, #1
+ 596 002c C3F88021 		str	r2, [r3, #384]
+ 597 0030 0A7A     		ldrb	r2, [r1, #8]	@ zero_extendqisi2
+ 598 0032 002A     		cmp	r2, #0
+ 599 0034 37D1     		bne	.L90
+ 600 0036 D3F88021 		ldr	r2, [r3, #384]
+ 601 003a 0D68     		ldr	r5, [r1]
+ 602 003c 487A     		ldrb	r0, [r1, #9]	@ zero_extendqisi2
+ 603 003e 40EA4550 		orr	r0, r0, r5, lsl #21
+ 604 0042 0243     		orrs	r2, r2, r0
+ 605 0044 C3F88021 		str	r2, [r3, #384]
+ 606              	.L91:
+ 607 0048 D3F88421 		ldr	r2, [r3, #388]
+ 608 004c 22F00F02 		bic	r2, r2, #15
+ 609 0050 C3F88421 		str	r2, [r3, #388]
+ 610 0054 D3F88421 		ldr	r2, [r3, #388]
+ 611 0058 887A     		ldrb	r0, [r1, #10]	@ zero_extendqisi2
+ 612 005a 0243     		orrs	r2, r2, r0
+ 613 005c C3F88421 		str	r2, [r3, #388]
+ 614 0060 887B     		ldrb	r0, [r1, #14]	@ zero_extendqisi2
+ 615 0062 4A7B     		ldrb	r2, [r1, #13]	@ zero_extendqisi2
+ 616 0064 1204     		lsls	r2, r2, #16
+ 617 0066 42EA0062 		orr	r2, r2, r0, lsl #24
+ 618 006a 087B     		ldrb	r0, [r1, #12]	@ zero_extendqisi2
+ 619 006c 42EA0022 		orr	r2, r2, r0, lsl #8
+ 620 0070 C87A     		ldrb	r0, [r1, #11]	@ zero_extendqisi2
+ 621 0072 0243     		orrs	r2, r2, r0
+ 622 0074 C3F88821 		str	r2, [r3, #392]
+ 623 0078 887C     		ldrb	r0, [r1, #18]	@ zero_extendqisi2
+ 624 007a 4A7C     		ldrb	r2, [r1, #17]	@ zero_extendqisi2
+ 625 007c 1204     		lsls	r2, r2, #16
+ 626 007e 42EA0062 		orr	r2, r2, r0, lsl #24
+ 627 0082 087C     		ldrb	r0, [r1, #16]	@ zero_extendqisi2
+ 628 0084 42EA0022 		orr	r2, r2, r0, lsl #8
+ 629 0088 C97B     		ldrb	r1, [r1, #15]	@ zero_extendqisi2
+ 630 008a 0A43     		orrs	r2, r2, r1
+ 631 008c C3F88C21 		str	r2, [r3, #396]
+ 632 0090 D3F88021 		ldr	r2, [r3, #384]
+ 633 0094 42F00102 		orr	r2, r2, #1
+ 634 0098 C3F88021 		str	r2, [r3, #384]
+ 635              	.L89:
+ 636 009c 2046     		mov	r0, r4
+ 637 009e 30BC     		pop	{r4, r5}
+ 638 00a0 7047     		bx	lr
+ 639              	.L93:
+ 640 00a2 0124     		movs	r4, #1
+ 641 00a4 BCE7     		b	.L88
+ 642              	.L90:
+ 643 00a6 D3F88001 		ldr	r0, [r3, #384]
+ 644 00aa 4D68     		ldr	r5, [r1, #4]
+ 645 00ac 42EAC502 		orr	r2, r2, r5, lsl #3
+ 646 00b0 4D7A     		ldrb	r5, [r1, #9]	@ zero_extendqisi2
+ARM GAS  /tmp/ccccIeJm.s 			page 12
+
+
+ 647 00b2 2A43     		orrs	r2, r2, r5
+ 648 00b4 0243     		orrs	r2, r2, r0
+ 649 00b6 C3F88021 		str	r2, [r3, #384]
+ 650 00ba C5E7     		b	.L91
+ 651              	.L94:
+ 652 00bc 0324     		movs	r4, #3
+ 653 00be EDE7     		b	.L89
+ 655              		.section	.text.can_transmit_states,"ax",%progbits
+ 656              		.align	1
+ 657              		.global	can_transmit_states
+ 658              		.syntax unified
+ 659              		.thumb
+ 660              		.thumb_func
+ 661              		.fpu fpv4-sp-d16
+ 663              	can_transmit_states:
+ 664              		@ args = 0, pretend = 0, frame = 0
+ 665              		@ frame_needed = 0, uses_anonymous_args = 0
+ 666              		@ link register save eliminated.
+ 667 0000 0129     		cmp	r1, #1
+ 668 0002 1AD0     		beq	.L97
+ 669 0004 4BB2     		sxtb	r3, r1
+ 670 0006 1BB1     		cbz	r3, .L98
+ 671 0008 0229     		cmp	r1, #2
+ 672 000a 1AD0     		beq	.L99
+ 673 000c 0220     		movs	r0, #2
+ 674 000e 7047     		bx	lr
+ 675              	.L98:
+ 676 0010 8368     		ldr	r3, [r0, #8]
+ 677 0012 23F07B43 		bic	r3, r3, #-83886080
+ 678 0016 23F47F03 		bic	r3, r3, #16711680
+ 679 001a 23F47F43 		bic	r3, r3, #65280
+ 680 001e 23F0FC03 		bic	r3, r3, #252
+ 681              	.L101:
+ 682 0022 114A     		ldr	r2, .L110
+ 683 0024 9342     		cmp	r3, r2
+ 684 0026 1BD0     		beq	.L103
+ 685 0028 13D9     		bls	.L107
+ 686 002a 104A     		ldr	r2, .L110+4
+ 687 002c 9342     		cmp	r3, r2
+ 688 002e 19D0     		beq	.L105
+ 689 0030 0F4A     		ldr	r2, .L110+8
+ 690 0032 9342     		cmp	r3, r2
+ 691 0034 12D1     		bne	.L108
+ 692 0036 0120     		movs	r0, #1
+ 693 0038 7047     		bx	lr
+ 694              	.L97:
+ 695 003a 8268     		ldr	r2, [r0, #8]
+ 696 003c 0B4B     		ldr	r3, .L110+4
+ 697 003e 1340     		ands	r3, r3, r2
+ 698 0040 EFE7     		b	.L101
+ 699              	.L99:
+ 700 0042 8368     		ldr	r3, [r0, #8]
+ 701 0044 23F06F43 		bic	r3, r3, #-285212672
+ 702 0048 23F47C03 		bic	r3, r3, #16515072
+ 703 004c 1B0C     		lsrs	r3, r3, #16
+ 704 004e 1B04     		lsls	r3, r3, #16
+ 705 0050 E7E7     		b	.L101
+ARM GAS  /tmp/ccccIeJm.s 			page 13
+
+
+ 706              	.L107:
+ 707 0052 0BB9     		cbnz	r3, .L109
+ 708 0054 0220     		movs	r0, #2
+ 709 0056 7047     		bx	lr
+ 710              	.L109:
+ 711 0058 0020     		movs	r0, #0
+ 712 005a 7047     		bx	lr
+ 713              	.L108:
+ 714 005c 0020     		movs	r0, #0
+ 715 005e 7047     		bx	lr
+ 716              	.L103:
+ 717 0060 0120     		movs	r0, #1
+ 718 0062 7047     		bx	lr
+ 719              	.L105:
+ 720 0064 0120     		movs	r0, #1
+ 721 0066 7047     		bx	lr
+ 722              	.L111:
+ 723              		.align	2
+ 724              	.L110:
+ 725 0068 03000004 		.word	67108867
+ 726 006c 00030008 		.word	134218496
+ 727 0070 00000310 		.word	268632064
+ 729              		.section	.text.can_transmission_stop,"ax",%progbits
+ 730              		.align	1
+ 731              		.global	can_transmission_stop
+ 732              		.syntax unified
+ 733              		.thumb
+ 734              		.thumb_func
+ 735              		.fpu fpv4-sp-d16
+ 737              	can_transmission_stop:
+ 738              		@ args = 0, pretend = 0, frame = 0
+ 739              		@ frame_needed = 0, uses_anonymous_args = 0
+ 740              		@ link register save eliminated.
+ 741 0000 51B9     		cbnz	r1, .L113
+ 742 0002 00F10802 		add	r2, r0, #8
+ 743 0006 8368     		ldr	r3, [r0, #8]
+ 744 0008 43F08003 		orr	r3, r3, #128
+ 745 000c 8360     		str	r3, [r0, #8]
+ 746              	.L114:
+ 747 000e 1368     		ldr	r3, [r2]
+ 748 0010 13F0800F 		tst	r3, #128
+ 749 0014 FBD1     		bne	.L114
+ 750 0016 7047     		bx	lr
+ 751              	.L113:
+ 752 0018 0129     		cmp	r1, #1
+ 753 001a 02D0     		beq	.L119
+ 754 001c 0229     		cmp	r1, #2
+ 755 001e 0BD0     		beq	.L120
+ 756              	.L112:
+ 757 0020 7047     		bx	lr
+ 758              	.L119:
+ 759 0022 00F10802 		add	r2, r0, #8
+ 760 0026 8368     		ldr	r3, [r0, #8]
+ 761 0028 43F40043 		orr	r3, r3, #32768
+ 762 002c 8360     		str	r3, [r0, #8]
+ 763              	.L117:
+ 764 002e 1368     		ldr	r3, [r2]
+ARM GAS  /tmp/ccccIeJm.s 			page 14
+
+
+ 765 0030 13F4004F 		tst	r3, #32768
+ 766 0034 FBD1     		bne	.L117
+ 767 0036 7047     		bx	lr
+ 768              	.L120:
+ 769 0038 00F10802 		add	r2, r0, #8
+ 770 003c 8368     		ldr	r3, [r0, #8]
+ 771 003e 43F40003 		orr	r3, r3, #8388608
+ 772 0042 8360     		str	r3, [r0, #8]
+ 773              	.L118:
+ 774 0044 1368     		ldr	r3, [r2]
+ 775 0046 13F4000F 		tst	r3, #8388608
+ 776 004a FBD1     		bne	.L118
+ 777 004c E8E7     		b	.L112
+ 779              		.section	.text.can_message_receive,"ax",%progbits
+ 780              		.align	1
+ 781              		.global	can_message_receive
+ 782              		.syntax unified
+ 783              		.thumb
+ 784              		.thumb_func
+ 785              		.fpu fpv4-sp-d16
+ 787              	can_message_receive:
+ 788              		@ args = 0, pretend = 0, frame = 0
+ 789              		@ frame_needed = 0, uses_anonymous_args = 0
+ 790              		@ link register save eliminated.
+ 791 0000 10B4     		push	{r4}
+ 792 0002 00EB0113 		add	r3, r0, r1, lsl #4
+ 793 0006 D3F8B041 		ldr	r4, [r3, #432]
+ 794 000a 04F00404 		and	r4, r4, #4
+ 795 000e 1472     		strb	r4, [r2, #8]
+ 796 0010 002C     		cmp	r4, #0
+ 797 0012 3CD1     		bne	.L122
+ 798 0014 D3F8B041 		ldr	r4, [r3, #432]
+ 799 0018 640D     		lsrs	r4, r4, #21
+ 800 001a 1460     		str	r4, [r2]
+ 801              	.L123:
+ 802 001c D3F8B041 		ldr	r4, [r3, #432]
+ 803 0020 04F00204 		and	r4, r4, #2
+ 804 0024 5472     		strb	r4, [r2, #9]
+ 805 0026 D3F8B441 		ldr	r4, [r3, #436]
+ 806 002a C4F30724 		ubfx	r4, r4, #8, #8
+ 807 002e D474     		strb	r4, [r2, #19]
+ 808 0030 D3F8B441 		ldr	r4, [r3, #436]
+ 809 0034 04F00F04 		and	r4, r4, #15
+ 810 0038 9472     		strb	r4, [r2, #10]
+ 811 003a D3F8B841 		ldr	r4, [r3, #440]
+ 812 003e D472     		strb	r4, [r2, #11]
+ 813 0040 D3F8B841 		ldr	r4, [r3, #440]
+ 814 0044 C4F30724 		ubfx	r4, r4, #8, #8
+ 815 0048 1473     		strb	r4, [r2, #12]
+ 816 004a D3F8B841 		ldr	r4, [r3, #440]
+ 817 004e C4F30744 		ubfx	r4, r4, #16, #8
+ 818 0052 5473     		strb	r4, [r2, #13]
+ 819 0054 D3F8B841 		ldr	r4, [r3, #440]
+ 820 0058 240E     		lsrs	r4, r4, #24
+ 821 005a 9473     		strb	r4, [r2, #14]
+ 822 005c D3F8BC41 		ldr	r4, [r3, #444]
+ 823 0060 D473     		strb	r4, [r2, #15]
+ARM GAS  /tmp/ccccIeJm.s 			page 15
+
+
+ 824 0062 D3F8BC41 		ldr	r4, [r3, #444]
+ 825 0066 C4F30724 		ubfx	r4, r4, #8, #8
+ 826 006a 1474     		strb	r4, [r2, #16]
+ 827 006c D3F8BC41 		ldr	r4, [r3, #444]
+ 828 0070 C4F30744 		ubfx	r4, r4, #16, #8
+ 829 0074 5474     		strb	r4, [r2, #17]
+ 830 0076 D3F8BC31 		ldr	r3, [r3, #444]
+ 831 007a 1B0E     		lsrs	r3, r3, #24
+ 832 007c 9374     		strb	r3, [r2, #18]
+ 833 007e 59B9     		cbnz	r1, .L124
+ 834 0080 C368     		ldr	r3, [r0, #12]
+ 835 0082 43F02003 		orr	r3, r3, #32
+ 836 0086 C360     		str	r3, [r0, #12]
+ 837              	.L121:
+ 838 0088 5DF8044B 		ldr	r4, [sp], #4
+ 839 008c 7047     		bx	lr
+ 840              	.L122:
+ 841 008e D3F8B041 		ldr	r4, [r3, #432]
+ 842 0092 E408     		lsrs	r4, r4, #3
+ 843 0094 5460     		str	r4, [r2, #4]
+ 844 0096 C1E7     		b	.L123
+ 845              	.L124:
+ 846 0098 0369     		ldr	r3, [r0, #16]
+ 847 009a 43F02003 		orr	r3, r3, #32
+ 848 009e 0361     		str	r3, [r0, #16]
+ 849 00a0 F2E7     		b	.L121
+ 851              		.section	.text.can_fifo_release,"ax",%progbits
+ 852              		.align	1
+ 853              		.global	can_fifo_release
+ 854              		.syntax unified
+ 855              		.thumb
+ 856              		.thumb_func
+ 857              		.fpu fpv4-sp-d16
+ 859              	can_fifo_release:
+ 860              		@ args = 0, pretend = 0, frame = 0
+ 861              		@ frame_needed = 0, uses_anonymous_args = 0
+ 862              		@ link register save eliminated.
+ 863 0000 21B9     		cbnz	r1, .L128
+ 864 0002 C368     		ldr	r3, [r0, #12]
+ 865 0004 43F02003 		orr	r3, r3, #32
+ 866 0008 C360     		str	r3, [r0, #12]
+ 867 000a 7047     		bx	lr
+ 868              	.L128:
+ 869 000c 0129     		cmp	r1, #1
+ 870 000e 00D0     		beq	.L131
+ 871              	.L130:
+ 872 0010 FEE7     		b	.L130
+ 873              	.L131:
+ 874 0012 0369     		ldr	r3, [r0, #16]
+ 875 0014 43F02003 		orr	r3, r3, #32
+ 876 0018 0361     		str	r3, [r0, #16]
+ 877 001a 7047     		bx	lr
+ 879              		.section	.text.can_receive_message_length_get,"ax",%progbits
+ 880              		.align	1
+ 881              		.global	can_receive_message_length_get
+ 882              		.syntax unified
+ 883              		.thumb
+ARM GAS  /tmp/ccccIeJm.s 			page 16
+
+
+ 884              		.thumb_func
+ 885              		.fpu fpv4-sp-d16
+ 887              	can_receive_message_length_get:
+ 888              		@ args = 0, pretend = 0, frame = 0
+ 889              		@ frame_needed = 0, uses_anonymous_args = 0
+ 890              		@ link register save eliminated.
+ 891 0000 19B9     		cbnz	r1, .L133
+ 892 0002 C068     		ldr	r0, [r0, #12]
+ 893 0004 00F00300 		and	r0, r0, #3
+ 894 0008 7047     		bx	lr
+ 895              	.L133:
+ 896 000a 0129     		cmp	r1, #1
+ 897 000c 01D0     		beq	.L136
+ 898 000e 0020     		movs	r0, #0
+ 899 0010 7047     		bx	lr
+ 900              	.L136:
+ 901 0012 0069     		ldr	r0, [r0, #16]
+ 902 0014 00F00300 		and	r0, r0, #3
+ 903 0018 7047     		bx	lr
+ 905              		.section	.text.can_working_mode_set,"ax",%progbits
+ 906              		.align	1
+ 907              		.global	can_working_mode_set
+ 908              		.syntax unified
+ 909              		.thumb
+ 910              		.thumb_func
+ 911              		.fpu fpv4-sp-d16
+ 913              	can_working_mode_set:
+ 914              		@ args = 0, pretend = 0, frame = 0
+ 915              		@ frame_needed = 0, uses_anonymous_args = 0
+ 916              		@ link register save eliminated.
+ 917 0000 0129     		cmp	r1, #1
+ 918 0002 05D0     		beq	.L158
+ 919 0004 0229     		cmp	r1, #2
+ 920 0006 1ED0     		beq	.L159
+ 921 0008 0429     		cmp	r1, #4
+ 922 000a 30D0     		beq	.L160
+ 923 000c 0020     		movs	r0, #0
+ 924 000e 7047     		bx	lr
+ 925              	.L158:
+ 926 0010 10B4     		push	{r4}
+ 927 0012 0368     		ldr	r3, [r0]
+ 928 0014 23F00203 		bic	r3, r3, #2
+ 929 0018 0360     		str	r3, [r0]
+ 930 001a 0368     		ldr	r3, [r0]
+ 931 001c 43F00103 		orr	r3, r3, #1
+ 932 0020 0360     		str	r3, [r0]
+ 933 0022 4FF6FF73 		movw	r3, #65535
+ 934              	.L139:
+ 935 0026 041D     		adds	r4, r0, #4
+ 936 0028 4268     		ldr	r2, [r0, #4]
+ 937 002a 12F0010F 		tst	r2, #1
+ 938 002e 02D1     		bne	.L140
+ 939 0030 0BB1     		cbz	r3, .L140
+ 940 0032 013B     		subs	r3, r3, #1
+ 941 0034 F7E7     		b	.L139
+ 942              	.L140:
+ 943 0036 2368     		ldr	r3, [r4]
+ARM GAS  /tmp/ccccIeJm.s 			page 17
+
+
+ 944 0038 13F0010F 		tst	r3, #1
+ 945 003c 2FD1     		bne	.L150
+ 946 003e 0020     		movs	r0, #0
+ 947              	.L142:
+ 948 0040 5DF8044B 		ldr	r4, [sp], #4
+ 949 0044 7047     		bx	lr
+ 950              	.L159:
+ 951 0046 0368     		ldr	r3, [r0]
+ 952 0048 23F00303 		bic	r3, r3, #3
+ 953 004c 0360     		str	r3, [r0]
+ 954 004e 4FF6FF73 		movw	r3, #65535
+ 955              	.L144:
+ 956 0052 011D     		adds	r1, r0, #4
+ 957 0054 4268     		ldr	r2, [r0, #4]
+ 958 0056 12F0030F 		tst	r2, #3
+ 959 005a 02D0     		beq	.L145
+ 960 005c 0BB1     		cbz	r3, .L145
+ 961 005e 013B     		subs	r3, r3, #1
+ 962 0060 F7E7     		b	.L144
+ 963              	.L145:
+ 964 0062 0B68     		ldr	r3, [r1]
+ 965 0064 13F0030F 		tst	r3, #3
+ 966 0068 1BD0     		beq	.L151
+ 967 006a 0020     		movs	r0, #0
+ 968 006c 7047     		bx	lr
+ 969              	.L160:
+ 970 006e 0368     		ldr	r3, [r0]
+ 971 0070 23F00103 		bic	r3, r3, #1
+ 972 0074 0360     		str	r3, [r0]
+ 973 0076 0368     		ldr	r3, [r0]
+ 974 0078 43F00203 		orr	r3, r3, #2
+ 975 007c 0360     		str	r3, [r0]
+ 976 007e 4FF6FF73 		movw	r3, #65535
+ 977              	.L147:
+ 978 0082 011D     		adds	r1, r0, #4
+ 979 0084 4268     		ldr	r2, [r0, #4]
+ 980 0086 12F0020F 		tst	r2, #2
+ 981 008a 02D1     		bne	.L148
+ 982 008c 0BB1     		cbz	r3, .L148
+ 983 008e 013B     		subs	r3, r3, #1
+ 984 0090 F7E7     		b	.L147
+ 985              	.L148:
+ 986 0092 0B68     		ldr	r3, [r1]
+ 987 0094 13F0020F 		tst	r3, #2
+ 988 0098 05D1     		bne	.L153
+ 989 009a 0020     		movs	r0, #0
+ 990 009c 7047     		bx	lr
+ 991              	.L150:
+ 992 009e 0846     		mov	r0, r1
+ 993 00a0 CEE7     		b	.L142
+ 994              	.L151:
+ 995 00a2 0120     		movs	r0, #1
+ 996 00a4 7047     		bx	lr
+ 997              	.L153:
+ 998 00a6 0120     		movs	r0, #1
+ 999 00a8 7047     		bx	lr
+ 1001              		.section	.text.can_wakeup,"ax",%progbits
+ARM GAS  /tmp/ccccIeJm.s 			page 18
+
+
+ 1002              		.align	1
+ 1003              		.global	can_wakeup
+ 1004              		.syntax unified
+ 1005              		.thumb
+ 1006              		.thumb_func
+ 1007              		.fpu fpv4-sp-d16
+ 1009              	can_wakeup:
+ 1010              		@ args = 0, pretend = 0, frame = 0
+ 1011              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1012              		@ link register save eliminated.
+ 1013 0000 0368     		ldr	r3, [r0]
+ 1014 0002 23F00203 		bic	r3, r3, #2
+ 1015 0006 0360     		str	r3, [r0]
+ 1016 0008 4FF6FF73 		movw	r3, #65535
+ 1017              	.L162:
+ 1018 000c 011D     		adds	r1, r0, #4
+ 1019 000e 4268     		ldr	r2, [r0, #4]
+ 1020 0010 12F0020F 		tst	r2, #2
+ 1021 0014 02D0     		beq	.L163
+ 1022 0016 0BB1     		cbz	r3, .L163
+ 1023 0018 013B     		subs	r3, r3, #1
+ 1024 001a F7E7     		b	.L162
+ 1025              	.L163:
+ 1026 001c 0B68     		ldr	r3, [r1]
+ 1027 001e 13F0020F 		tst	r3, #2
+ 1028 0022 01D0     		beq	.L166
+ 1029 0024 0020     		movs	r0, #0
+ 1030 0026 7047     		bx	lr
+ 1031              	.L166:
+ 1032 0028 0120     		movs	r0, #1
+ 1033 002a 7047     		bx	lr
+ 1035              		.section	.text.can_error_get,"ax",%progbits
+ 1036              		.align	1
+ 1037              		.global	can_error_get
+ 1038              		.syntax unified
+ 1039              		.thumb
+ 1040              		.thumb_func
+ 1041              		.fpu fpv4-sp-d16
+ 1043              	can_error_get:
+ 1044              		@ args = 0, pretend = 0, frame = 0
+ 1045              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1046              		@ link register save eliminated.
+ 1047 0000 8069     		ldr	r0, [r0, #24]
+ 1048 0002 C0F30210 		ubfx	r0, r0, #4, #3
+ 1049 0006 7047     		bx	lr
+ 1051              		.section	.text.can_receive_error_number_get,"ax",%progbits
+ 1052              		.align	1
+ 1053              		.global	can_receive_error_number_get
+ 1054              		.syntax unified
+ 1055              		.thumb
+ 1056              		.thumb_func
+ 1057              		.fpu fpv4-sp-d16
+ 1059              	can_receive_error_number_get:
+ 1060              		@ args = 0, pretend = 0, frame = 0
+ 1061              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1062              		@ link register save eliminated.
+ 1063 0000 8069     		ldr	r0, [r0, #24]
+ARM GAS  /tmp/ccccIeJm.s 			page 19
+
+
+ 1064 0002 000E     		lsrs	r0, r0, #24
+ 1065 0004 7047     		bx	lr
+ 1067              		.section	.text.can_transmit_error_number_get,"ax",%progbits
+ 1068              		.align	1
+ 1069              		.global	can_transmit_error_number_get
+ 1070              		.syntax unified
+ 1071              		.thumb
+ 1072              		.thumb_func
+ 1073              		.fpu fpv4-sp-d16
+ 1075              	can_transmit_error_number_get:
+ 1076              		@ args = 0, pretend = 0, frame = 0
+ 1077              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1078              		@ link register save eliminated.
+ 1079 0000 8069     		ldr	r0, [r0, #24]
+ 1080 0002 C0F30740 		ubfx	r0, r0, #16, #8
+ 1081 0006 7047     		bx	lr
+ 1083              		.section	.text.can_interrupt_enable,"ax",%progbits
+ 1084              		.align	1
+ 1085              		.global	can_interrupt_enable
+ 1086              		.syntax unified
+ 1087              		.thumb
+ 1088              		.thumb_func
+ 1089              		.fpu fpv4-sp-d16
+ 1091              	can_interrupt_enable:
+ 1092              		@ args = 0, pretend = 0, frame = 0
+ 1093              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1094              		@ link register save eliminated.
+ 1095 0000 4369     		ldr	r3, [r0, #20]
+ 1096 0002 1943     		orrs	r1, r1, r3
+ 1097 0004 4161     		str	r1, [r0, #20]
+ 1098 0006 7047     		bx	lr
+ 1100              		.section	.text.can_interrupt_disable,"ax",%progbits
+ 1101              		.align	1
+ 1102              		.global	can_interrupt_disable
+ 1103              		.syntax unified
+ 1104              		.thumb
+ 1105              		.thumb_func
+ 1106              		.fpu fpv4-sp-d16
+ 1108              	can_interrupt_disable:
+ 1109              		@ args = 0, pretend = 0, frame = 0
+ 1110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1111              		@ link register save eliminated.
+ 1112 0000 4369     		ldr	r3, [r0, #20]
+ 1113 0002 23EA0101 		bic	r1, r3, r1
+ 1114 0006 4161     		str	r1, [r0, #20]
+ 1115 0008 7047     		bx	lr
+ 1117              		.section	.text.can_flag_get,"ax",%progbits
+ 1118              		.align	1
+ 1119              		.global	can_flag_get
+ 1120              		.syntax unified
+ 1121              		.thumb
+ 1122              		.thumb_func
+ 1123              		.fpu fpv4-sp-d16
+ 1125              	can_flag_get:
+ 1126              		@ args = 0, pretend = 0, frame = 0
+ 1127              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1128              		@ link register save eliminated.
+ARM GAS  /tmp/ccccIeJm.s 			page 20
+
+
+ 1129 0000 8B09     		lsrs	r3, r1, #6
+ 1130 0002 1B58     		ldr	r3, [r3, r0]
+ 1131 0004 01F01F01 		and	r1, r1, #31
+ 1132 0008 23FA01F1 		lsr	r1, r3, r1
+ 1133 000c 11F0010F 		tst	r1, #1
+ 1134 0010 01D0     		beq	.L174
+ 1135 0012 0120     		movs	r0, #1
+ 1136 0014 7047     		bx	lr
+ 1137              	.L174:
+ 1138 0016 0020     		movs	r0, #0
+ 1139 0018 7047     		bx	lr
+ 1141              		.section	.text.can_flag_clear,"ax",%progbits
+ 1142              		.align	1
+ 1143              		.global	can_flag_clear
+ 1144              		.syntax unified
+ 1145              		.thumb
+ 1146              		.thumb_func
+ 1147              		.fpu fpv4-sp-d16
+ 1149              	can_flag_clear:
+ 1150              		@ args = 0, pretend = 0, frame = 0
+ 1151              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1152              		@ link register save eliminated.
+ 1153 0000 01F01F02 		and	r2, r1, #31
+ 1154 0004 8909     		lsrs	r1, r1, #6
+ 1155 0006 0123     		movs	r3, #1
+ 1156 0008 9340     		lsls	r3, r3, r2
+ 1157 000a 0B50     		str	r3, [r1, r0]
+ 1158 000c 7047     		bx	lr
+ 1160              		.section	.text.can_interrupt_flag_get,"ax",%progbits
+ 1161              		.align	1
+ 1162              		.global	can_interrupt_flag_get
+ 1163              		.syntax unified
+ 1164              		.thumb
+ 1165              		.thumb_func
+ 1166              		.fpu fpv4-sp-d16
+ 1168              	can_interrupt_flag_get:
+ 1169              		@ args = 0, pretend = 0, frame = 0
+ 1170              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1171 0000 38B5     		push	{r3, r4, r5, lr}
+ 1172 0002 0546     		mov	r5, r0
+ 1173 0004 0C46     		mov	r4, r1
+ 1174 0006 4CF2C203 		movw	r3, #49346
+ 1175 000a 9942     		cmp	r1, r3
+ 1176 000c 17D0     		beq	.L185
+ 1177 000e 134B     		ldr	r3, .L188
+ 1178 0010 9942     		cmp	r1, r3
+ 1179 0012 18D0     		beq	.L186
+ 1180 0014 124B     		ldr	r3, .L188+4
+ 1181 0016 9942     		cmp	r1, r3
+ 1182 0018 19D0     		beq	.L187
+ 1183 001a 0B0B     		lsrs	r3, r1, #12
+ 1184 001c 1858     		ldr	r0, [r3, r0]
+ 1185 001e C1F38412 		ubfx	r2, r1, #6, #5
+ 1186 0022 0123     		movs	r3, #1
+ 1187 0024 9340     		lsls	r3, r3, r2
+ 1188 0026 1840     		ands	r0, r0, r3
+ 1189              	.L178:
+ARM GAS  /tmp/ccccIeJm.s 			page 21
+
+
+ 1190 0028 6A69     		ldr	r2, [r5, #20]
+ 1191 002a 04F01F04 		and	r4, r4, #31
+ 1192 002e 0123     		movs	r3, #1
+ 1193 0030 03FA04F4 		lsl	r4, r3, r4
+ 1194 0034 1440     		ands	r4, r4, r2
+ 1195 0036 68B1     		cbz	r0, .L182
+ 1196 0038 74B9     		cbnz	r4, .L183
+ 1197 003a 0020     		movs	r0, #0
+ 1198 003c 0BE0     		b	.L181
+ 1199              	.L185:
+ 1200 003e 0021     		movs	r1, #0
+ 1201 0040 FFF7FEFF 		bl	can_receive_message_length_get
+ 1202 0044 F0E7     		b	.L178
+ 1203              	.L186:
+ 1204 0046 0121     		movs	r1, #1
+ 1205 0048 FFF7FEFF 		bl	can_receive_message_length_get
+ 1206 004c ECE7     		b	.L178
+ 1207              	.L187:
+ 1208 004e FFF7FEFF 		bl	can_error_get
+ 1209 0052 E9E7     		b	.L178
+ 1210              	.L182:
+ 1211 0054 0020     		movs	r0, #0
+ 1212              	.L181:
+ 1213 0056 38BD     		pop	{r3, r4, r5, pc}
+ 1214              	.L183:
+ 1215 0058 0120     		movs	r0, #1
+ 1216 005a FCE7     		b	.L181
+ 1217              	.L189:
+ 1218              		.align	2
+ 1219              	.L188:
+ 1220 005c C5000100 		.word	65733
+ 1221 0060 CB800100 		.word	98507
+ 1223              		.section	.text.can_interrupt_flag_clear,"ax",%progbits
+ 1224              		.align	1
+ 1225              		.global	can_interrupt_flag_clear
+ 1226              		.syntax unified
+ 1227              		.thumb
+ 1228              		.thumb_func
+ 1229              		.fpu fpv4-sp-d16
+ 1231              	can_interrupt_flag_clear:
+ 1232              		@ args = 0, pretend = 0, frame = 0
+ 1233              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1234              		@ link register save eliminated.
+ 1235 0000 C1F38412 		ubfx	r2, r1, #6, #5
+ 1236 0004 090B     		lsrs	r1, r1, #12
+ 1237 0006 0123     		movs	r3, #1
+ 1238 0008 9340     		lsls	r3, r3, r2
+ 1239 000a 0B50     		str	r3, [r1, r0]
+ 1240 000c 7047     		bx	lr
+ 1242              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccccIeJm.s 			page 22
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_can.c
+     /tmp/ccccIeJm.s:16     .text.can_deinit:0000000000000000 $t
+     /tmp/ccccIeJm.s:24     .text.can_deinit:0000000000000000 can_deinit
+     /tmp/ccccIeJm.s:46     .text.can_deinit:000000000000002c $d
+     /tmp/ccccIeJm.s:49     .text.can_struct_para_init:0000000000000000 $t
+     /tmp/ccccIeJm.s:56     .text.can_struct_para_init:0000000000000000 can_struct_para_init
+     /tmp/ccccIeJm.s:64     .text.can_struct_para_init:0000000000000008 $d
+     /tmp/ccccIeJm.s:68     .text.can_struct_para_init:000000000000000c $t
+     /tmp/ccccIeJm.s:141    .text.can_init:0000000000000000 $t
+     /tmp/ccccIeJm.s:148    .text.can_init:0000000000000000 can_init
+     /tmp/ccccIeJm.s:287    .text.can_filter_init:0000000000000000 $t
+     /tmp/ccccIeJm.s:294    .text.can_filter_init:0000000000000000 can_filter_init
+     /tmp/ccccIeJm.s:407    .text.can_filter_init:00000000000000e0 $d
+     /tmp/ccccIeJm.s:414    .text.can1_filter_start_bank:0000000000000000 $t
+     /tmp/ccccIeJm.s:421    .text.can1_filter_start_bank:0000000000000000 can1_filter_start_bank
+     /tmp/ccccIeJm.s:444    .text.can1_filter_start_bank:0000000000000028 $d
+     /tmp/ccccIeJm.s:447    .text.can_debug_freeze_enable:0000000000000000 $t
+     /tmp/ccccIeJm.s:454    .text.can_debug_freeze_enable:0000000000000000 can_debug_freeze_enable
+     /tmp/ccccIeJm.s:475    .text.can_debug_freeze_enable:0000000000000024 $d
+     /tmp/ccccIeJm.s:478    .text.can_debug_freeze_disable:0000000000000000 $t
+     /tmp/ccccIeJm.s:485    .text.can_debug_freeze_disable:0000000000000000 can_debug_freeze_disable
+     /tmp/ccccIeJm.s:506    .text.can_debug_freeze_disable:0000000000000024 $d
+     /tmp/ccccIeJm.s:509    .text.can_time_trigger_mode_enable:0000000000000000 $t
+     /tmp/ccccIeJm.s:516    .text.can_time_trigger_mode_enable:0000000000000000 can_time_trigger_mode_enable
+     /tmp/ccccIeJm.s:538    .text.can_time_trigger_mode_disable:0000000000000000 $t
+     /tmp/ccccIeJm.s:545    .text.can_time_trigger_mode_disable:0000000000000000 can_time_trigger_mode_disable
+     /tmp/ccccIeJm.s:567    .text.can_message_transmit:0000000000000000 $t
+     /tmp/ccccIeJm.s:574    .text.can_message_transmit:0000000000000000 can_message_transmit
+     /tmp/ccccIeJm.s:656    .text.can_transmit_states:0000000000000000 $t
+     /tmp/ccccIeJm.s:663    .text.can_transmit_states:0000000000000000 can_transmit_states
+     /tmp/ccccIeJm.s:725    .text.can_transmit_states:0000000000000068 $d
+     /tmp/ccccIeJm.s:730    .text.can_transmission_stop:0000000000000000 $t
+     /tmp/ccccIeJm.s:737    .text.can_transmission_stop:0000000000000000 can_transmission_stop
+     /tmp/ccccIeJm.s:780    .text.can_message_receive:0000000000000000 $t
+     /tmp/ccccIeJm.s:787    .text.can_message_receive:0000000000000000 can_message_receive
+     /tmp/ccccIeJm.s:852    .text.can_fifo_release:0000000000000000 $t
+     /tmp/ccccIeJm.s:859    .text.can_fifo_release:0000000000000000 can_fifo_release
+     /tmp/ccccIeJm.s:880    .text.can_receive_message_length_get:0000000000000000 $t
+     /tmp/ccccIeJm.s:887    .text.can_receive_message_length_get:0000000000000000 can_receive_message_length_get
+     /tmp/ccccIeJm.s:906    .text.can_working_mode_set:0000000000000000 $t
+     /tmp/ccccIeJm.s:913    .text.can_working_mode_set:0000000000000000 can_working_mode_set
+     /tmp/ccccIeJm.s:1002   .text.can_wakeup:0000000000000000 $t
+     /tmp/ccccIeJm.s:1009   .text.can_wakeup:0000000000000000 can_wakeup
+     /tmp/ccccIeJm.s:1036   .text.can_error_get:0000000000000000 $t
+     /tmp/ccccIeJm.s:1043   .text.can_error_get:0000000000000000 can_error_get
+     /tmp/ccccIeJm.s:1052   .text.can_receive_error_number_get:0000000000000000 $t
+     /tmp/ccccIeJm.s:1059   .text.can_receive_error_number_get:0000000000000000 can_receive_error_number_get
+     /tmp/ccccIeJm.s:1068   .text.can_transmit_error_number_get:0000000000000000 $t
+     /tmp/ccccIeJm.s:1075   .text.can_transmit_error_number_get:0000000000000000 can_transmit_error_number_get
+     /tmp/ccccIeJm.s:1084   .text.can_interrupt_enable:0000000000000000 $t
+     /tmp/ccccIeJm.s:1091   .text.can_interrupt_enable:0000000000000000 can_interrupt_enable
+     /tmp/ccccIeJm.s:1101   .text.can_interrupt_disable:0000000000000000 $t
+     /tmp/ccccIeJm.s:1108   .text.can_interrupt_disable:0000000000000000 can_interrupt_disable
+     /tmp/ccccIeJm.s:1118   .text.can_flag_get:0000000000000000 $t
+     /tmp/ccccIeJm.s:1125   .text.can_flag_get:0000000000000000 can_flag_get
+     /tmp/ccccIeJm.s:1142   .text.can_flag_clear:0000000000000000 $t
+ARM GAS  /tmp/ccccIeJm.s 			page 23
+
+
+     /tmp/ccccIeJm.s:1149   .text.can_flag_clear:0000000000000000 can_flag_clear
+     /tmp/ccccIeJm.s:1161   .text.can_interrupt_flag_get:0000000000000000 $t
+     /tmp/ccccIeJm.s:1168   .text.can_interrupt_flag_get:0000000000000000 can_interrupt_flag_get
+     /tmp/ccccIeJm.s:1220   .text.can_interrupt_flag_get:000000000000005c $d
+     /tmp/ccccIeJm.s:1224   .text.can_interrupt_flag_clear:0000000000000000 $t
+     /tmp/ccccIeJm.s:1231   .text.can_interrupt_flag_clear:0000000000000000 can_interrupt_flag_clear
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable
+dbg_periph_enable
+dbg_periph_disable

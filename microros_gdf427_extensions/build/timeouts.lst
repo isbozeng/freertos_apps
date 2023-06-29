@@ -1,0 +1,599 @@
+ARM GAS  /tmp/ccBmRp7i.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"timeouts.c"
+  14              		.text
+  15              		.section	.text.sys_timeout_abs,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	sys_timeout_abs:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  27 0002 0546     		mov	r5, r0
+  28 0004 0F46     		mov	r7, r1
+  29 0006 1646     		mov	r6, r2
+  30 0008 0A20     		movs	r0, #10
+  31 000a FFF7FEFF 		bl	memp_malloc
+  32 000e 80B1     		cbz	r0, .L10
+  33 0010 0446     		mov	r4, r0
+  34 0012 0023     		movs	r3, #0
+  35 0014 0360     		str	r3, [r0]
+  36 0016 8760     		str	r7, [r0, #8]
+  37 0018 C660     		str	r6, [r0, #12]
+  38 001a 4560     		str	r5, [r0, #4]
+  39 001c 104B     		ldr	r3, .L12
+  40 001e 1A68     		ldr	r2, [r3]
+  41 0020 72B1     		cbz	r2, .L11
+  42 0022 5368     		ldr	r3, [r2, #4]
+  43 0024 EB1A     		subs	r3, r5, r3
+  44 0026 002B     		cmp	r3, #0
+  45 0028 0FDA     		bge	.L5
+  46 002a 0260     		str	r2, [r0]
+  47 002c 0C4B     		ldr	r3, .L12
+  48 002e 1860     		str	r0, [r3]
+  49              	.L1:
+  50 0030 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+  51              	.L10:
+  52 0032 0C4B     		ldr	r3, .L12+4
+  53 0034 BE22     		movs	r2, #190
+  54 0036 0C49     		ldr	r1, .L12+8
+  55 0038 0C48     		ldr	r0, .L12+12
+  56 003a FFF7FEFF 		bl	printf
+  57 003e F7E7     		b	.L1
+  58              	.L11:
+ARM GAS  /tmp/ccBmRp7i.s 			page 2
+
+
+  59 0040 1860     		str	r0, [r3]
+  60 0042 F5E7     		b	.L1
+  61              	.L6:
+  62 0044 2360     		str	r3, [r4]
+  63 0046 1460     		str	r4, [r2]
+  64 0048 F2E7     		b	.L1
+  65              	.L5:
+  66 004a 002A     		cmp	r2, #0
+  67 004c F0D0     		beq	.L1
+  68 004e 1368     		ldr	r3, [r2]
+  69 0050 002B     		cmp	r3, #0
+  70 0052 F7D0     		beq	.L6
+  71 0054 5968     		ldr	r1, [r3, #4]
+  72 0056 691A     		subs	r1, r5, r1
+  73 0058 0029     		cmp	r1, #0
+  74 005a F3DB     		blt	.L6
+  75 005c 1A46     		mov	r2, r3
+  76 005e F4E7     		b	.L5
+  77              	.L13:
+  78              		.align	2
+  79              	.L12:
+  80 0060 00000000 		.word	.LANCHOR0
+  81 0064 00000000 		.word	.LC0
+  82 0068 34000000 		.word	.LC1
+  83 006c 74000000 		.word	.LC2
+  85              		.section	.text.lwip_cyclic_timer,"ax",%progbits
+  86              		.align	1
+  87              		.syntax unified
+  88              		.thumb
+  89              		.thumb_func
+  90              		.fpu fpv4-sp-d16
+  92              	lwip_cyclic_timer:
+  93              		@ args = 0, pretend = 0, frame = 0
+  94              		@ frame_needed = 0, uses_anonymous_args = 0
+  95 0000 38B5     		push	{r3, r4, r5, lr}
+  96 0002 0446     		mov	r4, r0
+  97 0004 4368     		ldr	r3, [r0, #4]
+  98 0006 9847     		blx	r3
+  99 0008 FFF7FEFF 		bl	sys_now
+ 100 000c 2568     		ldr	r5, [r4]
+ 101 000e 094B     		ldr	r3, .L18
+ 102 0010 1B68     		ldr	r3, [r3]
+ 103 0012 2B44     		add	r3, r3, r5
+ 104 0014 1A1A     		subs	r2, r3, r0
+ 105 0016 002A     		cmp	r2, #0
+ 106 0018 05DA     		bge	.L15
+ 107 001a 2246     		mov	r2, r4
+ 108 001c 0649     		ldr	r1, .L18+4
+ 109 001e 2844     		add	r0, r0, r5
+ 110 0020 FFF7FEFF 		bl	sys_timeout_abs
+ 111              	.L14:
+ 112 0024 38BD     		pop	{r3, r4, r5, pc}
+ 113              	.L15:
+ 114 0026 2246     		mov	r2, r4
+ 115 0028 0349     		ldr	r1, .L18+4
+ 116 002a 1846     		mov	r0, r3
+ 117 002c FFF7FEFF 		bl	sys_timeout_abs
+ARM GAS  /tmp/ccBmRp7i.s 			page 3
+
+
+ 118 0030 F8E7     		b	.L14
+ 119              	.L19:
+ 120 0032 00BF     		.align	2
+ 121              	.L18:
+ 122 0034 00000000 		.word	.LANCHOR1
+ 123 0038 00000000 		.word	lwip_cyclic_timer
+ 125              		.section	.text.sys_timeout,"ax",%progbits
+ 126              		.align	1
+ 127              		.global	sys_timeout
+ 128              		.syntax unified
+ 129              		.thumb
+ 130              		.thumb_func
+ 131              		.fpu fpv4-sp-d16
+ 133              	sys_timeout:
+ 134              		@ args = 0, pretend = 0, frame = 0
+ 135              		@ frame_needed = 0, uses_anonymous_args = 0
+ 136 0000 70B5     		push	{r4, r5, r6, lr}
+ 137 0002 0446     		mov	r4, r0
+ 138 0004 0D46     		mov	r5, r1
+ 139 0006 1646     		mov	r6, r2
+ 140 0008 B0F1804F 		cmp	r0, #1073741824
+ 141 000c 07D2     		bcs	.L23
+ 142              	.L21:
+ 143 000e FFF7FEFF 		bl	sys_now
+ 144 0012 3246     		mov	r2, r6
+ 145 0014 2946     		mov	r1, r5
+ 146 0016 2044     		add	r0, r0, r4
+ 147 0018 FFF7FEFF 		bl	sys_timeout_abs
+ 148 001c 70BD     		pop	{r4, r5, r6, pc}
+ 149              	.L23:
+ 150 001e 044B     		ldr	r3, .L24
+ 151 0020 40F22912 		movw	r2, #297
+ 152 0024 0349     		ldr	r1, .L24+4
+ 153 0026 0448     		ldr	r0, .L24+8
+ 154 0028 FFF7FEFF 		bl	printf
+ 155 002c EFE7     		b	.L21
+ 156              	.L25:
+ 157 002e 00BF     		.align	2
+ 158              	.L24:
+ 159 0030 00000000 		.word	.LC0
+ 160 0034 00000000 		.word	.LC3
+ 161 0038 74000000 		.word	.LC2
+ 163              		.section	.text.tcp_timer_needed,"ax",%progbits
+ 164              		.align	1
+ 165              		.global	tcp_timer_needed
+ 166              		.syntax unified
+ 167              		.thumb
+ 168              		.thumb_func
+ 169              		.fpu fpv4-sp-d16
+ 171              	tcp_timer_needed:
+ 172              		@ args = 0, pretend = 0, frame = 0
+ 173              		@ frame_needed = 0, uses_anonymous_args = 0
+ 174 0000 08B5     		push	{r3, lr}
+ 175 0002 0A4B     		ldr	r3, .L31
+ 176 0004 1B68     		ldr	r3, [r3]
+ 177 0006 53B9     		cbnz	r3, .L26
+ 178 0008 094B     		ldr	r3, .L31+4
+ARM GAS  /tmp/ccBmRp7i.s 			page 4
+
+
+ 179 000a 1B68     		ldr	r3, [r3]
+ 180 000c 43B1     		cbz	r3, .L30
+ 181              	.L28:
+ 182 000e 074B     		ldr	r3, .L31
+ 183 0010 0122     		movs	r2, #1
+ 184 0012 1A60     		str	r2, [r3]
+ 185 0014 0022     		movs	r2, #0
+ 186 0016 0749     		ldr	r1, .L31+8
+ 187 0018 FA20     		movs	r0, #250
+ 188 001a FFF7FEFF 		bl	sys_timeout
+ 189              	.L26:
+ 190 001e 08BD     		pop	{r3, pc}
+ 191              	.L30:
+ 192 0020 054B     		ldr	r3, .L31+12
+ 193 0022 1B68     		ldr	r3, [r3]
+ 194 0024 002B     		cmp	r3, #0
+ 195 0026 F2D1     		bne	.L28
+ 196 0028 F9E7     		b	.L26
+ 197              	.L32:
+ 198 002a 00BF     		.align	2
+ 199              	.L31:
+ 200 002c 00000000 		.word	.LANCHOR2
+ 201 0030 00000000 		.word	tcp_active_pcbs
+ 202 0034 00000000 		.word	tcpip_tcp_timer
+ 203 0038 00000000 		.word	tcp_tw_pcbs
+ 205              		.section	.text.tcpip_tcp_timer,"ax",%progbits
+ 206              		.align	1
+ 207              		.syntax unified
+ 208              		.thumb
+ 209              		.thumb_func
+ 210              		.fpu fpv4-sp-d16
+ 212              	tcpip_tcp_timer:
+ 213              		@ args = 0, pretend = 0, frame = 0
+ 214              		@ frame_needed = 0, uses_anonymous_args = 0
+ 215 0000 08B5     		push	{r3, lr}
+ 216 0002 FFF7FEFF 		bl	tcp_tmr
+ 217 0006 084B     		ldr	r3, .L39
+ 218 0008 1B68     		ldr	r3, [r3]
+ 219 000a 2BB1     		cbz	r3, .L38
+ 220              	.L34:
+ 221 000c 0022     		movs	r2, #0
+ 222 000e 0749     		ldr	r1, .L39+4
+ 223 0010 FA20     		movs	r0, #250
+ 224 0012 FFF7FEFF 		bl	sys_timeout
+ 225              	.L33:
+ 226 0016 08BD     		pop	{r3, pc}
+ 227              	.L38:
+ 228 0018 054B     		ldr	r3, .L39+8
+ 229 001a 1B68     		ldr	r3, [r3]
+ 230 001c 002B     		cmp	r3, #0
+ 231 001e F5D1     		bne	.L34
+ 232 0020 044B     		ldr	r3, .L39+12
+ 233 0022 0022     		movs	r2, #0
+ 234 0024 1A60     		str	r2, [r3]
+ 235 0026 F6E7     		b	.L33
+ 236              	.L40:
+ 237              		.align	2
+ARM GAS  /tmp/ccBmRp7i.s 			page 5
+
+
+ 238              	.L39:
+ 239 0028 00000000 		.word	tcp_active_pcbs
+ 240 002c 00000000 		.word	tcpip_tcp_timer
+ 241 0030 00000000 		.word	tcp_tw_pcbs
+ 242 0034 00000000 		.word	.LANCHOR2
+ 244              		.section	.text.sys_timeouts_init,"ax",%progbits
+ 245              		.align	1
+ 246              		.global	sys_timeouts_init
+ 247              		.syntax unified
+ 248              		.thumb
+ 249              		.thumb_func
+ 250              		.fpu fpv4-sp-d16
+ 252              	sys_timeouts_init:
+ 253              		@ args = 0, pretend = 0, frame = 0
+ 254              		@ frame_needed = 0, uses_anonymous_args = 0
+ 255 0000 10B5     		push	{r4, lr}
+ 256 0002 0124     		movs	r4, #1
+ 257              	.L42:
+ 258 0004 052C     		cmp	r4, #5
+ 259 0006 09D8     		bhi	.L45
+ 260 0008 054B     		ldr	r3, .L46
+ 261 000a 03EBC402 		add	r2, r3, r4, lsl #3
+ 262 000e 0549     		ldr	r1, .L46+4
+ 263 0010 53F83400 		ldr	r0, [r3, r4, lsl #3]
+ 264 0014 FFF7FEFF 		bl	sys_timeout
+ 265 0018 0134     		adds	r4, r4, #1
+ 266 001a F3E7     		b	.L42
+ 267              	.L45:
+ 268 001c 10BD     		pop	{r4, pc}
+ 269              	.L47:
+ 270 001e 00BF     		.align	2
+ 271              	.L46:
+ 272 0020 00000000 		.word	.LANCHOR3
+ 273 0024 00000000 		.word	lwip_cyclic_timer
+ 275              		.section	.text.sys_untimeout,"ax",%progbits
+ 276              		.align	1
+ 277              		.global	sys_untimeout
+ 278              		.syntax unified
+ 279              		.thumb
+ 280              		.thumb_func
+ 281              		.fpu fpv4-sp-d16
+ 283              	sys_untimeout:
+ 284              		@ args = 0, pretend = 0, frame = 0
+ 285              		@ frame_needed = 0, uses_anonymous_args = 0
+ 286 0000 0E4B     		ldr	r3, .L60
+ 287 0002 1B68     		ldr	r3, [r3]
+ 288 0004 C3B1     		cbz	r3, .L56
+ 289 0006 10B5     		push	{r4, lr}
+ 290 0008 0024     		movs	r4, #0
+ 291 000a 05E0     		b	.L50
+ 292              	.L59:
+ 293 000c 1968     		ldr	r1, [r3]
+ 294 000e 0B4A     		ldr	r2, .L60
+ 295 0010 1160     		str	r1, [r2]
+ 296 0012 0CE0     		b	.L53
+ 297              	.L51:
+ 298 0014 1C46     		mov	r4, r3
+ARM GAS  /tmp/ccBmRp7i.s 			page 6
+
+
+ 299 0016 1B68     		ldr	r3, [r3]
+ 300              	.L50:
+ 301 0018 6BB1     		cbz	r3, .L48
+ 302 001a 9A68     		ldr	r2, [r3, #8]
+ 303 001c 8242     		cmp	r2, r0
+ 304 001e F9D1     		bne	.L51
+ 305 0020 DA68     		ldr	r2, [r3, #12]
+ 306 0022 8A42     		cmp	r2, r1
+ 307 0024 F6D1     		bne	.L51
+ 308 0026 002C     		cmp	r4, #0
+ 309 0028 F0D0     		beq	.L59
+ 310 002a 1A68     		ldr	r2, [r3]
+ 311 002c 2260     		str	r2, [r4]
+ 312              	.L53:
+ 313 002e 1946     		mov	r1, r3
+ 314 0030 0A20     		movs	r0, #10
+ 315 0032 FFF7FEFF 		bl	memp_free
+ 316              	.L48:
+ 317 0036 10BD     		pop	{r4, pc}
+ 318              	.L56:
+ 319 0038 7047     		bx	lr
+ 320              	.L61:
+ 321 003a 00BF     		.align	2
+ 322              	.L60:
+ 323 003c 00000000 		.word	.LANCHOR0
+ 325              		.section	.text.sys_check_timeouts,"ax",%progbits
+ 326              		.align	1
+ 327              		.global	sys_check_timeouts
+ 328              		.syntax unified
+ 329              		.thumb
+ 330              		.thumb_func
+ 331              		.fpu fpv4-sp-d16
+ 333              	sys_check_timeouts:
+ 334              		@ args = 0, pretend = 0, frame = 0
+ 335              		@ frame_needed = 0, uses_anonymous_args = 0
+ 336 0000 70B5     		push	{r4, r5, r6, lr}
+ 337 0002 FFF7FEFF 		bl	sys_now
+ 338 0006 0546     		mov	r5, r0
+ 339              	.L64:
+ 340 0008 0B4B     		ldr	r3, .L67
+ 341 000a 1968     		ldr	r1, [r3]
+ 342 000c 91B1     		cbz	r1, .L62
+ 343 000e 4B68     		ldr	r3, [r1, #4]
+ 344 0010 EA1A     		subs	r2, r5, r3
+ 345 0012 002A     		cmp	r2, #0
+ 346 0014 0EDB     		blt	.L62
+ 347 0016 0868     		ldr	r0, [r1]
+ 348 0018 074A     		ldr	r2, .L67
+ 349 001a 1060     		str	r0, [r2]
+ 350 001c 8C68     		ldr	r4, [r1, #8]
+ 351 001e CE68     		ldr	r6, [r1, #12]
+ 352 0020 064A     		ldr	r2, .L67+4
+ 353 0022 1360     		str	r3, [r2]
+ 354 0024 0A20     		movs	r0, #10
+ 355 0026 FFF7FEFF 		bl	memp_free
+ 356 002a 002C     		cmp	r4, #0
+ 357 002c ECD0     		beq	.L64
+ARM GAS  /tmp/ccBmRp7i.s 			page 7
+
+
+ 358 002e 3046     		mov	r0, r6
+ 359 0030 A047     		blx	r4
+ 360 0032 E9E7     		b	.L64
+ 361              	.L62:
+ 362 0034 70BD     		pop	{r4, r5, r6, pc}
+ 363              	.L68:
+ 364 0036 00BF     		.align	2
+ 365              	.L67:
+ 366 0038 00000000 		.word	.LANCHOR0
+ 367 003c 00000000 		.word	.LANCHOR1
+ 369              		.section	.text.sys_restart_timeouts,"ax",%progbits
+ 370              		.align	1
+ 371              		.global	sys_restart_timeouts
+ 372              		.syntax unified
+ 373              		.thumb
+ 374              		.thumb_func
+ 375              		.fpu fpv4-sp-d16
+ 377              	sys_restart_timeouts:
+ 378              		@ args = 0, pretend = 0, frame = 0
+ 379              		@ frame_needed = 0, uses_anonymous_args = 0
+ 380 0000 08B5     		push	{r3, lr}
+ 381 0002 084B     		ldr	r3, .L74
+ 382 0004 1B68     		ldr	r3, [r3]
+ 383 0006 5BB1     		cbz	r3, .L69
+ 384 0008 FFF7FEFF 		bl	sys_now
+ 385 000c 054B     		ldr	r3, .L74
+ 386 000e 1A68     		ldr	r2, [r3]
+ 387 0010 5168     		ldr	r1, [r2, #4]
+ 388              	.L71:
+ 389 0012 2AB1     		cbz	r2, .L69
+ 390 0014 5368     		ldr	r3, [r2, #4]
+ 391 0016 5B1A     		subs	r3, r3, r1
+ 392 0018 0344     		add	r3, r3, r0
+ 393 001a 5360     		str	r3, [r2, #4]
+ 394 001c 1268     		ldr	r2, [r2]
+ 395 001e F8E7     		b	.L71
+ 396              	.L69:
+ 397 0020 08BD     		pop	{r3, pc}
+ 398              	.L75:
+ 399 0022 00BF     		.align	2
+ 400              	.L74:
+ 401 0024 00000000 		.word	.LANCHOR0
+ 403              		.section	.text.sys_timeouts_sleeptime,"ax",%progbits
+ 404              		.align	1
+ 405              		.global	sys_timeouts_sleeptime
+ 406              		.syntax unified
+ 407              		.thumb
+ 408              		.thumb_func
+ 409              		.fpu fpv4-sp-d16
+ 411              	sys_timeouts_sleeptime:
+ 412              		@ args = 0, pretend = 0, frame = 0
+ 413              		@ frame_needed = 0, uses_anonymous_args = 0
+ 414 0000 10B5     		push	{r4, lr}
+ 415 0002 0D4B     		ldr	r3, .L82
+ 416 0004 1B68     		ldr	r3, [r3]
+ 417 0006 83B1     		cbz	r3, .L79
+ 418 0008 FFF7FEFF 		bl	sys_now
+ARM GAS  /tmp/ccBmRp7i.s 			page 8
+
+
+ 419 000c 0A4B     		ldr	r3, .L82
+ 420 000e 1B68     		ldr	r3, [r3]
+ 421 0010 5C68     		ldr	r4, [r3, #4]
+ 422 0012 241A     		subs	r4, r4, r0
+ 423 0014 0CD4     		bmi	.L80
+ 424 0016 002C     		cmp	r4, #0
+ 425 0018 0BDA     		bge	.L76
+ 426 001a 084B     		ldr	r3, .L82+4
+ 427 001c 4FF4DC72 		mov	r2, #440
+ 428 0020 0749     		ldr	r1, .L82+8
+ 429 0022 0848     		ldr	r0, .L82+12
+ 430 0024 FFF7FEFF 		bl	printf
+ 431 0028 03E0     		b	.L76
+ 432              	.L79:
+ 433 002a 4FF0FF34 		mov	r4, #-1
+ 434 002e 00E0     		b	.L76
+ 435              	.L80:
+ 436 0030 0024     		movs	r4, #0
+ 437              	.L76:
+ 438 0032 2046     		mov	r0, r4
+ 439 0034 10BD     		pop	{r4, pc}
+ 440              	.L83:
+ 441 0036 00BF     		.align	2
+ 442              	.L82:
+ 443 0038 00000000 		.word	.LANCHOR0
+ 444 003c 00000000 		.word	.LC0
+ 445 0040 00000000 		.word	.LC4
+ 446 0044 74000000 		.word	.LC2
+ 448              		.global	lwip_num_cyclic_timers
+ 449              		.global	lwip_cyclic_timers
+ 450              		.section	.bss.current_timeout_due_time,"aw",%nobits
+ 451              		.align	2
+ 452              		.set	.LANCHOR1,. + 0
+ 455              	current_timeout_due_time:
+ 456 0000 00000000 		.space	4
+ 457              		.section	.bss.next_timeout,"aw",%nobits
+ 458              		.align	2
+ 459              		.set	.LANCHOR0,. + 0
+ 462              	next_timeout:
+ 463 0000 00000000 		.space	4
+ 464              		.section	.bss.tcpip_tcp_timer_active,"aw",%nobits
+ 465              		.align	2
+ 466              		.set	.LANCHOR2,. + 0
+ 469              	tcpip_tcp_timer_active:
+ 470 0000 00000000 		.space	4
+ 471              		.section	.rodata.lwip_cyclic_timers,"a"
+ 472              		.align	2
+ 473              		.set	.LANCHOR3,. + 0
+ 476              	lwip_cyclic_timers:
+ 477 0000 FA000000 		.word	250
+ 478 0004 00000000 		.word	tcp_tmr
+ 479 0008 E8030000 		.word	1000
+ 480 000c 00000000 		.word	ip_reass_tmr
+ 481 0010 E8030000 		.word	1000
+ 482 0014 00000000 		.word	etharp_tmr
+ 483 0018 60EA0000 		.word	60000
+ 484 001c 00000000 		.word	dhcp_coarse_tmr
+ARM GAS  /tmp/ccBmRp7i.s 			page 9
+
+
+ 485 0020 F4010000 		.word	500
+ 486 0024 00000000 		.word	dhcp_fine_tmr
+ 487 0028 E8030000 		.word	1000
+ 488 002c 00000000 		.word	dns_tmr
+ 489              		.section	.rodata.lwip_num_cyclic_timers,"a"
+ 490              		.align	2
+ 493              	lwip_num_cyclic_timers:
+ 494 0000 06000000 		.word	6
+ 495              		.section	.rodata.sys_timeout.str1.4,"aMS",%progbits,1
+ 496              		.align	2
+ 497              	.LC3:
+ 498 0000 54696D65 		.ascii	"Timeout time too long, max is LWIP_UINT32_MAX/4 mse"
+ 498      6F757420 
+ 498      74696D65 
+ 498      20746F6F 
+ 498      206C6F6E 
+ 499 0033 637300   		.ascii	"cs\000"
+ 500              		.section	.rodata.sys_timeout_abs.str1.4,"aMS",%progbits,1
+ 501              		.align	2
+ 502              	.LC0:
+ 503 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/core/timeouts.c\000"
+ 503      6C657761 
+ 503      7265732F 
+ 503      54686972 
+ 503      645F5061 
+ 504 0031 000000   		.space	3
+ 505              	.LC1:
+ 506 0034 7379735F 		.ascii	"sys_timeout: timeout != NULL, pool MEMP_SYS_TIMEOUT"
+ 506      74696D65 
+ 506      6F75743A 
+ 506      2074696D 
+ 506      656F7574 
+ 507 0067 20697320 		.ascii	" is empty\000"
+ 507      656D7074 
+ 507      7900
+ 508 0071 000000   		.space	3
+ 509              	.LC2:
+ 510 0074 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ 510      7274696F 
+ 510      6E202225 
+ 510      73222066 
+ 510      61696C65 
+ 511              		.section	.rodata.sys_timeouts_sleeptime.str1.4,"aMS",%progbits,1
+ 512              		.align	2
+ 513              	.LC4:
+ 514 0000 696E7661 		.ascii	"invalid sleeptime\000"
+ 514      6C696420 
+ 514      736C6565 
+ 514      7074696D 
+ 514      6500
+ 515              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccBmRp7i.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 timeouts.c
+     /tmp/ccBmRp7i.s:16     .text.sys_timeout_abs:0000000000000000 $t
+     /tmp/ccBmRp7i.s:23     .text.sys_timeout_abs:0000000000000000 sys_timeout_abs
+     /tmp/ccBmRp7i.s:80     .text.sys_timeout_abs:0000000000000060 $d
+     /tmp/ccBmRp7i.s:86     .text.lwip_cyclic_timer:0000000000000000 $t
+     /tmp/ccBmRp7i.s:92     .text.lwip_cyclic_timer:0000000000000000 lwip_cyclic_timer
+     /tmp/ccBmRp7i.s:122    .text.lwip_cyclic_timer:0000000000000034 $d
+     /tmp/ccBmRp7i.s:126    .text.sys_timeout:0000000000000000 $t
+     /tmp/ccBmRp7i.s:133    .text.sys_timeout:0000000000000000 sys_timeout
+     /tmp/ccBmRp7i.s:159    .text.sys_timeout:0000000000000030 $d
+     /tmp/ccBmRp7i.s:164    .text.tcp_timer_needed:0000000000000000 $t
+     /tmp/ccBmRp7i.s:171    .text.tcp_timer_needed:0000000000000000 tcp_timer_needed
+     /tmp/ccBmRp7i.s:200    .text.tcp_timer_needed:000000000000002c $d
+     /tmp/ccBmRp7i.s:212    .text.tcpip_tcp_timer:0000000000000000 tcpip_tcp_timer
+     /tmp/ccBmRp7i.s:206    .text.tcpip_tcp_timer:0000000000000000 $t
+     /tmp/ccBmRp7i.s:239    .text.tcpip_tcp_timer:0000000000000028 $d
+     /tmp/ccBmRp7i.s:245    .text.sys_timeouts_init:0000000000000000 $t
+     /tmp/ccBmRp7i.s:252    .text.sys_timeouts_init:0000000000000000 sys_timeouts_init
+     /tmp/ccBmRp7i.s:272    .text.sys_timeouts_init:0000000000000020 $d
+     /tmp/ccBmRp7i.s:276    .text.sys_untimeout:0000000000000000 $t
+     /tmp/ccBmRp7i.s:283    .text.sys_untimeout:0000000000000000 sys_untimeout
+     /tmp/ccBmRp7i.s:323    .text.sys_untimeout:000000000000003c $d
+     /tmp/ccBmRp7i.s:326    .text.sys_check_timeouts:0000000000000000 $t
+     /tmp/ccBmRp7i.s:333    .text.sys_check_timeouts:0000000000000000 sys_check_timeouts
+     /tmp/ccBmRp7i.s:366    .text.sys_check_timeouts:0000000000000038 $d
+     /tmp/ccBmRp7i.s:370    .text.sys_restart_timeouts:0000000000000000 $t
+     /tmp/ccBmRp7i.s:377    .text.sys_restart_timeouts:0000000000000000 sys_restart_timeouts
+     /tmp/ccBmRp7i.s:401    .text.sys_restart_timeouts:0000000000000024 $d
+     /tmp/ccBmRp7i.s:404    .text.sys_timeouts_sleeptime:0000000000000000 $t
+     /tmp/ccBmRp7i.s:411    .text.sys_timeouts_sleeptime:0000000000000000 sys_timeouts_sleeptime
+     /tmp/ccBmRp7i.s:443    .text.sys_timeouts_sleeptime:0000000000000038 $d
+     /tmp/ccBmRp7i.s:493    .rodata.lwip_num_cyclic_timers:0000000000000000 lwip_num_cyclic_timers
+     /tmp/ccBmRp7i.s:476    .rodata.lwip_cyclic_timers:0000000000000000 lwip_cyclic_timers
+     /tmp/ccBmRp7i.s:451    .bss.current_timeout_due_time:0000000000000000 $d
+     /tmp/ccBmRp7i.s:455    .bss.current_timeout_due_time:0000000000000000 current_timeout_due_time
+     /tmp/ccBmRp7i.s:458    .bss.next_timeout:0000000000000000 $d
+     /tmp/ccBmRp7i.s:462    .bss.next_timeout:0000000000000000 next_timeout
+     /tmp/ccBmRp7i.s:465    .bss.tcpip_tcp_timer_active:0000000000000000 $d
+     /tmp/ccBmRp7i.s:469    .bss.tcpip_tcp_timer_active:0000000000000000 tcpip_tcp_timer_active
+     /tmp/ccBmRp7i.s:472    .rodata.lwip_cyclic_timers:0000000000000000 $d
+     /tmp/ccBmRp7i.s:490    .rodata.lwip_num_cyclic_timers:0000000000000000 $d
+     /tmp/ccBmRp7i.s:496    .rodata.sys_timeout.str1.4:0000000000000000 $d
+     /tmp/ccBmRp7i.s:501    .rodata.sys_timeout_abs.str1.4:0000000000000000 $d
+     /tmp/ccBmRp7i.s:512    .rodata.sys_timeouts_sleeptime.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+memp_malloc
+printf
+sys_now
+tcp_active_pcbs
+tcp_tw_pcbs
+tcp_tmr
+memp_free
+ip_reass_tmr
+etharp_tmr
+dhcp_coarse_tmr
+ARM GAS  /tmp/ccBmRp7i.s 			page 11
+
+
+dhcp_fine_tmr
+dns_tmr

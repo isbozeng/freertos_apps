@@ -1,0 +1,566 @@
+ARM GAS  /tmp/ccuiW7II.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"slipif.c"
+  14              		.text
+  15              		.section	.text.slipif_rxbyte,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	slipif_rxbyte:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26 0000 38B5     		push	{r3, r4, r5, lr}
+  27 0002 0D46     		mov	r5, r1
+  28 0004 0446     		mov	r4, r0
+  29 0006 0028     		cmp	r0, #0
+  30 0008 2CD0     		beq	.L20
+  31              	.L2:
+  32 000a 236A     		ldr	r3, [r4, #32]
+  33 000c 002B     		cmp	r3, #0
+  34 000e 30D0     		beq	.L21
+  35              	.L3:
+  36 0010 246A     		ldr	r4, [r4, #32]
+  37 0012 237B     		ldrb	r3, [r4, #12]	@ zero_extendqisi2
+  38 0014 002B     		cmp	r3, #0
+  39 0016 33D0     		beq	.L4
+  40 0018 012B     		cmp	r3, #1
+  41 001a 47D0     		beq	.L5
+  42              	.L6:
+  43 001c 6368     		ldr	r3, [r4, #4]
+  44 001e 002B     		cmp	r3, #0
+  45 0020 4FD0     		beq	.L22
+  46              	.L11:
+  47 0022 6068     		ldr	r0, [r4, #4]
+  48 0024 0028     		cmp	r0, #0
+  49 0026 62D0     		beq	.L1
+  50 0028 228A     		ldrh	r2, [r4, #16]
+  51 002a 40F2DC53 		movw	r3, #1500
+  52 002e 9A42     		cmp	r2, r3
+  53 0030 5CD8     		bhi	.L17
+  54 0032 4268     		ldr	r2, [r0, #4]
+  55 0034 E389     		ldrh	r3, [r4, #14]
+  56 0036 D554     		strb	r5, [r2, r3]
+  57 0038 238A     		ldrh	r3, [r4, #16]
+  58 003a 0133     		adds	r3, r3, #1
+ARM GAS  /tmp/ccuiW7II.s 			page 2
+
+
+  59 003c 2382     		strh	r3, [r4, #16]	@ movhi
+  60 003e E389     		ldrh	r3, [r4, #14]
+  61 0040 0133     		adds	r3, r3, #1
+  62 0042 9BB2     		uxth	r3, r3
+  63 0044 E381     		strh	r3, [r4, #14]	@ movhi
+  64 0046 6268     		ldr	r2, [r4, #4]
+  65 0048 5189     		ldrh	r1, [r2, #10]
+  66 004a 8B42     		cmp	r3, r1
+  67 004c 50D3     		bcc	.L18
+  68 004e 0023     		movs	r3, #0
+  69 0050 E381     		strh	r3, [r4, #14]	@ movhi
+  70 0052 1368     		ldr	r3, [r2]
+  71 0054 002B     		cmp	r3, #0
+  72 0056 46D0     		beq	.L13
+  73 0058 5A89     		ldrh	r2, [r3, #10]
+  74 005a 002A     		cmp	r2, #0
+  75 005c 43D0     		beq	.L13
+  76 005e 6360     		str	r3, [r4, #4]
+  77 0060 0020     		movs	r0, #0
+  78 0062 44E0     		b	.L1
+  79              	.L20:
+  80 0064 234B     		ldr	r3, .L24
+  81 0066 D422     		movs	r2, #212
+  82 0068 2349     		ldr	r1, .L24+4
+  83 006a 2448     		ldr	r0, .L24+8
+  84 006c FFF7FEFF 		bl	printf
+  85 0070 CBE7     		b	.L2
+  86              	.L21:
+  87 0072 204B     		ldr	r3, .L24
+  88 0074 D522     		movs	r2, #213
+  89 0076 2249     		ldr	r1, .L24+12
+  90 0078 2048     		ldr	r0, .L24+8
+  91 007a FFF7FEFF 		bl	printf
+  92 007e C7E7     		b	.L3
+  93              	.L4:
+  94 0080 C02D     		cmp	r5, #192
+  95 0082 05D0     		beq	.L7
+  96 0084 DB2D     		cmp	r5, #219
+  97 0086 C9D1     		bne	.L6
+  98 0088 0123     		movs	r3, #1
+  99 008a 2373     		strb	r3, [r4, #12]
+ 100 008c 0020     		movs	r0, #0
+ 101 008e 2EE0     		b	.L1
+ 102              	.L7:
+ 103 0090 218A     		ldrh	r1, [r4, #16]
+ 104 0092 09B9     		cbnz	r1, .L23
+ 105 0094 0020     		movs	r0, #0
+ 106 0096 2AE0     		b	.L1
+ 107              	.L23:
+ 108 0098 A068     		ldr	r0, [r4, #8]
+ 109 009a FFF7FEFF 		bl	pbuf_realloc
+ 110 009e A068     		ldr	r0, [r4, #8]
+ 111 00a0 0023     		movs	r3, #0
+ 112 00a2 A360     		str	r3, [r4, #8]
+ 113 00a4 6360     		str	r3, [r4, #4]
+ 114 00a6 2382     		strh	r3, [r4, #16]	@ movhi
+ 115 00a8 E381     		strh	r3, [r4, #14]	@ movhi
+ARM GAS  /tmp/ccuiW7II.s 			page 3
+
+
+ 116 00aa 20E0     		b	.L1
+ 117              	.L5:
+ 118 00ac DC2D     		cmp	r5, #220
+ 119 00ae 04D0     		beq	.L15
+ 120 00b0 DD2D     		cmp	r5, #221
+ 121 00b2 04D0     		beq	.L16
+ 122              	.L10:
+ 123 00b4 0023     		movs	r3, #0
+ 124 00b6 2373     		strb	r3, [r4, #12]
+ 125 00b8 B0E7     		b	.L6
+ 126              	.L15:
+ 127 00ba C025     		movs	r5, #192
+ 128 00bc FAE7     		b	.L10
+ 129              	.L16:
+ 130 00be DB25     		movs	r5, #219
+ 131 00c0 F8E7     		b	.L10
+ 132              	.L22:
+ 133 00c2 4FF4C172 		mov	r2, #386
+ 134 00c6 40F24221 		movw	r1, #578
+ 135 00ca 0E20     		movs	r0, #14
+ 136 00cc FFF7FEFF 		bl	pbuf_alloc
+ 137 00d0 6060     		str	r0, [r4, #4]
+ 138 00d2 60B1     		cbz	r0, .L1
+ 139 00d4 A368     		ldr	r3, [r4, #8]
+ 140 00d6 23B1     		cbz	r3, .L12
+ 141 00d8 0146     		mov	r1, r0
+ 142 00da 1846     		mov	r0, r3
+ 143 00dc FFF7FEFF 		bl	pbuf_cat
+ 144 00e0 9FE7     		b	.L11
+ 145              	.L12:
+ 146 00e2 A060     		str	r0, [r4, #8]
+ 147 00e4 9DE7     		b	.L11
+ 148              	.L13:
+ 149 00e6 0020     		movs	r0, #0
+ 150 00e8 6060     		str	r0, [r4, #4]
+ 151 00ea 00E0     		b	.L1
+ 152              	.L17:
+ 153 00ec 0020     		movs	r0, #0
+ 154              	.L1:
+ 155 00ee 38BD     		pop	{r3, r4, r5, pc}
+ 156              	.L18:
+ 157 00f0 0020     		movs	r0, #0
+ 158 00f2 FCE7     		b	.L1
+ 159              	.L25:
+ 160              		.align	2
+ 161              	.L24:
+ 162 00f4 00000000 		.word	.LC0
+ 163 00f8 30000000 		.word	.LC1
+ 164 00fc 40000000 		.word	.LC2
+ 165 0100 68000000 		.word	.LC3
+ 167              		.section	.text.slipif_rxbyte_input,"ax",%progbits
+ 168              		.align	1
+ 169              		.syntax unified
+ 170              		.thumb
+ 171              		.thumb_func
+ 172              		.fpu fpv4-sp-d16
+ 174              	slipif_rxbyte_input:
+ARM GAS  /tmp/ccuiW7II.s 			page 4
+
+
+ 175              		@ args = 0, pretend = 0, frame = 0
+ 176              		@ frame_needed = 0, uses_anonymous_args = 0
+ 177 0000 38B5     		push	{r3, r4, r5, lr}
+ 178 0002 0446     		mov	r4, r0
+ 179 0004 FFF7FEFF 		bl	slipif_rxbyte
+ 180 0008 20B1     		cbz	r0, .L26
+ 181 000a 0546     		mov	r5, r0
+ 182 000c 2369     		ldr	r3, [r4, #16]
+ 183 000e 2146     		mov	r1, r4
+ 184 0010 9847     		blx	r3
+ 185 0012 00B9     		cbnz	r0, .L29
+ 186              	.L26:
+ 187 0014 38BD     		pop	{r3, r4, r5, pc}
+ 188              	.L29:
+ 189 0016 2846     		mov	r0, r5
+ 190 0018 FFF7FEFF 		bl	pbuf_free
+ 191 001c FAE7     		b	.L26
+ 193              		.section	.text.slipif_loop_thread,"ax",%progbits
+ 194              		.align	1
+ 195              		.syntax unified
+ 196              		.thumb
+ 197              		.thumb_func
+ 198              		.fpu fpv4-sp-d16
+ 200              	slipif_loop_thread:
+ 201              		@ args = 0, pretend = 0, frame = 8
+ 202              		@ frame_needed = 0, uses_anonymous_args = 0
+ 203 0000 30B5     		push	{r4, r5, lr}
+ 204 0002 83B0     		sub	sp, sp, #12
+ 205 0004 0546     		mov	r5, r0
+ 206 0006 046A     		ldr	r4, [r0, #32]
+ 207 0008 04E0     		b	.L31
+ 208              	.L34:
+ 209 000a 9DF80710 		ldrb	r1, [sp, #7]	@ zero_extendqisi2
+ 210 000e 2846     		mov	r0, r5
+ 211 0010 FFF7FEFF 		bl	slipif_rxbyte_input
+ 212              	.L31:
+ 213 0014 0122     		movs	r2, #1
+ 214 0016 0DF10701 		add	r1, sp, #7
+ 215 001a 2068     		ldr	r0, [r4]
+ 216 001c FFF7FEFF 		bl	sio_read
+ 217 0020 0028     		cmp	r0, #0
+ 218 0022 F7D0     		beq	.L31
+ 219 0024 F1E7     		b	.L34
+ 221              		.section	.text.slipif_output,"ax",%progbits
+ 222              		.align	1
+ 223              		.syntax unified
+ 224              		.thumb
+ 225              		.thumb_func
+ 226              		.fpu fpv4-sp-d16
+ 228              	slipif_output:
+ 229              		@ args = 0, pretend = 0, frame = 0
+ 230              		@ frame_needed = 0, uses_anonymous_args = 0
+ 231 0000 70B5     		push	{r4, r5, r6, lr}
+ 232 0002 0D46     		mov	r5, r1
+ 233 0004 0446     		mov	r4, r0
+ 234 0006 40B1     		cbz	r0, .L49
+ 235              	.L36:
+ARM GAS  /tmp/ccuiW7II.s 			page 5
+
+
+ 236 0008 236A     		ldr	r3, [r4, #32]
+ 237 000a 6BB1     		cbz	r3, .L50
+ 238              	.L37:
+ 239 000c 9DB1     		cbz	r5, .L51
+ 240              	.L38:
+ 241 000e 266A     		ldr	r6, [r4, #32]
+ 242 0010 3168     		ldr	r1, [r6]
+ 243 0012 C020     		movs	r0, #192
+ 244 0014 FFF7FEFF 		bl	sio_send
+ 245 0018 35E0     		b	.L39
+ 246              	.L49:
+ 247 001a 1F4B     		ldr	r3, .L54
+ 248 001c 7B22     		movs	r2, #123
+ 249 001e 1F49     		ldr	r1, .L54+4
+ 250 0020 1F48     		ldr	r0, .L54+8
+ 251 0022 FFF7FEFF 		bl	printf
+ 252 0026 EFE7     		b	.L36
+ 253              	.L50:
+ 254 0028 1B4B     		ldr	r3, .L54
+ 255 002a 7C22     		movs	r2, #124
+ 256 002c 1D49     		ldr	r1, .L54+12
+ 257 002e 1C48     		ldr	r0, .L54+8
+ 258 0030 FFF7FEFF 		bl	printf
+ 259 0034 EAE7     		b	.L37
+ 260              	.L51:
+ 261 0036 184B     		ldr	r3, .L54
+ 262 0038 7D22     		movs	r2, #125
+ 263 003a 1B49     		ldr	r1, .L54+16
+ 264 003c 1848     		ldr	r0, .L54+8
+ 265 003e FFF7FEFF 		bl	printf
+ 266 0042 E4E7     		b	.L38
+ 267              	.L40:
+ 268 0044 3168     		ldr	r1, [r6]
+ 269 0046 DB20     		movs	r0, #219
+ 270 0048 FFF7FEFF 		bl	sio_send
+ 271 004c 3168     		ldr	r1, [r6]
+ 272 004e DC20     		movs	r0, #220
+ 273 0050 FFF7FEFF 		bl	sio_send
+ 274              	.L43:
+ 275 0054 0134     		adds	r4, r4, #1
+ 276 0056 A4B2     		uxth	r4, r4
+ 277              	.L45:
+ 278 0058 6B89     		ldrh	r3, [r5, #10]
+ 279 005a A342     		cmp	r3, r4
+ 280 005c 12D9     		bls	.L52
+ 281 005e 6B68     		ldr	r3, [r5, #4]
+ 282 0060 185D     		ldrb	r0, [r3, r4]	@ zero_extendqisi2
+ 283 0062 C028     		cmp	r0, #192
+ 284 0064 EED0     		beq	.L40
+ 285 0066 DB28     		cmp	r0, #219
+ 286 0068 03D0     		beq	.L41
+ 287 006a 3168     		ldr	r1, [r6]
+ 288 006c FFF7FEFF 		bl	sio_send
+ 289 0070 F0E7     		b	.L43
+ 290              	.L41:
+ 291 0072 3168     		ldr	r1, [r6]
+ 292 0074 DB20     		movs	r0, #219
+ARM GAS  /tmp/ccuiW7II.s 			page 6
+
+
+ 293 0076 FFF7FEFF 		bl	sio_send
+ 294 007a 3168     		ldr	r1, [r6]
+ 295 007c DD20     		movs	r0, #221
+ 296 007e FFF7FEFF 		bl	sio_send
+ 297 0082 E7E7     		b	.L43
+ 298              	.L52:
+ 299 0084 2D68     		ldr	r5, [r5]
+ 300              	.L39:
+ 301 0086 0DB1     		cbz	r5, .L53
+ 302 0088 0024     		movs	r4, #0
+ 303 008a E5E7     		b	.L45
+ 304              	.L53:
+ 305 008c 3168     		ldr	r1, [r6]
+ 306 008e C020     		movs	r0, #192
+ 307 0090 FFF7FEFF 		bl	sio_send
+ 308 0094 0020     		movs	r0, #0
+ 309 0096 70BD     		pop	{r4, r5, r6, pc}
+ 310              	.L55:
+ 311              		.align	2
+ 312              	.L54:
+ 313 0098 00000000 		.word	.LC0
+ 314 009c 30000000 		.word	.LC1
+ 315 00a0 40000000 		.word	.LC2
+ 316 00a4 68000000 		.word	.LC3
+ 317 00a8 00000000 		.word	.LC4
+ 319              		.section	.text.slipif_output_v4,"ax",%progbits
+ 320              		.align	1
+ 321              		.syntax unified
+ 322              		.thumb
+ 323              		.thumb_func
+ 324              		.fpu fpv4-sp-d16
+ 326              	slipif_output_v4:
+ 327              		@ args = 0, pretend = 0, frame = 0
+ 328              		@ frame_needed = 0, uses_anonymous_args = 0
+ 329 0000 08B5     		push	{r3, lr}
+ 330 0002 FFF7FEFF 		bl	slipif_output
+ 331 0006 08BD     		pop	{r3, pc}
+ 333              		.section	.text.slipif_init,"ax",%progbits
+ 334              		.align	1
+ 335              		.global	slipif_init
+ 336              		.syntax unified
+ 337              		.thumb
+ 338              		.thumb_func
+ 339              		.fpu fpv4-sp-d16
+ 341              	slipif_init:
+ 342              		@ args = 0, pretend = 0, frame = 0
+ 343              		@ frame_needed = 0, uses_anonymous_args = 0
+ 344 0000 70B5     		push	{r4, r5, r6, lr}
+ 345 0002 82B0     		sub	sp, sp, #8
+ 346 0004 0446     		mov	r4, r0
+ 347 0006 0369     		ldr	r3, [r0, #16]
+ 348 0008 53B3     		cbz	r3, .L64
+ 349              	.L59:
+ 350 000a 94F82050 		ldrb	r5, [r4, #32]	@ zero_extendqisi2
+ 351 000e 1420     		movs	r0, #20
+ 352 0010 FFF7FEFF 		bl	mem_malloc
+ 353 0014 0646     		mov	r6, r0
+ARM GAS  /tmp/ccuiW7II.s 			page 7
+
+
+ 354 0016 0028     		cmp	r0, #0
+ 355 0018 30D0     		beq	.L62
+ 356 001a 7323     		movs	r3, #115
+ 357 001c 84F83230 		strb	r3, [r4, #50]
+ 358 0020 6C23     		movs	r3, #108
+ 359 0022 84F83330 		strb	r3, [r4, #51]
+ 360 0026 174B     		ldr	r3, .L66
+ 361 0028 6361     		str	r3, [r4, #20]
+ 362 002a 40F2DC53 		movw	r3, #1500
+ 363 002e 2385     		strh	r3, [r4, #40]	@ movhi
+ 364 0030 2846     		mov	r0, r5
+ 365 0032 FFF7FEFF 		bl	sio_open
+ 366 0036 3060     		str	r0, [r6]
+ 367 0038 D0B1     		cbz	r0, .L65
+ 368 003a 0025     		movs	r5, #0
+ 369 003c 7560     		str	r5, [r6, #4]
+ 370 003e B560     		str	r5, [r6, #8]
+ 371 0040 3573     		strb	r5, [r6, #12]
+ 372 0042 F581     		strh	r5, [r6, #14]	@ movhi
+ 373 0044 3582     		strh	r5, [r6, #16]	@ movhi
+ 374 0046 2662     		str	r6, [r4, #32]
+ 375 0048 0323     		movs	r3, #3
+ 376 004a 0093     		str	r3, [sp]
+ 377 004c 4FF48063 		mov	r3, #1024
+ 378 0050 2246     		mov	r2, r4
+ 379 0052 0D49     		ldr	r1, .L66+4
+ 380 0054 0D48     		ldr	r0, .L66+8
+ 381 0056 FFF7FEFF 		bl	sys_thread_new
+ 382 005a 2846     		mov	r0, r5
+ 383              	.L60:
+ 384 005c 02B0     		add	sp, sp, #8
+ 385              		@ sp needed
+ 386 005e 70BD     		pop	{r4, r5, r6, pc}
+ 387              	.L64:
+ 388 0060 0B4B     		ldr	r3, .L66+12
+ 389 0062 40F26D12 		movw	r2, #365
+ 390 0066 0B49     		ldr	r1, .L66+16
+ 391 0068 0B48     		ldr	r0, .L66+20
+ 392 006a FFF7FEFF 		bl	printf
+ 393 006e CCE7     		b	.L59
+ 394              	.L65:
+ 395 0070 3046     		mov	r0, r6
+ 396 0072 FFF7FEFF 		bl	mem_free
+ 397 0076 6FF00B00 		mvn	r0, #11
+ 398 007a EFE7     		b	.L60
+ 399              	.L62:
+ 400 007c 4FF0FF30 		mov	r0, #-1
+ 401 0080 ECE7     		b	.L60
+ 402              	.L67:
+ 403 0082 00BF     		.align	2
+ 404              	.L66:
+ 405 0084 00000000 		.word	slipif_output_v4
+ 406 0088 00000000 		.word	slipif_loop_thread
+ 407 008c 20000000 		.word	.LC6
+ 408 0090 00000000 		.word	.LC0
+ 409 0094 00000000 		.word	.LC5
+ 410 0098 40000000 		.word	.LC2
+ARM GAS  /tmp/ccuiW7II.s 			page 8
+
+
+ 412              		.section	.text.slipif_poll,"ax",%progbits
+ 413              		.align	1
+ 414              		.global	slipif_poll
+ 415              		.syntax unified
+ 416              		.thumb
+ 417              		.thumb_func
+ 418              		.fpu fpv4-sp-d16
+ 420              	slipif_poll:
+ 421              		@ args = 0, pretend = 0, frame = 8
+ 422              		@ frame_needed = 0, uses_anonymous_args = 0
+ 423 0000 30B5     		push	{r4, r5, lr}
+ 424 0002 83B0     		sub	sp, sp, #12
+ 425 0004 0446     		mov	r4, r0
+ 426 0006 78B1     		cbz	r0, .L74
+ 427              	.L69:
+ 428 0008 236A     		ldr	r3, [r4, #32]
+ 429 000a ABB1     		cbz	r3, .L75
+ 430              	.L70:
+ 431 000c 256A     		ldr	r5, [r4, #32]
+ 432              	.L71:
+ 433 000e 0122     		movs	r2, #1
+ 434 0010 0DF10701 		add	r1, sp, #7
+ 435 0014 2868     		ldr	r0, [r5]
+ 436 0016 FFF7FEFF 		bl	sio_tryread
+ 437 001a A8B1     		cbz	r0, .L76
+ 438 001c 9DF80710 		ldrb	r1, [sp, #7]	@ zero_extendqisi2
+ 439 0020 2046     		mov	r0, r4
+ 440 0022 FFF7FEFF 		bl	slipif_rxbyte_input
+ 441 0026 F2E7     		b	.L71
+ 442              	.L74:
+ 443 0028 084B     		ldr	r3, .L77
+ 444 002a 40F2AF12 		movw	r2, #431
+ 445 002e 0849     		ldr	r1, .L77+4
+ 446 0030 0848     		ldr	r0, .L77+8
+ 447 0032 FFF7FEFF 		bl	printf
+ 448 0036 E7E7     		b	.L69
+ 449              	.L75:
+ 450 0038 044B     		ldr	r3, .L77
+ 451 003a 4FF4D872 		mov	r2, #432
+ 452 003e 0649     		ldr	r1, .L77+12
+ 453 0040 0448     		ldr	r0, .L77+8
+ 454 0042 FFF7FEFF 		bl	printf
+ 455 0046 E1E7     		b	.L70
+ 456              	.L76:
+ 457 0048 03B0     		add	sp, sp, #12
+ 458              		@ sp needed
+ 459 004a 30BD     		pop	{r4, r5, pc}
+ 460              	.L78:
+ 461              		.align	2
+ 462              	.L77:
+ 463 004c 00000000 		.word	.LC0
+ 464 0050 30000000 		.word	.LC1
+ 465 0054 40000000 		.word	.LC2
+ 466 0058 68000000 		.word	.LC3
+ 468              		.section	.rodata.slipif_init.str1.4,"aMS",%progbits,1
+ 469              		.align	2
+ 470              	.LC5:
+ARM GAS  /tmp/ccuiW7II.s 			page 9
+
+
+ 471 0000 736C6970 		.ascii	"slipif needs an input callback\000"
+ 471      6966206E 
+ 471      65656473 
+ 471      20616E20 
+ 471      696E7075 
+ 472 001f 00       		.space	1
+ 473              	.LC6:
+ 474 0020 736C6970 		.ascii	"slipif_loop\000"
+ 474      69665F6C 
+ 474      6F6F7000 
+ 475              		.section	.rodata.slipif_output.str1.4,"aMS",%progbits,1
+ 476              		.align	2
+ 477              	.LC4:
+ 478 0000 7020213D 		.ascii	"p != NULL\000"
+ 478      204E554C 
+ 478      4C00
+ 479              		.section	.rodata.slipif_rxbyte.str1.4,"aMS",%progbits,1
+ 480              		.align	2
+ 481              	.LC0:
+ 482 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/netif/slipif.c\000"
+ 482      6C657761 
+ 482      7265732F 
+ 482      54686972 
+ 482      645F5061 
+ 483              	.LC1:
+ 484 0030 6E657469 		.ascii	"netif != NULL\000"
+ 484      6620213D 
+ 484      204E554C 
+ 484      4C00
+ 485 003e 0000     		.space	2
+ 486              	.LC2:
+ 487 0040 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ 487      7274696F 
+ 487      6E202225 
+ 487      73222066 
+ 487      61696C65 
+ 488              	.LC3:
+ 489 0068 6E657469 		.ascii	"netif->state != NULL\000"
+ 489      662D3E73 
+ 489      74617465 
+ 489      20213D20 
+ 489      4E554C4C 
+ 490              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccuiW7II.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 slipif.c
+     /tmp/ccuiW7II.s:16     .text.slipif_rxbyte:0000000000000000 $t
+     /tmp/ccuiW7II.s:23     .text.slipif_rxbyte:0000000000000000 slipif_rxbyte
+     /tmp/ccuiW7II.s:162    .text.slipif_rxbyte:00000000000000f4 $d
+     /tmp/ccuiW7II.s:168    .text.slipif_rxbyte_input:0000000000000000 $t
+     /tmp/ccuiW7II.s:174    .text.slipif_rxbyte_input:0000000000000000 slipif_rxbyte_input
+     /tmp/ccuiW7II.s:194    .text.slipif_loop_thread:0000000000000000 $t
+     /tmp/ccuiW7II.s:200    .text.slipif_loop_thread:0000000000000000 slipif_loop_thread
+     /tmp/ccuiW7II.s:222    .text.slipif_output:0000000000000000 $t
+     /tmp/ccuiW7II.s:228    .text.slipif_output:0000000000000000 slipif_output
+     /tmp/ccuiW7II.s:313    .text.slipif_output:0000000000000098 $d
+     /tmp/ccuiW7II.s:320    .text.slipif_output_v4:0000000000000000 $t
+     /tmp/ccuiW7II.s:326    .text.slipif_output_v4:0000000000000000 slipif_output_v4
+     /tmp/ccuiW7II.s:334    .text.slipif_init:0000000000000000 $t
+     /tmp/ccuiW7II.s:341    .text.slipif_init:0000000000000000 slipif_init
+     /tmp/ccuiW7II.s:405    .text.slipif_init:0000000000000084 $d
+     /tmp/ccuiW7II.s:413    .text.slipif_poll:0000000000000000 $t
+     /tmp/ccuiW7II.s:420    .text.slipif_poll:0000000000000000 slipif_poll
+     /tmp/ccuiW7II.s:463    .text.slipif_poll:000000000000004c $d
+     /tmp/ccuiW7II.s:469    .rodata.slipif_init.str1.4:0000000000000000 $d
+     /tmp/ccuiW7II.s:476    .rodata.slipif_output.str1.4:0000000000000000 $d
+     /tmp/ccuiW7II.s:480    .rodata.slipif_rxbyte.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+printf
+pbuf_realloc
+pbuf_alloc
+pbuf_cat
+pbuf_free
+sio_read
+sio_send
+mem_malloc
+sio_open
+sys_thread_new
+mem_free
+sio_tryread

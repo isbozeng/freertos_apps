@@ -1,0 +1,497 @@
+ARM GAS  /tmp/cc9e4Gw3.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_gpio.c"
+  14              		.text
+  15              		.section	.text.gpio_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	gpio_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	gpio_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 3A4B     		ldr	r3, .L19
+  29 0004 9842     		cmp	r0, r3
+  30 0006 55D0     		beq	.L2
+  31 0008 13D9     		bls	.L16
+  32 000a 394B     		ldr	r3, .L19+4
+  33 000c 9842     		cmp	r0, r3
+  34 000e 5AD0     		beq	.L10
+  35 0010 31D9     		bls	.L17
+  36 0012 384B     		ldr	r3, .L19+8
+  37 0014 9842     		cmp	r0, r3
+  38 0016 5FD0     		beq	.L13
+  39 0018 03F58063 		add	r3, r3, #1024
+  40 001c 9842     		cmp	r0, r3
+  41 001e 29D1     		bne	.L1
+  42 0020 4FF48160 		mov	r0, #1032
+  43 0024 FFF7FEFF 		bl	rcu_periph_reset_enable
+  44 0028 4FF48160 		mov	r0, #1032
+  45 002c FFF7FEFF 		bl	rcu_periph_reset_disable
+  46 0030 20E0     		b	.L1
+  47              	.L16:
+  48 0032 A3F54063 		sub	r3, r3, #3072
+  49 0036 9842     		cmp	r0, r3
+  50 0038 2AD0     		beq	.L4
+  51 003a 0FD9     		bls	.L18
+  52 003c 2E4B     		ldr	r3, .L19+12
+  53 003e 9842     		cmp	r0, r3
+  54 0040 2FD0     		beq	.L8
+  55 0042 03F58063 		add	r3, r3, #1024
+  56 0046 9842     		cmp	r0, r3
+  57 0048 14D1     		bne	.L1
+  58 004a 40F20340 		movw	r0, #1027
+ARM GAS  /tmp/cc9e4Gw3.s 			page 2
+
+
+  59 004e FFF7FEFF 		bl	rcu_periph_reset_enable
+  60 0052 40F20340 		movw	r0, #1027
+  61 0056 FFF7FEFF 		bl	rcu_periph_reset_disable
+  62 005a 0BE0     		b	.L1
+  63              	.L18:
+  64 005c A3F58063 		sub	r3, r3, #1024
+  65 0060 9842     		cmp	r0, r3
+  66 0062 07D1     		bne	.L1
+  67 0064 4FF48060 		mov	r0, #1024
+  68 0068 FFF7FEFF 		bl	rcu_periph_reset_enable
+  69 006c 4FF48060 		mov	r0, #1024
+  70 0070 FFF7FEFF 		bl	rcu_periph_reset_disable
+  71              	.L1:
+  72 0074 08BD     		pop	{r3, pc}
+  73              	.L17:
+  74 0076 A3F58063 		sub	r3, r3, #1024
+  75 007a 9842     		cmp	r0, r3
+  76 007c FAD1     		bne	.L1
+  77 007e 40F20540 		movw	r0, #1029
+  78 0082 FFF7FEFF 		bl	rcu_periph_reset_enable
+  79 0086 40F20540 		movw	r0, #1029
+  80 008a FFF7FEFF 		bl	rcu_periph_reset_disable
+  81 008e F1E7     		b	.L1
+  82              	.L4:
+  83 0090 40F20140 		movw	r0, #1025
+  84 0094 FFF7FEFF 		bl	rcu_periph_reset_enable
+  85 0098 40F20140 		movw	r0, #1025
+  86 009c FFF7FEFF 		bl	rcu_periph_reset_disable
+  87 00a0 E8E7     		b	.L1
+  88              	.L8:
+  89 00a2 40F20240 		movw	r0, #1026
+  90 00a6 FFF7FEFF 		bl	rcu_periph_reset_enable
+  91 00aa 40F20240 		movw	r0, #1026
+  92 00ae FFF7FEFF 		bl	rcu_periph_reset_disable
+  93 00b2 DFE7     		b	.L1
+  94              	.L2:
+  95 00b4 40F20440 		movw	r0, #1028
+  96 00b8 FFF7FEFF 		bl	rcu_periph_reset_enable
+  97 00bc 40F20440 		movw	r0, #1028
+  98 00c0 FFF7FEFF 		bl	rcu_periph_reset_disable
+  99 00c4 D6E7     		b	.L1
+ 100              	.L10:
+ 101 00c6 40F20640 		movw	r0, #1030
+ 102 00ca FFF7FEFF 		bl	rcu_periph_reset_enable
+ 103 00ce 40F20640 		movw	r0, #1030
+ 104 00d2 FFF7FEFF 		bl	rcu_periph_reset_disable
+ 105 00d6 CDE7     		b	.L1
+ 106              	.L13:
+ 107 00d8 40F20740 		movw	r0, #1031
+ 108 00dc FFF7FEFF 		bl	rcu_periph_reset_enable
+ 109 00e0 40F20740 		movw	r0, #1031
+ 110 00e4 FFF7FEFF 		bl	rcu_periph_reset_disable
+ 111 00e8 C4E7     		b	.L1
+ 112              	.L20:
+ 113 00ea 00BF     		.align	2
+ 114              	.L19:
+ 115 00ec 00100240 		.word	1073876992
+ARM GAS  /tmp/cc9e4Gw3.s 			page 3
+
+
+ 116 00f0 00180240 		.word	1073879040
+ 117 00f4 001C0240 		.word	1073880064
+ 118 00f8 00080240 		.word	1073874944
+ 120              		.section	.text.gpio_mode_set,"ax",%progbits
+ 121              		.align	1
+ 122              		.global	gpio_mode_set
+ 123              		.syntax unified
+ 124              		.thumb
+ 125              		.thumb_func
+ 126              		.fpu fpv4-sp-d16
+ 128              	gpio_mode_set:
+ 129              		@ args = 0, pretend = 0, frame = 0
+ 130              		@ frame_needed = 0, uses_anonymous_args = 0
+ 131 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 132 0002 9C46     		mov	ip, r3
+ 133 0004 0368     		ldr	r3, [r0]
+ 134 0006 D0F80CE0 		ldr	lr, [r0, #12]
+ 135 000a 0024     		movs	r4, #0
+ 136 000c 01E0     		b	.L22
+ 137              	.L23:
+ 138 000e 0134     		adds	r4, r4, #1
+ 139 0010 A4B2     		uxth	r4, r4
+ 140              	.L22:
+ 141 0012 0F2C     		cmp	r4, #15
+ 142 0014 13D8     		bhi	.L26
+ 143 0016 0126     		movs	r6, #1
+ 144 0018 A640     		lsls	r6, r6, r4
+ 145 001a 16EA0C0F 		tst	r6, ip
+ 146 001e F6D0     		beq	.L23
+ 147 0020 6700     		lsls	r7, r4, #1
+ 148 0022 0326     		movs	r6, #3
+ 149 0024 BE40     		lsls	r6, r6, r7
+ 150 0026 F543     		mvns	r5, r6
+ 151 0028 2B40     		ands	r3, r3, r5
+ 152 002a 01FA07F6 		lsl	r6, r1, r7
+ 153 002e 3343     		orrs	r3, r3, r6
+ 154 0030 05EA0E05 		and	r5, r5, lr
+ 155 0034 02FA07F7 		lsl	r7, r2, r7
+ 156 0038 47EA050E 		orr	lr, r7, r5
+ 157 003c E7E7     		b	.L23
+ 158              	.L26:
+ 159 003e 0360     		str	r3, [r0]
+ 160 0040 C0F80CE0 		str	lr, [r0, #12]
+ 161 0044 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 163              		.section	.text.gpio_output_options_set,"ax",%progbits
+ 164              		.align	1
+ 165              		.global	gpio_output_options_set
+ 166              		.syntax unified
+ 167              		.thumb
+ 168              		.thumb_func
+ 169              		.fpu fpv4-sp-d16
+ 171              	gpio_output_options_set:
+ 172              		@ args = 0, pretend = 0, frame = 0
+ 173              		@ frame_needed = 0, uses_anonymous_args = 0
+ 174              		@ link register save eliminated.
+ 175 0000 70B4     		push	{r4, r5, r6}
+ 176 0002 0129     		cmp	r1, #1
+ARM GAS  /tmp/cc9e4Gw3.s 			page 4
+
+
+ 177 0004 06D0     		beq	.L34
+ 178 0006 4168     		ldr	r1, [r0, #4]
+ 179 0008 21EA0301 		bic	r1, r1, r3
+ 180 000c 4160     		str	r1, [r0, #4]
+ 181              	.L29:
+ 182 000e 8568     		ldr	r5, [r0, #8]
+ 183 0010 0021     		movs	r1, #0
+ 184 0012 05E0     		b	.L30
+ 185              	.L34:
+ 186 0014 4168     		ldr	r1, [r0, #4]
+ 187 0016 1943     		orrs	r1, r1, r3
+ 188 0018 4160     		str	r1, [r0, #4]
+ 189 001a F8E7     		b	.L29
+ 190              	.L31:
+ 191 001c 0131     		adds	r1, r1, #1
+ 192 001e 89B2     		uxth	r1, r1
+ 193              	.L30:
+ 194 0020 0F29     		cmp	r1, #15
+ 195 0022 0CD8     		bhi	.L35
+ 196 0024 0124     		movs	r4, #1
+ 197 0026 8C40     		lsls	r4, r4, r1
+ 198 0028 1C42     		tst	r4, r3
+ 199 002a F7D0     		beq	.L31
+ 200 002c 4C00     		lsls	r4, r1, #1
+ 201 002e 0326     		movs	r6, #3
+ 202 0030 A640     		lsls	r6, r6, r4
+ 203 0032 25EA0605 		bic	r5, r5, r6
+ 204 0036 02FA04F4 		lsl	r4, r2, r4
+ 205 003a 2543     		orrs	r5, r5, r4
+ 206 003c EEE7     		b	.L31
+ 207              	.L35:
+ 208 003e 8560     		str	r5, [r0, #8]
+ 209 0040 70BC     		pop	{r4, r5, r6}
+ 210 0042 7047     		bx	lr
+ 212              		.section	.text.gpio_bit_set,"ax",%progbits
+ 213              		.align	1
+ 214              		.global	gpio_bit_set
+ 215              		.syntax unified
+ 216              		.thumb
+ 217              		.thumb_func
+ 218              		.fpu fpv4-sp-d16
+ 220              	gpio_bit_set:
+ 221              		@ args = 0, pretend = 0, frame = 0
+ 222              		@ frame_needed = 0, uses_anonymous_args = 0
+ 223              		@ link register save eliminated.
+ 224 0000 8161     		str	r1, [r0, #24]
+ 225 0002 7047     		bx	lr
+ 227              		.section	.text.gpio_bit_reset,"ax",%progbits
+ 228              		.align	1
+ 229              		.global	gpio_bit_reset
+ 230              		.syntax unified
+ 231              		.thumb
+ 232              		.thumb_func
+ 233              		.fpu fpv4-sp-d16
+ 235              	gpio_bit_reset:
+ 236              		@ args = 0, pretend = 0, frame = 0
+ 237              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/cc9e4Gw3.s 			page 5
+
+
+ 238              		@ link register save eliminated.
+ 239 0000 8162     		str	r1, [r0, #40]
+ 240 0002 7047     		bx	lr
+ 242              		.section	.text.gpio_bit_write,"ax",%progbits
+ 243              		.align	1
+ 244              		.global	gpio_bit_write
+ 245              		.syntax unified
+ 246              		.thumb
+ 247              		.thumb_func
+ 248              		.fpu fpv4-sp-d16
+ 250              	gpio_bit_write:
+ 251              		@ args = 0, pretend = 0, frame = 0
+ 252              		@ frame_needed = 0, uses_anonymous_args = 0
+ 253              		@ link register save eliminated.
+ 254 0000 0AB1     		cbz	r2, .L39
+ 255 0002 8161     		str	r1, [r0, #24]
+ 256 0004 7047     		bx	lr
+ 257              	.L39:
+ 258 0006 8162     		str	r1, [r0, #40]
+ 259 0008 7047     		bx	lr
+ 261              		.section	.text.gpio_port_write,"ax",%progbits
+ 262              		.align	1
+ 263              		.global	gpio_port_write
+ 264              		.syntax unified
+ 265              		.thumb
+ 266              		.thumb_func
+ 267              		.fpu fpv4-sp-d16
+ 269              	gpio_port_write:
+ 270              		@ args = 0, pretend = 0, frame = 0
+ 271              		@ frame_needed = 0, uses_anonymous_args = 0
+ 272              		@ link register save eliminated.
+ 273 0000 4161     		str	r1, [r0, #20]
+ 274 0002 7047     		bx	lr
+ 276              		.section	.text.gpio_input_bit_get,"ax",%progbits
+ 277              		.align	1
+ 278              		.global	gpio_input_bit_get
+ 279              		.syntax unified
+ 280              		.thumb
+ 281              		.thumb_func
+ 282              		.fpu fpv4-sp-d16
+ 284              	gpio_input_bit_get:
+ 285              		@ args = 0, pretend = 0, frame = 0
+ 286              		@ frame_needed = 0, uses_anonymous_args = 0
+ 287              		@ link register save eliminated.
+ 288 0000 0369     		ldr	r3, [r0, #16]
+ 289 0002 0B42     		tst	r3, r1
+ 290 0004 01D0     		beq	.L44
+ 291 0006 0120     		movs	r0, #1
+ 292 0008 7047     		bx	lr
+ 293              	.L44:
+ 294 000a 0020     		movs	r0, #0
+ 295 000c 7047     		bx	lr
+ 297              		.section	.text.gpio_input_port_get,"ax",%progbits
+ 298              		.align	1
+ 299              		.global	gpio_input_port_get
+ 300              		.syntax unified
+ 301              		.thumb
+ARM GAS  /tmp/cc9e4Gw3.s 			page 6
+
+
+ 302              		.thumb_func
+ 303              		.fpu fpv4-sp-d16
+ 305              	gpio_input_port_get:
+ 306              		@ args = 0, pretend = 0, frame = 0
+ 307              		@ frame_needed = 0, uses_anonymous_args = 0
+ 308              		@ link register save eliminated.
+ 309 0000 0069     		ldr	r0, [r0, #16]
+ 310 0002 80B2     		uxth	r0, r0
+ 311 0004 7047     		bx	lr
+ 313              		.section	.text.gpio_output_bit_get,"ax",%progbits
+ 314              		.align	1
+ 315              		.global	gpio_output_bit_get
+ 316              		.syntax unified
+ 317              		.thumb
+ 318              		.thumb_func
+ 319              		.fpu fpv4-sp-d16
+ 321              	gpio_output_bit_get:
+ 322              		@ args = 0, pretend = 0, frame = 0
+ 323              		@ frame_needed = 0, uses_anonymous_args = 0
+ 324              		@ link register save eliminated.
+ 325 0000 4369     		ldr	r3, [r0, #20]
+ 326 0002 0B42     		tst	r3, r1
+ 327 0004 01D0     		beq	.L48
+ 328 0006 0120     		movs	r0, #1
+ 329 0008 7047     		bx	lr
+ 330              	.L48:
+ 331 000a 0020     		movs	r0, #0
+ 332 000c 7047     		bx	lr
+ 334              		.section	.text.gpio_output_port_get,"ax",%progbits
+ 335              		.align	1
+ 336              		.global	gpio_output_port_get
+ 337              		.syntax unified
+ 338              		.thumb
+ 339              		.thumb_func
+ 340              		.fpu fpv4-sp-d16
+ 342              	gpio_output_port_get:
+ 343              		@ args = 0, pretend = 0, frame = 0
+ 344              		@ frame_needed = 0, uses_anonymous_args = 0
+ 345              		@ link register save eliminated.
+ 346 0000 4069     		ldr	r0, [r0, #20]
+ 347 0002 80B2     		uxth	r0, r0
+ 348 0004 7047     		bx	lr
+ 350              		.section	.text.gpio_af_set,"ax",%progbits
+ 351              		.align	1
+ 352              		.global	gpio_af_set
+ 353              		.syntax unified
+ 354              		.thumb
+ 355              		.thumb_func
+ 356              		.fpu fpv4-sp-d16
+ 358              	gpio_af_set:
+ 359              		@ args = 0, pretend = 0, frame = 0
+ 360              		@ frame_needed = 0, uses_anonymous_args = 0
+ 361              		@ link register save eliminated.
+ 362 0000 F0B4     		push	{r4, r5, r6, r7}
+ 363 0002 066A     		ldr	r6, [r0, #32]
+ 364 0004 476A     		ldr	r7, [r0, #36]
+ 365 0006 0023     		movs	r3, #0
+ARM GAS  /tmp/cc9e4Gw3.s 			page 7
+
+
+ 366 0008 01E0     		b	.L51
+ 367              	.L52:
+ 368 000a 0133     		adds	r3, r3, #1
+ 369 000c 9BB2     		uxth	r3, r3
+ 370              	.L51:
+ 371 000e 072B     		cmp	r3, #7
+ 372 0010 0CD8     		bhi	.L58
+ 373 0012 0125     		movs	r5, #1
+ 374 0014 9D40     		lsls	r5, r5, r3
+ 375 0016 1542     		tst	r5, r2
+ 376 0018 F7D0     		beq	.L52
+ 377 001a 9D00     		lsls	r5, r3, #2
+ 378 001c 0F24     		movs	r4, #15
+ 379 001e AC40     		lsls	r4, r4, r5
+ 380 0020 26EA0406 		bic	r6, r6, r4
+ 381 0024 01FA05F5 		lsl	r5, r1, r5
+ 382 0028 2E43     		orrs	r6, r6, r5
+ 383 002a EEE7     		b	.L52
+ 384              	.L58:
+ 385 002c 0823     		movs	r3, #8
+ 386 002e 01E0     		b	.L54
+ 387              	.L55:
+ 388 0030 0133     		adds	r3, r3, #1
+ 389 0032 9BB2     		uxth	r3, r3
+ 390              	.L54:
+ 391 0034 0F2B     		cmp	r3, #15
+ 392 0036 0FD8     		bhi	.L59
+ 393 0038 0125     		movs	r5, #1
+ 394 003a 9D40     		lsls	r5, r5, r3
+ 395 003c 1542     		tst	r5, r2
+ 396 003e F7D0     		beq	.L55
+ 397 0040 03F18044 		add	r4, r3, #1073741824
+ 398 0044 083C     		subs	r4, r4, #8
+ 399 0046 A400     		lsls	r4, r4, #2
+ 400 0048 0F25     		movs	r5, #15
+ 401 004a A540     		lsls	r5, r5, r4
+ 402 004c 27EA0507 		bic	r7, r7, r5
+ 403 0050 01FA04F4 		lsl	r4, r1, r4
+ 404 0054 2743     		orrs	r7, r7, r4
+ 405 0056 EBE7     		b	.L55
+ 406              	.L59:
+ 407 0058 0662     		str	r6, [r0, #32]
+ 408 005a 4762     		str	r7, [r0, #36]
+ 409 005c F0BC     		pop	{r4, r5, r6, r7}
+ 410 005e 7047     		bx	lr
+ 412              		.section	.text.gpio_pin_lock,"ax",%progbits
+ 413              		.align	1
+ 414              		.global	gpio_pin_lock
+ 415              		.syntax unified
+ 416              		.thumb
+ 417              		.thumb_func
+ 418              		.fpu fpv4-sp-d16
+ 420              	gpio_pin_lock:
+ 421              		@ args = 0, pretend = 0, frame = 0
+ 422              		@ frame_needed = 0, uses_anonymous_args = 0
+ 423              		@ link register save eliminated.
+ 424 0000 41F48033 		orr	r3, r1, #65536
+ARM GAS  /tmp/cc9e4Gw3.s 			page 8
+
+
+ 425 0004 C361     		str	r3, [r0, #28]
+ 426 0006 C161     		str	r1, [r0, #28]
+ 427 0008 C361     		str	r3, [r0, #28]
+ 428 000a C369     		ldr	r3, [r0, #28]
+ 429 000c C369     		ldr	r3, [r0, #28]
+ 430 000e 7047     		bx	lr
+ 432              		.section	.text.gpio_bit_toggle,"ax",%progbits
+ 433              		.align	1
+ 434              		.global	gpio_bit_toggle
+ 435              		.syntax unified
+ 436              		.thumb
+ 437              		.thumb_func
+ 438              		.fpu fpv4-sp-d16
+ 440              	gpio_bit_toggle:
+ 441              		@ args = 0, pretend = 0, frame = 0
+ 442              		@ frame_needed = 0, uses_anonymous_args = 0
+ 443              		@ link register save eliminated.
+ 444 0000 C162     		str	r1, [r0, #44]
+ 445 0002 7047     		bx	lr
+ 447              		.section	.text.gpio_port_toggle,"ax",%progbits
+ 448              		.align	1
+ 449              		.global	gpio_port_toggle
+ 450              		.syntax unified
+ 451              		.thumb
+ 452              		.thumb_func
+ 453              		.fpu fpv4-sp-d16
+ 455              	gpio_port_toggle:
+ 456              		@ args = 0, pretend = 0, frame = 0
+ 457              		@ frame_needed = 0, uses_anonymous_args = 0
+ 458              		@ link register save eliminated.
+ 459 0000 4FF6FF73 		movw	r3, #65535
+ 460 0004 C362     		str	r3, [r0, #44]
+ 461 0006 7047     		bx	lr
+ 463              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/cc9e4Gw3.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_gpio.c
+     /tmp/cc9e4Gw3.s:16     .text.gpio_deinit:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:24     .text.gpio_deinit:0000000000000000 gpio_deinit
+     /tmp/cc9e4Gw3.s:115    .text.gpio_deinit:00000000000000ec $d
+     /tmp/cc9e4Gw3.s:121    .text.gpio_mode_set:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:128    .text.gpio_mode_set:0000000000000000 gpio_mode_set
+     /tmp/cc9e4Gw3.s:164    .text.gpio_output_options_set:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:171    .text.gpio_output_options_set:0000000000000000 gpio_output_options_set
+     /tmp/cc9e4Gw3.s:213    .text.gpio_bit_set:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:220    .text.gpio_bit_set:0000000000000000 gpio_bit_set
+     /tmp/cc9e4Gw3.s:228    .text.gpio_bit_reset:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:235    .text.gpio_bit_reset:0000000000000000 gpio_bit_reset
+     /tmp/cc9e4Gw3.s:243    .text.gpio_bit_write:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:250    .text.gpio_bit_write:0000000000000000 gpio_bit_write
+     /tmp/cc9e4Gw3.s:262    .text.gpio_port_write:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:269    .text.gpio_port_write:0000000000000000 gpio_port_write
+     /tmp/cc9e4Gw3.s:277    .text.gpio_input_bit_get:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:284    .text.gpio_input_bit_get:0000000000000000 gpio_input_bit_get
+     /tmp/cc9e4Gw3.s:298    .text.gpio_input_port_get:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:305    .text.gpio_input_port_get:0000000000000000 gpio_input_port_get
+     /tmp/cc9e4Gw3.s:314    .text.gpio_output_bit_get:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:321    .text.gpio_output_bit_get:0000000000000000 gpio_output_bit_get
+     /tmp/cc9e4Gw3.s:335    .text.gpio_output_port_get:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:342    .text.gpio_output_port_get:0000000000000000 gpio_output_port_get
+     /tmp/cc9e4Gw3.s:351    .text.gpio_af_set:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:358    .text.gpio_af_set:0000000000000000 gpio_af_set
+     /tmp/cc9e4Gw3.s:413    .text.gpio_pin_lock:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:420    .text.gpio_pin_lock:0000000000000000 gpio_pin_lock
+     /tmp/cc9e4Gw3.s:433    .text.gpio_bit_toggle:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:440    .text.gpio_bit_toggle:0000000000000000 gpio_bit_toggle
+     /tmp/cc9e4Gw3.s:448    .text.gpio_port_toggle:0000000000000000 $t
+     /tmp/cc9e4Gw3.s:455    .text.gpio_port_toggle:0000000000000000 gpio_port_toggle
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable

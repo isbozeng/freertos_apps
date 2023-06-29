@@ -1,0 +1,1668 @@
+ARM GAS  /tmp/ccZgA2It.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_exmc.c"
+  14              		.text
+  15              		.section	.text.exmc_norsram_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	exmc_norsram_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	exmc_norsram_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27              		@ link register save eliminated.
+  28 0000 00F1A053 		add	r3, r0, #335544320
+  29 0004 DB00     		lsls	r3, r3, #3
+  30 0006 43F2DA02 		movw	r2, #12506
+  31 000a 1A60     		str	r2, [r3]
+  32 000c C000     		lsls	r0, r0, #3
+  33 000e 00F12040 		add	r0, r0, #-1610612736
+  34 0012 6FF07043 		mvn	r3, #-268435456
+  35 0016 4360     		str	r3, [r0, #4]
+  36 0018 C0F80431 		str	r3, [r0, #260]
+  37 001c 7047     		bx	lr
+  39              		.section	.text.exmc_norsram_struct_para_init,"ax",%progbits
+  40              		.align	1
+  41              		.global	exmc_norsram_struct_para_init
+  42              		.syntax unified
+  43              		.thumb
+  44              		.thumb_func
+  45              		.fpu fpv4-sp-d16
+  47              	exmc_norsram_struct_para_init:
+  48              		@ args = 0, pretend = 0, frame = 0
+  49              		@ frame_needed = 0, uses_anonymous_args = 0
+  50              		@ link register save eliminated.
+  51 0000 30B4     		push	{r4, r5}
+  52 0002 0023     		movs	r3, #0
+  53 0004 0360     		str	r3, [r0]
+  54 0006 0122     		movs	r2, #1
+  55 0008 0263     		str	r2, [r0, #48]
+  56 000a C362     		str	r3, [r0, #44]
+  57 000c 8362     		str	r3, [r0, #40]
+  58 000e 4362     		str	r3, [r0, #36]
+  59 0010 0362     		str	r3, [r0, #32]
+  60 0012 C361     		str	r3, [r0, #28]
+ARM GAS  /tmp/ccZgA2It.s 			page 2
+
+
+  61 0014 8361     		str	r3, [r0, #24]
+  62 0016 4261     		str	r2, [r0, #20]
+  63 0018 0261     		str	r2, [r0, #16]
+  64 001a 8360     		str	r3, [r0, #8]
+  65 001c C360     		str	r3, [r0, #12]
+  66 001e 4360     		str	r3, [r0, #4]
+  67 0020 416B     		ldr	r1, [r0, #52]
+  68 0022 0F22     		movs	r2, #15
+  69 0024 8A61     		str	r2, [r1, #24]
+  70 0026 416B     		ldr	r1, [r0, #52]
+  71 0028 4A61     		str	r2, [r1, #20]
+  72 002a 446B     		ldr	r4, [r0, #52]
+  73 002c FF21     		movs	r1, #255
+  74 002e 2161     		str	r1, [r4, #16]
+  75 0030 446B     		ldr	r4, [r0, #52]
+  76 0032 E260     		str	r2, [r4, #12]
+  77 0034 446B     		ldr	r4, [r0, #52]
+  78 0036 4FF47005 		mov	r5, #15728640
+  79 003a A560     		str	r5, [r4, #8]
+  80 003c 446B     		ldr	r4, [r0, #52]
+  81 003e 4FF07065 		mov	r5, #251658240
+  82 0042 6560     		str	r5, [r4, #4]
+  83 0044 446B     		ldr	r4, [r0, #52]
+  84 0046 2360     		str	r3, [r4]
+  85 0048 846B     		ldr	r4, [r0, #56]
+  86 004a A261     		str	r2, [r4, #24]
+  87 004c 846B     		ldr	r4, [r0, #56]
+  88 004e 6261     		str	r2, [r4, #20]
+  89 0050 846B     		ldr	r4, [r0, #56]
+  90 0052 2161     		str	r1, [r4, #16]
+  91 0054 816B     		ldr	r1, [r0, #56]
+  92 0056 CA60     		str	r2, [r1, #12]
+  93 0058 826B     		ldr	r2, [r0, #56]
+  94 005a 1360     		str	r3, [r2]
+  95 005c 30BC     		pop	{r4, r5}
+  96 005e 7047     		bx	lr
+  98              		.section	.text.exmc_norsram_init,"ax",%progbits
+  99              		.align	1
+ 100              		.global	exmc_norsram_init
+ 101              		.syntax unified
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.fpu fpv4-sp-d16
+ 106              	exmc_norsram_init:
+ 107              		@ args = 0, pretend = 0, frame = 0
+ 108              		@ frame_needed = 0, uses_anonymous_args = 0
+ 109              		@ link register save eliminated.
+ 110 0000 F0B4     		push	{r4, r5, r6, r7}
+ 111 0002 0168     		ldr	r1, [r0]
+ 112 0004 01F1A051 		add	r1, r1, #335544320
+ 113 0008 C900     		lsls	r1, r1, #3
+ 114 000a 0B68     		ldr	r3, [r1]
+ 115 000c 2B4D     		ldr	r5, .L11
+ 116 000e 1D40     		ands	r5, r5, r3
+ 117 0010 026B     		ldr	r2, [r0, #48]
+ 118 0012 C46A     		ldr	r4, [r0, #44]
+ 119 0014 44EA4203 		orr	r3, r4, r2, lsl #1
+ARM GAS  /tmp/ccZgA2It.s 			page 3
+
+
+ 120 0018 826A     		ldr	r2, [r0, #40]
+ 121 001a 1343     		orrs	r3, r3, r2
+ 122 001c 426A     		ldr	r2, [r0, #36]
+ 123 001e 43EA0223 		orr	r3, r3, r2, lsl #8
+ 124 0022 026A     		ldr	r2, [r0, #32]
+ 125 0024 1343     		orrs	r3, r3, r2
+ 126 0026 C269     		ldr	r2, [r0, #28]
+ 127 0028 43EA8223 		orr	r3, r3, r2, lsl #10
+ 128 002c 8269     		ldr	r2, [r0, #24]
+ 129 002e 1343     		orrs	r3, r3, r2
+ 130 0030 4269     		ldr	r2, [r0, #20]
+ 131 0032 43EA0233 		orr	r3, r3, r2, lsl #12
+ 132 0036 0269     		ldr	r2, [r0, #16]
+ 133 0038 43EA4233 		orr	r3, r3, r2, lsl #13
+ 134 003c 8668     		ldr	r6, [r0, #8]
+ 135 003e 43EA8633 		orr	r3, r3, r6, lsl #14
+ 136 0042 C268     		ldr	r2, [r0, #12]
+ 137 0044 43EAC233 		orr	r3, r3, r2, lsl #15
+ 138 0048 4268     		ldr	r2, [r0, #4]
+ 139 004a 1343     		orrs	r3, r3, r2
+ 140 004c 2B43     		orrs	r3, r3, r5
+ 141 004e 456B     		ldr	r5, [r0, #52]
+ 142 0050 AA69     		ldr	r2, [r5, #24]
+ 143 0052 6F69     		ldr	r7, [r5, #20]
+ 144 0054 42EA0712 		orr	r2, r2, r7, lsl #4
+ 145 0058 2F69     		ldr	r7, [r5, #16]
+ 146 005a 42EA0722 		orr	r2, r2, r7, lsl #8
+ 147 005e EF68     		ldr	r7, [r5, #12]
+ 148 0060 42EA0742 		orr	r2, r2, r7, lsl #16
+ 149 0064 AF68     		ldr	r7, [r5, #8]
+ 150 0066 3A43     		orrs	r2, r2, r7
+ 151 0068 6F68     		ldr	r7, [r5, #4]
+ 152 006a 3A43     		orrs	r2, r2, r7
+ 153 006c 2D68     		ldr	r5, [r5]
+ 154 006e 2A43     		orrs	r2, r2, r5
+ 155 0070 082C     		cmp	r4, #8
+ 156 0072 11D0     		beq	.L9
+ 157              	.L5:
+ 158 0074 012E     		cmp	r6, #1
+ 159 0076 12D0     		beq	.L10
+ 160 0078 6FF07044 		mvn	r4, #-268435456
+ 161              	.L6:
+ 162 007c 0B60     		str	r3, [r1]
+ 163 007e 0368     		ldr	r3, [r0]
+ 164 0080 DB00     		lsls	r3, r3, #3
+ 165 0082 03F12043 		add	r3, r3, #-1610612736
+ 166 0086 5A60     		str	r2, [r3, #4]
+ 167 0088 0368     		ldr	r3, [r0]
+ 168 008a DB00     		lsls	r3, r3, #3
+ 169 008c 03F12043 		add	r3, r3, #-1610612736
+ 170 0090 C3F80441 		str	r4, [r3, #260]
+ 171 0094 F0BC     		pop	{r4, r5, r6, r7}
+ 172 0096 7047     		bx	lr
+ 173              	.L9:
+ 174 0098 43F04003 		orr	r3, r3, #64
+ 175 009c EAE7     		b	.L5
+ 176              	.L10:
+ARM GAS  /tmp/ccZgA2It.s 			page 4
+
+
+ 177 009e 856B     		ldr	r5, [r0, #56]
+ 178 00a0 AC69     		ldr	r4, [r5, #24]
+ 179 00a2 6E69     		ldr	r6, [r5, #20]
+ 180 00a4 44EA0614 		orr	r4, r4, r6, lsl #4
+ 181 00a8 2E69     		ldr	r6, [r5, #16]
+ 182 00aa 44EA0624 		orr	r4, r4, r6, lsl #8
+ 183 00ae EE68     		ldr	r6, [r5, #12]
+ 184 00b0 44EA0644 		orr	r4, r4, r6, lsl #16
+ 185 00b4 2D68     		ldr	r5, [r5]
+ 186 00b6 2C43     		orrs	r4, r4, r5
+ 187 00b8 E0E7     		b	.L6
+ 188              	.L12:
+ 189 00ba 00BF     		.align	2
+ 190              	.L11:
+ 191 00bc 8100F7FF 		.word	-589695
+ 193              		.section	.text.exmc_norsram_enable,"ax",%progbits
+ 194              		.align	1
+ 195              		.global	exmc_norsram_enable
+ 196              		.syntax unified
+ 197              		.thumb
+ 198              		.thumb_func
+ 199              		.fpu fpv4-sp-d16
+ 201              	exmc_norsram_enable:
+ 202              		@ args = 0, pretend = 0, frame = 0
+ 203              		@ frame_needed = 0, uses_anonymous_args = 0
+ 204              		@ link register save eliminated.
+ 205 0000 00F1A050 		add	r0, r0, #335544320
+ 206 0004 C000     		lsls	r0, r0, #3
+ 207 0006 0368     		ldr	r3, [r0]
+ 208 0008 43F00103 		orr	r3, r3, #1
+ 209 000c 0360     		str	r3, [r0]
+ 210 000e 7047     		bx	lr
+ 212              		.section	.text.exmc_norsram_disable,"ax",%progbits
+ 213              		.align	1
+ 214              		.global	exmc_norsram_disable
+ 215              		.syntax unified
+ 216              		.thumb
+ 217              		.thumb_func
+ 218              		.fpu fpv4-sp-d16
+ 220              	exmc_norsram_disable:
+ 221              		@ args = 0, pretend = 0, frame = 0
+ 222              		@ frame_needed = 0, uses_anonymous_args = 0
+ 223              		@ link register save eliminated.
+ 224 0000 00F1A050 		add	r0, r0, #335544320
+ 225 0004 C000     		lsls	r0, r0, #3
+ 226 0006 0368     		ldr	r3, [r0]
+ 227 0008 23F00103 		bic	r3, r3, #1
+ 228 000c 0360     		str	r3, [r0]
+ 229 000e 7047     		bx	lr
+ 231              		.section	.text.exmc_nand_deinit,"ax",%progbits
+ 232              		.align	1
+ 233              		.global	exmc_nand_deinit
+ 234              		.syntax unified
+ 235              		.thumb
+ 236              		.thumb_func
+ 237              		.fpu fpv4-sp-d16
+ 239              	exmc_nand_deinit:
+ARM GAS  /tmp/ccZgA2It.s 			page 5
+
+
+ 240              		@ args = 0, pretend = 0, frame = 0
+ 241              		@ frame_needed = 0, uses_anonymous_args = 0
+ 242              		@ link register save eliminated.
+ 243 0000 00F1A063 		add	r3, r0, #83886080
+ 244 0004 0233     		adds	r3, r3, #2
+ 245 0006 5B01     		lsls	r3, r3, #5
+ 246 0008 0822     		movs	r2, #8
+ 247 000a 1A60     		str	r2, [r3]
+ 248 000c 4001     		lsls	r0, r0, #5
+ 249 000e 00F12040 		add	r0, r0, #-1610612736
+ 250 0012 4223     		movs	r3, #66
+ 251 0014 4364     		str	r3, [r0, #68]
+ 252 0016 4FF0FF33 		mov	r3, #-1
+ 253 001a 8364     		str	r3, [r0, #72]
+ 254 001c C364     		str	r3, [r0, #76]
+ 255 001e 7047     		bx	lr
+ 257              		.section	.text.exmc_nand_struct_para_init,"ax",%progbits
+ 258              		.align	1
+ 259              		.global	exmc_nand_struct_para_init
+ 260              		.syntax unified
+ 261              		.thumb
+ 262              		.thumb_func
+ 263              		.fpu fpv4-sp-d16
+ 265              	exmc_nand_struct_para_init:
+ 266              		@ args = 0, pretend = 0, frame = 0
+ 267              		@ frame_needed = 0, uses_anonymous_args = 0
+ 268              		@ link register save eliminated.
+ 269 0000 0123     		movs	r3, #1
+ 270 0002 0360     		str	r3, [r0]
+ 271 0004 0023     		movs	r3, #0
+ 272 0006 8361     		str	r3, [r0, #24]
+ 273 0008 4361     		str	r3, [r0, #20]
+ 274 000a 0361     		str	r3, [r0, #16]
+ 275 000c 4360     		str	r3, [r0, #4]
+ 276 000e C360     		str	r3, [r0, #12]
+ 277 0010 8360     		str	r3, [r0, #8]
+ 278 0012 C269     		ldr	r2, [r0, #28]
+ 279 0014 FC23     		movs	r3, #252
+ 280 0016 D360     		str	r3, [r2, #12]
+ 281 0018 C269     		ldr	r2, [r0, #28]
+ 282 001a 9360     		str	r3, [r2, #8]
+ 283 001c C269     		ldr	r2, [r0, #28]
+ 284 001e 5360     		str	r3, [r2, #4]
+ 285 0020 C269     		ldr	r2, [r0, #28]
+ 286 0022 1360     		str	r3, [r2]
+ 287 0024 026A     		ldr	r2, [r0, #32]
+ 288 0026 D360     		str	r3, [r2, #12]
+ 289 0028 026A     		ldr	r2, [r0, #32]
+ 290 002a 9360     		str	r3, [r2, #8]
+ 291 002c 026A     		ldr	r2, [r0, #32]
+ 292 002e 5360     		str	r3, [r2, #4]
+ 293 0030 026A     		ldr	r2, [r0, #32]
+ 294 0032 1360     		str	r3, [r2]
+ 295 0034 7047     		bx	lr
+ 297              		.section	.text.exmc_nand_init,"ax",%progbits
+ 298              		.align	1
+ 299              		.global	exmc_nand_init
+ARM GAS  /tmp/ccZgA2It.s 			page 6
+
+
+ 300              		.syntax unified
+ 301              		.thumb
+ 302              		.thumb_func
+ 303              		.fpu fpv4-sp-d16
+ 305              	exmc_nand_init:
+ 306              		@ args = 0, pretend = 0, frame = 0
+ 307              		@ frame_needed = 0, uses_anonymous_args = 0
+ 308              		@ link register save eliminated.
+ 309 0000 30B4     		push	{r4, r5}
+ 310 0002 8269     		ldr	r2, [r0, #24]
+ 311 0004 4369     		ldr	r3, [r0, #20]
+ 312 0006 43EA4202 		orr	r2, r3, r2, lsl #1
+ 313 000a 0369     		ldr	r3, [r0, #16]
+ 314 000c 42EA8312 		orr	r2, r2, r3, lsl #6
+ 315 0010 4368     		ldr	r3, [r0, #4]
+ 316 0012 1A43     		orrs	r2, r2, r3
+ 317 0014 C368     		ldr	r3, [r0, #12]
+ 318 0016 1A43     		orrs	r2, r2, r3
+ 319 0018 8368     		ldr	r3, [r0, #8]
+ 320 001a 1A43     		orrs	r2, r2, r3
+ 321 001c 42F00802 		orr	r2, r2, #8
+ 322 0020 C469     		ldr	r4, [r0, #28]
+ 323 0022 E368     		ldr	r3, [r4, #12]
+ 324 0024 591E     		subs	r1, r3, #1
+ 325 0026 C9B2     		uxtb	r1, r1
+ 326 0028 A368     		ldr	r3, [r4, #8]
+ 327 002a 013B     		subs	r3, r3, #1
+ 328 002c 1B02     		lsls	r3, r3, #8
+ 329 002e 9BB2     		uxth	r3, r3
+ 330 0030 1943     		orrs	r1, r1, r3
+ 331 0032 6368     		ldr	r3, [r4, #4]
+ 332 0034 1B04     		lsls	r3, r3, #16
+ 333 0036 03F47F03 		and	r3, r3, #16711680
+ 334 003a 1943     		orrs	r1, r1, r3
+ 335 003c 2368     		ldr	r3, [r4]
+ 336 003e 013B     		subs	r3, r3, #1
+ 337 0040 41EA0361 		orr	r1, r1, r3, lsl #24
+ 338 0044 056A     		ldr	r5, [r0, #32]
+ 339 0046 EB68     		ldr	r3, [r5, #12]
+ 340 0048 013B     		subs	r3, r3, #1
+ 341 004a DBB2     		uxtb	r3, r3
+ 342 004c AC68     		ldr	r4, [r5, #8]
+ 343 004e 013C     		subs	r4, r4, #1
+ 344 0050 2402     		lsls	r4, r4, #8
+ 345 0052 A4B2     		uxth	r4, r4
+ 346 0054 2343     		orrs	r3, r3, r4
+ 347 0056 6C68     		ldr	r4, [r5, #4]
+ 348 0058 2404     		lsls	r4, r4, #16
+ 349 005a 04F47F04 		and	r4, r4, #16711680
+ 350 005e 2343     		orrs	r3, r3, r4
+ 351 0060 2C68     		ldr	r4, [r5]
+ 352 0062 43EA0463 		orr	r3, r3, r4, lsl #24
+ 353 0066 0468     		ldr	r4, [r0]
+ 354 0068 04F1A064 		add	r4, r4, #83886080
+ 355 006c 0234     		adds	r4, r4, #2
+ 356 006e 6401     		lsls	r4, r4, #5
+ 357 0070 2260     		str	r2, [r4]
+ARM GAS  /tmp/ccZgA2It.s 			page 7
+
+
+ 358 0072 0268     		ldr	r2, [r0]
+ 359 0074 5201     		lsls	r2, r2, #5
+ 360 0076 02F12042 		add	r2, r2, #-1610612736
+ 361 007a 9164     		str	r1, [r2, #72]
+ 362 007c 0268     		ldr	r2, [r0]
+ 363 007e 5201     		lsls	r2, r2, #5
+ 364 0080 02F12042 		add	r2, r2, #-1610612736
+ 365 0084 D364     		str	r3, [r2, #76]
+ 366 0086 30BC     		pop	{r4, r5}
+ 367 0088 7047     		bx	lr
+ 369              		.section	.text.exmc_nand_enable,"ax",%progbits
+ 370              		.align	1
+ 371              		.global	exmc_nand_enable
+ 372              		.syntax unified
+ 373              		.thumb
+ 374              		.thumb_func
+ 375              		.fpu fpv4-sp-d16
+ 377              	exmc_nand_enable:
+ 378              		@ args = 0, pretend = 0, frame = 0
+ 379              		@ frame_needed = 0, uses_anonymous_args = 0
+ 380              		@ link register save eliminated.
+ 381 0000 00F1A060 		add	r0, r0, #83886080
+ 382 0004 0230     		adds	r0, r0, #2
+ 383 0006 4001     		lsls	r0, r0, #5
+ 384 0008 0368     		ldr	r3, [r0]
+ 385 000a 43F00403 		orr	r3, r3, #4
+ 386 000e 0360     		str	r3, [r0]
+ 387 0010 7047     		bx	lr
+ 389              		.section	.text.exmc_nand_disable,"ax",%progbits
+ 390              		.align	1
+ 391              		.global	exmc_nand_disable
+ 392              		.syntax unified
+ 393              		.thumb
+ 394              		.thumb_func
+ 395              		.fpu fpv4-sp-d16
+ 397              	exmc_nand_disable:
+ 398              		@ args = 0, pretend = 0, frame = 0
+ 399              		@ frame_needed = 0, uses_anonymous_args = 0
+ 400              		@ link register save eliminated.
+ 401 0000 00F1A060 		add	r0, r0, #83886080
+ 402 0004 0230     		adds	r0, r0, #2
+ 403 0006 4001     		lsls	r0, r0, #5
+ 404 0008 0368     		ldr	r3, [r0]
+ 405 000a 23F00403 		bic	r3, r3, #4
+ 406 000e 0360     		str	r3, [r0]
+ 407 0010 7047     		bx	lr
+ 409              		.section	.text.exmc_pccard_deinit,"ax",%progbits
+ 410              		.align	1
+ 411              		.global	exmc_pccard_deinit
+ 412              		.syntax unified
+ 413              		.thumb
+ 414              		.thumb_func
+ 415              		.fpu fpv4-sp-d16
+ 417              	exmc_pccard_deinit:
+ 418              		@ args = 0, pretend = 0, frame = 0
+ 419              		@ frame_needed = 0, uses_anonymous_args = 0
+ 420              		@ link register save eliminated.
+ARM GAS  /tmp/ccZgA2It.s 			page 8
+
+
+ 421 0000 074B     		ldr	r3, .L22
+ 422 0002 0822     		movs	r2, #8
+ 423 0004 1A60     		str	r2, [r3]
+ 424 0006 0433     		adds	r3, r3, #4
+ 425 0008 4022     		movs	r2, #64
+ 426 000a 1A60     		str	r2, [r3]
+ 427 000c 4FF0FF33 		mov	r3, #-1
+ 428 0010 044A     		ldr	r2, .L22+4
+ 429 0012 1360     		str	r3, [r2]
+ 430 0014 0432     		adds	r2, r2, #4
+ 431 0016 1360     		str	r3, [r2]
+ 432 0018 0432     		adds	r2, r2, #4
+ 433 001a 1360     		str	r3, [r2]
+ 434 001c 7047     		bx	lr
+ 435              	.L23:
+ 436 001e 00BF     		.align	2
+ 437              	.L22:
+ 438 0020 A00000A0 		.word	-1610612576
+ 439 0024 A80000A0 		.word	-1610612568
+ 441              		.section	.text.exmc_pccard_struct_para_init,"ax",%progbits
+ 442              		.align	1
+ 443              		.global	exmc_pccard_struct_para_init
+ 444              		.syntax unified
+ 445              		.thumb
+ 446              		.thumb_func
+ 447              		.fpu fpv4-sp-d16
+ 449              	exmc_pccard_struct_para_init:
+ 450              		@ args = 0, pretend = 0, frame = 0
+ 451              		@ frame_needed = 0, uses_anonymous_args = 0
+ 452              		@ link register save eliminated.
+ 453 0000 0023     		movs	r3, #0
+ 454 0002 8360     		str	r3, [r0, #8]
+ 455 0004 4360     		str	r3, [r0, #4]
+ 456 0006 0360     		str	r3, [r0]
+ 457 0008 C268     		ldr	r2, [r0, #12]
+ 458 000a FC23     		movs	r3, #252
+ 459 000c D360     		str	r3, [r2, #12]
+ 460 000e C268     		ldr	r2, [r0, #12]
+ 461 0010 9360     		str	r3, [r2, #8]
+ 462 0012 C268     		ldr	r2, [r0, #12]
+ 463 0014 5360     		str	r3, [r2, #4]
+ 464 0016 C268     		ldr	r2, [r0, #12]
+ 465 0018 1360     		str	r3, [r2]
+ 466 001a 0269     		ldr	r2, [r0, #16]
+ 467 001c D360     		str	r3, [r2, #12]
+ 468 001e 0269     		ldr	r2, [r0, #16]
+ 469 0020 9360     		str	r3, [r2, #8]
+ 470 0022 0269     		ldr	r2, [r0, #16]
+ 471 0024 5360     		str	r3, [r2, #4]
+ 472 0026 0269     		ldr	r2, [r0, #16]
+ 473 0028 1360     		str	r3, [r2]
+ 474 002a 4269     		ldr	r2, [r0, #20]
+ 475 002c D360     		str	r3, [r2, #12]
+ 476 002e 4269     		ldr	r2, [r0, #20]
+ 477 0030 9360     		str	r3, [r2, #8]
+ 478 0032 4269     		ldr	r2, [r0, #20]
+ 479 0034 5360     		str	r3, [r2, #4]
+ARM GAS  /tmp/ccZgA2It.s 			page 9
+
+
+ 480 0036 4269     		ldr	r2, [r0, #20]
+ 481 0038 1360     		str	r3, [r2]
+ 482 003a 7047     		bx	lr
+ 484              		.section	.text.exmc_pccard_init,"ax",%progbits
+ 485              		.align	1
+ 486              		.global	exmc_pccard_init
+ 487              		.syntax unified
+ 488              		.thumb
+ 489              		.thumb_func
+ 490              		.fpu fpv4-sp-d16
+ 492              	exmc_pccard_init:
+ 493              		@ args = 0, pretend = 0, frame = 0
+ 494              		@ frame_needed = 0, uses_anonymous_args = 0
+ 495              		@ link register save eliminated.
+ 496 0000 8268     		ldr	r2, [r0, #8]
+ 497 0002 4368     		ldr	r3, [r0, #4]
+ 498 0004 43EA4203 		orr	r3, r3, r2, lsl #1
+ 499 0008 0268     		ldr	r2, [r0]
+ 500 000a 1343     		orrs	r3, r3, r2
+ 501 000c 43F01003 		orr	r3, r3, #16
+ 502 0010 1E4A     		ldr	r2, .L26
+ 503 0012 1360     		str	r3, [r2]
+ 504 0014 C168     		ldr	r1, [r0, #12]
+ 505 0016 CB68     		ldr	r3, [r1, #12]
+ 506 0018 013B     		subs	r3, r3, #1
+ 507 001a DBB2     		uxtb	r3, r3
+ 508 001c 8A68     		ldr	r2, [r1, #8]
+ 509 001e 013A     		subs	r2, r2, #1
+ 510 0020 1202     		lsls	r2, r2, #8
+ 511 0022 92B2     		uxth	r2, r2
+ 512 0024 1343     		orrs	r3, r3, r2
+ 513 0026 4A68     		ldr	r2, [r1, #4]
+ 514 0028 1204     		lsls	r2, r2, #16
+ 515 002a 02F47F02 		and	r2, r2, #16711680
+ 516 002e 1343     		orrs	r3, r3, r2
+ 517 0030 0A68     		ldr	r2, [r1]
+ 518 0032 013A     		subs	r2, r2, #1
+ 519 0034 43EA0263 		orr	r3, r3, r2, lsl #24
+ 520 0038 154A     		ldr	r2, .L26+4
+ 521 003a 1360     		str	r3, [r2]
+ 522 003c 0169     		ldr	r1, [r0, #16]
+ 523 003e CB68     		ldr	r3, [r1, #12]
+ 524 0040 013B     		subs	r3, r3, #1
+ 525 0042 DBB2     		uxtb	r3, r3
+ 526 0044 8A68     		ldr	r2, [r1, #8]
+ 527 0046 013A     		subs	r2, r2, #1
+ 528 0048 1202     		lsls	r2, r2, #8
+ 529 004a 92B2     		uxth	r2, r2
+ 530 004c 1343     		orrs	r3, r3, r2
+ 531 004e 4A68     		ldr	r2, [r1, #4]
+ 532 0050 1204     		lsls	r2, r2, #16
+ 533 0052 02F47F02 		and	r2, r2, #16711680
+ 534 0056 1343     		orrs	r3, r3, r2
+ 535 0058 0A68     		ldr	r2, [r1]
+ 536 005a 43EA0263 		orr	r3, r3, r2, lsl #24
+ 537 005e 0D4A     		ldr	r2, .L26+8
+ 538 0060 1360     		str	r3, [r2]
+ARM GAS  /tmp/ccZgA2It.s 			page 10
+
+
+ 539 0062 4169     		ldr	r1, [r0, #20]
+ 540 0064 CB68     		ldr	r3, [r1, #12]
+ 541 0066 013B     		subs	r3, r3, #1
+ 542 0068 DBB2     		uxtb	r3, r3
+ 543 006a 8A68     		ldr	r2, [r1, #8]
+ 544 006c 013A     		subs	r2, r2, #1
+ 545 006e 1202     		lsls	r2, r2, #8
+ 546 0070 92B2     		uxth	r2, r2
+ 547 0072 1343     		orrs	r3, r3, r2
+ 548 0074 4A68     		ldr	r2, [r1, #4]
+ 549 0076 1204     		lsls	r2, r2, #16
+ 550 0078 02F47F02 		and	r2, r2, #16711680
+ 551 007c 1343     		orrs	r3, r3, r2
+ 552 007e 0A68     		ldr	r2, [r1]
+ 553 0080 43EA0263 		orr	r3, r3, r2, lsl #24
+ 554 0084 044A     		ldr	r2, .L26+12
+ 555 0086 1360     		str	r3, [r2]
+ 556 0088 7047     		bx	lr
+ 557              	.L27:
+ 558 008a 00BF     		.align	2
+ 559              	.L26:
+ 560 008c A00000A0 		.word	-1610612576
+ 561 0090 A80000A0 		.word	-1610612568
+ 562 0094 AC0000A0 		.word	-1610612564
+ 563 0098 B00000A0 		.word	-1610612560
+ 565              		.section	.text.exmc_pccard_enable,"ax",%progbits
+ 566              		.align	1
+ 567              		.global	exmc_pccard_enable
+ 568              		.syntax unified
+ 569              		.thumb
+ 570              		.thumb_func
+ 571              		.fpu fpv4-sp-d16
+ 573              	exmc_pccard_enable:
+ 574              		@ args = 0, pretend = 0, frame = 0
+ 575              		@ frame_needed = 0, uses_anonymous_args = 0
+ 576              		@ link register save eliminated.
+ 577 0000 024A     		ldr	r2, .L29
+ 578 0002 1368     		ldr	r3, [r2]
+ 579 0004 43F00403 		orr	r3, r3, #4
+ 580 0008 1360     		str	r3, [r2]
+ 581 000a 7047     		bx	lr
+ 582              	.L30:
+ 583              		.align	2
+ 584              	.L29:
+ 585 000c A00000A0 		.word	-1610612576
+ 587              		.section	.text.exmc_pccard_disable,"ax",%progbits
+ 588              		.align	1
+ 589              		.global	exmc_pccard_disable
+ 590              		.syntax unified
+ 591              		.thumb
+ 592              		.thumb_func
+ 593              		.fpu fpv4-sp-d16
+ 595              	exmc_pccard_disable:
+ 596              		@ args = 0, pretend = 0, frame = 0
+ 597              		@ frame_needed = 0, uses_anonymous_args = 0
+ 598              		@ link register save eliminated.
+ 599 0000 024A     		ldr	r2, .L32
+ARM GAS  /tmp/ccZgA2It.s 			page 11
+
+
+ 600 0002 1368     		ldr	r3, [r2]
+ 601 0004 23F00403 		bic	r3, r3, #4
+ 602 0008 1360     		str	r3, [r2]
+ 603 000a 7047     		bx	lr
+ 604              	.L33:
+ 605              		.align	2
+ 606              	.L32:
+ 607 000c A00000A0 		.word	-1610612576
+ 609              		.section	.text.exmc_sdram_deinit,"ax",%progbits
+ 610              		.align	1
+ 611              		.global	exmc_sdram_deinit
+ 612              		.syntax unified
+ 613              		.thumb
+ 614              		.thumb_func
+ 615              		.fpu fpv4-sp-d16
+ 617              	exmc_sdram_deinit:
+ 618              		@ args = 0, pretend = 0, frame = 0
+ 619              		@ frame_needed = 0, uses_anonymous_args = 0
+ 620              		@ link register save eliminated.
+ 621 0000 00F12050 		add	r0, r0, #671088640
+ 622 0004 00F14C03 		add	r3, r0, #76
+ 623 0008 9B00     		lsls	r3, r3, #2
+ 624 000a 4FF43472 		mov	r2, #720
+ 625 000e 1A60     		str	r2, [r3]
+ 626 0010 4E30     		adds	r0, r0, #78
+ 627 0012 8000     		lsls	r0, r0, #2
+ 628 0014 6FF07043 		mvn	r3, #-268435456
+ 629 0018 0360     		str	r3, [r0]
+ 630 001a 0023     		movs	r3, #0
+ 631 001c 034A     		ldr	r2, .L35
+ 632 001e 1360     		str	r3, [r2]
+ 633 0020 0432     		adds	r2, r2, #4
+ 634 0022 1360     		str	r3, [r2]
+ 635 0024 2C32     		adds	r2, r2, #44
+ 636 0026 1360     		str	r3, [r2]
+ 637 0028 7047     		bx	lr
+ 638              	.L36:
+ 639 002a 00BF     		.align	2
+ 640              	.L35:
+ 641 002c 500100A0 		.word	-1610612400
+ 643              		.section	.text.exmc_sdram_struct_para_init,"ax",%progbits
+ 644              		.align	1
+ 645              		.global	exmc_sdram_struct_para_init
+ 646              		.syntax unified
+ 647              		.thumb
+ 648              		.thumb_func
+ 649              		.fpu fpv4-sp-d16
+ 651              	exmc_sdram_struct_para_init:
+ 652              		@ args = 0, pretend = 0, frame = 0
+ 653              		@ frame_needed = 0, uses_anonymous_args = 0
+ 654              		@ link register save eliminated.
+ 655 0000 0423     		movs	r3, #4
+ 656 0002 0360     		str	r3, [r0]
+ 657 0004 0022     		movs	r2, #0
+ 658 0006 4262     		str	r2, [r0, #36]
+ 659 0008 0262     		str	r2, [r0, #32]
+ 660 000a 1023     		movs	r3, #16
+ARM GAS  /tmp/ccZgA2It.s 			page 12
+
+
+ 661 000c C361     		str	r3, [r0, #28]
+ 662 000e 4021     		movs	r1, #64
+ 663 0010 8161     		str	r1, [r0, #24]
+ 664 0012 8021     		movs	r1, #128
+ 665 0014 4161     		str	r1, [r0, #20]
+ 666 0016 0121     		movs	r1, #1
+ 667 0018 0161     		str	r1, [r0, #16]
+ 668 001a C260     		str	r2, [r0, #12]
+ 669 001c 8260     		str	r2, [r0, #8]
+ 670 001e 4260     		str	r2, [r0, #4]
+ 671 0020 826A     		ldr	r2, [r0, #40]
+ 672 0022 9361     		str	r3, [r2, #24]
+ 673 0024 826A     		ldr	r2, [r0, #40]
+ 674 0026 5361     		str	r3, [r2, #20]
+ 675 0028 826A     		ldr	r2, [r0, #40]
+ 676 002a 1361     		str	r3, [r2, #16]
+ 677 002c 826A     		ldr	r2, [r0, #40]
+ 678 002e D360     		str	r3, [r2, #12]
+ 679 0030 826A     		ldr	r2, [r0, #40]
+ 680 0032 9360     		str	r3, [r2, #8]
+ 681 0034 826A     		ldr	r2, [r0, #40]
+ 682 0036 5360     		str	r3, [r2, #4]
+ 683 0038 826A     		ldr	r2, [r0, #40]
+ 684 003a 1360     		str	r3, [r2]
+ 685 003c 7047     		bx	lr
+ 687              		.section	.text.exmc_sdram_init,"ax",%progbits
+ 688              		.align	1
+ 689              		.global	exmc_sdram_init
+ 690              		.syntax unified
+ 691              		.thumb
+ 692              		.thumb_func
+ 693              		.fpu fpv4-sp-d16
+ 695              	exmc_sdram_init:
+ 696              		@ args = 0, pretend = 0, frame = 0
+ 697              		@ frame_needed = 0, uses_anonymous_args = 0
+ 698              		@ link register save eliminated.
+ 699 0000 0368     		ldr	r3, [r0]
+ 700 0002 042B     		cmp	r3, #4
+ 701 0004 3FD0     		beq	.L44
+ 702 0006 10B4     		push	{r4}
+ 703 0008 384C     		ldr	r4, .L45
+ 704 000a 2168     		ldr	r1, [r4]
+ 705 000c 21F4F841 		bic	r1, r1, #31744
+ 706 0010 C368     		ldr	r3, [r0, #12]
+ 707 0012 8268     		ldr	r2, [r0, #8]
+ 708 0014 1A43     		orrs	r2, r2, r3
+ 709 0016 4368     		ldr	r3, [r0, #4]
+ 710 0018 1A43     		orrs	r2, r2, r3
+ 711 001a 0A43     		orrs	r2, r2, r1
+ 712 001c 436A     		ldr	r3, [r0, #36]
+ 713 001e 016A     		ldr	r1, [r0, #32]
+ 714 0020 0B43     		orrs	r3, r3, r1
+ 715 0022 C169     		ldr	r1, [r0, #28]
+ 716 0024 0B43     		orrs	r3, r3, r1
+ 717 0026 8169     		ldr	r1, [r0, #24]
+ 718 0028 0B43     		orrs	r3, r3, r1
+ 719 002a 4169     		ldr	r1, [r0, #20]
+ARM GAS  /tmp/ccZgA2It.s 			page 13
+
+
+ 720 002c 0B43     		orrs	r3, r3, r1
+ 721 002e 0169     		ldr	r1, [r0, #16]
+ 722 0030 0B43     		orrs	r3, r3, r1
+ 723 0032 2260     		str	r2, [r4]
+ 724 0034 2E4A     		ldr	r2, .L45+4
+ 725 0036 1360     		str	r3, [r2]
+ 726 0038 0834     		adds	r4, r4, #8
+ 727 003a 2268     		ldr	r2, [r4]
+ 728 003c 22F47F02 		bic	r2, r2, #16711680
+ 729 0040 22F47042 		bic	r2, r2, #61440
+ 730 0044 816A     		ldr	r1, [r0, #40]
+ 731 0046 CB68     		ldr	r3, [r1, #12]
+ 732 0048 581E     		subs	r0, r3, #1
+ 733 004a 4B68     		ldr	r3, [r1, #4]
+ 734 004c 013B     		subs	r3, r3, #1
+ 735 004e 1B05     		lsls	r3, r3, #20
+ 736 0050 43EA0033 		orr	r3, r3, r0, lsl #12
+ 737 0054 8868     		ldr	r0, [r1, #8]
+ 738 0056 0138     		subs	r0, r0, #1
+ 739 0058 43EA0043 		orr	r3, r3, r0, lsl #16
+ 740 005c 1343     		orrs	r3, r3, r2
+ 741 005e 8A69     		ldr	r2, [r1, #24]
+ 742 0060 013A     		subs	r2, r2, #1
+ 743 0062 4869     		ldr	r0, [r1, #20]
+ 744 0064 0138     		subs	r0, r0, #1
+ 745 0066 42EA0012 		orr	r2, r2, r0, lsl #4
+ 746 006a 0869     		ldr	r0, [r1, #16]
+ 747 006c 0138     		subs	r0, r0, #1
+ 748 006e 42EA0022 		orr	r2, r2, r0, lsl #8
+ 749 0072 0968     		ldr	r1, [r1]
+ 750 0074 0139     		subs	r1, r1, #1
+ 751 0076 42EA0162 		orr	r2, r2, r1, lsl #24
+ 752 007a 2360     		str	r3, [r4]
+ 753 007c 1D4B     		ldr	r3, .L45+8
+ 754 007e 1A60     		str	r2, [r3]
+ 755 0080 5DF8044B 		ldr	r4, [sp], #4
+ 756 0084 7047     		bx	lr
+ 757              	.L44:
+ 758 0086 436A     		ldr	r3, [r0, #36]
+ 759 0088 026A     		ldr	r2, [r0, #32]
+ 760 008a 1343     		orrs	r3, r3, r2
+ 761 008c C269     		ldr	r2, [r0, #28]
+ 762 008e 1343     		orrs	r3, r3, r2
+ 763 0090 8269     		ldr	r2, [r0, #24]
+ 764 0092 1343     		orrs	r3, r3, r2
+ 765 0094 4269     		ldr	r2, [r0, #20]
+ 766 0096 1343     		orrs	r3, r3, r2
+ 767 0098 0269     		ldr	r2, [r0, #16]
+ 768 009a 43EA4223 		orr	r3, r3, r2, lsl #9
+ 769 009e C268     		ldr	r2, [r0, #12]
+ 770 00a0 1343     		orrs	r3, r3, r2
+ 771 00a2 8268     		ldr	r2, [r0, #8]
+ 772 00a4 43EA0233 		orr	r3, r3, r2, lsl #12
+ 773 00a8 4268     		ldr	r2, [r0, #4]
+ 774 00aa 1343     		orrs	r3, r3, r2
+ 775 00ac 0F4A     		ldr	r2, .L45
+ 776 00ae 1360     		str	r3, [r2]
+ARM GAS  /tmp/ccZgA2It.s 			page 14
+
+
+ 777 00b0 826A     		ldr	r2, [r0, #40]
+ 778 00b2 9369     		ldr	r3, [r2, #24]
+ 779 00b4 013B     		subs	r3, r3, #1
+ 780 00b6 5169     		ldr	r1, [r2, #20]
+ 781 00b8 0139     		subs	r1, r1, #1
+ 782 00ba 43EA0113 		orr	r3, r3, r1, lsl #4
+ 783 00be 1169     		ldr	r1, [r2, #16]
+ 784 00c0 0139     		subs	r1, r1, #1
+ 785 00c2 43EA0123 		orr	r3, r3, r1, lsl #8
+ 786 00c6 D168     		ldr	r1, [r2, #12]
+ 787 00c8 0139     		subs	r1, r1, #1
+ 788 00ca 43EA0133 		orr	r3, r3, r1, lsl #12
+ 789 00ce 9168     		ldr	r1, [r2, #8]
+ 790 00d0 0139     		subs	r1, r1, #1
+ 791 00d2 43EA0143 		orr	r3, r3, r1, lsl #16
+ 792 00d6 5168     		ldr	r1, [r2, #4]
+ 793 00d8 0139     		subs	r1, r1, #1
+ 794 00da 43EA0153 		orr	r3, r3, r1, lsl #20
+ 795 00de 1268     		ldr	r2, [r2]
+ 796 00e0 013A     		subs	r2, r2, #1
+ 797 00e2 43EA0263 		orr	r3, r3, r2, lsl #24
+ 798 00e6 044A     		ldr	r2, .L45+12
+ 799 00e8 1360     		str	r3, [r2]
+ 800 00ea 7047     		bx	lr
+ 801              	.L46:
+ 802              		.align	2
+ 803              	.L45:
+ 804 00ec 400100A0 		.word	-1610612416
+ 805 00f0 440100A0 		.word	-1610612412
+ 806 00f4 4C0100A0 		.word	-1610612404
+ 807 00f8 480100A0 		.word	-1610612408
+ 809              		.section	.text.exmc_sqpipsram_deinit,"ax",%progbits
+ 810              		.align	1
+ 811              		.global	exmc_sqpipsram_deinit
+ 812              		.syntax unified
+ 813              		.thumb
+ 814              		.thumb_func
+ 815              		.fpu fpv4-sp-d16
+ 817              	exmc_sqpipsram_deinit:
+ 818              		@ args = 0, pretend = 0, frame = 0
+ 819              		@ frame_needed = 0, uses_anonymous_args = 0
+ 820              		@ link register save eliminated.
+ 821 0000 064B     		ldr	r3, .L48
+ 822 0002 074A     		ldr	r2, .L48+4
+ 823 0004 1A60     		str	r2, [r3]
+ 824 0006 0023     		movs	r3, #0
+ 825 0008 064A     		ldr	r2, .L48+8
+ 826 000a 1360     		str	r3, [r2]
+ 827 000c 1032     		adds	r2, r2, #16
+ 828 000e 1360     		str	r3, [r2]
+ 829 0010 1032     		adds	r2, r2, #16
+ 830 0012 1360     		str	r3, [r2]
+ 831 0014 1032     		adds	r2, r2, #16
+ 832 0016 1360     		str	r3, [r2]
+ 833 0018 7047     		bx	lr
+ 834              	.L49:
+ 835 001a 00BF     		.align	2
+ARM GAS  /tmp/ccZgA2It.s 			page 15
+
+
+ 836              	.L48:
+ 837 001c 100300A0 		.word	-1610611952
+ 838 0020 00000118 		.word	402718720
+ 839 0024 200300A0 		.word	-1610611936
+ 841              		.section	.text.exmc_sqpipsram_struct_para_init,"ax",%progbits
+ 842              		.align	1
+ 843              		.global	exmc_sqpipsram_struct_para_init
+ 844              		.syntax unified
+ 845              		.thumb
+ 846              		.thumb_func
+ 847              		.fpu fpv4-sp-d16
+ 849              	exmc_sqpipsram_struct_para_init:
+ 850              		@ args = 0, pretend = 0, frame = 0
+ 851              		@ frame_needed = 0, uses_anonymous_args = 0
+ 852              		@ link register save eliminated.
+ 853 0000 0023     		movs	r3, #0
+ 854 0002 0360     		str	r3, [r0]
+ 855 0004 4360     		str	r3, [r0, #4]
+ 856 0006 4FF0C053 		mov	r3, #402653184
+ 857 000a 8360     		str	r3, [r0, #8]
+ 858 000c 4FF48033 		mov	r3, #65536
+ 859 0010 C360     		str	r3, [r0, #12]
+ 860 0012 7047     		bx	lr
+ 862              		.section	.text.exmc_sqpipsram_init,"ax",%progbits
+ 863              		.align	1
+ 864              		.global	exmc_sqpipsram_init
+ 865              		.syntax unified
+ 866              		.thumb
+ 867              		.thumb_func
+ 868              		.fpu fpv4-sp-d16
+ 870              	exmc_sqpipsram_init:
+ 871              		@ args = 0, pretend = 0, frame = 0
+ 872              		@ frame_needed = 0, uses_anonymous_args = 0
+ 873              		@ link register save eliminated.
+ 874 0000 0368     		ldr	r3, [r0]
+ 875 0002 4268     		ldr	r2, [r0, #4]
+ 876 0004 1343     		orrs	r3, r3, r2
+ 877 0006 8268     		ldr	r2, [r0, #8]
+ 878 0008 1343     		orrs	r3, r3, r2
+ 879 000a C268     		ldr	r2, [r0, #12]
+ 880 000c 1343     		orrs	r3, r3, r2
+ 881 000e 014A     		ldr	r2, .L52
+ 882 0010 1360     		str	r3, [r2]
+ 883 0012 7047     		bx	lr
+ 884              	.L53:
+ 885              		.align	2
+ 886              	.L52:
+ 887 0014 100300A0 		.word	-1610611952
+ 889              		.section	.text.exmc_norsram_consecutive_clock_config,"ax",%progbits
+ 890              		.align	1
+ 891              		.global	exmc_norsram_consecutive_clock_config
+ 892              		.syntax unified
+ 893              		.thumb
+ 894              		.thumb_func
+ 895              		.fpu fpv4-sp-d16
+ 897              	exmc_norsram_consecutive_clock_config:
+ 898              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/ccZgA2It.s 			page 16
+
+
+ 899              		@ frame_needed = 0, uses_anonymous_args = 0
+ 900              		@ link register save eliminated.
+ 901 0000 B0F5801F 		cmp	r0, #1048576
+ 902 0004 06D0     		beq	.L57
+ 903 0006 4FF02042 		mov	r2, #-1610612736
+ 904 000a 1368     		ldr	r3, [r2]
+ 905 000c 23F48013 		bic	r3, r3, #1048576
+ 906 0010 1360     		str	r3, [r2]
+ 907 0012 7047     		bx	lr
+ 908              	.L57:
+ 909 0014 4FF02042 		mov	r2, #-1610612736
+ 910 0018 1368     		ldr	r3, [r2]
+ 911 001a 43F48013 		orr	r3, r3, #1048576
+ 912 001e 1360     		str	r3, [r2]
+ 913 0020 7047     		bx	lr
+ 915              		.section	.text.exmc_norsram_page_size_config,"ax",%progbits
+ 916              		.align	1
+ 917              		.global	exmc_norsram_page_size_config
+ 918              		.syntax unified
+ 919              		.thumb
+ 920              		.thumb_func
+ 921              		.fpu fpv4-sp-d16
+ 923              	exmc_norsram_page_size_config:
+ 924              		@ args = 0, pretend = 0, frame = 0
+ 925              		@ frame_needed = 0, uses_anonymous_args = 0
+ 926              		@ link register save eliminated.
+ 927 0000 00F1A050 		add	r0, r0, #335544320
+ 928 0004 C000     		lsls	r0, r0, #3
+ 929 0006 0368     		ldr	r3, [r0]
+ 930 0008 23F4E023 		bic	r3, r3, #458752
+ 931 000c 0360     		str	r3, [r0]
+ 932 000e 0368     		ldr	r3, [r0]
+ 933 0010 1943     		orrs	r1, r1, r3
+ 934 0012 0160     		str	r1, [r0]
+ 935 0014 7047     		bx	lr
+ 937              		.section	.text.exmc_nand_ecc_config,"ax",%progbits
+ 938              		.align	1
+ 939              		.global	exmc_nand_ecc_config
+ 940              		.syntax unified
+ 941              		.thumb
+ 942              		.thumb_func
+ 943              		.fpu fpv4-sp-d16
+ 945              	exmc_nand_ecc_config:
+ 946              		@ args = 0, pretend = 0, frame = 0
+ 947              		@ frame_needed = 0, uses_anonymous_args = 0
+ 948              		@ link register save eliminated.
+ 949 0000 0129     		cmp	r1, #1
+ 950 0002 08D0     		beq	.L62
+ 951 0004 00F1A060 		add	r0, r0, #83886080
+ 952 0008 0230     		adds	r0, r0, #2
+ 953 000a 4001     		lsls	r0, r0, #5
+ 954 000c 0368     		ldr	r3, [r0]
+ 955 000e 23F04003 		bic	r3, r3, #64
+ 956 0012 0360     		str	r3, [r0]
+ 957 0014 7047     		bx	lr
+ 958              	.L62:
+ 959 0016 00F1A060 		add	r0, r0, #83886080
+ARM GAS  /tmp/ccZgA2It.s 			page 17
+
+
+ 960 001a 0230     		adds	r0, r0, #2
+ 961 001c 4001     		lsls	r0, r0, #5
+ 962 001e 0368     		ldr	r3, [r0]
+ 963 0020 43F04003 		orr	r3, r3, #64
+ 964 0024 0360     		str	r3, [r0]
+ 965 0026 7047     		bx	lr
+ 967              		.section	.text.exmc_ecc_get,"ax",%progbits
+ 968              		.align	1
+ 969              		.global	exmc_ecc_get
+ 970              		.syntax unified
+ 971              		.thumb
+ 972              		.thumb_func
+ 973              		.fpu fpv4-sp-d16
+ 975              	exmc_ecc_get:
+ 976              		@ args = 0, pretend = 0, frame = 0
+ 977              		@ frame_needed = 0, uses_anonymous_args = 0
+ 978              		@ link register save eliminated.
+ 979 0000 4001     		lsls	r0, r0, #5
+ 980 0002 00F12040 		add	r0, r0, #-1610612736
+ 981 0006 406D     		ldr	r0, [r0, #84]
+ 982 0008 7047     		bx	lr
+ 984              		.section	.text.exmc_sdram_readsample_enable,"ax",%progbits
+ 985              		.align	1
+ 986              		.global	exmc_sdram_readsample_enable
+ 987              		.syntax unified
+ 988              		.thumb
+ 989              		.thumb_func
+ 990              		.fpu fpv4-sp-d16
+ 992              	exmc_sdram_readsample_enable:
+ 993              		@ args = 0, pretend = 0, frame = 0
+ 994              		@ frame_needed = 0, uses_anonymous_args = 0
+ 995              		@ link register save eliminated.
+ 996 0000 0128     		cmp	r0, #1
+ 997 0002 05D0     		beq	.L67
+ 998 0004 054A     		ldr	r2, .L68
+ 999 0006 1368     		ldr	r3, [r2]
+ 1000 0008 23F00103 		bic	r3, r3, #1
+ 1001 000c 1360     		str	r3, [r2]
+ 1002 000e 7047     		bx	lr
+ 1003              	.L67:
+ 1004 0010 024A     		ldr	r2, .L68
+ 1005 0012 1368     		ldr	r3, [r2]
+ 1006 0014 43F00103 		orr	r3, r3, #1
+ 1007 0018 1360     		str	r3, [r2]
+ 1008 001a 7047     		bx	lr
+ 1009              	.L69:
+ 1010              		.align	2
+ 1011              	.L68:
+ 1012 001c 800100A0 		.word	-1610612352
+ 1014              		.section	.text.exmc_sdram_readsample_config,"ax",%progbits
+ 1015              		.align	1
+ 1016              		.global	exmc_sdram_readsample_config
+ 1017              		.syntax unified
+ 1018              		.thumb
+ 1019              		.thumb_func
+ 1020              		.fpu fpv4-sp-d16
+ 1022              	exmc_sdram_readsample_config:
+ARM GAS  /tmp/ccZgA2It.s 			page 18
+
+
+ 1023              		@ args = 0, pretend = 0, frame = 0
+ 1024              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1025              		@ link register save eliminated.
+ 1026 0000 064A     		ldr	r2, .L71
+ 1027 0002 1368     		ldr	r3, [r2]
+ 1028 0004 23F0F203 		bic	r3, r3, #242
+ 1029 0008 00F0F000 		and	r0, r0, #240
+ 1030 000c 4900     		lsls	r1, r1, #1
+ 1031 000e 01F00201 		and	r1, r1, #2
+ 1032 0012 0843     		orrs	r0, r0, r1
+ 1033 0014 1843     		orrs	r0, r0, r3
+ 1034 0016 1060     		str	r0, [r2]
+ 1035 0018 7047     		bx	lr
+ 1036              	.L72:
+ 1037 001a 00BF     		.align	2
+ 1038              	.L71:
+ 1039 001c 800100A0 		.word	-1610612352
+ 1041              		.section	.text.exmc_sdram_command_config,"ax",%progbits
+ 1042              		.align	1
+ 1043              		.global	exmc_sdram_command_config
+ 1044              		.syntax unified
+ 1045              		.thumb
+ 1046              		.thumb_func
+ 1047              		.fpu fpv4-sp-d16
+ 1049              	exmc_sdram_command_config:
+ 1050              		@ args = 0, pretend = 0, frame = 0
+ 1051              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1052              		@ link register save eliminated.
+ 1053 0000 C368     		ldr	r3, [r0, #12]
+ 1054 0002 8268     		ldr	r2, [r0, #8]
+ 1055 0004 1343     		orrs	r3, r3, r2
+ 1056 0006 4268     		ldr	r2, [r0, #4]
+ 1057 0008 1343     		orrs	r3, r3, r2
+ 1058 000a 0268     		ldr	r2, [r0]
+ 1059 000c 43EA4223 		orr	r3, r3, r2, lsl #9
+ 1060 0010 014A     		ldr	r2, .L74
+ 1061 0012 1360     		str	r3, [r2]
+ 1062 0014 7047     		bx	lr
+ 1063              	.L75:
+ 1064 0016 00BF     		.align	2
+ 1065              	.L74:
+ 1066 0018 500100A0 		.word	-1610612400
+ 1068              		.section	.text.exmc_sdram_refresh_count_set,"ax",%progbits
+ 1069              		.align	1
+ 1070              		.global	exmc_sdram_refresh_count_set
+ 1071              		.syntax unified
+ 1072              		.thumb
+ 1073              		.thumb_func
+ 1074              		.fpu fpv4-sp-d16
+ 1076              	exmc_sdram_refresh_count_set:
+ 1077              		@ args = 0, pretend = 0, frame = 0
+ 1078              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1079              		@ link register save eliminated.
+ 1080 0000 0649     		ldr	r1, .L77
+ 1081 0002 0A68     		ldr	r2, [r1]
+ 1082 0004 22F47F52 		bic	r2, r2, #16320
+ 1083 0008 22F03E02 		bic	r2, r2, #62
+ARM GAS  /tmp/ccZgA2It.s 			page 19
+
+
+ 1084 000c 43F6FE73 		movw	r3, #16382
+ 1085 0010 03EA4000 		and	r0, r3, r0, lsl #1
+ 1086 0014 1043     		orrs	r0, r0, r2
+ 1087 0016 0860     		str	r0, [r1]
+ 1088 0018 7047     		bx	lr
+ 1089              	.L78:
+ 1090 001a 00BF     		.align	2
+ 1091              	.L77:
+ 1092 001c 540100A0 		.word	-1610612396
+ 1094              		.section	.text.exmc_sdram_autorefresh_number_set,"ax",%progbits
+ 1095              		.align	1
+ 1096              		.global	exmc_sdram_autorefresh_number_set
+ 1097              		.syntax unified
+ 1098              		.thumb
+ 1099              		.thumb_func
+ 1100              		.fpu fpv4-sp-d16
+ 1102              	exmc_sdram_autorefresh_number_set:
+ 1103              		@ args = 0, pretend = 0, frame = 0
+ 1104              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1105              		@ link register save eliminated.
+ 1106 0000 044A     		ldr	r2, .L80
+ 1107 0002 1368     		ldr	r3, [r2]
+ 1108 0004 23F4F073 		bic	r3, r3, #480
+ 1109 0008 4001     		lsls	r0, r0, #5
+ 1110 000a 00F4F070 		and	r0, r0, #480
+ 1111 000e 1843     		orrs	r0, r0, r3
+ 1112 0010 1060     		str	r0, [r2]
+ 1113 0012 7047     		bx	lr
+ 1114              	.L81:
+ 1115              		.align	2
+ 1116              	.L80:
+ 1117 0014 500100A0 		.word	-1610612400
+ 1119              		.section	.text.exmc_sdram_write_protection_config,"ax",%progbits
+ 1120              		.align	1
+ 1121              		.global	exmc_sdram_write_protection_config
+ 1122              		.syntax unified
+ 1123              		.thumb
+ 1124              		.thumb_func
+ 1125              		.fpu fpv4-sp-d16
+ 1127              	exmc_sdram_write_protection_config:
+ 1128              		@ args = 0, pretend = 0, frame = 0
+ 1129              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1130              		@ link register save eliminated.
+ 1131 0000 0129     		cmp	r1, #1
+ 1132 0002 08D0     		beq	.L85
+ 1133 0004 00F12050 		add	r0, r0, #671088640
+ 1134 0008 4C30     		adds	r0, r0, #76
+ 1135 000a 8000     		lsls	r0, r0, #2
+ 1136 000c 0368     		ldr	r3, [r0]
+ 1137 000e 23F40073 		bic	r3, r3, #512
+ 1138 0012 0360     		str	r3, [r0]
+ 1139 0014 7047     		bx	lr
+ 1140              	.L85:
+ 1141 0016 00F12050 		add	r0, r0, #671088640
+ 1142 001a 4C30     		adds	r0, r0, #76
+ 1143 001c 8000     		lsls	r0, r0, #2
+ 1144 001e 0368     		ldr	r3, [r0]
+ARM GAS  /tmp/ccZgA2It.s 			page 20
+
+
+ 1145 0020 43F40073 		orr	r3, r3, #512
+ 1146 0024 0360     		str	r3, [r0]
+ 1147 0026 7047     		bx	lr
+ 1149              		.section	.text.exmc_sdram_bankstatus_get,"ax",%progbits
+ 1150              		.align	1
+ 1151              		.global	exmc_sdram_bankstatus_get
+ 1152              		.syntax unified
+ 1153              		.thumb
+ 1154              		.thumb_func
+ 1155              		.fpu fpv4-sp-d16
+ 1157              	exmc_sdram_bankstatus_get:
+ 1158              		@ args = 0, pretend = 0, frame = 0
+ 1159              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1160              		@ link register save eliminated.
+ 1161 0000 0428     		cmp	r0, #4
+ 1162 0002 04D0     		beq	.L89
+ 1163 0004 044B     		ldr	r3, .L90
+ 1164 0006 1868     		ldr	r0, [r3]
+ 1165 0008 C0F3C100 		ubfx	r0, r0, #3, #2
+ 1166 000c 7047     		bx	lr
+ 1167              	.L89:
+ 1168 000e 024B     		ldr	r3, .L90
+ 1169 0010 1868     		ldr	r0, [r3]
+ 1170 0012 C0F34100 		ubfx	r0, r0, #1, #2
+ 1171 0016 7047     		bx	lr
+ 1172              	.L91:
+ 1173              		.align	2
+ 1174              	.L90:
+ 1175 0018 580100A0 		.word	-1610612392
+ 1177              		.section	.text.exmc_sqpipsram_read_command_set,"ax",%progbits
+ 1178              		.align	1
+ 1179              		.global	exmc_sqpipsram_read_command_set
+ 1180              		.syntax unified
+ 1181              		.thumb
+ 1182              		.thumb_func
+ 1183              		.fpu fpv4-sp-d16
+ 1185              	exmc_sqpipsram_read_command_set:
+ 1186              		@ args = 0, pretend = 0, frame = 0
+ 1187              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1188              		@ link register save eliminated.
+ 1189 0000 0904     		lsls	r1, r1, #16
+ 1190 0002 01F47021 		and	r1, r1, #983040
+ 1191 0006 0143     		orrs	r1, r1, r0
+ 1192 0008 92B2     		uxth	r2, r2
+ 1193 000a 1143     		orrs	r1, r1, r2
+ 1194 000c 014B     		ldr	r3, .L93
+ 1195 000e 1960     		str	r1, [r3]
+ 1196 0010 7047     		bx	lr
+ 1197              	.L94:
+ 1198 0012 00BF     		.align	2
+ 1199              	.L93:
+ 1200 0014 200300A0 		.word	-1610611936
+ 1202              		.section	.text.exmc_sqpipsram_write_command_set,"ax",%progbits
+ 1203              		.align	1
+ 1204              		.global	exmc_sqpipsram_write_command_set
+ 1205              		.syntax unified
+ 1206              		.thumb
+ARM GAS  /tmp/ccZgA2It.s 			page 21
+
+
+ 1207              		.thumb_func
+ 1208              		.fpu fpv4-sp-d16
+ 1210              	exmc_sqpipsram_write_command_set:
+ 1211              		@ args = 0, pretend = 0, frame = 0
+ 1212              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1213              		@ link register save eliminated.
+ 1214 0000 0904     		lsls	r1, r1, #16
+ 1215 0002 01F47021 		and	r1, r1, #983040
+ 1216 0006 0143     		orrs	r1, r1, r0
+ 1217 0008 92B2     		uxth	r2, r2
+ 1218 000a 1143     		orrs	r1, r1, r2
+ 1219 000c 014B     		ldr	r3, .L96
+ 1220 000e 1960     		str	r1, [r3]
+ 1221 0010 7047     		bx	lr
+ 1222              	.L97:
+ 1223 0012 00BF     		.align	2
+ 1224              	.L96:
+ 1225 0014 300300A0 		.word	-1610611920
+ 1227              		.section	.text.exmc_sqpipsram_read_id_command_send,"ax",%progbits
+ 1228              		.align	1
+ 1229              		.global	exmc_sqpipsram_read_id_command_send
+ 1230              		.syntax unified
+ 1231              		.thumb
+ 1232              		.thumb_func
+ 1233              		.fpu fpv4-sp-d16
+ 1235              	exmc_sqpipsram_read_id_command_send:
+ 1236              		@ args = 0, pretend = 0, frame = 0
+ 1237              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1238              		@ link register save eliminated.
+ 1239 0000 024A     		ldr	r2, .L99
+ 1240 0002 1368     		ldr	r3, [r2]
+ 1241 0004 43F00043 		orr	r3, r3, #-2147483648
+ 1242 0008 1360     		str	r3, [r2]
+ 1243 000a 7047     		bx	lr
+ 1244              	.L100:
+ 1245              		.align	2
+ 1246              	.L99:
+ 1247 000c 200300A0 		.word	-1610611936
+ 1249              		.section	.text.exmc_sqpipsram_write_cmd_send,"ax",%progbits
+ 1250              		.align	1
+ 1251              		.global	exmc_sqpipsram_write_cmd_send
+ 1252              		.syntax unified
+ 1253              		.thumb
+ 1254              		.thumb_func
+ 1255              		.fpu fpv4-sp-d16
+ 1257              	exmc_sqpipsram_write_cmd_send:
+ 1258              		@ args = 0, pretend = 0, frame = 0
+ 1259              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1260              		@ link register save eliminated.
+ 1261 0000 024A     		ldr	r2, .L102
+ 1262 0002 1368     		ldr	r3, [r2]
+ 1263 0004 43F00043 		orr	r3, r3, #-2147483648
+ 1264 0008 1360     		str	r3, [r2]
+ 1265 000a 7047     		bx	lr
+ 1266              	.L103:
+ 1267              		.align	2
+ 1268              	.L102:
+ARM GAS  /tmp/ccZgA2It.s 			page 22
+
+
+ 1269 000c 300300A0 		.word	-1610611920
+ 1271              		.section	.text.exmc_sqpipsram_low_id_get,"ax",%progbits
+ 1272              		.align	1
+ 1273              		.global	exmc_sqpipsram_low_id_get
+ 1274              		.syntax unified
+ 1275              		.thumb
+ 1276              		.thumb_func
+ 1277              		.fpu fpv4-sp-d16
+ 1279              	exmc_sqpipsram_low_id_get:
+ 1280              		@ args = 0, pretend = 0, frame = 0
+ 1281              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1282              		@ link register save eliminated.
+ 1283 0000 014B     		ldr	r3, .L105
+ 1284 0002 1868     		ldr	r0, [r3]
+ 1285 0004 7047     		bx	lr
+ 1286              	.L106:
+ 1287 0006 00BF     		.align	2
+ 1288              	.L105:
+ 1289 0008 400300A0 		.word	-1610611904
+ 1291              		.section	.text.exmc_sqpipsram_high_id_get,"ax",%progbits
+ 1292              		.align	1
+ 1293              		.global	exmc_sqpipsram_high_id_get
+ 1294              		.syntax unified
+ 1295              		.thumb
+ 1296              		.thumb_func
+ 1297              		.fpu fpv4-sp-d16
+ 1299              	exmc_sqpipsram_high_id_get:
+ 1300              		@ args = 0, pretend = 0, frame = 0
+ 1301              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1302              		@ link register save eliminated.
+ 1303 0000 014B     		ldr	r3, .L108
+ 1304 0002 1868     		ldr	r0, [r3]
+ 1305 0004 7047     		bx	lr
+ 1306              	.L109:
+ 1307 0006 00BF     		.align	2
+ 1308              	.L108:
+ 1309 0008 500300A0 		.word	-1610611888
+ 1311              		.section	.text.exmc_sqpipsram_send_command_state_get,"ax",%progbits
+ 1312              		.align	1
+ 1313              		.global	exmc_sqpipsram_send_command_state_get
+ 1314              		.syntax unified
+ 1315              		.thumb
+ 1316              		.thumb_func
+ 1317              		.fpu fpv4-sp-d16
+ 1319              	exmc_sqpipsram_send_command_state_get:
+ 1320              		@ args = 0, pretend = 0, frame = 0
+ 1321              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1322              		@ link register save eliminated.
+ 1323 0000 B0F1004F 		cmp	r0, #-2147483648
+ 1324 0004 04D0     		beq	.L115
+ 1325 0006 0023     		movs	r3, #0
+ 1326              	.L111:
+ 1327 0008 0342     		tst	r3, r0
+ 1328 000a 04D0     		beq	.L114
+ 1329 000c 0120     		movs	r0, #1
+ 1330 000e 7047     		bx	lr
+ 1331              	.L115:
+ARM GAS  /tmp/ccZgA2It.s 			page 23
+
+
+ 1332 0010 024B     		ldr	r3, .L116
+ 1333 0012 1B68     		ldr	r3, [r3]
+ 1334 0014 F8E7     		b	.L111
+ 1335              	.L114:
+ 1336 0016 0020     		movs	r0, #0
+ 1337 0018 7047     		bx	lr
+ 1338              	.L117:
+ 1339 001a 00BF     		.align	2
+ 1340              	.L116:
+ 1341 001c 200300A0 		.word	-1610611936
+ 1343              		.section	.text.exmc_interrupt_enable,"ax",%progbits
+ 1344              		.align	1
+ 1345              		.global	exmc_interrupt_enable
+ 1346              		.syntax unified
+ 1347              		.thumb
+ 1348              		.thumb_func
+ 1349              		.fpu fpv4-sp-d16
+ 1351              	exmc_interrupt_enable:
+ 1352              		@ args = 0, pretend = 0, frame = 0
+ 1353              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1354              		@ link register save eliminated.
+ 1355 0000 421E     		subs	r2, r0, #1
+ 1356 0002 022A     		cmp	r2, #2
+ 1357 0004 06D8     		bhi	.L119
+ 1358 0006 4001     		lsls	r0, r0, #5
+ 1359 0008 00F12040 		add	r0, r0, #-1610612736
+ 1360 000c 436C     		ldr	r3, [r0, #68]
+ 1361 000e 0B43     		orrs	r3, r3, r1
+ 1362 0010 4364     		str	r3, [r0, #68]
+ 1363 0012 7047     		bx	lr
+ 1364              	.L119:
+ 1365 0014 024A     		ldr	r2, .L121
+ 1366 0016 1368     		ldr	r3, [r2]
+ 1367 0018 43F48043 		orr	r3, r3, #16384
+ 1368 001c 1360     		str	r3, [r2]
+ 1369 001e 7047     		bx	lr
+ 1370              	.L122:
+ 1371              		.align	2
+ 1372              	.L121:
+ 1373 0020 540100A0 		.word	-1610612396
+ 1375              		.section	.text.exmc_interrupt_disable,"ax",%progbits
+ 1376              		.align	1
+ 1377              		.global	exmc_interrupt_disable
+ 1378              		.syntax unified
+ 1379              		.thumb
+ 1380              		.thumb_func
+ 1381              		.fpu fpv4-sp-d16
+ 1383              	exmc_interrupt_disable:
+ 1384              		@ args = 0, pretend = 0, frame = 0
+ 1385              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1386              		@ link register save eliminated.
+ 1387 0000 421E     		subs	r2, r0, #1
+ 1388 0002 022A     		cmp	r2, #2
+ 1389 0004 07D8     		bhi	.L124
+ 1390 0006 4001     		lsls	r0, r0, #5
+ 1391 0008 00F12040 		add	r0, r0, #-1610612736
+ 1392 000c 436C     		ldr	r3, [r0, #68]
+ARM GAS  /tmp/ccZgA2It.s 			page 24
+
+
+ 1393 000e 23EA0103 		bic	r3, r3, r1
+ 1394 0012 4364     		str	r3, [r0, #68]
+ 1395 0014 7047     		bx	lr
+ 1396              	.L124:
+ 1397 0016 034A     		ldr	r2, .L126
+ 1398 0018 1368     		ldr	r3, [r2]
+ 1399 001a 23F48043 		bic	r3, r3, #16384
+ 1400 001e 1360     		str	r3, [r2]
+ 1401 0020 7047     		bx	lr
+ 1402              	.L127:
+ 1403 0022 00BF     		.align	2
+ 1404              	.L126:
+ 1405 0024 540100A0 		.word	-1610612396
+ 1407              		.section	.text.exmc_flag_get,"ax",%progbits
+ 1408              		.align	1
+ 1409              		.global	exmc_flag_get
+ 1410              		.syntax unified
+ 1411              		.thumb
+ 1412              		.thumb_func
+ 1413              		.fpu fpv4-sp-d16
+ 1415              	exmc_flag_get:
+ 1416              		@ args = 0, pretend = 0, frame = 0
+ 1417              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1418              		@ link register save eliminated.
+ 1419 0000 431E     		subs	r3, r0, #1
+ 1420 0002 022B     		cmp	r3, #2
+ 1421 0004 08D8     		bhi	.L129
+ 1422 0006 4001     		lsls	r0, r0, #5
+ 1423 0008 00F12040 		add	r0, r0, #-1610612736
+ 1424 000c 436C     		ldr	r3, [r0, #68]
+ 1425              	.L130:
+ 1426 000e 31EA0303 		bics	r3, r1, r3
+ 1427 0012 04D0     		beq	.L132
+ 1428 0014 0020     		movs	r0, #0
+ 1429 0016 7047     		bx	lr
+ 1430              	.L129:
+ 1431 0018 024B     		ldr	r3, .L133
+ 1432 001a 1B68     		ldr	r3, [r3]
+ 1433 001c F7E7     		b	.L130
+ 1434              	.L132:
+ 1435 001e 0120     		movs	r0, #1
+ 1436 0020 7047     		bx	lr
+ 1437              	.L134:
+ 1438 0022 00BF     		.align	2
+ 1439              	.L133:
+ 1440 0024 580100A0 		.word	-1610612392
+ 1442              		.section	.text.exmc_flag_clear,"ax",%progbits
+ 1443              		.align	1
+ 1444              		.global	exmc_flag_clear
+ 1445              		.syntax unified
+ 1446              		.thumb
+ 1447              		.thumb_func
+ 1448              		.fpu fpv4-sp-d16
+ 1450              	exmc_flag_clear:
+ 1451              		@ args = 0, pretend = 0, frame = 0
+ 1452              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1453              		@ link register save eliminated.
+ARM GAS  /tmp/ccZgA2It.s 			page 25
+
+
+ 1454 0000 431E     		subs	r3, r0, #1
+ 1455 0002 022B     		cmp	r3, #2
+ 1456 0004 07D8     		bhi	.L136
+ 1457 0006 4001     		lsls	r0, r0, #5
+ 1458 0008 00F12040 		add	r0, r0, #-1610612736
+ 1459 000c 436C     		ldr	r3, [r0, #68]
+ 1460 000e 23EA0103 		bic	r3, r3, r1
+ 1461 0012 4364     		str	r3, [r0, #68]
+ 1462 0014 7047     		bx	lr
+ 1463              	.L136:
+ 1464 0016 034A     		ldr	r2, .L138
+ 1465 0018 1368     		ldr	r3, [r2]
+ 1466 001a 23EA0103 		bic	r3, r3, r1
+ 1467 001e 1360     		str	r3, [r2]
+ 1468 0020 7047     		bx	lr
+ 1469              	.L139:
+ 1470 0022 00BF     		.align	2
+ 1471              	.L138:
+ 1472 0024 580100A0 		.word	-1610612392
+ 1474              		.section	.text.exmc_interrupt_flag_get,"ax",%progbits
+ 1475              		.align	1
+ 1476              		.global	exmc_interrupt_flag_get
+ 1477              		.syntax unified
+ 1478              		.thumb
+ 1479              		.thumb_func
+ 1480              		.fpu fpv4-sp-d16
+ 1482              	exmc_interrupt_flag_get:
+ 1483              		@ args = 0, pretend = 0, frame = 0
+ 1484              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1485              		@ link register save eliminated.
+ 1486 0000 431E     		subs	r3, r0, #1
+ 1487 0002 022B     		cmp	r3, #2
+ 1488 0004 0AD8     		bhi	.L141
+ 1489 0006 4001     		lsls	r0, r0, #5
+ 1490 0008 00F12040 		add	r0, r0, #-1610612736
+ 1491 000c 426C     		ldr	r2, [r0, #68]
+ 1492 000e 02EAD103 		and	r3, r2, r1, lsr #3
+ 1493              	.L142:
+ 1494 0012 0A42     		tst	r2, r1
+ 1495 0014 09D0     		beq	.L144
+ 1496 0016 53B9     		cbnz	r3, .L145
+ 1497 0018 0020     		movs	r0, #0
+ 1498 001a 7047     		bx	lr
+ 1499              	.L141:
+ 1500 001c 054B     		ldr	r3, .L146
+ 1501 001e 1A68     		ldr	r2, [r3]
+ 1502 0020 0433     		adds	r3, r3, #4
+ 1503 0022 1B68     		ldr	r3, [r3]
+ 1504 0024 03F00103 		and	r3, r3, #1
+ 1505 0028 F3E7     		b	.L142
+ 1506              	.L144:
+ 1507 002a 0020     		movs	r0, #0
+ 1508 002c 7047     		bx	lr
+ 1509              	.L145:
+ 1510 002e 0120     		movs	r0, #1
+ 1511 0030 7047     		bx	lr
+ 1512              	.L147:
+ARM GAS  /tmp/ccZgA2It.s 			page 26
+
+
+ 1513 0032 00BF     		.align	2
+ 1514              	.L146:
+ 1515 0034 540100A0 		.word	-1610612396
+ 1517              		.section	.text.exmc_interrupt_flag_clear,"ax",%progbits
+ 1518              		.align	1
+ 1519              		.global	exmc_interrupt_flag_clear
+ 1520              		.syntax unified
+ 1521              		.thumb
+ 1522              		.thumb_func
+ 1523              		.fpu fpv4-sp-d16
+ 1525              	exmc_interrupt_flag_clear:
+ 1526              		@ args = 0, pretend = 0, frame = 0
+ 1527              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1528              		@ link register save eliminated.
+ 1529 0000 421E     		subs	r2, r0, #1
+ 1530 0002 022A     		cmp	r2, #2
+ 1531 0004 07D8     		bhi	.L149
+ 1532 0006 4001     		lsls	r0, r0, #5
+ 1533 0008 00F12040 		add	r0, r0, #-1610612736
+ 1534 000c 436C     		ldr	r3, [r0, #68]
+ 1535 000e 23EAD103 		bic	r3, r3, r1, lsr #3
+ 1536 0012 4364     		str	r3, [r0, #68]
+ 1537 0014 7047     		bx	lr
+ 1538              	.L149:
+ 1539 0016 034A     		ldr	r2, .L151
+ 1540 0018 1368     		ldr	r3, [r2]
+ 1541 001a 43F00103 		orr	r3, r3, #1
+ 1542 001e 1360     		str	r3, [r2]
+ 1543 0020 7047     		bx	lr
+ 1544              	.L152:
+ 1545 0022 00BF     		.align	2
+ 1546              	.L151:
+ 1547 0024 540100A0 		.word	-1610612396
+ 1549              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccZgA2It.s 			page 27
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_exmc.c
+     /tmp/ccZgA2It.s:16     .text.exmc_norsram_deinit:0000000000000000 $t
+     /tmp/ccZgA2It.s:24     .text.exmc_norsram_deinit:0000000000000000 exmc_norsram_deinit
+     /tmp/ccZgA2It.s:40     .text.exmc_norsram_struct_para_init:0000000000000000 $t
+     /tmp/ccZgA2It.s:47     .text.exmc_norsram_struct_para_init:0000000000000000 exmc_norsram_struct_para_init
+     /tmp/ccZgA2It.s:99     .text.exmc_norsram_init:0000000000000000 $t
+     /tmp/ccZgA2It.s:106    .text.exmc_norsram_init:0000000000000000 exmc_norsram_init
+     /tmp/ccZgA2It.s:191    .text.exmc_norsram_init:00000000000000bc $d
+     /tmp/ccZgA2It.s:194    .text.exmc_norsram_enable:0000000000000000 $t
+     /tmp/ccZgA2It.s:201    .text.exmc_norsram_enable:0000000000000000 exmc_norsram_enable
+     /tmp/ccZgA2It.s:213    .text.exmc_norsram_disable:0000000000000000 $t
+     /tmp/ccZgA2It.s:220    .text.exmc_norsram_disable:0000000000000000 exmc_norsram_disable
+     /tmp/ccZgA2It.s:232    .text.exmc_nand_deinit:0000000000000000 $t
+     /tmp/ccZgA2It.s:239    .text.exmc_nand_deinit:0000000000000000 exmc_nand_deinit
+     /tmp/ccZgA2It.s:258    .text.exmc_nand_struct_para_init:0000000000000000 $t
+     /tmp/ccZgA2It.s:265    .text.exmc_nand_struct_para_init:0000000000000000 exmc_nand_struct_para_init
+     /tmp/ccZgA2It.s:298    .text.exmc_nand_init:0000000000000000 $t
+     /tmp/ccZgA2It.s:305    .text.exmc_nand_init:0000000000000000 exmc_nand_init
+     /tmp/ccZgA2It.s:370    .text.exmc_nand_enable:0000000000000000 $t
+     /tmp/ccZgA2It.s:377    .text.exmc_nand_enable:0000000000000000 exmc_nand_enable
+     /tmp/ccZgA2It.s:390    .text.exmc_nand_disable:0000000000000000 $t
+     /tmp/ccZgA2It.s:397    .text.exmc_nand_disable:0000000000000000 exmc_nand_disable
+     /tmp/ccZgA2It.s:410    .text.exmc_pccard_deinit:0000000000000000 $t
+     /tmp/ccZgA2It.s:417    .text.exmc_pccard_deinit:0000000000000000 exmc_pccard_deinit
+     /tmp/ccZgA2It.s:438    .text.exmc_pccard_deinit:0000000000000020 $d
+     /tmp/ccZgA2It.s:442    .text.exmc_pccard_struct_para_init:0000000000000000 $t
+     /tmp/ccZgA2It.s:449    .text.exmc_pccard_struct_para_init:0000000000000000 exmc_pccard_struct_para_init
+     /tmp/ccZgA2It.s:485    .text.exmc_pccard_init:0000000000000000 $t
+     /tmp/ccZgA2It.s:492    .text.exmc_pccard_init:0000000000000000 exmc_pccard_init
+     /tmp/ccZgA2It.s:560    .text.exmc_pccard_init:000000000000008c $d
+     /tmp/ccZgA2It.s:566    .text.exmc_pccard_enable:0000000000000000 $t
+     /tmp/ccZgA2It.s:573    .text.exmc_pccard_enable:0000000000000000 exmc_pccard_enable
+     /tmp/ccZgA2It.s:585    .text.exmc_pccard_enable:000000000000000c $d
+     /tmp/ccZgA2It.s:588    .text.exmc_pccard_disable:0000000000000000 $t
+     /tmp/ccZgA2It.s:595    .text.exmc_pccard_disable:0000000000000000 exmc_pccard_disable
+     /tmp/ccZgA2It.s:607    .text.exmc_pccard_disable:000000000000000c $d
+     /tmp/ccZgA2It.s:610    .text.exmc_sdram_deinit:0000000000000000 $t
+     /tmp/ccZgA2It.s:617    .text.exmc_sdram_deinit:0000000000000000 exmc_sdram_deinit
+     /tmp/ccZgA2It.s:641    .text.exmc_sdram_deinit:000000000000002c $d
+     /tmp/ccZgA2It.s:644    .text.exmc_sdram_struct_para_init:0000000000000000 $t
+     /tmp/ccZgA2It.s:651    .text.exmc_sdram_struct_para_init:0000000000000000 exmc_sdram_struct_para_init
+     /tmp/ccZgA2It.s:688    .text.exmc_sdram_init:0000000000000000 $t
+     /tmp/ccZgA2It.s:695    .text.exmc_sdram_init:0000000000000000 exmc_sdram_init
+     /tmp/ccZgA2It.s:804    .text.exmc_sdram_init:00000000000000ec $d
+     /tmp/ccZgA2It.s:810    .text.exmc_sqpipsram_deinit:0000000000000000 $t
+     /tmp/ccZgA2It.s:817    .text.exmc_sqpipsram_deinit:0000000000000000 exmc_sqpipsram_deinit
+     /tmp/ccZgA2It.s:837    .text.exmc_sqpipsram_deinit:000000000000001c $d
+     /tmp/ccZgA2It.s:842    .text.exmc_sqpipsram_struct_para_init:0000000000000000 $t
+     /tmp/ccZgA2It.s:849    .text.exmc_sqpipsram_struct_para_init:0000000000000000 exmc_sqpipsram_struct_para_init
+     /tmp/ccZgA2It.s:863    .text.exmc_sqpipsram_init:0000000000000000 $t
+     /tmp/ccZgA2It.s:870    .text.exmc_sqpipsram_init:0000000000000000 exmc_sqpipsram_init
+     /tmp/ccZgA2It.s:887    .text.exmc_sqpipsram_init:0000000000000014 $d
+     /tmp/ccZgA2It.s:890    .text.exmc_norsram_consecutive_clock_config:0000000000000000 $t
+     /tmp/ccZgA2It.s:897    .text.exmc_norsram_consecutive_clock_config:0000000000000000 exmc_norsram_consecutive_clock_config
+     /tmp/ccZgA2It.s:916    .text.exmc_norsram_page_size_config:0000000000000000 $t
+     /tmp/ccZgA2It.s:923    .text.exmc_norsram_page_size_config:0000000000000000 exmc_norsram_page_size_config
+ARM GAS  /tmp/ccZgA2It.s 			page 28
+
+
+     /tmp/ccZgA2It.s:938    .text.exmc_nand_ecc_config:0000000000000000 $t
+     /tmp/ccZgA2It.s:945    .text.exmc_nand_ecc_config:0000000000000000 exmc_nand_ecc_config
+     /tmp/ccZgA2It.s:968    .text.exmc_ecc_get:0000000000000000 $t
+     /tmp/ccZgA2It.s:975    .text.exmc_ecc_get:0000000000000000 exmc_ecc_get
+     /tmp/ccZgA2It.s:985    .text.exmc_sdram_readsample_enable:0000000000000000 $t
+     /tmp/ccZgA2It.s:992    .text.exmc_sdram_readsample_enable:0000000000000000 exmc_sdram_readsample_enable
+     /tmp/ccZgA2It.s:1012   .text.exmc_sdram_readsample_enable:000000000000001c $d
+     /tmp/ccZgA2It.s:1015   .text.exmc_sdram_readsample_config:0000000000000000 $t
+     /tmp/ccZgA2It.s:1022   .text.exmc_sdram_readsample_config:0000000000000000 exmc_sdram_readsample_config
+     /tmp/ccZgA2It.s:1039   .text.exmc_sdram_readsample_config:000000000000001c $d
+     /tmp/ccZgA2It.s:1042   .text.exmc_sdram_command_config:0000000000000000 $t
+     /tmp/ccZgA2It.s:1049   .text.exmc_sdram_command_config:0000000000000000 exmc_sdram_command_config
+     /tmp/ccZgA2It.s:1066   .text.exmc_sdram_command_config:0000000000000018 $d
+     /tmp/ccZgA2It.s:1069   .text.exmc_sdram_refresh_count_set:0000000000000000 $t
+     /tmp/ccZgA2It.s:1076   .text.exmc_sdram_refresh_count_set:0000000000000000 exmc_sdram_refresh_count_set
+     /tmp/ccZgA2It.s:1092   .text.exmc_sdram_refresh_count_set:000000000000001c $d
+     /tmp/ccZgA2It.s:1095   .text.exmc_sdram_autorefresh_number_set:0000000000000000 $t
+     /tmp/ccZgA2It.s:1102   .text.exmc_sdram_autorefresh_number_set:0000000000000000 exmc_sdram_autorefresh_number_set
+     /tmp/ccZgA2It.s:1117   .text.exmc_sdram_autorefresh_number_set:0000000000000014 $d
+     /tmp/ccZgA2It.s:1120   .text.exmc_sdram_write_protection_config:0000000000000000 $t
+     /tmp/ccZgA2It.s:1127   .text.exmc_sdram_write_protection_config:0000000000000000 exmc_sdram_write_protection_config
+     /tmp/ccZgA2It.s:1150   .text.exmc_sdram_bankstatus_get:0000000000000000 $t
+     /tmp/ccZgA2It.s:1157   .text.exmc_sdram_bankstatus_get:0000000000000000 exmc_sdram_bankstatus_get
+     /tmp/ccZgA2It.s:1175   .text.exmc_sdram_bankstatus_get:0000000000000018 $d
+     /tmp/ccZgA2It.s:1178   .text.exmc_sqpipsram_read_command_set:0000000000000000 $t
+     /tmp/ccZgA2It.s:1185   .text.exmc_sqpipsram_read_command_set:0000000000000000 exmc_sqpipsram_read_command_set
+     /tmp/ccZgA2It.s:1200   .text.exmc_sqpipsram_read_command_set:0000000000000014 $d
+     /tmp/ccZgA2It.s:1203   .text.exmc_sqpipsram_write_command_set:0000000000000000 $t
+     /tmp/ccZgA2It.s:1210   .text.exmc_sqpipsram_write_command_set:0000000000000000 exmc_sqpipsram_write_command_set
+     /tmp/ccZgA2It.s:1225   .text.exmc_sqpipsram_write_command_set:0000000000000014 $d
+     /tmp/ccZgA2It.s:1228   .text.exmc_sqpipsram_read_id_command_send:0000000000000000 $t
+     /tmp/ccZgA2It.s:1235   .text.exmc_sqpipsram_read_id_command_send:0000000000000000 exmc_sqpipsram_read_id_command_send
+     /tmp/ccZgA2It.s:1247   .text.exmc_sqpipsram_read_id_command_send:000000000000000c $d
+     /tmp/ccZgA2It.s:1250   .text.exmc_sqpipsram_write_cmd_send:0000000000000000 $t
+     /tmp/ccZgA2It.s:1257   .text.exmc_sqpipsram_write_cmd_send:0000000000000000 exmc_sqpipsram_write_cmd_send
+     /tmp/ccZgA2It.s:1269   .text.exmc_sqpipsram_write_cmd_send:000000000000000c $d
+     /tmp/ccZgA2It.s:1272   .text.exmc_sqpipsram_low_id_get:0000000000000000 $t
+     /tmp/ccZgA2It.s:1279   .text.exmc_sqpipsram_low_id_get:0000000000000000 exmc_sqpipsram_low_id_get
+     /tmp/ccZgA2It.s:1289   .text.exmc_sqpipsram_low_id_get:0000000000000008 $d
+     /tmp/ccZgA2It.s:1292   .text.exmc_sqpipsram_high_id_get:0000000000000000 $t
+     /tmp/ccZgA2It.s:1299   .text.exmc_sqpipsram_high_id_get:0000000000000000 exmc_sqpipsram_high_id_get
+     /tmp/ccZgA2It.s:1309   .text.exmc_sqpipsram_high_id_get:0000000000000008 $d
+     /tmp/ccZgA2It.s:1312   .text.exmc_sqpipsram_send_command_state_get:0000000000000000 $t
+     /tmp/ccZgA2It.s:1319   .text.exmc_sqpipsram_send_command_state_get:0000000000000000 exmc_sqpipsram_send_command_state_get
+     /tmp/ccZgA2It.s:1341   .text.exmc_sqpipsram_send_command_state_get:000000000000001c $d
+     /tmp/ccZgA2It.s:1344   .text.exmc_interrupt_enable:0000000000000000 $t
+     /tmp/ccZgA2It.s:1351   .text.exmc_interrupt_enable:0000000000000000 exmc_interrupt_enable
+     /tmp/ccZgA2It.s:1373   .text.exmc_interrupt_enable:0000000000000020 $d
+     /tmp/ccZgA2It.s:1376   .text.exmc_interrupt_disable:0000000000000000 $t
+     /tmp/ccZgA2It.s:1383   .text.exmc_interrupt_disable:0000000000000000 exmc_interrupt_disable
+     /tmp/ccZgA2It.s:1405   .text.exmc_interrupt_disable:0000000000000024 $d
+     /tmp/ccZgA2It.s:1408   .text.exmc_flag_get:0000000000000000 $t
+     /tmp/ccZgA2It.s:1415   .text.exmc_flag_get:0000000000000000 exmc_flag_get
+     /tmp/ccZgA2It.s:1440   .text.exmc_flag_get:0000000000000024 $d
+     /tmp/ccZgA2It.s:1443   .text.exmc_flag_clear:0000000000000000 $t
+     /tmp/ccZgA2It.s:1450   .text.exmc_flag_clear:0000000000000000 exmc_flag_clear
+     /tmp/ccZgA2It.s:1472   .text.exmc_flag_clear:0000000000000024 $d
+ARM GAS  /tmp/ccZgA2It.s 			page 29
+
+
+     /tmp/ccZgA2It.s:1475   .text.exmc_interrupt_flag_get:0000000000000000 $t
+     /tmp/ccZgA2It.s:1482   .text.exmc_interrupt_flag_get:0000000000000000 exmc_interrupt_flag_get
+     /tmp/ccZgA2It.s:1515   .text.exmc_interrupt_flag_get:0000000000000034 $d
+     /tmp/ccZgA2It.s:1518   .text.exmc_interrupt_flag_clear:0000000000000000 $t
+     /tmp/ccZgA2It.s:1525   .text.exmc_interrupt_flag_clear:0000000000000000 exmc_interrupt_flag_clear
+     /tmp/ccZgA2It.s:1547   .text.exmc_interrupt_flag_clear:0000000000000024 $d
+
+NO UNDEFINED SYMBOLS

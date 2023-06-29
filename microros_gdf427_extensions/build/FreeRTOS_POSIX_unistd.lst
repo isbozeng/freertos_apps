@@ -1,0 +1,89 @@
+ARM GAS  /tmp/ccgnh8Rs.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"FreeRTOS_POSIX_unistd.c"
+  14              		.text
+  15              		.section	.text.sleep,"ax",%progbits
+  16              		.align	1
+  17              		.global	sleep
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	sleep:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 054B     		ldr	r3, .L3
+  29 0004 03FB00F0 		mul	r0, r3, r0
+  30 0008 044B     		ldr	r3, .L3+4
+  31 000a A3FB0030 		umull	r3, r0, r3, r0
+  32 000e 8009     		lsrs	r0, r0, #6
+  33 0010 FFF7FEFF 		bl	vTaskDelay
+  34 0014 0020     		movs	r0, #0
+  35 0016 08BD     		pop	{r3, pc}
+  36              	.L4:
+  37              		.align	2
+  38              	.L3:
+  39 0018 40420F00 		.word	1000000
+  40 001c D34D6210 		.word	274877907
+  42              		.section	.text.usleep,"ax",%progbits
+  43              		.align	1
+  44              		.global	usleep
+  45              		.syntax unified
+  46              		.thumb
+  47              		.thumb_func
+  48              		.fpu fpv4-sp-d16
+  50              	usleep:
+  51              		@ args = 0, pretend = 0, frame = 0
+  52              		@ frame_needed = 0, uses_anonymous_args = 0
+  53 0000 10B5     		push	{r4, lr}
+  54 0002 0A49     		ldr	r1, .L7
+  55 0004 A1FB0023 		umull	r2, r3, r1, r0
+  56 0008 9B09     		lsrs	r3, r3, #6
+  57 000a 4FF47A72 		mov	r2, #1000
+  58 000e 02FB1304 		mls	r4, r2, r3, r0
+  59 0012 002C     		cmp	r4, #0
+  60 0014 18BF     		it	ne
+ARM GAS  /tmp/ccgnh8Rs.s 			page 2
+
+
+  61 0016 0133     		addne	r3, r3, #1
+  62 0018 02FB03F3 		mul	r3, r2, r3
+  63 001c A1FB0330 		umull	r3, r0, r1, r3
+  64 0020 8009     		lsrs	r0, r0, #6
+  65 0022 FFF7FEFF 		bl	vTaskDelay
+  66 0026 0020     		movs	r0, #0
+  67 0028 10BD     		pop	{r4, pc}
+  68              	.L8:
+  69 002a 00BF     		.align	2
+  70              	.L7:
+  71 002c D34D6210 		.word	274877907
+  73              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccgnh8Rs.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 FreeRTOS_POSIX_unistd.c
+     /tmp/ccgnh8Rs.s:16     .text.sleep:0000000000000000 $t
+     /tmp/ccgnh8Rs.s:24     .text.sleep:0000000000000000 sleep
+     /tmp/ccgnh8Rs.s:39     .text.sleep:0000000000000018 $d
+     /tmp/ccgnh8Rs.s:43     .text.usleep:0000000000000000 $t
+     /tmp/ccgnh8Rs.s:50     .text.usleep:0000000000000000 usleep
+     /tmp/ccgnh8Rs.s:71     .text.usleep:000000000000002c $d
+
+UNDEFINED SYMBOLS
+vTaskDelay

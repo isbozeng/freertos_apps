@@ -1,0 +1,687 @@
+ARM GAS  /tmp/ccEwnDN6.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"memp.c"
+  14              		.text
+  15              		.section	.text.do_memp_malloc_pool,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	do_memp_malloc_pool:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26 0000 38B5     		push	{r3, r4, r5, lr}
+  27 0002 0446     		mov	r4, r0
+  28 0004 FFF7FEFF 		bl	sys_arch_protect
+  29 0008 0546     		mov	r5, r0
+  30 000a A368     		ldr	r3, [r4, #8]
+  31 000c 1C68     		ldr	r4, [r3]
+  32 000e 8CB1     		cbz	r4, .L2
+  33 0010 2268     		ldr	r2, [r4]
+  34 0012 1A60     		str	r2, [r3]
+  35 0014 14F0030F 		tst	r4, #3
+  36 0018 04D1     		bne	.L6
+  37              	.L3:
+  38 001a 2846     		mov	r0, r5
+  39 001c FFF7FEFF 		bl	sys_arch_unprotect
+  40              	.L1:
+  41 0020 2046     		mov	r0, r4
+  42 0022 38BD     		pop	{r3, r4, r5, pc}
+  43              	.L6:
+  44 0024 054B     		ldr	r3, .L7
+  45 0026 40F21912 		movw	r2, #281
+  46 002a 0549     		ldr	r1, .L7+4
+  47 002c 0548     		ldr	r0, .L7+8
+  48 002e FFF7FEFF 		bl	printf
+  49 0032 F2E7     		b	.L3
+  50              	.L2:
+  51 0034 FFF7FEFF 		bl	sys_arch_unprotect
+  52 0038 F2E7     		b	.L1
+  53              	.L8:
+  54 003a 00BF     		.align	2
+  55              	.L7:
+  56 003c 00000000 		.word	.LC0
+  57 0040 30000000 		.word	.LC1
+  58 0044 54000000 		.word	.LC2
+ARM GAS  /tmp/ccEwnDN6.s 			page 2
+
+
+  60              		.section	.text.do_memp_free_pool,"ax",%progbits
+  61              		.align	1
+  62              		.syntax unified
+  63              		.thumb
+  64              		.thumb_func
+  65              		.fpu fpv4-sp-d16
+  67              	do_memp_free_pool:
+  68              		@ args = 0, pretend = 0, frame = 0
+  69              		@ frame_needed = 0, uses_anonymous_args = 0
+  70 0000 38B5     		push	{r3, r4, r5, lr}
+  71 0002 0546     		mov	r5, r0
+  72 0004 0C46     		mov	r4, r1
+  73 0006 11F0030F 		tst	r1, #3
+  74 000a 09D1     		bne	.L12
+  75              	.L10:
+  76 000c FFF7FEFF 		bl	sys_arch_protect
+  77 0010 AB68     		ldr	r3, [r5, #8]
+  78 0012 1B68     		ldr	r3, [r3]
+  79 0014 2360     		str	r3, [r4]
+  80 0016 AB68     		ldr	r3, [r5, #8]
+  81 0018 1C60     		str	r4, [r3]
+  82 001a FFF7FEFF 		bl	sys_arch_unprotect
+  83 001e 38BD     		pop	{r3, r4, r5, pc}
+  84              	.L12:
+  85 0020 034B     		ldr	r3, .L13
+  86 0022 40F26D12 		movw	r2, #365
+  87 0026 0349     		ldr	r1, .L13+4
+  88 0028 0348     		ldr	r0, .L13+8
+  89 002a FFF7FEFF 		bl	printf
+  90 002e EDE7     		b	.L10
+  91              	.L14:
+  92              		.align	2
+  93              	.L13:
+  94 0030 00000000 		.word	.LC0
+  95 0034 00000000 		.word	.LC3
+  96 0038 54000000 		.word	.LC2
+  98              		.section	.text.memp_init_pool,"ax",%progbits
+  99              		.align	1
+ 100              		.global	memp_init_pool
+ 101              		.syntax unified
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.fpu fpv4-sp-d16
+ 106              	memp_init_pool:
+ 107              		@ args = 0, pretend = 0, frame = 0
+ 108              		@ frame_needed = 0, uses_anonymous_args = 0
+ 109              		@ link register save eliminated.
+ 110 0000 8368     		ldr	r3, [r0, #8]
+ 111 0002 0022     		movs	r2, #0
+ 112 0004 1A60     		str	r2, [r3]
+ 113 0006 4368     		ldr	r3, [r0, #4]
+ 114 0008 0333     		adds	r3, r3, #3
+ 115 000a 23F00303 		bic	r3, r3, #3
+ 116              	.L16:
+ 117 000e 4188     		ldrh	r1, [r0, #2]
+ 118 0010 9142     		cmp	r1, r2
+ 119 0012 08DD     		ble	.L18
+ARM GAS  /tmp/ccEwnDN6.s 			page 3
+
+
+ 120 0014 8168     		ldr	r1, [r0, #8]
+ 121 0016 0968     		ldr	r1, [r1]
+ 122 0018 1960     		str	r1, [r3]
+ 123 001a 8168     		ldr	r1, [r0, #8]
+ 124 001c 0B60     		str	r3, [r1]
+ 125 001e 0188     		ldrh	r1, [r0]
+ 126 0020 0B44     		add	r3, r3, r1
+ 127 0022 0132     		adds	r2, r2, #1
+ 128 0024 F3E7     		b	.L16
+ 129              	.L18:
+ 130 0026 7047     		bx	lr
+ 132              		.section	.text.memp_init,"ax",%progbits
+ 133              		.align	1
+ 134              		.global	memp_init
+ 135              		.syntax unified
+ 136              		.thumb
+ 137              		.thumb_func
+ 138              		.fpu fpv4-sp-d16
+ 140              	memp_init:
+ 141              		@ args = 0, pretend = 0, frame = 0
+ 142              		@ frame_needed = 0, uses_anonymous_args = 0
+ 143 0000 10B5     		push	{r4, lr}
+ 144 0002 0024     		movs	r4, #0
+ 145              	.L20:
+ 146 0004 0D2C     		cmp	r4, #13
+ 147 0006 07D8     		bhi	.L23
+ 148 0008 044B     		ldr	r3, .L24
+ 149 000a 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 150 000e FFF7FEFF 		bl	memp_init_pool
+ 151 0012 0134     		adds	r4, r4, #1
+ 152 0014 A4B2     		uxth	r4, r4
+ 153 0016 F5E7     		b	.L20
+ 154              	.L23:
+ 155 0018 10BD     		pop	{r4, pc}
+ 156              	.L25:
+ 157 001a 00BF     		.align	2
+ 158              	.L24:
+ 159 001c 00000000 		.word	.LANCHOR0
+ 161              		.section	.text.memp_malloc_pool,"ax",%progbits
+ 162              		.align	1
+ 163              		.global	memp_malloc_pool
+ 164              		.syntax unified
+ 165              		.thumb
+ 166              		.thumb_func
+ 167              		.fpu fpv4-sp-d16
+ 169              	memp_malloc_pool:
+ 170              		@ args = 0, pretend = 0, frame = 0
+ 171              		@ frame_needed = 0, uses_anonymous_args = 0
+ 172 0000 10B5     		push	{r4, lr}
+ 173 0002 0446     		mov	r4, r0
+ 174 0004 20B1     		cbz	r0, .L31
+ 175              	.L27:
+ 176 0006 5CB1     		cbz	r4, .L29
+ 177 0008 2046     		mov	r0, r4
+ 178 000a FFF7FEFF 		bl	do_memp_malloc_pool
+ 179              	.L26:
+ 180 000e 10BD     		pop	{r4, pc}
+ARM GAS  /tmp/ccEwnDN6.s 			page 4
+
+
+ 181              	.L31:
+ 182 0010 044B     		ldr	r3, .L32
+ 183 0012 4FF49E72 		mov	r2, #316
+ 184 0016 0449     		ldr	r1, .L32+4
+ 185 0018 0448     		ldr	r0, .L32+8
+ 186 001a FFF7FEFF 		bl	printf
+ 187 001e F2E7     		b	.L27
+ 188              	.L29:
+ 189 0020 2046     		mov	r0, r4
+ 190 0022 F4E7     		b	.L26
+ 191              	.L33:
+ 192              		.align	2
+ 193              	.L32:
+ 194 0024 00000000 		.word	.LC0
+ 195 0028 00000000 		.word	.LC4
+ 196 002c 54000000 		.word	.LC2
+ 198              		.section	.text.memp_malloc,"ax",%progbits
+ 199              		.align	1
+ 200              		.global	memp_malloc
+ 201              		.syntax unified
+ 202              		.thumb
+ 203              		.thumb_func
+ 204              		.fpu fpv4-sp-d16
+ 206              	memp_malloc:
+ 207              		@ args = 0, pretend = 0, frame = 0
+ 208              		@ frame_needed = 0, uses_anonymous_args = 0
+ 209 0000 08B5     		push	{r3, lr}
+ 210 0002 0D28     		cmp	r0, #13
+ 211 0004 05D8     		bhi	.L38
+ 212 0006 074B     		ldr	r3, .L39
+ 213 0008 53F82000 		ldr	r0, [r3, r0, lsl #2]
+ 214 000c FFF7FEFF 		bl	do_memp_malloc_pool
+ 215              	.L34:
+ 216 0010 08BD     		pop	{r3, pc}
+ 217              	.L38:
+ 218 0012 054B     		ldr	r3, .L39+4
+ 219 0014 40F25712 		movw	r2, #343
+ 220 0018 0449     		ldr	r1, .L39+8
+ 221 001a 0548     		ldr	r0, .L39+12
+ 222 001c FFF7FEFF 		bl	printf
+ 223 0020 0020     		movs	r0, #0
+ 224 0022 F5E7     		b	.L34
+ 225              	.L40:
+ 226              		.align	2
+ 227              	.L39:
+ 228 0024 00000000 		.word	.LANCHOR0
+ 229 0028 00000000 		.word	.LC0
+ 230 002c 00000000 		.word	.LC5
+ 231 0030 54000000 		.word	.LC2
+ 233              		.section	.text.memp_free_pool,"ax",%progbits
+ 234              		.align	1
+ 235              		.global	memp_free_pool
+ 236              		.syntax unified
+ 237              		.thumb
+ 238              		.thumb_func
+ 239              		.fpu fpv4-sp-d16
+ 241              	memp_free_pool:
+ARM GAS  /tmp/ccEwnDN6.s 			page 5
+
+
+ 242              		@ args = 0, pretend = 0, frame = 0
+ 243              		@ frame_needed = 0, uses_anonymous_args = 0
+ 244 0000 38B5     		push	{r3, r4, r5, lr}
+ 245 0002 0D46     		mov	r5, r1
+ 246 0004 0446     		mov	r4, r0
+ 247 0006 30B1     		cbz	r0, .L45
+ 248              	.L42:
+ 249 0008 24B1     		cbz	r4, .L41
+ 250 000a 1DB1     		cbz	r5, .L41
+ 251 000c 2946     		mov	r1, r5
+ 252 000e 2046     		mov	r0, r4
+ 253 0010 FFF7FEFF 		bl	do_memp_free_pool
+ 254              	.L41:
+ 255 0014 38BD     		pop	{r3, r4, r5, pc}
+ 256              	.L45:
+ 257 0016 044B     		ldr	r3, .L46
+ 258 0018 40F29512 		movw	r2, #405
+ 259 001c 0349     		ldr	r1, .L46+4
+ 260 001e 0448     		ldr	r0, .L46+8
+ 261 0020 FFF7FEFF 		bl	printf
+ 262 0024 F0E7     		b	.L42
+ 263              	.L47:
+ 264 0026 00BF     		.align	2
+ 265              	.L46:
+ 266 0028 00000000 		.word	.LC0
+ 267 002c 00000000 		.word	.LC4
+ 268 0030 54000000 		.word	.LC2
+ 270              		.section	.text.memp_free,"ax",%progbits
+ 271              		.align	1
+ 272              		.global	memp_free
+ 273              		.syntax unified
+ 274              		.thumb
+ 275              		.thumb_func
+ 276              		.fpu fpv4-sp-d16
+ 278              	memp_free:
+ 279              		@ args = 0, pretend = 0, frame = 0
+ 280              		@ frame_needed = 0, uses_anonymous_args = 0
+ 281 0000 08B5     		push	{r3, lr}
+ 282 0002 0D28     		cmp	r0, #13
+ 283 0004 06D8     		bhi	.L52
+ 284 0006 21B1     		cbz	r1, .L48
+ 285 0008 064B     		ldr	r3, .L53
+ 286 000a 53F82000 		ldr	r0, [r3, r0, lsl #2]
+ 287 000e FFF7FEFF 		bl	do_memp_free_pool
+ 288              	.L48:
+ 289 0012 08BD     		pop	{r3, pc}
+ 290              	.L52:
+ 291 0014 044B     		ldr	r3, .L53+4
+ 292 0016 4FF4D572 		mov	r2, #426
+ 293 001a 0449     		ldr	r1, .L53+8
+ 294 001c 0448     		ldr	r0, .L53+12
+ 295 001e FFF7FEFF 		bl	printf
+ 296 0022 F6E7     		b	.L48
+ 297              	.L54:
+ 298              		.align	2
+ 299              	.L53:
+ 300 0024 00000000 		.word	.LANCHOR0
+ARM GAS  /tmp/ccEwnDN6.s 			page 6
+
+
+ 301 0028 00000000 		.word	.LC0
+ 302 002c 00000000 		.word	.LC6
+ 303 0030 54000000 		.word	.LC2
+ 305              		.global	memp_pools
+ 306              		.global	memp_PBUF_POOL
+ 307              		.comm	memp_memory_PBUF_POOL_base,9731,4
+ 308              		.global	memp_PBUF
+ 309              		.comm	memp_memory_PBUF_base,259,4
+ 310              		.global	memp_NETDB
+ 311              		.comm	memp_memory_NETDB_base,311,4
+ 312              		.global	memp_SYS_TIMEOUT
+ 313              		.comm	memp_memory_SYS_TIMEOUT_base,99,4
+ 314              		.global	memp_TCPIP_MSG_INPKT
+ 315              		.comm	memp_memory_TCPIP_MSG_INPKT_base,131,4
+ 316              		.global	memp_TCPIP_MSG_API
+ 317              		.comm	memp_memory_TCPIP_MSG_API_base,131,4
+ 318              		.global	memp_NETCONN
+ 319              		.comm	memp_memory_NETCONN_base,195,4
+ 320              		.global	memp_NETBUF
+ 321              		.comm	memp_memory_NETBUF_base,35,4
+ 322              		.global	memp_FRAG_PBUF
+ 323              		.comm	memp_memory_FRAG_PBUF_base,363,4
+ 324              		.global	memp_REASSDATA
+ 325              		.comm	memp_memory_REASSDATA_base,163,4
+ 326              		.global	memp_TCP_SEG
+ 327              		.comm	memp_memory_TCP_SEG_base,259,4
+ 328              		.global	memp_TCP_PCB_LISTEN
+ 329              		.comm	memp_memory_TCP_PCB_LISTEN_base,227,4
+ 330              		.global	memp_TCP_PCB
+ 331              		.comm	memp_memory_TCP_PCB_base,783,4
+ 332              		.global	memp_UDP_PCB
+ 333              		.comm	memp_memory_UDP_PCB_base,131,4
+ 334              		.section	.bss.memp_tab_FRAG_PBUF,"aw",%nobits
+ 335              		.align	2
+ 338              	memp_tab_FRAG_PBUF:
+ 339 0000 00000000 		.space	4
+ 340              		.section	.bss.memp_tab_NETBUF,"aw",%nobits
+ 341              		.align	2
+ 344              	memp_tab_NETBUF:
+ 345 0000 00000000 		.space	4
+ 346              		.section	.bss.memp_tab_NETCONN,"aw",%nobits
+ 347              		.align	2
+ 350              	memp_tab_NETCONN:
+ 351 0000 00000000 		.space	4
+ 352              		.section	.bss.memp_tab_NETDB,"aw",%nobits
+ 353              		.align	2
+ 356              	memp_tab_NETDB:
+ 357 0000 00000000 		.space	4
+ 358              		.section	.bss.memp_tab_PBUF,"aw",%nobits
+ 359              		.align	2
+ 362              	memp_tab_PBUF:
+ 363 0000 00000000 		.space	4
+ 364              		.section	.bss.memp_tab_PBUF_POOL,"aw",%nobits
+ 365              		.align	2
+ 368              	memp_tab_PBUF_POOL:
+ 369 0000 00000000 		.space	4
+ 370              		.section	.bss.memp_tab_REASSDATA,"aw",%nobits
+ARM GAS  /tmp/ccEwnDN6.s 			page 7
+
+
+ 371              		.align	2
+ 374              	memp_tab_REASSDATA:
+ 375 0000 00000000 		.space	4
+ 376              		.section	.bss.memp_tab_SYS_TIMEOUT,"aw",%nobits
+ 377              		.align	2
+ 380              	memp_tab_SYS_TIMEOUT:
+ 381 0000 00000000 		.space	4
+ 382              		.section	.bss.memp_tab_TCPIP_MSG_API,"aw",%nobits
+ 383              		.align	2
+ 386              	memp_tab_TCPIP_MSG_API:
+ 387 0000 00000000 		.space	4
+ 388              		.section	.bss.memp_tab_TCPIP_MSG_INPKT,"aw",%nobits
+ 389              		.align	2
+ 392              	memp_tab_TCPIP_MSG_INPKT:
+ 393 0000 00000000 		.space	4
+ 394              		.section	.bss.memp_tab_TCP_PCB,"aw",%nobits
+ 395              		.align	2
+ 398              	memp_tab_TCP_PCB:
+ 399 0000 00000000 		.space	4
+ 400              		.section	.bss.memp_tab_TCP_PCB_LISTEN,"aw",%nobits
+ 401              		.align	2
+ 404              	memp_tab_TCP_PCB_LISTEN:
+ 405 0000 00000000 		.space	4
+ 406              		.section	.bss.memp_tab_TCP_SEG,"aw",%nobits
+ 407              		.align	2
+ 410              	memp_tab_TCP_SEG:
+ 411 0000 00000000 		.space	4
+ 412              		.section	.bss.memp_tab_UDP_PCB,"aw",%nobits
+ 413              		.align	2
+ 416              	memp_tab_UDP_PCB:
+ 417 0000 00000000 		.space	4
+ 418              		.section	.rodata.do_memp_free_pool.str1.4,"aMS",%progbits,1
+ 419              		.align	2
+ 420              	.LC3:
+ 421 0000 6D656D70 		.ascii	"memp_free: mem properly aligned\000"
+ 421      5F667265 
+ 421      653A206D 
+ 421      656D2070 
+ 421      726F7065 
+ 422              		.section	.rodata.do_memp_malloc_pool.str1.4,"aMS",%progbits,1
+ 423              		.align	2
+ 424              	.LC0:
+ 425 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/core/memp.c\000"
+ 425      6C657761 
+ 425      7265732F 
+ 425      54686972 
+ 425      645F5061 
+ 426 002d 000000   		.space	3
+ 427              	.LC1:
+ 428 0030 6D656D70 		.ascii	"memp_malloc: memp properly aligned\000"
+ 428      5F6D616C 
+ 428      6C6F633A 
+ 428      206D656D 
+ 428      70207072 
+ 429 0053 00       		.space	1
+ 430              	.LC2:
+ 431 0054 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ARM GAS  /tmp/ccEwnDN6.s 			page 8
+
+
+ 431      7274696F 
+ 431      6E202225 
+ 431      73222066 
+ 431      61696C65 
+ 432              		.section	.rodata.memp_FRAG_PBUF,"a"
+ 433              		.align	2
+ 436              	memp_FRAG_PBUF:
+ 437 0000 1800     		.short	24
+ 438 0002 0F00     		.short	15
+ 439 0004 00000000 		.word	memp_memory_FRAG_PBUF_base
+ 440 0008 00000000 		.word	memp_tab_FRAG_PBUF
+ 441              		.section	.rodata.memp_NETBUF,"a"
+ 442              		.align	2
+ 445              	memp_NETBUF:
+ 446 0000 1000     		.short	16
+ 447 0002 0200     		.short	2
+ 448 0004 00000000 		.word	memp_memory_NETBUF_base
+ 449 0008 00000000 		.word	memp_tab_NETBUF
+ 450              		.section	.rodata.memp_NETCONN,"a"
+ 451              		.align	2
+ 454              	memp_NETCONN:
+ 455 0000 3000     		.short	48
+ 456 0002 0400     		.short	4
+ 457 0004 00000000 		.word	memp_memory_NETCONN_base
+ 458 0008 00000000 		.word	memp_tab_NETCONN
+ 459              		.section	.rodata.memp_NETDB,"a"
+ 460              		.align	2
+ 463              	memp_NETDB:
+ 464 0000 3401     		.short	308
+ 465 0002 0100     		.short	1
+ 466 0004 00000000 		.word	memp_memory_NETDB_base
+ 467 0008 00000000 		.word	memp_tab_NETDB
+ 468              		.section	.rodata.memp_PBUF,"a"
+ 469              		.align	2
+ 472              	memp_PBUF:
+ 473 0000 1000     		.short	16
+ 474 0002 1000     		.short	16
+ 475 0004 00000000 		.word	memp_memory_PBUF_base
+ 476 0008 00000000 		.word	memp_tab_PBUF
+ 477              		.section	.rodata.memp_PBUF_POOL,"a"
+ 478              		.align	2
+ 481              	memp_PBUF_POOL:
+ 482 0000 6002     		.short	608
+ 483 0002 1000     		.short	16
+ 484 0004 00000000 		.word	memp_memory_PBUF_POOL_base
+ 485 0008 00000000 		.word	memp_tab_PBUF_POOL
+ 486              		.section	.rodata.memp_REASSDATA,"a"
+ 487              		.align	2
+ 490              	memp_REASSDATA:
+ 491 0000 2000     		.short	32
+ 492 0002 0500     		.short	5
+ 493 0004 00000000 		.word	memp_memory_REASSDATA_base
+ 494 0008 00000000 		.word	memp_tab_REASSDATA
+ 495              		.section	.rodata.memp_SYS_TIMEOUT,"a"
+ 496              		.align	2
+ 499              	memp_SYS_TIMEOUT:
+ 500 0000 1000     		.short	16
+ARM GAS  /tmp/ccEwnDN6.s 			page 9
+
+
+ 501 0002 0600     		.short	6
+ 502 0004 00000000 		.word	memp_memory_SYS_TIMEOUT_base
+ 503 0008 00000000 		.word	memp_tab_SYS_TIMEOUT
+ 504              		.section	.rodata.memp_TCPIP_MSG_API,"a"
+ 505              		.align	2
+ 508              	memp_TCPIP_MSG_API:
+ 509 0000 1000     		.short	16
+ 510 0002 0800     		.short	8
+ 511 0004 00000000 		.word	memp_memory_TCPIP_MSG_API_base
+ 512 0008 00000000 		.word	memp_tab_TCPIP_MSG_API
+ 513              		.section	.rodata.memp_TCPIP_MSG_INPKT,"a"
+ 514              		.align	2
+ 517              	memp_TCPIP_MSG_INPKT:
+ 518 0000 1000     		.short	16
+ 519 0002 0800     		.short	8
+ 520 0004 00000000 		.word	memp_memory_TCPIP_MSG_INPKT_base
+ 521 0008 00000000 		.word	memp_tab_TCPIP_MSG_INPKT
+ 522              		.section	.rodata.memp_TCP_PCB,"a"
+ 523              		.align	2
+ 526              	memp_TCP_PCB:
+ 527 0000 9C00     		.short	156
+ 528 0002 0500     		.short	5
+ 529 0004 00000000 		.word	memp_memory_TCP_PCB_base
+ 530 0008 00000000 		.word	memp_tab_TCP_PCB
+ 531              		.section	.rodata.memp_TCP_PCB_LISTEN,"a"
+ 532              		.align	2
+ 535              	memp_TCP_PCB_LISTEN:
+ 536 0000 1C00     		.short	28
+ 537 0002 0800     		.short	8
+ 538 0004 00000000 		.word	memp_memory_TCP_PCB_LISTEN_base
+ 539 0008 00000000 		.word	memp_tab_TCP_PCB_LISTEN
+ 540              		.section	.rodata.memp_TCP_SEG,"a"
+ 541              		.align	2
+ 544              	memp_TCP_SEG:
+ 545 0000 1000     		.short	16
+ 546 0002 1000     		.short	16
+ 547 0004 00000000 		.word	memp_memory_TCP_SEG_base
+ 548 0008 00000000 		.word	memp_tab_TCP_SEG
+ 549              		.section	.rodata.memp_UDP_PCB,"a"
+ 550              		.align	2
+ 553              	memp_UDP_PCB:
+ 554 0000 2000     		.short	32
+ 555 0002 0400     		.short	4
+ 556 0004 00000000 		.word	memp_memory_UDP_PCB_base
+ 557 0008 00000000 		.word	memp_tab_UDP_PCB
+ 558              		.section	.rodata.memp_free.str1.4,"aMS",%progbits,1
+ 559              		.align	2
+ 560              	.LC6:
+ 561 0000 6D656D70 		.ascii	"memp_free: type < MEMP_MAX\000"
+ 561      5F667265 
+ 561      653A2074 
+ 561      79706520 
+ 561      3C204D45 
+ 562              		.section	.rodata.memp_malloc.str1.4,"aMS",%progbits,1
+ 563              		.align	2
+ 564              	.LC5:
+ 565 0000 6D656D70 		.ascii	"memp_malloc: type < MEMP_MAX\000"
+ARM GAS  /tmp/ccEwnDN6.s 			page 10
+
+
+ 565      5F6D616C 
+ 565      6C6F633A 
+ 565      20747970 
+ 565      65203C20 
+ 566              		.section	.rodata.memp_malloc_pool.str1.4,"aMS",%progbits,1
+ 567              		.align	2
+ 568              	.LC4:
+ 569 0000 696E7661 		.ascii	"invalid pool desc\000"
+ 569      6C696420 
+ 569      706F6F6C 
+ 569      20646573 
+ 569      6300
+ 570              		.section	.rodata.memp_pools,"a"
+ 571              		.align	2
+ 572              		.set	.LANCHOR0,. + 0
+ 575              	memp_pools:
+ 576 0000 00000000 		.word	memp_UDP_PCB
+ 577 0004 00000000 		.word	memp_TCP_PCB
+ 578 0008 00000000 		.word	memp_TCP_PCB_LISTEN
+ 579 000c 00000000 		.word	memp_TCP_SEG
+ 580 0010 00000000 		.word	memp_REASSDATA
+ 581 0014 00000000 		.word	memp_FRAG_PBUF
+ 582 0018 00000000 		.word	memp_NETBUF
+ 583 001c 00000000 		.word	memp_NETCONN
+ 584 0020 00000000 		.word	memp_TCPIP_MSG_API
+ 585 0024 00000000 		.word	memp_TCPIP_MSG_INPKT
+ 586 0028 00000000 		.word	memp_SYS_TIMEOUT
+ 587 002c 00000000 		.word	memp_NETDB
+ 588 0030 00000000 		.word	memp_PBUF
+ 589 0034 00000000 		.word	memp_PBUF_POOL
+ 590              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccEwnDN6.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 memp.c
+     /tmp/ccEwnDN6.s:16     .text.do_memp_malloc_pool:0000000000000000 $t
+     /tmp/ccEwnDN6.s:23     .text.do_memp_malloc_pool:0000000000000000 do_memp_malloc_pool
+     /tmp/ccEwnDN6.s:56     .text.do_memp_malloc_pool:000000000000003c $d
+     /tmp/ccEwnDN6.s:61     .text.do_memp_free_pool:0000000000000000 $t
+     /tmp/ccEwnDN6.s:67     .text.do_memp_free_pool:0000000000000000 do_memp_free_pool
+     /tmp/ccEwnDN6.s:94     .text.do_memp_free_pool:0000000000000030 $d
+     /tmp/ccEwnDN6.s:99     .text.memp_init_pool:0000000000000000 $t
+     /tmp/ccEwnDN6.s:106    .text.memp_init_pool:0000000000000000 memp_init_pool
+     /tmp/ccEwnDN6.s:133    .text.memp_init:0000000000000000 $t
+     /tmp/ccEwnDN6.s:140    .text.memp_init:0000000000000000 memp_init
+     /tmp/ccEwnDN6.s:159    .text.memp_init:000000000000001c $d
+     /tmp/ccEwnDN6.s:162    .text.memp_malloc_pool:0000000000000000 $t
+     /tmp/ccEwnDN6.s:169    .text.memp_malloc_pool:0000000000000000 memp_malloc_pool
+     /tmp/ccEwnDN6.s:194    .text.memp_malloc_pool:0000000000000024 $d
+     /tmp/ccEwnDN6.s:199    .text.memp_malloc:0000000000000000 $t
+     /tmp/ccEwnDN6.s:206    .text.memp_malloc:0000000000000000 memp_malloc
+     /tmp/ccEwnDN6.s:228    .text.memp_malloc:0000000000000024 $d
+     /tmp/ccEwnDN6.s:234    .text.memp_free_pool:0000000000000000 $t
+     /tmp/ccEwnDN6.s:241    .text.memp_free_pool:0000000000000000 memp_free_pool
+     /tmp/ccEwnDN6.s:266    .text.memp_free_pool:0000000000000028 $d
+     /tmp/ccEwnDN6.s:271    .text.memp_free:0000000000000000 $t
+     /tmp/ccEwnDN6.s:278    .text.memp_free:0000000000000000 memp_free
+     /tmp/ccEwnDN6.s:300    .text.memp_free:0000000000000024 $d
+     /tmp/ccEwnDN6.s:575    .rodata.memp_pools:0000000000000000 memp_pools
+     /tmp/ccEwnDN6.s:481    .rodata.memp_PBUF_POOL:0000000000000000 memp_PBUF_POOL
+                            *COM*:0000000000002603 memp_memory_PBUF_POOL_base
+     /tmp/ccEwnDN6.s:472    .rodata.memp_PBUF:0000000000000000 memp_PBUF
+                            *COM*:0000000000000103 memp_memory_PBUF_base
+     /tmp/ccEwnDN6.s:463    .rodata.memp_NETDB:0000000000000000 memp_NETDB
+                            *COM*:0000000000000137 memp_memory_NETDB_base
+     /tmp/ccEwnDN6.s:499    .rodata.memp_SYS_TIMEOUT:0000000000000000 memp_SYS_TIMEOUT
+                            *COM*:0000000000000063 memp_memory_SYS_TIMEOUT_base
+     /tmp/ccEwnDN6.s:517    .rodata.memp_TCPIP_MSG_INPKT:0000000000000000 memp_TCPIP_MSG_INPKT
+                            *COM*:0000000000000083 memp_memory_TCPIP_MSG_INPKT_base
+     /tmp/ccEwnDN6.s:508    .rodata.memp_TCPIP_MSG_API:0000000000000000 memp_TCPIP_MSG_API
+                            *COM*:0000000000000083 memp_memory_TCPIP_MSG_API_base
+     /tmp/ccEwnDN6.s:454    .rodata.memp_NETCONN:0000000000000000 memp_NETCONN
+                            *COM*:00000000000000c3 memp_memory_NETCONN_base
+     /tmp/ccEwnDN6.s:445    .rodata.memp_NETBUF:0000000000000000 memp_NETBUF
+                            *COM*:0000000000000023 memp_memory_NETBUF_base
+     /tmp/ccEwnDN6.s:436    .rodata.memp_FRAG_PBUF:0000000000000000 memp_FRAG_PBUF
+                            *COM*:000000000000016b memp_memory_FRAG_PBUF_base
+     /tmp/ccEwnDN6.s:490    .rodata.memp_REASSDATA:0000000000000000 memp_REASSDATA
+                            *COM*:00000000000000a3 memp_memory_REASSDATA_base
+     /tmp/ccEwnDN6.s:544    .rodata.memp_TCP_SEG:0000000000000000 memp_TCP_SEG
+                            *COM*:0000000000000103 memp_memory_TCP_SEG_base
+     /tmp/ccEwnDN6.s:535    .rodata.memp_TCP_PCB_LISTEN:0000000000000000 memp_TCP_PCB_LISTEN
+                            *COM*:00000000000000e3 memp_memory_TCP_PCB_LISTEN_base
+     /tmp/ccEwnDN6.s:526    .rodata.memp_TCP_PCB:0000000000000000 memp_TCP_PCB
+                            *COM*:000000000000030f memp_memory_TCP_PCB_base
+     /tmp/ccEwnDN6.s:553    .rodata.memp_UDP_PCB:0000000000000000 memp_UDP_PCB
+                            *COM*:0000000000000083 memp_memory_UDP_PCB_base
+     /tmp/ccEwnDN6.s:335    .bss.memp_tab_FRAG_PBUF:0000000000000000 $d
+     /tmp/ccEwnDN6.s:338    .bss.memp_tab_FRAG_PBUF:0000000000000000 memp_tab_FRAG_PBUF
+     /tmp/ccEwnDN6.s:341    .bss.memp_tab_NETBUF:0000000000000000 $d
+ARM GAS  /tmp/ccEwnDN6.s 			page 12
+
+
+     /tmp/ccEwnDN6.s:344    .bss.memp_tab_NETBUF:0000000000000000 memp_tab_NETBUF
+     /tmp/ccEwnDN6.s:347    .bss.memp_tab_NETCONN:0000000000000000 $d
+     /tmp/ccEwnDN6.s:350    .bss.memp_tab_NETCONN:0000000000000000 memp_tab_NETCONN
+     /tmp/ccEwnDN6.s:353    .bss.memp_tab_NETDB:0000000000000000 $d
+     /tmp/ccEwnDN6.s:356    .bss.memp_tab_NETDB:0000000000000000 memp_tab_NETDB
+     /tmp/ccEwnDN6.s:359    .bss.memp_tab_PBUF:0000000000000000 $d
+     /tmp/ccEwnDN6.s:362    .bss.memp_tab_PBUF:0000000000000000 memp_tab_PBUF
+     /tmp/ccEwnDN6.s:365    .bss.memp_tab_PBUF_POOL:0000000000000000 $d
+     /tmp/ccEwnDN6.s:368    .bss.memp_tab_PBUF_POOL:0000000000000000 memp_tab_PBUF_POOL
+     /tmp/ccEwnDN6.s:371    .bss.memp_tab_REASSDATA:0000000000000000 $d
+     /tmp/ccEwnDN6.s:374    .bss.memp_tab_REASSDATA:0000000000000000 memp_tab_REASSDATA
+     /tmp/ccEwnDN6.s:377    .bss.memp_tab_SYS_TIMEOUT:0000000000000000 $d
+     /tmp/ccEwnDN6.s:380    .bss.memp_tab_SYS_TIMEOUT:0000000000000000 memp_tab_SYS_TIMEOUT
+     /tmp/ccEwnDN6.s:383    .bss.memp_tab_TCPIP_MSG_API:0000000000000000 $d
+     /tmp/ccEwnDN6.s:386    .bss.memp_tab_TCPIP_MSG_API:0000000000000000 memp_tab_TCPIP_MSG_API
+     /tmp/ccEwnDN6.s:389    .bss.memp_tab_TCPIP_MSG_INPKT:0000000000000000 $d
+     /tmp/ccEwnDN6.s:392    .bss.memp_tab_TCPIP_MSG_INPKT:0000000000000000 memp_tab_TCPIP_MSG_INPKT
+     /tmp/ccEwnDN6.s:395    .bss.memp_tab_TCP_PCB:0000000000000000 $d
+     /tmp/ccEwnDN6.s:398    .bss.memp_tab_TCP_PCB:0000000000000000 memp_tab_TCP_PCB
+     /tmp/ccEwnDN6.s:401    .bss.memp_tab_TCP_PCB_LISTEN:0000000000000000 $d
+     /tmp/ccEwnDN6.s:404    .bss.memp_tab_TCP_PCB_LISTEN:0000000000000000 memp_tab_TCP_PCB_LISTEN
+     /tmp/ccEwnDN6.s:407    .bss.memp_tab_TCP_SEG:0000000000000000 $d
+     /tmp/ccEwnDN6.s:410    .bss.memp_tab_TCP_SEG:0000000000000000 memp_tab_TCP_SEG
+     /tmp/ccEwnDN6.s:413    .bss.memp_tab_UDP_PCB:0000000000000000 $d
+     /tmp/ccEwnDN6.s:416    .bss.memp_tab_UDP_PCB:0000000000000000 memp_tab_UDP_PCB
+     /tmp/ccEwnDN6.s:419    .rodata.do_memp_free_pool.str1.4:0000000000000000 $d
+     /tmp/ccEwnDN6.s:423    .rodata.do_memp_malloc_pool.str1.4:0000000000000000 $d
+     /tmp/ccEwnDN6.s:433    .rodata.memp_FRAG_PBUF:0000000000000000 $d
+     /tmp/ccEwnDN6.s:442    .rodata.memp_NETBUF:0000000000000000 $d
+     /tmp/ccEwnDN6.s:451    .rodata.memp_NETCONN:0000000000000000 $d
+     /tmp/ccEwnDN6.s:460    .rodata.memp_NETDB:0000000000000000 $d
+     /tmp/ccEwnDN6.s:469    .rodata.memp_PBUF:0000000000000000 $d
+     /tmp/ccEwnDN6.s:478    .rodata.memp_PBUF_POOL:0000000000000000 $d
+     /tmp/ccEwnDN6.s:487    .rodata.memp_REASSDATA:0000000000000000 $d
+     /tmp/ccEwnDN6.s:496    .rodata.memp_SYS_TIMEOUT:0000000000000000 $d
+     /tmp/ccEwnDN6.s:505    .rodata.memp_TCPIP_MSG_API:0000000000000000 $d
+     /tmp/ccEwnDN6.s:514    .rodata.memp_TCPIP_MSG_INPKT:0000000000000000 $d
+     /tmp/ccEwnDN6.s:523    .rodata.memp_TCP_PCB:0000000000000000 $d
+     /tmp/ccEwnDN6.s:532    .rodata.memp_TCP_PCB_LISTEN:0000000000000000 $d
+     /tmp/ccEwnDN6.s:541    .rodata.memp_TCP_SEG:0000000000000000 $d
+     /tmp/ccEwnDN6.s:550    .rodata.memp_UDP_PCB:0000000000000000 $d
+     /tmp/ccEwnDN6.s:559    .rodata.memp_free.str1.4:0000000000000000 $d
+     /tmp/ccEwnDN6.s:563    .rodata.memp_malloc.str1.4:0000000000000000 $d
+     /tmp/ccEwnDN6.s:567    .rodata.memp_malloc_pool.str1.4:0000000000000000 $d
+     /tmp/ccEwnDN6.s:571    .rodata.memp_pools:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+sys_arch_protect
+sys_arch_unprotect
+printf

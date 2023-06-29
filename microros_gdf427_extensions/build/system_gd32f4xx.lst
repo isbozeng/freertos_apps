@@ -1,0 +1,368 @@
+ARM GAS  /tmp/ccNXOmKN.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"system_gd32f4xx.c"
+  14              		.text
+  15              		.section	.text.system_clock_200m_25m_hxtal,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	system_clock_200m_25m_hxtal:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26              		@ link register save eliminated.
+  27 0000 2F4A     		ldr	r2, .L10
+  28 0002 1368     		ldr	r3, [r2]
+  29 0004 43F48033 		orr	r3, r3, #65536
+  30 0008 1360     		str	r3, [r2]
+  31 000a 0023     		movs	r3, #0
+  32              	.L3:
+  33 000c 0133     		adds	r3, r3, #1
+  34 000e 2C4A     		ldr	r2, .L10
+  35 0010 1268     		ldr	r2, [r2]
+  36 0012 12F4003F 		tst	r2, #131072
+  37 0016 03D1     		bne	.L2
+  38 0018 4FF6FF72 		movw	r2, #65535
+  39 001c 9342     		cmp	r3, r2
+  40 001e F5D1     		bne	.L3
+  41              	.L2:
+  42 0020 274B     		ldr	r3, .L10
+  43 0022 1B68     		ldr	r3, [r3]
+  44 0024 13F4003F 		tst	r3, #131072
+  45 0028 04D1     		bne	.L4
+  46              	.L5:
+  47 002a 254B     		ldr	r3, .L10
+  48 002c 1B68     		ldr	r3, [r3]
+  49 002e 13F4003F 		tst	r3, #131072
+  50 0032 FAD0     		beq	.L5
+  51              	.L4:
+  52 0034 234A     		ldr	r2, .L10+4
+  53 0036 1368     		ldr	r3, [r2]
+  54 0038 43F08053 		orr	r3, r3, #268435456
+  55 003c 1360     		str	r3, [r2]
+  56 003e 224A     		ldr	r2, .L10+8
+  57 0040 1368     		ldr	r3, [r2]
+  58 0042 43F44043 		orr	r3, r3, #49152
+ARM GAS  /tmp/ccNXOmKN.s 			page 2
+
+
+  59 0046 1360     		str	r3, [r2]
+  60 0048 204B     		ldr	r3, .L10+12
+  61 004a 1A68     		ldr	r2, [r3]
+  62 004c 1A60     		str	r2, [r3]
+  63 004e 1A68     		ldr	r2, [r3]
+  64 0050 42F40042 		orr	r2, r2, #32768
+  65 0054 1A60     		str	r2, [r3]
+  66 0056 1A68     		ldr	r2, [r3]
+  67 0058 42F4A052 		orr	r2, r2, #5120
+  68 005c 1A60     		str	r2, [r3]
+  69 005e 043B     		subs	r3, r3, #4
+  70 0060 1B4A     		ldr	r2, .L10+16
+  71 0062 1A60     		str	r2, [r3]
+  72 0064 164A     		ldr	r2, .L10
+  73 0066 1368     		ldr	r3, [r2]
+  74 0068 43F08073 		orr	r3, r3, #16777216
+  75 006c 1360     		str	r3, [r2]
+  76              	.L6:
+  77 006e 144B     		ldr	r3, .L10
+  78 0070 1B68     		ldr	r3, [r3]
+  79 0072 13F0007F 		tst	r3, #33554432
+  80 0076 FAD0     		beq	.L6
+  81 0078 134A     		ldr	r2, .L10+8
+  82 007a 1368     		ldr	r3, [r2]
+  83 007c 43F48033 		orr	r3, r3, #65536
+  84 0080 1360     		str	r3, [r2]
+  85              	.L7:
+  86 0082 144B     		ldr	r3, .L10+20
+  87 0084 1B68     		ldr	r3, [r3]
+  88 0086 13F4803F 		tst	r3, #65536
+  89 008a FAD0     		beq	.L7
+  90 008c 0E4A     		ldr	r2, .L10+8
+  91 008e 1368     		ldr	r3, [r2]
+  92 0090 43F40033 		orr	r3, r3, #131072
+  93 0094 1360     		str	r3, [r2]
+  94              	.L8:
+  95 0096 0F4B     		ldr	r3, .L10+20
+  96 0098 1B68     		ldr	r3, [r3]
+  97 009a 13F4003F 		tst	r3, #131072
+  98 009e FAD0     		beq	.L8
+  99 00a0 0A4B     		ldr	r3, .L10+12
+ 100 00a2 1A68     		ldr	r2, [r3]
+ 101 00a4 22F00302 		bic	r2, r2, #3
+ 102 00a8 1A60     		str	r2, [r3]
+ 103 00aa 1A68     		ldr	r2, [r3]
+ 104 00ac 42F00202 		orr	r2, r2, #2
+ 105 00b0 1A60     		str	r2, [r3]
+ 106              	.L9:
+ 107 00b2 064B     		ldr	r3, .L10+12
+ 108 00b4 1B68     		ldr	r3, [r3]
+ 109 00b6 13F0080F 		tst	r3, #8
+ 110 00ba FAD0     		beq	.L9
+ 111 00bc 7047     		bx	lr
+ 112              	.L11:
+ 113 00be 00BF     		.align	2
+ 114              	.L10:
+ 115 00c0 00380240 		.word	1073887232
+ARM GAS  /tmp/ccNXOmKN.s 			page 3
+
+
+ 116 00c4 40380240 		.word	1073887296
+ 117 00c8 00700040 		.word	1073770496
+ 118 00cc 08380240 		.word	1073887240
+ 119 00d0 19644009 		.word	155214873
+ 120 00d4 04700040 		.word	1073770500
+ 122              		.section	.text.system_clock_config,"ax",%progbits
+ 123              		.align	1
+ 124              		.syntax unified
+ 125              		.thumb
+ 126              		.thumb_func
+ 127              		.fpu fpv4-sp-d16
+ 129              	system_clock_config:
+ 130              		@ args = 0, pretend = 0, frame = 0
+ 131              		@ frame_needed = 0, uses_anonymous_args = 0
+ 132 0000 08B5     		push	{r3, lr}
+ 133 0002 FFF7FEFF 		bl	system_clock_200m_25m_hxtal
+ 134 0006 08BD     		pop	{r3, pc}
+ 136              		.section	.text.SystemInit,"ax",%progbits
+ 137              		.align	1
+ 138              		.global	SystemInit
+ 139              		.syntax unified
+ 140              		.thumb
+ 141              		.thumb_func
+ 142              		.fpu fpv4-sp-d16
+ 144              	SystemInit:
+ 145              		@ args = 0, pretend = 0, frame = 8
+ 146              		@ frame_needed = 0, uses_anonymous_args = 0
+ 147 0000 00B5     		push	{lr}
+ 148 0002 83B0     		sub	sp, sp, #12
+ 149 0004 244A     		ldr	r2, .L22
+ 150 0006 D2F88830 		ldr	r3, [r2, #136]
+ 151 000a 43F47003 		orr	r3, r3, #15728640
+ 152 000e C2F88830 		str	r3, [r2, #136]
+ 153 0012 224A     		ldr	r2, .L22+4
+ 154 0014 1368     		ldr	r3, [r2]
+ 155 0016 43F00103 		orr	r3, r3, #1
+ 156 001a 1360     		str	r3, [r2]
+ 157              	.L15:
+ 158 001c 1F4B     		ldr	r3, .L22+4
+ 159 001e 1B68     		ldr	r3, [r3]
+ 160 0020 13F0020F 		tst	r3, #2
+ 161 0024 FAD0     		beq	.L15
+ 162 0026 1E4A     		ldr	r2, .L22+8
+ 163 0028 1368     		ldr	r3, [r2]
+ 164 002a 43F08003 		orr	r3, r3, #128
+ 165 002e 1360     		str	r3, [r2]
+ 166 0030 0023     		movs	r3, #0
+ 167 0032 0193     		str	r3, [sp, #4]
+ 168 0034 02E0     		b	.L16
+ 169              	.L17:
+ 170 0036 019B     		ldr	r3, [sp, #4]
+ 171 0038 0133     		adds	r3, r3, #1
+ 172 003a 0193     		str	r3, [sp, #4]
+ 173              	.L16:
+ 174 003c 019B     		ldr	r3, [sp, #4]
+ 175 003e 4F2B     		cmp	r3, #79
+ 176 0040 F9D9     		bls	.L17
+ARM GAS  /tmp/ccNXOmKN.s 			page 4
+
+
+ 177 0042 174A     		ldr	r2, .L22+8
+ 178 0044 1368     		ldr	r3, [r2]
+ 179 0046 43F09003 		orr	r3, r3, #144
+ 180 004a 1360     		str	r3, [r2]
+ 181 004c 0023     		movs	r3, #0
+ 182 004e 0193     		str	r3, [sp, #4]
+ 183              	.L18:
+ 184 0050 019B     		ldr	r3, [sp, #4]
+ 185 0052 4F2B     		cmp	r3, #79
+ 186 0054 03D8     		bhi	.L21
+ 187 0056 019B     		ldr	r3, [sp, #4]
+ 188 0058 0133     		adds	r3, r3, #1
+ 189 005a 0193     		str	r3, [sp, #4]
+ 190 005c F8E7     		b	.L18
+ 191              	.L21:
+ 192 005e 104A     		ldr	r2, .L22+8
+ 193 0060 1368     		ldr	r3, [r2]
+ 194 0062 23F00303 		bic	r3, r3, #3
+ 195 0066 1360     		str	r3, [r2]
+ 196 0068 0C49     		ldr	r1, .L22+4
+ 197 006a 0B68     		ldr	r3, [r1]
+ 198 006c 23F08473 		bic	r3, r3, #17301504
+ 199 0070 23F48033 		bic	r3, r3, #65536
+ 200 0074 0B60     		str	r3, [r1]
+ 201 0076 0B68     		ldr	r3, [r1]
+ 202 0078 23F48023 		bic	r3, r3, #262144
+ 203 007c 0B60     		str	r3, [r1]
+ 204 007e 0023     		movs	r3, #0
+ 205 0080 1360     		str	r3, [r2]
+ 206 0082 1268     		ldr	r2, [r2]
+ 207 0084 074A     		ldr	r2, .L22+12
+ 208 0086 0849     		ldr	r1, .L22+16
+ 209 0088 1160     		str	r1, [r2]
+ 210 008a 0832     		adds	r2, r2, #8
+ 211 008c 1360     		str	r3, [r2]
+ 212 008e FFF7FEFF 		bl	system_clock_config
+ 213 0092 03B0     		add	sp, sp, #12
+ 214              		@ sp needed
+ 215 0094 5DF804FB 		ldr	pc, [sp], #4
+ 216              	.L23:
+ 217              		.align	2
+ 218              	.L22:
+ 219 0098 00ED00E0 		.word	-536810240
+ 220 009c 00380240 		.word	1073887232
+ 221 00a0 08380240 		.word	1073887240
+ 222 00a4 04380240 		.word	1073887236
+ 223 00a8 10300024 		.word	603992080
+ 225              		.section	.text.SystemCoreClockUpdate,"ax",%progbits
+ 226              		.align	1
+ 227              		.global	SystemCoreClockUpdate
+ 228              		.syntax unified
+ 229              		.thumb
+ 230              		.thumb_func
+ 231              		.fpu fpv4-sp-d16
+ 233              	SystemCoreClockUpdate:
+ 234              		@ args = 0, pretend = 0, frame = 16
+ 235              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccNXOmKN.s 			page 5
+
+
+ 236              		@ link register save eliminated.
+ 237 0000 84B0     		sub	sp, sp, #16
+ 238 0002 224B     		ldr	r3, .L34
+ 239 0004 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 240 0006 0DF1100C 		add	ip, sp, #16
+ 241 000a 0CE90F00 		stmdb	ip, {r0, r1, r2, r3}
+ 242 000e 204B     		ldr	r3, .L34+4
+ 243 0010 1B68     		ldr	r3, [r3]
+ 244 0012 C3F38103 		ubfx	r3, r3, #2, #2
+ 245 0016 012B     		cmp	r3, #1
+ 246 0018 17D0     		beq	.L25
+ 247 001a 2BB1     		cbz	r3, .L26
+ 248 001c 022B     		cmp	r3, #2
+ 249 001e 18D0     		beq	.L27
+ 250 0020 1C4B     		ldr	r3, .L34+8
+ 251 0022 1D4A     		ldr	r2, .L34+12
+ 252 0024 1A60     		str	r2, [r3]
+ 253 0026 02E0     		b	.L29
+ 254              	.L26:
+ 255 0028 1A4B     		ldr	r3, .L34+8
+ 256 002a 1B4A     		ldr	r2, .L34+12
+ 257 002c 1A60     		str	r2, [r3]
+ 258              	.L29:
+ 259 002e 184B     		ldr	r3, .L34+4
+ 260 0030 1B68     		ldr	r3, [r3]
+ 261 0032 C3F30313 		ubfx	r3, r3, #4, #4
+ 262 0036 04AA     		add	r2, sp, #16
+ 263 0038 1344     		add	r3, r3, r2
+ 264 003a 13F8101C 		ldrb	r1, [r3, #-16]	@ zero_extendqisi2
+ 265 003e 154A     		ldr	r2, .L34+8
+ 266 0040 1368     		ldr	r3, [r2]
+ 267 0042 CB40     		lsrs	r3, r3, r1
+ 268 0044 1360     		str	r3, [r2]
+ 269 0046 04B0     		add	sp, sp, #16
+ 270              		@ sp needed
+ 271 0048 7047     		bx	lr
+ 272              	.L25:
+ 273 004a 124B     		ldr	r3, .L34+8
+ 274 004c 134A     		ldr	r2, .L34+16
+ 275 004e 1A60     		str	r2, [r3]
+ 276 0050 EDE7     		b	.L29
+ 277              	.L27:
+ 278 0052 1349     		ldr	r1, .L34+20
+ 279 0054 0868     		ldr	r0, [r1]
+ 280 0056 00F03F00 		and	r0, r0, #63
+ 281 005a 0B68     		ldr	r3, [r1]
+ 282 005c C3F38813 		ubfx	r3, r3, #6, #9
+ 283 0060 0A68     		ldr	r2, [r1]
+ 284 0062 C2F30142 		ubfx	r2, r2, #16, #2
+ 285 0066 0132     		adds	r2, r2, #1
+ 286 0068 5200     		lsls	r2, r2, #1
+ 287 006a 0968     		ldr	r1, [r1]
+ 288 006c 11F4800F 		tst	r1, #4194304
+ 289 0070 09D0     		beq	.L31
+ 290 0072 0A49     		ldr	r1, .L34+16
+ 291              	.L30:
+ 292 0074 B1FBF0F1 		udiv	r1, r1, r0
+ARM GAS  /tmp/ccNXOmKN.s 			page 6
+
+
+ 293 0078 03FB01F3 		mul	r3, r3, r1
+ 294 007c B3FBF2F3 		udiv	r3, r3, r2
+ 295 0080 044A     		ldr	r2, .L34+8
+ 296 0082 1360     		str	r3, [r2]
+ 297 0084 D3E7     		b	.L29
+ 298              	.L31:
+ 299 0086 0449     		ldr	r1, .L34+12
+ 300 0088 F4E7     		b	.L30
+ 301              	.L35:
+ 302 008a 00BF     		.align	2
+ 303              	.L34:
+ 304 008c 00000000 		.word	.LANCHOR0
+ 305 0090 08380240 		.word	1073887240
+ 306 0094 00000000 		.word	.LANCHOR1
+ 307 0098 0024F400 		.word	16000000
+ 308 009c 40787D01 		.word	25000000
+ 309 00a0 04380240 		.word	1073887236
+ 311              		.global	SystemCoreClock
+ 312              		.section	.rodata
+ 313              		.align	2
+ 314              		.set	.LANCHOR0,. + 0
+ 315              	.LC0:
+ 316 0000 00       		.byte	0
+ 317 0001 00       		.byte	0
+ 318 0002 00       		.byte	0
+ 319 0003 00       		.byte	0
+ 320 0004 00       		.byte	0
+ 321 0005 00       		.byte	0
+ 322 0006 00       		.byte	0
+ 323 0007 00       		.byte	0
+ 324 0008 01       		.byte	1
+ 325 0009 02       		.byte	2
+ 326 000a 03       		.byte	3
+ 327 000b 04       		.byte	4
+ 328 000c 06       		.byte	6
+ 329 000d 07       		.byte	7
+ 330 000e 08       		.byte	8
+ 331 000f 09       		.byte	9
+ 332              		.section	.data.SystemCoreClock,"aw"
+ 333              		.align	2
+ 334              		.set	.LANCHOR1,. + 0
+ 337              	SystemCoreClock:
+ 338 0000 00C2EB0B 		.word	200000000
+ 339              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccNXOmKN.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 system_gd32f4xx.c
+     /tmp/ccNXOmKN.s:16     .text.system_clock_200m_25m_hxtal:0000000000000000 $t
+     /tmp/ccNXOmKN.s:23     .text.system_clock_200m_25m_hxtal:0000000000000000 system_clock_200m_25m_hxtal
+     /tmp/ccNXOmKN.s:115    .text.system_clock_200m_25m_hxtal:00000000000000c0 $d
+     /tmp/ccNXOmKN.s:123    .text.system_clock_config:0000000000000000 $t
+     /tmp/ccNXOmKN.s:129    .text.system_clock_config:0000000000000000 system_clock_config
+     /tmp/ccNXOmKN.s:137    .text.SystemInit:0000000000000000 $t
+     /tmp/ccNXOmKN.s:144    .text.SystemInit:0000000000000000 SystemInit
+     /tmp/ccNXOmKN.s:219    .text.SystemInit:0000000000000098 $d
+     /tmp/ccNXOmKN.s:226    .text.SystemCoreClockUpdate:0000000000000000 $t
+     /tmp/ccNXOmKN.s:233    .text.SystemCoreClockUpdate:0000000000000000 SystemCoreClockUpdate
+     /tmp/ccNXOmKN.s:304    .text.SystemCoreClockUpdate:000000000000008c $d
+     /tmp/ccNXOmKN.s:337    .data.SystemCoreClock:0000000000000000 SystemCoreClock
+     /tmp/ccNXOmKN.s:313    .rodata:0000000000000000 $d
+     /tmp/ccNXOmKN.s:333    .data.SystemCoreClock:0000000000000000 $d
+
+NO UNDEFINED SYMBOLS

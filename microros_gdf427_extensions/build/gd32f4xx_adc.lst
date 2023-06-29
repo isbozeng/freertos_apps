@@ -1,0 +1,1495 @@
+ARM GAS  /tmp/ccALfOxt.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_adc.c"
+  14              		.text
+  15              		.section	.text.adc_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	adc_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	adc_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 40F60810 		movw	r0, #2312
+  29 0006 FFF7FEFF 		bl	rcu_periph_reset_enable
+  30 000a 40F60810 		movw	r0, #2312
+  31 000e FFF7FEFF 		bl	rcu_periph_reset_disable
+  32 0012 08BD     		pop	{r3, pc}
+  34              		.section	.text.adc_clock_config,"ax",%progbits
+  35              		.align	1
+  36              		.global	adc_clock_config
+  37              		.syntax unified
+  38              		.thumb
+  39              		.thumb_func
+  40              		.fpu fpv4-sp-d16
+  42              	adc_clock_config:
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 0, uses_anonymous_args = 0
+  45              		@ link register save eliminated.
+  46 0000 044B     		ldr	r3, .L4
+  47 0002 1A68     		ldr	r2, [r3]
+  48 0004 22F4E022 		bic	r2, r2, #458752
+  49 0008 1A60     		str	r2, [r3]
+  50 000a 1A68     		ldr	r2, [r3]
+  51 000c 1043     		orrs	r0, r0, r2
+  52 000e 1860     		str	r0, [r3]
+  53 0010 7047     		bx	lr
+  54              	.L5:
+  55 0012 00BF     		.align	2
+  56              	.L4:
+  57 0014 04230140 		.word	1073816324
+  59              		.section	.text.adc_special_function_config,"ax",%progbits
+  60              		.align	1
+  61              		.global	adc_special_function_config
+ARM GAS  /tmp/ccALfOxt.s 			page 2
+
+
+  62              		.syntax unified
+  63              		.thumb
+  64              		.thumb_func
+  65              		.fpu fpv4-sp-d16
+  67              	adc_special_function_config:
+  68              		@ args = 0, pretend = 0, frame = 0
+  69              		@ frame_needed = 0, uses_anonymous_args = 0
+  70              		@ link register save eliminated.
+  71 0000 AAB1     		cbz	r2, .L7
+  72 0002 11F4807F 		tst	r1, #256
+  73 0006 03D0     		beq	.L8
+  74 0008 4368     		ldr	r3, [r0, #4]
+  75 000a 43F48073 		orr	r3, r3, #256
+  76 000e 4360     		str	r3, [r0, #4]
+  77              	.L8:
+  78 0010 11F4806F 		tst	r1, #1024
+  79 0014 03D0     		beq	.L9
+  80 0016 4368     		ldr	r3, [r0, #4]
+  81 0018 43F48063 		orr	r3, r3, #1024
+  82 001c 4360     		str	r3, [r0, #4]
+  83              	.L9:
+  84 001e 11F0020F 		tst	r1, #2
+  85 0022 19D0     		beq	.L6
+  86 0024 8368     		ldr	r3, [r0, #8]
+  87 0026 43F00203 		orr	r3, r3, #2
+  88 002a 8360     		str	r3, [r0, #8]
+  89 002c 7047     		bx	lr
+  90              	.L7:
+  91 002e 11F4807F 		tst	r1, #256
+  92 0032 03D0     		beq	.L11
+  93 0034 4368     		ldr	r3, [r0, #4]
+  94 0036 23F48073 		bic	r3, r3, #256
+  95 003a 4360     		str	r3, [r0, #4]
+  96              	.L11:
+  97 003c 11F4806F 		tst	r1, #1024
+  98 0040 03D0     		beq	.L12
+  99 0042 4368     		ldr	r3, [r0, #4]
+ 100 0044 23F48063 		bic	r3, r3, #1024
+ 101 0048 4360     		str	r3, [r0, #4]
+ 102              	.L12:
+ 103 004a 11F0020F 		tst	r1, #2
+ 104 004e 03D0     		beq	.L6
+ 105 0050 8368     		ldr	r3, [r0, #8]
+ 106 0052 23F00203 		bic	r3, r3, #2
+ 107 0056 8360     		str	r3, [r0, #8]
+ 108              	.L6:
+ 109 0058 7047     		bx	lr
+ 111              		.section	.text.adc_data_alignment_config,"ax",%progbits
+ 112              		.align	1
+ 113              		.global	adc_data_alignment_config
+ 114              		.syntax unified
+ 115              		.thumb
+ 116              		.thumb_func
+ 117              		.fpu fpv4-sp-d16
+ 119              	adc_data_alignment_config:
+ 120              		@ args = 0, pretend = 0, frame = 0
+ 121              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccALfOxt.s 			page 3
+
+
+ 122              		@ link register save eliminated.
+ 123 0000 21B1     		cbz	r1, .L14
+ 124 0002 8368     		ldr	r3, [r0, #8]
+ 125 0004 43F40063 		orr	r3, r3, #2048
+ 126 0008 8360     		str	r3, [r0, #8]
+ 127 000a 7047     		bx	lr
+ 128              	.L14:
+ 129 000c 8368     		ldr	r3, [r0, #8]
+ 130 000e 23F40063 		bic	r3, r3, #2048
+ 131 0012 8360     		str	r3, [r0, #8]
+ 132 0014 7047     		bx	lr
+ 134              		.section	.text.adc_enable,"ax",%progbits
+ 135              		.align	1
+ 136              		.global	adc_enable
+ 137              		.syntax unified
+ 138              		.thumb
+ 139              		.thumb_func
+ 140              		.fpu fpv4-sp-d16
+ 142              	adc_enable:
+ 143              		@ args = 0, pretend = 0, frame = 0
+ 144              		@ frame_needed = 0, uses_anonymous_args = 0
+ 145              		@ link register save eliminated.
+ 146 0000 8368     		ldr	r3, [r0, #8]
+ 147 0002 13F0010F 		tst	r3, #1
+ 148 0006 03D1     		bne	.L16
+ 149 0008 8368     		ldr	r3, [r0, #8]
+ 150 000a 43F00103 		orr	r3, r3, #1
+ 151 000e 8360     		str	r3, [r0, #8]
+ 152              	.L16:
+ 153 0010 7047     		bx	lr
+ 155              		.section	.text.adc_disable,"ax",%progbits
+ 156              		.align	1
+ 157              		.global	adc_disable
+ 158              		.syntax unified
+ 159              		.thumb
+ 160              		.thumb_func
+ 161              		.fpu fpv4-sp-d16
+ 163              	adc_disable:
+ 164              		@ args = 0, pretend = 0, frame = 0
+ 165              		@ frame_needed = 0, uses_anonymous_args = 0
+ 166              		@ link register save eliminated.
+ 167 0000 8368     		ldr	r3, [r0, #8]
+ 168 0002 23F00103 		bic	r3, r3, #1
+ 169 0006 8360     		str	r3, [r0, #8]
+ 170 0008 7047     		bx	lr
+ 172              		.section	.text.adc_calibration_enable,"ax",%progbits
+ 173              		.align	1
+ 174              		.global	adc_calibration_enable
+ 175              		.syntax unified
+ 176              		.thumb
+ 177              		.thumb_func
+ 178              		.fpu fpv4-sp-d16
+ 180              	adc_calibration_enable:
+ 181              		@ args = 0, pretend = 0, frame = 0
+ 182              		@ frame_needed = 0, uses_anonymous_args = 0
+ 183              		@ link register save eliminated.
+ 184 0000 00F10803 		add	r3, r0, #8
+ARM GAS  /tmp/ccALfOxt.s 			page 4
+
+
+ 185 0004 8268     		ldr	r2, [r0, #8]
+ 186 0006 42F00802 		orr	r2, r2, #8
+ 187 000a 8260     		str	r2, [r0, #8]
+ 188              	.L20:
+ 189 000c 1A68     		ldr	r2, [r3]
+ 190 000e 12F0080F 		tst	r2, #8
+ 191 0012 FBD1     		bne	.L20
+ 192 0014 8268     		ldr	r2, [r0, #8]
+ 193 0016 42F00402 		orr	r2, r2, #4
+ 194 001a 8260     		str	r2, [r0, #8]
+ 195              	.L21:
+ 196 001c 1A68     		ldr	r2, [r3]
+ 197 001e 12F0040F 		tst	r2, #4
+ 198 0022 FBD1     		bne	.L21
+ 199 0024 7047     		bx	lr
+ 201              		.section	.text.adc_channel_16_to_18,"ax",%progbits
+ 202              		.align	1
+ 203              		.global	adc_channel_16_to_18
+ 204              		.syntax unified
+ 205              		.thumb
+ 206              		.thumb_func
+ 207              		.fpu fpv4-sp-d16
+ 209              	adc_channel_16_to_18:
+ 210              		@ args = 0, pretend = 0, frame = 0
+ 211              		@ frame_needed = 0, uses_anonymous_args = 0
+ 212              		@ link register save eliminated.
+ 213 0000 81B1     		cbz	r1, .L23
+ 214 0002 10F4800F 		tst	r0, #4194304
+ 215 0006 04D0     		beq	.L24
+ 216 0008 0F4A     		ldr	r2, .L27
+ 217 000a 1368     		ldr	r3, [r2]
+ 218 000c 43F48003 		orr	r3, r3, #4194304
+ 219 0010 1360     		str	r3, [r2]
+ 220              	.L24:
+ 221 0012 10F4000F 		tst	r0, #8388608
+ 222 0016 15D0     		beq	.L22
+ 223 0018 0B4A     		ldr	r2, .L27
+ 224 001a 1368     		ldr	r3, [r2]
+ 225 001c 43F40003 		orr	r3, r3, #8388608
+ 226 0020 1360     		str	r3, [r2]
+ 227 0022 7047     		bx	lr
+ 228              	.L23:
+ 229 0024 10F4800F 		tst	r0, #4194304
+ 230 0028 04D0     		beq	.L26
+ 231 002a 074A     		ldr	r2, .L27
+ 232 002c 1368     		ldr	r3, [r2]
+ 233 002e 23F48003 		bic	r3, r3, #4194304
+ 234 0032 1360     		str	r3, [r2]
+ 235              	.L26:
+ 236 0034 10F4000F 		tst	r0, #8388608
+ 237 0038 04D0     		beq	.L22
+ 238 003a 034A     		ldr	r2, .L27
+ 239 003c 1368     		ldr	r3, [r2]
+ 240 003e 23F40003 		bic	r3, r3, #8388608
+ 241 0042 1360     		str	r3, [r2]
+ 242              	.L22:
+ 243 0044 7047     		bx	lr
+ARM GAS  /tmp/ccALfOxt.s 			page 5
+
+
+ 244              	.L28:
+ 245 0046 00BF     		.align	2
+ 246              	.L27:
+ 247 0048 04230140 		.word	1073816324
+ 249              		.section	.text.adc_resolution_config,"ax",%progbits
+ 250              		.align	1
+ 251              		.global	adc_resolution_config
+ 252              		.syntax unified
+ 253              		.thumb
+ 254              		.thumb_func
+ 255              		.fpu fpv4-sp-d16
+ 257              	adc_resolution_config:
+ 258              		@ args = 0, pretend = 0, frame = 0
+ 259              		@ frame_needed = 0, uses_anonymous_args = 0
+ 260              		@ link register save eliminated.
+ 261 0000 4368     		ldr	r3, [r0, #4]
+ 262 0002 23F04073 		bic	r3, r3, #50331648
+ 263 0006 4360     		str	r3, [r0, #4]
+ 264 0008 4368     		ldr	r3, [r0, #4]
+ 265 000a 1943     		orrs	r1, r1, r3
+ 266 000c 4160     		str	r1, [r0, #4]
+ 267 000e 7047     		bx	lr
+ 269              		.section	.text.adc_oversample_mode_config,"ax",%progbits
+ 270              		.align	1
+ 271              		.global	adc_oversample_mode_config
+ 272              		.syntax unified
+ 273              		.thumb
+ 274              		.thumb_func
+ 275              		.fpu fpv4-sp-d16
+ 277              	adc_oversample_mode_config:
+ 278              		@ args = 0, pretend = 0, frame = 0
+ 279              		@ frame_needed = 0, uses_anonymous_args = 0
+ 280              		@ link register save eliminated.
+ 281 0000 B1F5007F 		cmp	r1, #512
+ 282 0004 12D0     		beq	.L33
+ 283 0006 D0F88010 		ldr	r1, [r0, #128]
+ 284 000a 21F40071 		bic	r1, r1, #512
+ 285 000e C0F88010 		str	r1, [r0, #128]
+ 286              	.L32:
+ 287 0012 D0F88010 		ldr	r1, [r0, #128]
+ 288 0016 21F4FE71 		bic	r1, r1, #508
+ 289 001a C0F88010 		str	r1, [r0, #128]
+ 290 001e D0F88010 		ldr	r1, [r0, #128]
+ 291 0022 1A43     		orrs	r2, r2, r3
+ 292 0024 1143     		orrs	r1, r1, r2
+ 293 0026 C0F88010 		str	r1, [r0, #128]
+ 294 002a 7047     		bx	lr
+ 295              	.L33:
+ 296 002c D0F88010 		ldr	r1, [r0, #128]
+ 297 0030 41F40071 		orr	r1, r1, #512
+ 298 0034 C0F88010 		str	r1, [r0, #128]
+ 299 0038 EBE7     		b	.L32
+ 301              		.section	.text.adc_oversample_mode_enable,"ax",%progbits
+ 302              		.align	1
+ 303              		.global	adc_oversample_mode_enable
+ 304              		.syntax unified
+ 305              		.thumb
+ARM GAS  /tmp/ccALfOxt.s 			page 6
+
+
+ 306              		.thumb_func
+ 307              		.fpu fpv4-sp-d16
+ 309              	adc_oversample_mode_enable:
+ 310              		@ args = 0, pretend = 0, frame = 0
+ 311              		@ frame_needed = 0, uses_anonymous_args = 0
+ 312              		@ link register save eliminated.
+ 313 0000 D0F88030 		ldr	r3, [r0, #128]
+ 314 0004 43F00103 		orr	r3, r3, #1
+ 315 0008 C0F88030 		str	r3, [r0, #128]
+ 316 000c 7047     		bx	lr
+ 318              		.section	.text.adc_oversample_mode_disable,"ax",%progbits
+ 319              		.align	1
+ 320              		.global	adc_oversample_mode_disable
+ 321              		.syntax unified
+ 322              		.thumb
+ 323              		.thumb_func
+ 324              		.fpu fpv4-sp-d16
+ 326              	adc_oversample_mode_disable:
+ 327              		@ args = 0, pretend = 0, frame = 0
+ 328              		@ frame_needed = 0, uses_anonymous_args = 0
+ 329              		@ link register save eliminated.
+ 330 0000 D0F88030 		ldr	r3, [r0, #128]
+ 331 0004 23F00103 		bic	r3, r3, #1
+ 332 0008 C0F88030 		str	r3, [r0, #128]
+ 333 000c 7047     		bx	lr
+ 335              		.section	.text.adc_dma_mode_enable,"ax",%progbits
+ 336              		.align	1
+ 337              		.global	adc_dma_mode_enable
+ 338              		.syntax unified
+ 339              		.thumb
+ 340              		.thumb_func
+ 341              		.fpu fpv4-sp-d16
+ 343              	adc_dma_mode_enable:
+ 344              		@ args = 0, pretend = 0, frame = 0
+ 345              		@ frame_needed = 0, uses_anonymous_args = 0
+ 346              		@ link register save eliminated.
+ 347 0000 8368     		ldr	r3, [r0, #8]
+ 348 0002 43F48073 		orr	r3, r3, #256
+ 349 0006 8360     		str	r3, [r0, #8]
+ 350 0008 7047     		bx	lr
+ 352              		.section	.text.adc_dma_mode_disable,"ax",%progbits
+ 353              		.align	1
+ 354              		.global	adc_dma_mode_disable
+ 355              		.syntax unified
+ 356              		.thumb
+ 357              		.thumb_func
+ 358              		.fpu fpv4-sp-d16
+ 360              	adc_dma_mode_disable:
+ 361              		@ args = 0, pretend = 0, frame = 0
+ 362              		@ frame_needed = 0, uses_anonymous_args = 0
+ 363              		@ link register save eliminated.
+ 364 0000 8368     		ldr	r3, [r0, #8]
+ 365 0002 23F48073 		bic	r3, r3, #256
+ 366 0006 8360     		str	r3, [r0, #8]
+ 367 0008 7047     		bx	lr
+ 369              		.section	.text.adc_dma_request_after_last_enable,"ax",%progbits
+ 370              		.align	1
+ARM GAS  /tmp/ccALfOxt.s 			page 7
+
+
+ 371              		.global	adc_dma_request_after_last_enable
+ 372              		.syntax unified
+ 373              		.thumb
+ 374              		.thumb_func
+ 375              		.fpu fpv4-sp-d16
+ 377              	adc_dma_request_after_last_enable:
+ 378              		@ args = 0, pretend = 0, frame = 0
+ 379              		@ frame_needed = 0, uses_anonymous_args = 0
+ 380              		@ link register save eliminated.
+ 381 0000 8368     		ldr	r3, [r0, #8]
+ 382 0002 43F40073 		orr	r3, r3, #512
+ 383 0006 8360     		str	r3, [r0, #8]
+ 384 0008 7047     		bx	lr
+ 386              		.section	.text.adc_dma_request_after_last_disable,"ax",%progbits
+ 387              		.align	1
+ 388              		.global	adc_dma_request_after_last_disable
+ 389              		.syntax unified
+ 390              		.thumb
+ 391              		.thumb_func
+ 392              		.fpu fpv4-sp-d16
+ 394              	adc_dma_request_after_last_disable:
+ 395              		@ args = 0, pretend = 0, frame = 0
+ 396              		@ frame_needed = 0, uses_anonymous_args = 0
+ 397              		@ link register save eliminated.
+ 398 0000 8368     		ldr	r3, [r0, #8]
+ 399 0002 23F40073 		bic	r3, r3, #512
+ 400 0006 8360     		str	r3, [r0, #8]
+ 401 0008 7047     		bx	lr
+ 403              		.section	.text.adc_discontinuous_mode_config,"ax",%progbits
+ 404              		.align	1
+ 405              		.global	adc_discontinuous_mode_config
+ 406              		.syntax unified
+ 407              		.thumb
+ 408              		.thumb_func
+ 409              		.fpu fpv4-sp-d16
+ 411              	adc_discontinuous_mode_config:
+ 412              		@ args = 0, pretend = 0, frame = 0
+ 413              		@ frame_needed = 0, uses_anonymous_args = 0
+ 414              		@ link register save eliminated.
+ 415 0000 4368     		ldr	r3, [r0, #4]
+ 416 0002 23F4C053 		bic	r3, r3, #6144
+ 417 0006 4360     		str	r3, [r0, #4]
+ 418 0008 0129     		cmp	r1, #1
+ 419 000a 02D0     		beq	.L41
+ 420 000c 0229     		cmp	r1, #2
+ 421 000e 13D0     		beq	.L42
+ 422 0010 7047     		bx	lr
+ 423              	.L41:
+ 424 0012 4368     		ldr	r3, [r0, #4]
+ 425 0014 23F46043 		bic	r3, r3, #57344
+ 426 0018 4360     		str	r3, [r0, #4]
+ 427 001a 531E     		subs	r3, r2, #1
+ 428 001c DBB2     		uxtb	r3, r3
+ 429 001e 072B     		cmp	r3, #7
+ 430 0020 05D8     		bhi	.L44
+ 431 0022 4368     		ldr	r3, [r0, #4]
+ 432 0024 013A     		subs	r2, r2, #1
+ARM GAS  /tmp/ccALfOxt.s 			page 8
+
+
+ 433 0026 5203     		lsls	r2, r2, #13
+ 434 0028 92B2     		uxth	r2, r2
+ 435 002a 1A43     		orrs	r2, r2, r3
+ 436 002c 4260     		str	r2, [r0, #4]
+ 437              	.L44:
+ 438 002e 4368     		ldr	r3, [r0, #4]
+ 439 0030 43F40063 		orr	r3, r3, #2048
+ 440 0034 4360     		str	r3, [r0, #4]
+ 441 0036 7047     		bx	lr
+ 442              	.L42:
+ 443 0038 4368     		ldr	r3, [r0, #4]
+ 444 003a 43F48053 		orr	r3, r3, #4096
+ 445 003e 4360     		str	r3, [r0, #4]
+ 446 0040 7047     		bx	lr
+ 448              		.section	.text.adc_channel_length_config,"ax",%progbits
+ 449              		.align	1
+ 450              		.global	adc_channel_length_config
+ 451              		.syntax unified
+ 452              		.thumb
+ 453              		.thumb_func
+ 454              		.fpu fpv4-sp-d16
+ 456              	adc_channel_length_config:
+ 457              		@ args = 0, pretend = 0, frame = 0
+ 458              		@ frame_needed = 0, uses_anonymous_args = 0
+ 459              		@ link register save eliminated.
+ 460 0000 0129     		cmp	r1, #1
+ 461 0002 02D0     		beq	.L46
+ 462 0004 0229     		cmp	r1, #2
+ 463 0006 0ED0     		beq	.L47
+ 464 0008 7047     		bx	lr
+ 465              	.L46:
+ 466 000a 013A     		subs	r2, r2, #1
+ 467 000c 0F2A     		cmp	r2, #15
+ 468 000e 17D8     		bhi	.L45
+ 469 0010 C36A     		ldr	r3, [r0, #44]
+ 470 0012 23F47003 		bic	r3, r3, #15728640
+ 471 0016 C362     		str	r3, [r0, #44]
+ 472 0018 C36A     		ldr	r3, [r0, #44]
+ 473 001a 1205     		lsls	r2, r2, #20
+ 474 001c 02F47002 		and	r2, r2, #15728640
+ 475 0020 1A43     		orrs	r2, r2, r3
+ 476 0022 C262     		str	r2, [r0, #44]
+ 477 0024 7047     		bx	lr
+ 478              	.L47:
+ 479 0026 013A     		subs	r2, r2, #1
+ 480 0028 032A     		cmp	r2, #3
+ 481 002a 09D8     		bhi	.L45
+ 482 002c 836B     		ldr	r3, [r0, #56]
+ 483 002e 23F44013 		bic	r3, r3, #3145728
+ 484 0032 8363     		str	r3, [r0, #56]
+ 485 0034 836B     		ldr	r3, [r0, #56]
+ 486 0036 1205     		lsls	r2, r2, #20
+ 487 0038 02F44012 		and	r2, r2, #3145728
+ 488 003c 1A43     		orrs	r2, r2, r3
+ 489 003e 8263     		str	r2, [r0, #56]
+ 490              	.L45:
+ 491 0040 7047     		bx	lr
+ARM GAS  /tmp/ccALfOxt.s 			page 9
+
+
+ 493              		.section	.text.adc_regular_channel_config,"ax",%progbits
+ 494              		.align	1
+ 495              		.global	adc_regular_channel_config
+ 496              		.syntax unified
+ 497              		.thumb
+ 498              		.thumb_func
+ 499              		.fpu fpv4-sp-d16
+ 501              	adc_regular_channel_config:
+ 502              		@ args = 0, pretend = 0, frame = 0
+ 503              		@ frame_needed = 0, uses_anonymous_args = 0
+ 504              		@ link register save eliminated.
+ 505 0000 30B4     		push	{r4, r5}
+ 506 0002 0529     		cmp	r1, #5
+ 507 0004 19D8     		bhi	.L50
+ 508 0006 446B     		ldr	r4, [r0, #52]
+ 509 0008 01EB8101 		add	r1, r1, r1, lsl #2
+ 510 000c 1F25     		movs	r5, #31
+ 511 000e 8D40     		lsls	r5, r5, r1
+ 512 0010 24EA0504 		bic	r4, r4, r5
+ 513 0014 02FA01F1 		lsl	r1, r2, r1
+ 514 0018 2143     		orrs	r1, r1, r4
+ 515 001a 4163     		str	r1, [r0, #52]
+ 516              	.L51:
+ 517 001c 092A     		cmp	r2, #9
+ 518 001e 2AD8     		bhi	.L53
+ 519 0020 0169     		ldr	r1, [r0, #16]
+ 520 0022 02EB4202 		add	r2, r2, r2, lsl #1
+ 521 0026 0724     		movs	r4, #7
+ 522 0028 9440     		lsls	r4, r4, r2
+ 523 002a 21EA0401 		bic	r1, r1, r4
+ 524 002e 03FA02F2 		lsl	r2, r3, r2
+ 525 0032 0A43     		orrs	r2, r2, r1
+ 526 0034 0261     		str	r2, [r0, #16]
+ 527              	.L49:
+ 528 0036 30BC     		pop	{r4, r5}
+ 529 0038 7047     		bx	lr
+ 530              	.L50:
+ 531 003a 0B29     		cmp	r1, #11
+ 532 003c 0CD8     		bhi	.L52
+ 533 003e 046B     		ldr	r4, [r0, #48]
+ 534 0040 0639     		subs	r1, r1, #6
+ 535 0042 01EB8101 		add	r1, r1, r1, lsl #2
+ 536 0046 1F25     		movs	r5, #31
+ 537 0048 8D40     		lsls	r5, r5, r1
+ 538 004a 24EA0504 		bic	r4, r4, r5
+ 539 004e 02FA01F1 		lsl	r1, r2, r1
+ 540 0052 2143     		orrs	r1, r1, r4
+ 541 0054 0163     		str	r1, [r0, #48]
+ 542 0056 E1E7     		b	.L51
+ 543              	.L52:
+ 544 0058 0F29     		cmp	r1, #15
+ 545 005a DFD8     		bhi	.L51
+ 546 005c C46A     		ldr	r4, [r0, #44]
+ 547 005e 0C39     		subs	r1, r1, #12
+ 548 0060 01EB8101 		add	r1, r1, r1, lsl #2
+ 549 0064 1F25     		movs	r5, #31
+ 550 0066 8D40     		lsls	r5, r5, r1
+ARM GAS  /tmp/ccALfOxt.s 			page 10
+
+
+ 551 0068 24EA0504 		bic	r4, r4, r5
+ 552 006c 02FA01F1 		lsl	r1, r2, r1
+ 553 0070 2143     		orrs	r1, r1, r4
+ 554 0072 C162     		str	r1, [r0, #44]
+ 555 0074 D2E7     		b	.L51
+ 556              	.L53:
+ 557 0076 122A     		cmp	r2, #18
+ 558 0078 DDD8     		bhi	.L49
+ 559 007a C168     		ldr	r1, [r0, #12]
+ 560 007c 0A3A     		subs	r2, r2, #10
+ 561 007e 02EB4202 		add	r2, r2, r2, lsl #1
+ 562 0082 0724     		movs	r4, #7
+ 563 0084 9440     		lsls	r4, r4, r2
+ 564 0086 21EA0401 		bic	r1, r1, r4
+ 565 008a 9340     		lsls	r3, r3, r2
+ 566 008c 0B43     		orrs	r3, r3, r1
+ 567 008e C360     		str	r3, [r0, #12]
+ 568 0090 D1E7     		b	.L49
+ 570              		.section	.text.adc_inserted_channel_config,"ax",%progbits
+ 571              		.align	1
+ 572              		.global	adc_inserted_channel_config
+ 573              		.syntax unified
+ 574              		.thumb
+ 575              		.thumb_func
+ 576              		.fpu fpv4-sp-d16
+ 578              	adc_inserted_channel_config:
+ 579              		@ args = 0, pretend = 0, frame = 0
+ 580              		@ frame_needed = 0, uses_anonymous_args = 0
+ 581              		@ link register save eliminated.
+ 582 0000 30B4     		push	{r4, r5}
+ 583 0002 846B     		ldr	r4, [r0, #56]
+ 584 0004 C4F30154 		ubfx	r4, r4, #20, #2
+ 585 0008 0329     		cmp	r1, #3
+ 586 000a 0ED8     		bhi	.L57
+ 587 000c 856B     		ldr	r5, [r0, #56]
+ 588 000e 611A     		subs	r1, r4, r1
+ 589 0010 C1EB8174 		rsb	r4, r1, r1, lsl #30
+ 590 0014 C1EB8401 		rsb	r1, r1, r4, lsl #2
+ 591 0018 0F31     		adds	r1, r1, #15
+ 592 001a 1F24     		movs	r4, #31
+ 593 001c 8C40     		lsls	r4, r4, r1
+ 594 001e 25EA0405 		bic	r5, r5, r4
+ 595 0022 02FA01F1 		lsl	r1, r2, r1
+ 596 0026 2943     		orrs	r1, r1, r5
+ 597 0028 8163     		str	r1, [r0, #56]
+ 598              	.L57:
+ 599 002a 092A     		cmp	r2, #9
+ 600 002c 0CD8     		bhi	.L58
+ 601 002e 0169     		ldr	r1, [r0, #16]
+ 602 0030 02EB4202 		add	r2, r2, r2, lsl #1
+ 603 0034 0724     		movs	r4, #7
+ 604 0036 9440     		lsls	r4, r4, r2
+ 605 0038 21EA0401 		bic	r1, r1, r4
+ 606 003c 03FA02F2 		lsl	r2, r3, r2
+ 607 0040 0A43     		orrs	r2, r2, r1
+ 608 0042 0261     		str	r2, [r0, #16]
+ 609              	.L56:
+ARM GAS  /tmp/ccALfOxt.s 			page 11
+
+
+ 610 0044 30BC     		pop	{r4, r5}
+ 611 0046 7047     		bx	lr
+ 612              	.L58:
+ 613 0048 122A     		cmp	r2, #18
+ 614 004a FBD8     		bhi	.L56
+ 615 004c C168     		ldr	r1, [r0, #12]
+ 616 004e 0A3A     		subs	r2, r2, #10
+ 617 0050 02EB4202 		add	r2, r2, r2, lsl #1
+ 618 0054 0724     		movs	r4, #7
+ 619 0056 9440     		lsls	r4, r4, r2
+ 620 0058 21EA0401 		bic	r1, r1, r4
+ 621 005c 03FA02F2 		lsl	r2, r3, r2
+ 622 0060 0A43     		orrs	r2, r2, r1
+ 623 0062 C260     		str	r2, [r0, #12]
+ 624 0064 EEE7     		b	.L56
+ 626              		.section	.text.adc_inserted_channel_offset_config,"ax",%progbits
+ 627              		.align	1
+ 628              		.global	adc_inserted_channel_offset_config
+ 629              		.syntax unified
+ 630              		.thumb
+ 631              		.thumb_func
+ 632              		.fpu fpv4-sp-d16
+ 634              	adc_inserted_channel_offset_config:
+ 635              		@ args = 0, pretend = 0, frame = 0
+ 636              		@ frame_needed = 0, uses_anonymous_args = 0
+ 637              		@ link register save eliminated.
+ 638 0000 836B     		ldr	r3, [r0, #56]
+ 639 0002 C3F30153 		ubfx	r3, r3, #20, #2
+ 640 0006 C91A     		subs	r1, r1, r3
+ 641 0008 0331     		adds	r1, r1, #3
+ 642 000a 0329     		cmp	r1, #3
+ 643 000c 04D8     		bhi	.L61
+ 644 000e 00EB8101 		add	r1, r0, r1, lsl #2
+ 645 0012 C2F30B02 		ubfx	r2, r2, #0, #12
+ 646 0016 4A61     		str	r2, [r1, #20]
+ 647              	.L61:
+ 648 0018 7047     		bx	lr
+ 650              		.section	.text.adc_external_trigger_source_config,"ax",%progbits
+ 651              		.align	1
+ 652              		.global	adc_external_trigger_source_config
+ 653              		.syntax unified
+ 654              		.thumb
+ 655              		.thumb_func
+ 656              		.fpu fpv4-sp-d16
+ 658              	adc_external_trigger_source_config:
+ 659              		@ args = 0, pretend = 0, frame = 0
+ 660              		@ frame_needed = 0, uses_anonymous_args = 0
+ 661              		@ link register save eliminated.
+ 662 0000 0129     		cmp	r1, #1
+ 663 0002 02D0     		beq	.L64
+ 664 0004 0229     		cmp	r1, #2
+ 665 0006 08D0     		beq	.L65
+ 666 0008 7047     		bx	lr
+ 667              	.L64:
+ 668 000a 8368     		ldr	r3, [r0, #8]
+ 669 000c 23F07063 		bic	r3, r3, #251658240
+ 670 0010 8360     		str	r3, [r0, #8]
+ARM GAS  /tmp/ccALfOxt.s 			page 12
+
+
+ 671 0012 8368     		ldr	r3, [r0, #8]
+ 672 0014 1A43     		orrs	r2, r2, r3
+ 673 0016 8260     		str	r2, [r0, #8]
+ 674 0018 7047     		bx	lr
+ 675              	.L65:
+ 676 001a 8368     		ldr	r3, [r0, #8]
+ 677 001c 23F47023 		bic	r3, r3, #983040
+ 678 0020 8360     		str	r3, [r0, #8]
+ 679 0022 8368     		ldr	r3, [r0, #8]
+ 680 0024 1A43     		orrs	r2, r2, r3
+ 681 0026 8260     		str	r2, [r0, #8]
+ 682 0028 7047     		bx	lr
+ 684              		.section	.text.adc_external_trigger_config,"ax",%progbits
+ 685              		.align	1
+ 686              		.global	adc_external_trigger_config
+ 687              		.syntax unified
+ 688              		.thumb
+ 689              		.thumb_func
+ 690              		.fpu fpv4-sp-d16
+ 692              	adc_external_trigger_config:
+ 693              		@ args = 0, pretend = 0, frame = 0
+ 694              		@ frame_needed = 0, uses_anonymous_args = 0
+ 695              		@ link register save eliminated.
+ 696 0000 0129     		cmp	r1, #1
+ 697 0002 02D0     		beq	.L68
+ 698 0004 0229     		cmp	r1, #2
+ 699 0006 09D0     		beq	.L69
+ 700 0008 7047     		bx	lr
+ 701              	.L68:
+ 702 000a 8368     		ldr	r3, [r0, #8]
+ 703 000c 23F04053 		bic	r3, r3, #805306368
+ 704 0010 8360     		str	r3, [r0, #8]
+ 705 0012 8368     		ldr	r3, [r0, #8]
+ 706 0014 43EA0272 		orr	r2, r3, r2, lsl #28
+ 707 0018 8260     		str	r2, [r0, #8]
+ 708 001a 7047     		bx	lr
+ 709              	.L69:
+ 710 001c 8368     		ldr	r3, [r0, #8]
+ 711 001e 23F44013 		bic	r3, r3, #3145728
+ 712 0022 8360     		str	r3, [r0, #8]
+ 713 0024 8368     		ldr	r3, [r0, #8]
+ 714 0026 43EA0252 		orr	r2, r3, r2, lsl #20
+ 715 002a 8260     		str	r2, [r0, #8]
+ 716 002c 7047     		bx	lr
+ 718              		.section	.text.adc_software_trigger_enable,"ax",%progbits
+ 719              		.align	1
+ 720              		.global	adc_software_trigger_enable
+ 721              		.syntax unified
+ 722              		.thumb
+ 723              		.thumb_func
+ 724              		.fpu fpv4-sp-d16
+ 726              	adc_software_trigger_enable:
+ 727              		@ args = 0, pretend = 0, frame = 0
+ 728              		@ frame_needed = 0, uses_anonymous_args = 0
+ 729              		@ link register save eliminated.
+ 730 0000 0129     		cmp	r1, #1
+ 731 0002 02D0     		beq	.L72
+ARM GAS  /tmp/ccALfOxt.s 			page 13
+
+
+ 732 0004 0229     		cmp	r1, #2
+ 733 0006 05D0     		beq	.L73
+ 734 0008 7047     		bx	lr
+ 735              	.L72:
+ 736 000a 8368     		ldr	r3, [r0, #8]
+ 737 000c 43F08043 		orr	r3, r3, #1073741824
+ 738 0010 8360     		str	r3, [r0, #8]
+ 739 0012 7047     		bx	lr
+ 740              	.L73:
+ 741 0014 8368     		ldr	r3, [r0, #8]
+ 742 0016 43F48003 		orr	r3, r3, #4194304
+ 743 001a 8360     		str	r3, [r0, #8]
+ 744 001c 7047     		bx	lr
+ 746              		.section	.text.adc_end_of_conversion_config,"ax",%progbits
+ 747              		.align	1
+ 748              		.global	adc_end_of_conversion_config
+ 749              		.syntax unified
+ 750              		.thumb
+ 751              		.thumb_func
+ 752              		.fpu fpv4-sp-d16
+ 754              	adc_end_of_conversion_config:
+ 755              		@ args = 0, pretend = 0, frame = 0
+ 756              		@ frame_needed = 0, uses_anonymous_args = 0
+ 757              		@ link register save eliminated.
+ 758 0000 11B1     		cbz	r1, .L76
+ 759 0002 0129     		cmp	r1, #1
+ 760 0004 05D0     		beq	.L77
+ 761 0006 7047     		bx	lr
+ 762              	.L76:
+ 763 0008 8368     		ldr	r3, [r0, #8]
+ 764 000a 23F48063 		bic	r3, r3, #1024
+ 765 000e 8360     		str	r3, [r0, #8]
+ 766 0010 7047     		bx	lr
+ 767              	.L77:
+ 768 0012 8368     		ldr	r3, [r0, #8]
+ 769 0014 43F48063 		orr	r3, r3, #1024
+ 770 0018 8360     		str	r3, [r0, #8]
+ 771 001a 7047     		bx	lr
+ 773              		.section	.text.adc_regular_data_read,"ax",%progbits
+ 774              		.align	1
+ 775              		.global	adc_regular_data_read
+ 776              		.syntax unified
+ 777              		.thumb
+ 778              		.thumb_func
+ 779              		.fpu fpv4-sp-d16
+ 781              	adc_regular_data_read:
+ 782              		@ args = 0, pretend = 0, frame = 0
+ 783              		@ frame_needed = 0, uses_anonymous_args = 0
+ 784              		@ link register save eliminated.
+ 785 0000 C06C     		ldr	r0, [r0, #76]
+ 786 0002 80B2     		uxth	r0, r0
+ 787 0004 7047     		bx	lr
+ 789              		.section	.text.adc_inserted_data_read,"ax",%progbits
+ 790              		.align	1
+ 791              		.global	adc_inserted_data_read
+ 792              		.syntax unified
+ 793              		.thumb
+ARM GAS  /tmp/ccALfOxt.s 			page 14
+
+
+ 794              		.thumb_func
+ 795              		.fpu fpv4-sp-d16
+ 797              	adc_inserted_data_read:
+ 798              		@ args = 0, pretend = 0, frame = 0
+ 799              		@ frame_needed = 0, uses_anonymous_args = 0
+ 800              		@ link register save eliminated.
+ 801 0000 0329     		cmp	r1, #3
+ 802 0002 0CD8     		bhi	.L87
+ 803 0004 DFE801F0 		tbb	[pc, r1]
+ 804              	.L83:
+ 805 0008 02       		.byte	(.L86-.L83)/2
+ 806 0009 05       		.byte	(.L85-.L83)/2
+ 807 000a 07       		.byte	(.L84-.L83)/2
+ 808 000b 09       		.byte	(.L82-.L83)/2
+ 809              		.p2align 1
+ 810              	.L86:
+ 811 000c C06B     		ldr	r0, [r0, #60]
+ 812              	.L81:
+ 813 000e 80B2     		uxth	r0, r0
+ 814 0010 7047     		bx	lr
+ 815              	.L85:
+ 816 0012 006C     		ldr	r0, [r0, #64]
+ 817 0014 FBE7     		b	.L81
+ 818              	.L84:
+ 819 0016 406C     		ldr	r0, [r0, #68]
+ 820 0018 F9E7     		b	.L81
+ 821              	.L82:
+ 822 001a 806C     		ldr	r0, [r0, #72]
+ 823 001c F7E7     		b	.L81
+ 824              	.L87:
+ 825 001e 0020     		movs	r0, #0
+ 826 0020 F5E7     		b	.L81
+ 828              		.section	.text.adc_watchdog_single_channel_disable,"ax",%progbits
+ 829              		.align	1
+ 830              		.global	adc_watchdog_single_channel_disable
+ 831              		.syntax unified
+ 832              		.thumb
+ 833              		.thumb_func
+ 834              		.fpu fpv4-sp-d16
+ 836              	adc_watchdog_single_channel_disable:
+ 837              		@ args = 0, pretend = 0, frame = 0
+ 838              		@ frame_needed = 0, uses_anonymous_args = 0
+ 839              		@ link register save eliminated.
+ 840 0000 4368     		ldr	r3, [r0, #4]
+ 841 0002 23F40073 		bic	r3, r3, #512
+ 842 0006 4360     		str	r3, [r0, #4]
+ 843 0008 7047     		bx	lr
+ 845              		.section	.text.adc_watchdog_single_channel_enable,"ax",%progbits
+ 846              		.align	1
+ 847              		.global	adc_watchdog_single_channel_enable
+ 848              		.syntax unified
+ 849              		.thumb
+ 850              		.thumb_func
+ 851              		.fpu fpv4-sp-d16
+ 853              	adc_watchdog_single_channel_enable:
+ 854              		@ args = 0, pretend = 0, frame = 0
+ 855              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccALfOxt.s 			page 15
+
+
+ 856              		@ link register save eliminated.
+ 857 0000 4368     		ldr	r3, [r0, #4]
+ 858 0002 23F01F03 		bic	r3, r3, #31
+ 859 0006 4360     		str	r3, [r0, #4]
+ 860 0008 4368     		ldr	r3, [r0, #4]
+ 861 000a 1943     		orrs	r1, r1, r3
+ 862 000c 4160     		str	r1, [r0, #4]
+ 863 000e 4368     		ldr	r3, [r0, #4]
+ 864 0010 43F40073 		orr	r3, r3, #512
+ 865 0014 4360     		str	r3, [r0, #4]
+ 866 0016 7047     		bx	lr
+ 868              		.section	.text.adc_watchdog_group_channel_enable,"ax",%progbits
+ 869              		.align	1
+ 870              		.global	adc_watchdog_group_channel_enable
+ 871              		.syntax unified
+ 872              		.thumb
+ 873              		.thumb_func
+ 874              		.fpu fpv4-sp-d16
+ 876              	adc_watchdog_group_channel_enable:
+ 877              		@ args = 0, pretend = 0, frame = 0
+ 878              		@ frame_needed = 0, uses_anonymous_args = 0
+ 879              		@ link register save eliminated.
+ 880 0000 4368     		ldr	r3, [r0, #4]
+ 881 0002 23F44003 		bic	r3, r3, #12582912
+ 882 0006 23F40073 		bic	r3, r3, #512
+ 883 000a 4360     		str	r3, [r0, #4]
+ 884 000c 0229     		cmp	r1, #2
+ 885 000e 09D0     		beq	.L91
+ 886 0010 0329     		cmp	r1, #3
+ 887 0012 0CD0     		beq	.L92
+ 888 0014 0129     		cmp	r1, #1
+ 889 0016 00D0     		beq	.L94
+ 890              	.L90:
+ 891 0018 7047     		bx	lr
+ 892              	.L94:
+ 893 001a 4368     		ldr	r3, [r0, #4]
+ 894 001c 43F40003 		orr	r3, r3, #8388608
+ 895 0020 4360     		str	r3, [r0, #4]
+ 896 0022 7047     		bx	lr
+ 897              	.L91:
+ 898 0024 4368     		ldr	r3, [r0, #4]
+ 899 0026 43F48003 		orr	r3, r3, #4194304
+ 900 002a 4360     		str	r3, [r0, #4]
+ 901 002c 7047     		bx	lr
+ 902              	.L92:
+ 903 002e 4368     		ldr	r3, [r0, #4]
+ 904 0030 43F44003 		orr	r3, r3, #12582912
+ 905 0034 4360     		str	r3, [r0, #4]
+ 906 0036 EFE7     		b	.L90
+ 908              		.section	.text.adc_watchdog_disable,"ax",%progbits
+ 909              		.align	1
+ 910              		.global	adc_watchdog_disable
+ 911              		.syntax unified
+ 912              		.thumb
+ 913              		.thumb_func
+ 914              		.fpu fpv4-sp-d16
+ 916              	adc_watchdog_disable:
+ARM GAS  /tmp/ccALfOxt.s 			page 16
+
+
+ 917              		@ args = 0, pretend = 0, frame = 0
+ 918              		@ frame_needed = 0, uses_anonymous_args = 0
+ 919              		@ link register save eliminated.
+ 920 0000 0229     		cmp	r1, #2
+ 921 0002 09D0     		beq	.L96
+ 922 0004 0329     		cmp	r1, #3
+ 923 0006 0CD0     		beq	.L97
+ 924 0008 0129     		cmp	r1, #1
+ 925 000a 00D0     		beq	.L99
+ 926              	.L95:
+ 927 000c 7047     		bx	lr
+ 928              	.L99:
+ 929 000e 4368     		ldr	r3, [r0, #4]
+ 930 0010 23F40003 		bic	r3, r3, #8388608
+ 931 0014 4360     		str	r3, [r0, #4]
+ 932 0016 7047     		bx	lr
+ 933              	.L96:
+ 934 0018 4368     		ldr	r3, [r0, #4]
+ 935 001a 23F48003 		bic	r3, r3, #4194304
+ 936 001e 4360     		str	r3, [r0, #4]
+ 937 0020 7047     		bx	lr
+ 938              	.L97:
+ 939 0022 4368     		ldr	r3, [r0, #4]
+ 940 0024 23F44003 		bic	r3, r3, #12582912
+ 941 0028 4360     		str	r3, [r0, #4]
+ 942 002a EFE7     		b	.L95
+ 944              		.section	.text.adc_watchdog_threshold_config,"ax",%progbits
+ 945              		.align	1
+ 946              		.global	adc_watchdog_threshold_config
+ 947              		.syntax unified
+ 948              		.thumb
+ 949              		.thumb_func
+ 950              		.fpu fpv4-sp-d16
+ 952              	adc_watchdog_threshold_config:
+ 953              		@ args = 0, pretend = 0, frame = 0
+ 954              		@ frame_needed = 0, uses_anonymous_args = 0
+ 955              		@ link register save eliminated.
+ 956 0000 C1F30B01 		ubfx	r1, r1, #0, #12
+ 957 0004 8162     		str	r1, [r0, #40]
+ 958 0006 C2F30B02 		ubfx	r2, r2, #0, #12
+ 959 000a 4262     		str	r2, [r0, #36]
+ 960 000c 7047     		bx	lr
+ 962              		.section	.text.adc_flag_get,"ax",%progbits
+ 963              		.align	1
+ 964              		.global	adc_flag_get
+ 965              		.syntax unified
+ 966              		.thumb
+ 967              		.thumb_func
+ 968              		.fpu fpv4-sp-d16
+ 970              	adc_flag_get:
+ 971              		@ args = 0, pretend = 0, frame = 0
+ 972              		@ frame_needed = 0, uses_anonymous_args = 0
+ 973              		@ link register save eliminated.
+ 974 0000 0368     		ldr	r3, [r0]
+ 975 0002 0B42     		tst	r3, r1
+ 976 0004 01D1     		bne	.L103
+ 977 0006 0020     		movs	r0, #0
+ARM GAS  /tmp/ccALfOxt.s 			page 17
+
+
+ 978 0008 7047     		bx	lr
+ 979              	.L103:
+ 980 000a 0120     		movs	r0, #1
+ 981 000c 7047     		bx	lr
+ 983              		.section	.text.adc_flag_clear,"ax",%progbits
+ 984              		.align	1
+ 985              		.global	adc_flag_clear
+ 986              		.syntax unified
+ 987              		.thumb
+ 988              		.thumb_func
+ 989              		.fpu fpv4-sp-d16
+ 991              	adc_flag_clear:
+ 992              		@ args = 0, pretend = 0, frame = 0
+ 993              		@ frame_needed = 0, uses_anonymous_args = 0
+ 994              		@ link register save eliminated.
+ 995 0000 0368     		ldr	r3, [r0]
+ 996 0002 23EA0101 		bic	r1, r3, r1
+ 997 0006 0160     		str	r1, [r0]
+ 998 0008 7047     		bx	lr
+ 1000              		.section	.text.adc_regular_software_startconv_flag_get,"ax",%progbits
+ 1001              		.align	1
+ 1002              		.global	adc_regular_software_startconv_flag_get
+ 1003              		.syntax unified
+ 1004              		.thumb
+ 1005              		.thumb_func
+ 1006              		.fpu fpv4-sp-d16
+ 1008              	adc_regular_software_startconv_flag_get:
+ 1009              		@ args = 0, pretend = 0, frame = 0
+ 1010              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1011              		@ link register save eliminated.
+ 1012 0000 0368     		ldr	r3, [r0]
+ 1013 0002 13F0100F 		tst	r3, #16
+ 1014 0006 01D1     		bne	.L107
+ 1015 0008 0020     		movs	r0, #0
+ 1016 000a 7047     		bx	lr
+ 1017              	.L107:
+ 1018 000c 0120     		movs	r0, #1
+ 1019 000e 7047     		bx	lr
+ 1021              		.section	.text.adc_inserted_software_startconv_flag_get,"ax",%progbits
+ 1022              		.align	1
+ 1023              		.global	adc_inserted_software_startconv_flag_get
+ 1024              		.syntax unified
+ 1025              		.thumb
+ 1026              		.thumb_func
+ 1027              		.fpu fpv4-sp-d16
+ 1029              	adc_inserted_software_startconv_flag_get:
+ 1030              		@ args = 0, pretend = 0, frame = 0
+ 1031              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1032              		@ link register save eliminated.
+ 1033 0000 0368     		ldr	r3, [r0]
+ 1034 0002 13F0080F 		tst	r3, #8
+ 1035 0006 01D1     		bne	.L110
+ 1036 0008 0020     		movs	r0, #0
+ 1037 000a 7047     		bx	lr
+ 1038              	.L110:
+ 1039 000c 0120     		movs	r0, #1
+ 1040 000e 7047     		bx	lr
+ARM GAS  /tmp/ccALfOxt.s 			page 18
+
+
+ 1042              		.section	.text.adc_interrupt_flag_get,"ax",%progbits
+ 1043              		.align	1
+ 1044              		.global	adc_interrupt_flag_get
+ 1045              		.syntax unified
+ 1046              		.thumb
+ 1047              		.thumb_func
+ 1048              		.fpu fpv4-sp-d16
+ 1050              	adc_interrupt_flag_get:
+ 1051              		@ args = 0, pretend = 0, frame = 0
+ 1052              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1053              		@ link register save eliminated.
+ 1054 0000 0139     		subs	r1, r1, #1
+ 1055 0002 1F29     		cmp	r1, #31
+ 1056 0004 39D8     		bhi	.L118
+ 1057 0006 DFE801F0 		tbb	[pc, r1]
+ 1058              	.L114:
+ 1059 000a 10       		.byte	(.L117-.L114)/2
+ 1060 000b 1A       		.byte	(.L116-.L114)/2
+ 1061 000c 38       		.byte	(.L118-.L114)/2
+ 1062 000d 24       		.byte	(.L115-.L114)/2
+ 1063 000e 38       		.byte	(.L118-.L114)/2
+ 1064 000f 38       		.byte	(.L118-.L114)/2
+ 1065 0010 38       		.byte	(.L118-.L114)/2
+ 1066 0011 38       		.byte	(.L118-.L114)/2
+ 1067 0012 38       		.byte	(.L118-.L114)/2
+ 1068 0013 38       		.byte	(.L118-.L114)/2
+ 1069 0014 38       		.byte	(.L118-.L114)/2
+ 1070 0015 38       		.byte	(.L118-.L114)/2
+ 1071 0016 38       		.byte	(.L118-.L114)/2
+ 1072 0017 38       		.byte	(.L118-.L114)/2
+ 1073 0018 38       		.byte	(.L118-.L114)/2
+ 1074 0019 38       		.byte	(.L118-.L114)/2
+ 1075 001a 38       		.byte	(.L118-.L114)/2
+ 1076 001b 38       		.byte	(.L118-.L114)/2
+ 1077 001c 38       		.byte	(.L118-.L114)/2
+ 1078 001d 38       		.byte	(.L118-.L114)/2
+ 1079 001e 38       		.byte	(.L118-.L114)/2
+ 1080 001f 38       		.byte	(.L118-.L114)/2
+ 1081 0020 38       		.byte	(.L118-.L114)/2
+ 1082 0021 38       		.byte	(.L118-.L114)/2
+ 1083 0022 38       		.byte	(.L118-.L114)/2
+ 1084 0023 38       		.byte	(.L118-.L114)/2
+ 1085 0024 38       		.byte	(.L118-.L114)/2
+ 1086 0025 38       		.byte	(.L118-.L114)/2
+ 1087 0026 38       		.byte	(.L118-.L114)/2
+ 1088 0027 38       		.byte	(.L118-.L114)/2
+ 1089 0028 38       		.byte	(.L118-.L114)/2
+ 1090 0029 2E       		.byte	(.L113-.L114)/2
+ 1091              		.p2align 1
+ 1092              	.L117:
+ 1093 002a 0368     		ldr	r3, [r0]
+ 1094 002c 03F00103 		and	r3, r3, #1
+ 1095 0030 4268     		ldr	r2, [r0, #4]
+ 1096 0032 12F0400F 		tst	r2, #64
+ 1097 0036 22D0     		beq	.L119
+ 1098 0038 1BBB     		cbnz	r3, .L120
+ 1099 003a 0020     		movs	r0, #0
+ARM GAS  /tmp/ccALfOxt.s 			page 19
+
+
+ 1100 003c 7047     		bx	lr
+ 1101              	.L116:
+ 1102 003e 0368     		ldr	r3, [r0]
+ 1103 0040 03F00203 		and	r3, r3, #2
+ 1104 0044 4268     		ldr	r2, [r0, #4]
+ 1105 0046 12F0200F 		tst	r2, #32
+ 1106 004a 1CD0     		beq	.L121
+ 1107 004c EBB9     		cbnz	r3, .L122
+ 1108 004e 0020     		movs	r0, #0
+ 1109 0050 7047     		bx	lr
+ 1110              	.L115:
+ 1111 0052 0368     		ldr	r3, [r0]
+ 1112 0054 03F00403 		and	r3, r3, #4
+ 1113 0058 4268     		ldr	r2, [r0, #4]
+ 1114 005a 12F0800F 		tst	r2, #128
+ 1115 005e 16D0     		beq	.L123
+ 1116 0060 BBB9     		cbnz	r3, .L124
+ 1117 0062 0020     		movs	r0, #0
+ 1118 0064 7047     		bx	lr
+ 1119              	.L113:
+ 1120 0066 0368     		ldr	r3, [r0]
+ 1121 0068 03F02003 		and	r3, r3, #32
+ 1122 006c 4268     		ldr	r2, [r0, #4]
+ 1123 006e 12F0806F 		tst	r2, #67108864
+ 1124 0072 10D0     		beq	.L125
+ 1125 0074 8BB9     		cbnz	r3, .L126
+ 1126 0076 0020     		movs	r0, #0
+ 1127 0078 7047     		bx	lr
+ 1128              	.L118:
+ 1129 007a 0020     		movs	r0, #0
+ 1130 007c 7047     		bx	lr
+ 1131              	.L119:
+ 1132 007e 0020     		movs	r0, #0
+ 1133 0080 7047     		bx	lr
+ 1134              	.L120:
+ 1135 0082 0120     		movs	r0, #1
+ 1136 0084 7047     		bx	lr
+ 1137              	.L121:
+ 1138 0086 0020     		movs	r0, #0
+ 1139 0088 7047     		bx	lr
+ 1140              	.L122:
+ 1141 008a 0120     		movs	r0, #1
+ 1142 008c 7047     		bx	lr
+ 1143              	.L123:
+ 1144 008e 0020     		movs	r0, #0
+ 1145 0090 7047     		bx	lr
+ 1146              	.L124:
+ 1147 0092 0120     		movs	r0, #1
+ 1148 0094 7047     		bx	lr
+ 1149              	.L125:
+ 1150 0096 0020     		movs	r0, #0
+ 1151 0098 7047     		bx	lr
+ 1152              	.L126:
+ 1153 009a 0120     		movs	r0, #1
+ 1154 009c 7047     		bx	lr
+ 1156              		.section	.text.adc_interrupt_flag_clear,"ax",%progbits
+ 1157              		.align	1
+ARM GAS  /tmp/ccALfOxt.s 			page 20
+
+
+ 1158              		.global	adc_interrupt_flag_clear
+ 1159              		.syntax unified
+ 1160              		.thumb
+ 1161              		.thumb_func
+ 1162              		.fpu fpv4-sp-d16
+ 1164              	adc_interrupt_flag_clear:
+ 1165              		@ args = 0, pretend = 0, frame = 0
+ 1166              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1167              		@ link register save eliminated.
+ 1168 0000 0368     		ldr	r3, [r0]
+ 1169 0002 23EA0101 		bic	r1, r3, r1
+ 1170 0006 0160     		str	r1, [r0]
+ 1171 0008 7047     		bx	lr
+ 1173              		.section	.text.adc_interrupt_enable,"ax",%progbits
+ 1174              		.align	1
+ 1175              		.global	adc_interrupt_enable
+ 1176              		.syntax unified
+ 1177              		.thumb
+ 1178              		.thumb_func
+ 1179              		.fpu fpv4-sp-d16
+ 1181              	adc_interrupt_enable:
+ 1182              		@ args = 0, pretend = 0, frame = 0
+ 1183              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1184              		@ link register save eliminated.
+ 1185 0000 4029     		cmp	r1, #64
+ 1186 0002 13D0     		beq	.L129
+ 1187 0004 09D9     		bls	.L135
+ 1188 0006 8029     		cmp	r1, #128
+ 1189 0008 15D0     		beq	.L133
+ 1190 000a B1F1806F 		cmp	r1, #67108864
+ 1191 000e 0CD1     		bne	.L136
+ 1192 0010 4368     		ldr	r3, [r0, #4]
+ 1193 0012 43F08063 		orr	r3, r3, #67108864
+ 1194 0016 4360     		str	r3, [r0, #4]
+ 1195 0018 7047     		bx	lr
+ 1196              	.L135:
+ 1197 001a 2029     		cmp	r1, #32
+ 1198 001c 04D1     		bne	.L137
+ 1199 001e 4368     		ldr	r3, [r0, #4]
+ 1200 0020 43F02003 		orr	r3, r3, #32
+ 1201 0024 4360     		str	r3, [r0, #4]
+ 1202 0026 7047     		bx	lr
+ 1203              	.L137:
+ 1204 0028 7047     		bx	lr
+ 1205              	.L136:
+ 1206 002a 7047     		bx	lr
+ 1207              	.L129:
+ 1208 002c 4368     		ldr	r3, [r0, #4]
+ 1209 002e 43F04003 		orr	r3, r3, #64
+ 1210 0032 4360     		str	r3, [r0, #4]
+ 1211 0034 7047     		bx	lr
+ 1212              	.L133:
+ 1213 0036 4368     		ldr	r3, [r0, #4]
+ 1214 0038 43F08003 		orr	r3, r3, #128
+ 1215 003c 4360     		str	r3, [r0, #4]
+ 1216 003e 7047     		bx	lr
+ 1218              		.section	.text.adc_interrupt_disable,"ax",%progbits
+ARM GAS  /tmp/ccALfOxt.s 			page 21
+
+
+ 1219              		.align	1
+ 1220              		.global	adc_interrupt_disable
+ 1221              		.syntax unified
+ 1222              		.thumb
+ 1223              		.thumb_func
+ 1224              		.fpu fpv4-sp-d16
+ 1226              	adc_interrupt_disable:
+ 1227              		@ args = 0, pretend = 0, frame = 0
+ 1228              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1229              		@ link register save eliminated.
+ 1230 0000 4029     		cmp	r1, #64
+ 1231 0002 13D0     		beq	.L139
+ 1232 0004 09D9     		bls	.L145
+ 1233 0006 8029     		cmp	r1, #128
+ 1234 0008 15D0     		beq	.L143
+ 1235 000a B1F1806F 		cmp	r1, #67108864
+ 1236 000e 0CD1     		bne	.L146
+ 1237 0010 4368     		ldr	r3, [r0, #4]
+ 1238 0012 23F08063 		bic	r3, r3, #67108864
+ 1239 0016 4360     		str	r3, [r0, #4]
+ 1240 0018 7047     		bx	lr
+ 1241              	.L145:
+ 1242 001a 2029     		cmp	r1, #32
+ 1243 001c 04D1     		bne	.L147
+ 1244 001e 4368     		ldr	r3, [r0, #4]
+ 1245 0020 23F02003 		bic	r3, r3, #32
+ 1246 0024 4360     		str	r3, [r0, #4]
+ 1247 0026 7047     		bx	lr
+ 1248              	.L147:
+ 1249 0028 7047     		bx	lr
+ 1250              	.L146:
+ 1251 002a 7047     		bx	lr
+ 1252              	.L139:
+ 1253 002c 4368     		ldr	r3, [r0, #4]
+ 1254 002e 23F04003 		bic	r3, r3, #64
+ 1255 0032 4360     		str	r3, [r0, #4]
+ 1256 0034 7047     		bx	lr
+ 1257              	.L143:
+ 1258 0036 4368     		ldr	r3, [r0, #4]
+ 1259 0038 23F08003 		bic	r3, r3, #128
+ 1260 003c 4360     		str	r3, [r0, #4]
+ 1261 003e 7047     		bx	lr
+ 1263              		.section	.text.adc_sync_mode_config,"ax",%progbits
+ 1264              		.align	1
+ 1265              		.global	adc_sync_mode_config
+ 1266              		.syntax unified
+ 1267              		.thumb
+ 1268              		.thumb_func
+ 1269              		.fpu fpv4-sp-d16
+ 1271              	adc_sync_mode_config:
+ 1272              		@ args = 0, pretend = 0, frame = 0
+ 1273              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1274              		@ link register save eliminated.
+ 1275 0000 044B     		ldr	r3, .L149
+ 1276 0002 1A68     		ldr	r2, [r3]
+ 1277 0004 22F01F02 		bic	r2, r2, #31
+ 1278 0008 1A60     		str	r2, [r3]
+ARM GAS  /tmp/ccALfOxt.s 			page 22
+
+
+ 1279 000a 1A68     		ldr	r2, [r3]
+ 1280 000c 1043     		orrs	r0, r0, r2
+ 1281 000e 1860     		str	r0, [r3]
+ 1282 0010 7047     		bx	lr
+ 1283              	.L150:
+ 1284 0012 00BF     		.align	2
+ 1285              	.L149:
+ 1286 0014 04230140 		.word	1073816324
+ 1288              		.section	.text.adc_sync_delay_config,"ax",%progbits
+ 1289              		.align	1
+ 1290              		.global	adc_sync_delay_config
+ 1291              		.syntax unified
+ 1292              		.thumb
+ 1293              		.thumb_func
+ 1294              		.fpu fpv4-sp-d16
+ 1296              	adc_sync_delay_config:
+ 1297              		@ args = 0, pretend = 0, frame = 0
+ 1298              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1299              		@ link register save eliminated.
+ 1300 0000 044B     		ldr	r3, .L152
+ 1301 0002 1A68     		ldr	r2, [r3]
+ 1302 0004 22F47062 		bic	r2, r2, #3840
+ 1303 0008 1A60     		str	r2, [r3]
+ 1304 000a 1A68     		ldr	r2, [r3]
+ 1305 000c 1043     		orrs	r0, r0, r2
+ 1306 000e 1860     		str	r0, [r3]
+ 1307 0010 7047     		bx	lr
+ 1308              	.L153:
+ 1309 0012 00BF     		.align	2
+ 1310              	.L152:
+ 1311 0014 04230140 		.word	1073816324
+ 1313              		.section	.text.adc_sync_dma_config,"ax",%progbits
+ 1314              		.align	1
+ 1315              		.global	adc_sync_dma_config
+ 1316              		.syntax unified
+ 1317              		.thumb
+ 1318              		.thumb_func
+ 1319              		.fpu fpv4-sp-d16
+ 1321              	adc_sync_dma_config:
+ 1322              		@ args = 0, pretend = 0, frame = 0
+ 1323              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1324              		@ link register save eliminated.
+ 1325 0000 044B     		ldr	r3, .L155
+ 1326 0002 1A68     		ldr	r2, [r3]
+ 1327 0004 22F44042 		bic	r2, r2, #49152
+ 1328 0008 1A60     		str	r2, [r3]
+ 1329 000a 1A68     		ldr	r2, [r3]
+ 1330 000c 1043     		orrs	r0, r0, r2
+ 1331 000e 1860     		str	r0, [r3]
+ 1332 0010 7047     		bx	lr
+ 1333              	.L156:
+ 1334 0012 00BF     		.align	2
+ 1335              	.L155:
+ 1336 0014 04230140 		.word	1073816324
+ 1338              		.section	.text.adc_sync_dma_request_after_last_enable,"ax",%progbits
+ 1339              		.align	1
+ 1340              		.global	adc_sync_dma_request_after_last_enable
+ARM GAS  /tmp/ccALfOxt.s 			page 23
+
+
+ 1341              		.syntax unified
+ 1342              		.thumb
+ 1343              		.thumb_func
+ 1344              		.fpu fpv4-sp-d16
+ 1346              	adc_sync_dma_request_after_last_enable:
+ 1347              		@ args = 0, pretend = 0, frame = 0
+ 1348              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1349              		@ link register save eliminated.
+ 1350 0000 024A     		ldr	r2, .L158
+ 1351 0002 1368     		ldr	r3, [r2]
+ 1352 0004 43F40053 		orr	r3, r3, #8192
+ 1353 0008 1360     		str	r3, [r2]
+ 1354 000a 7047     		bx	lr
+ 1355              	.L159:
+ 1356              		.align	2
+ 1357              	.L158:
+ 1358 000c 04230140 		.word	1073816324
+ 1360              		.section	.text.adc_sync_dma_request_after_last_disable,"ax",%progbits
+ 1361              		.align	1
+ 1362              		.global	adc_sync_dma_request_after_last_disable
+ 1363              		.syntax unified
+ 1364              		.thumb
+ 1365              		.thumb_func
+ 1366              		.fpu fpv4-sp-d16
+ 1368              	adc_sync_dma_request_after_last_disable:
+ 1369              		@ args = 0, pretend = 0, frame = 0
+ 1370              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1371              		@ link register save eliminated.
+ 1372 0000 024A     		ldr	r2, .L161
+ 1373 0002 1368     		ldr	r3, [r2]
+ 1374 0004 23F40053 		bic	r3, r3, #8192
+ 1375 0008 1360     		str	r3, [r2]
+ 1376 000a 7047     		bx	lr
+ 1377              	.L162:
+ 1378              		.align	2
+ 1379              	.L161:
+ 1380 000c 04230140 		.word	1073816324
+ 1382              		.section	.text.adc_sync_regular_data_read,"ax",%progbits
+ 1383              		.align	1
+ 1384              		.global	adc_sync_regular_data_read
+ 1385              		.syntax unified
+ 1386              		.thumb
+ 1387              		.thumb_func
+ 1388              		.fpu fpv4-sp-d16
+ 1390              	adc_sync_regular_data_read:
+ 1391              		@ args = 0, pretend = 0, frame = 0
+ 1392              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1393              		@ link register save eliminated.
+ 1394 0000 014B     		ldr	r3, .L164
+ 1395 0002 1868     		ldr	r0, [r3]
+ 1396 0004 7047     		bx	lr
+ 1397              	.L165:
+ 1398 0006 00BF     		.align	2
+ 1399              	.L164:
+ 1400 0008 08230140 		.word	1073816328
+ 1402              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccALfOxt.s 			page 24
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_adc.c
+     /tmp/ccALfOxt.s:16     .text.adc_deinit:0000000000000000 $t
+     /tmp/ccALfOxt.s:24     .text.adc_deinit:0000000000000000 adc_deinit
+     /tmp/ccALfOxt.s:35     .text.adc_clock_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:42     .text.adc_clock_config:0000000000000000 adc_clock_config
+     /tmp/ccALfOxt.s:57     .text.adc_clock_config:0000000000000014 $d
+     /tmp/ccALfOxt.s:60     .text.adc_special_function_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:67     .text.adc_special_function_config:0000000000000000 adc_special_function_config
+     /tmp/ccALfOxt.s:112    .text.adc_data_alignment_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:119    .text.adc_data_alignment_config:0000000000000000 adc_data_alignment_config
+     /tmp/ccALfOxt.s:135    .text.adc_enable:0000000000000000 $t
+     /tmp/ccALfOxt.s:142    .text.adc_enable:0000000000000000 adc_enable
+     /tmp/ccALfOxt.s:156    .text.adc_disable:0000000000000000 $t
+     /tmp/ccALfOxt.s:163    .text.adc_disable:0000000000000000 adc_disable
+     /tmp/ccALfOxt.s:173    .text.adc_calibration_enable:0000000000000000 $t
+     /tmp/ccALfOxt.s:180    .text.adc_calibration_enable:0000000000000000 adc_calibration_enable
+     /tmp/ccALfOxt.s:202    .text.adc_channel_16_to_18:0000000000000000 $t
+     /tmp/ccALfOxt.s:209    .text.adc_channel_16_to_18:0000000000000000 adc_channel_16_to_18
+     /tmp/ccALfOxt.s:247    .text.adc_channel_16_to_18:0000000000000048 $d
+     /tmp/ccALfOxt.s:250    .text.adc_resolution_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:257    .text.adc_resolution_config:0000000000000000 adc_resolution_config
+     /tmp/ccALfOxt.s:270    .text.adc_oversample_mode_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:277    .text.adc_oversample_mode_config:0000000000000000 adc_oversample_mode_config
+     /tmp/ccALfOxt.s:302    .text.adc_oversample_mode_enable:0000000000000000 $t
+     /tmp/ccALfOxt.s:309    .text.adc_oversample_mode_enable:0000000000000000 adc_oversample_mode_enable
+     /tmp/ccALfOxt.s:319    .text.adc_oversample_mode_disable:0000000000000000 $t
+     /tmp/ccALfOxt.s:326    .text.adc_oversample_mode_disable:0000000000000000 adc_oversample_mode_disable
+     /tmp/ccALfOxt.s:336    .text.adc_dma_mode_enable:0000000000000000 $t
+     /tmp/ccALfOxt.s:343    .text.adc_dma_mode_enable:0000000000000000 adc_dma_mode_enable
+     /tmp/ccALfOxt.s:353    .text.adc_dma_mode_disable:0000000000000000 $t
+     /tmp/ccALfOxt.s:360    .text.adc_dma_mode_disable:0000000000000000 adc_dma_mode_disable
+     /tmp/ccALfOxt.s:370    .text.adc_dma_request_after_last_enable:0000000000000000 $t
+     /tmp/ccALfOxt.s:377    .text.adc_dma_request_after_last_enable:0000000000000000 adc_dma_request_after_last_enable
+     /tmp/ccALfOxt.s:387    .text.adc_dma_request_after_last_disable:0000000000000000 $t
+     /tmp/ccALfOxt.s:394    .text.adc_dma_request_after_last_disable:0000000000000000 adc_dma_request_after_last_disable
+     /tmp/ccALfOxt.s:404    .text.adc_discontinuous_mode_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:411    .text.adc_discontinuous_mode_config:0000000000000000 adc_discontinuous_mode_config
+     /tmp/ccALfOxt.s:449    .text.adc_channel_length_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:456    .text.adc_channel_length_config:0000000000000000 adc_channel_length_config
+     /tmp/ccALfOxt.s:494    .text.adc_regular_channel_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:501    .text.adc_regular_channel_config:0000000000000000 adc_regular_channel_config
+     /tmp/ccALfOxt.s:571    .text.adc_inserted_channel_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:578    .text.adc_inserted_channel_config:0000000000000000 adc_inserted_channel_config
+     /tmp/ccALfOxt.s:627    .text.adc_inserted_channel_offset_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:634    .text.adc_inserted_channel_offset_config:0000000000000000 adc_inserted_channel_offset_config
+     /tmp/ccALfOxt.s:651    .text.adc_external_trigger_source_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:658    .text.adc_external_trigger_source_config:0000000000000000 adc_external_trigger_source_config
+     /tmp/ccALfOxt.s:685    .text.adc_external_trigger_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:692    .text.adc_external_trigger_config:0000000000000000 adc_external_trigger_config
+     /tmp/ccALfOxt.s:719    .text.adc_software_trigger_enable:0000000000000000 $t
+     /tmp/ccALfOxt.s:726    .text.adc_software_trigger_enable:0000000000000000 adc_software_trigger_enable
+     /tmp/ccALfOxt.s:747    .text.adc_end_of_conversion_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:754    .text.adc_end_of_conversion_config:0000000000000000 adc_end_of_conversion_config
+     /tmp/ccALfOxt.s:774    .text.adc_regular_data_read:0000000000000000 $t
+     /tmp/ccALfOxt.s:781    .text.adc_regular_data_read:0000000000000000 adc_regular_data_read
+     /tmp/ccALfOxt.s:790    .text.adc_inserted_data_read:0000000000000000 $t
+ARM GAS  /tmp/ccALfOxt.s 			page 25
+
+
+     /tmp/ccALfOxt.s:797    .text.adc_inserted_data_read:0000000000000000 adc_inserted_data_read
+     /tmp/ccALfOxt.s:805    .text.adc_inserted_data_read:0000000000000008 $d
+     /tmp/ccALfOxt.s:809    .text.adc_inserted_data_read:000000000000000c $t
+     /tmp/ccALfOxt.s:829    .text.adc_watchdog_single_channel_disable:0000000000000000 $t
+     /tmp/ccALfOxt.s:836    .text.adc_watchdog_single_channel_disable:0000000000000000 adc_watchdog_single_channel_disable
+     /tmp/ccALfOxt.s:846    .text.adc_watchdog_single_channel_enable:0000000000000000 $t
+     /tmp/ccALfOxt.s:853    .text.adc_watchdog_single_channel_enable:0000000000000000 adc_watchdog_single_channel_enable
+     /tmp/ccALfOxt.s:869    .text.adc_watchdog_group_channel_enable:0000000000000000 $t
+     /tmp/ccALfOxt.s:876    .text.adc_watchdog_group_channel_enable:0000000000000000 adc_watchdog_group_channel_enable
+     /tmp/ccALfOxt.s:909    .text.adc_watchdog_disable:0000000000000000 $t
+     /tmp/ccALfOxt.s:916    .text.adc_watchdog_disable:0000000000000000 adc_watchdog_disable
+     /tmp/ccALfOxt.s:945    .text.adc_watchdog_threshold_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:952    .text.adc_watchdog_threshold_config:0000000000000000 adc_watchdog_threshold_config
+     /tmp/ccALfOxt.s:963    .text.adc_flag_get:0000000000000000 $t
+     /tmp/ccALfOxt.s:970    .text.adc_flag_get:0000000000000000 adc_flag_get
+     /tmp/ccALfOxt.s:984    .text.adc_flag_clear:0000000000000000 $t
+     /tmp/ccALfOxt.s:991    .text.adc_flag_clear:0000000000000000 adc_flag_clear
+     /tmp/ccALfOxt.s:1001   .text.adc_regular_software_startconv_flag_get:0000000000000000 $t
+     /tmp/ccALfOxt.s:1008   .text.adc_regular_software_startconv_flag_get:0000000000000000 adc_regular_software_startconv_flag_get
+     /tmp/ccALfOxt.s:1022   .text.adc_inserted_software_startconv_flag_get:0000000000000000 $t
+     /tmp/ccALfOxt.s:1029   .text.adc_inserted_software_startconv_flag_get:0000000000000000 adc_inserted_software_startconv_flag_get
+     /tmp/ccALfOxt.s:1043   .text.adc_interrupt_flag_get:0000000000000000 $t
+     /tmp/ccALfOxt.s:1050   .text.adc_interrupt_flag_get:0000000000000000 adc_interrupt_flag_get
+     /tmp/ccALfOxt.s:1059   .text.adc_interrupt_flag_get:000000000000000a $d
+     /tmp/ccALfOxt.s:1091   .text.adc_interrupt_flag_get:000000000000002a $t
+     /tmp/ccALfOxt.s:1157   .text.adc_interrupt_flag_clear:0000000000000000 $t
+     /tmp/ccALfOxt.s:1164   .text.adc_interrupt_flag_clear:0000000000000000 adc_interrupt_flag_clear
+     /tmp/ccALfOxt.s:1174   .text.adc_interrupt_enable:0000000000000000 $t
+     /tmp/ccALfOxt.s:1181   .text.adc_interrupt_enable:0000000000000000 adc_interrupt_enable
+     /tmp/ccALfOxt.s:1219   .text.adc_interrupt_disable:0000000000000000 $t
+     /tmp/ccALfOxt.s:1226   .text.adc_interrupt_disable:0000000000000000 adc_interrupt_disable
+     /tmp/ccALfOxt.s:1264   .text.adc_sync_mode_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:1271   .text.adc_sync_mode_config:0000000000000000 adc_sync_mode_config
+     /tmp/ccALfOxt.s:1286   .text.adc_sync_mode_config:0000000000000014 $d
+     /tmp/ccALfOxt.s:1289   .text.adc_sync_delay_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:1296   .text.adc_sync_delay_config:0000000000000000 adc_sync_delay_config
+     /tmp/ccALfOxt.s:1311   .text.adc_sync_delay_config:0000000000000014 $d
+     /tmp/ccALfOxt.s:1314   .text.adc_sync_dma_config:0000000000000000 $t
+     /tmp/ccALfOxt.s:1321   .text.adc_sync_dma_config:0000000000000000 adc_sync_dma_config
+     /tmp/ccALfOxt.s:1336   .text.adc_sync_dma_config:0000000000000014 $d
+     /tmp/ccALfOxt.s:1339   .text.adc_sync_dma_request_after_last_enable:0000000000000000 $t
+     /tmp/ccALfOxt.s:1346   .text.adc_sync_dma_request_after_last_enable:0000000000000000 adc_sync_dma_request_after_last_enable
+     /tmp/ccALfOxt.s:1358   .text.adc_sync_dma_request_after_last_enable:000000000000000c $d
+     /tmp/ccALfOxt.s:1361   .text.adc_sync_dma_request_after_last_disable:0000000000000000 $t
+     /tmp/ccALfOxt.s:1368   .text.adc_sync_dma_request_after_last_disable:0000000000000000 adc_sync_dma_request_after_last_disable
+     /tmp/ccALfOxt.s:1380   .text.adc_sync_dma_request_after_last_disable:000000000000000c $d
+     /tmp/ccALfOxt.s:1383   .text.adc_sync_regular_data_read:0000000000000000 $t
+     /tmp/ccALfOxt.s:1390   .text.adc_sync_regular_data_read:0000000000000000 adc_sync_regular_data_read
+     /tmp/ccALfOxt.s:1400   .text.adc_sync_regular_data_read:0000000000000008 $d
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable

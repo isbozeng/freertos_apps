@@ -1,0 +1,4082 @@
+ARM GAS  /tmp/cclahotI.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_enet.c"
+  14              		.text
+  15              		.section	.text.enet_default_init,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	enet_default_init:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26              		@ link register save eliminated.
+  27 0000 144A     		ldr	r2, .L2
+  28 0002 1168     		ldr	r1, [r2]
+  29 0004 144B     		ldr	r3, .L2+4
+  30 0006 0B40     		ands	r3, r3, r1
+  31 0008 1360     		str	r3, [r2]
+  32 000a 0022     		movs	r2, #0
+  33 000c 134B     		ldr	r3, .L2+8
+  34 000e 1A60     		str	r2, [r3]
+  35 0010 0433     		adds	r3, r3, #4
+  36 0012 1A60     		str	r2, [r3]
+  37 0014 0433     		adds	r3, r3, #4
+  38 0016 1A60     		str	r2, [r3]
+  39 0018 1149     		ldr	r1, .L2+12
+  40 001a 0B68     		ldr	r3, [r1]
+  41 001c 23F0BE03 		bic	r3, r3, #190
+  42 0020 1B04     		lsls	r3, r3, #16
+  43 0022 1B0C     		lsrs	r3, r3, #16
+  44 0024 43F08003 		orr	r3, r3, #128
+  45 0028 0B60     		str	r3, [r1]
+  46 002a 0E4B     		ldr	r3, .L2+16
+  47 002c 4FF4A851 		mov	r1, #5376
+  48 0030 1960     		str	r1, [r3]
+  49 0032 A3F58353 		sub	r3, r3, #4192
+  50 0036 043B     		subs	r3, r3, #4
+  51 0038 1A60     		str	r2, [r3]
+  52 003a 0B4A     		ldr	r2, .L2+20
+  53 003c 1168     		ldr	r1, [r2]
+  54 003e 0B4B     		ldr	r3, .L2+24
+  55 0040 0B40     		ands	r3, r3, r1
+  56 0042 43F00873 		orr	r3, r3, #35651584
+  57 0046 1360     		str	r3, [r2]
+  58 0048 094B     		ldr	r3, .L2+28
+ARM GAS  /tmp/cclahotI.s 			page 2
+
+
+  59 004a 1A68     		ldr	r2, [r3]
+  60 004c 094A     		ldr	r2, .L2+32
+  61 004e 1A60     		str	r2, [r3]
+  62 0050 7047     		bx	lr
+  63              	.L3:
+  64 0052 00BF     		.align	2
+  65              	.L2:
+  66 0054 00800240 		.word	1073905664
+  67 0058 0F8130FD 		.word	-47152881
+  68 005c 04800240 		.word	1073905668
+  69 0060 18800240 		.word	1073905688
+  70 0064 80900240 		.word	1073909888
+  71 0068 18900240 		.word	1073909784
+  72 006c 233FDEF8 		.word	-119652573
+  73 0070 00900240 		.word	1073909760
+  74 0074 0060C102 		.word	46227456
+  76              		.section	.text.enet_delay,"ax",%progbits
+  77              		.align	1
+  78              		.syntax unified
+  79              		.thumb
+  80              		.thumb_func
+  81              		.fpu fpv4-sp-d16
+  83              	enet_delay:
+  84              		@ args = 0, pretend = 0, frame = 8
+  85              		@ frame_needed = 0, uses_anonymous_args = 0
+  86              		@ link register save eliminated.
+  87 0000 82B0     		sub	sp, sp, #8
+  88 0002 0023     		movs	r3, #0
+  89 0004 0193     		str	r3, [sp, #4]
+  90 0006 0190     		str	r0, [sp, #4]
+  91              	.L5:
+  92 0008 019B     		ldr	r3, [sp, #4]
+  93 000a 1BB1     		cbz	r3, .L8
+  94 000c 019B     		ldr	r3, [sp, #4]
+  95 000e 013B     		subs	r3, r3, #1
+  96 0010 0193     		str	r3, [sp, #4]
+  97 0012 F9E7     		b	.L5
+  98              	.L8:
+  99 0014 02B0     		add	sp, sp, #8
+ 100              		@ sp needed
+ 101 0016 7047     		bx	lr
+ 103              		.section	.text.enet_initpara_config,"ax",%progbits
+ 104              		.align	1
+ 105              		.global	enet_initpara_config
+ 106              		.syntax unified
+ 107              		.thumb
+ 108              		.thumb_func
+ 109              		.fpu fpv4-sp-d16
+ 111              	enet_initpara_config:
+ 112              		@ args = 0, pretend = 0, frame = 0
+ 113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 114              		@ link register save eliminated.
+ 115 0000 4028     		cmp	r0, #64
+ 116 0002 5ED0     		beq	.L10
+ 117 0004 13D9     		bls	.L28
+ 118 0006 B0F5806F 		cmp	r0, #1024
+ 119 000a 6FD0     		beq	.L20
+ARM GAS  /tmp/cclahotI.s 			page 3
+
+
+ 120 000c 25D9     		bls	.L29
+ 121 000e B0F5805F 		cmp	r0, #4096
+ 122 0012 72D0     		beq	.L25
+ 123 0014 B0F5005F 		cmp	r0, #8192
+ 124 0018 76D0     		beq	.L26
+ 125 001a B0F5006F 		cmp	r0, #2048
+ 126 001e 0FD1     		bne	.L9
+ 127 0020 3D4B     		ldr	r3, .L33
+ 128 0022 1A68     		ldr	r2, [r3]
+ 129 0024 42F40062 		orr	r2, r2, #2048
+ 130 0028 1A60     		str	r2, [r3]
+ 131 002a 1963     		str	r1, [r3, #48]
+ 132 002c 7047     		bx	lr
+ 133              	.L28:
+ 134 002e 0428     		cmp	r0, #4
+ 135 0030 29D0     		beq	.L12
+ 136 0032 06D9     		bls	.L30
+ 137 0034 1028     		cmp	r0, #16
+ 138 0036 34D0     		beq	.L17
+ 139 0038 2028     		cmp	r0, #32
+ 140 003a 39D0     		beq	.L18
+ 141 003c 0828     		cmp	r0, #8
+ 142 003e 29D0     		beq	.L31
+ 143              	.L9:
+ 144 0040 7047     		bx	lr
+ 145              	.L30:
+ 146 0042 0128     		cmp	r0, #1
+ 147 0044 18D0     		beq	.L14
+ 148 0046 0228     		cmp	r0, #2
+ 149 0048 06D1     		bne	.L32
+ 150 004a 334B     		ldr	r3, .L33
+ 151 004c 1A68     		ldr	r2, [r3]
+ 152 004e 42F00202 		orr	r2, r2, #2
+ 153 0052 1A60     		str	r2, [r3]
+ 154 0054 9960     		str	r1, [r3, #8]
+ 155 0056 7047     		bx	lr
+ 156              	.L32:
+ 157 0058 7047     		bx	lr
+ 158              	.L29:
+ 159 005a B0F5807F 		cmp	r0, #256
+ 160 005e 37D0     		beq	.L22
+ 161 0060 B0F5007F 		cmp	r0, #512
+ 162 0064 3BD0     		beq	.L23
+ 163 0066 8028     		cmp	r0, #128
+ 164 0068 EAD1     		bne	.L9
+ 165 006a 2B4B     		ldr	r3, .L33
+ 166 006c 1A68     		ldr	r2, [r3]
+ 167 006e 42F08002 		orr	r2, r2, #128
+ 168 0072 1A60     		str	r2, [r3]
+ 169 0074 1962     		str	r1, [r3, #32]
+ 170 0076 7047     		bx	lr
+ 171              	.L14:
+ 172 0078 274B     		ldr	r3, .L33
+ 173 007a 1A68     		ldr	r2, [r3]
+ 174 007c 42F00102 		orr	r2, r2, #1
+ 175 0080 1A60     		str	r2, [r3]
+ 176 0082 5960     		str	r1, [r3, #4]
+ARM GAS  /tmp/cclahotI.s 			page 4
+
+
+ 177 0084 7047     		bx	lr
+ 178              	.L12:
+ 179 0086 244B     		ldr	r3, .L33
+ 180 0088 1A68     		ldr	r2, [r3]
+ 181 008a 42F00402 		orr	r2, r2, #4
+ 182 008e 1A60     		str	r2, [r3]
+ 183 0090 D960     		str	r1, [r3, #12]
+ 184 0092 7047     		bx	lr
+ 185              	.L31:
+ 186 0094 204B     		ldr	r3, .L33
+ 187 0096 1A68     		ldr	r2, [r3]
+ 188 0098 42F00802 		orr	r2, r2, #8
+ 189 009c 1A60     		str	r2, [r3]
+ 190 009e 1961     		str	r1, [r3, #16]
+ 191 00a0 7047     		bx	lr
+ 192              	.L17:
+ 193 00a2 1D4B     		ldr	r3, .L33
+ 194 00a4 1A68     		ldr	r2, [r3]
+ 195 00a6 42F01002 		orr	r2, r2, #16
+ 196 00aa 1A60     		str	r2, [r3]
+ 197 00ac 5961     		str	r1, [r3, #20]
+ 198 00ae 7047     		bx	lr
+ 199              	.L18:
+ 200 00b0 194B     		ldr	r3, .L33
+ 201 00b2 1A68     		ldr	r2, [r3]
+ 202 00b4 42F02002 		orr	r2, r2, #32
+ 203 00b8 1A60     		str	r2, [r3]
+ 204 00ba 21F08001 		bic	r1, r1, #128
+ 205 00be 9961     		str	r1, [r3, #24]
+ 206 00c0 7047     		bx	lr
+ 207              	.L10:
+ 208 00c2 154B     		ldr	r3, .L33
+ 209 00c4 1A68     		ldr	r2, [r3]
+ 210 00c6 42F04002 		orr	r2, r2, #64
+ 211 00ca 1A60     		str	r2, [r3]
+ 212 00cc D961     		str	r1, [r3, #28]
+ 213 00ce 7047     		bx	lr
+ 214              	.L22:
+ 215 00d0 114B     		ldr	r3, .L33
+ 216 00d2 1A68     		ldr	r2, [r3]
+ 217 00d4 42F48072 		orr	r2, r2, #256
+ 218 00d8 1A60     		str	r2, [r3]
+ 219 00da 5962     		str	r1, [r3, #36]
+ 220 00dc 7047     		bx	lr
+ 221              	.L23:
+ 222 00de 0E4B     		ldr	r3, .L33
+ 223 00e0 1A68     		ldr	r2, [r3]
+ 224 00e2 42F40072 		orr	r2, r2, #512
+ 225 00e6 1A60     		str	r2, [r3]
+ 226 00e8 9962     		str	r1, [r3, #40]
+ 227 00ea 7047     		bx	lr
+ 228              	.L20:
+ 229 00ec 0A4B     		ldr	r3, .L33
+ 230 00ee 1A68     		ldr	r2, [r3]
+ 231 00f0 42F48062 		orr	r2, r2, #1024
+ 232 00f4 1A60     		str	r2, [r3]
+ 233 00f6 D962     		str	r1, [r3, #44]
+ARM GAS  /tmp/cclahotI.s 			page 5
+
+
+ 234 00f8 7047     		bx	lr
+ 235              	.L25:
+ 236 00fa 074B     		ldr	r3, .L33
+ 237 00fc 1A68     		ldr	r2, [r3]
+ 238 00fe 42F48052 		orr	r2, r2, #4096
+ 239 0102 1A60     		str	r2, [r3]
+ 240 0104 5963     		str	r1, [r3, #52]
+ 241 0106 7047     		bx	lr
+ 242              	.L26:
+ 243 0108 034B     		ldr	r3, .L33
+ 244 010a 1A68     		ldr	r2, [r3]
+ 245 010c 42F40052 		orr	r2, r2, #8192
+ 246 0110 1A60     		str	r2, [r3]
+ 247 0112 9963     		str	r1, [r3, #56]
+ 248 0114 94E7     		b	.L9
+ 249              	.L34:
+ 250 0116 00BF     		.align	2
+ 251              	.L33:
+ 252 0118 00000000 		.word	.LANCHOR0
+ 254              		.section	.text.enet_software_reset,"ax",%progbits
+ 255              		.align	1
+ 256              		.global	enet_software_reset
+ 257              		.syntax unified
+ 258              		.thumb
+ 259              		.thumb_func
+ 260              		.fpu fpv4-sp-d16
+ 262              	enet_software_reset:
+ 263              		@ args = 0, pretend = 0, frame = 0
+ 264              		@ frame_needed = 0, uses_anonymous_args = 0
+ 265              		@ link register save eliminated.
+ 266 0000 0B4A     		ldr	r2, .L40
+ 267 0002 1368     		ldr	r3, [r2]
+ 268 0004 43F00103 		orr	r3, r3, #1
+ 269 0008 1360     		str	r3, [r2]
+ 270 000a 0023     		movs	r3, #0
+ 271              	.L37:
+ 272 000c 084A     		ldr	r2, .L40
+ 273 000e 1268     		ldr	r2, [r2]
+ 274 0010 0133     		adds	r3, r3, #1
+ 275 0012 12F0010F 		tst	r2, #1
+ 276 0016 02D0     		beq	.L36
+ 277 0018 064A     		ldr	r2, .L40+4
+ 278 001a 9342     		cmp	r3, r2
+ 279 001c F6D1     		bne	.L37
+ 280              	.L36:
+ 281 001e 044B     		ldr	r3, .L40
+ 282 0020 1B68     		ldr	r3, [r3]
+ 283 0022 13F0010F 		tst	r3, #1
+ 284 0026 01D0     		beq	.L39
+ 285 0028 0020     		movs	r0, #0
+ 286 002a 7047     		bx	lr
+ 287              	.L39:
+ 288 002c 0120     		movs	r0, #1
+ 289 002e 7047     		bx	lr
+ 290              	.L41:
+ 291              		.align	2
+ 292              	.L40:
+ARM GAS  /tmp/cclahotI.s 			page 6
+
+
+ 293 0030 00900240 		.word	1073909760
+ 294 0034 FFFF0400 		.word	327679
+ 296              		.section	.text.enet_descriptors_chain_init,"ax",%progbits
+ 297              		.align	1
+ 298              		.global	enet_descriptors_chain_init
+ 299              		.syntax unified
+ 300              		.thumb
+ 301              		.thumb_func
+ 302              		.fpu fpv4-sp-d16
+ 304              	enet_descriptors_chain_init:
+ 305              		@ args = 0, pretend = 0, frame = 0
+ 306              		@ frame_needed = 0, uses_anonymous_args = 0
+ 307              		@ link register save eliminated.
+ 308 0000 70B4     		push	{r4, r5, r6}
+ 309 0002 B0F5E00F 		cmp	r0, #7340032
+ 310 0006 0FD0     		beq	.L50
+ 311 0008 1748     		ldr	r0, .L53
+ 312 000a 184B     		ldr	r3, .L53+4
+ 313 000c 1860     		str	r0, [r3]
+ 314 000e 184B     		ldr	r3, .L53+8
+ 315 0010 1860     		str	r0, [r3]
+ 316 0012 184E     		ldr	r6, .L53+12
+ 317 0014 44F2F455 		movw	r5, #17908
+ 318 0018 4FF00044 		mov	r4, #-2147483648
+ 319              	.L44:
+ 320 001c 0023     		movs	r3, #0
+ 321 001e 164A     		ldr	r2, .L53+16
+ 322 0020 1360     		str	r3, [r2]
+ 323 0022 164A     		ldr	r2, .L53+20
+ 324 0024 1360     		str	r3, [r2]
+ 325 0026 0EE0     		b	.L45
+ 326              	.L50:
+ 327 0028 1548     		ldr	r0, .L53+24
+ 328 002a 164B     		ldr	r3, .L53+28
+ 329 002c 1860     		str	r0, [r3]
+ 330 002e 164B     		ldr	r3, .L53+32
+ 331 0030 1860     		str	r0, [r3]
+ 332 0032 164E     		ldr	r6, .L53+36
+ 333 0034 0025     		movs	r5, #0
+ 334 0036 4FF48014 		mov	r4, #1048576
+ 335 003a EFE7     		b	.L44
+ 336              	.L52:
+ 337 003c 5A1C     		adds	r2, r3, #1
+ 338 003e 00EB0212 		add	r2, r0, r2, lsl #4
+ 339 0042 CA60     		str	r2, [r1, #12]
+ 340              	.L47:
+ 341 0044 0133     		adds	r3, r3, #1
+ 342              	.L45:
+ 343 0046 042B     		cmp	r3, #4
+ 344 0048 0CD8     		bhi	.L51
+ 345 004a 1A01     		lsls	r2, r3, #4
+ 346 004c 8118     		adds	r1, r0, r2
+ 347 004e 8450     		str	r4, [r0, r2]
+ 348 0050 4D60     		str	r5, [r1, #4]
+ 349 0052 40F2F452 		movw	r2, #1524
+ 350 0056 02FB0362 		mla	r2, r2, r3, r6
+ 351 005a 8A60     		str	r2, [r1, #8]
+ARM GAS  /tmp/cclahotI.s 			page 7
+
+
+ 352 005c 032B     		cmp	r3, #3
+ 353 005e EDD9     		bls	.L52
+ 354 0060 C860     		str	r0, [r1, #12]
+ 355 0062 EFE7     		b	.L47
+ 356              	.L51:
+ 357 0064 70BC     		pop	{r4, r5, r6}
+ 358 0066 7047     		bx	lr
+ 359              	.L54:
+ 360              		.align	2
+ 361              	.L53:
+ 362 0068 00000000 		.word	rxdesc_tab
+ 363 006c 0C900240 		.word	1073909772
+ 364 0070 00000000 		.word	dma_current_rxdesc
+ 365 0074 00000000 		.word	rx_buff
+ 366 0078 00000000 		.word	.LANCHOR1
+ 367 007c 00000000 		.word	.LANCHOR2
+ 368 0080 00000000 		.word	txdesc_tab
+ 369 0084 10900240 		.word	1073909776
+ 370 0088 00000000 		.word	dma_current_txdesc
+ 371 008c 00000000 		.word	tx_buff
+ 373              		.section	.text.enet_descriptors_ring_init,"ax",%progbits
+ 374              		.align	1
+ 375              		.global	enet_descriptors_ring_init
+ 376              		.syntax unified
+ 377              		.thumb
+ 378              		.thumb_func
+ 379              		.fpu fpv4-sp-d16
+ 381              	enet_descriptors_ring_init:
+ 382              		@ args = 0, pretend = 0, frame = 0
+ 383              		@ frame_needed = 0, uses_anonymous_args = 0
+ 384              		@ link register save eliminated.
+ 385 0000 F0B4     		push	{r4, r5, r6, r7}
+ 386 0002 1E4B     		ldr	r3, .L66
+ 387 0004 1A68     		ldr	r2, [r3]
+ 388 0006 22F07C02 		bic	r2, r2, #124
+ 389 000a 1A60     		str	r2, [r3]
+ 390 000c 1A68     		ldr	r2, [r3]
+ 391 000e 1A60     		str	r2, [r3]
+ 392 0010 B0F5E00F 		cmp	r0, #7340032
+ 393 0014 0FD0     		beq	.L63
+ 394 0016 1A4C     		ldr	r4, .L66+4
+ 395 0018 1A4B     		ldr	r3, .L66+8
+ 396 001a 1C60     		str	r4, [r3]
+ 397 001c 1A4B     		ldr	r3, .L66+12
+ 398 001e 1C60     		str	r4, [r3]
+ 399 0020 1A4F     		ldr	r7, .L66+16
+ 400 0022 40F2F455 		movw	r5, #1524
+ 401 0026 4FF00046 		mov	r6, #-2147483648
+ 402              	.L57:
+ 403 002a 0023     		movs	r3, #0
+ 404 002c 184A     		ldr	r2, .L66+20
+ 405 002e 1360     		str	r3, [r2]
+ 406 0030 184A     		ldr	r2, .L66+24
+ 407 0032 1360     		str	r3, [r2]
+ 408 0034 0CE0     		b	.L58
+ 409              	.L63:
+ 410 0036 184C     		ldr	r4, .L66+28
+ARM GAS  /tmp/cclahotI.s 			page 8
+
+
+ 411 0038 1033     		adds	r3, r3, #16
+ 412 003a 1C60     		str	r4, [r3]
+ 413 003c 174B     		ldr	r3, .L66+32
+ 414 003e 1C60     		str	r4, [r3]
+ 415 0040 174F     		ldr	r7, .L66+36
+ 416 0042 0025     		movs	r5, #0
+ 417 0044 2E46     		mov	r6, r5
+ 418 0046 F0E7     		b	.L57
+ 419              	.L65:
+ 420 0048 46F40012 		orr	r2, r6, #2097152
+ 421 004c 0A60     		str	r2, [r1]
+ 422              	.L59:
+ 423 004e 0133     		adds	r3, r3, #1
+ 424              	.L58:
+ 425 0050 042B     		cmp	r3, #4
+ 426 0052 11D8     		bhi	.L64
+ 427 0054 1A01     		lsls	r2, r3, #4
+ 428 0056 A118     		adds	r1, r4, r2
+ 429 0058 A650     		str	r6, [r4, r2]
+ 430 005a 4D60     		str	r5, [r1, #4]
+ 431 005c 40F2F452 		movw	r2, #1524
+ 432 0060 02FB0372 		mla	r2, r2, r3, r7
+ 433 0064 8A60     		str	r2, [r1, #8]
+ 434 0066 042B     		cmp	r3, #4
+ 435 0068 F1D1     		bne	.L59
+ 436 006a B0F5E00F 		cmp	r0, #7340032
+ 437 006e EBD0     		beq	.L65
+ 438 0070 45F40042 		orr	r2, r5, #32768
+ 439 0074 4A60     		str	r2, [r1, #4]
+ 440 0076 EAE7     		b	.L59
+ 441              	.L64:
+ 442 0078 F0BC     		pop	{r4, r5, r6, r7}
+ 443 007a 7047     		bx	lr
+ 444              	.L67:
+ 445              		.align	2
+ 446              	.L66:
+ 447 007c 00900240 		.word	1073909760
+ 448 0080 00000000 		.word	rxdesc_tab
+ 449 0084 0C900240 		.word	1073909772
+ 450 0088 00000000 		.word	dma_current_rxdesc
+ 451 008c 00000000 		.word	rx_buff
+ 452 0090 00000000 		.word	.LANCHOR1
+ 453 0094 00000000 		.word	.LANCHOR2
+ 454 0098 00000000 		.word	txdesc_tab
+ 455 009c 00000000 		.word	dma_current_txdesc
+ 456 00a0 00000000 		.word	tx_buff
+ 458              		.section	.text.enet_frame_receive,"ax",%progbits
+ 459              		.align	1
+ 460              		.global	enet_frame_receive
+ 461              		.syntax unified
+ 462              		.thumb
+ 463              		.thumb_func
+ 464              		.fpu fpv4-sp-d16
+ 466              	enet_frame_receive:
+ 467              		@ args = 0, pretend = 0, frame = 0
+ 468              		@ frame_needed = 0, uses_anonymous_args = 0
+ 469              		@ link register save eliminated.
+ARM GAS  /tmp/cclahotI.s 			page 9
+
+
+ 470 0000 2C4B     		ldr	r3, .L85
+ 471 0002 1B68     		ldr	r3, [r3]
+ 472 0004 1B68     		ldr	r3, [r3]
+ 473 0006 002B     		cmp	r3, #0
+ 474 0008 4CDB     		blt	.L77
+ 475 000a 30B4     		push	{r4, r5}
+ 476 000c E0B1     		cbz	r0, .L70
+ 477 000e 03F40342 		and	r2, r3, #33536
+ 478 0012 B2F5407F 		cmp	r2, #768
+ 479 0016 47D1     		bne	.L78
+ 480 0018 C3F30D42 		ubfx	r2, r3, #16, #14
+ 481 001c 141F     		subs	r4, r2, #4
+ 482 001e 264D     		ldr	r5, .L85+4
+ 483 0020 2D68     		ldr	r5, [r5]
+ 484 0022 15F0007F 		tst	r5, #33554432
+ 485 0026 03D0     		beq	.L71
+ 486 0028 13F0200F 		tst	r3, #32
+ 487 002c 00D0     		beq	.L71
+ 488 002e 1446     		mov	r4, r2
+ 489              	.L71:
+ 490 0030 8C42     		cmp	r4, r1
+ 491 0032 3CD8     		bhi	.L80
+ 492 0034 0023     		movs	r3, #0
+ 493              	.L72:
+ 494 0036 A342     		cmp	r3, r4
+ 495 0038 06D2     		bcs	.L70
+ 496 003a 1E4A     		ldr	r2, .L85
+ 497 003c 1268     		ldr	r2, [r2]
+ 498 003e 9268     		ldr	r2, [r2, #8]
+ 499 0040 D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 500 0042 C254     		strb	r2, [r0, r3]
+ 501 0044 0133     		adds	r3, r3, #1
+ 502 0046 F6E7     		b	.L72
+ 503              	.L70:
+ 504 0048 1A4B     		ldr	r3, .L85
+ 505 004a 1B68     		ldr	r3, [r3]
+ 506 004c 4FF00042 		mov	r2, #-2147483648
+ 507 0050 1A60     		str	r2, [r3]
+ 508 0052 1A4B     		ldr	r3, .L85+8
+ 509 0054 1B68     		ldr	r3, [r3]
+ 510 0056 13F0800F 		tst	r3, #128
+ 511 005a 05D0     		beq	.L74
+ 512 005c 174B     		ldr	r3, .L85+8
+ 513 005e 8022     		movs	r2, #128
+ 514 0060 1A60     		str	r2, [r3]
+ 515 0062 0C3B     		subs	r3, r3, #12
+ 516 0064 0022     		movs	r2, #0
+ 517 0066 1A60     		str	r2, [r3]
+ 518              	.L74:
+ 519 0068 124B     		ldr	r3, .L85
+ 520 006a 1B68     		ldr	r3, [r3]
+ 521 006c 5A68     		ldr	r2, [r3, #4]
+ 522 006e 12F4804F 		tst	r2, #16384
+ 523 0072 04D0     		beq	.L75
+ 524 0074 DA68     		ldr	r2, [r3, #12]
+ 525 0076 0F4B     		ldr	r3, .L85
+ 526 0078 1A60     		str	r2, [r3]
+ARM GAS  /tmp/cclahotI.s 			page 10
+
+
+ 527 007a 0120     		movs	r0, #1
+ 528 007c 15E0     		b	.L69
+ 529              	.L75:
+ 530 007e 12F4004F 		tst	r2, #32768
+ 531 0082 05D0     		beq	.L76
+ 532 0084 0E4B     		ldr	r3, .L85+12
+ 533 0086 1A68     		ldr	r2, [r3]
+ 534 0088 0A4B     		ldr	r3, .L85
+ 535 008a 1A60     		str	r2, [r3]
+ 536 008c 0120     		movs	r0, #1
+ 537 008e 0CE0     		b	.L69
+ 538              	.L76:
+ 539 0090 0C4A     		ldr	r2, .L85+16
+ 540 0092 1268     		ldr	r2, [r2]
+ 541 0094 C2F38402 		ubfx	r2, r2, #2, #5
+ 542 0098 1344     		add	r3, r3, r2
+ 543 009a 1033     		adds	r3, r3, #16
+ 544 009c 054A     		ldr	r2, .L85
+ 545 009e 1360     		str	r3, [r2]
+ 546 00a0 0120     		movs	r0, #1
+ 547 00a2 02E0     		b	.L69
+ 548              	.L77:
+ 549 00a4 0020     		movs	r0, #0
+ 550 00a6 7047     		bx	lr
+ 551              	.L78:
+ 552 00a8 0020     		movs	r0, #0
+ 553              	.L69:
+ 554 00aa 30BC     		pop	{r4, r5}
+ 555 00ac 7047     		bx	lr
+ 556              	.L80:
+ 557 00ae 0020     		movs	r0, #0
+ 558 00b0 FBE7     		b	.L69
+ 559              	.L86:
+ 560 00b2 00BF     		.align	2
+ 561              	.L85:
+ 562 00b4 00000000 		.word	dma_current_rxdesc
+ 563 00b8 00800240 		.word	1073905664
+ 564 00bc 14900240 		.word	1073909780
+ 565 00c0 0C900240 		.word	1073909772
+ 566 00c4 00900240 		.word	1073909760
+ 568              		.section	.text.enet_frame_transmit,"ax",%progbits
+ 569              		.align	1
+ 570              		.global	enet_frame_transmit
+ 571              		.syntax unified
+ 572              		.thumb
+ 573              		.thumb_func
+ 574              		.fpu fpv4-sp-d16
+ 576              	enet_frame_transmit:
+ 577              		@ args = 0, pretend = 0, frame = 0
+ 578              		@ frame_needed = 0, uses_anonymous_args = 0
+ 579              		@ link register save eliminated.
+ 580 0000 294B     		ldr	r3, .L103
+ 581 0002 1B68     		ldr	r3, [r3]
+ 582 0004 1B68     		ldr	r3, [r3]
+ 583 0006 002B     		cmp	r3, #0
+ 584 0008 4ADB     		blt	.L96
+ 585 000a 40F2F453 		movw	r3, #1524
+ARM GAS  /tmp/cclahotI.s 			page 11
+
+
+ 586 000e 9942     		cmp	r1, r3
+ 587 0010 48D8     		bhi	.L97
+ 588 0012 10B4     		push	{r4}
+ 589 0014 48B1     		cbz	r0, .L90
+ 590 0016 0023     		movs	r3, #0
+ 591              	.L89:
+ 592 0018 8B42     		cmp	r3, r1
+ 593 001a 06D2     		bcs	.L90
+ 594 001c 224A     		ldr	r2, .L103
+ 595 001e 1268     		ldr	r2, [r2]
+ 596 0020 9268     		ldr	r2, [r2, #8]
+ 597 0022 C45C     		ldrb	r4, [r0, r3]	@ zero_extendqisi2
+ 598 0024 D454     		strb	r4, [r2, r3]
+ 599 0026 0133     		adds	r3, r3, #1
+ 600 0028 F6E7     		b	.L89
+ 601              	.L90:
+ 602 002a 1F48     		ldr	r0, .L103
+ 603 002c 0368     		ldr	r3, [r0]
+ 604 002e 5960     		str	r1, [r3, #4]
+ 605 0030 1A68     		ldr	r2, [r3]
+ 606 0032 42F04052 		orr	r2, r2, #805306368
+ 607 0036 1A60     		str	r2, [r3]
+ 608 0038 0268     		ldr	r2, [r0]
+ 609 003a 1368     		ldr	r3, [r2]
+ 610 003c 43F00043 		orr	r3, r3, #-2147483648
+ 611 0040 1360     		str	r3, [r2]
+ 612 0042 1A4A     		ldr	r2, .L103+4
+ 613 0044 1368     		ldr	r3, [r2]
+ 614 0046 1268     		ldr	r2, [r2]
+ 615 0048 02F02002 		and	r2, r2, #32
+ 616 004c 13F00403 		ands	r3, r3, #4
+ 617 0050 00D1     		bne	.L92
+ 618 0052 2AB1     		cbz	r2, .L93
+ 619              	.L92:
+ 620 0054 1343     		orrs	r3, r3, r2
+ 621 0056 154A     		ldr	r2, .L103+4
+ 622 0058 1360     		str	r3, [r2]
+ 623 005a 154B     		ldr	r3, .L103+8
+ 624 005c 0022     		movs	r2, #0
+ 625 005e 1A60     		str	r2, [r3]
+ 626              	.L93:
+ 627 0060 114B     		ldr	r3, .L103
+ 628 0062 1B68     		ldr	r3, [r3]
+ 629 0064 1A68     		ldr	r2, [r3]
+ 630 0066 12F4801F 		tst	r2, #1048576
+ 631 006a 06D0     		beq	.L94
+ 632 006c DA68     		ldr	r2, [r3, #12]
+ 633 006e 0E4B     		ldr	r3, .L103
+ 634 0070 1A60     		str	r2, [r3]
+ 635 0072 0120     		movs	r0, #1
+ 636              	.L88:
+ 637 0074 5DF8044B 		ldr	r4, [sp], #4
+ 638 0078 7047     		bx	lr
+ 639              	.L94:
+ 640 007a 12F4001F 		tst	r2, #2097152
+ 641 007e 05D0     		beq	.L95
+ 642 0080 0C4B     		ldr	r3, .L103+12
+ARM GAS  /tmp/cclahotI.s 			page 12
+
+
+ 643 0082 1A68     		ldr	r2, [r3]
+ 644 0084 084B     		ldr	r3, .L103
+ 645 0086 1A60     		str	r2, [r3]
+ 646 0088 0120     		movs	r0, #1
+ 647 008a F3E7     		b	.L88
+ 648              	.L95:
+ 649 008c 0A4A     		ldr	r2, .L103+16
+ 650 008e 1268     		ldr	r2, [r2]
+ 651 0090 C2F38402 		ubfx	r2, r2, #2, #5
+ 652 0094 1344     		add	r3, r3, r2
+ 653 0096 1033     		adds	r3, r3, #16
+ 654 0098 034A     		ldr	r2, .L103
+ 655 009a 1360     		str	r3, [r2]
+ 656 009c 0120     		movs	r0, #1
+ 657 009e E9E7     		b	.L88
+ 658              	.L96:
+ 659 00a0 0020     		movs	r0, #0
+ 660 00a2 7047     		bx	lr
+ 661              	.L97:
+ 662 00a4 0020     		movs	r0, #0
+ 663 00a6 7047     		bx	lr
+ 664              	.L104:
+ 665              		.align	2
+ 666              	.L103:
+ 667 00a8 00000000 		.word	dma_current_txdesc
+ 668 00ac 14900240 		.word	1073909780
+ 669 00b0 04900240 		.word	1073909764
+ 670 00b4 10900240 		.word	1073909776
+ 671 00b8 00900240 		.word	1073909760
+ 673              		.section	.text.enet_transmit_checksum_config,"ax",%progbits
+ 674              		.align	1
+ 675              		.global	enet_transmit_checksum_config
+ 676              		.syntax unified
+ 677              		.thumb
+ 678              		.thumb_func
+ 679              		.fpu fpv4-sp-d16
+ 681              	enet_transmit_checksum_config:
+ 682              		@ args = 0, pretend = 0, frame = 0
+ 683              		@ frame_needed = 0, uses_anonymous_args = 0
+ 684              		@ link register save eliminated.
+ 685 0000 0368     		ldr	r3, [r0]
+ 686 0002 23F44003 		bic	r3, r3, #12582912
+ 687 0006 0B43     		orrs	r3, r3, r1
+ 688 0008 0360     		str	r3, [r0]
+ 689 000a 7047     		bx	lr
+ 691              		.section	.text.enet_mac_address_set,"ax",%progbits
+ 692              		.align	1
+ 693              		.global	enet_mac_address_set
+ 694              		.syntax unified
+ 695              		.thumb
+ 696              		.thumb_func
+ 697              		.fpu fpv4-sp-d16
+ 699              	enet_mac_address_set:
+ 700              		@ args = 0, pretend = 0, frame = 0
+ 701              		@ frame_needed = 0, uses_anonymous_args = 0
+ 702              		@ link register save eliminated.
+ 703 0000 4A79     		ldrb	r2, [r1, #5]	@ zero_extendqisi2
+ARM GAS  /tmp/cclahotI.s 			page 13
+
+
+ 704 0002 0B79     		ldrb	r3, [r1, #4]	@ zero_extendqisi2
+ 705 0004 43EA0223 		orr	r3, r3, r2, lsl #8
+ 706 0008 074A     		ldr	r2, .L107
+ 707 000a 8350     		str	r3, [r0, r2]
+ 708 000c CA78     		ldrb	r2, [r1, #3]	@ zero_extendqisi2
+ 709 000e 8B78     		ldrb	r3, [r1, #2]	@ zero_extendqisi2
+ 710 0010 1B04     		lsls	r3, r3, #16
+ 711 0012 43EA0263 		orr	r3, r3, r2, lsl #24
+ 712 0016 4A78     		ldrb	r2, [r1, #1]	@ zero_extendqisi2
+ 713 0018 43EA0223 		orr	r3, r3, r2, lsl #8
+ 714 001c 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
+ 715 001e 1343     		orrs	r3, r3, r2
+ 716 0020 024A     		ldr	r2, .L107+4
+ 717 0022 8350     		str	r3, [r0, r2]
+ 718 0024 7047     		bx	lr
+ 719              	.L108:
+ 720 0026 00BF     		.align	2
+ 721              	.L107:
+ 722 0028 40800240 		.word	1073905728
+ 723 002c 44800240 		.word	1073905732
+ 725              		.section	.text.enet_mac_address_get,"ax",%progbits
+ 726              		.align	1
+ 727              		.global	enet_mac_address_get
+ 728              		.syntax unified
+ 729              		.thumb
+ 730              		.thumb_func
+ 731              		.fpu fpv4-sp-d16
+ 733              	enet_mac_address_get:
+ 734              		@ args = 0, pretend = 0, frame = 0
+ 735              		@ frame_needed = 0, uses_anonymous_args = 0
+ 736              		@ link register save eliminated.
+ 737 0000 0A4B     		ldr	r3, .L110
+ 738 0002 C258     		ldr	r2, [r0, r3]
+ 739 0004 0A70     		strb	r2, [r1]
+ 740 0006 C258     		ldr	r2, [r0, r3]
+ 741 0008 C2F30722 		ubfx	r2, r2, #8, #8
+ 742 000c 4A70     		strb	r2, [r1, #1]
+ 743 000e C258     		ldr	r2, [r0, r3]
+ 744 0010 C2F30742 		ubfx	r2, r2, #16, #8
+ 745 0014 8A70     		strb	r2, [r1, #2]
+ 746 0016 C358     		ldr	r3, [r0, r3]
+ 747 0018 1B0E     		lsrs	r3, r3, #24
+ 748 001a CB70     		strb	r3, [r1, #3]
+ 749 001c 044B     		ldr	r3, .L110+4
+ 750 001e C258     		ldr	r2, [r0, r3]
+ 751 0020 0A71     		strb	r2, [r1, #4]
+ 752 0022 C358     		ldr	r3, [r0, r3]
+ 753 0024 C3F30723 		ubfx	r3, r3, #8, #8
+ 754 0028 4B71     		strb	r3, [r1, #5]
+ 755 002a 7047     		bx	lr
+ 756              	.L111:
+ 757              		.align	2
+ 758              	.L110:
+ 759 002c 44800240 		.word	1073905732
+ 760 0030 40800240 		.word	1073905728
+ 762              		.section	.text.enet_flag_get,"ax",%progbits
+ 763              		.align	1
+ARM GAS  /tmp/cclahotI.s 			page 14
+
+
+ 764              		.global	enet_flag_get
+ 765              		.syntax unified
+ 766              		.thumb
+ 767              		.thumb_func
+ 768              		.fpu fpv4-sp-d16
+ 770              	enet_flag_get:
+ 771              		@ args = 0, pretend = 0, frame = 0
+ 772              		@ frame_needed = 0, uses_anonymous_args = 0
+ 773              		@ link register save eliminated.
+ 774 0000 8309     		lsrs	r3, r0, #6
+ 775 0002 03F18043 		add	r3, r3, #1073741824
+ 776 0006 03F52033 		add	r3, r3, #163840
+ 777 000a 1B68     		ldr	r3, [r3]
+ 778 000c 00F01F00 		and	r0, r0, #31
+ 779 0010 23FA00F0 		lsr	r0, r3, r0
+ 780 0014 10F0010F 		tst	r0, #1
+ 781 0018 01D0     		beq	.L114
+ 782 001a 0120     		movs	r0, #1
+ 783 001c 7047     		bx	lr
+ 784              	.L114:
+ 785 001e 0020     		movs	r0, #0
+ 786 0020 7047     		bx	lr
+ 788              		.section	.text.enet_flag_clear,"ax",%progbits
+ 789              		.align	1
+ 790              		.global	enet_flag_clear
+ 791              		.syntax unified
+ 792              		.thumb
+ 793              		.thumb_func
+ 794              		.fpu fpv4-sp-d16
+ 796              	enet_flag_clear:
+ 797              		@ args = 0, pretend = 0, frame = 0
+ 798              		@ frame_needed = 0, uses_anonymous_args = 0
+ 799              		@ link register save eliminated.
+ 800 0000 00F01F02 		and	r2, r0, #31
+ 801 0004 8009     		lsrs	r0, r0, #6
+ 802 0006 00F18040 		add	r0, r0, #1073741824
+ 803 000a 00F52030 		add	r0, r0, #163840
+ 804 000e 0123     		movs	r3, #1
+ 805 0010 9340     		lsls	r3, r3, r2
+ 806 0012 0360     		str	r3, [r0]
+ 807 0014 7047     		bx	lr
+ 809              		.section	.text.enet_interrupt_enable,"ax",%progbits
+ 810              		.align	1
+ 811              		.global	enet_interrupt_enable
+ 812              		.syntax unified
+ 813              		.thumb
+ 814              		.thumb_func
+ 815              		.fpu fpv4-sp-d16
+ 817              	enet_interrupt_enable:
+ 818              		@ args = 0, pretend = 0, frame = 0
+ 819              		@ frame_needed = 0, uses_anonymous_args = 0
+ 820              		@ link register save eliminated.
+ 821 0000 8309     		lsrs	r3, r0, #6
+ 822 0002 41F21C02 		movw	r2, #4124
+ 823 0006 9342     		cmp	r3, r2
+ 824 0008 0DD0     		beq	.L119
+ 825 000a 03F18043 		add	r3, r3, #1073741824
+ARM GAS  /tmp/cclahotI.s 			page 15
+
+
+ 826 000e 03F52033 		add	r3, r3, #163840
+ 827 0012 1A68     		ldr	r2, [r3]
+ 828 0014 00F01F00 		and	r0, r0, #31
+ 829 0018 0121     		movs	r1, #1
+ 830 001a 01FA00F0 		lsl	r0, r1, r0
+ 831 001e 22EA0002 		bic	r2, r2, r0
+ 832 0022 1A60     		str	r2, [r3]
+ 833 0024 7047     		bx	lr
+ 834              	.L119:
+ 835 0026 03F18043 		add	r3, r3, #1073741824
+ 836 002a 03F52033 		add	r3, r3, #163840
+ 837 002e 1A68     		ldr	r2, [r3]
+ 838 0030 00F01F00 		and	r0, r0, #31
+ 839 0034 0121     		movs	r1, #1
+ 840 0036 01FA00F0 		lsl	r0, r1, r0
+ 841 003a 0243     		orrs	r2, r2, r0
+ 842 003c 1A60     		str	r2, [r3]
+ 843 003e 7047     		bx	lr
+ 845              		.section	.text.enet_interrupt_disable,"ax",%progbits
+ 846              		.align	1
+ 847              		.global	enet_interrupt_disable
+ 848              		.syntax unified
+ 849              		.thumb
+ 850              		.thumb_func
+ 851              		.fpu fpv4-sp-d16
+ 853              	enet_interrupt_disable:
+ 854              		@ args = 0, pretend = 0, frame = 0
+ 855              		@ frame_needed = 0, uses_anonymous_args = 0
+ 856              		@ link register save eliminated.
+ 857 0000 8309     		lsrs	r3, r0, #6
+ 858 0002 41F21C02 		movw	r2, #4124
+ 859 0006 9342     		cmp	r3, r2
+ 860 0008 0CD0     		beq	.L123
+ 861 000a 03F18043 		add	r3, r3, #1073741824
+ 862 000e 03F52033 		add	r3, r3, #163840
+ 863 0012 1A68     		ldr	r2, [r3]
+ 864 0014 00F01F00 		and	r0, r0, #31
+ 865 0018 0121     		movs	r1, #1
+ 866 001a 01FA00F0 		lsl	r0, r1, r0
+ 867 001e 0243     		orrs	r2, r2, r0
+ 868 0020 1A60     		str	r2, [r3]
+ 869 0022 7047     		bx	lr
+ 870              	.L123:
+ 871 0024 03F18043 		add	r3, r3, #1073741824
+ 872 0028 03F52033 		add	r3, r3, #163840
+ 873 002c 1A68     		ldr	r2, [r3]
+ 874 002e 00F01F00 		and	r0, r0, #31
+ 875 0032 0121     		movs	r1, #1
+ 876 0034 01FA00F0 		lsl	r0, r1, r0
+ 877 0038 22EA0002 		bic	r2, r2, r0
+ 878 003c 1A60     		str	r2, [r3]
+ 879 003e 7047     		bx	lr
+ 881              		.section	.text.enet_interrupt_flag_get,"ax",%progbits
+ 882              		.align	1
+ 883              		.global	enet_interrupt_flag_get
+ 884              		.syntax unified
+ 885              		.thumb
+ARM GAS  /tmp/cclahotI.s 			page 16
+
+
+ 886              		.thumb_func
+ 887              		.fpu fpv4-sp-d16
+ 889              	enet_interrupt_flag_get:
+ 890              		@ args = 0, pretend = 0, frame = 0
+ 891              		@ frame_needed = 0, uses_anonymous_args = 0
+ 892              		@ link register save eliminated.
+ 893 0000 8309     		lsrs	r3, r0, #6
+ 894 0002 03F18043 		add	r3, r3, #1073741824
+ 895 0006 03F52033 		add	r3, r3, #163840
+ 896 000a 1B68     		ldr	r3, [r3]
+ 897 000c 00F01F00 		and	r0, r0, #31
+ 898 0010 23FA00F0 		lsr	r0, r3, r0
+ 899 0014 10F0010F 		tst	r0, #1
+ 900 0018 01D0     		beq	.L126
+ 901 001a 0120     		movs	r0, #1
+ 902 001c 7047     		bx	lr
+ 903              	.L126:
+ 904 001e 0020     		movs	r0, #0
+ 905 0020 7047     		bx	lr
+ 907              		.section	.text.enet_interrupt_flag_clear,"ax",%progbits
+ 908              		.align	1
+ 909              		.global	enet_interrupt_flag_clear
+ 910              		.syntax unified
+ 911              		.thumb
+ 912              		.thumb_func
+ 913              		.fpu fpv4-sp-d16
+ 915              	enet_interrupt_flag_clear:
+ 916              		@ args = 0, pretend = 0, frame = 0
+ 917              		@ frame_needed = 0, uses_anonymous_args = 0
+ 918              		@ link register save eliminated.
+ 919 0000 00F01F02 		and	r2, r0, #31
+ 920 0004 8009     		lsrs	r0, r0, #6
+ 921 0006 00F18040 		add	r0, r0, #1073741824
+ 922 000a 00F52030 		add	r0, r0, #163840
+ 923 000e 0123     		movs	r3, #1
+ 924 0010 9340     		lsls	r3, r3, r2
+ 925 0012 0360     		str	r3, [r0]
+ 926 0014 7047     		bx	lr
+ 928              		.section	.text.enet_rx_enable,"ax",%progbits
+ 929              		.align	1
+ 930              		.global	enet_rx_enable
+ 931              		.syntax unified
+ 932              		.thumb
+ 933              		.thumb_func
+ 934              		.fpu fpv4-sp-d16
+ 936              	enet_rx_enable:
+ 937              		@ args = 0, pretend = 0, frame = 0
+ 938              		@ frame_needed = 0, uses_anonymous_args = 0
+ 939              		@ link register save eliminated.
+ 940 0000 064A     		ldr	r2, .L129
+ 941 0002 1368     		ldr	r3, [r2]
+ 942 0004 43F00403 		orr	r3, r3, #4
+ 943 0008 1360     		str	r3, [r2]
+ 944 000a 02F58052 		add	r2, r2, #4096
+ 945 000e 1832     		adds	r2, r2, #24
+ 946 0010 1368     		ldr	r3, [r2]
+ 947 0012 43F00203 		orr	r3, r3, #2
+ARM GAS  /tmp/cclahotI.s 			page 17
+
+
+ 948 0016 1360     		str	r3, [r2]
+ 949 0018 7047     		bx	lr
+ 950              	.L130:
+ 951 001a 00BF     		.align	2
+ 952              	.L129:
+ 953 001c 00800240 		.word	1073905664
+ 955              		.section	.text.enet_rx_disable,"ax",%progbits
+ 956              		.align	1
+ 957              		.global	enet_rx_disable
+ 958              		.syntax unified
+ 959              		.thumb
+ 960              		.thumb_func
+ 961              		.fpu fpv4-sp-d16
+ 963              	enet_rx_disable:
+ 964              		@ args = 0, pretend = 0, frame = 0
+ 965              		@ frame_needed = 0, uses_anonymous_args = 0
+ 966              		@ link register save eliminated.
+ 967 0000 054A     		ldr	r2, .L132
+ 968 0002 1368     		ldr	r3, [r2]
+ 969 0004 23F00203 		bic	r3, r3, #2
+ 970 0008 1360     		str	r3, [r2]
+ 971 000a 044A     		ldr	r2, .L132+4
+ 972 000c 1368     		ldr	r3, [r2]
+ 973 000e 23F00403 		bic	r3, r3, #4
+ 974 0012 1360     		str	r3, [r2]
+ 975 0014 7047     		bx	lr
+ 976              	.L133:
+ 977 0016 00BF     		.align	2
+ 978              	.L132:
+ 979 0018 18900240 		.word	1073909784
+ 980 001c 00800240 		.word	1073905664
+ 982              		.section	.text.enet_registers_get,"ax",%progbits
+ 983              		.align	1
+ 984              		.global	enet_registers_get
+ 985              		.syntax unified
+ 986              		.thumb
+ 987              		.thumb_func
+ 988              		.fpu fpv4-sp-d16
+ 990              	enet_registers_get:
+ 991              		@ args = 0, pretend = 0, frame = 0
+ 992              		@ frame_needed = 0, uses_anonymous_args = 0
+ 993              		@ link register save eliminated.
+ 994 0000 10B4     		push	{r4}
+ 995 0002 0446     		mov	r4, r0
+ 996 0004 0244     		add	r2, r2, r0
+ 997 0006 3A2A     		cmp	r2, #58
+ 998 0008 0DD8     		bhi	.L139
+ 999              	.L137:
+ 1000 000a 9442     		cmp	r4, r2
+ 1001 000c 0DD2     		bcs	.L141
+ 1002 000e 084B     		ldr	r3, .L142
+ 1003 0010 33F81430 		ldrh	r3, [r3, r4, lsl #1]
+ 1004 0014 03F18043 		add	r3, r3, #1073741824
+ 1005 0018 03F52033 		add	r3, r3, #163840
+ 1006 001c 1B68     		ldr	r3, [r3]
+ 1007 001e 41F8043B 		str	r3, [r1], #4
+ 1008 0022 0134     		adds	r4, r4, #1
+ARM GAS  /tmp/cclahotI.s 			page 18
+
+
+ 1009 0024 F1E7     		b	.L137
+ 1010              	.L139:
+ 1011 0026 3A22     		movs	r2, #58
+ 1012 0028 EFE7     		b	.L137
+ 1013              	.L141:
+ 1014 002a 5DF8044B 		ldr	r4, [sp], #4
+ 1015 002e 7047     		bx	lr
+ 1016              	.L143:
+ 1017              		.align	2
+ 1018              	.L142:
+ 1019 0030 00000000 		.word	.LANCHOR3
+ 1021              		.section	.text.enet_debug_status_get,"ax",%progbits
+ 1022              		.align	1
+ 1023              		.global	enet_debug_status_get
+ 1024              		.syntax unified
+ 1025              		.thumb
+ 1026              		.thumb_func
+ 1027              		.fpu fpv4-sp-d16
+ 1029              	enet_debug_status_get:
+ 1030              		@ args = 0, pretend = 0, frame = 0
+ 1031              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1032              		@ link register save eliminated.
+ 1033 0000 B0F5407F 		cmp	r0, #768
+ 1034 0004 19D0     		beq	.L145
+ 1035 0006 0AD9     		bls	.L154
+ 1036 0008 B0F5C02F 		cmp	r0, #393216
+ 1037 000c 1AD0     		beq	.L150
+ 1038 000e B0F5401F 		cmp	r0, #3145728
+ 1039 0012 1CD1     		bne	.L149
+ 1040 0014 114B     		ldr	r3, .L155
+ 1041 0016 1868     		ldr	r0, [r3]
+ 1042 0018 C0F30150 		ubfx	r0, r0, #20, #2
+ 1043 001c 7047     		bx	lr
+ 1044              	.L154:
+ 1045 001e 0628     		cmp	r0, #6
+ 1046 0020 06D0     		beq	.L147
+ 1047 0022 6028     		cmp	r0, #96
+ 1048 0024 13D1     		bne	.L149
+ 1049 0026 0D4B     		ldr	r3, .L155
+ 1050 0028 1868     		ldr	r0, [r3]
+ 1051 002a C0F34110 		ubfx	r0, r0, #5, #2
+ 1052 002e 7047     		bx	lr
+ 1053              	.L147:
+ 1054 0030 0A4B     		ldr	r3, .L155
+ 1055 0032 1868     		ldr	r0, [r3]
+ 1056 0034 C0F34100 		ubfx	r0, r0, #1, #2
+ 1057 0038 7047     		bx	lr
+ 1058              	.L145:
+ 1059 003a 084B     		ldr	r3, .L155
+ 1060 003c 1868     		ldr	r0, [r3]
+ 1061 003e C0F30120 		ubfx	r0, r0, #8, #2
+ 1062 0042 7047     		bx	lr
+ 1063              	.L150:
+ 1064 0044 054B     		ldr	r3, .L155
+ 1065 0046 1868     		ldr	r0, [r3]
+ 1066 0048 C0F34140 		ubfx	r0, r0, #17, #2
+ 1067 004c 7047     		bx	lr
+ARM GAS  /tmp/cclahotI.s 			page 19
+
+
+ 1068              	.L149:
+ 1069 004e 034B     		ldr	r3, .L155
+ 1070 0050 1B68     		ldr	r3, [r3]
+ 1071 0052 1840     		ands	r0, r3, r0
+ 1072 0054 00D0     		beq	.L144
+ 1073 0056 0120     		movs	r0, #1
+ 1074              	.L144:
+ 1075 0058 7047     		bx	lr
+ 1076              	.L156:
+ 1077 005a 00BF     		.align	2
+ 1078              	.L155:
+ 1079 005c 34800240 		.word	1073905716
+ 1081              		.section	.text.enet_address_filter_enable,"ax",%progbits
+ 1082              		.align	1
+ 1083              		.global	enet_address_filter_enable
+ 1084              		.syntax unified
+ 1085              		.thumb
+ 1086              		.thumb_func
+ 1087              		.fpu fpv4-sp-d16
+ 1089              	enet_address_filter_enable:
+ 1090              		@ args = 0, pretend = 0, frame = 0
+ 1091              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1092              		@ link register save eliminated.
+ 1093 0000 024A     		ldr	r2, .L158
+ 1094 0002 8358     		ldr	r3, [r0, r2]
+ 1095 0004 43F00043 		orr	r3, r3, #-2147483648
+ 1096 0008 8350     		str	r3, [r0, r2]
+ 1097 000a 7047     		bx	lr
+ 1098              	.L159:
+ 1099              		.align	2
+ 1100              	.L158:
+ 1101 000c 40800240 		.word	1073905728
+ 1103              		.section	.text.enet_address_filter_disable,"ax",%progbits
+ 1104              		.align	1
+ 1105              		.global	enet_address_filter_disable
+ 1106              		.syntax unified
+ 1107              		.thumb
+ 1108              		.thumb_func
+ 1109              		.fpu fpv4-sp-d16
+ 1111              	enet_address_filter_disable:
+ 1112              		@ args = 0, pretend = 0, frame = 0
+ 1113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1114              		@ link register save eliminated.
+ 1115 0000 024A     		ldr	r2, .L161
+ 1116 0002 8358     		ldr	r3, [r0, r2]
+ 1117 0004 23F00043 		bic	r3, r3, #-2147483648
+ 1118 0008 8350     		str	r3, [r0, r2]
+ 1119 000a 7047     		bx	lr
+ 1120              	.L162:
+ 1121              		.align	2
+ 1122              	.L161:
+ 1123 000c 40800240 		.word	1073905728
+ 1125              		.section	.text.enet_address_filter_config,"ax",%progbits
+ 1126              		.align	1
+ 1127              		.global	enet_address_filter_config
+ 1128              		.syntax unified
+ 1129              		.thumb
+ARM GAS  /tmp/cclahotI.s 			page 20
+
+
+ 1130              		.thumb_func
+ 1131              		.fpu fpv4-sp-d16
+ 1133              	enet_address_filter_config:
+ 1134              		@ args = 0, pretend = 0, frame = 0
+ 1135              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1136              		@ link register save eliminated.
+ 1137 0000 10B4     		push	{r4}
+ 1138 0002 054C     		ldr	r4, .L165
+ 1139 0004 0359     		ldr	r3, [r0, r4]
+ 1140 0006 23F0FE43 		bic	r3, r3, #2130706432
+ 1141 000a 0A43     		orrs	r2, r2, r1
+ 1142 000c 1A43     		orrs	r2, r2, r3
+ 1143 000e 0251     		str	r2, [r0, r4]
+ 1144 0010 5DF8044B 		ldr	r4, [sp], #4
+ 1145 0014 7047     		bx	lr
+ 1146              	.L166:
+ 1147 0016 00BF     		.align	2
+ 1148              	.L165:
+ 1149 0018 40800240 		.word	1073905728
+ 1151              		.section	.text.enet_phy_write_read,"ax",%progbits
+ 1152              		.align	1
+ 1153              		.global	enet_phy_write_read
+ 1154              		.syntax unified
+ 1155              		.thumb
+ 1156              		.thumb_func
+ 1157              		.fpu fpv4-sp-d16
+ 1159              	enet_phy_write_read:
+ 1160              		@ args = 0, pretend = 0, frame = 0
+ 1161              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1162              		@ link register save eliminated.
+ 1163 0000 10B4     		push	{r4}
+ 1164 0002 194C     		ldr	r4, .L176
+ 1165 0004 2468     		ldr	r4, [r4]
+ 1166 0006 24F47F44 		bic	r4, r4, #65280
+ 1167 000a 24F0C304 		bic	r4, r4, #195
+ 1168 000e 9201     		lsls	r2, r2, #6
+ 1169 0010 02F4F862 		and	r2, r2, #1984
+ 1170 0014 0243     		orrs	r2, r2, r0
+ 1171 0016 C902     		lsls	r1, r1, #11
+ 1172 0018 89B2     		uxth	r1, r1
+ 1173 001a 0A43     		orrs	r2, r2, r1
+ 1174 001c 2243     		orrs	r2, r2, r4
+ 1175 001e 42F00102 		orr	r2, r2, #1
+ 1176 0022 0228     		cmp	r0, #2
+ 1177 0024 19D0     		beq	.L175
+ 1178              	.L168:
+ 1179 0026 1049     		ldr	r1, .L176
+ 1180 0028 0A60     		str	r2, [r1]
+ 1181 002a 0022     		movs	r2, #0
+ 1182              	.L170:
+ 1183 002c 0E49     		ldr	r1, .L176
+ 1184 002e 0968     		ldr	r1, [r1]
+ 1185 0030 0132     		adds	r2, r2, #1
+ 1186 0032 11F0010F 		tst	r1, #1
+ 1187 0036 02D0     		beq	.L169
+ 1188 0038 0C49     		ldr	r1, .L176+4
+ 1189 003a 8A42     		cmp	r2, r1
+ARM GAS  /tmp/cclahotI.s 			page 21
+
+
+ 1190 003c F6D1     		bne	.L170
+ 1191              	.L169:
+ 1192 003e 0A4A     		ldr	r2, .L176
+ 1193 0040 1268     		ldr	r2, [r2]
+ 1194 0042 12F0010F 		tst	r2, #1
+ 1195 0046 0CD0     		beq	.L173
+ 1196 0048 0022     		movs	r2, #0
+ 1197              	.L171:
+ 1198 004a 10B9     		cbnz	r0, .L172
+ 1199 004c 0849     		ldr	r1, .L176+8
+ 1200 004e 0968     		ldr	r1, [r1]
+ 1201 0050 1980     		strh	r1, [r3]	@ movhi
+ 1202              	.L172:
+ 1203 0052 1046     		mov	r0, r2
+ 1204 0054 5DF8044B 		ldr	r4, [sp], #4
+ 1205 0058 7047     		bx	lr
+ 1206              	.L175:
+ 1207 005a 1C88     		ldrh	r4, [r3]
+ 1208 005c 0449     		ldr	r1, .L176+8
+ 1209 005e 0C60     		str	r4, [r1]
+ 1210 0060 E1E7     		b	.L168
+ 1211              	.L173:
+ 1212 0062 0122     		movs	r2, #1
+ 1213 0064 F1E7     		b	.L171
+ 1214              	.L177:
+ 1215 0066 00BF     		.align	2
+ 1216              	.L176:
+ 1217 0068 10800240 		.word	1073905680
+ 1218 006c FFFF0400 		.word	327679
+ 1219 0070 14800240 		.word	1073905684
+ 1221              		.section	.text.enet_phy_config,"ax",%progbits
+ 1222              		.align	1
+ 1223              		.global	enet_phy_config
+ 1224              		.syntax unified
+ 1225              		.thumb
+ 1226              		.thumb_func
+ 1227              		.fpu fpv4-sp-d16
+ 1229              	enet_phy_config:
+ 1230              		@ args = 0, pretend = 0, frame = 8
+ 1231              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1232 0000 10B5     		push	{r4, lr}
+ 1233 0002 82B0     		sub	sp, sp, #8
+ 1234 0004 294B     		ldr	r3, .L189
+ 1235 0006 1C68     		ldr	r4, [r3]
+ 1236 0008 24F01C04 		bic	r4, r4, #28
+ 1237 000c 0120     		movs	r0, #1
+ 1238 000e FFF7FEFF 		bl	rcu_clock_freq_get
+ 1239 0012 274B     		ldr	r3, .L189+4
+ 1240 0014 0344     		add	r3, r3, r0
+ 1241 0016 274A     		ldr	r2, .L189+8
+ 1242 0018 9342     		cmp	r3, r2
+ 1243 001a 13D8     		bhi	.L179
+ 1244 001c 44F00804 		orr	r4, r4, #8
+ 1245              	.L180:
+ 1246 0020 224B     		ldr	r3, .L189
+ 1247 0022 1C60     		str	r4, [r3]
+ 1248 0024 4FF40043 		mov	r3, #32768
+ARM GAS  /tmp/cclahotI.s 			page 22
+
+
+ 1249 0028 ADF80630 		strh	r3, [sp, #6]	@ movhi
+ 1250 002c 0DF10603 		add	r3, sp, #6
+ 1251 0030 0022     		movs	r2, #0
+ 1252 0032 0121     		movs	r1, #1
+ 1253 0034 0220     		movs	r0, #2
+ 1254 0036 FFF7FEFF 		bl	enet_phy_write_read
+ 1255 003a 0346     		mov	r3, r0
+ 1256 003c F8B9     		cbnz	r0, .L187
+ 1257              	.L183:
+ 1258 003e 1846     		mov	r0, r3
+ 1259 0040 02B0     		add	sp, sp, #8
+ 1260              		@ sp needed
+ 1261 0042 10BD     		pop	{r4, pc}
+ 1262              	.L179:
+ 1263 0044 1C4B     		ldr	r3, .L189+12
+ 1264 0046 0344     		add	r3, r3, r0
+ 1265 0048 1C4A     		ldr	r2, .L189+16
+ 1266 004a 9342     		cmp	r3, r2
+ 1267 004c 02D8     		bhi	.L181
+ 1268 004e 44F00C04 		orr	r4, r4, #12
+ 1269 0052 E5E7     		b	.L180
+ 1270              	.L181:
+ 1271 0054 1A4B     		ldr	r3, .L189+20
+ 1272 0056 0344     		add	r3, r3, r0
+ 1273 0058 1A4A     		ldr	r2, .L189+24
+ 1274 005a 9342     		cmp	r3, r2
+ 1275 005c E0D9     		bls	.L180
+ 1276 005e 1A4B     		ldr	r3, .L189+28
+ 1277 0060 0344     		add	r3, r3, r0
+ 1278 0062 1A4A     		ldr	r2, .L189+32
+ 1279 0064 9342     		cmp	r3, r2
+ 1280 0066 02D8     		bhi	.L182
+ 1281 0068 44F00404 		orr	r4, r4, #4
+ 1282 006c D8E7     		b	.L180
+ 1283              	.L182:
+ 1284 006e 184B     		ldr	r3, .L189+36
+ 1285 0070 0344     		add	r3, r3, r0
+ 1286 0072 184A     		ldr	r2, .L189+40
+ 1287 0074 9342     		cmp	r3, r2
+ 1288 0076 17D8     		bhi	.L184
+ 1289 0078 44F01004 		orr	r4, r4, #16
+ 1290 007c D0E7     		b	.L180
+ 1291              	.L187:
+ 1292 007e 1648     		ldr	r0, .L189+44
+ 1293 0080 FFF7FEFF 		bl	enet_delay
+ 1294 0084 0DF10603 		add	r3, sp, #6
+ 1295 0088 0022     		movs	r2, #0
+ 1296 008a 0121     		movs	r1, #1
+ 1297 008c 1046     		mov	r0, r2
+ 1298 008e FFF7FEFF 		bl	enet_phy_write_read
+ 1299 0092 0346     		mov	r3, r0
+ 1300 0094 0028     		cmp	r0, #0
+ 1301 0096 D2D0     		beq	.L183
+ 1302 0098 BDF90630 		ldrsh	r3, [sp, #6]
+ 1303 009c 002B     		cmp	r3, #0
+ 1304 009e 01DB     		blt	.L188
+ 1305 00a0 0123     		movs	r3, #1
+ARM GAS  /tmp/cclahotI.s 			page 23
+
+
+ 1306 00a2 CCE7     		b	.L183
+ 1307              	.L188:
+ 1308 00a4 0023     		movs	r3, #0
+ 1309 00a6 CAE7     		b	.L183
+ 1310              	.L184:
+ 1311 00a8 0023     		movs	r3, #0
+ 1312 00aa C8E7     		b	.L183
+ 1313              	.L190:
+ 1314              		.align	2
+ 1315              	.L189:
+ 1316 00ac 10800240 		.word	1073905680
+ 1317 00b0 00D3CEFE 		.word	-20000000
+ 1318 00b4 BFE1E400 		.word	14999999
+ 1319 00b8 40F1E9FD 		.word	-35000000
+ 1320 00bc 3F787D01 		.word	24999999
+ 1321 00c0 00796CFC 		.word	-60000000
+ 1322 00c4 FF596202 		.word	39999999
+ 1323 00c8 001F0AFA 		.word	-100000000
+ 1324 00cc 7FF0FA02 		.word	49999999
+ 1325 00d0 802E0FF7 		.word	-150000000
+ 1326 00d4 80F0FA02 		.word	50000000
+ 1327 00d8 FFFF0400 		.word	327679
+ 1329              		.section	.text.enet_init,"ax",%progbits
+ 1330              		.align	1
+ 1331              		.global	enet_init
+ 1332              		.syntax unified
+ 1333              		.thumb
+ 1334              		.thumb_func
+ 1335              		.fpu fpv4-sp-d16
+ 1337              	enet_init:
+ 1338              		@ args = 0, pretend = 0, frame = 8
+ 1339              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1340 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 1341 0002 83B0     		sub	sp, sp, #12
+ 1342 0004 0446     		mov	r4, r0
+ 1343 0006 0D46     		mov	r5, r1
+ 1344 0008 1646     		mov	r6, r2
+ 1345 000a 0023     		movs	r3, #0
+ 1346 000c ADF80630 		strh	r3, [sp, #6]	@ movhi
+ 1347 0010 FFF7FEFF 		bl	enet_phy_config
+ 1348 0014 38B9     		cbnz	r0, .L192
+ 1349 0016 3A48     		ldr	r0, .L221
+ 1350 0018 FFF7FEFF 		bl	enet_delay
+ 1351 001c FFF7FEFF 		bl	enet_phy_config
+ 1352 0020 0346     		mov	r3, r0
+ 1353 0022 0028     		cmp	r0, #0
+ 1354 0024 68D0     		beq	.L193
+ 1355              	.L192:
+ 1356 0026 FFF7FEFF 		bl	enet_default_init
+ 1357 002a 2746     		mov	r7, r4
+ 1358 002c 012C     		cmp	r4, #1
+ 1359 002e 51D1     		bne	.L194
+ 1360 0030 0024     		movs	r4, #0
+ 1361              	.L196:
+ 1362 0032 0DF10603 		add	r3, sp, #6
+ 1363 0036 0122     		movs	r2, #1
+ 1364 0038 1146     		mov	r1, r2
+ARM GAS  /tmp/cclahotI.s 			page 24
+
+
+ 1365 003a 0020     		movs	r0, #0
+ 1366 003c FFF7FEFF 		bl	enet_phy_write_read
+ 1367 0040 BDF80630 		ldrh	r3, [sp, #6]
+ 1368 0044 03F00403 		and	r3, r3, #4
+ 1369 0048 ADF80630 		strh	r3, [sp, #6]	@ movhi
+ 1370 004c 0134     		adds	r4, r4, #1
+ 1371 004e 13B9     		cbnz	r3, .L195
+ 1372 0050 2C4B     		ldr	r3, .L221+4
+ 1373 0052 9C42     		cmp	r4, r3
+ 1374 0054 EDD9     		bls	.L196
+ 1375              	.L195:
+ 1376 0056 2C4B     		ldr	r3, .L221+8
+ 1377 0058 9C42     		cmp	r4, r3
+ 1378 005a 00F05A81 		beq	.L215
+ 1379 005e 4FF48053 		mov	r3, #4096
+ 1380 0062 ADF80630 		strh	r3, [sp, #6]	@ movhi
+ 1381 0066 0DF10603 		add	r3, sp, #6
+ 1382 006a 0022     		movs	r2, #0
+ 1383 006c 0121     		movs	r1, #1
+ 1384 006e 0220     		movs	r0, #2
+ 1385 0070 FFF7FEFF 		bl	enet_phy_write_read
+ 1386 0074 0346     		mov	r3, r0
+ 1387 0076 0028     		cmp	r0, #0
+ 1388 0078 3ED0     		beq	.L193
+ 1389 007a 0024     		movs	r4, #0
+ 1390              	.L198:
+ 1391 007c 0DF10603 		add	r3, sp, #6
+ 1392 0080 0122     		movs	r2, #1
+ 1393 0082 1146     		mov	r1, r2
+ 1394 0084 0020     		movs	r0, #0
+ 1395 0086 FFF7FEFF 		bl	enet_phy_write_read
+ 1396 008a BDF80630 		ldrh	r3, [sp, #6]
+ 1397 008e 03F02003 		and	r3, r3, #32
+ 1398 0092 ADF80630 		strh	r3, [sp, #6]	@ movhi
+ 1399 0096 0134     		adds	r4, r4, #1
+ 1400 0098 13B9     		cbnz	r3, .L197
+ 1401 009a 1A4B     		ldr	r3, .L221+4
+ 1402 009c 9C42     		cmp	r4, r3
+ 1403 009e EDD9     		bls	.L198
+ 1404              	.L197:
+ 1405 00a0 194B     		ldr	r3, .L221+8
+ 1406 00a2 9C42     		cmp	r4, r3
+ 1407 00a4 00F03781 		beq	.L216
+ 1408 00a8 0DF10603 		add	r3, sp, #6
+ 1409 00ac 1022     		movs	r2, #16
+ 1410 00ae 0121     		movs	r1, #1
+ 1411 00b0 0020     		movs	r0, #0
+ 1412 00b2 FFF7FEFF 		bl	enet_phy_write_read
+ 1413 00b6 BDF80630 		ldrh	r3, [sp, #6]
+ 1414 00ba 13F0040F 		tst	r3, #4
+ 1415 00be 07D0     		beq	.L217
+ 1416 00c0 4FF40067 		mov	r7, #2048
+ 1417              	.L199:
+ 1418 00c4 13F0020F 		tst	r3, #2
+ 1419 00c8 24D1     		bne	.L200
+ 1420 00ca 47F48047 		orr	r7, r7, #16384
+ 1421 00ce 21E0     		b	.L200
+ARM GAS  /tmp/cclahotI.s 			page 25
+
+
+ 1422              	.L217:
+ 1423 00d0 0027     		movs	r7, #0
+ 1424 00d2 F7E7     		b	.L199
+ 1425              	.L194:
+ 1426 00d4 E308     		lsrs	r3, r4, #3
+ 1427 00d6 03F48073 		and	r3, r3, #256
+ 1428 00da 6408     		lsrs	r4, r4, #1
+ 1429 00dc 04F40054 		and	r4, r4, #8192
+ 1430 00e0 1C43     		orrs	r4, r4, r3
+ 1431 00e2 ADF80640 		strh	r4, [sp, #6]	@ movhi
+ 1432 00e6 0DF10603 		add	r3, sp, #6
+ 1433 00ea 0022     		movs	r2, #0
+ 1434 00ec 0121     		movs	r1, #1
+ 1435 00ee 0220     		movs	r0, #2
+ 1436 00f0 FFF7FEFF 		bl	enet_phy_write_read
+ 1437 00f4 0346     		mov	r3, r0
+ 1438 00f6 48B9     		cbnz	r0, .L220
+ 1439              	.L193:
+ 1440 00f8 1846     		mov	r0, r3
+ 1441 00fa 03B0     		add	sp, sp, #12
+ 1442              		@ sp needed
+ 1443 00fc F0BD     		pop	{r4, r5, r6, r7, pc}
+ 1444              	.L222:
+ 1445 00fe 00BF     		.align	2
+ 1446              	.L221:
+ 1447 0100 FFFF8F00 		.word	9437183
+ 1448 0104 FEFF0400 		.word	327678
+ 1449 0108 FFFF0400 		.word	327679
+ 1450              	.L220:
+ 1451 010c 6FF07F40 		mvn	r0, #-16777216
+ 1452 0110 FFF7FEFF 		bl	enet_delay
+ 1453              	.L200:
+ 1454 0114 824A     		ldr	r2, .L223
+ 1455 0116 1368     		ldr	r3, [r2]
+ 1456 0118 23F4B043 		bic	r3, r3, #22528
+ 1457 011c 1F43     		orrs	r7, r7, r3
+ 1458 011e 1760     		str	r7, [r2]
+ 1459 0120 15F4806F 		tst	r5, #1024
+ 1460 0124 0DD0     		beq	.L201
+ 1461 0126 1368     		ldr	r3, [r2]
+ 1462 0128 43F48063 		orr	r3, r3, #1024
+ 1463 012c 1360     		str	r3, [r2]
+ 1464 012e 02F58052 		add	r2, r2, #4096
+ 1465 0132 1832     		adds	r2, r2, #24
+ 1466 0134 1368     		ldr	r3, [r2]
+ 1467 0136 23F08063 		bic	r3, r3, #67108864
+ 1468 013a 05F08065 		and	r5, r5, #67108864
+ 1469 013e 1D43     		orrs	r5, r5, r3
+ 1470 0140 1560     		str	r5, [r2]
+ 1471              	.L201:
+ 1472 0142 784A     		ldr	r2, .L223+4
+ 1473 0144 1368     		ldr	r3, [r2]
+ 1474 0146 1E43     		orrs	r6, r6, r3
+ 1475 0148 1660     		str	r6, [r2]
+ 1476 014a 774B     		ldr	r3, .L223+8
+ 1477 014c 1B68     		ldr	r3, [r3]
+ 1478 014e 13F0010F 		tst	r3, #1
+ARM GAS  /tmp/cclahotI.s 			page 26
+
+
+ 1479 0152 16D0     		beq	.L202
+ 1480 0154 744B     		ldr	r3, .L223+8
+ 1481 0156 5B68     		ldr	r3, [r3, #4]
+ 1482 0158 7149     		ldr	r1, .L223
+ 1483 015a 0A68     		ldr	r2, [r1]
+ 1484 015c 22F00072 		bic	r2, r2, #33554432
+ 1485 0160 22F08002 		bic	r2, r2, #128
+ 1486 0164 7148     		ldr	r0, .L223+12
+ 1487 0166 1840     		ands	r0, r0, r3
+ 1488 0168 0243     		orrs	r2, r2, r0
+ 1489 016a 0A60     		str	r2, [r1]
+ 1490 016c 01F58051 		add	r1, r1, #4096
+ 1491 0170 1831     		adds	r1, r1, #24
+ 1492 0172 0A68     		ldr	r2, [r1]
+ 1493 0174 22F0C002 		bic	r2, r2, #192
+ 1494 0178 9B08     		lsrs	r3, r3, #2
+ 1495 017a 03F0C003 		and	r3, r3, #192
+ 1496 017e 1343     		orrs	r3, r3, r2
+ 1497 0180 0B60     		str	r3, [r1]
+ 1498              	.L202:
+ 1499 0182 694B     		ldr	r3, .L223+8
+ 1500 0184 1B68     		ldr	r3, [r3]
+ 1501 0186 13F0020F 		tst	r3, #2
+ 1502 018a 09D0     		beq	.L203
+ 1503 018c 664B     		ldr	r3, .L223+8
+ 1504 018e 9A68     		ldr	r2, [r3, #8]
+ 1505 0190 6749     		ldr	r1, .L223+16
+ 1506 0192 0B68     		ldr	r3, [r1]
+ 1507 0194 23F0E063 		bic	r3, r3, #117440512
+ 1508 0198 23F48033 		bic	r3, r3, #65536
+ 1509 019c 1343     		orrs	r3, r3, r2
+ 1510 019e 0B60     		str	r3, [r1]
+ 1511              	.L203:
+ 1512 01a0 614B     		ldr	r3, .L223+8
+ 1513 01a2 1B68     		ldr	r3, [r3]
+ 1514 01a4 13F0040F 		tst	r3, #4
+ 1515 01a8 09D0     		beq	.L204
+ 1516 01aa 5F4B     		ldr	r3, .L223+8
+ 1517 01ac DA68     		ldr	r2, [r3, #12]
+ 1518 01ae 6049     		ldr	r1, .L223+16
+ 1519 01b0 0B68     		ldr	r3, [r1]
+ 1520 01b2 23F47E03 		bic	r3, r3, #16646144
+ 1521 01b6 23F47C53 		bic	r3, r3, #16128
+ 1522 01ba 1343     		orrs	r3, r3, r2
+ 1523 01bc 0B60     		str	r3, [r1]
+ 1524              	.L204:
+ 1525 01be 5A4B     		ldr	r3, .L223+8
+ 1526 01c0 1B68     		ldr	r3, [r3]
+ 1527 01c2 13F0080F 		tst	r3, #8
+ 1528 01c6 09D0     		beq	.L205
+ 1529 01c8 574B     		ldr	r3, .L223+8
+ 1530 01ca 1A69     		ldr	r2, [r3, #16]
+ 1531 01cc 5849     		ldr	r1, .L223+16
+ 1532 01ce 0B68     		ldr	r3, [r1]
+ 1533 01d0 23F44043 		bic	r3, r3, #49152
+ 1534 01d4 23F00203 		bic	r3, r3, #2
+ 1535 01d8 1343     		orrs	r3, r3, r2
+ARM GAS  /tmp/cclahotI.s 			page 27
+
+
+ 1536 01da 0B60     		str	r3, [r1]
+ 1537              	.L205:
+ 1538 01dc 524B     		ldr	r3, .L223+8
+ 1539 01de 1B68     		ldr	r3, [r3]
+ 1540 01e0 13F0100F 		tst	r3, #16
+ 1541 01e4 07D0     		beq	.L206
+ 1542 01e6 504B     		ldr	r3, .L223+8
+ 1543 01e8 5B69     		ldr	r3, [r3, #20]
+ 1544 01ea 5249     		ldr	r1, .L223+20
+ 1545 01ec 0868     		ldr	r0, [r1]
+ 1546 01ee 524A     		ldr	r2, .L223+24
+ 1547 01f0 0240     		ands	r2, r2, r0
+ 1548 01f2 1343     		orrs	r3, r3, r2
+ 1549 01f4 0B60     		str	r3, [r1]
+ 1550              	.L206:
+ 1551 01f6 4C4B     		ldr	r3, .L223+8
+ 1552 01f8 1B68     		ldr	r3, [r3]
+ 1553 01fa 13F0200F 		tst	r3, #32
+ 1554 01fe 13D0     		beq	.L207
+ 1555 0200 494B     		ldr	r3, .L223+8
+ 1556 0202 9A69     		ldr	r2, [r3, #24]
+ 1557 0204 4B49     		ldr	r1, .L223+20
+ 1558 0206 0B68     		ldr	r3, [r1]
+ 1559 0208 23F08073 		bic	r3, r3, #16777216
+ 1560 020c 23F00403 		bic	r3, r3, #4
+ 1561 0210 4A48     		ldr	r0, .L223+28
+ 1562 0212 1040     		ands	r0, r0, r2
+ 1563 0214 0343     		orrs	r3, r3, r0
+ 1564 0216 0B60     		str	r3, [r1]
+ 1565 0218 1839     		subs	r1, r1, #24
+ 1566 021a 0B68     		ldr	r3, [r1]
+ 1567 021c 23F08003 		bic	r3, r3, #128
+ 1568 0220 02F08002 		and	r2, r2, #128
+ 1569 0224 1343     		orrs	r3, r3, r2
+ 1570 0226 0B60     		str	r3, [r1]
+ 1571              	.L207:
+ 1572 0228 3F4B     		ldr	r3, .L223+8
+ 1573 022a 1B68     		ldr	r3, [r3]
+ 1574 022c 13F0400F 		tst	r3, #64
+ 1575 0230 07D0     		beq	.L208
+ 1576 0232 3D4B     		ldr	r3, .L223+8
+ 1577 0234 DA69     		ldr	r2, [r3, #28]
+ 1578 0236 4249     		ldr	r1, .L223+32
+ 1579 0238 0B68     		ldr	r3, [r1]
+ 1580 023a 5B0C     		lsrs	r3, r3, #17
+ 1581 023c 5B04     		lsls	r3, r3, #17
+ 1582 023e 1343     		orrs	r3, r3, r2
+ 1583 0240 0B60     		str	r3, [r1]
+ 1584              	.L208:
+ 1585 0242 394B     		ldr	r3, .L223+8
+ 1586 0244 1B68     		ldr	r3, [r3]
+ 1587 0246 13F0800F 		tst	r3, #128
+ 1588 024a 16D0     		beq	.L209
+ 1589 024c 364B     		ldr	r3, .L223+8
+ 1590 024e 1B6A     		ldr	r3, [r3, #32]
+ 1591 0250 3C48     		ldr	r0, .L223+36
+ 1592 0252 0268     		ldr	r2, [r0]
+ARM GAS  /tmp/cclahotI.s 			page 28
+
+
+ 1593 0254 22F0BE02 		bic	r2, r2, #190
+ 1594 0258 1204     		lsls	r2, r2, #16
+ 1595 025a 120C     		lsrs	r2, r2, #16
+ 1596 025c 23F47F41 		bic	r1, r3, #65280
+ 1597 0260 21F04101 		bic	r1, r1, #65
+ 1598 0264 0A43     		orrs	r2, r2, r1
+ 1599 0266 0260     		str	r2, [r0]
+ 1600 0268 3749     		ldr	r1, .L223+40
+ 1601 026a 0A68     		ldr	r2, [r1]
+ 1602 026c 22F07702 		bic	r2, r2, #119
+ 1603 0270 1B0A     		lsrs	r3, r3, #8
+ 1604 0272 03F07703 		and	r3, r3, #119
+ 1605 0276 1343     		orrs	r3, r3, r2
+ 1606 0278 0B60     		str	r3, [r1]
+ 1607              	.L209:
+ 1608 027a 2B4B     		ldr	r3, .L223+8
+ 1609 027c 1B68     		ldr	r3, [r3]
+ 1610 027e 13F4807F 		tst	r3, #256
+ 1611 0282 03D0     		beq	.L210
+ 1612 0284 284B     		ldr	r3, .L223+8
+ 1613 0286 5A6A     		ldr	r2, [r3, #36]
+ 1614 0288 304B     		ldr	r3, .L223+44
+ 1615 028a 1A60     		str	r2, [r3]
+ 1616              	.L210:
+ 1617 028c 264B     		ldr	r3, .L223+8
+ 1618 028e 1B68     		ldr	r3, [r3]
+ 1619 0290 13F4007F 		tst	r3, #512
+ 1620 0294 03D0     		beq	.L211
+ 1621 0296 244B     		ldr	r3, .L223+8
+ 1622 0298 9A6A     		ldr	r2, [r3, #40]
+ 1623 029a 2D4B     		ldr	r3, .L223+48
+ 1624 029c 1A60     		str	r2, [r3]
+ 1625              	.L211:
+ 1626 029e 224B     		ldr	r3, .L223+8
+ 1627 02a0 1B68     		ldr	r3, [r3]
+ 1628 02a2 13F4806F 		tst	r3, #1024
+ 1629 02a6 09D0     		beq	.L212
+ 1630 02a8 1F4B     		ldr	r3, .L223+8
+ 1631 02aa DA6A     		ldr	r2, [r3, #44]
+ 1632 02ac 1D49     		ldr	r1, .L223+4
+ 1633 02ae 0B68     		ldr	r3, [r1]
+ 1634 02b0 23F4FB63 		bic	r3, r3, #2008
+ 1635 02b4 23F00603 		bic	r3, r3, #6
+ 1636 02b8 1343     		orrs	r3, r3, r2
+ 1637 02ba 0B60     		str	r3, [r1]
+ 1638              	.L212:
+ 1639 02bc 1A4B     		ldr	r3, .L223+8
+ 1640 02be 1B68     		ldr	r3, [r3]
+ 1641 02c0 13F4006F 		tst	r3, #2048
+ 1642 02c4 09D0     		beq	.L213
+ 1643 02c6 184B     		ldr	r3, .L223+8
+ 1644 02c8 1A6B     		ldr	r2, [r3, #48]
+ 1645 02ca 1549     		ldr	r1, .L223
+ 1646 02cc 0B68     		ldr	r3, [r1]
+ 1647 02ce 23F49133 		bic	r3, r3, #74240
+ 1648 02d2 23F07003 		bic	r3, r3, #112
+ 1649 02d6 1343     		orrs	r3, r3, r2
+ARM GAS  /tmp/cclahotI.s 			page 29
+
+
+ 1650 02d8 0B60     		str	r3, [r1]
+ 1651              	.L213:
+ 1652 02da 134B     		ldr	r3, .L223+8
+ 1653 02dc 1B68     		ldr	r3, [r3]
+ 1654 02de 13F4805F 		tst	r3, #4096
+ 1655 02e2 07D0     		beq	.L214
+ 1656 02e4 104B     		ldr	r3, .L223+8
+ 1657 02e6 5B6B     		ldr	r3, [r3, #52]
+ 1658 02e8 0D49     		ldr	r1, .L223
+ 1659 02ea 0A68     		ldr	r2, [r1]
+ 1660 02ec 22F44002 		bic	r2, r2, #12582912
+ 1661 02f0 1343     		orrs	r3, r3, r2
+ 1662 02f2 0B60     		str	r3, [r1]
+ 1663              	.L214:
+ 1664 02f4 0C4B     		ldr	r3, .L223+8
+ 1665 02f6 1B68     		ldr	r3, [r3]
+ 1666 02f8 13F4005F 		tst	r3, #8192
+ 1667 02fc 0DD0     		beq	.L218
+ 1668 02fe 0A4B     		ldr	r3, .L223+8
+ 1669 0300 9B6B     		ldr	r3, [r3, #56]
+ 1670 0302 0749     		ldr	r1, .L223
+ 1671 0304 0A68     		ldr	r2, [r1]
+ 1672 0306 22F46022 		bic	r2, r2, #917504
+ 1673 030a 1343     		orrs	r3, r3, r2
+ 1674 030c 0B60     		str	r3, [r1]
+ 1675 030e 0123     		movs	r3, #1
+ 1676 0310 F2E6     		b	.L193
+ 1677              	.L215:
+ 1678 0312 0023     		movs	r3, #0
+ 1679 0314 F0E6     		b	.L193
+ 1680              	.L216:
+ 1681 0316 0023     		movs	r3, #0
+ 1682 0318 EEE6     		b	.L193
+ 1683              	.L218:
+ 1684 031a 0123     		movs	r3, #1
+ 1685 031c ECE6     		b	.L193
+ 1686              	.L224:
+ 1687 031e 00BF     		.align	2
+ 1688              	.L223:
+ 1689 0320 00800240 		.word	1073905664
+ 1690 0324 04800240 		.word	1073905668
+ 1691 0328 00000000 		.word	.LANCHOR0
+ 1692 032c 80000002 		.word	33554560
+ 1693 0330 00900240 		.word	1073909760
+ 1694 0334 18900240 		.word	1073909784
+ 1695 0338 E73FDEFD 		.word	-35766297
+ 1696 033c 04000001 		.word	16777220
+ 1697 0340 1C800240 		.word	1073905692
+ 1698 0344 18800240 		.word	1073905688
+ 1699 0348 80900240 		.word	1073909888
+ 1700 034c 08800240 		.word	1073905672
+ 1701 0350 0C800240 		.word	1073905676
+ 1703              		.section	.text.enet_phyloopback_enable,"ax",%progbits
+ 1704              		.align	1
+ 1705              		.global	enet_phyloopback_enable
+ 1706              		.syntax unified
+ 1707              		.thumb
+ARM GAS  /tmp/cclahotI.s 			page 30
+
+
+ 1708              		.thumb_func
+ 1709              		.fpu fpv4-sp-d16
+ 1711              	enet_phyloopback_enable:
+ 1712              		@ args = 0, pretend = 0, frame = 8
+ 1713              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1714 0000 10B5     		push	{r4, lr}
+ 1715 0002 82B0     		sub	sp, sp, #8
+ 1716 0004 0024     		movs	r4, #0
+ 1717 0006 ADF80640 		strh	r4, [sp, #6]	@ movhi
+ 1718 000a 0DF10603 		add	r3, sp, #6
+ 1719 000e 2246     		mov	r2, r4
+ 1720 0010 0121     		movs	r1, #1
+ 1721 0012 2046     		mov	r0, r4
+ 1722 0014 FFF7FEFF 		bl	enet_phy_write_read
+ 1723 0018 BDF80630 		ldrh	r3, [sp, #6]
+ 1724 001c 43F48043 		orr	r3, r3, #16384
+ 1725 0020 ADF80630 		strh	r3, [sp, #6]	@ movhi
+ 1726 0024 0DF10603 		add	r3, sp, #6
+ 1727 0028 2246     		mov	r2, r4
+ 1728 002a 0121     		movs	r1, #1
+ 1729 002c 0220     		movs	r0, #2
+ 1730 002e FFF7FEFF 		bl	enet_phy_write_read
+ 1731 0032 02B0     		add	sp, sp, #8
+ 1732              		@ sp needed
+ 1733 0034 10BD     		pop	{r4, pc}
+ 1735              		.section	.text.enet_phyloopback_disable,"ax",%progbits
+ 1736              		.align	1
+ 1737              		.global	enet_phyloopback_disable
+ 1738              		.syntax unified
+ 1739              		.thumb
+ 1740              		.thumb_func
+ 1741              		.fpu fpv4-sp-d16
+ 1743              	enet_phyloopback_disable:
+ 1744              		@ args = 0, pretend = 0, frame = 8
+ 1745              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1746 0000 10B5     		push	{r4, lr}
+ 1747 0002 82B0     		sub	sp, sp, #8
+ 1748 0004 0024     		movs	r4, #0
+ 1749 0006 ADF80640 		strh	r4, [sp, #6]	@ movhi
+ 1750 000a 0DF10603 		add	r3, sp, #6
+ 1751 000e 2246     		mov	r2, r4
+ 1752 0010 0121     		movs	r1, #1
+ 1753 0012 2046     		mov	r0, r4
+ 1754 0014 FFF7FEFF 		bl	enet_phy_write_read
+ 1755 0018 BDF80630 		ldrh	r3, [sp, #6]
+ 1756 001c 23F48043 		bic	r3, r3, #16384
+ 1757 0020 ADF80630 		strh	r3, [sp, #6]	@ movhi
+ 1758 0024 0DF10603 		add	r3, sp, #6
+ 1759 0028 2246     		mov	r2, r4
+ 1760 002a 0121     		movs	r1, #1
+ 1761 002c 0220     		movs	r0, #2
+ 1762 002e FFF7FEFF 		bl	enet_phy_write_read
+ 1763 0032 02B0     		add	sp, sp, #8
+ 1764              		@ sp needed
+ 1765 0034 10BD     		pop	{r4, pc}
+ 1767              		.section	.text.enet_forward_feature_enable,"ax",%progbits
+ 1768              		.align	1
+ARM GAS  /tmp/cclahotI.s 			page 31
+
+
+ 1769              		.global	enet_forward_feature_enable
+ 1770              		.syntax unified
+ 1771              		.thumb
+ 1772              		.thumb_func
+ 1773              		.fpu fpv4-sp-d16
+ 1775              	enet_forward_feature_enable:
+ 1776              		@ args = 0, pretend = 0, frame = 0
+ 1777              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1778              		@ link register save eliminated.
+ 1779 0000 20F44072 		bic	r2, r0, #768
+ 1780 0004 054B     		ldr	r3, .L230
+ 1781 0006 1968     		ldr	r1, [r3]
+ 1782 0008 1143     		orrs	r1, r1, r2
+ 1783 000a 1960     		str	r1, [r3]
+ 1784 000c 0449     		ldr	r1, .L230+4
+ 1785 000e 0B68     		ldr	r3, [r1]
+ 1786 0010 044A     		ldr	r2, .L230+8
+ 1787 0012 02EA9002 		and	r2, r2, r0, lsr #2
+ 1788 0016 1343     		orrs	r3, r3, r2
+ 1789 0018 0B60     		str	r3, [r1]
+ 1790 001a 7047     		bx	lr
+ 1791              	.L231:
+ 1792              		.align	2
+ 1793              	.L230:
+ 1794 001c 00800240 		.word	1073905664
+ 1795 0020 18900240 		.word	1073909784
+ 1796 0024 DFFF7F3F 		.word	1065353183
+ 1798              		.section	.text.enet_forward_feature_disable,"ax",%progbits
+ 1799              		.align	1
+ 1800              		.global	enet_forward_feature_disable
+ 1801              		.syntax unified
+ 1802              		.thumb
+ 1803              		.thumb_func
+ 1804              		.fpu fpv4-sp-d16
+ 1806              	enet_forward_feature_disable:
+ 1807              		@ args = 0, pretend = 0, frame = 0
+ 1808              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1809              		@ link register save eliminated.
+ 1810 0000 20F44072 		bic	r2, r0, #768
+ 1811 0004 064B     		ldr	r3, .L233
+ 1812 0006 1968     		ldr	r1, [r3]
+ 1813 0008 21EA0201 		bic	r1, r1, r2
+ 1814 000c 1960     		str	r1, [r3]
+ 1815 000e 0549     		ldr	r1, .L233+4
+ 1816 0010 0B68     		ldr	r3, [r1]
+ 1817 0012 054A     		ldr	r2, .L233+8
+ 1818 0014 02EA9002 		and	r2, r2, r0, lsr #2
+ 1819 0018 23EA0203 		bic	r3, r3, r2
+ 1820 001c 0B60     		str	r3, [r1]
+ 1821 001e 7047     		bx	lr
+ 1822              	.L234:
+ 1823              		.align	2
+ 1824              	.L233:
+ 1825 0020 00800240 		.word	1073905664
+ 1826 0024 18900240 		.word	1073909784
+ 1827 0028 DFFF7F3F 		.word	1065353183
+ 1829              		.section	.text.enet_fliter_feature_enable,"ax",%progbits
+ARM GAS  /tmp/cclahotI.s 			page 32
+
+
+ 1830              		.align	1
+ 1831              		.global	enet_fliter_feature_enable
+ 1832              		.syntax unified
+ 1833              		.thumb
+ 1834              		.thumb_func
+ 1835              		.fpu fpv4-sp-d16
+ 1837              	enet_fliter_feature_enable:
+ 1838              		@ args = 0, pretend = 0, frame = 0
+ 1839              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1840              		@ link register save eliminated.
+ 1841 0000 024A     		ldr	r2, .L236
+ 1842 0002 1368     		ldr	r3, [r2]
+ 1843 0004 1843     		orrs	r0, r0, r3
+ 1844 0006 1060     		str	r0, [r2]
+ 1845 0008 7047     		bx	lr
+ 1846              	.L237:
+ 1847 000a 00BF     		.align	2
+ 1848              	.L236:
+ 1849 000c 04800240 		.word	1073905668
+ 1851              		.section	.text.enet_fliter_feature_disable,"ax",%progbits
+ 1852              		.align	1
+ 1853              		.global	enet_fliter_feature_disable
+ 1854              		.syntax unified
+ 1855              		.thumb
+ 1856              		.thumb_func
+ 1857              		.fpu fpv4-sp-d16
+ 1859              	enet_fliter_feature_disable:
+ 1860              		@ args = 0, pretend = 0, frame = 0
+ 1861              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1862              		@ link register save eliminated.
+ 1863 0000 024A     		ldr	r2, .L239
+ 1864 0002 1368     		ldr	r3, [r2]
+ 1865 0004 23EA0000 		bic	r0, r3, r0
+ 1866 0008 1060     		str	r0, [r2]
+ 1867 000a 7047     		bx	lr
+ 1868              	.L240:
+ 1869              		.align	2
+ 1870              	.L239:
+ 1871 000c 04800240 		.word	1073905668
+ 1873              		.section	.text.enet_pauseframe_generate,"ax",%progbits
+ 1874              		.align	1
+ 1875              		.global	enet_pauseframe_generate
+ 1876              		.syntax unified
+ 1877              		.thumb
+ 1878              		.thumb_func
+ 1879              		.fpu fpv4-sp-d16
+ 1881              	enet_pauseframe_generate:
+ 1882              		@ args = 0, pretend = 0, frame = 0
+ 1883              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1884              		@ link register save eliminated.
+ 1885 0000 064B     		ldr	r3, .L244
+ 1886 0002 1B68     		ldr	r3, [r3]
+ 1887 0004 13F0010F 		tst	r3, #1
+ 1888 0008 06D1     		bne	.L243
+ 1889 000a 044A     		ldr	r2, .L244
+ 1890 000c 1368     		ldr	r3, [r2]
+ 1891 000e 43F00103 		orr	r3, r3, #1
+ARM GAS  /tmp/cclahotI.s 			page 33
+
+
+ 1892 0012 1360     		str	r3, [r2]
+ 1893 0014 0120     		movs	r0, #1
+ 1894 0016 7047     		bx	lr
+ 1895              	.L243:
+ 1896 0018 0020     		movs	r0, #0
+ 1897 001a 7047     		bx	lr
+ 1898              	.L245:
+ 1899              		.align	2
+ 1900              	.L244:
+ 1901 001c 18800240 		.word	1073905688
+ 1903              		.section	.text.enet_pauseframe_detect_config,"ax",%progbits
+ 1904              		.align	1
+ 1905              		.global	enet_pauseframe_detect_config
+ 1906              		.syntax unified
+ 1907              		.thumb
+ 1908              		.thumb_func
+ 1909              		.fpu fpv4-sp-d16
+ 1911              	enet_pauseframe_detect_config:
+ 1912              		@ args = 0, pretend = 0, frame = 0
+ 1913              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1914              		@ link register save eliminated.
+ 1915 0000 044B     		ldr	r3, .L247
+ 1916 0002 1A68     		ldr	r2, [r3]
+ 1917 0004 22F00802 		bic	r2, r2, #8
+ 1918 0008 1A60     		str	r2, [r3]
+ 1919 000a 1A68     		ldr	r2, [r3]
+ 1920 000c 1043     		orrs	r0, r0, r2
+ 1921 000e 1860     		str	r0, [r3]
+ 1922 0010 7047     		bx	lr
+ 1923              	.L248:
+ 1924 0012 00BF     		.align	2
+ 1925              	.L247:
+ 1926 0014 18800240 		.word	1073905688
+ 1928              		.section	.text.enet_pauseframe_config,"ax",%progbits
+ 1929              		.align	1
+ 1930              		.global	enet_pauseframe_config
+ 1931              		.syntax unified
+ 1932              		.thumb
+ 1933              		.thumb_func
+ 1934              		.fpu fpv4-sp-d16
+ 1936              	enet_pauseframe_config:
+ 1937              		@ args = 0, pretend = 0, frame = 0
+ 1938              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1939              		@ link register save eliminated.
+ 1940 0000 064B     		ldr	r3, .L250
+ 1941 0002 1A68     		ldr	r2, [r3]
+ 1942 0004 22F03002 		bic	r2, r2, #48
+ 1943 0008 1204     		lsls	r2, r2, #16
+ 1944 000a 120C     		lsrs	r2, r2, #16
+ 1945 000c 1A60     		str	r2, [r3]
+ 1946 000e 1A68     		ldr	r2, [r3]
+ 1947 0010 41EA0040 		orr	r0, r1, r0, lsl #16
+ 1948 0014 0243     		orrs	r2, r2, r0
+ 1949 0016 1A60     		str	r2, [r3]
+ 1950 0018 7047     		bx	lr
+ 1951              	.L251:
+ 1952 001a 00BF     		.align	2
+ARM GAS  /tmp/cclahotI.s 			page 34
+
+
+ 1953              	.L250:
+ 1954 001c 18800240 		.word	1073905688
+ 1956              		.section	.text.enet_flowcontrol_threshold_config,"ax",%progbits
+ 1957              		.align	1
+ 1958              		.global	enet_flowcontrol_threshold_config
+ 1959              		.syntax unified
+ 1960              		.thumb
+ 1961              		.thumb_func
+ 1962              		.fpu fpv4-sp-d16
+ 1964              	enet_flowcontrol_threshold_config:
+ 1965              		@ args = 0, pretend = 0, frame = 0
+ 1966              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1967              		@ link register save eliminated.
+ 1968 0000 0143     		orrs	r1, r1, r0
+ 1969 0002 090A     		lsrs	r1, r1, #8
+ 1970 0004 014B     		ldr	r3, .L253
+ 1971 0006 1960     		str	r1, [r3]
+ 1972 0008 7047     		bx	lr
+ 1973              	.L254:
+ 1974 000a 00BF     		.align	2
+ 1975              	.L253:
+ 1976 000c 80900240 		.word	1073909888
+ 1978              		.section	.text.enet_flowcontrol_feature_enable,"ax",%progbits
+ 1979              		.align	1
+ 1980              		.global	enet_flowcontrol_feature_enable
+ 1981              		.syntax unified
+ 1982              		.thumb
+ 1983              		.thumb_func
+ 1984              		.fpu fpv4-sp-d16
+ 1986              	enet_flowcontrol_feature_enable:
+ 1987              		@ args = 0, pretend = 0, frame = 0
+ 1988              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1989              		@ link register save eliminated.
+ 1990 0000 10F0800F 		tst	r0, #128
+ 1991 0004 04D0     		beq	.L256
+ 1992 0006 064A     		ldr	r2, .L257
+ 1993 0008 1368     		ldr	r3, [r2]
+ 1994 000a 23F08003 		bic	r3, r3, #128
+ 1995 000e 1360     		str	r3, [r2]
+ 1996              	.L256:
+ 1997 0010 20F08000 		bic	r0, r0, #128
+ 1998 0014 024A     		ldr	r2, .L257
+ 1999 0016 1368     		ldr	r3, [r2]
+ 2000 0018 1843     		orrs	r0, r0, r3
+ 2001 001a 1060     		str	r0, [r2]
+ 2002 001c 7047     		bx	lr
+ 2003              	.L258:
+ 2004 001e 00BF     		.align	2
+ 2005              	.L257:
+ 2006 0020 18800240 		.word	1073905688
+ 2008              		.section	.text.enet_flowcontrol_feature_disable,"ax",%progbits
+ 2009              		.align	1
+ 2010              		.global	enet_flowcontrol_feature_disable
+ 2011              		.syntax unified
+ 2012              		.thumb
+ 2013              		.thumb_func
+ 2014              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/cclahotI.s 			page 35
+
+
+ 2016              	enet_flowcontrol_feature_disable:
+ 2017              		@ args = 0, pretend = 0, frame = 0
+ 2018              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2019              		@ link register save eliminated.
+ 2020 0000 10F0800F 		tst	r0, #128
+ 2021 0004 04D0     		beq	.L260
+ 2022 0006 064A     		ldr	r2, .L261
+ 2023 0008 1368     		ldr	r3, [r2]
+ 2024 000a 43F08003 		orr	r3, r3, #128
+ 2025 000e 1360     		str	r3, [r2]
+ 2026              	.L260:
+ 2027 0010 20F08000 		bic	r0, r0, #128
+ 2028 0014 024A     		ldr	r2, .L261
+ 2029 0016 1368     		ldr	r3, [r2]
+ 2030 0018 23EA0000 		bic	r0, r3, r0
+ 2031 001c 1060     		str	r0, [r2]
+ 2032 001e 7047     		bx	lr
+ 2033              	.L262:
+ 2034              		.align	2
+ 2035              	.L261:
+ 2036 0020 18800240 		.word	1073905688
+ 2038              		.section	.text.enet_dmaprocess_state_get,"ax",%progbits
+ 2039              		.align	1
+ 2040              		.global	enet_dmaprocess_state_get
+ 2041              		.syntax unified
+ 2042              		.thumb
+ 2043              		.thumb_func
+ 2044              		.fpu fpv4-sp-d16
+ 2046              	enet_dmaprocess_state_get:
+ 2047              		@ args = 0, pretend = 0, frame = 0
+ 2048              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2049              		@ link register save eliminated.
+ 2050 0000 014B     		ldr	r3, .L264
+ 2051 0002 1B68     		ldr	r3, [r3]
+ 2052 0004 1840     		ands	r0, r0, r3
+ 2053 0006 7047     		bx	lr
+ 2054              	.L265:
+ 2055              		.align	2
+ 2056              	.L264:
+ 2057 0008 14900240 		.word	1073909780
+ 2059              		.section	.text.enet_dmaprocess_resume,"ax",%progbits
+ 2060              		.align	1
+ 2061              		.global	enet_dmaprocess_resume
+ 2062              		.syntax unified
+ 2063              		.thumb
+ 2064              		.thumb_func
+ 2065              		.fpu fpv4-sp-d16
+ 2067              	enet_dmaprocess_resume:
+ 2068              		@ args = 0, pretend = 0, frame = 0
+ 2069              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2070              		@ link register save eliminated.
+ 2071 0000 B0F5E00F 		cmp	r0, #7340032
+ 2072 0004 03D0     		beq	.L269
+ 2073 0006 044B     		ldr	r3, .L270
+ 2074 0008 0022     		movs	r2, #0
+ 2075 000a 1A60     		str	r2, [r3]
+ 2076 000c 7047     		bx	lr
+ARM GAS  /tmp/cclahotI.s 			page 36
+
+
+ 2077              	.L269:
+ 2078 000e 034B     		ldr	r3, .L270+4
+ 2079 0010 0022     		movs	r2, #0
+ 2080 0012 1A60     		str	r2, [r3]
+ 2081 0014 7047     		bx	lr
+ 2082              	.L271:
+ 2083 0016 00BF     		.align	2
+ 2084              	.L270:
+ 2085 0018 08900240 		.word	1073909768
+ 2086 001c 04900240 		.word	1073909764
+ 2088              		.section	.text.enet_rxprocess_check_recovery,"ax",%progbits
+ 2089              		.align	1
+ 2090              		.global	enet_rxprocess_check_recovery
+ 2091              		.syntax unified
+ 2092              		.thumb
+ 2093              		.thumb_func
+ 2094              		.fpu fpv4-sp-d16
+ 2096              	enet_rxprocess_check_recovery:
+ 2097              		@ args = 0, pretend = 0, frame = 0
+ 2098              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2099              		@ link register save eliminated.
+ 2100 0000 074B     		ldr	r3, .L275
+ 2101 0002 1B68     		ldr	r3, [r3]
+ 2102 0004 1968     		ldr	r1, [r3]
+ 2103 0006 074A     		ldr	r2, .L275+4
+ 2104 0008 1268     		ldr	r2, [r2]
+ 2105 000a 9A42     		cmp	r2, r3
+ 2106 000c 01D0     		beq	.L272
+ 2107 000e 0029     		cmp	r1, #0
+ 2108 0010 00DB     		blt	.L274
+ 2109              	.L272:
+ 2110 0012 7047     		bx	lr
+ 2111              	.L274:
+ 2112 0014 034B     		ldr	r3, .L275+4
+ 2113 0016 1A68     		ldr	r2, [r3]
+ 2114 0018 014B     		ldr	r3, .L275
+ 2115 001a 1A60     		str	r2, [r3]
+ 2116 001c F9E7     		b	.L272
+ 2117              	.L276:
+ 2118 001e 00BF     		.align	2
+ 2119              	.L275:
+ 2120 0020 00000000 		.word	dma_current_rxdesc
+ 2121 0024 4C900240 		.word	1073909836
+ 2123              		.section	.text.enet_txfifo_flush,"ax",%progbits
+ 2124              		.align	1
+ 2125              		.global	enet_txfifo_flush
+ 2126              		.syntax unified
+ 2127              		.thumb
+ 2128              		.thumb_func
+ 2129              		.fpu fpv4-sp-d16
+ 2131              	enet_txfifo_flush:
+ 2132              		@ args = 0, pretend = 0, frame = 0
+ 2133              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2134              		@ link register save eliminated.
+ 2135 0000 094A     		ldr	r2, .L282
+ 2136 0002 1368     		ldr	r3, [r2]
+ 2137 0004 43F48013 		orr	r3, r3, #1048576
+ARM GAS  /tmp/cclahotI.s 			page 37
+
+
+ 2138 0008 1360     		str	r3, [r2]
+ 2139 000a 0022     		movs	r2, #0
+ 2140              	.L279:
+ 2141 000c 064B     		ldr	r3, .L282
+ 2142 000e 1B68     		ldr	r3, [r3]
+ 2143 0010 0132     		adds	r2, r2, #1
+ 2144 0012 13F48013 		ands	r3, r3, #1048576
+ 2145 0016 02D0     		beq	.L278
+ 2146 0018 0449     		ldr	r1, .L282+4
+ 2147 001a 8A42     		cmp	r2, r1
+ 2148 001c F6D9     		bls	.L279
+ 2149              	.L278:
+ 2150 001e 0BB1     		cbz	r3, .L281
+ 2151 0020 0020     		movs	r0, #0
+ 2152 0022 7047     		bx	lr
+ 2153              	.L281:
+ 2154 0024 0120     		movs	r0, #1
+ 2155 0026 7047     		bx	lr
+ 2156              	.L283:
+ 2157              		.align	2
+ 2158              	.L282:
+ 2159 0028 18900240 		.word	1073909784
+ 2160 002c FEFF0400 		.word	327678
+ 2162              		.section	.text.enet_tx_enable,"ax",%progbits
+ 2163              		.align	1
+ 2164              		.global	enet_tx_enable
+ 2165              		.syntax unified
+ 2166              		.thumb
+ 2167              		.thumb_func
+ 2168              		.fpu fpv4-sp-d16
+ 2170              	enet_tx_enable:
+ 2171              		@ args = 0, pretend = 0, frame = 0
+ 2172              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2173 0000 08B5     		push	{r3, lr}
+ 2174 0002 064A     		ldr	r2, .L286
+ 2175 0004 1368     		ldr	r3, [r2]
+ 2176 0006 43F00803 		orr	r3, r3, #8
+ 2177 000a 1360     		str	r3, [r2]
+ 2178 000c FFF7FEFF 		bl	enet_txfifo_flush
+ 2179 0010 034A     		ldr	r2, .L286+4
+ 2180 0012 1368     		ldr	r3, [r2]
+ 2181 0014 43F40053 		orr	r3, r3, #8192
+ 2182 0018 1360     		str	r3, [r2]
+ 2183 001a 08BD     		pop	{r3, pc}
+ 2184              	.L287:
+ 2185              		.align	2
+ 2186              	.L286:
+ 2187 001c 00800240 		.word	1073905664
+ 2188 0020 18900240 		.word	1073909784
+ 2190              		.section	.text.enet_enable,"ax",%progbits
+ 2191              		.align	1
+ 2192              		.global	enet_enable
+ 2193              		.syntax unified
+ 2194              		.thumb
+ 2195              		.thumb_func
+ 2196              		.fpu fpv4-sp-d16
+ 2198              	enet_enable:
+ARM GAS  /tmp/cclahotI.s 			page 38
+
+
+ 2199              		@ args = 0, pretend = 0, frame = 0
+ 2200              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2201 0000 08B5     		push	{r3, lr}
+ 2202 0002 FFF7FEFF 		bl	enet_tx_enable
+ 2203 0006 FFF7FEFF 		bl	enet_rx_enable
+ 2204 000a 08BD     		pop	{r3, pc}
+ 2206              		.section	.text.enet_tx_disable,"ax",%progbits
+ 2207              		.align	1
+ 2208              		.global	enet_tx_disable
+ 2209              		.syntax unified
+ 2210              		.thumb
+ 2211              		.thumb_func
+ 2212              		.fpu fpv4-sp-d16
+ 2214              	enet_tx_disable:
+ 2215              		@ args = 0, pretend = 0, frame = 0
+ 2216              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2217 0000 08B5     		push	{r3, lr}
+ 2218 0002 064A     		ldr	r2, .L292
+ 2219 0004 1368     		ldr	r3, [r2]
+ 2220 0006 23F40053 		bic	r3, r3, #8192
+ 2221 000a 1360     		str	r3, [r2]
+ 2222 000c FFF7FEFF 		bl	enet_txfifo_flush
+ 2223 0010 034A     		ldr	r2, .L292+4
+ 2224 0012 1368     		ldr	r3, [r2]
+ 2225 0014 23F00803 		bic	r3, r3, #8
+ 2226 0018 1360     		str	r3, [r2]
+ 2227 001a 08BD     		pop	{r3, pc}
+ 2228              	.L293:
+ 2229              		.align	2
+ 2230              	.L292:
+ 2231 001c 18900240 		.word	1073909784
+ 2232 0020 00800240 		.word	1073905664
+ 2234              		.section	.text.enet_disable,"ax",%progbits
+ 2235              		.align	1
+ 2236              		.global	enet_disable
+ 2237              		.syntax unified
+ 2238              		.thumb
+ 2239              		.thumb_func
+ 2240              		.fpu fpv4-sp-d16
+ 2242              	enet_disable:
+ 2243              		@ args = 0, pretend = 0, frame = 0
+ 2244              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2245 0000 08B5     		push	{r3, lr}
+ 2246 0002 FFF7FEFF 		bl	enet_tx_disable
+ 2247 0006 FFF7FEFF 		bl	enet_rx_disable
+ 2248 000a 08BD     		pop	{r3, pc}
+ 2250              		.section	.text.enet_current_desc_address_get,"ax",%progbits
+ 2251              		.align	1
+ 2252              		.global	enet_current_desc_address_get
+ 2253              		.syntax unified
+ 2254              		.thumb
+ 2255              		.thumb_func
+ 2256              		.fpu fpv4-sp-d16
+ 2258              	enet_current_desc_address_get:
+ 2259              		@ args = 0, pretend = 0, frame = 0
+ 2260              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2261              		@ link register save eliminated.
+ARM GAS  /tmp/cclahotI.s 			page 39
+
+
+ 2262 0000 00F18040 		add	r0, r0, #1073741824
+ 2263 0004 00F52030 		add	r0, r0, #163840
+ 2264 0008 0068     		ldr	r0, [r0]
+ 2265 000a 7047     		bx	lr
+ 2267              		.section	.text.enet_desc_information_get,"ax",%progbits
+ 2268              		.align	1
+ 2269              		.global	enet_desc_information_get
+ 2270              		.syntax unified
+ 2271              		.thumb
+ 2272              		.thumb_func
+ 2273              		.fpu fpv4-sp-d16
+ 2275              	enet_desc_information_get:
+ 2276              		@ args = 0, pretend = 0, frame = 0
+ 2277              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2278              		@ link register save eliminated.
+ 2279 0000 0529     		cmp	r1, #5
+ 2280 0002 23D8     		bhi	.L306
+ 2281 0004 DFE801F0 		tbb	[pc, r1]
+ 2282              	.L300:
+ 2283 0008 1E       		.byte	(.L305-.L300)/2
+ 2284 0009 1C       		.byte	(.L304-.L300)/2
+ 2285 000a 0B       		.byte	(.L303-.L300)/2
+ 2286 000b 03       		.byte	(.L302-.L300)/2
+ 2287 000c 07       		.byte	(.L301-.L300)/2
+ 2288 000d 1A       		.byte	(.L299-.L300)/2
+ 2289              		.p2align 1
+ 2290              	.L302:
+ 2291 000e 4068     		ldr	r0, [r0, #4]
+ 2292 0010 C0F30C00 		ubfx	r0, r0, #0, #13
+ 2293 0014 7047     		bx	lr
+ 2294              	.L301:
+ 2295 0016 C088     		ldrh	r0, [r0, #6]
+ 2296 0018 C0F30C00 		ubfx	r0, r0, #0, #13
+ 2297 001c 7047     		bx	lr
+ 2298              	.L303:
+ 2299 001e 0268     		ldr	r2, [r0]
+ 2300 0020 C2F30D43 		ubfx	r3, r2, #16, #14
+ 2301 0024 042B     		cmp	r3, #4
+ 2302 0026 14D9     		bls	.L307
+ 2303 0028 181F     		subs	r0, r3, #4
+ 2304 002a 0C49     		ldr	r1, .L309
+ 2305 002c 0968     		ldr	r1, [r1]
+ 2306 002e 11F0007F 		tst	r1, #33554432
+ 2307 0032 11D0     		beq	.L297
+ 2308 0034 12F0200F 		tst	r2, #32
+ 2309 0038 0DD1     		bne	.L308
+ 2310 003a 7047     		bx	lr
+ 2311              	.L299:
+ 2312 003c 8068     		ldr	r0, [r0, #8]
+ 2313 003e 7047     		bx	lr
+ 2314              	.L304:
+ 2315 0040 8068     		ldr	r0, [r0, #8]
+ 2316 0042 7047     		bx	lr
+ 2317              	.L305:
+ 2318 0044 0068     		ldr	r0, [r0]
+ 2319 0046 C0F3C300 		ubfx	r0, r0, #3, #4
+ 2320 004a 7047     		bx	lr
+ARM GAS  /tmp/cclahotI.s 			page 40
+
+
+ 2321              	.L306:
+ 2322 004c 4FF0FF30 		mov	r0, #-1
+ 2323 0050 7047     		bx	lr
+ 2324              	.L307:
+ 2325 0052 0020     		movs	r0, #0
+ 2326 0054 7047     		bx	lr
+ 2327              	.L308:
+ 2328 0056 1846     		mov	r0, r3
+ 2329              	.L297:
+ 2330 0058 7047     		bx	lr
+ 2331              	.L310:
+ 2332 005a 00BF     		.align	2
+ 2333              	.L309:
+ 2334 005c 00800240 		.word	1073905664
+ 2336              		.section	.text.enet_missed_frame_counter_get,"ax",%progbits
+ 2337              		.align	1
+ 2338              		.global	enet_missed_frame_counter_get
+ 2339              		.syntax unified
+ 2340              		.thumb
+ 2341              		.thumb_func
+ 2342              		.fpu fpv4-sp-d16
+ 2344              	enet_missed_frame_counter_get:
+ 2345              		@ args = 0, pretend = 0, frame = 0
+ 2346              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2347              		@ link register save eliminated.
+ 2348 0000 034B     		ldr	r3, .L312
+ 2349 0002 1B68     		ldr	r3, [r3]
+ 2350 0004 C3F34A42 		ubfx	r2, r3, #17, #11
+ 2351 0008 0260     		str	r2, [r0]
+ 2352 000a 9BB2     		uxth	r3, r3
+ 2353 000c 0B60     		str	r3, [r1]
+ 2354 000e 7047     		bx	lr
+ 2355              	.L313:
+ 2356              		.align	2
+ 2357              	.L312:
+ 2358 0010 20900240 		.word	1073909792
+ 2360              		.section	.text.enet_desc_flag_get,"ax",%progbits
+ 2361              		.align	1
+ 2362              		.global	enet_desc_flag_get
+ 2363              		.syntax unified
+ 2364              		.thumb
+ 2365              		.thumb_func
+ 2366              		.fpu fpv4-sp-d16
+ 2368              	enet_desc_flag_get:
+ 2369              		@ args = 0, pretend = 0, frame = 0
+ 2370              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2371              		@ link register save eliminated.
+ 2372 0000 0368     		ldr	r3, [r0]
+ 2373 0002 0B42     		tst	r3, r1
+ 2374 0004 01D1     		bne	.L316
+ 2375 0006 0020     		movs	r0, #0
+ 2376 0008 7047     		bx	lr
+ 2377              	.L316:
+ 2378 000a 0120     		movs	r0, #1
+ 2379 000c 7047     		bx	lr
+ 2381              		.section	.text.enet_desc_flag_set,"ax",%progbits
+ 2382              		.align	1
+ARM GAS  /tmp/cclahotI.s 			page 41
+
+
+ 2383              		.global	enet_desc_flag_set
+ 2384              		.syntax unified
+ 2385              		.thumb
+ 2386              		.thumb_func
+ 2387              		.fpu fpv4-sp-d16
+ 2389              	enet_desc_flag_set:
+ 2390              		@ args = 0, pretend = 0, frame = 0
+ 2391              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2392              		@ link register save eliminated.
+ 2393 0000 0368     		ldr	r3, [r0]
+ 2394 0002 1943     		orrs	r1, r1, r3
+ 2395 0004 0160     		str	r1, [r0]
+ 2396 0006 7047     		bx	lr
+ 2398              		.section	.text.enet_desc_flag_clear,"ax",%progbits
+ 2399              		.align	1
+ 2400              		.global	enet_desc_flag_clear
+ 2401              		.syntax unified
+ 2402              		.thumb
+ 2403              		.thumb_func
+ 2404              		.fpu fpv4-sp-d16
+ 2406              	enet_desc_flag_clear:
+ 2407              		@ args = 0, pretend = 0, frame = 0
+ 2408              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2409              		@ link register save eliminated.
+ 2410 0000 0368     		ldr	r3, [r0]
+ 2411 0002 23EA0101 		bic	r1, r3, r1
+ 2412 0006 0160     		str	r1, [r0]
+ 2413 0008 7047     		bx	lr
+ 2415              		.section	.text.enet_rx_desc_immediate_receive_complete_interrupt,"ax",%progbits
+ 2416              		.align	1
+ 2417              		.global	enet_rx_desc_immediate_receive_complete_interrupt
+ 2418              		.syntax unified
+ 2419              		.thumb
+ 2420              		.thumb_func
+ 2421              		.fpu fpv4-sp-d16
+ 2423              	enet_rx_desc_immediate_receive_complete_interrupt:
+ 2424              		@ args = 0, pretend = 0, frame = 0
+ 2425              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2426              		@ link register save eliminated.
+ 2427 0000 4368     		ldr	r3, [r0, #4]
+ 2428 0002 23F00043 		bic	r3, r3, #-2147483648
+ 2429 0006 4360     		str	r3, [r0, #4]
+ 2430 0008 7047     		bx	lr
+ 2432              		.section	.text.enet_rx_desc_delay_receive_complete_interrupt,"ax",%progbits
+ 2433              		.align	1
+ 2434              		.global	enet_rx_desc_delay_receive_complete_interrupt
+ 2435              		.syntax unified
+ 2436              		.thumb
+ 2437              		.thumb_func
+ 2438              		.fpu fpv4-sp-d16
+ 2440              	enet_rx_desc_delay_receive_complete_interrupt:
+ 2441              		@ args = 0, pretend = 0, frame = 0
+ 2442              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2443              		@ link register save eliminated.
+ 2444 0000 4368     		ldr	r3, [r0, #4]
+ 2445 0002 43F00043 		orr	r3, r3, #-2147483648
+ 2446 0006 4360     		str	r3, [r0, #4]
+ARM GAS  /tmp/cclahotI.s 			page 42
+
+
+ 2447 0008 C9B2     		uxtb	r1, r1
+ 2448 000a 014B     		ldr	r3, .L321
+ 2449 000c 1960     		str	r1, [r3]
+ 2450 000e 7047     		bx	lr
+ 2451              	.L322:
+ 2452              		.align	2
+ 2453              	.L321:
+ 2454 0010 24900240 		.word	1073909796
+ 2456              		.section	.text.enet_rxframe_drop,"ax",%progbits
+ 2457              		.align	1
+ 2458              		.global	enet_rxframe_drop
+ 2459              		.syntax unified
+ 2460              		.thumb
+ 2461              		.thumb_func
+ 2462              		.fpu fpv4-sp-d16
+ 2464              	enet_rxframe_drop:
+ 2465              		@ args = 0, pretend = 0, frame = 0
+ 2466              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2467              		@ link register save eliminated.
+ 2468 0000 1C4B     		ldr	r3, .L329
+ 2469 0002 1A68     		ldr	r2, [r3]
+ 2470 0004 4FF00041 		mov	r1, #-2147483648
+ 2471 0008 1160     		str	r1, [r2]
+ 2472 000a 1A68     		ldr	r2, [r3]
+ 2473 000c 5368     		ldr	r3, [r2, #4]
+ 2474 000e 13F4804F 		tst	r3, #16384
+ 2475 0012 12D0     		beq	.L324
+ 2476 0014 184B     		ldr	r3, .L329+4
+ 2477 0016 1B68     		ldr	r3, [r3]
+ 2478 0018 5BB1     		cbz	r3, .L325
+ 2479 001a D968     		ldr	r1, [r3, #12]
+ 2480 001c 154A     		ldr	r2, .L329
+ 2481 001e 1160     		str	r1, [r2]
+ 2482 0020 1A68     		ldr	r2, [r3]
+ 2483 0022 12B1     		cbz	r2, .L326
+ 2484 0024 144B     		ldr	r3, .L329+4
+ 2485 0026 1A60     		str	r2, [r3]
+ 2486 0028 7047     		bx	lr
+ 2487              	.L326:
+ 2488 002a 1033     		adds	r3, r3, #16
+ 2489 002c 124A     		ldr	r2, .L329+4
+ 2490 002e 1360     		str	r3, [r2]
+ 2491 0030 7047     		bx	lr
+ 2492              	.L325:
+ 2493 0032 D268     		ldr	r2, [r2, #12]
+ 2494 0034 0F4B     		ldr	r3, .L329
+ 2495 0036 1A60     		str	r2, [r3]
+ 2496 0038 7047     		bx	lr
+ 2497              	.L324:
+ 2498 003a 13F4004F 		tst	r3, #32768
+ 2499 003e 0AD0     		beq	.L328
+ 2500 0040 0E4B     		ldr	r3, .L329+8
+ 2501 0042 1A68     		ldr	r2, [r3]
+ 2502 0044 0B4B     		ldr	r3, .L329
+ 2503 0046 1A60     		str	r2, [r3]
+ 2504 0048 0B4B     		ldr	r3, .L329+4
+ 2505 004a 1B68     		ldr	r3, [r3]
+ARM GAS  /tmp/cclahotI.s 			page 43
+
+
+ 2506 004c 8BB1     		cbz	r3, .L323
+ 2507 004e 1A68     		ldr	r2, [r3]
+ 2508 0050 094B     		ldr	r3, .L329+4
+ 2509 0052 1A60     		str	r2, [r3]
+ 2510 0054 7047     		bx	lr
+ 2511              	.L328:
+ 2512 0056 0A4B     		ldr	r3, .L329+12
+ 2513 0058 1B68     		ldr	r3, [r3]
+ 2514 005a C3F38403 		ubfx	r3, r3, #2, #5
+ 2515 005e 1A44     		add	r2, r2, r3
+ 2516 0060 1032     		adds	r2, r2, #16
+ 2517 0062 044B     		ldr	r3, .L329
+ 2518 0064 1A60     		str	r2, [r3]
+ 2519 0066 044B     		ldr	r3, .L329+4
+ 2520 0068 1B68     		ldr	r3, [r3]
+ 2521 006a 13B1     		cbz	r3, .L323
+ 2522 006c 1033     		adds	r3, r3, #16
+ 2523 006e 024A     		ldr	r2, .L329+4
+ 2524 0070 1360     		str	r3, [r2]
+ 2525              	.L323:
+ 2526 0072 7047     		bx	lr
+ 2527              	.L330:
+ 2528              		.align	2
+ 2529              	.L329:
+ 2530 0074 00000000 		.word	dma_current_rxdesc
+ 2531 0078 00000000 		.word	.LANCHOR1
+ 2532 007c 0C900240 		.word	1073909772
+ 2533 0080 00900240 		.word	1073909760
+ 2535              		.section	.text.enet_rxframe_size_get,"ax",%progbits
+ 2536              		.align	1
+ 2537              		.global	enet_rxframe_size_get
+ 2538              		.syntax unified
+ 2539              		.thumb
+ 2540              		.thumb_func
+ 2541              		.fpu fpv4-sp-d16
+ 2543              	enet_rxframe_size_get:
+ 2544              		@ args = 0, pretend = 0, frame = 0
+ 2545              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2546 0000 08B5     		push	{r3, lr}
+ 2547 0002 124B     		ldr	r3, .L340
+ 2548 0004 1B68     		ldr	r3, [r3]
+ 2549 0006 1B68     		ldr	r3, [r3]
+ 2550 0008 002B     		cmp	r3, #0
+ 2551 000a 1DDB     		blt	.L335
+ 2552 000c 03F40342 		and	r2, r3, #33536
+ 2553 0010 B2F5407F 		cmp	r2, #768
+ 2554 0014 10D1     		bne	.L338
+ 2555 0016 03F02102 		and	r2, r3, #33
+ 2556 001a 212A     		cmp	r2, #33
+ 2557 001c 10D0     		beq	.L339
+ 2558 001e C3F30D42 		ubfx	r2, r3, #16, #14
+ 2559 0022 101F     		subs	r0, r2, #4
+ 2560 0024 0A49     		ldr	r1, .L340+4
+ 2561 0026 0968     		ldr	r1, [r1]
+ 2562 0028 11F0007F 		tst	r1, #33554432
+ 2563 002c 0DD0     		beq	.L331
+ 2564 002e 13F0200F 		tst	r3, #32
+ARM GAS  /tmp/cclahotI.s 			page 44
+
+
+ 2565 0032 0AD0     		beq	.L331
+ 2566 0034 1046     		mov	r0, r2
+ 2567 0036 08E0     		b	.L331
+ 2568              	.L338:
+ 2569 0038 FFF7FEFF 		bl	enet_rxframe_drop
+ 2570 003c 0120     		movs	r0, #1
+ 2571 003e 04E0     		b	.L331
+ 2572              	.L339:
+ 2573 0040 FFF7FEFF 		bl	enet_rxframe_drop
+ 2574 0044 0120     		movs	r0, #1
+ 2575 0046 00E0     		b	.L331
+ 2576              	.L335:
+ 2577 0048 0020     		movs	r0, #0
+ 2578              	.L331:
+ 2579 004a 08BD     		pop	{r3, pc}
+ 2580              	.L341:
+ 2581              		.align	2
+ 2582              	.L340:
+ 2583 004c 00000000 		.word	dma_current_rxdesc
+ 2584 0050 00800240 		.word	1073905664
+ 2586              		.section	.text.enet_dma_feature_enable,"ax",%progbits
+ 2587              		.align	1
+ 2588              		.global	enet_dma_feature_enable
+ 2589              		.syntax unified
+ 2590              		.thumb
+ 2591              		.thumb_func
+ 2592              		.fpu fpv4-sp-d16
+ 2594              	enet_dma_feature_enable:
+ 2595              		@ args = 0, pretend = 0, frame = 0
+ 2596              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2597              		@ link register save eliminated.
+ 2598 0000 024A     		ldr	r2, .L343
+ 2599 0002 1368     		ldr	r3, [r2]
+ 2600 0004 1843     		orrs	r0, r0, r3
+ 2601 0006 1060     		str	r0, [r2]
+ 2602 0008 7047     		bx	lr
+ 2603              	.L344:
+ 2604 000a 00BF     		.align	2
+ 2605              	.L343:
+ 2606 000c 18900240 		.word	1073909784
+ 2608              		.section	.text.enet_dma_feature_disable,"ax",%progbits
+ 2609              		.align	1
+ 2610              		.global	enet_dma_feature_disable
+ 2611              		.syntax unified
+ 2612              		.thumb
+ 2613              		.thumb_func
+ 2614              		.fpu fpv4-sp-d16
+ 2616              	enet_dma_feature_disable:
+ 2617              		@ args = 0, pretend = 0, frame = 0
+ 2618              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2619              		@ link register save eliminated.
+ 2620 0000 024A     		ldr	r2, .L346
+ 2621 0002 1368     		ldr	r3, [r2]
+ 2622 0004 23EA0000 		bic	r0, r3, r0
+ 2623 0008 1060     		str	r0, [r2]
+ 2624 000a 7047     		bx	lr
+ 2625              	.L347:
+ARM GAS  /tmp/cclahotI.s 			page 45
+
+
+ 2626              		.align	2
+ 2627              	.L346:
+ 2628 000c 18900240 		.word	1073909784
+ 2630              		.section	.text.enet_desc_select_normal_mode,"ax",%progbits
+ 2631              		.align	1
+ 2632              		.global	enet_desc_select_normal_mode
+ 2633              		.syntax unified
+ 2634              		.thumb
+ 2635              		.thumb_func
+ 2636              		.fpu fpv4-sp-d16
+ 2638              	enet_desc_select_normal_mode:
+ 2639              		@ args = 0, pretend = 0, frame = 0
+ 2640              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2641              		@ link register save eliminated.
+ 2642 0000 024A     		ldr	r2, .L349
+ 2643 0002 1368     		ldr	r3, [r2]
+ 2644 0004 23F08003 		bic	r3, r3, #128
+ 2645 0008 1360     		str	r3, [r2]
+ 2646 000a 7047     		bx	lr
+ 2647              	.L350:
+ 2648              		.align	2
+ 2649              	.L349:
+ 2650 000c 00900240 		.word	1073909760
+ 2652              		.section	.text.enet_ptp_normal_descriptors_chain_init,"ax",%progbits
+ 2653              		.align	1
+ 2654              		.global	enet_ptp_normal_descriptors_chain_init
+ 2655              		.syntax unified
+ 2656              		.thumb
+ 2657              		.thumb_func
+ 2658              		.fpu fpv4-sp-d16
+ 2660              	enet_ptp_normal_descriptors_chain_init:
+ 2661              		@ args = 0, pretend = 0, frame = 0
+ 2662              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2663 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 2664 0002 B0F5E00F 		cmp	r0, #7340032
+ 2665 0006 0DD0     		beq	.L359
+ 2666 0008 1D4D     		ldr	r5, .L362
+ 2667 000a 1E4B     		ldr	r3, .L362+4
+ 2668 000c 1D60     		str	r5, [r3]
+ 2669 000e 1E4B     		ldr	r3, .L362+8
+ 2670 0010 1D60     		str	r5, [r3]
+ 2671 0012 1E4B     		ldr	r3, .L362+12
+ 2672 0014 1960     		str	r1, [r3]
+ 2673 0016 1E4F     		ldr	r7, .L362+16
+ 2674 0018 44F2F45E 		movw	lr, #17908
+ 2675 001c 4FF0004C 		mov	ip, #-2147483648
+ 2676              	.L353:
+ 2677 0020 0023     		movs	r3, #0
+ 2678 0022 15E0     		b	.L354
+ 2679              	.L359:
+ 2680 0024 1B4D     		ldr	r5, .L362+20
+ 2681 0026 1C4B     		ldr	r3, .L362+24
+ 2682 0028 1D60     		str	r5, [r3]
+ 2683 002a 1C4B     		ldr	r3, .L362+28
+ 2684 002c 1D60     		str	r5, [r3]
+ 2685 002e 1C4B     		ldr	r3, .L362+32
+ 2686 0030 1960     		str	r1, [r3]
+ARM GAS  /tmp/cclahotI.s 			page 46
+
+
+ 2687 0032 1C4F     		ldr	r7, .L362+36
+ 2688 0034 4FF0000E 		mov	lr, #0
+ 2689 0038 4FF0047C 		mov	ip, #34603008
+ 2690 003c F0E7     		b	.L353
+ 2691              	.L361:
+ 2692 003e 5E1C     		adds	r6, r3, #1
+ 2693 0040 05EB0616 		add	r6, r5, r6, lsl #4
+ 2694 0044 E660     		str	r6, [r4, #12]
+ 2695              	.L356:
+ 2696 0046 0A44     		add	r2, r2, r1
+ 2697 0048 9060     		str	r0, [r2, #8]
+ 2698 004a E068     		ldr	r0, [r4, #12]
+ 2699 004c D060     		str	r0, [r2, #12]
+ 2700 004e 0133     		adds	r3, r3, #1
+ 2701              	.L354:
+ 2702 0050 042B     		cmp	r3, #4
+ 2703 0052 0ED8     		bhi	.L360
+ 2704 0054 1A01     		lsls	r2, r3, #4
+ 2705 0056 AC18     		adds	r4, r5, r2
+ 2706 0058 45F802C0 		str	ip, [r5, r2]
+ 2707 005c C4F804E0 		str	lr, [r4, #4]
+ 2708 0060 40F2F450 		movw	r0, #1524
+ 2709 0064 00FB0370 		mla	r0, r0, r3, r7
+ 2710 0068 A060     		str	r0, [r4, #8]
+ 2711 006a 032B     		cmp	r3, #3
+ 2712 006c E7D9     		bls	.L361
+ 2713 006e E560     		str	r5, [r4, #12]
+ 2714 0070 E9E7     		b	.L356
+ 2715              	.L360:
+ 2716 0072 03F18053 		add	r3, r3, #268435456
+ 2717 0076 013B     		subs	r3, r3, #1
+ 2718 0078 1B01     		lsls	r3, r3, #4
+ 2719 007a C950     		str	r1, [r1, r3]
+ 2720 007c F0BD     		pop	{r4, r5, r6, r7, pc}
+ 2721              	.L363:
+ 2722 007e 00BF     		.align	2
+ 2723              	.L362:
+ 2724 0080 00000000 		.word	rxdesc_tab
+ 2725 0084 0C900240 		.word	1073909772
+ 2726 0088 00000000 		.word	dma_current_rxdesc
+ 2727 008c 00000000 		.word	.LANCHOR1
+ 2728 0090 00000000 		.word	rx_buff
+ 2729 0094 00000000 		.word	txdesc_tab
+ 2730 0098 10900240 		.word	1073909776
+ 2731 009c 00000000 		.word	dma_current_txdesc
+ 2732 00a0 00000000 		.word	.LANCHOR2
+ 2733 00a4 00000000 		.word	tx_buff
+ 2735              		.section	.text.enet_ptp_normal_descriptors_ring_init,"ax",%progbits
+ 2736              		.align	1
+ 2737              		.global	enet_ptp_normal_descriptors_ring_init
+ 2738              		.syntax unified
+ 2739              		.thumb
+ 2740              		.thumb_func
+ 2741              		.fpu fpv4-sp-d16
+ 2743              	enet_ptp_normal_descriptors_ring_init:
+ 2744              		@ args = 0, pretend = 0, frame = 0
+ 2745              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/cclahotI.s 			page 47
+
+
+ 2746 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 2747 0004 8446     		mov	ip, r0
+ 2748 0006 254B     		ldr	r3, .L375
+ 2749 0008 1A68     		ldr	r2, [r3]
+ 2750 000a 22F07C02 		bic	r2, r2, #124
+ 2751 000e 1A60     		str	r2, [r3]
+ 2752 0010 1A68     		ldr	r2, [r3]
+ 2753 0012 1A60     		str	r2, [r3]
+ 2754 0014 B0F5E00F 		cmp	r0, #7340032
+ 2755 0018 0ED0     		beq	.L372
+ 2756 001a 214E     		ldr	r6, .L375+4
+ 2757 001c 214B     		ldr	r3, .L375+8
+ 2758 001e 1E60     		str	r6, [r3]
+ 2759 0020 214B     		ldr	r3, .L375+12
+ 2760 0022 1E60     		str	r6, [r3]
+ 2761 0024 214B     		ldr	r3, .L375+16
+ 2762 0026 1960     		str	r1, [r3]
+ 2763 0028 DFF890E0 		ldr	lr, .L375+32
+ 2764 002c 40F2F457 		movw	r7, #1524
+ 2765 0030 4FF00040 		mov	r0, #-2147483648
+ 2766              	.L366:
+ 2767 0034 0023     		movs	r3, #0
+ 2768 0036 15E0     		b	.L367
+ 2769              	.L372:
+ 2770 0038 1D4E     		ldr	r6, .L375+20
+ 2771 003a 1033     		adds	r3, r3, #16
+ 2772 003c 1E60     		str	r6, [r3]
+ 2773 003e 1D4B     		ldr	r3, .L375+24
+ 2774 0040 1E60     		str	r6, [r3]
+ 2775 0042 1D4B     		ldr	r3, .L375+28
+ 2776 0044 1960     		str	r1, [r3]
+ 2777 0046 DFF878E0 		ldr	lr, .L375+36
+ 2778 004a 0027     		movs	r7, #0
+ 2779 004c 4FF00070 		mov	r0, #33554432
+ 2780 0050 F0E7     		b	.L366
+ 2781              	.L374:
+ 2782 0052 40F40018 		orr	r8, r0, #2097152
+ 2783 0056 C5F80080 		str	r8, [r5]
+ 2784              	.L368:
+ 2785 005a 0A44     		add	r2, r2, r1
+ 2786 005c 9460     		str	r4, [r2, #8]
+ 2787 005e EC68     		ldr	r4, [r5, #12]
+ 2788 0060 D460     		str	r4, [r2, #12]
+ 2789 0062 0133     		adds	r3, r3, #1
+ 2790              	.L367:
+ 2791 0064 042B     		cmp	r3, #4
+ 2792 0066 12D8     		bhi	.L373
+ 2793 0068 1A01     		lsls	r2, r3, #4
+ 2794 006a B518     		adds	r5, r6, r2
+ 2795 006c B050     		str	r0, [r6, r2]
+ 2796 006e 6F60     		str	r7, [r5, #4]
+ 2797 0070 40F2F454 		movw	r4, #1524
+ 2798 0074 04FB03E4 		mla	r4, r4, r3, lr
+ 2799 0078 AC60     		str	r4, [r5, #8]
+ 2800 007a 042B     		cmp	r3, #4
+ 2801 007c EDD1     		bne	.L368
+ 2802 007e BCF5E00F 		cmp	ip, #7340032
+ARM GAS  /tmp/cclahotI.s 			page 48
+
+
+ 2803 0082 E6D0     		beq	.L374
+ 2804 0084 47F40048 		orr	r8, r7, #32768
+ 2805 0088 C5F80480 		str	r8, [r5, #4]
+ 2806 008c E5E7     		b	.L368
+ 2807              	.L373:
+ 2808 008e 03F18053 		add	r3, r3, #268435456
+ 2809 0092 013B     		subs	r3, r3, #1
+ 2810 0094 1B01     		lsls	r3, r3, #4
+ 2811 0096 C950     		str	r1, [r1, r3]
+ 2812 0098 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 2813              	.L376:
+ 2814              		.align	2
+ 2815              	.L375:
+ 2816 009c 00900240 		.word	1073909760
+ 2817 00a0 00000000 		.word	rxdesc_tab
+ 2818 00a4 0C900240 		.word	1073909772
+ 2819 00a8 00000000 		.word	dma_current_rxdesc
+ 2820 00ac 00000000 		.word	.LANCHOR1
+ 2821 00b0 00000000 		.word	txdesc_tab
+ 2822 00b4 00000000 		.word	dma_current_txdesc
+ 2823 00b8 00000000 		.word	.LANCHOR2
+ 2824 00bc 00000000 		.word	rx_buff
+ 2825 00c0 00000000 		.word	tx_buff
+ 2827              		.section	.text.enet_ptpframe_receive_normal_mode,"ax",%progbits
+ 2828              		.align	1
+ 2829              		.global	enet_ptpframe_receive_normal_mode
+ 2830              		.syntax unified
+ 2831              		.thumb
+ 2832              		.thumb_func
+ 2833              		.fpu fpv4-sp-d16
+ 2835              	enet_ptpframe_receive_normal_mode:
+ 2836              		@ args = 0, pretend = 0, frame = 0
+ 2837              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2838              		@ link register save eliminated.
+ 2839 0000 3B4B     		ldr	r3, .L395
+ 2840 0002 1B68     		ldr	r3, [r3]
+ 2841 0004 1B68     		ldr	r3, [r3]
+ 2842 0006 002B     		cmp	r3, #0
+ 2843 0008 6ADB     		blt	.L387
+ 2844 000a 70B4     		push	{r4, r5, r6}
+ 2845 000c E0B1     		cbz	r0, .L379
+ 2846 000e 03F40344 		and	r4, r3, #33536
+ 2847 0012 B4F5407F 		cmp	r4, #768
+ 2848 0016 65D1     		bne	.L388
+ 2849 0018 C3F30D45 		ubfx	r5, r3, #16, #14
+ 2850 001c 2C1F     		subs	r4, r5, #4
+ 2851 001e 354E     		ldr	r6, .L395+4
+ 2852 0020 3668     		ldr	r6, [r6]
+ 2853 0022 16F0007F 		tst	r6, #33554432
+ 2854 0026 03D0     		beq	.L380
+ 2855 0028 13F0200F 		tst	r3, #32
+ 2856 002c 00D0     		beq	.L380
+ 2857 002e 2C46     		mov	r4, r5
+ 2858              	.L380:
+ 2859 0030 8C42     		cmp	r4, r1
+ 2860 0032 5AD8     		bhi	.L390
+ 2861 0034 0023     		movs	r3, #0
+ARM GAS  /tmp/cclahotI.s 			page 49
+
+
+ 2862              	.L381:
+ 2863 0036 A342     		cmp	r3, r4
+ 2864 0038 06D2     		bcs	.L379
+ 2865 003a 2F49     		ldr	r1, .L395+8
+ 2866 003c 0968     		ldr	r1, [r1]
+ 2867 003e 8968     		ldr	r1, [r1, #8]
+ 2868 0040 C95C     		ldrb	r1, [r1, r3]	@ zero_extendqisi2
+ 2869 0042 C154     		strb	r1, [r0, r3]
+ 2870 0044 0133     		adds	r3, r3, #1
+ 2871 0046 F6E7     		b	.L381
+ 2872              	.L379:
+ 2873 0048 294B     		ldr	r3, .L395
+ 2874 004a 1968     		ldr	r1, [r3]
+ 2875 004c 8968     		ldr	r1, [r1, #8]
+ 2876 004e 1160     		str	r1, [r2]
+ 2877 0050 1B68     		ldr	r3, [r3]
+ 2878 0052 D968     		ldr	r1, [r3, #12]
+ 2879 0054 5160     		str	r1, [r2, #4]
+ 2880 0056 284A     		ldr	r2, .L395+8
+ 2881 0058 1268     		ldr	r2, [r2]
+ 2882 005a 9168     		ldr	r1, [r2, #8]
+ 2883 005c 9960     		str	r1, [r3, #8]
+ 2884 005e D268     		ldr	r2, [r2, #12]
+ 2885 0060 DA60     		str	r2, [r3, #12]
+ 2886 0062 4FF00042 		mov	r2, #-2147483648
+ 2887 0066 1A60     		str	r2, [r3]
+ 2888 0068 244B     		ldr	r3, .L395+12
+ 2889 006a 1B68     		ldr	r3, [r3]
+ 2890 006c 13F0800F 		tst	r3, #128
+ 2891 0070 05D0     		beq	.L383
+ 2892 0072 224B     		ldr	r3, .L395+12
+ 2893 0074 8022     		movs	r2, #128
+ 2894 0076 1A60     		str	r2, [r3]
+ 2895 0078 0C3B     		subs	r3, r3, #12
+ 2896 007a 0022     		movs	r2, #0
+ 2897 007c 1A60     		str	r2, [r3]
+ 2898              	.L383:
+ 2899 007e 1C4B     		ldr	r3, .L395
+ 2900 0080 1A68     		ldr	r2, [r3]
+ 2901 0082 5368     		ldr	r3, [r2, #4]
+ 2902 0084 13F4804F 		tst	r3, #16384
+ 2903 0088 0FD0     		beq	.L384
+ 2904 008a 1B4B     		ldr	r3, .L395+8
+ 2905 008c 1B68     		ldr	r3, [r3]
+ 2906 008e D968     		ldr	r1, [r3, #12]
+ 2907 0090 174A     		ldr	r2, .L395
+ 2908 0092 1160     		str	r1, [r2]
+ 2909 0094 1A68     		ldr	r2, [r3]
+ 2910 0096 1AB1     		cbz	r2, .L385
+ 2911 0098 174B     		ldr	r3, .L395+8
+ 2912 009a 1A60     		str	r2, [r3]
+ 2913 009c 0120     		movs	r0, #1
+ 2914 009e 22E0     		b	.L378
+ 2915              	.L385:
+ 2916 00a0 1033     		adds	r3, r3, #16
+ 2917 00a2 154A     		ldr	r2, .L395+8
+ 2918 00a4 1360     		str	r3, [r2]
+ARM GAS  /tmp/cclahotI.s 			page 50
+
+
+ 2919 00a6 0120     		movs	r0, #1
+ 2920 00a8 1DE0     		b	.L378
+ 2921              	.L384:
+ 2922 00aa 13F4004F 		tst	r3, #32768
+ 2923 00ae 09D0     		beq	.L386
+ 2924 00b0 134B     		ldr	r3, .L395+16
+ 2925 00b2 1A68     		ldr	r2, [r3]
+ 2926 00b4 0E4B     		ldr	r3, .L395
+ 2927 00b6 1A60     		str	r2, [r3]
+ 2928 00b8 0F4B     		ldr	r3, .L395+8
+ 2929 00ba 1A68     		ldr	r2, [r3]
+ 2930 00bc 1268     		ldr	r2, [r2]
+ 2931 00be 1A60     		str	r2, [r3]
+ 2932 00c0 0120     		movs	r0, #1
+ 2933 00c2 10E0     		b	.L378
+ 2934              	.L386:
+ 2935 00c4 0F4B     		ldr	r3, .L395+20
+ 2936 00c6 1B68     		ldr	r3, [r3]
+ 2937 00c8 C3F38403 		ubfx	r3, r3, #2, #5
+ 2938 00cc 1A44     		add	r2, r2, r3
+ 2939 00ce 1032     		adds	r2, r2, #16
+ 2940 00d0 074B     		ldr	r3, .L395
+ 2941 00d2 1A60     		str	r2, [r3]
+ 2942 00d4 084A     		ldr	r2, .L395+8
+ 2943 00d6 1368     		ldr	r3, [r2]
+ 2944 00d8 1033     		adds	r3, r3, #16
+ 2945 00da 1360     		str	r3, [r2]
+ 2946 00dc 0120     		movs	r0, #1
+ 2947 00de 02E0     		b	.L378
+ 2948              	.L387:
+ 2949 00e0 0020     		movs	r0, #0
+ 2950 00e2 7047     		bx	lr
+ 2951              	.L388:
+ 2952 00e4 0020     		movs	r0, #0
+ 2953              	.L378:
+ 2954 00e6 70BC     		pop	{r4, r5, r6}
+ 2955 00e8 7047     		bx	lr
+ 2956              	.L390:
+ 2957 00ea 0020     		movs	r0, #0
+ 2958 00ec FBE7     		b	.L378
+ 2959              	.L396:
+ 2960 00ee 00BF     		.align	2
+ 2961              	.L395:
+ 2962 00f0 00000000 		.word	dma_current_rxdesc
+ 2963 00f4 00800240 		.word	1073905664
+ 2964 00f8 00000000 		.word	.LANCHOR1
+ 2965 00fc 14900240 		.word	1073909780
+ 2966 0100 0C900240 		.word	1073909772
+ 2967 0104 00900240 		.word	1073909760
+ 2969              		.section	.text.enet_ptpframe_transmit_normal_mode,"ax",%progbits
+ 2970              		.align	1
+ 2971              		.global	enet_ptpframe_transmit_normal_mode
+ 2972              		.syntax unified
+ 2973              		.thumb
+ 2974              		.thumb_func
+ 2975              		.fpu fpv4-sp-d16
+ 2977              	enet_ptpframe_transmit_normal_mode:
+ARM GAS  /tmp/cclahotI.s 			page 51
+
+
+ 2978              		@ args = 0, pretend = 0, frame = 0
+ 2979              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2980              		@ link register save eliminated.
+ 2981 0000 414B     		ldr	r3, .L418
+ 2982 0002 1B68     		ldr	r3, [r3]
+ 2983 0004 1B68     		ldr	r3, [r3]
+ 2984 0006 002B     		cmp	r3, #0
+ 2985 0008 78DB     		blt	.L410
+ 2986 000a 40F2F453 		movw	r3, #1524
+ 2987 000e 9942     		cmp	r1, r3
+ 2988 0010 76D8     		bhi	.L411
+ 2989 0012 30B4     		push	{r4, r5}
+ 2990 0014 48B1     		cbz	r0, .L400
+ 2991 0016 0023     		movs	r3, #0
+ 2992 0018 05E0     		b	.L399
+ 2993              	.L401:
+ 2994 001a 3C4C     		ldr	r4, .L418+4
+ 2995 001c 2468     		ldr	r4, [r4]
+ 2996 001e A468     		ldr	r4, [r4, #8]
+ 2997 0020 C55C     		ldrb	r5, [r0, r3]	@ zero_extendqisi2
+ 2998 0022 E554     		strb	r5, [r4, r3]
+ 2999 0024 0133     		adds	r3, r3, #1
+ 3000              	.L399:
+ 3001 0026 8B42     		cmp	r3, r1
+ 3002 0028 F7D3     		bcc	.L401
+ 3003              	.L400:
+ 3004 002a 3748     		ldr	r0, .L418
+ 3005 002c 0368     		ldr	r3, [r0]
+ 3006 002e C1F30C01 		ubfx	r1, r1, #0, #13
+ 3007 0032 5960     		str	r1, [r3, #4]
+ 3008 0034 1968     		ldr	r1, [r3]
+ 3009 0036 41F04051 		orr	r1, r1, #805306368
+ 3010 003a 1960     		str	r1, [r3]
+ 3011 003c 0168     		ldr	r1, [r0]
+ 3012 003e 0B68     		ldr	r3, [r1]
+ 3013 0040 43F00043 		orr	r3, r3, #-2147483648
+ 3014 0044 0B60     		str	r3, [r1]
+ 3015 0046 3249     		ldr	r1, .L418+8
+ 3016 0048 0B68     		ldr	r3, [r1]
+ 3017 004a 0968     		ldr	r1, [r1]
+ 3018 004c 01F02001 		and	r1, r1, #32
+ 3019 0050 13F00403 		ands	r3, r3, #4
+ 3020 0054 00D1     		bne	.L402
+ 3021 0056 29B1     		cbz	r1, .L403
+ 3022              	.L402:
+ 3023 0058 0B43     		orrs	r3, r3, r1
+ 3024 005a 2D49     		ldr	r1, .L418+8
+ 3025 005c 0B60     		str	r3, [r1]
+ 3026 005e 2D4B     		ldr	r3, .L418+12
+ 3027 0060 0021     		movs	r1, #0
+ 3028 0062 1960     		str	r1, [r3]
+ 3029              	.L403:
+ 3030 0064 BAB1     		cbz	r2, .L404
+ 3031 0066 0023     		movs	r3, #0
+ 3032              	.L406:
+ 3033 0068 2749     		ldr	r1, .L418
+ 3034 006a 0868     		ldr	r0, [r1]
+ARM GAS  /tmp/cclahotI.s 			page 52
+
+
+ 3035 006c 0168     		ldr	r1, [r0]
+ 3036 006e 0133     		adds	r3, r3, #1
+ 3037 0070 11F4003F 		tst	r1, #131072
+ 3038 0074 02D1     		bne	.L405
+ 3039 0076 284C     		ldr	r4, .L418+16
+ 3040 0078 A342     		cmp	r3, r4
+ 3041 007a F5D9     		bls	.L406
+ 3042              	.L405:
+ 3043 007c 274C     		ldr	r4, .L418+20
+ 3044 007e A342     		cmp	r3, r4
+ 3045 0080 40D0     		beq	.L413
+ 3046 0082 21F40031 		bic	r1, r1, #131072
+ 3047 0086 0160     		str	r1, [r0]
+ 3048 0088 1F4B     		ldr	r3, .L418
+ 3049 008a 1968     		ldr	r1, [r3]
+ 3050 008c 8968     		ldr	r1, [r1, #8]
+ 3051 008e 1160     		str	r1, [r2]
+ 3052 0090 1B68     		ldr	r3, [r3]
+ 3053 0092 DB68     		ldr	r3, [r3, #12]
+ 3054 0094 5360     		str	r3, [r2, #4]
+ 3055              	.L404:
+ 3056 0096 1D4B     		ldr	r3, .L418+4
+ 3057 0098 1B68     		ldr	r3, [r3]
+ 3058 009a 1B4A     		ldr	r2, .L418
+ 3059 009c 1268     		ldr	r2, [r2]
+ 3060 009e 9968     		ldr	r1, [r3, #8]
+ 3061 00a0 9160     		str	r1, [r2, #8]
+ 3062 00a2 D868     		ldr	r0, [r3, #12]
+ 3063 00a4 D060     		str	r0, [r2, #12]
+ 3064 00a6 1168     		ldr	r1, [r2]
+ 3065 00a8 11F4801F 		tst	r1, #1048576
+ 3066 00ac 0DD0     		beq	.L407
+ 3067 00ae 164A     		ldr	r2, .L418
+ 3068 00b0 1060     		str	r0, [r2]
+ 3069 00b2 1A68     		ldr	r2, [r3]
+ 3070 00b4 22B1     		cbz	r2, .L408
+ 3071 00b6 154B     		ldr	r3, .L418+4
+ 3072 00b8 1A60     		str	r2, [r3]
+ 3073 00ba 0120     		movs	r0, #1
+ 3074              	.L398:
+ 3075 00bc 30BC     		pop	{r4, r5}
+ 3076 00be 7047     		bx	lr
+ 3077              	.L408:
+ 3078 00c0 1033     		adds	r3, r3, #16
+ 3079 00c2 124A     		ldr	r2, .L418+4
+ 3080 00c4 1360     		str	r3, [r2]
+ 3081 00c6 0120     		movs	r0, #1
+ 3082 00c8 F8E7     		b	.L398
+ 3083              	.L407:
+ 3084 00ca 11F4001F 		tst	r1, #2097152
+ 3085 00ce 08D0     		beq	.L409
+ 3086 00d0 134A     		ldr	r2, .L418+24
+ 3087 00d2 1168     		ldr	r1, [r2]
+ 3088 00d4 0C4A     		ldr	r2, .L418
+ 3089 00d6 1160     		str	r1, [r2]
+ 3090 00d8 1A68     		ldr	r2, [r3]
+ 3091 00da 0C4B     		ldr	r3, .L418+4
+ARM GAS  /tmp/cclahotI.s 			page 53
+
+
+ 3092 00dc 1A60     		str	r2, [r3]
+ 3093 00de 0120     		movs	r0, #1
+ 3094 00e0 ECE7     		b	.L398
+ 3095              	.L409:
+ 3096 00e2 1049     		ldr	r1, .L418+28
+ 3097 00e4 0968     		ldr	r1, [r1]
+ 3098 00e6 C1F38401 		ubfx	r1, r1, #2, #5
+ 3099 00ea 0A44     		add	r2, r2, r1
+ 3100 00ec 1032     		adds	r2, r2, #16
+ 3101 00ee 0649     		ldr	r1, .L418
+ 3102 00f0 0A60     		str	r2, [r1]
+ 3103 00f2 1033     		adds	r3, r3, #16
+ 3104 00f4 054A     		ldr	r2, .L418+4
+ 3105 00f6 1360     		str	r3, [r2]
+ 3106 00f8 0120     		movs	r0, #1
+ 3107 00fa DFE7     		b	.L398
+ 3108              	.L410:
+ 3109 00fc 0020     		movs	r0, #0
+ 3110 00fe 7047     		bx	lr
+ 3111              	.L411:
+ 3112 0100 0020     		movs	r0, #0
+ 3113 0102 7047     		bx	lr
+ 3114              	.L413:
+ 3115 0104 0020     		movs	r0, #0
+ 3116 0106 D9E7     		b	.L398
+ 3117              	.L419:
+ 3118              		.align	2
+ 3119              	.L418:
+ 3120 0108 00000000 		.word	dma_current_txdesc
+ 3121 010c 00000000 		.word	.LANCHOR2
+ 3122 0110 14900240 		.word	1073909780
+ 3123 0114 04900240 		.word	1073909764
+ 3124 0118 FEFF0400 		.word	327678
+ 3125 011c FFFF0400 		.word	327679
+ 3126 0120 10900240 		.word	1073909776
+ 3127 0124 00900240 		.word	1073909760
+ 3129              		.section	.text.enet_wum_filter_register_pointer_reset,"ax",%progbits
+ 3130              		.align	1
+ 3131              		.global	enet_wum_filter_register_pointer_reset
+ 3132              		.syntax unified
+ 3133              		.thumb
+ 3134              		.thumb_func
+ 3135              		.fpu fpv4-sp-d16
+ 3137              	enet_wum_filter_register_pointer_reset:
+ 3138              		@ args = 0, pretend = 0, frame = 0
+ 3139              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3140              		@ link register save eliminated.
+ 3141 0000 024A     		ldr	r2, .L421
+ 3142 0002 1368     		ldr	r3, [r2]
+ 3143 0004 43F00043 		orr	r3, r3, #-2147483648
+ 3144 0008 1360     		str	r3, [r2]
+ 3145 000a 7047     		bx	lr
+ 3146              	.L422:
+ 3147              		.align	2
+ 3148              	.L421:
+ 3149 000c 2C800240 		.word	1073905708
+ 3151              		.section	.text.enet_wum_filter_config,"ax",%progbits
+ARM GAS  /tmp/cclahotI.s 			page 54
+
+
+ 3152              		.align	1
+ 3153              		.global	enet_wum_filter_config
+ 3154              		.syntax unified
+ 3155              		.thumb
+ 3156              		.thumb_func
+ 3157              		.fpu fpv4-sp-d16
+ 3159              	enet_wum_filter_config:
+ 3160              		@ args = 0, pretend = 0, frame = 0
+ 3161              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3162              		@ link register save eliminated.
+ 3163 0000 0023     		movs	r3, #0
+ 3164 0002 04E0     		b	.L424
+ 3165              	.L425:
+ 3166 0004 50F82310 		ldr	r1, [r0, r3, lsl #2]
+ 3167 0008 024A     		ldr	r2, .L426
+ 3168 000a 1160     		str	r1, [r2]
+ 3169 000c 0133     		adds	r3, r3, #1
+ 3170              	.L424:
+ 3171 000e 072B     		cmp	r3, #7
+ 3172 0010 F8D9     		bls	.L425
+ 3173 0012 7047     		bx	lr
+ 3174              	.L427:
+ 3175              		.align	2
+ 3176              	.L426:
+ 3177 0014 28800240 		.word	1073905704
+ 3179              		.section	.text.enet_wum_feature_enable,"ax",%progbits
+ 3180              		.align	1
+ 3181              		.global	enet_wum_feature_enable
+ 3182              		.syntax unified
+ 3183              		.thumb
+ 3184              		.thumb_func
+ 3185              		.fpu fpv4-sp-d16
+ 3187              	enet_wum_feature_enable:
+ 3188              		@ args = 0, pretend = 0, frame = 0
+ 3189              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3190              		@ link register save eliminated.
+ 3191 0000 024A     		ldr	r2, .L429
+ 3192 0002 1368     		ldr	r3, [r2]
+ 3193 0004 1843     		orrs	r0, r0, r3
+ 3194 0006 1060     		str	r0, [r2]
+ 3195 0008 7047     		bx	lr
+ 3196              	.L430:
+ 3197 000a 00BF     		.align	2
+ 3198              	.L429:
+ 3199 000c 2C800240 		.word	1073905708
+ 3201              		.section	.text.enet_wum_feature_disable,"ax",%progbits
+ 3202              		.align	1
+ 3203              		.global	enet_wum_feature_disable
+ 3204              		.syntax unified
+ 3205              		.thumb
+ 3206              		.thumb_func
+ 3207              		.fpu fpv4-sp-d16
+ 3209              	enet_wum_feature_disable:
+ 3210              		@ args = 0, pretend = 0, frame = 0
+ 3211              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3212              		@ link register save eliminated.
+ 3213 0000 024A     		ldr	r2, .L432
+ARM GAS  /tmp/cclahotI.s 			page 55
+
+
+ 3214 0002 1368     		ldr	r3, [r2]
+ 3215 0004 23EA0000 		bic	r0, r3, r0
+ 3216 0008 1060     		str	r0, [r2]
+ 3217 000a 7047     		bx	lr
+ 3218              	.L433:
+ 3219              		.align	2
+ 3220              	.L432:
+ 3221 000c 2C800240 		.word	1073905708
+ 3223              		.section	.text.enet_msc_counters_reset,"ax",%progbits
+ 3224              		.align	1
+ 3225              		.global	enet_msc_counters_reset
+ 3226              		.syntax unified
+ 3227              		.thumb
+ 3228              		.thumb_func
+ 3229              		.fpu fpv4-sp-d16
+ 3231              	enet_msc_counters_reset:
+ 3232              		@ args = 0, pretend = 0, frame = 0
+ 3233              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3234              		@ link register save eliminated.
+ 3235 0000 024A     		ldr	r2, .L435
+ 3236 0002 1368     		ldr	r3, [r2]
+ 3237 0004 43F00103 		orr	r3, r3, #1
+ 3238 0008 1360     		str	r3, [r2]
+ 3239 000a 7047     		bx	lr
+ 3240              	.L436:
+ 3241              		.align	2
+ 3242              	.L435:
+ 3243 000c 00810240 		.word	1073905920
+ 3245              		.section	.text.enet_msc_feature_enable,"ax",%progbits
+ 3246              		.align	1
+ 3247              		.global	enet_msc_feature_enable
+ 3248              		.syntax unified
+ 3249              		.thumb
+ 3250              		.thumb_func
+ 3251              		.fpu fpv4-sp-d16
+ 3253              	enet_msc_feature_enable:
+ 3254              		@ args = 0, pretend = 0, frame = 0
+ 3255              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3256              		@ link register save eliminated.
+ 3257 0000 024A     		ldr	r2, .L438
+ 3258 0002 1368     		ldr	r3, [r2]
+ 3259 0004 1843     		orrs	r0, r0, r3
+ 3260 0006 1060     		str	r0, [r2]
+ 3261 0008 7047     		bx	lr
+ 3262              	.L439:
+ 3263 000a 00BF     		.align	2
+ 3264              	.L438:
+ 3265 000c 00810240 		.word	1073905920
+ 3267              		.section	.text.enet_msc_feature_disable,"ax",%progbits
+ 3268              		.align	1
+ 3269              		.global	enet_msc_feature_disable
+ 3270              		.syntax unified
+ 3271              		.thumb
+ 3272              		.thumb_func
+ 3273              		.fpu fpv4-sp-d16
+ 3275              	enet_msc_feature_disable:
+ 3276              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/cclahotI.s 			page 56
+
+
+ 3277              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3278              		@ link register save eliminated.
+ 3279 0000 024A     		ldr	r2, .L441
+ 3280 0002 1368     		ldr	r3, [r2]
+ 3281 0004 23EA0000 		bic	r0, r3, r0
+ 3282 0008 1060     		str	r0, [r2]
+ 3283 000a 7047     		bx	lr
+ 3284              	.L442:
+ 3285              		.align	2
+ 3286              	.L441:
+ 3287 000c 00810240 		.word	1073905920
+ 3289              		.section	.text.enet_msc_counters_preset_config,"ax",%progbits
+ 3290              		.align	1
+ 3291              		.global	enet_msc_counters_preset_config
+ 3292              		.syntax unified
+ 3293              		.thumb
+ 3294              		.thumb_func
+ 3295              		.fpu fpv4-sp-d16
+ 3297              	enet_msc_counters_preset_config:
+ 3298              		@ args = 0, pretend = 0, frame = 0
+ 3299              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3300              		@ link register save eliminated.
+ 3301 0000 044B     		ldr	r3, .L444
+ 3302 0002 1A68     		ldr	r2, [r3]
+ 3303 0004 22F03002 		bic	r2, r2, #48
+ 3304 0008 1A60     		str	r2, [r3]
+ 3305 000a 1A68     		ldr	r2, [r3]
+ 3306 000c 1043     		orrs	r0, r0, r2
+ 3307 000e 1860     		str	r0, [r3]
+ 3308 0010 7047     		bx	lr
+ 3309              	.L445:
+ 3310 0012 00BF     		.align	2
+ 3311              	.L444:
+ 3312 0014 00810240 		.word	1073905920
+ 3314              		.section	.text.enet_msc_counters_get,"ax",%progbits
+ 3315              		.align	1
+ 3316              		.global	enet_msc_counters_get
+ 3317              		.syntax unified
+ 3318              		.thumb
+ 3319              		.thumb_func
+ 3320              		.fpu fpv4-sp-d16
+ 3322              	enet_msc_counters_get:
+ 3323              		@ args = 0, pretend = 0, frame = 0
+ 3324              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3325              		@ link register save eliminated.
+ 3326 0000 00F18040 		add	r0, r0, #1073741824
+ 3327 0004 00F52030 		add	r0, r0, #163840
+ 3328 0008 0068     		ldr	r0, [r0]
+ 3329 000a 7047     		bx	lr
+ 3331              		.section	.text.enet_ptp_feature_enable,"ax",%progbits
+ 3332              		.align	1
+ 3333              		.global	enet_ptp_feature_enable
+ 3334              		.syntax unified
+ 3335              		.thumb
+ 3336              		.thumb_func
+ 3337              		.fpu fpv4-sp-d16
+ 3339              	enet_ptp_feature_enable:
+ARM GAS  /tmp/cclahotI.s 			page 57
+
+
+ 3340              		@ args = 0, pretend = 0, frame = 0
+ 3341              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3342              		@ link register save eliminated.
+ 3343 0000 024A     		ldr	r2, .L448
+ 3344 0002 1368     		ldr	r3, [r2]
+ 3345 0004 1843     		orrs	r0, r0, r3
+ 3346 0006 1060     		str	r0, [r2]
+ 3347 0008 7047     		bx	lr
+ 3348              	.L449:
+ 3349 000a 00BF     		.align	2
+ 3350              	.L448:
+ 3351 000c 00870240 		.word	1073907456
+ 3353              		.section	.text.enet_ptp_feature_disable,"ax",%progbits
+ 3354              		.align	1
+ 3355              		.global	enet_ptp_feature_disable
+ 3356              		.syntax unified
+ 3357              		.thumb
+ 3358              		.thumb_func
+ 3359              		.fpu fpv4-sp-d16
+ 3361              	enet_ptp_feature_disable:
+ 3362              		@ args = 0, pretend = 0, frame = 0
+ 3363              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3364              		@ link register save eliminated.
+ 3365 0000 024A     		ldr	r2, .L451
+ 3366 0002 1368     		ldr	r3, [r2]
+ 3367 0004 23EA0000 		bic	r0, r3, r0
+ 3368 0008 1060     		str	r0, [r2]
+ 3369 000a 7047     		bx	lr
+ 3370              	.L452:
+ 3371              		.align	2
+ 3372              	.L451:
+ 3373 000c 00870240 		.word	1073907456
+ 3375              		.section	.text.enet_ptp_timestamp_function_config,"ax",%progbits
+ 3376              		.align	1
+ 3377              		.global	enet_ptp_timestamp_function_config
+ 3378              		.syntax unified
+ 3379              		.thumb
+ 3380              		.thumb_func
+ 3381              		.fpu fpv4-sp-d16
+ 3383              	enet_ptp_timestamp_function_config:
+ 3384              		@ args = 0, pretend = 0, frame = 0
+ 3385              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3386              		@ link register save eliminated.
+ 3387 0000 2028     		cmp	r0, #32
+ 3388 0002 37D0     		beq	.L465
+ 3389 0004 23DC     		bgt	.L455
+ 3390 0006 0428     		cmp	r0, #4
+ 3391 0008 48D0     		beq	.L466
+ 3392 000a 0828     		cmp	r0, #8
+ 3393 000c 13D1     		bne	.L471
+ 3394 000e 0023     		movs	r3, #0
+ 3395              	.L457:
+ 3396 0010 324A     		ldr	r2, .L473
+ 3397 0012 1268     		ldr	r2, [r2]
+ 3398 0014 0133     		adds	r3, r3, #1
+ 3399 0016 12F00C0F 		tst	r2, #12
+ 3400 001a 02D0     		beq	.L462
+ARM GAS  /tmp/cclahotI.s 			page 58
+
+
+ 3401 001c 304A     		ldr	r2, .L473+4
+ 3402 001e 9342     		cmp	r3, r2
+ 3403 0020 F6D9     		bls	.L457
+ 3404              	.L462:
+ 3405 0022 304A     		ldr	r2, .L473+8
+ 3406 0024 9342     		cmp	r3, r2
+ 3407 0026 55D0     		beq	.L469
+ 3408 0028 2C4A     		ldr	r2, .L473
+ 3409 002a 1368     		ldr	r3, [r2]
+ 3410 002c 43F00803 		orr	r3, r3, #8
+ 3411 0030 1360     		str	r3, [r2]
+ 3412 0032 0120     		movs	r0, #1
+ 3413 0034 7047     		bx	lr
+ 3414              	.L471:
+ 3415 0036 98B1     		cbz	r0, .L458
+ 3416              	.L459:
+ 3417 0038 20F00042 		bic	r2, r0, #-2147483648
+ 3418 003c 0028     		cmp	r0, #0
+ 3419 003e 41DB     		blt	.L472
+ 3420 0040 2649     		ldr	r1, .L473
+ 3421 0042 0B68     		ldr	r3, [r1]
+ 3422 0044 23EA0203 		bic	r3, r3, r2
+ 3423 0048 0B60     		str	r3, [r1]
+ 3424 004a 0120     		movs	r0, #1
+ 3425 004c 7047     		bx	lr
+ 3426              	.L455:
+ 3427 004e B0F5003F 		cmp	r0, #131072
+ 3428 0052 05D0     		beq	.L458
+ 3429 0054 B0F5403F 		cmp	r0, #196608
+ 3430 0058 02D0     		beq	.L458
+ 3431 005a B0F5803F 		cmp	r0, #65536
+ 3432 005e EBD1     		bne	.L459
+ 3433              	.L458:
+ 3434 0060 1E4B     		ldr	r3, .L473
+ 3435 0062 1A68     		ldr	r2, [r3]
+ 3436 0064 22F44032 		bic	r2, r2, #196608
+ 3437 0068 1A60     		str	r2, [r3]
+ 3438 006a 1A68     		ldr	r2, [r3]
+ 3439 006c 1043     		orrs	r0, r0, r2
+ 3440 006e 1860     		str	r0, [r3]
+ 3441 0070 0120     		movs	r0, #1
+ 3442 0072 7047     		bx	lr
+ 3443              	.L465:
+ 3444 0074 0023     		movs	r3, #0
+ 3445              	.L454:
+ 3446 0076 194A     		ldr	r2, .L473
+ 3447 0078 1268     		ldr	r2, [r2]
+ 3448 007a 0133     		adds	r3, r3, #1
+ 3449 007c 12F0200F 		tst	r2, #32
+ 3450 0080 02D0     		beq	.L461
+ 3451 0082 174A     		ldr	r2, .L473+4
+ 3452 0084 9342     		cmp	r3, r2
+ 3453 0086 F6D9     		bls	.L454
+ 3454              	.L461:
+ 3455 0088 164A     		ldr	r2, .L473+8
+ 3456 008a 9342     		cmp	r3, r2
+ 3457 008c 20D0     		beq	.L468
+ARM GAS  /tmp/cclahotI.s 			page 59
+
+
+ 3458 008e 134A     		ldr	r2, .L473
+ 3459 0090 1368     		ldr	r3, [r2]
+ 3460 0092 43F02003 		orr	r3, r3, #32
+ 3461 0096 1360     		str	r3, [r2]
+ 3462 0098 0120     		movs	r0, #1
+ 3463 009a 7047     		bx	lr
+ 3464              	.L466:
+ 3465 009c 0023     		movs	r3, #0
+ 3466              	.L456:
+ 3467 009e 0F4A     		ldr	r2, .L473
+ 3468 00a0 1268     		ldr	r2, [r2]
+ 3469 00a2 0133     		adds	r3, r3, #1
+ 3470 00a4 12F0040F 		tst	r2, #4
+ 3471 00a8 02D0     		beq	.L463
+ 3472 00aa 0D4A     		ldr	r2, .L473+4
+ 3473 00ac 9342     		cmp	r3, r2
+ 3474 00ae F6D9     		bls	.L456
+ 3475              	.L463:
+ 3476 00b0 0C4A     		ldr	r2, .L473+8
+ 3477 00b2 9342     		cmp	r3, r2
+ 3478 00b4 10D0     		beq	.L470
+ 3479 00b6 094A     		ldr	r2, .L473
+ 3480 00b8 1368     		ldr	r3, [r2]
+ 3481 00ba 43F00403 		orr	r3, r3, #4
+ 3482 00be 1360     		str	r3, [r2]
+ 3483 00c0 0120     		movs	r0, #1
+ 3484 00c2 7047     		bx	lr
+ 3485              	.L472:
+ 3486 00c4 0549     		ldr	r1, .L473
+ 3487 00c6 0B68     		ldr	r3, [r1]
+ 3488 00c8 1343     		orrs	r3, r3, r2
+ 3489 00ca 0B60     		str	r3, [r1]
+ 3490 00cc 0120     		movs	r0, #1
+ 3491 00ce 7047     		bx	lr
+ 3492              	.L468:
+ 3493 00d0 0020     		movs	r0, #0
+ 3494 00d2 7047     		bx	lr
+ 3495              	.L469:
+ 3496 00d4 0020     		movs	r0, #0
+ 3497 00d6 7047     		bx	lr
+ 3498              	.L470:
+ 3499 00d8 0020     		movs	r0, #0
+ 3500 00da 7047     		bx	lr
+ 3501              	.L474:
+ 3502              		.align	2
+ 3503              	.L473:
+ 3504 00dc 00870240 		.word	1073907456
+ 3505 00e0 FEFF0400 		.word	327678
+ 3506 00e4 FFFF0400 		.word	327679
+ 3508              		.section	.text.enet_ptp_subsecond_increment_config,"ax",%progbits
+ 3509              		.align	1
+ 3510              		.global	enet_ptp_subsecond_increment_config
+ 3511              		.syntax unified
+ 3512              		.thumb
+ 3513              		.thumb_func
+ 3514              		.fpu fpv4-sp-d16
+ 3516              	enet_ptp_subsecond_increment_config:
+ARM GAS  /tmp/cclahotI.s 			page 60
+
+
+ 3517              		@ args = 0, pretend = 0, frame = 0
+ 3518              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3519              		@ link register save eliminated.
+ 3520 0000 C0B2     		uxtb	r0, r0
+ 3521 0002 014B     		ldr	r3, .L476
+ 3522 0004 1860     		str	r0, [r3]
+ 3523 0006 7047     		bx	lr
+ 3524              	.L477:
+ 3525              		.align	2
+ 3526              	.L476:
+ 3527 0008 04870240 		.word	1073907460
+ 3529              		.section	.text.enet_ptp_timestamp_addend_config,"ax",%progbits
+ 3530              		.align	1
+ 3531              		.global	enet_ptp_timestamp_addend_config
+ 3532              		.syntax unified
+ 3533              		.thumb
+ 3534              		.thumb_func
+ 3535              		.fpu fpv4-sp-d16
+ 3537              	enet_ptp_timestamp_addend_config:
+ 3538              		@ args = 0, pretend = 0, frame = 0
+ 3539              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3540              		@ link register save eliminated.
+ 3541 0000 014B     		ldr	r3, .L479
+ 3542 0002 1860     		str	r0, [r3]
+ 3543 0004 7047     		bx	lr
+ 3544              	.L480:
+ 3545 0006 00BF     		.align	2
+ 3546              	.L479:
+ 3547 0008 18870240 		.word	1073907480
+ 3549              		.section	.text.enet_ptp_timestamp_update_config,"ax",%progbits
+ 3550              		.align	1
+ 3551              		.global	enet_ptp_timestamp_update_config
+ 3552              		.syntax unified
+ 3553              		.thumb
+ 3554              		.thumb_func
+ 3555              		.fpu fpv4-sp-d16
+ 3557              	enet_ptp_timestamp_update_config:
+ 3558              		@ args = 0, pretend = 0, frame = 0
+ 3559              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3560              		@ link register save eliminated.
+ 3561 0000 034B     		ldr	r3, .L482
+ 3562 0002 1960     		str	r1, [r3]
+ 3563 0004 22F00042 		bic	r2, r2, #-2147483648
+ 3564 0008 0243     		orrs	r2, r2, r0
+ 3565 000a 0433     		adds	r3, r3, #4
+ 3566 000c 1A60     		str	r2, [r3]
+ 3567 000e 7047     		bx	lr
+ 3568              	.L483:
+ 3569              		.align	2
+ 3570              	.L482:
+ 3571 0010 10870240 		.word	1073907472
+ 3573              		.section	.text.enet_ptp_expected_time_config,"ax",%progbits
+ 3574              		.align	1
+ 3575              		.global	enet_ptp_expected_time_config
+ 3576              		.syntax unified
+ 3577              		.thumb
+ 3578              		.thumb_func
+ARM GAS  /tmp/cclahotI.s 			page 61
+
+
+ 3579              		.fpu fpv4-sp-d16
+ 3581              	enet_ptp_expected_time_config:
+ 3582              		@ args = 0, pretend = 0, frame = 0
+ 3583              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3584              		@ link register save eliminated.
+ 3585 0000 024B     		ldr	r3, .L485
+ 3586 0002 1860     		str	r0, [r3]
+ 3587 0004 0433     		adds	r3, r3, #4
+ 3588 0006 1960     		str	r1, [r3]
+ 3589 0008 7047     		bx	lr
+ 3590              	.L486:
+ 3591 000a 00BF     		.align	2
+ 3592              	.L485:
+ 3593 000c 1C870240 		.word	1073907484
+ 3595              		.section	.text.enet_ptp_system_time_get,"ax",%progbits
+ 3596              		.align	1
+ 3597              		.global	enet_ptp_system_time_get
+ 3598              		.syntax unified
+ 3599              		.thumb
+ 3600              		.thumb_func
+ 3601              		.fpu fpv4-sp-d16
+ 3603              	enet_ptp_system_time_get:
+ 3604              		@ args = 0, pretend = 0, frame = 0
+ 3605              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3606              		@ link register save eliminated.
+ 3607 0000 054B     		ldr	r3, .L488
+ 3608 0002 1A68     		ldr	r2, [r3]
+ 3609 0004 0433     		adds	r3, r3, #4
+ 3610 0006 1B68     		ldr	r3, [r3]
+ 3611 0008 0260     		str	r2, [r0]
+ 3612 000a 23F00042 		bic	r2, r3, #-2147483648
+ 3613 000e 4260     		str	r2, [r0, #4]
+ 3614 0010 DB0F     		lsrs	r3, r3, #31
+ 3615 0012 8360     		str	r3, [r0, #8]
+ 3616 0014 7047     		bx	lr
+ 3617              	.L489:
+ 3618 0016 00BF     		.align	2
+ 3619              	.L488:
+ 3620 0018 08870240 		.word	1073907464
+ 3622              		.section	.text.enet_ptp_pps_output_frequency_config,"ax",%progbits
+ 3623              		.align	1
+ 3624              		.global	enet_ptp_pps_output_frequency_config
+ 3625              		.syntax unified
+ 3626              		.thumb
+ 3627              		.thumb_func
+ 3628              		.fpu fpv4-sp-d16
+ 3630              	enet_ptp_pps_output_frequency_config:
+ 3631              		@ args = 0, pretend = 0, frame = 0
+ 3632              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3633              		@ link register save eliminated.
+ 3634 0000 014B     		ldr	r3, .L491
+ 3635 0002 1860     		str	r0, [r3]
+ 3636 0004 7047     		bx	lr
+ 3637              	.L492:
+ 3638 0006 00BF     		.align	2
+ 3639              	.L491:
+ 3640 0008 2C870240 		.word	1073907500
+ARM GAS  /tmp/cclahotI.s 			page 62
+
+
+ 3642              		.section	.text.enet_initpara_reset,"ax",%progbits
+ 3643              		.align	1
+ 3644              		.global	enet_initpara_reset
+ 3645              		.syntax unified
+ 3646              		.thumb
+ 3647              		.thumb_func
+ 3648              		.fpu fpv4-sp-d16
+ 3650              	enet_initpara_reset:
+ 3651              		@ args = 0, pretend = 0, frame = 0
+ 3652              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3653              		@ link register save eliminated.
+ 3654 0000 084B     		ldr	r3, .L494
+ 3655 0002 0022     		movs	r2, #0
+ 3656 0004 1A60     		str	r2, [r3]
+ 3657 0006 5A60     		str	r2, [r3, #4]
+ 3658 0008 9A60     		str	r2, [r3, #8]
+ 3659 000a DA60     		str	r2, [r3, #12]
+ 3660 000c 1A61     		str	r2, [r3, #16]
+ 3661 000e 5A61     		str	r2, [r3, #20]
+ 3662 0010 9A61     		str	r2, [r3, #24]
+ 3663 0012 DA61     		str	r2, [r3, #28]
+ 3664 0014 1A62     		str	r2, [r3, #32]
+ 3665 0016 5A62     		str	r2, [r3, #36]
+ 3666 0018 9A62     		str	r2, [r3, #40]
+ 3667 001a DA62     		str	r2, [r3, #44]
+ 3668 001c 1A63     		str	r2, [r3, #48]
+ 3669 001e 5A63     		str	r2, [r3, #52]
+ 3670 0020 9A63     		str	r2, [r3, #56]
+ 3671 0022 7047     		bx	lr
+ 3672              	.L495:
+ 3673              		.align	2
+ 3674              	.L494:
+ 3675 0024 00000000 		.word	.LANCHOR0
+ 3677              		.section	.text.enet_deinit,"ax",%progbits
+ 3678              		.align	1
+ 3679              		.global	enet_deinit
+ 3680              		.syntax unified
+ 3681              		.thumb
+ 3682              		.thumb_func
+ 3683              		.fpu fpv4-sp-d16
+ 3685              	enet_deinit:
+ 3686              		@ args = 0, pretend = 0, frame = 0
+ 3687              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3688 0000 08B5     		push	{r3, lr}
+ 3689 0002 40F21940 		movw	r0, #1049
+ 3690 0006 FFF7FEFF 		bl	rcu_periph_reset_enable
+ 3691 000a 40F21940 		movw	r0, #1049
+ 3692 000e FFF7FEFF 		bl	rcu_periph_reset_disable
+ 3693 0012 FFF7FEFF 		bl	enet_initpara_reset
+ 3694 0016 08BD     		pop	{r3, pc}
+ 3696              		.global	dma_current_ptp_rxdesc
+ 3697              		.global	dma_current_ptp_txdesc
+ 3698              		.comm	dma_current_rxdesc,4,4
+ 3699              		.comm	dma_current_txdesc,4,4
+ 3700              		.comm	tx_buff,7620,4
+ 3701              		.comm	rx_buff,7620,4
+ 3702              		.comm	txdesc_tab,80,4
+ARM GAS  /tmp/cclahotI.s 			page 63
+
+
+ 3703              		.comm	rxdesc_tab,80,4
+ 3704              		.section	.bss.dma_current_ptp_rxdesc,"aw",%nobits
+ 3705              		.align	2
+ 3706              		.set	.LANCHOR1,. + 0
+ 3709              	dma_current_ptp_rxdesc:
+ 3710 0000 00000000 		.space	4
+ 3711              		.section	.bss.dma_current_ptp_txdesc,"aw",%nobits
+ 3712              		.align	2
+ 3713              		.set	.LANCHOR2,. + 0
+ 3716              	dma_current_ptp_txdesc:
+ 3717 0000 00000000 		.space	4
+ 3718              		.section	.bss.enet_initpara,"aw",%nobits
+ 3719              		.align	2
+ 3720              		.set	.LANCHOR0,. + 0
+ 3723              	enet_initpara:
+ 3724 0000 00000000 		.space	60
+ 3724      00000000 
+ 3724      00000000 
+ 3724      00000000 
+ 3724      00000000 
+ 3725              		.section	.rodata.enet_reg_tab,"a"
+ 3726              		.align	2
+ 3727              		.set	.LANCHOR3,. + 0
+ 3730              	enet_reg_tab:
+ 3731 0000 0000     		.short	0
+ 3732 0002 0400     		.short	4
+ 3733 0004 0800     		.short	8
+ 3734 0006 0C00     		.short	12
+ 3735 0008 1000     		.short	16
+ 3736 000a 1400     		.short	20
+ 3737 000c 1800     		.short	24
+ 3738 000e 1C00     		.short	28
+ 3739 0010 2800     		.short	40
+ 3740 0012 2C00     		.short	44
+ 3741 0014 3400     		.short	52
+ 3742 0016 3800     		.short	56
+ 3743 0018 3C00     		.short	60
+ 3744 001a 4000     		.short	64
+ 3745 001c 4400     		.short	68
+ 3746 001e 4800     		.short	72
+ 3747 0020 4C00     		.short	76
+ 3748 0022 5000     		.short	80
+ 3749 0024 5400     		.short	84
+ 3750 0026 5800     		.short	88
+ 3751 0028 5C00     		.short	92
+ 3752 002a 8010     		.short	4224
+ 3753 002c 0001     		.short	256
+ 3754 002e 0401     		.short	260
+ 3755 0030 0801     		.short	264
+ 3756 0032 0C01     		.short	268
+ 3757 0034 1001     		.short	272
+ 3758 0036 4C01     		.short	332
+ 3759 0038 5001     		.short	336
+ 3760 003a 6801     		.short	360
+ 3761 003c 9401     		.short	404
+ 3762 003e 9801     		.short	408
+ 3763 0040 C401     		.short	452
+ARM GAS  /tmp/cclahotI.s 			page 64
+
+
+ 3764 0042 0007     		.short	1792
+ 3765 0044 0407     		.short	1796
+ 3766 0046 0807     		.short	1800
+ 3767 0048 0C07     		.short	1804
+ 3768 004a 1007     		.short	1808
+ 3769 004c 1407     		.short	1812
+ 3770 004e 1807     		.short	1816
+ 3771 0050 1C07     		.short	1820
+ 3772 0052 2007     		.short	1824
+ 3773 0054 2807     		.short	1832
+ 3774 0056 2C07     		.short	1836
+ 3775 0058 0010     		.short	4096
+ 3776 005a 0410     		.short	4100
+ 3777 005c 0810     		.short	4104
+ 3778 005e 0C10     		.short	4108
+ 3779 0060 1010     		.short	4112
+ 3780 0062 1410     		.short	4116
+ 3781 0064 1810     		.short	4120
+ 3782 0066 1C10     		.short	4124
+ 3783 0068 2010     		.short	4128
+ 3784 006a 2410     		.short	4132
+ 3785 006c 4810     		.short	4168
+ 3786 006e 4C10     		.short	4172
+ 3787 0070 5010     		.short	4176
+ 3788 0072 5410     		.short	4180
+ 3789              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/cclahotI.s 			page 65
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_enet.c
+     /tmp/cclahotI.s:16     .text.enet_default_init:0000000000000000 $t
+     /tmp/cclahotI.s:23     .text.enet_default_init:0000000000000000 enet_default_init
+     /tmp/cclahotI.s:66     .text.enet_default_init:0000000000000054 $d
+     /tmp/cclahotI.s:77     .text.enet_delay:0000000000000000 $t
+     /tmp/cclahotI.s:83     .text.enet_delay:0000000000000000 enet_delay
+     /tmp/cclahotI.s:104    .text.enet_initpara_config:0000000000000000 $t
+     /tmp/cclahotI.s:111    .text.enet_initpara_config:0000000000000000 enet_initpara_config
+     /tmp/cclahotI.s:252    .text.enet_initpara_config:0000000000000118 $d
+     /tmp/cclahotI.s:255    .text.enet_software_reset:0000000000000000 $t
+     /tmp/cclahotI.s:262    .text.enet_software_reset:0000000000000000 enet_software_reset
+     /tmp/cclahotI.s:293    .text.enet_software_reset:0000000000000030 $d
+     /tmp/cclahotI.s:297    .text.enet_descriptors_chain_init:0000000000000000 $t
+     /tmp/cclahotI.s:304    .text.enet_descriptors_chain_init:0000000000000000 enet_descriptors_chain_init
+     /tmp/cclahotI.s:362    .text.enet_descriptors_chain_init:0000000000000068 $d
+                            *COM*:0000000000000050 rxdesc_tab
+                            *COM*:0000000000000004 dma_current_rxdesc
+                            *COM*:0000000000001dc4 rx_buff
+                            *COM*:0000000000000050 txdesc_tab
+                            *COM*:0000000000000004 dma_current_txdesc
+                            *COM*:0000000000001dc4 tx_buff
+     /tmp/cclahotI.s:374    .text.enet_descriptors_ring_init:0000000000000000 $t
+     /tmp/cclahotI.s:381    .text.enet_descriptors_ring_init:0000000000000000 enet_descriptors_ring_init
+     /tmp/cclahotI.s:447    .text.enet_descriptors_ring_init:000000000000007c $d
+     /tmp/cclahotI.s:459    .text.enet_frame_receive:0000000000000000 $t
+     /tmp/cclahotI.s:466    .text.enet_frame_receive:0000000000000000 enet_frame_receive
+     /tmp/cclahotI.s:562    .text.enet_frame_receive:00000000000000b4 $d
+     /tmp/cclahotI.s:569    .text.enet_frame_transmit:0000000000000000 $t
+     /tmp/cclahotI.s:576    .text.enet_frame_transmit:0000000000000000 enet_frame_transmit
+     /tmp/cclahotI.s:667    .text.enet_frame_transmit:00000000000000a8 $d
+     /tmp/cclahotI.s:674    .text.enet_transmit_checksum_config:0000000000000000 $t
+     /tmp/cclahotI.s:681    .text.enet_transmit_checksum_config:0000000000000000 enet_transmit_checksum_config
+     /tmp/cclahotI.s:692    .text.enet_mac_address_set:0000000000000000 $t
+     /tmp/cclahotI.s:699    .text.enet_mac_address_set:0000000000000000 enet_mac_address_set
+     /tmp/cclahotI.s:722    .text.enet_mac_address_set:0000000000000028 $d
+     /tmp/cclahotI.s:726    .text.enet_mac_address_get:0000000000000000 $t
+     /tmp/cclahotI.s:733    .text.enet_mac_address_get:0000000000000000 enet_mac_address_get
+     /tmp/cclahotI.s:759    .text.enet_mac_address_get:000000000000002c $d
+     /tmp/cclahotI.s:763    .text.enet_flag_get:0000000000000000 $t
+     /tmp/cclahotI.s:770    .text.enet_flag_get:0000000000000000 enet_flag_get
+     /tmp/cclahotI.s:789    .text.enet_flag_clear:0000000000000000 $t
+     /tmp/cclahotI.s:796    .text.enet_flag_clear:0000000000000000 enet_flag_clear
+     /tmp/cclahotI.s:810    .text.enet_interrupt_enable:0000000000000000 $t
+     /tmp/cclahotI.s:817    .text.enet_interrupt_enable:0000000000000000 enet_interrupt_enable
+     /tmp/cclahotI.s:846    .text.enet_interrupt_disable:0000000000000000 $t
+     /tmp/cclahotI.s:853    .text.enet_interrupt_disable:0000000000000000 enet_interrupt_disable
+     /tmp/cclahotI.s:882    .text.enet_interrupt_flag_get:0000000000000000 $t
+     /tmp/cclahotI.s:889    .text.enet_interrupt_flag_get:0000000000000000 enet_interrupt_flag_get
+     /tmp/cclahotI.s:908    .text.enet_interrupt_flag_clear:0000000000000000 $t
+     /tmp/cclahotI.s:915    .text.enet_interrupt_flag_clear:0000000000000000 enet_interrupt_flag_clear
+     /tmp/cclahotI.s:929    .text.enet_rx_enable:0000000000000000 $t
+     /tmp/cclahotI.s:936    .text.enet_rx_enable:0000000000000000 enet_rx_enable
+     /tmp/cclahotI.s:953    .text.enet_rx_enable:000000000000001c $d
+     /tmp/cclahotI.s:956    .text.enet_rx_disable:0000000000000000 $t
+     /tmp/cclahotI.s:963    .text.enet_rx_disable:0000000000000000 enet_rx_disable
+     /tmp/cclahotI.s:979    .text.enet_rx_disable:0000000000000018 $d
+ARM GAS  /tmp/cclahotI.s 			page 66
+
+
+     /tmp/cclahotI.s:983    .text.enet_registers_get:0000000000000000 $t
+     /tmp/cclahotI.s:990    .text.enet_registers_get:0000000000000000 enet_registers_get
+     /tmp/cclahotI.s:1019   .text.enet_registers_get:0000000000000030 $d
+     /tmp/cclahotI.s:1022   .text.enet_debug_status_get:0000000000000000 $t
+     /tmp/cclahotI.s:1029   .text.enet_debug_status_get:0000000000000000 enet_debug_status_get
+     /tmp/cclahotI.s:1079   .text.enet_debug_status_get:000000000000005c $d
+     /tmp/cclahotI.s:1082   .text.enet_address_filter_enable:0000000000000000 $t
+     /tmp/cclahotI.s:1089   .text.enet_address_filter_enable:0000000000000000 enet_address_filter_enable
+     /tmp/cclahotI.s:1101   .text.enet_address_filter_enable:000000000000000c $d
+     /tmp/cclahotI.s:1104   .text.enet_address_filter_disable:0000000000000000 $t
+     /tmp/cclahotI.s:1111   .text.enet_address_filter_disable:0000000000000000 enet_address_filter_disable
+     /tmp/cclahotI.s:1123   .text.enet_address_filter_disable:000000000000000c $d
+     /tmp/cclahotI.s:1126   .text.enet_address_filter_config:0000000000000000 $t
+     /tmp/cclahotI.s:1133   .text.enet_address_filter_config:0000000000000000 enet_address_filter_config
+     /tmp/cclahotI.s:1149   .text.enet_address_filter_config:0000000000000018 $d
+     /tmp/cclahotI.s:1152   .text.enet_phy_write_read:0000000000000000 $t
+     /tmp/cclahotI.s:1159   .text.enet_phy_write_read:0000000000000000 enet_phy_write_read
+     /tmp/cclahotI.s:1217   .text.enet_phy_write_read:0000000000000068 $d
+     /tmp/cclahotI.s:1222   .text.enet_phy_config:0000000000000000 $t
+     /tmp/cclahotI.s:1229   .text.enet_phy_config:0000000000000000 enet_phy_config
+     /tmp/cclahotI.s:1316   .text.enet_phy_config:00000000000000ac $d
+     /tmp/cclahotI.s:1330   .text.enet_init:0000000000000000 $t
+     /tmp/cclahotI.s:1337   .text.enet_init:0000000000000000 enet_init
+     /tmp/cclahotI.s:1447   .text.enet_init:0000000000000100 $d
+     /tmp/cclahotI.s:1451   .text.enet_init:000000000000010c $t
+     /tmp/cclahotI.s:1689   .text.enet_init:0000000000000320 $d
+     /tmp/cclahotI.s:1704   .text.enet_phyloopback_enable:0000000000000000 $t
+     /tmp/cclahotI.s:1711   .text.enet_phyloopback_enable:0000000000000000 enet_phyloopback_enable
+     /tmp/cclahotI.s:1736   .text.enet_phyloopback_disable:0000000000000000 $t
+     /tmp/cclahotI.s:1743   .text.enet_phyloopback_disable:0000000000000000 enet_phyloopback_disable
+     /tmp/cclahotI.s:1768   .text.enet_forward_feature_enable:0000000000000000 $t
+     /tmp/cclahotI.s:1775   .text.enet_forward_feature_enable:0000000000000000 enet_forward_feature_enable
+     /tmp/cclahotI.s:1794   .text.enet_forward_feature_enable:000000000000001c $d
+     /tmp/cclahotI.s:1799   .text.enet_forward_feature_disable:0000000000000000 $t
+     /tmp/cclahotI.s:1806   .text.enet_forward_feature_disable:0000000000000000 enet_forward_feature_disable
+     /tmp/cclahotI.s:1825   .text.enet_forward_feature_disable:0000000000000020 $d
+     /tmp/cclahotI.s:1830   .text.enet_fliter_feature_enable:0000000000000000 $t
+     /tmp/cclahotI.s:1837   .text.enet_fliter_feature_enable:0000000000000000 enet_fliter_feature_enable
+     /tmp/cclahotI.s:1849   .text.enet_fliter_feature_enable:000000000000000c $d
+     /tmp/cclahotI.s:1852   .text.enet_fliter_feature_disable:0000000000000000 $t
+     /tmp/cclahotI.s:1859   .text.enet_fliter_feature_disable:0000000000000000 enet_fliter_feature_disable
+     /tmp/cclahotI.s:1871   .text.enet_fliter_feature_disable:000000000000000c $d
+     /tmp/cclahotI.s:1874   .text.enet_pauseframe_generate:0000000000000000 $t
+     /tmp/cclahotI.s:1881   .text.enet_pauseframe_generate:0000000000000000 enet_pauseframe_generate
+     /tmp/cclahotI.s:1901   .text.enet_pauseframe_generate:000000000000001c $d
+     /tmp/cclahotI.s:1904   .text.enet_pauseframe_detect_config:0000000000000000 $t
+     /tmp/cclahotI.s:1911   .text.enet_pauseframe_detect_config:0000000000000000 enet_pauseframe_detect_config
+     /tmp/cclahotI.s:1926   .text.enet_pauseframe_detect_config:0000000000000014 $d
+     /tmp/cclahotI.s:1929   .text.enet_pauseframe_config:0000000000000000 $t
+     /tmp/cclahotI.s:1936   .text.enet_pauseframe_config:0000000000000000 enet_pauseframe_config
+     /tmp/cclahotI.s:1954   .text.enet_pauseframe_config:000000000000001c $d
+     /tmp/cclahotI.s:1957   .text.enet_flowcontrol_threshold_config:0000000000000000 $t
+     /tmp/cclahotI.s:1964   .text.enet_flowcontrol_threshold_config:0000000000000000 enet_flowcontrol_threshold_config
+     /tmp/cclahotI.s:1976   .text.enet_flowcontrol_threshold_config:000000000000000c $d
+     /tmp/cclahotI.s:1979   .text.enet_flowcontrol_feature_enable:0000000000000000 $t
+     /tmp/cclahotI.s:1986   .text.enet_flowcontrol_feature_enable:0000000000000000 enet_flowcontrol_feature_enable
+     /tmp/cclahotI.s:2006   .text.enet_flowcontrol_feature_enable:0000000000000020 $d
+ARM GAS  /tmp/cclahotI.s 			page 67
+
+
+     /tmp/cclahotI.s:2009   .text.enet_flowcontrol_feature_disable:0000000000000000 $t
+     /tmp/cclahotI.s:2016   .text.enet_flowcontrol_feature_disable:0000000000000000 enet_flowcontrol_feature_disable
+     /tmp/cclahotI.s:2036   .text.enet_flowcontrol_feature_disable:0000000000000020 $d
+     /tmp/cclahotI.s:2039   .text.enet_dmaprocess_state_get:0000000000000000 $t
+     /tmp/cclahotI.s:2046   .text.enet_dmaprocess_state_get:0000000000000000 enet_dmaprocess_state_get
+     /tmp/cclahotI.s:2057   .text.enet_dmaprocess_state_get:0000000000000008 $d
+     /tmp/cclahotI.s:2060   .text.enet_dmaprocess_resume:0000000000000000 $t
+     /tmp/cclahotI.s:2067   .text.enet_dmaprocess_resume:0000000000000000 enet_dmaprocess_resume
+     /tmp/cclahotI.s:2085   .text.enet_dmaprocess_resume:0000000000000018 $d
+     /tmp/cclahotI.s:2089   .text.enet_rxprocess_check_recovery:0000000000000000 $t
+     /tmp/cclahotI.s:2096   .text.enet_rxprocess_check_recovery:0000000000000000 enet_rxprocess_check_recovery
+     /tmp/cclahotI.s:2120   .text.enet_rxprocess_check_recovery:0000000000000020 $d
+     /tmp/cclahotI.s:2124   .text.enet_txfifo_flush:0000000000000000 $t
+     /tmp/cclahotI.s:2131   .text.enet_txfifo_flush:0000000000000000 enet_txfifo_flush
+     /tmp/cclahotI.s:2159   .text.enet_txfifo_flush:0000000000000028 $d
+     /tmp/cclahotI.s:2163   .text.enet_tx_enable:0000000000000000 $t
+     /tmp/cclahotI.s:2170   .text.enet_tx_enable:0000000000000000 enet_tx_enable
+     /tmp/cclahotI.s:2187   .text.enet_tx_enable:000000000000001c $d
+     /tmp/cclahotI.s:2191   .text.enet_enable:0000000000000000 $t
+     /tmp/cclahotI.s:2198   .text.enet_enable:0000000000000000 enet_enable
+     /tmp/cclahotI.s:2207   .text.enet_tx_disable:0000000000000000 $t
+     /tmp/cclahotI.s:2214   .text.enet_tx_disable:0000000000000000 enet_tx_disable
+     /tmp/cclahotI.s:2231   .text.enet_tx_disable:000000000000001c $d
+     /tmp/cclahotI.s:2235   .text.enet_disable:0000000000000000 $t
+     /tmp/cclahotI.s:2242   .text.enet_disable:0000000000000000 enet_disable
+     /tmp/cclahotI.s:2251   .text.enet_current_desc_address_get:0000000000000000 $t
+     /tmp/cclahotI.s:2258   .text.enet_current_desc_address_get:0000000000000000 enet_current_desc_address_get
+     /tmp/cclahotI.s:2268   .text.enet_desc_information_get:0000000000000000 $t
+     /tmp/cclahotI.s:2275   .text.enet_desc_information_get:0000000000000000 enet_desc_information_get
+     /tmp/cclahotI.s:2283   .text.enet_desc_information_get:0000000000000008 $d
+     /tmp/cclahotI.s:2289   .text.enet_desc_information_get:000000000000000e $t
+     /tmp/cclahotI.s:2334   .text.enet_desc_information_get:000000000000005c $d
+     /tmp/cclahotI.s:2337   .text.enet_missed_frame_counter_get:0000000000000000 $t
+     /tmp/cclahotI.s:2344   .text.enet_missed_frame_counter_get:0000000000000000 enet_missed_frame_counter_get
+     /tmp/cclahotI.s:2358   .text.enet_missed_frame_counter_get:0000000000000010 $d
+     /tmp/cclahotI.s:2361   .text.enet_desc_flag_get:0000000000000000 $t
+     /tmp/cclahotI.s:2368   .text.enet_desc_flag_get:0000000000000000 enet_desc_flag_get
+     /tmp/cclahotI.s:2382   .text.enet_desc_flag_set:0000000000000000 $t
+     /tmp/cclahotI.s:2389   .text.enet_desc_flag_set:0000000000000000 enet_desc_flag_set
+     /tmp/cclahotI.s:2399   .text.enet_desc_flag_clear:0000000000000000 $t
+     /tmp/cclahotI.s:2406   .text.enet_desc_flag_clear:0000000000000000 enet_desc_flag_clear
+     /tmp/cclahotI.s:2416   .text.enet_rx_desc_immediate_receive_complete_interrupt:0000000000000000 $t
+     /tmp/cclahotI.s:2423   .text.enet_rx_desc_immediate_receive_complete_interrupt:0000000000000000 enet_rx_desc_immediate_receive_complete_interrupt
+     /tmp/cclahotI.s:2433   .text.enet_rx_desc_delay_receive_complete_interrupt:0000000000000000 $t
+     /tmp/cclahotI.s:2440   .text.enet_rx_desc_delay_receive_complete_interrupt:0000000000000000 enet_rx_desc_delay_receive_complete_interrupt
+     /tmp/cclahotI.s:2454   .text.enet_rx_desc_delay_receive_complete_interrupt:0000000000000010 $d
+     /tmp/cclahotI.s:2457   .text.enet_rxframe_drop:0000000000000000 $t
+     /tmp/cclahotI.s:2464   .text.enet_rxframe_drop:0000000000000000 enet_rxframe_drop
+     /tmp/cclahotI.s:2530   .text.enet_rxframe_drop:0000000000000074 $d
+     /tmp/cclahotI.s:2536   .text.enet_rxframe_size_get:0000000000000000 $t
+     /tmp/cclahotI.s:2543   .text.enet_rxframe_size_get:0000000000000000 enet_rxframe_size_get
+     /tmp/cclahotI.s:2583   .text.enet_rxframe_size_get:000000000000004c $d
+     /tmp/cclahotI.s:2587   .text.enet_dma_feature_enable:0000000000000000 $t
+     /tmp/cclahotI.s:2594   .text.enet_dma_feature_enable:0000000000000000 enet_dma_feature_enable
+     /tmp/cclahotI.s:2606   .text.enet_dma_feature_enable:000000000000000c $d
+     /tmp/cclahotI.s:2609   .text.enet_dma_feature_disable:0000000000000000 $t
+     /tmp/cclahotI.s:2616   .text.enet_dma_feature_disable:0000000000000000 enet_dma_feature_disable
+ARM GAS  /tmp/cclahotI.s 			page 68
+
+
+     /tmp/cclahotI.s:2628   .text.enet_dma_feature_disable:000000000000000c $d
+     /tmp/cclahotI.s:2631   .text.enet_desc_select_normal_mode:0000000000000000 $t
+     /tmp/cclahotI.s:2638   .text.enet_desc_select_normal_mode:0000000000000000 enet_desc_select_normal_mode
+     /tmp/cclahotI.s:2650   .text.enet_desc_select_normal_mode:000000000000000c $d
+     /tmp/cclahotI.s:2653   .text.enet_ptp_normal_descriptors_chain_init:0000000000000000 $t
+     /tmp/cclahotI.s:2660   .text.enet_ptp_normal_descriptors_chain_init:0000000000000000 enet_ptp_normal_descriptors_chain_init
+     /tmp/cclahotI.s:2724   .text.enet_ptp_normal_descriptors_chain_init:0000000000000080 $d
+     /tmp/cclahotI.s:2736   .text.enet_ptp_normal_descriptors_ring_init:0000000000000000 $t
+     /tmp/cclahotI.s:2743   .text.enet_ptp_normal_descriptors_ring_init:0000000000000000 enet_ptp_normal_descriptors_ring_init
+     /tmp/cclahotI.s:2816   .text.enet_ptp_normal_descriptors_ring_init:000000000000009c $d
+     /tmp/cclahotI.s:2828   .text.enet_ptpframe_receive_normal_mode:0000000000000000 $t
+     /tmp/cclahotI.s:2835   .text.enet_ptpframe_receive_normal_mode:0000000000000000 enet_ptpframe_receive_normal_mode
+     /tmp/cclahotI.s:2962   .text.enet_ptpframe_receive_normal_mode:00000000000000f0 $d
+     /tmp/cclahotI.s:2970   .text.enet_ptpframe_transmit_normal_mode:0000000000000000 $t
+     /tmp/cclahotI.s:2977   .text.enet_ptpframe_transmit_normal_mode:0000000000000000 enet_ptpframe_transmit_normal_mode
+     /tmp/cclahotI.s:3120   .text.enet_ptpframe_transmit_normal_mode:0000000000000108 $d
+     /tmp/cclahotI.s:3130   .text.enet_wum_filter_register_pointer_reset:0000000000000000 $t
+     /tmp/cclahotI.s:3137   .text.enet_wum_filter_register_pointer_reset:0000000000000000 enet_wum_filter_register_pointer_reset
+     /tmp/cclahotI.s:3149   .text.enet_wum_filter_register_pointer_reset:000000000000000c $d
+     /tmp/cclahotI.s:3152   .text.enet_wum_filter_config:0000000000000000 $t
+     /tmp/cclahotI.s:3159   .text.enet_wum_filter_config:0000000000000000 enet_wum_filter_config
+     /tmp/cclahotI.s:3177   .text.enet_wum_filter_config:0000000000000014 $d
+     /tmp/cclahotI.s:3180   .text.enet_wum_feature_enable:0000000000000000 $t
+     /tmp/cclahotI.s:3187   .text.enet_wum_feature_enable:0000000000000000 enet_wum_feature_enable
+     /tmp/cclahotI.s:3199   .text.enet_wum_feature_enable:000000000000000c $d
+     /tmp/cclahotI.s:3202   .text.enet_wum_feature_disable:0000000000000000 $t
+     /tmp/cclahotI.s:3209   .text.enet_wum_feature_disable:0000000000000000 enet_wum_feature_disable
+     /tmp/cclahotI.s:3221   .text.enet_wum_feature_disable:000000000000000c $d
+     /tmp/cclahotI.s:3224   .text.enet_msc_counters_reset:0000000000000000 $t
+     /tmp/cclahotI.s:3231   .text.enet_msc_counters_reset:0000000000000000 enet_msc_counters_reset
+     /tmp/cclahotI.s:3243   .text.enet_msc_counters_reset:000000000000000c $d
+     /tmp/cclahotI.s:3246   .text.enet_msc_feature_enable:0000000000000000 $t
+     /tmp/cclahotI.s:3253   .text.enet_msc_feature_enable:0000000000000000 enet_msc_feature_enable
+     /tmp/cclahotI.s:3265   .text.enet_msc_feature_enable:000000000000000c $d
+     /tmp/cclahotI.s:3268   .text.enet_msc_feature_disable:0000000000000000 $t
+     /tmp/cclahotI.s:3275   .text.enet_msc_feature_disable:0000000000000000 enet_msc_feature_disable
+     /tmp/cclahotI.s:3287   .text.enet_msc_feature_disable:000000000000000c $d
+     /tmp/cclahotI.s:3290   .text.enet_msc_counters_preset_config:0000000000000000 $t
+     /tmp/cclahotI.s:3297   .text.enet_msc_counters_preset_config:0000000000000000 enet_msc_counters_preset_config
+     /tmp/cclahotI.s:3312   .text.enet_msc_counters_preset_config:0000000000000014 $d
+     /tmp/cclahotI.s:3315   .text.enet_msc_counters_get:0000000000000000 $t
+     /tmp/cclahotI.s:3322   .text.enet_msc_counters_get:0000000000000000 enet_msc_counters_get
+     /tmp/cclahotI.s:3332   .text.enet_ptp_feature_enable:0000000000000000 $t
+     /tmp/cclahotI.s:3339   .text.enet_ptp_feature_enable:0000000000000000 enet_ptp_feature_enable
+     /tmp/cclahotI.s:3351   .text.enet_ptp_feature_enable:000000000000000c $d
+     /tmp/cclahotI.s:3354   .text.enet_ptp_feature_disable:0000000000000000 $t
+     /tmp/cclahotI.s:3361   .text.enet_ptp_feature_disable:0000000000000000 enet_ptp_feature_disable
+     /tmp/cclahotI.s:3373   .text.enet_ptp_feature_disable:000000000000000c $d
+     /tmp/cclahotI.s:3376   .text.enet_ptp_timestamp_function_config:0000000000000000 $t
+     /tmp/cclahotI.s:3383   .text.enet_ptp_timestamp_function_config:0000000000000000 enet_ptp_timestamp_function_config
+     /tmp/cclahotI.s:3504   .text.enet_ptp_timestamp_function_config:00000000000000dc $d
+     /tmp/cclahotI.s:3509   .text.enet_ptp_subsecond_increment_config:0000000000000000 $t
+     /tmp/cclahotI.s:3516   .text.enet_ptp_subsecond_increment_config:0000000000000000 enet_ptp_subsecond_increment_config
+     /tmp/cclahotI.s:3527   .text.enet_ptp_subsecond_increment_config:0000000000000008 $d
+     /tmp/cclahotI.s:3530   .text.enet_ptp_timestamp_addend_config:0000000000000000 $t
+     /tmp/cclahotI.s:3537   .text.enet_ptp_timestamp_addend_config:0000000000000000 enet_ptp_timestamp_addend_config
+     /tmp/cclahotI.s:3547   .text.enet_ptp_timestamp_addend_config:0000000000000008 $d
+ARM GAS  /tmp/cclahotI.s 			page 69
+
+
+     /tmp/cclahotI.s:3550   .text.enet_ptp_timestamp_update_config:0000000000000000 $t
+     /tmp/cclahotI.s:3557   .text.enet_ptp_timestamp_update_config:0000000000000000 enet_ptp_timestamp_update_config
+     /tmp/cclahotI.s:3571   .text.enet_ptp_timestamp_update_config:0000000000000010 $d
+     /tmp/cclahotI.s:3574   .text.enet_ptp_expected_time_config:0000000000000000 $t
+     /tmp/cclahotI.s:3581   .text.enet_ptp_expected_time_config:0000000000000000 enet_ptp_expected_time_config
+     /tmp/cclahotI.s:3593   .text.enet_ptp_expected_time_config:000000000000000c $d
+     /tmp/cclahotI.s:3596   .text.enet_ptp_system_time_get:0000000000000000 $t
+     /tmp/cclahotI.s:3603   .text.enet_ptp_system_time_get:0000000000000000 enet_ptp_system_time_get
+     /tmp/cclahotI.s:3620   .text.enet_ptp_system_time_get:0000000000000018 $d
+     /tmp/cclahotI.s:3623   .text.enet_ptp_pps_output_frequency_config:0000000000000000 $t
+     /tmp/cclahotI.s:3630   .text.enet_ptp_pps_output_frequency_config:0000000000000000 enet_ptp_pps_output_frequency_config
+     /tmp/cclahotI.s:3640   .text.enet_ptp_pps_output_frequency_config:0000000000000008 $d
+     /tmp/cclahotI.s:3643   .text.enet_initpara_reset:0000000000000000 $t
+     /tmp/cclahotI.s:3650   .text.enet_initpara_reset:0000000000000000 enet_initpara_reset
+     /tmp/cclahotI.s:3675   .text.enet_initpara_reset:0000000000000024 $d
+     /tmp/cclahotI.s:3678   .text.enet_deinit:0000000000000000 $t
+     /tmp/cclahotI.s:3685   .text.enet_deinit:0000000000000000 enet_deinit
+     /tmp/cclahotI.s:3709   .bss.dma_current_ptp_rxdesc:0000000000000000 dma_current_ptp_rxdesc
+     /tmp/cclahotI.s:3716   .bss.dma_current_ptp_txdesc:0000000000000000 dma_current_ptp_txdesc
+     /tmp/cclahotI.s:3705   .bss.dma_current_ptp_rxdesc:0000000000000000 $d
+     /tmp/cclahotI.s:3712   .bss.dma_current_ptp_txdesc:0000000000000000 $d
+     /tmp/cclahotI.s:3719   .bss.enet_initpara:0000000000000000 $d
+     /tmp/cclahotI.s:3723   .bss.enet_initpara:0000000000000000 enet_initpara
+     /tmp/cclahotI.s:3726   .rodata.enet_reg_tab:0000000000000000 $d
+     /tmp/cclahotI.s:3730   .rodata.enet_reg_tab:0000000000000000 enet_reg_tab
+
+UNDEFINED SYMBOLS
+rcu_clock_freq_get
+rcu_periph_reset_enable
+rcu_periph_reset_disable

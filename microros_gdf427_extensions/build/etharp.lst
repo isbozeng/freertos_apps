@@ -1,0 +1,1693 @@
+ARM GAS  /tmp/ccxiR8lQ.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"etharp.c"
+  14              		.text
+  15              		.section	.text.etharp_free_entry,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	etharp_free_entry:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26 0000 10B5     		push	{r4, lr}
+  27 0002 0446     		mov	r4, r0
+  28 0004 00EB4002 		add	r2, r0, r0, lsl #1
+  29 0008 D300     		lsls	r3, r2, #3
+  30 000a 094A     		ldr	r2, .L4
+  31 000c D058     		ldr	r0, [r2, r3]
+  32 000e 38B1     		cbz	r0, .L2
+  33 0010 FFF7FEFF 		bl	pbuf_free
+  34 0014 04EB4402 		add	r2, r4, r4, lsl #1
+  35 0018 D300     		lsls	r3, r2, #3
+  36 001a 054A     		ldr	r2, .L4
+  37 001c 0021     		movs	r1, #0
+  38 001e D150     		str	r1, [r2, r3]
+  39              	.L2:
+  40 0020 04EB4404 		add	r4, r4, r4, lsl #1
+  41 0024 E200     		lsls	r2, r4, #3
+  42 0026 024B     		ldr	r3, .L4
+  43 0028 1344     		add	r3, r3, r2
+  44 002a 0022     		movs	r2, #0
+  45 002c 1A75     		strb	r2, [r3, #20]
+  46 002e 10BD     		pop	{r4, pc}
+  47              	.L5:
+  48              		.align	2
+  49              	.L4:
+  50 0030 00000000 		.word	.LANCHOR0
+  52              		.section	.text.etharp_find_entry,"ax",%progbits
+  53              		.align	1
+  54              		.syntax unified
+  55              		.thumb
+  56              		.thumb_func
+  57              		.fpu fpv4-sp-d16
+  59              	etharp_find_entry:
+  60              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  /tmp/ccxiR8lQ.s 			page 2
+
+
+  61              		@ frame_needed = 0, uses_anonymous_args = 0
+  62 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+  63 0004 83B0     		sub	sp, sp, #12
+  64 0006 4FF0000E 		mov	lr, #0
+  65 000a F346     		mov	fp, lr
+  66 000c F246     		mov	r10, lr
+  67 000e 4FF00A09 		mov	r9, #10
+  68 0012 7346     		mov	r3, lr
+  69 0014 4E46     		mov	r6, r9
+  70 0016 C846     		mov	r8, r9
+  71 0018 CDF80490 		str	r9, [sp, #4]
+  72 001c 0091     		str	r1, [sp]
+  73 001e 03E0     		b	.L7
+  74              	.L36:
+  75 0020 6DB9     		cbnz	r5, .L8
+  76 0022 1E46     		mov	r6, r3
+  77              	.L9:
+  78 0024 0133     		adds	r3, r3, #1
+  79 0026 1BB2     		sxth	r3, r3
+  80              	.L7:
+  81 0028 092B     		cmp	r3, #9
+  82 002a 4ADC     		bgt	.L35
+  83 002c 1C46     		mov	r4, r3
+  84 002e 03EB4305 		add	r5, r3, r3, lsl #1
+  85 0032 EF00     		lsls	r7, r5, #3
+  86 0034 5D4D     		ldr	r5, .L43
+  87 0036 3D44     		add	r5, r5, r7
+  88 0038 2D7D     		ldrb	r5, [r5, #20]	@ zero_extendqisi2
+  89 003a 0A2E     		cmp	r6, #10
+  90 003c F0D0     		beq	.L36
+  91              	.L8:
+  92 003e 002D     		cmp	r5, #0
+  93 0040 F0D0     		beq	.L9
+  94 0042 48B1     		cbz	r0, .L10
+  95 0044 04EB4407 		add	r7, r4, r4, lsl #1
+  96 0048 4FEAC70C 		lsl	ip, r7, #3
+  97 004c 574F     		ldr	r7, .L43
+  98 004e 6744     		add	r7, r7, ip
+  99 0050 7F68     		ldr	r7, [r7, #4]
+ 100 0052 0168     		ldr	r1, [r0]
+ 101 0054 B942     		cmp	r1, r7
+ 102 0056 0ED0     		beq	.L37
+ 103              	.L10:
+ 104 0058 012D     		cmp	r5, #1
+ 105 005a 16D0     		beq	.L38
+ 106 005c 012D     		cmp	r5, #1
+ 107 005e E1D9     		bls	.L9
+ 108 0060 04EB4404 		add	r4, r4, r4, lsl #1
+ 109 0064 E500     		lsls	r5, r4, #3
+ 110 0066 514C     		ldr	r4, .L43
+ 111 0068 2C44     		add	r4, r4, r5
+ 112 006a 648A     		ldrh	r4, [r4, #18]
+ 113 006c 7445     		cmp	r4, lr
+ 114 006e D9D3     		bcc	.L9
+ 115 0070 A646     		mov	lr, r4
+ 116 0072 9846     		mov	r8, r3
+ 117 0074 D6E7     		b	.L9
+ARM GAS  /tmp/ccxiR8lQ.s 			page 3
+
+
+ 118              	.L37:
+ 119 0076 002A     		cmp	r2, #0
+ 120 0078 00F09080 		beq	.L24
+ 121 007c 4B4F     		ldr	r7, .L43
+ 122 007e 6744     		add	r7, r7, ip
+ 123 0080 BF68     		ldr	r7, [r7, #8]
+ 124 0082 9742     		cmp	r7, r2
+ 125 0084 E8D1     		bne	.L10
+ 126 0086 1E46     		mov	r6, r3
+ 127 0088 5AE0     		b	.L11
+ 128              	.L38:
+ 129 008a 04EB4407 		add	r7, r4, r4, lsl #1
+ 130 008e FD00     		lsls	r5, r7, #3
+ 131 0090 464F     		ldr	r7, .L43
+ 132 0092 7D59     		ldr	r5, [r7, r5]
+ 133 0094 55B1     		cbz	r5, .L13
+ 134 0096 04EB4404 		add	r4, r4, r4, lsl #1
+ 135 009a E500     		lsls	r5, r4, #3
+ 136 009c 3C46     		mov	r4, r7
+ 137 009e 2C44     		add	r4, r4, r5
+ 138 00a0 648A     		ldrh	r4, [r4, #18]
+ 139 00a2 5445     		cmp	r4, r10
+ 140 00a4 BED3     		bcc	.L9
+ 141 00a6 A246     		mov	r10, r4
+ 142 00a8 9946     		mov	r9, r3
+ 143 00aa BBE7     		b	.L9
+ 144              	.L13:
+ 145 00ac 04EB4404 		add	r4, r4, r4, lsl #1
+ 146 00b0 E500     		lsls	r5, r4, #3
+ 147 00b2 3E4C     		ldr	r4, .L43
+ 148 00b4 2C44     		add	r4, r4, r5
+ 149 00b6 648A     		ldrh	r4, [r4, #18]
+ 150 00b8 5C45     		cmp	r4, fp
+ 151 00ba B3D3     		bcc	.L9
+ 152 00bc A346     		mov	fp, r4
+ 153 00be 0193     		str	r3, [sp, #4]
+ 154 00c0 B0E7     		b	.L9
+ 155              	.L35:
+ 156 00c2 0099     		ldr	r1, [sp]
+ 157 00c4 11F0020F 		tst	r1, #2
+ 158 00c8 6AD1     		bne	.L29
+ 159 00ca 0A2E     		cmp	r6, #10
+ 160 00cc 3CD0     		beq	.L39
+ 161              	.L15:
+ 162 00ce 1446     		mov	r4, r2
+ 163 00d0 0746     		mov	r7, r0
+ 164 00d2 092E     		cmp	r6, #9
+ 165 00d4 16DD     		ble	.L16
+ 166 00d6 B8F1090F 		cmp	r8, #9
+ 167 00da 3BDC     		bgt	.L17
+ 168 00dc 08EB4802 		add	r2, r8, r8, lsl #1
+ 169 00e0 D300     		lsls	r3, r2, #3
+ 170 00e2 324A     		ldr	r2, .L43
+ 171 00e4 D358     		ldr	r3, [r2, r3]
+ 172 00e6 002B     		cmp	r3, #0
+ 173 00e8 3CD0     		beq	.L31
+ 174 00ea 314B     		ldr	r3, .L43+4
+ARM GAS  /tmp/ccxiR8lQ.s 			page 4
+
+
+ 175 00ec 40F26D12 		movw	r2, #365
+ 176 00f0 3049     		ldr	r1, .L43+8
+ 177 00f2 3148     		ldr	r0, .L43+12
+ 178 00f4 FFF7FEFF 		bl	printf
+ 179 00f8 4646     		mov	r6, r8
+ 180              	.L18:
+ 181 00fa 092E     		cmp	r6, #9
+ 182 00fc 36DC     		bgt	.L40
+ 183              	.L19:
+ 184 00fe 3046     		mov	r0, r6
+ 185 0100 FFF7FEFF 		bl	etharp_free_entry
+ 186              	.L16:
+ 187 0104 092E     		cmp	r6, #9
+ 188 0106 39DC     		bgt	.L41
+ 189              	.L20:
+ 190 0108 3546     		mov	r5, r6
+ 191 010a 06EB4603 		add	r3, r6, r6, lsl #1
+ 192 010e DA00     		lsls	r2, r3, #3
+ 193 0110 264B     		ldr	r3, .L43
+ 194 0112 1344     		add	r3, r3, r2
+ 195 0114 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 196 0116 002B     		cmp	r3, #0
+ 197 0118 38D1     		bne	.L42
+ 198              	.L21:
+ 199 011a 37B1     		cbz	r7, .L22
+ 200 011c 3968     		ldr	r1, [r7]
+ 201 011e 05EB4503 		add	r3, r5, r5, lsl #1
+ 202 0122 DA00     		lsls	r2, r3, #3
+ 203 0124 214B     		ldr	r3, .L43
+ 204 0126 1344     		add	r3, r3, r2
+ 205 0128 5960     		str	r1, [r3, #4]
+ 206              	.L22:
+ 207 012a 204A     		ldr	r2, .L43
+ 208 012c 6B00     		lsls	r3, r5, #1
+ 209 012e 5819     		adds	r0, r3, r5
+ 210 0130 C100     		lsls	r1, r0, #3
+ 211 0132 1144     		add	r1, r1, r2
+ 212 0134 0020     		movs	r0, #0
+ 213 0136 4882     		strh	r0, [r1, #18]	@ movhi
+ 214 0138 2B44     		add	r3, r3, r5
+ 215 013a D900     		lsls	r1, r3, #3
+ 216 013c 0A44     		add	r2, r2, r1
+ 217 013e 9460     		str	r4, [r2, #8]
+ 218              	.L11:
+ 219 0140 3046     		mov	r0, r6
+ 220 0142 03B0     		add	sp, sp, #12
+ 221              		@ sp needed
+ 222 0144 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 223              	.L39:
+ 224 0148 11F0010F 		tst	r1, #1
+ 225 014c BFD1     		bne	.L15
+ 226 014e 4FF0FF36 		mov	r6, #-1
+ 227 0152 F5E7     		b	.L11
+ 228              	.L17:
+ 229 0154 019B     		ldr	r3, [sp, #4]
+ 230 0156 092B     		cmp	r3, #9
+ 231 0158 06DD     		ble	.L32
+ARM GAS  /tmp/ccxiR8lQ.s 			page 5
+
+
+ 232 015a B9F1090F 		cmp	r9, #9
+ 233 015e 22DC     		bgt	.L33
+ 234 0160 4E46     		mov	r6, r9
+ 235 0162 CAE7     		b	.L18
+ 236              	.L31:
+ 237 0164 4646     		mov	r6, r8
+ 238 0166 C8E7     		b	.L18
+ 239              	.L32:
+ 240 0168 019E     		ldr	r6, [sp, #4]
+ 241 016a C6E7     		b	.L18
+ 242              	.L40:
+ 243 016c 104B     		ldr	r3, .L43+4
+ 244 016e 40F27F12 		movw	r2, #383
+ 245 0172 1249     		ldr	r1, .L43+16
+ 246 0174 1048     		ldr	r0, .L43+12
+ 247 0176 FFF7FEFF 		bl	printf
+ 248 017a C0E7     		b	.L19
+ 249              	.L41:
+ 250 017c 0C4B     		ldr	r3, .L43+4
+ 251 017e 40F28312 		movw	r2, #387
+ 252 0182 0E49     		ldr	r1, .L43+16
+ 253 0184 0C48     		ldr	r0, .L43+12
+ 254 0186 FFF7FEFF 		bl	printf
+ 255 018a BDE7     		b	.L20
+ 256              	.L42:
+ 257 018c 084B     		ldr	r3, .L43+4
+ 258 018e 40F28512 		movw	r2, #389
+ 259 0192 0B49     		ldr	r1, .L43+20
+ 260 0194 0848     		ldr	r0, .L43+12
+ 261 0196 FFF7FEFF 		bl	printf
+ 262 019a BEE7     		b	.L21
+ 263              	.L24:
+ 264 019c 1E46     		mov	r6, r3
+ 265 019e CFE7     		b	.L11
+ 266              	.L29:
+ 267 01a0 4FF0FF36 		mov	r6, #-1
+ 268 01a4 CCE7     		b	.L11
+ 269              	.L33:
+ 270 01a6 4FF0FF36 		mov	r6, #-1
+ 271 01aa C9E7     		b	.L11
+ 272              	.L44:
+ 273              		.align	2
+ 274              	.L43:
+ 275 01ac 00000000 		.word	.LANCHOR0
+ 276 01b0 00000000 		.word	.LC0
+ 277 01b4 34000000 		.word	.LC1
+ 278 01b8 4C000000 		.word	.LC2
+ 279 01bc 74000000 		.word	.LC3
+ 280 01c0 88000000 		.word	.LC4
+ 282              		.section	.text.etharp_update_arp_entry,"ax",%progbits
+ 283              		.align	1
+ 284              		.syntax unified
+ 285              		.thumb
+ 286              		.thumb_func
+ 287              		.fpu fpv4-sp-d16
+ 289              	etharp_update_arp_entry:
+ 290              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/ccxiR8lQ.s 			page 6
+
+
+ 291              		@ frame_needed = 0, uses_anonymous_args = 0
+ 292 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 293 0002 83B0     		sub	sp, sp, #12
+ 294 0004 0546     		mov	r5, r0
+ 295 0006 0C46     		mov	r4, r1
+ 296 0008 1646     		mov	r6, r2
+ 297 000a 1F46     		mov	r7, r3
+ 298 000c 90F83030 		ldrb	r3, [r0, #48]	@ zero_extendqisi2
+ 299 0010 062B     		cmp	r3, #6
+ 300 0012 3AD1     		bne	.L53
+ 301              	.L46:
+ 302 0014 002C     		cmp	r4, #0
+ 303 0016 40D0     		beq	.L47
+ 304 0018 2068     		ldr	r0, [r4]
+ 305 001a 0028     		cmp	r0, #0
+ 306 001c 3DD0     		beq	.L47
+ 307 001e 2946     		mov	r1, r5
+ 308 0020 FFF7FEFF 		bl	ip4_addr_isbroadcast_u32
+ 309 0024 0028     		cmp	r0, #0
+ 310 0026 38D1     		bne	.L47
+ 311 0028 2368     		ldr	r3, [r4]
+ 312 002a 03F0F003 		and	r3, r3, #240
+ 313 002e E02B     		cmp	r3, #224
+ 314 0030 33D0     		beq	.L47
+ 315 0032 2A46     		mov	r2, r5
+ 316 0034 3946     		mov	r1, r7
+ 317 0036 2046     		mov	r0, r4
+ 318 0038 FFF7FEFF 		bl	etharp_find_entry
+ 319 003c 0028     		cmp	r0, #0
+ 320 003e 2FDB     		blt	.L54
+ 321 0040 1A4C     		ldr	r4, .L55
+ 322 0042 4200     		lsls	r2, r0, #1
+ 323 0044 1318     		adds	r3, r2, r0
+ 324 0046 D900     		lsls	r1, r3, #3
+ 325 0048 6718     		adds	r7, r4, r1
+ 326 004a 0223     		movs	r3, #2
+ 327 004c 3B75     		strb	r3, [r7, #20]
+ 328 004e BD60     		str	r5, [r7, #8]
+ 329 0050 0B46     		mov	r3, r1
+ 330 0052 0833     		adds	r3, r3, #8
+ 331 0054 2344     		add	r3, r3, r4
+ 332 0056 3268     		ldr	r2, [r6]	@ unaligned
+ 333 0058 5A60     		str	r2, [r3, #4]	@ unaligned
+ 334 005a B288     		ldrh	r2, [r6, #4]	@ unaligned
+ 335 005c 1A81     		strh	r2, [r3, #8]	@ unaligned
+ 336 005e 0023     		movs	r3, #0
+ 337 0060 7B82     		strh	r3, [r7, #18]	@ movhi
+ 338 0062 6758     		ldr	r7, [r4, r1]
+ 339 0064 FFB1     		cbz	r7, .L51
+ 340 0066 0024     		movs	r4, #0
+ 341 0068 104A     		ldr	r2, .L55
+ 342 006a 5450     		str	r4, [r2, r1]
+ 343 006c 4FF40063 		mov	r3, #2048
+ 344 0070 0093     		str	r3, [sp]
+ 345 0072 3346     		mov	r3, r6
+ 346 0074 05F12A02 		add	r2, r5, #42
+ 347 0078 3946     		mov	r1, r7
+ARM GAS  /tmp/ccxiR8lQ.s 			page 7
+
+
+ 348 007a 2846     		mov	r0, r5
+ 349 007c FFF7FEFF 		bl	ethernet_output
+ 350 0080 3846     		mov	r0, r7
+ 351 0082 FFF7FEFF 		bl	pbuf_free
+ 352 0086 2046     		mov	r0, r4
+ 353 0088 0BE0     		b	.L49
+ 354              	.L53:
+ 355 008a 094B     		ldr	r3, .L55+4
+ 356 008c 40F2A912 		movw	r2, #425
+ 357 0090 0849     		ldr	r1, .L55+8
+ 358 0092 0948     		ldr	r0, .L55+12
+ 359 0094 FFF7FEFF 		bl	printf
+ 360 0098 BCE7     		b	.L46
+ 361              	.L47:
+ 362 009a 6FF00F00 		mvn	r0, #15
+ 363 009e 00E0     		b	.L49
+ 364              	.L54:
+ 365 00a0 40B2     		sxtb	r0, r0
+ 366              	.L49:
+ 367 00a2 03B0     		add	sp, sp, #12
+ 368              		@ sp needed
+ 369 00a4 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 370              	.L51:
+ 371 00a6 0020     		movs	r0, #0
+ 372 00a8 FBE7     		b	.L49
+ 373              	.L56:
+ 374 00aa 00BF     		.align	2
+ 375              	.L55:
+ 376 00ac 00000000 		.word	.LANCHOR0
+ 377 00b0 00000000 		.word	.LC0
+ 378 00b4 00000000 		.word	.LC5
+ 379 00b8 4C000000 		.word	.LC2
+ 381              		.section	.text.etharp_raw,"ax",%progbits
+ 382              		.align	1
+ 383              		.syntax unified
+ 384              		.thumb
+ 385              		.thumb_func
+ 386              		.fpu fpv4-sp-d16
+ 388              	etharp_raw:
+ 389              		@ args = 16, pretend = 0, frame = 0
+ 390              		@ frame_needed = 0, uses_anonymous_args = 0
+ 391 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 392 0004 82B0     		sub	sp, sp, #8
+ 393 0006 8946     		mov	r9, r1
+ 394 0008 9246     		mov	r10, r2
+ 395 000a 9846     		mov	r8, r3
+ 396 000c 0B9D     		ldr	r5, [sp, #44]
+ 397 000e 0746     		mov	r7, r0
+ 398 0010 0028     		cmp	r0, #0
+ 399 0012 42D0     		beq	.L64
+ 400              	.L58:
+ 401 0014 4FF42072 		mov	r2, #640
+ 402 0018 1C21     		movs	r1, #28
+ 403 001a 0E20     		movs	r0, #14
+ 404 001c FFF7FEFF 		bl	pbuf_alloc
+ 405 0020 0646     		mov	r6, r0
+ 406 0022 0028     		cmp	r0, #0
+ARM GAS  /tmp/ccxiR8lQ.s 			page 8
+
+
+ 407 0024 51D0     		beq	.L62
+ 408 0026 4389     		ldrh	r3, [r0, #10]
+ 409 0028 1B2B     		cmp	r3, #27
+ 410 002a 3ED9     		bls	.L65
+ 411              	.L60:
+ 412 002c 7468     		ldr	r4, [r6, #4]
+ 413 002e BDF83400 		ldrh	r0, [sp, #52]
+ 414 0032 FFF7FEFF 		bl	lwip_htons
+ 415 0036 E080     		strh	r0, [r4, #6]	@ unaligned
+ 416 0038 97F83030 		ldrb	r3, [r7, #48]	@ zero_extendqisi2
+ 417 003c 062B     		cmp	r3, #6
+ 418 003e 3CD1     		bne	.L66
+ 419              	.L61:
+ 420 0040 D8F80030 		ldr	r3, [r8]	@ unaligned
+ 421 0044 A360     		str	r3, [r4, #8]	@ unaligned
+ 422 0046 B8F80430 		ldrh	r3, [r8, #4]	@ unaligned
+ 423 004a A381     		strh	r3, [r4, #12]	@ unaligned
+ 424 004c 2B68     		ldr	r3, [r5]	@ unaligned
+ 425 004e C4F81230 		str	r3, [r4, #18]	@ unaligned
+ 426 0052 AB88     		ldrh	r3, [r5, #4]	@ unaligned
+ 427 0054 E382     		strh	r3, [r4, #22]	@ unaligned
+ 428 0056 0A9B     		ldr	r3, [sp, #40]
+ 429 0058 1B68     		ldr	r3, [r3]	@ unaligned
+ 430 005a C4F80E30 		str	r3, [r4, #14]	@ unaligned
+ 431 005e 0C9B     		ldr	r3, [sp, #48]
+ 432 0060 1B68     		ldr	r3, [r3]	@ unaligned
+ 433 0062 A361     		str	r3, [r4, #24]	@ unaligned
+ 434 0064 0025     		movs	r5, #0
+ 435 0066 2570     		strb	r5, [r4]
+ 436 0068 0123     		movs	r3, #1
+ 437 006a 6370     		strb	r3, [r4, #1]
+ 438 006c 0823     		movs	r3, #8
+ 439 006e A370     		strb	r3, [r4, #2]
+ 440 0070 E570     		strb	r5, [r4, #3]
+ 441 0072 0623     		movs	r3, #6
+ 442 0074 2371     		strb	r3, [r4, #4]
+ 443 0076 0423     		movs	r3, #4
+ 444 0078 6371     		strb	r3, [r4, #5]
+ 445 007a 40F60603 		movw	r3, #2054
+ 446 007e 0093     		str	r3, [sp]
+ 447 0080 5346     		mov	r3, r10
+ 448 0082 4A46     		mov	r2, r9
+ 449 0084 3146     		mov	r1, r6
+ 450 0086 3846     		mov	r0, r7
+ 451 0088 FFF7FEFF 		bl	ethernet_output
+ 452 008c 3046     		mov	r0, r6
+ 453 008e FFF7FEFF 		bl	pbuf_free
+ 454 0092 2846     		mov	r0, r5
+ 455              	.L59:
+ 456 0094 02B0     		add	sp, sp, #8
+ 457              		@ sp needed
+ 458 0096 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 459              	.L64:
+ 460 009a 0D4B     		ldr	r3, .L67
+ 461 009c 40F25742 		movw	r2, #1111
+ 462 00a0 0C49     		ldr	r1, .L67+4
+ 463 00a2 0D48     		ldr	r0, .L67+8
+ARM GAS  /tmp/ccxiR8lQ.s 			page 9
+
+
+ 464 00a4 FFF7FEFF 		bl	printf
+ 465 00a8 B4E7     		b	.L58
+ 466              	.L65:
+ 467 00aa 094B     		ldr	r3, .L67
+ 468 00ac 40F26342 		movw	r2, #1123
+ 469 00b0 0A49     		ldr	r1, .L67+12
+ 470 00b2 0948     		ldr	r0, .L67+8
+ 471 00b4 FFF7FEFF 		bl	printf
+ 472 00b8 B8E7     		b	.L60
+ 473              	.L66:
+ 474 00ba 054B     		ldr	r3, .L67
+ 475 00bc 40F26A42 		movw	r2, #1130
+ 476 00c0 0749     		ldr	r1, .L67+16
+ 477 00c2 0548     		ldr	r0, .L67+8
+ 478 00c4 FFF7FEFF 		bl	printf
+ 479 00c8 BAE7     		b	.L61
+ 480              	.L62:
+ 481 00ca 4FF0FF30 		mov	r0, #-1
+ 482 00ce E1E7     		b	.L59
+ 483              	.L68:
+ 484              		.align	2
+ 485              	.L67:
+ 486 00d0 00000000 		.word	.LC0
+ 487 00d4 00000000 		.word	.LC6
+ 488 00d8 4C000000 		.word	.LC2
+ 489 00dc 10000000 		.word	.LC7
+ 490 00e0 44000000 		.word	.LC8
+ 492              		.section	.text.etharp_request_dst,"ax",%progbits
+ 493              		.align	1
+ 494              		.syntax unified
+ 495              		.thumb
+ 496              		.thumb_func
+ 497              		.fpu fpv4-sp-d16
+ 499              	etharp_request_dst:
+ 500              		@ args = 0, pretend = 0, frame = 0
+ 501              		@ frame_needed = 0, uses_anonymous_args = 0
+ 502 0000 30B5     		push	{r4, r5, lr}
+ 503 0002 85B0     		sub	sp, sp, #20
+ 504 0004 0346     		mov	r3, r0
+ 505 0006 00F12A04 		add	r4, r0, #42
+ 506 000a 0433     		adds	r3, r3, #4
+ 507 000c 0125     		movs	r5, #1
+ 508 000e 0395     		str	r5, [sp, #12]
+ 509 0010 0291     		str	r1, [sp, #8]
+ 510 0012 0449     		ldr	r1, .L71
+ 511 0014 0191     		str	r1, [sp, #4]
+ 512 0016 0093     		str	r3, [sp]
+ 513 0018 2346     		mov	r3, r4
+ 514 001a 2146     		mov	r1, r4
+ 515 001c FFF7FEFF 		bl	etharp_raw
+ 516 0020 05B0     		add	sp, sp, #20
+ 517              		@ sp needed
+ 518 0022 30BD     		pop	{r4, r5, pc}
+ 519              	.L72:
+ 520              		.align	2
+ 521              	.L71:
+ 522 0024 00000000 		.word	ethzero
+ARM GAS  /tmp/ccxiR8lQ.s 			page 10
+
+
+ 524              		.section	.text.etharp_cleanup_netif,"ax",%progbits
+ 525              		.align	1
+ 526              		.global	etharp_cleanup_netif
+ 527              		.syntax unified
+ 528              		.thumb
+ 529              		.thumb_func
+ 530              		.fpu fpv4-sp-d16
+ 532              	etharp_cleanup_netif:
+ 533              		@ args = 0, pretend = 0, frame = 0
+ 534              		@ frame_needed = 0, uses_anonymous_args = 0
+ 535 0000 38B5     		push	{r3, r4, r5, lr}
+ 536 0002 0546     		mov	r5, r0
+ 537 0004 0024     		movs	r4, #0
+ 538 0006 00E0     		b	.L74
+ 539              	.L75:
+ 540 0008 0134     		adds	r4, r4, #1
+ 541              	.L74:
+ 542 000a 092C     		cmp	r4, #9
+ 543 000c 10DC     		bgt	.L78
+ 544 000e 04EB4403 		add	r3, r4, r4, lsl #1
+ 545 0012 DA00     		lsls	r2, r3, #3
+ 546 0014 074B     		ldr	r3, .L79
+ 547 0016 1344     		add	r3, r3, r2
+ 548 0018 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 549 001a 002B     		cmp	r3, #0
+ 550 001c F4D0     		beq	.L75
+ 551 001e 054B     		ldr	r3, .L79
+ 552 0020 1344     		add	r3, r3, r2
+ 553 0022 9B68     		ldr	r3, [r3, #8]
+ 554 0024 AB42     		cmp	r3, r5
+ 555 0026 EFD1     		bne	.L75
+ 556 0028 2046     		mov	r0, r4
+ 557 002a FFF7FEFF 		bl	etharp_free_entry
+ 558 002e EBE7     		b	.L75
+ 559              	.L78:
+ 560 0030 38BD     		pop	{r3, r4, r5, pc}
+ 561              	.L80:
+ 562 0032 00BF     		.align	2
+ 563              	.L79:
+ 564 0034 00000000 		.word	.LANCHOR0
+ 566              		.section	.text.etharp_find_addr,"ax",%progbits
+ 567              		.align	1
+ 568              		.global	etharp_find_addr
+ 569              		.syntax unified
+ 570              		.thumb
+ 571              		.thumb_func
+ 572              		.fpu fpv4-sp-d16
+ 574              	etharp_find_addr:
+ 575              		@ args = 0, pretend = 0, frame = 0
+ 576              		@ frame_needed = 0, uses_anonymous_args = 0
+ 577 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 578 0002 0746     		mov	r7, r0
+ 579 0004 0E46     		mov	r6, r1
+ 580 0006 1C46     		mov	r4, r3
+ 581 0008 1546     		mov	r5, r2
+ 582 000a EAB1     		cbz	r2, .L82
+ 583 000c E3B1     		cbz	r3, .L82
+ARM GAS  /tmp/ccxiR8lQ.s 			page 11
+
+
+ 584              	.L83:
+ 585 000e 3A46     		mov	r2, r7
+ 586 0010 0221     		movs	r1, #2
+ 587 0012 3046     		mov	r0, r6
+ 588 0014 FFF7FEFF 		bl	etharp_find_entry
+ 589 0018 021E     		subs	r2, r0, #0
+ 590 001a 1DDB     		blt	.L85
+ 591 001c 1046     		mov	r0, r2
+ 592 001e 02EB4203 		add	r3, r2, r2, lsl #1
+ 593 0022 D900     		lsls	r1, r3, #3
+ 594 0024 0F4B     		ldr	r3, .L88
+ 595 0026 0B44     		add	r3, r3, r1
+ 596 0028 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 597 002a 012B     		cmp	r3, #1
+ 598 002c 17D9     		bls	.L86
+ 599 002e 0D49     		ldr	r1, .L88
+ 600 0030 5600     		lsls	r6, r2, #1
+ 601 0032 B718     		adds	r7, r6, r2
+ 602 0034 FB00     		lsls	r3, r7, #3
+ 603 0036 1F46     		mov	r7, r3
+ 604 0038 0833     		adds	r3, r3, #8
+ 605 003a 0B44     		add	r3, r3, r1
+ 606 003c 0433     		adds	r3, r3, #4
+ 607 003e 2B60     		str	r3, [r5]
+ 608 0040 3944     		add	r1, r1, r7
+ 609 0042 0431     		adds	r1, r1, #4
+ 610 0044 2160     		str	r1, [r4]
+ 611              	.L81:
+ 612 0046 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 613              	.L82:
+ 614 0048 074B     		ldr	r3, .L88+4
+ 615 004a 40F24D22 		movw	r2, #589
+ 616 004e 0749     		ldr	r1, .L88+8
+ 617 0050 0748     		ldr	r0, .L88+12
+ 618 0052 FFF7FEFF 		bl	printf
+ 619 0056 DAE7     		b	.L83
+ 620              	.L85:
+ 621 0058 4FF0FF30 		mov	r0, #-1
+ 622 005c F3E7     		b	.L81
+ 623              	.L86:
+ 624 005e 4FF0FF30 		mov	r0, #-1
+ 625 0062 F0E7     		b	.L81
+ 626              	.L89:
+ 627              		.align	2
+ 628              	.L88:
+ 629 0064 00000000 		.word	.LANCHOR0
+ 630 0068 00000000 		.word	.LC0
+ 631 006c 00000000 		.word	.LC9
+ 632 0070 4C000000 		.word	.LC2
+ 634              		.section	.text.etharp_get_entry,"ax",%progbits
+ 635              		.align	1
+ 636              		.global	etharp_get_entry
+ 637              		.syntax unified
+ 638              		.thumb
+ 639              		.thumb_func
+ 640              		.fpu fpv4-sp-d16
+ 642              	etharp_get_entry:
+ARM GAS  /tmp/ccxiR8lQ.s 			page 12
+
+
+ 643              		@ args = 0, pretend = 0, frame = 0
+ 644              		@ frame_needed = 0, uses_anonymous_args = 0
+ 645 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 646 0002 0446     		mov	r4, r0
+ 647 0004 1646     		mov	r6, r2
+ 648 0006 1D46     		mov	r5, r3
+ 649 0008 0F46     		mov	r7, r1
+ 650 000a E1B1     		cbz	r1, .L98
+ 651              	.L91:
+ 652 000c 1EB3     		cbz	r6, .L99
+ 653              	.L92:
+ 654 000e 55B3     		cbz	r5, .L100
+ 655              	.L93:
+ 656 0010 092C     		cmp	r4, #9
+ 657 0012 30D8     		bhi	.L95
+ 658 0014 04EB4403 		add	r3, r4, r4, lsl #1
+ 659 0018 DA00     		lsls	r2, r3, #3
+ 660 001a 194B     		ldr	r3, .L101
+ 661 001c 1344     		add	r3, r3, r2
+ 662 001e 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 663 0020 012B     		cmp	r3, #1
+ 664 0022 2AD9     		bls	.L96
+ 665 0024 164B     		ldr	r3, .L101
+ 666 0026 6200     		lsls	r2, r4, #1
+ 667 0028 1019     		adds	r0, r2, r4
+ 668 002a C100     		lsls	r1, r0, #3
+ 669 002c 1944     		add	r1, r1, r3
+ 670 002e 081D     		adds	r0, r1, #4
+ 671 0030 3860     		str	r0, [r7]
+ 672 0032 8968     		ldr	r1, [r1, #8]
+ 673 0034 3160     		str	r1, [r6]
+ 674 0036 1444     		add	r4, r4, r2
+ 675 0038 E200     		lsls	r2, r4, #3
+ 676 003a 0832     		adds	r2, r2, #8
+ 677 003c 1344     		add	r3, r3, r2
+ 678 003e 0433     		adds	r3, r3, #4
+ 679 0040 2B60     		str	r3, [r5]
+ 680 0042 0120     		movs	r0, #1
+ 681              	.L90:
+ 682 0044 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 683              	.L98:
+ 684 0046 0F4B     		ldr	r3, .L101+4
+ 685 0048 40F26622 		movw	r2, #614
+ 686 004c 0E49     		ldr	r1, .L101+8
+ 687 004e 0F48     		ldr	r0, .L101+12
+ 688 0050 FFF7FEFF 		bl	printf
+ 689 0054 DAE7     		b	.L91
+ 690              	.L99:
+ 691 0056 0B4B     		ldr	r3, .L101+4
+ 692 0058 40F26722 		movw	r2, #615
+ 693 005c 0C49     		ldr	r1, .L101+16
+ 694 005e 0B48     		ldr	r0, .L101+12
+ 695 0060 FFF7FEFF 		bl	printf
+ 696 0064 D3E7     		b	.L92
+ 697              	.L100:
+ 698 0066 074B     		ldr	r3, .L101+4
+ 699 0068 4FF41A72 		mov	r2, #616
+ARM GAS  /tmp/ccxiR8lQ.s 			page 13
+
+
+ 700 006c 0949     		ldr	r1, .L101+20
+ 701 006e 0748     		ldr	r0, .L101+12
+ 702 0070 FFF7FEFF 		bl	printf
+ 703 0074 CCE7     		b	.L93
+ 704              	.L95:
+ 705 0076 0020     		movs	r0, #0
+ 706 0078 E4E7     		b	.L90
+ 707              	.L96:
+ 708 007a 0020     		movs	r0, #0
+ 709 007c E2E7     		b	.L90
+ 710              	.L102:
+ 711 007e 00BF     		.align	2
+ 712              	.L101:
+ 713 0080 00000000 		.word	.LANCHOR0
+ 714 0084 00000000 		.word	.LC0
+ 715 0088 00000000 		.word	.LC10
+ 716 008c 4C000000 		.word	.LC2
+ 717 0090 00000000 		.word	.LC6
+ 718 0094 10000000 		.word	.LC11
+ 720              		.section	.text.etharp_input,"ax",%progbits
+ 721              		.align	1
+ 722              		.global	etharp_input
+ 723              		.syntax unified
+ 724              		.thumb
+ 725              		.thumb_func
+ 726              		.fpu fpv4-sp-d16
+ 728              	etharp_input:
+ 729              		@ args = 0, pretend = 0, frame = 8
+ 730              		@ frame_needed = 0, uses_anonymous_args = 0
+ 731 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 732 0004 86B0     		sub	sp, sp, #24
+ 733 0006 A9B1     		cbz	r1, .L116
+ 734 0008 0546     		mov	r5, r0
+ 735 000a 0E46     		mov	r6, r1
+ 736 000c 4468     		ldr	r4, [r0, #4]
+ 737 000e 2388     		ldrh	r3, [r4]	@ unaligned
+ 738 0010 B3F5807F 		cmp	r3, #256
+ 739 0014 08D1     		bne	.L106
+ 740 0016 2379     		ldrb	r3, [r4, #4]	@ zero_extendqisi2
+ 741 0018 062B     		cmp	r3, #6
+ 742 001a 05D1     		bne	.L106
+ 743 001c 6379     		ldrb	r3, [r4, #5]	@ zero_extendqisi2
+ 744 001e 042B     		cmp	r3, #4
+ 745 0020 02D1     		bne	.L106
+ 746 0022 6388     		ldrh	r3, [r4, #2]	@ unaligned
+ 747 0024 082B     		cmp	r3, #8
+ 748 0026 0DD0     		beq	.L107
+ 749              	.L106:
+ 750 0028 2846     		mov	r0, r5
+ 751 002a FFF7FEFF 		bl	pbuf_free
+ 752              	.L103:
+ 753 002e 06B0     		add	sp, sp, #24
+ 754              		@ sp needed
+ 755 0030 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 756              	.L116:
+ 757 0034 214B     		ldr	r3, .L117
+ 758 0036 40F28A22 		movw	r2, #650
+ARM GAS  /tmp/ccxiR8lQ.s 			page 14
+
+
+ 759 003a 2149     		ldr	r1, .L117+4
+ 760 003c 2148     		ldr	r0, .L117+8
+ 761 003e FFF7FEFF 		bl	printf
+ 762 0042 F4E7     		b	.L103
+ 763              	.L107:
+ 764 0044 D4F80E30 		ldr	r3, [r4, #14]	@ unaligned
+ 765 0048 0593     		str	r3, [sp, #20]
+ 766 004a A769     		ldr	r7, [r4, #24]	@ unaligned
+ 767 004c 4B68     		ldr	r3, [r1, #4]
+ 768 004e 9BB9     		cbnz	r3, .L108
+ 769 0050 04F10808 		add	r8, r4, #8
+ 770 0054 0027     		movs	r7, #0
+ 771 0056 0223     		movs	r3, #2
+ 772              	.L109:
+ 773 0058 4246     		mov	r2, r8
+ 774 005a 05A9     		add	r1, sp, #20
+ 775 005c 3046     		mov	r0, r6
+ 776 005e FFF7FEFF 		bl	etharp_update_arp_entry
+ 777 0062 E388     		ldrh	r3, [r4, #6]	@ unaligned
+ 778 0064 B3F5807F 		cmp	r3, #256
+ 779 0068 11D0     		beq	.L110
+ 780 006a B3F5007F 		cmp	r3, #512
+ 781 006e 20D0     		beq	.L111
+ 782              	.L112:
+ 783 0070 2846     		mov	r0, r5
+ 784 0072 FFF7FEFF 		bl	pbuf_free
+ 785 0076 DAE7     		b	.L103
+ 786              	.L108:
+ 787 0078 BB42     		cmp	r3, r7
+ 788 007a 14BF     		ite	ne
+ 789 007c 0027     		movne	r7, #0
+ 790 007e 0127     		moveq	r7, #1
+ 791 0080 04F10808 		add	r8, r4, #8
+ 792 0084 0FB1     		cbz	r7, .L114
+ 793 0086 3B46     		mov	r3, r7
+ 794 0088 E6E7     		b	.L109
+ 795              	.L114:
+ 796 008a 0223     		movs	r3, #2
+ 797 008c E4E7     		b	.L109
+ 798              	.L110:
+ 799 008e 002F     		cmp	r7, #0
+ 800 0090 EED0     		beq	.L112
+ 801 0092 06F12A01 		add	r1, r6, #42
+ 802 0096 331D     		adds	r3, r6, #4
+ 803 0098 0222     		movs	r2, #2
+ 804 009a 0392     		str	r2, [sp, #12]
+ 805 009c 05AA     		add	r2, sp, #20
+ 806 009e 0292     		str	r2, [sp, #8]
+ 807 00a0 CDF80480 		str	r8, [sp, #4]
+ 808 00a4 0093     		str	r3, [sp]
+ 809 00a6 0B46     		mov	r3, r1
+ 810 00a8 4246     		mov	r2, r8
+ 811 00aa 3046     		mov	r0, r6
+ 812 00ac FFF7FEFF 		bl	etharp_raw
+ 813 00b0 DEE7     		b	.L112
+ 814              	.L111:
+ 815 00b2 05A9     		add	r1, sp, #20
+ARM GAS  /tmp/ccxiR8lQ.s 			page 15
+
+
+ 816 00b4 3046     		mov	r0, r6
+ 817 00b6 FFF7FEFF 		bl	dhcp_arp_reply
+ 818 00ba D9E7     		b	.L112
+ 819              	.L118:
+ 820              		.align	2
+ 821              	.L117:
+ 822 00bc 00000000 		.word	.LC0
+ 823 00c0 00000000 		.word	.LC6
+ 824 00c4 4C000000 		.word	.LC2
+ 826              		.section	.text.etharp_request,"ax",%progbits
+ 827              		.align	1
+ 828              		.global	etharp_request
+ 829              		.syntax unified
+ 830              		.thumb
+ 831              		.thumb_func
+ 832              		.fpu fpv4-sp-d16
+ 834              	etharp_request:
+ 835              		@ args = 0, pretend = 0, frame = 0
+ 836              		@ frame_needed = 0, uses_anonymous_args = 0
+ 837 0000 08B5     		push	{r3, lr}
+ 838 0002 024A     		ldr	r2, .L121
+ 839 0004 FFF7FEFF 		bl	etharp_request_dst
+ 840 0008 08BD     		pop	{r3, pc}
+ 841              	.L122:
+ 842 000a 00BF     		.align	2
+ 843              	.L121:
+ 844 000c 00000000 		.word	ethbroadcast
+ 846              		.section	.text.etharp_tmr,"ax",%progbits
+ 847              		.align	1
+ 848              		.global	etharp_tmr
+ 849              		.syntax unified
+ 850              		.thumb
+ 851              		.thumb_func
+ 852              		.fpu fpv4-sp-d16
+ 854              	etharp_tmr:
+ 855              		@ args = 0, pretend = 0, frame = 0
+ 856              		@ frame_needed = 0, uses_anonymous_args = 0
+ 857 0000 10B5     		push	{r4, lr}
+ 858 0002 0024     		movs	r4, #0
+ 859 0004 05E0     		b	.L124
+ 860              	.L133:
+ 861 0006 042B     		cmp	r3, #4
+ 862 0008 1BD9     		bls	.L127
+ 863              	.L126:
+ 864 000a 2046     		mov	r0, r4
+ 865 000c FFF7FEFF 		bl	etharp_free_entry
+ 866              	.L125:
+ 867 0010 0134     		adds	r4, r4, #1
+ 868              	.L124:
+ 869 0012 092C     		cmp	r4, #9
+ 870 0014 35DC     		bgt	.L132
+ 871 0016 04EB4403 		add	r3, r4, r4, lsl #1
+ 872 001a DA00     		lsls	r2, r3, #3
+ 873 001c 194B     		ldr	r3, .L136
+ 874 001e 1344     		add	r3, r3, r2
+ 875 0020 1A7D     		ldrb	r2, [r3, #20]	@ zero_extendqisi2
+ 876 0022 002A     		cmp	r2, #0
+ARM GAS  /tmp/ccxiR8lQ.s 			page 16
+
+
+ 877 0024 F4D0     		beq	.L125
+ 878 0026 6300     		lsls	r3, r4, #1
+ 879 0028 2344     		add	r3, r3, r4
+ 880 002a D800     		lsls	r0, r3, #3
+ 881 002c 1549     		ldr	r1, .L136
+ 882 002e 0144     		add	r1, r1, r0
+ 883 0030 4B8A     		ldrh	r3, [r1, #18]
+ 884 0032 0133     		adds	r3, r3, #1
+ 885 0034 9BB2     		uxth	r3, r3
+ 886 0036 4B82     		strh	r3, [r1, #18]	@ movhi
+ 887 0038 B3F5967F 		cmp	r3, #300
+ 888 003c E5D2     		bcs	.L126
+ 889 003e 012A     		cmp	r2, #1
+ 890 0040 E1D0     		beq	.L133
+ 891              	.L127:
+ 892 0042 032A     		cmp	r2, #3
+ 893 0044 0DD0     		beq	.L134
+ 894 0046 042A     		cmp	r2, #4
+ 895 0048 13D0     		beq	.L135
+ 896 004a 012A     		cmp	r2, #1
+ 897 004c E0D1     		bne	.L125
+ 898 004e 6200     		lsls	r2, r4, #1
+ 899 0050 2244     		add	r2, r2, r4
+ 900 0052 D100     		lsls	r1, r2, #3
+ 901 0054 0B4B     		ldr	r3, .L136
+ 902 0056 0B44     		add	r3, r3, r1
+ 903 0058 191D     		adds	r1, r3, #4
+ 904 005a 9868     		ldr	r0, [r3, #8]
+ 905 005c FFF7FEFF 		bl	etharp_request
+ 906 0060 D6E7     		b	.L125
+ 907              	.L134:
+ 908 0062 04EB4403 		add	r3, r4, r4, lsl #1
+ 909 0066 DA00     		lsls	r2, r3, #3
+ 910 0068 064B     		ldr	r3, .L136
+ 911 006a 1344     		add	r3, r3, r2
+ 912 006c 0422     		movs	r2, #4
+ 913 006e 1A75     		strb	r2, [r3, #20]
+ 914 0070 CEE7     		b	.L125
+ 915              	.L135:
+ 916 0072 04EB4403 		add	r3, r4, r4, lsl #1
+ 917 0076 DA00     		lsls	r2, r3, #3
+ 918 0078 024B     		ldr	r3, .L136
+ 919 007a 1344     		add	r3, r3, r2
+ 920 007c 0222     		movs	r2, #2
+ 921 007e 1A75     		strb	r2, [r3, #20]
+ 922 0080 C6E7     		b	.L125
+ 923              	.L132:
+ 924 0082 10BD     		pop	{r4, pc}
+ 925              	.L137:
+ 926              		.align	2
+ 927              	.L136:
+ 928 0084 00000000 		.word	.LANCHOR0
+ 930              		.section	.text.etharp_output_to_arp_index,"ax",%progbits
+ 931              		.align	1
+ 932              		.syntax unified
+ 933              		.thumb
+ 934              		.thumb_func
+ARM GAS  /tmp/ccxiR8lQ.s 			page 17
+
+
+ 935              		.fpu fpv4-sp-d16
+ 937              	etharp_output_to_arp_index:
+ 938              		@ args = 0, pretend = 0, frame = 0
+ 939              		@ frame_needed = 0, uses_anonymous_args = 0
+ 940 0000 70B5     		push	{r4, r5, r6, lr}
+ 941 0002 82B0     		sub	sp, sp, #8
+ 942 0004 0546     		mov	r5, r0
+ 943 0006 0E46     		mov	r6, r1
+ 944 0008 1446     		mov	r4, r2
+ 945 000a 02EB4203 		add	r3, r2, r2, lsl #1
+ 946 000e DA00     		lsls	r2, r3, #3
+ 947 0010 2C4B     		ldr	r3, .L146
+ 948 0012 1344     		add	r3, r3, r2
+ 949 0014 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 950 0016 012B     		cmp	r3, #1
+ 951 0018 19D9     		bls	.L143
+ 952              	.L139:
+ 953 001a 04EB4403 		add	r3, r4, r4, lsl #1
+ 954 001e DA00     		lsls	r2, r3, #3
+ 955 0020 284B     		ldr	r3, .L146
+ 956 0022 1344     		add	r3, r3, r2
+ 957 0024 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 958 0026 022B     		cmp	r3, #2
+ 959 0028 19D0     		beq	.L144
+ 960              	.L140:
+ 961 002a 04EB4404 		add	r4, r4, r4, lsl #1
+ 962 002e E300     		lsls	r3, r4, #3
+ 963 0030 0833     		adds	r3, r3, #8
+ 964 0032 244A     		ldr	r2, .L146
+ 965 0034 1344     		add	r3, r3, r2
+ 966 0036 4FF40062 		mov	r2, #2048
+ 967 003a 0092     		str	r2, [sp]
+ 968 003c 0433     		adds	r3, r3, #4
+ 969 003e 05F12A02 		add	r2, r5, #42
+ 970 0042 3146     		mov	r1, r6
+ 971 0044 2846     		mov	r0, r5
+ 972 0046 FFF7FEFF 		bl	ethernet_output
+ 973 004a 02B0     		add	sp, sp, #8
+ 974              		@ sp needed
+ 975 004c 70BD     		pop	{r4, r5, r6, pc}
+ 976              	.L143:
+ 977 004e 1E4B     		ldr	r3, .L146+4
+ 978 0050 40F2EF22 		movw	r2, #751
+ 979 0054 1D49     		ldr	r1, .L146+8
+ 980 0056 1E48     		ldr	r0, .L146+12
+ 981 0058 FFF7FEFF 		bl	printf
+ 982 005c DDE7     		b	.L139
+ 983              	.L144:
+ 984 005e 194B     		ldr	r3, .L146
+ 985 0060 1344     		add	r3, r3, r2
+ 986 0062 5B8A     		ldrh	r3, [r3, #18]
+ 987 0064 B3F58E7F 		cmp	r3, #284
+ 988 0068 19D8     		bhi	.L145
+ 989 006a B3F5877F 		cmp	r3, #270
+ 990 006e DCD3     		bcc	.L140
+ 991 0070 144A     		ldr	r2, .L146
+ 992 0072 6300     		lsls	r3, r4, #1
+ARM GAS  /tmp/ccxiR8lQ.s 			page 18
+
+
+ 993 0074 1819     		adds	r0, r3, r4
+ 994 0076 C100     		lsls	r1, r0, #3
+ 995 0078 0846     		mov	r0, r1
+ 996 007a 1144     		add	r1, r1, r2
+ 997 007c 0830     		adds	r0, r0, #8
+ 998 007e 0244     		add	r2, r2, r0
+ 999 0080 0432     		adds	r2, r2, #4
+ 1000 0082 0431     		adds	r1, r1, #4
+ 1001 0084 2846     		mov	r0, r5
+ 1002 0086 FFF7FEFF 		bl	etharp_request_dst
+ 1003 008a 0028     		cmp	r0, #0
+ 1004 008c CDD1     		bne	.L140
+ 1005 008e 04EB4403 		add	r3, r4, r4, lsl #1
+ 1006 0092 DA00     		lsls	r2, r3, #3
+ 1007 0094 0B4B     		ldr	r3, .L146
+ 1008 0096 1344     		add	r3, r3, r2
+ 1009 0098 0322     		movs	r2, #3
+ 1010 009a 1A75     		strb	r2, [r3, #20]
+ 1011 009c C5E7     		b	.L140
+ 1012              	.L145:
+ 1013 009e 04EB4402 		add	r2, r4, r4, lsl #1
+ 1014 00a2 D300     		lsls	r3, r2, #3
+ 1015 00a4 0749     		ldr	r1, .L146
+ 1016 00a6 1944     		add	r1, r1, r3
+ 1017 00a8 0431     		adds	r1, r1, #4
+ 1018 00aa 2846     		mov	r0, r5
+ 1019 00ac FFF7FEFF 		bl	etharp_request
+ 1020 00b0 0028     		cmp	r0, #0
+ 1021 00b2 BAD1     		bne	.L140
+ 1022 00b4 04EB4403 		add	r3, r4, r4, lsl #1
+ 1023 00b8 DA00     		lsls	r2, r3, #3
+ 1024 00ba 024B     		ldr	r3, .L146
+ 1025 00bc 1344     		add	r3, r3, r2
+ 1026 00be 0322     		movs	r2, #3
+ 1027 00c0 1A75     		strb	r2, [r3, #20]
+ 1028 00c2 B2E7     		b	.L140
+ 1029              	.L147:
+ 1030              		.align	2
+ 1031              	.L146:
+ 1032 00c4 00000000 		.word	.LANCHOR0
+ 1033 00c8 00000000 		.word	.LC0
+ 1034 00cc 00000000 		.word	.LC12
+ 1035 00d0 4C000000 		.word	.LC2
+ 1037              		.section	.text.etharp_query,"ax",%progbits
+ 1038              		.align	1
+ 1039              		.global	etharp_query
+ 1040              		.syntax unified
+ 1041              		.thumb
+ 1042              		.thumb_func
+ 1043              		.fpu fpv4-sp-d16
+ 1045              	etharp_query:
+ 1046              		@ args = 0, pretend = 0, frame = 0
+ 1047              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1048 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 1049 0004 83B0     		sub	sp, sp, #12
+ 1050 0006 0646     		mov	r6, r0
+ 1051 0008 0D46     		mov	r5, r1
+ARM GAS  /tmp/ccxiR8lQ.s 			page 19
+
+
+ 1052 000a 1746     		mov	r7, r2
+ 1053 000c 00F12A08 		add	r8, r0, #42
+ 1054 0010 0146     		mov	r1, r0
+ 1055 0012 2868     		ldr	r0, [r5]
+ 1056 0014 FFF7FEFF 		bl	ip4_addr_isbroadcast_u32
+ 1057 0018 0028     		cmp	r0, #0
+ 1058 001a 40F0AF80 		bne	.L165
+ 1059 001e 2B68     		ldr	r3, [r5]
+ 1060 0020 03F0F002 		and	r2, r3, #240
+ 1061 0024 E02A     		cmp	r2, #224
+ 1062 0026 00F0AC80 		beq	.L166
+ 1063 002a 002D     		cmp	r5, #0
+ 1064 002c 00F0AC80 		beq	.L167
+ 1065 0030 002B     		cmp	r3, #0
+ 1066 0032 00F0AC80 		beq	.L168
+ 1067 0036 3246     		mov	r2, r6
+ 1068 0038 0121     		movs	r1, #1
+ 1069 003a 2846     		mov	r0, r5
+ 1070 003c FFF7FEFF 		bl	etharp_find_entry
+ 1071 0040 041E     		subs	r4, r0, #0
+ 1072 0042 2EDB     		blt	.L175
+ 1073 0044 A3B2     		uxth	r3, r4
+ 1074 0046 7E2B     		cmp	r3, #126
+ 1075 0048 2DD8     		bhi	.L176
+ 1076              	.L151:
+ 1077 004a E4B2     		uxtb	r4, r4
+ 1078 004c 04EB4403 		add	r3, r4, r4, lsl #1
+ 1079 0050 DA00     		lsls	r2, r3, #3
+ 1080 0052 524B     		ldr	r3, .L182
+ 1081 0054 1344     		add	r3, r3, r2
+ 1082 0056 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 1083 0058 6BBB     		cbnz	r3, .L169
+ 1084 005a 6200     		lsls	r2, r4, #1
+ 1085 005c 2244     		add	r2, r2, r4
+ 1086 005e D100     		lsls	r1, r2, #3
+ 1087 0060 4E4B     		ldr	r3, .L182
+ 1088 0062 0B44     		add	r3, r3, r1
+ 1089 0064 4FF00109 		mov	r9, #1
+ 1090 0068 83F81490 		strb	r9, [r3, #20]
+ 1091 006c 9E60     		str	r6, [r3, #8]
+ 1092              	.L152:
+ 1093 006e 04EB4403 		add	r3, r4, r4, lsl #1
+ 1094 0072 DA00     		lsls	r2, r3, #3
+ 1095 0074 494B     		ldr	r3, .L182
+ 1096 0076 1344     		add	r3, r3, r2
+ 1097 0078 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 1098 007a FBB1     		cbz	r3, .L177
+ 1099              	.L153:
+ 1100 007c B9F1000F 		cmp	r9, #0
+ 1101 0080 24D1     		bne	.L154
+ 1102 0082 1FB3     		cbz	r7, .L154
+ 1103 0084 4FF0FF35 		mov	r5, #-1
+ 1104              	.L155:
+ 1105 0088 47B3     		cbz	r7, .L178
+ 1106              	.L156:
+ 1107 008a 04EB4403 		add	r3, r4, r4, lsl #1
+ 1108 008e DA00     		lsls	r2, r3, #3
+ARM GAS  /tmp/ccxiR8lQ.s 			page 20
+
+
+ 1109 0090 424B     		ldr	r3, .L182
+ 1110 0092 1344     		add	r3, r3, r2
+ 1111 0094 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 1112 0096 012B     		cmp	r3, #1
+ 1113 0098 28D8     		bhi	.L179
+ 1114 009a 012B     		cmp	r3, #1
+ 1115 009c 36D1     		bne	.L149
+ 1116 009e 3D46     		mov	r5, r7
+ 1117 00a0 44E0     		b	.L158
+ 1118              	.L175:
+ 1119 00a2 65B2     		sxtb	r5, r4
+ 1120 00a4 32E0     		b	.L149
+ 1121              	.L176:
+ 1122 00a6 3E4B     		ldr	r3, .L182+4
+ 1123 00a8 40F2C132 		movw	r2, #961
+ 1124 00ac 3D49     		ldr	r1, .L182+8
+ 1125 00ae 3E48     		ldr	r0, .L182+12
+ 1126 00b0 FFF7FEFF 		bl	printf
+ 1127 00b4 C9E7     		b	.L151
+ 1128              	.L169:
+ 1129 00b6 4FF00009 		mov	r9, #0
+ 1130 00ba D8E7     		b	.L152
+ 1131              	.L177:
+ 1132 00bc 384B     		ldr	r3, .L182+4
+ 1133 00be 40F2CF32 		movw	r2, #975
+ 1134 00c2 3A49     		ldr	r1, .L182+16
+ 1135 00c4 3848     		ldr	r0, .L182+12
+ 1136 00c6 FFF7FEFF 		bl	printf
+ 1137 00ca D7E7     		b	.L153
+ 1138              	.L154:
+ 1139 00cc 2946     		mov	r1, r5
+ 1140 00ce 3046     		mov	r0, r6
+ 1141 00d0 FFF7FEFF 		bl	etharp_request
+ 1142 00d4 0546     		mov	r5, r0
+ 1143 00d6 002F     		cmp	r7, #0
+ 1144 00d8 D6D1     		bne	.L155
+ 1145 00da 17E0     		b	.L149
+ 1146              	.L178:
+ 1147 00dc 304B     		ldr	r3, .L182+4
+ 1148 00de 40F2E132 		movw	r2, #993
+ 1149 00e2 3349     		ldr	r1, .L182+20
+ 1150 00e4 3048     		ldr	r0, .L182+12
+ 1151 00e6 FFF7FEFF 		bl	printf
+ 1152 00ea CEE7     		b	.L156
+ 1153              	.L179:
+ 1154 00ec 314B     		ldr	r3, .L182+24
+ 1155 00ee 1C70     		strb	r4, [r3]
+ 1156 00f0 1346     		mov	r3, r2
+ 1157 00f2 0833     		adds	r3, r3, #8
+ 1158 00f4 294A     		ldr	r2, .L182
+ 1159 00f6 1344     		add	r3, r3, r2
+ 1160 00f8 4FF40062 		mov	r2, #2048
+ 1161 00fc 0092     		str	r2, [sp]
+ 1162 00fe 0433     		adds	r3, r3, #4
+ 1163 0100 4246     		mov	r2, r8
+ 1164 0102 3946     		mov	r1, r7
+ 1165 0104 3046     		mov	r0, r6
+ARM GAS  /tmp/ccxiR8lQ.s 			page 21
+
+
+ 1166 0106 FFF7FEFF 		bl	ethernet_output
+ 1167 010a 0546     		mov	r5, r0
+ 1168              	.L149:
+ 1169 010c 2846     		mov	r0, r5
+ 1170 010e 03B0     		add	sp, sp, #12
+ 1171              		@ sp needed
+ 1172 0110 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 1173              	.L181:
+ 1174 0114 224B     		ldr	r3, .L182+4
+ 1175 0116 40F2F132 		movw	r2, #1009
+ 1176 011a 2749     		ldr	r1, .L182+28
+ 1177 011c 2248     		ldr	r0, .L182+12
+ 1178 011e FFF7FEFF 		bl	printf
+ 1179              	.L159:
+ 1180 0122 2B7B     		ldrb	r3, [r5, #12]	@ zero_extendqisi2
+ 1181 0124 13F0400F 		tst	r3, #64
+ 1182 0128 22D1     		bne	.L172
+ 1183 012a 2D68     		ldr	r5, [r5]
+ 1184              	.L158:
+ 1185 012c 3DB1     		cbz	r5, .L180
+ 1186 012e 6A89     		ldrh	r2, [r5, #10]
+ 1187 0130 2B89     		ldrh	r3, [r5, #8]
+ 1188 0132 9A42     		cmp	r2, r3
+ 1189 0134 F5D1     		bne	.L159
+ 1190 0136 2B68     		ldr	r3, [r5]
+ 1191 0138 002B     		cmp	r3, #0
+ 1192 013a EBD1     		bne	.L181
+ 1193 013c F1E7     		b	.L159
+ 1194              	.L180:
+ 1195 013e 0023     		movs	r3, #0
+ 1196              	.L160:
+ 1197 0140 C3B1     		cbz	r3, .L162
+ 1198 0142 3A46     		mov	r2, r7
+ 1199 0144 4FF42071 		mov	r1, #640
+ 1200 0148 0E20     		movs	r0, #14
+ 1201 014a FFF7FEFF 		bl	pbuf_clone
+ 1202 014e 0746     		mov	r7, r0
+ 1203              	.L163:
+ 1204 0150 07B3     		cbz	r7, .L173
+ 1205 0152 04EB4402 		add	r2, r4, r4, lsl #1
+ 1206 0156 D300     		lsls	r3, r2, #3
+ 1207 0158 104A     		ldr	r2, .L182
+ 1208 015a D058     		ldr	r0, [r2, r3]
+ 1209 015c 08B1     		cbz	r0, .L164
+ 1210 015e FFF7FEFF 		bl	pbuf_free
+ 1211              	.L164:
+ 1212 0162 04EB4404 		add	r4, r4, r4, lsl #1
+ 1213 0166 E300     		lsls	r3, r4, #3
+ 1214 0168 0C4A     		ldr	r2, .L182
+ 1215 016a D750     		str	r7, [r2, r3]
+ 1216 016c 0025     		movs	r5, #0
+ 1217 016e CDE7     		b	.L149
+ 1218              	.L172:
+ 1219 0170 0123     		movs	r3, #1
+ 1220 0172 E5E7     		b	.L160
+ 1221              	.L162:
+ 1222 0174 3846     		mov	r0, r7
+ARM GAS  /tmp/ccxiR8lQ.s 			page 22
+
+
+ 1223 0176 FFF7FEFF 		bl	pbuf_ref
+ 1224 017a E9E7     		b	.L163
+ 1225              	.L165:
+ 1226 017c 6FF00F05 		mvn	r5, #15
+ 1227 0180 C4E7     		b	.L149
+ 1228              	.L166:
+ 1229 0182 6FF00F05 		mvn	r5, #15
+ 1230 0186 C1E7     		b	.L149
+ 1231              	.L167:
+ 1232 0188 6FF00F05 		mvn	r5, #15
+ 1233 018c BEE7     		b	.L149
+ 1234              	.L168:
+ 1235 018e 6FF00F05 		mvn	r5, #15
+ 1236 0192 BBE7     		b	.L149
+ 1237              	.L173:
+ 1238 0194 4FF0FF35 		mov	r5, #-1
+ 1239 0198 B8E7     		b	.L149
+ 1240              	.L183:
+ 1241 019a 00BF     		.align	2
+ 1242              	.L182:
+ 1243 019c 00000000 		.word	.LANCHOR0
+ 1244 01a0 00000000 		.word	.LC0
+ 1245 01a4 00000000 		.word	.LC13
+ 1246 01a8 4C000000 		.word	.LC2
+ 1247 01ac 10000000 		.word	.LC14
+ 1248 01b0 38000000 		.word	.LC15
+ 1249 01b4 00000000 		.word	.LANCHOR1
+ 1250 01b8 44000000 		.word	.LC16
+ 1252              		.section	.text.etharp_output,"ax",%progbits
+ 1253              		.align	1
+ 1254              		.global	etharp_output
+ 1255              		.syntax unified
+ 1256              		.thumb
+ 1257              		.thumb_func
+ 1258              		.fpu fpv4-sp-d16
+ 1260              	etharp_output:
+ 1261              		@ args = 0, pretend = 0, frame = 8
+ 1262              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1263 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 1264 0002 85B0     		sub	sp, sp, #20
+ 1265 0004 0E46     		mov	r6, r1
+ 1266 0006 1546     		mov	r5, r2
+ 1267 0008 0446     		mov	r4, r0
+ 1268 000a 0028     		cmp	r0, #0
+ 1269 000c 3ED0     		beq	.L199
+ 1270              	.L185:
+ 1271 000e 002E     		cmp	r6, #0
+ 1272 0010 44D0     		beq	.L200
+ 1273              	.L186:
+ 1274 0012 002D     		cmp	r5, #0
+ 1275 0014 4AD0     		beq	.L201
+ 1276              	.L187:
+ 1277 0016 2146     		mov	r1, r4
+ 1278 0018 2868     		ldr	r0, [r5]
+ 1279 001a FFF7FEFF 		bl	ip4_addr_isbroadcast_u32
+ 1280 001e 0246     		mov	r2, r0
+ 1281 0020 0028     		cmp	r0, #0
+ARM GAS  /tmp/ccxiR8lQ.s 			page 23
+
+
+ 1282 0022 40F08880 		bne	.L196
+ 1283 0026 2B68     		ldr	r3, [r5]
+ 1284 0028 03F0F001 		and	r1, r3, #240
+ 1285 002c E029     		cmp	r1, #224
+ 1286 002e 45D0     		beq	.L202
+ 1287 0030 6168     		ldr	r1, [r4, #4]
+ 1288 0032 A068     		ldr	r0, [r4, #8]
+ 1289 0034 5940     		eors	r1, r1, r3
+ 1290 0036 0142     		tst	r1, r0
+ 1291 0038 0AD0     		beq	.L190
+ 1292 003a 9BB2     		uxth	r3, r3
+ 1293 003c 4FF6A961 		movw	r1, #65193
+ 1294 0040 8B42     		cmp	r3, r1
+ 1295 0042 05D0     		beq	.L190
+ 1296 0044 E368     		ldr	r3, [r4, #12]
+ 1297 0046 002B     		cmp	r3, #0
+ 1298 0048 00F08180 		beq	.L197
+ 1299 004c 04F10C05 		add	r5, r4, #12
+ 1300              	.L190:
+ 1301 0050 404B     		ldr	r3, .L204
+ 1302 0052 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1303 0054 03EB4301 		add	r1, r3, r3, lsl #1
+ 1304 0058 C800     		lsls	r0, r1, #3
+ 1305 005a 3F49     		ldr	r1, .L204+4
+ 1306 005c 0144     		add	r1, r1, r0
+ 1307 005e 097D     		ldrb	r1, [r1, #20]	@ zero_extendqisi2
+ 1308 0060 0129     		cmp	r1, #1
+ 1309 0062 43D9     		bls	.L194
+ 1310 0064 3C49     		ldr	r1, .L204+4
+ 1311 0066 0144     		add	r1, r1, r0
+ 1312 0068 8968     		ldr	r1, [r1, #8]
+ 1313 006a A142     		cmp	r1, r4
+ 1314 006c 3ED1     		bne	.L194
+ 1315 006e 2868     		ldr	r0, [r5]
+ 1316 0070 03EB4301 		add	r1, r3, r3, lsl #1
+ 1317 0074 CF00     		lsls	r7, r1, #3
+ 1318 0076 3849     		ldr	r1, .L204+4
+ 1319 0078 3944     		add	r1, r1, r7
+ 1320 007a 4968     		ldr	r1, [r1, #4]
+ 1321 007c 8842     		cmp	r0, r1
+ 1322 007e 35D1     		bne	.L194
+ 1323 0080 1A46     		mov	r2, r3
+ 1324 0082 3146     		mov	r1, r6
+ 1325 0084 2046     		mov	r0, r4
+ 1326 0086 FFF7FEFF 		bl	etharp_output_to_arp_index
+ 1327 008a 5EE0     		b	.L191
+ 1328              	.L199:
+ 1329 008c 334B     		ldr	r3, .L204+8
+ 1330 008e 40F21E32 		movw	r2, #798
+ 1331 0092 3349     		ldr	r1, .L204+12
+ 1332 0094 3348     		ldr	r0, .L204+16
+ 1333 0096 FFF7FEFF 		bl	printf
+ 1334 009a B8E7     		b	.L185
+ 1335              	.L200:
+ 1336 009c 2F4B     		ldr	r3, .L204+8
+ 1337 009e 40F21F32 		movw	r2, #799
+ 1338 00a2 3149     		ldr	r1, .L204+20
+ARM GAS  /tmp/ccxiR8lQ.s 			page 24
+
+
+ 1339 00a4 2F48     		ldr	r0, .L204+16
+ 1340 00a6 FFF7FEFF 		bl	printf
+ 1341 00aa B2E7     		b	.L186
+ 1342              	.L201:
+ 1343 00ac 2B4B     		ldr	r3, .L204+8
+ 1344 00ae 4FF44872 		mov	r2, #800
+ 1345 00b2 2E49     		ldr	r1, .L204+24
+ 1346 00b4 2B48     		ldr	r0, .L204+16
+ 1347 00b6 FFF7FEFF 		bl	printf
+ 1348 00ba ACE7     		b	.L187
+ 1349              	.L202:
+ 1350 00bc 0123     		movs	r3, #1
+ 1351 00be 8DF80830 		strb	r3, [sp, #8]
+ 1352 00c2 0023     		movs	r3, #0
+ 1353 00c4 8DF80930 		strb	r3, [sp, #9]
+ 1354 00c8 5E23     		movs	r3, #94
+ 1355 00ca 8DF80A30 		strb	r3, [sp, #10]
+ 1356 00ce 6B78     		ldrb	r3, [r5, #1]	@ zero_extendqisi2
+ 1357 00d0 03F07F03 		and	r3, r3, #127
+ 1358 00d4 8DF80B30 		strb	r3, [sp, #11]
+ 1359 00d8 AB78     		ldrb	r3, [r5, #2]	@ zero_extendqisi2
+ 1360 00da 8DF80C30 		strb	r3, [sp, #12]
+ 1361 00de EB78     		ldrb	r3, [r5, #3]	@ zero_extendqisi2
+ 1362 00e0 8DF80D30 		strb	r3, [sp, #13]
+ 1363 00e4 02AB     		add	r3, sp, #8
+ 1364 00e6 27E0     		b	.L188
+ 1365              	.L193:
+ 1366 00e8 0132     		adds	r2, r2, #1
+ 1367 00ea D2B2     		uxtb	r2, r2
+ 1368              	.L194:
+ 1369 00ec 092A     		cmp	r2, #9
+ 1370 00ee 1CD8     		bhi	.L203
+ 1371 00f0 02EB4203 		add	r3, r2, r2, lsl #1
+ 1372 00f4 D900     		lsls	r1, r3, #3
+ 1373 00f6 184B     		ldr	r3, .L204+4
+ 1374 00f8 0B44     		add	r3, r3, r1
+ 1375 00fa 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 1376 00fc 012B     		cmp	r3, #1
+ 1377 00fe F3D9     		bls	.L193
+ 1378 0100 154B     		ldr	r3, .L204+4
+ 1379 0102 0B44     		add	r3, r3, r1
+ 1380 0104 9B68     		ldr	r3, [r3, #8]
+ 1381 0106 A342     		cmp	r3, r4
+ 1382 0108 EED1     		bne	.L193
+ 1383 010a 2968     		ldr	r1, [r5]
+ 1384 010c 02EB4200 		add	r0, r2, r2, lsl #1
+ 1385 0110 C700     		lsls	r7, r0, #3
+ 1386 0112 114B     		ldr	r3, .L204+4
+ 1387 0114 3B44     		add	r3, r3, r7
+ 1388 0116 5B68     		ldr	r3, [r3, #4]
+ 1389 0118 9942     		cmp	r1, r3
+ 1390 011a E5D1     		bne	.L193
+ 1391 011c 0D4B     		ldr	r3, .L204
+ 1392 011e 1A70     		strb	r2, [r3]
+ 1393 0120 3146     		mov	r1, r6
+ 1394 0122 2046     		mov	r0, r4
+ 1395 0124 FFF7FEFF 		bl	etharp_output_to_arp_index
+ARM GAS  /tmp/ccxiR8lQ.s 			page 25
+
+
+ 1396 0128 0FE0     		b	.L191
+ 1397              	.L203:
+ 1398 012a 3246     		mov	r2, r6
+ 1399 012c 2946     		mov	r1, r5
+ 1400 012e 2046     		mov	r0, r4
+ 1401 0130 FFF7FEFF 		bl	etharp_query
+ 1402 0134 09E0     		b	.L191
+ 1403              	.L196:
+ 1404 0136 0E4B     		ldr	r3, .L204+28
+ 1405              	.L188:
+ 1406 0138 4FF40062 		mov	r2, #2048
+ 1407 013c 0092     		str	r2, [sp]
+ 1408 013e 04F12A02 		add	r2, r4, #42
+ 1409 0142 3146     		mov	r1, r6
+ 1410 0144 2046     		mov	r0, r4
+ 1411 0146 FFF7FEFF 		bl	ethernet_output
+ 1412              	.L191:
+ 1413 014a 05B0     		add	sp, sp, #20
+ 1414              		@ sp needed
+ 1415 014c F0BD     		pop	{r4, r5, r6, r7, pc}
+ 1416              	.L197:
+ 1417 014e 6FF00300 		mvn	r0, #3
+ 1418 0152 FAE7     		b	.L191
+ 1419              	.L205:
+ 1420              		.align	2
+ 1421              	.L204:
+ 1422 0154 00000000 		.word	.LANCHOR1
+ 1423 0158 00000000 		.word	.LANCHOR0
+ 1424 015c 00000000 		.word	.LC0
+ 1425 0160 00000000 		.word	.LC6
+ 1426 0164 4C000000 		.word	.LC2
+ 1427 0168 38000000 		.word	.LC15
+ 1428 016c 00000000 		.word	.LC10
+ 1429 0170 00000000 		.word	ethbroadcast
+ 1431              		.section	.bss.arp_table,"aw",%nobits
+ 1432              		.align	2
+ 1433              		.set	.LANCHOR0,. + 0
+ 1436              	arp_table:
+ 1437 0000 00000000 		.space	240
+ 1437      00000000 
+ 1437      00000000 
+ 1437      00000000 
+ 1437      00000000 
+ 1438              		.section	.bss.etharp_cached_entry,"aw",%nobits
+ 1439              		.set	.LANCHOR1,. + 0
+ 1442              	etharp_cached_entry:
+ 1443 0000 00       		.space	1
+ 1444              		.section	.rodata.etharp_find_addr.str1.4,"aMS",%progbits,1
+ 1445              		.align	2
+ 1446              	.LC9:
+ 1447 0000 6574685F 		.ascii	"eth_ret != NULL && ip_ret != NULL\000"
+ 1447      72657420 
+ 1447      213D204E 
+ 1447      554C4C20 
+ 1447      26262069 
+ 1448              		.section	.rodata.etharp_find_entry.str1.4,"aMS",%progbits,1
+ 1449              		.align	2
+ARM GAS  /tmp/ccxiR8lQ.s 			page 26
+
+
+ 1450              	.LC0:
+ 1451 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c"
+ 1451      6C657761 
+ 1451      7265732F 
+ 1451      54686972 
+ 1451      645F5061 
+ 1452 0033 00       		.ascii	"\000"
+ 1453              	.LC1:
+ 1454 0034 6172705F 		.ascii	"arp_table[i].q == NULL\000"
+ 1454      7461626C 
+ 1454      655B695D 
+ 1454      2E71203D 
+ 1454      3D204E55 
+ 1455 004b 00       		.space	1
+ 1456              	.LC2:
+ 1457 004c 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ 1457      7274696F 
+ 1457      6E202225 
+ 1457      73222066 
+ 1457      61696C65 
+ 1458              	.LC3:
+ 1459 0074 69203C20 		.ascii	"i < ARP_TABLE_SIZE\000"
+ 1459      4152505F 
+ 1459      5441424C 
+ 1459      455F5349 
+ 1459      5A4500
+ 1460 0087 00       		.space	1
+ 1461              	.LC4:
+ 1462 0088 6172705F 		.ascii	"arp_table[i].state == ETHARP_STATE_EMPTY\000"
+ 1462      7461626C 
+ 1462      655B695D 
+ 1462      2E737461 
+ 1462      7465203D 
+ 1463              		.section	.rodata.etharp_get_entry.str1.4,"aMS",%progbits,1
+ 1464              		.align	2
+ 1465              	.LC10:
+ 1466 0000 69706164 		.ascii	"ipaddr != NULL\000"
+ 1466      64722021 
+ 1466      3D204E55 
+ 1466      4C4C00
+ 1467 000f 00       		.space	1
+ 1468              	.LC11:
+ 1469 0010 6574685F 		.ascii	"eth_ret != NULL\000"
+ 1469      72657420 
+ 1469      213D204E 
+ 1469      554C4C00 
+ 1470              		.section	.rodata.etharp_output_to_arp_index.str1.4,"aMS",%progbits,1
+ 1471              		.align	2
+ 1472              	.LC12:
+ 1473 0000 6172705F 		.ascii	"arp_table[arp_idx].state >= ETHARP_STATE_STABLE\000"
+ 1473      7461626C 
+ 1473      655B6172 
+ 1473      705F6964 
+ 1473      785D2E73 
+ 1474              		.section	.rodata.etharp_query.str1.4,"aMS",%progbits,1
+ 1475              		.align	2
+ 1476              	.LC13:
+ARM GAS  /tmp/ccxiR8lQ.s 			page 27
+
+
+ 1477 0000 74797065 		.ascii	"type overflow\000"
+ 1477      206F7665 
+ 1477      72666C6F 
+ 1477      7700
+ 1478 000e 0000     		.space	2
+ 1479              	.LC14:
+ 1480 0010 6172705F 		.ascii	"arp_table[i].state == PENDING or STABLE\000"
+ 1480      7461626C 
+ 1480      655B695D 
+ 1480      2E737461 
+ 1480      7465203D 
+ 1481              	.LC15:
+ 1482 0038 7120213D 		.ascii	"q != NULL\000"
+ 1482      204E554C 
+ 1482      4C00
+ 1483 0042 0000     		.space	2
+ 1484              	.LC16:
+ 1485 0044 6E6F2070 		.ascii	"no packet queues allowed!\000"
+ 1485      61636B65 
+ 1485      74207175 
+ 1485      65756573 
+ 1485      20616C6C 
+ 1486              		.section	.rodata.etharp_raw.str1.4,"aMS",%progbits,1
+ 1487              		.align	2
+ 1488              	.LC6:
+ 1489 0000 6E657469 		.ascii	"netif != NULL\000"
+ 1489      6620213D 
+ 1489      204E554C 
+ 1489      4C00
+ 1490 000e 0000     		.space	2
+ 1491              	.LC7:
+ 1492 0010 63686563 		.ascii	"check that first pbuf can hold struct etharp_hdr\000"
+ 1492      6B207468 
+ 1492      61742066 
+ 1492      69727374 
+ 1492      20706275 
+ 1493 0041 000000   		.space	3
+ 1494              	.LC8:
+ 1495 0044 6E657469 		.ascii	"netif->hwaddr_len must be the same as ETH_HWADDR_LE"
+ 1495      662D3E68 
+ 1495      77616464 
+ 1495      725F6C65 
+ 1495      6E206D75 
+ 1496 0077 4E20666F 		.ascii	"N for etharp!\000"
+ 1496      72206574 
+ 1496      68617270 
+ 1496      2100
+ 1497              		.section	.rodata.etharp_update_arp_entry.str1.4,"aMS",%progbits,1
+ 1498              		.align	2
+ 1499              	.LC5:
+ 1500 0000 6E657469 		.ascii	"netif->hwaddr_len == ETH_HWADDR_LEN\000"
+ 1500      662D3E68 
+ 1500      77616464 
+ 1500      725F6C65 
+ 1500      6E203D3D 
+ 1501              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccxiR8lQ.s 			page 28
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 etharp.c
+     /tmp/ccxiR8lQ.s:16     .text.etharp_free_entry:0000000000000000 $t
+     /tmp/ccxiR8lQ.s:23     .text.etharp_free_entry:0000000000000000 etharp_free_entry
+     /tmp/ccxiR8lQ.s:50     .text.etharp_free_entry:0000000000000030 $d
+     /tmp/ccxiR8lQ.s:53     .text.etharp_find_entry:0000000000000000 $t
+     /tmp/ccxiR8lQ.s:59     .text.etharp_find_entry:0000000000000000 etharp_find_entry
+     /tmp/ccxiR8lQ.s:275    .text.etharp_find_entry:00000000000001ac $d
+     /tmp/ccxiR8lQ.s:283    .text.etharp_update_arp_entry:0000000000000000 $t
+     /tmp/ccxiR8lQ.s:289    .text.etharp_update_arp_entry:0000000000000000 etharp_update_arp_entry
+     /tmp/ccxiR8lQ.s:376    .text.etharp_update_arp_entry:00000000000000ac $d
+     /tmp/ccxiR8lQ.s:382    .text.etharp_raw:0000000000000000 $t
+     /tmp/ccxiR8lQ.s:388    .text.etharp_raw:0000000000000000 etharp_raw
+     /tmp/ccxiR8lQ.s:486    .text.etharp_raw:00000000000000d0 $d
+     /tmp/ccxiR8lQ.s:493    .text.etharp_request_dst:0000000000000000 $t
+     /tmp/ccxiR8lQ.s:499    .text.etharp_request_dst:0000000000000000 etharp_request_dst
+     /tmp/ccxiR8lQ.s:522    .text.etharp_request_dst:0000000000000024 $d
+     /tmp/ccxiR8lQ.s:525    .text.etharp_cleanup_netif:0000000000000000 $t
+     /tmp/ccxiR8lQ.s:532    .text.etharp_cleanup_netif:0000000000000000 etharp_cleanup_netif
+     /tmp/ccxiR8lQ.s:564    .text.etharp_cleanup_netif:0000000000000034 $d
+     /tmp/ccxiR8lQ.s:567    .text.etharp_find_addr:0000000000000000 $t
+     /tmp/ccxiR8lQ.s:574    .text.etharp_find_addr:0000000000000000 etharp_find_addr
+     /tmp/ccxiR8lQ.s:629    .text.etharp_find_addr:0000000000000064 $d
+     /tmp/ccxiR8lQ.s:635    .text.etharp_get_entry:0000000000000000 $t
+     /tmp/ccxiR8lQ.s:642    .text.etharp_get_entry:0000000000000000 etharp_get_entry
+     /tmp/ccxiR8lQ.s:713    .text.etharp_get_entry:0000000000000080 $d
+     /tmp/ccxiR8lQ.s:721    .text.etharp_input:0000000000000000 $t
+     /tmp/ccxiR8lQ.s:728    .text.etharp_input:0000000000000000 etharp_input
+     /tmp/ccxiR8lQ.s:822    .text.etharp_input:00000000000000bc $d
+     /tmp/ccxiR8lQ.s:827    .text.etharp_request:0000000000000000 $t
+     /tmp/ccxiR8lQ.s:834    .text.etharp_request:0000000000000000 etharp_request
+     /tmp/ccxiR8lQ.s:844    .text.etharp_request:000000000000000c $d
+     /tmp/ccxiR8lQ.s:847    .text.etharp_tmr:0000000000000000 $t
+     /tmp/ccxiR8lQ.s:854    .text.etharp_tmr:0000000000000000 etharp_tmr
+     /tmp/ccxiR8lQ.s:928    .text.etharp_tmr:0000000000000084 $d
+     /tmp/ccxiR8lQ.s:931    .text.etharp_output_to_arp_index:0000000000000000 $t
+     /tmp/ccxiR8lQ.s:937    .text.etharp_output_to_arp_index:0000000000000000 etharp_output_to_arp_index
+     /tmp/ccxiR8lQ.s:1032   .text.etharp_output_to_arp_index:00000000000000c4 $d
+     /tmp/ccxiR8lQ.s:1038   .text.etharp_query:0000000000000000 $t
+     /tmp/ccxiR8lQ.s:1045   .text.etharp_query:0000000000000000 etharp_query
+     /tmp/ccxiR8lQ.s:1243   .text.etharp_query:000000000000019c $d
+     /tmp/ccxiR8lQ.s:1253   .text.etharp_output:0000000000000000 $t
+     /tmp/ccxiR8lQ.s:1260   .text.etharp_output:0000000000000000 etharp_output
+     /tmp/ccxiR8lQ.s:1422   .text.etharp_output:0000000000000154 $d
+     /tmp/ccxiR8lQ.s:1432   .bss.arp_table:0000000000000000 $d
+     /tmp/ccxiR8lQ.s:1436   .bss.arp_table:0000000000000000 arp_table
+     /tmp/ccxiR8lQ.s:1442   .bss.etharp_cached_entry:0000000000000000 etharp_cached_entry
+     /tmp/ccxiR8lQ.s:1443   .bss.etharp_cached_entry:0000000000000000 $d
+     /tmp/ccxiR8lQ.s:1445   .rodata.etharp_find_addr.str1.4:0000000000000000 $d
+     /tmp/ccxiR8lQ.s:1449   .rodata.etharp_find_entry.str1.4:0000000000000000 $d
+     /tmp/ccxiR8lQ.s:1464   .rodata.etharp_get_entry.str1.4:0000000000000000 $d
+     /tmp/ccxiR8lQ.s:1471   .rodata.etharp_output_to_arp_index.str1.4:0000000000000000 $d
+     /tmp/ccxiR8lQ.s:1475   .rodata.etharp_query.str1.4:0000000000000000 $d
+     /tmp/ccxiR8lQ.s:1487   .rodata.etharp_raw.str1.4:0000000000000000 $d
+     /tmp/ccxiR8lQ.s:1498   .rodata.etharp_update_arp_entry.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+ARM GAS  /tmp/ccxiR8lQ.s 			page 29
+
+
+pbuf_free
+printf
+ip4_addr_isbroadcast_u32
+ethernet_output
+pbuf_alloc
+lwip_htons
+ethzero
+dhcp_arp_reply
+ethbroadcast
+pbuf_clone
+pbuf_ref

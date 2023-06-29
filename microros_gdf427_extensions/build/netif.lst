@@ -1,0 +1,1295 @@
+ARM GAS  /tmp/cco1Sv87.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"netif.c"
+  14              		.text
+  15              		.section	.text.netif_do_set_netmask,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	netif_do_set_netmask:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26              		@ link register save eliminated.
+  27 0000 0B68     		ldr	r3, [r1]
+  28 0002 8268     		ldr	r2, [r0, #8]
+  29 0004 9342     		cmp	r3, r2
+  30 0006 05D0     		beq	.L4
+  31 0008 11B1     		cbz	r1, .L5
+  32              	.L3:
+  33 000a 8360     		str	r3, [r0, #8]
+  34 000c 0120     		movs	r0, #1
+  35 000e 7047     		bx	lr
+  36              	.L5:
+  37 0010 0023     		movs	r3, #0
+  38 0012 FAE7     		b	.L3
+  39              	.L4:
+  40 0014 0020     		movs	r0, #0
+  41 0016 7047     		bx	lr
+  43              		.section	.text.netif_do_set_gw,"ax",%progbits
+  44              		.align	1
+  45              		.syntax unified
+  46              		.thumb
+  47              		.thumb_func
+  48              		.fpu fpv4-sp-d16
+  50              	netif_do_set_gw:
+  51              		@ args = 0, pretend = 0, frame = 0
+  52              		@ frame_needed = 0, uses_anonymous_args = 0
+  53              		@ link register save eliminated.
+  54 0000 0B68     		ldr	r3, [r1]
+  55 0002 C268     		ldr	r2, [r0, #12]
+  56 0004 9342     		cmp	r3, r2
+  57 0006 05D0     		beq	.L9
+  58 0008 11B1     		cbz	r1, .L10
+  59              	.L8:
+  60 000a C360     		str	r3, [r0, #12]
+ARM GAS  /tmp/cco1Sv87.s 			page 2
+
+
+  61 000c 0120     		movs	r0, #1
+  62 000e 7047     		bx	lr
+  63              	.L10:
+  64 0010 0023     		movs	r3, #0
+  65 0012 FAE7     		b	.L8
+  66              	.L9:
+  67 0014 0020     		movs	r0, #0
+  68 0016 7047     		bx	lr
+  70              		.section	.text.netif_null_output_ip4,"ax",%progbits
+  71              		.align	1
+  72              		.syntax unified
+  73              		.thumb
+  74              		.thumb_func
+  75              		.fpu fpv4-sp-d16
+  77              	netif_null_output_ip4:
+  78              		@ args = 0, pretend = 0, frame = 0
+  79              		@ frame_needed = 0, uses_anonymous_args = 0
+  80              		@ link register save eliminated.
+  81 0000 6FF00B00 		mvn	r0, #11
+  82 0004 7047     		bx	lr
+  84              		.section	.text.netif_do_ip_addr_changed,"ax",%progbits
+  85              		.align	1
+  86              		.syntax unified
+  87              		.thumb
+  88              		.thumb_func
+  89              		.fpu fpv4-sp-d16
+  91              	netif_do_ip_addr_changed:
+  92              		@ args = 0, pretend = 0, frame = 0
+  93              		@ frame_needed = 0, uses_anonymous_args = 0
+  94 0000 38B5     		push	{r3, r4, r5, lr}
+  95 0002 0446     		mov	r4, r0
+  96 0004 0D46     		mov	r5, r1
+  97 0006 FFF7FEFF 		bl	tcp_netif_ip_addr_changed
+  98 000a 2946     		mov	r1, r5
+  99 000c 2046     		mov	r0, r4
+ 100 000e FFF7FEFF 		bl	udp_netif_ip_addr_changed
+ 101 0012 38BD     		pop	{r3, r4, r5, pc}
+ 103              		.section	.text.netif_issue_reports,"ax",%progbits
+ 104              		.align	1
+ 105              		.syntax unified
+ 106              		.thumb
+ 107              		.thumb_func
+ 108              		.fpu fpv4-sp-d16
+ 110              	netif_issue_reports:
+ 111              		@ args = 0, pretend = 0, frame = 0
+ 112              		@ frame_needed = 0, uses_anonymous_args = 0
+ 113 0000 38B5     		push	{r3, r4, r5, lr}
+ 114 0002 0D46     		mov	r5, r1
+ 115 0004 0446     		mov	r4, r0
+ 116 0006 70B1     		cbz	r0, .L18
+ 117              	.L15:
+ 118 0008 94F83130 		ldrb	r3, [r4, #49]	@ zero_extendqisi2
+ 119 000c 03F00502 		and	r2, r3, #5
+ 120 0010 052A     		cmp	r2, #5
+ 121 0012 07D1     		bne	.L14
+ 122 0014 15F0010F 		tst	r5, #1
+ 123 0018 04D0     		beq	.L14
+ARM GAS  /tmp/cco1Sv87.s 			page 3
+
+
+ 124 001a 6268     		ldr	r2, [r4, #4]
+ 125 001c 12B1     		cbz	r2, .L14
+ 126 001e 13F0080F 		tst	r3, #8
+ 127 0022 08D1     		bne	.L19
+ 128              	.L14:
+ 129 0024 38BD     		pop	{r3, r4, r5, pc}
+ 130              	.L18:
+ 131 0026 064B     		ldr	r3, .L20
+ 132 0028 40F26D32 		movw	r2, #877
+ 133 002c 0549     		ldr	r1, .L20+4
+ 134 002e 0648     		ldr	r0, .L20+8
+ 135 0030 FFF7FEFF 		bl	printf
+ 136 0034 E8E7     		b	.L15
+ 137              	.L19:
+ 138 0036 211D     		adds	r1, r4, #4
+ 139 0038 2046     		mov	r0, r4
+ 140 003a FFF7FEFF 		bl	etharp_request
+ 141 003e F1E7     		b	.L14
+ 142              	.L21:
+ 143              		.align	2
+ 144              	.L20:
+ 145 0040 00000000 		.word	.LC0
+ 146 0044 30000000 		.word	.LC1
+ 147 0048 54000000 		.word	.LC2
+ 149              		.section	.text.netif_do_set_ipaddr,"ax",%progbits
+ 150              		.align	1
+ 151              		.syntax unified
+ 152              		.thumb
+ 153              		.thumb_func
+ 154              		.fpu fpv4-sp-d16
+ 156              	netif_do_set_ipaddr:
+ 157              		@ args = 0, pretend = 0, frame = 8
+ 158              		@ frame_needed = 0, uses_anonymous_args = 0
+ 159 0000 70B5     		push	{r4, r5, r6, lr}
+ 160 0002 82B0     		sub	sp, sp, #8
+ 161 0004 0546     		mov	r5, r0
+ 162 0006 1646     		mov	r6, r2
+ 163 0008 0C46     		mov	r4, r1
+ 164 000a 39B1     		cbz	r1, .L30
+ 165              	.L23:
+ 166 000c 76B1     		cbz	r6, .L31
+ 167              	.L24:
+ 168 000e 2268     		ldr	r2, [r4]
+ 169 0010 6B68     		ldr	r3, [r5, #4]
+ 170 0012 9A42     		cmp	r2, r3
+ 171 0014 12D1     		bne	.L32
+ 172 0016 0020     		movs	r0, #0
+ 173              	.L22:
+ 174 0018 02B0     		add	sp, sp, #8
+ 175              		@ sp needed
+ 176 001a 70BD     		pop	{r4, r5, r6, pc}
+ 177              	.L30:
+ 178 001c 104B     		ldr	r3, .L33
+ 179 001e 40F2CB12 		movw	r2, #459
+ 180 0022 1049     		ldr	r1, .L33+4
+ 181 0024 1048     		ldr	r0, .L33+8
+ 182 0026 FFF7FEFF 		bl	printf
+ARM GAS  /tmp/cco1Sv87.s 			page 4
+
+
+ 183 002a EFE7     		b	.L23
+ 184              	.L31:
+ 185 002c 0C4B     		ldr	r3, .L33
+ 186 002e 4FF4E672 		mov	r2, #460
+ 187 0032 0C49     		ldr	r1, .L33+4
+ 188 0034 0C48     		ldr	r0, .L33+8
+ 189 0036 FFF7FEFF 		bl	printf
+ 190 003a E8E7     		b	.L24
+ 191              	.L32:
+ 192 003c 0192     		str	r2, [sp, #4]
+ 193 003e 3360     		str	r3, [r6]
+ 194 0040 01A9     		add	r1, sp, #4
+ 195 0042 3046     		mov	r0, r6
+ 196 0044 FFF7FEFF 		bl	netif_do_ip_addr_changed
+ 197 0048 3CB1     		cbz	r4, .L28
+ 198 004a 2368     		ldr	r3, [r4]
+ 199              	.L26:
+ 200 004c 6B60     		str	r3, [r5, #4]
+ 201 004e 0121     		movs	r1, #1
+ 202 0050 2846     		mov	r0, r5
+ 203 0052 FFF7FEFF 		bl	netif_issue_reports
+ 204 0056 0120     		movs	r0, #1
+ 205 0058 DEE7     		b	.L22
+ 206              	.L28:
+ 207 005a 0023     		movs	r3, #0
+ 208 005c F6E7     		b	.L26
+ 209              	.L34:
+ 210 005e 00BF     		.align	2
+ 211              	.L33:
+ 212 0060 00000000 		.word	.LC0
+ 213 0064 00000000 		.word	.LC3
+ 214 0068 54000000 		.word	.LC2
+ 216              		.section	.text.netif_init,"ax",%progbits
+ 217              		.align	1
+ 218              		.global	netif_init
+ 219              		.syntax unified
+ 220              		.thumb
+ 221              		.thumb_func
+ 222              		.fpu fpv4-sp-d16
+ 224              	netif_init:
+ 225              		@ args = 0, pretend = 0, frame = 0
+ 226              		@ frame_needed = 0, uses_anonymous_args = 0
+ 227              		@ link register save eliminated.
+ 228 0000 7047     		bx	lr
+ 230              		.section	.text.netif_input,"ax",%progbits
+ 231              		.align	1
+ 232              		.global	netif_input
+ 233              		.syntax unified
+ 234              		.thumb
+ 235              		.thumb_func
+ 236              		.fpu fpv4-sp-d16
+ 238              	netif_input:
+ 239              		@ args = 0, pretend = 0, frame = 0
+ 240              		@ frame_needed = 0, uses_anonymous_args = 0
+ 241 0000 38B5     		push	{r3, r4, r5, lr}
+ 242 0002 0C46     		mov	r4, r1
+ 243 0004 0546     		mov	r5, r0
+ARM GAS  /tmp/cco1Sv87.s 			page 5
+
+
+ 244 0006 50B1     		cbz	r0, .L42
+ 245              	.L37:
+ 246 0008 84B1     		cbz	r4, .L43
+ 247              	.L38:
+ 248 000a 94F83130 		ldrb	r3, [r4, #49]	@ zero_extendqisi2
+ 249 000e 13F0180F 		tst	r3, #24
+ 250 0012 12D0     		beq	.L39
+ 251 0014 2146     		mov	r1, r4
+ 252 0016 2846     		mov	r0, r5
+ 253 0018 FFF7FEFF 		bl	ethernet_input
+ 254              	.L40:
+ 255 001c 38BD     		pop	{r3, r4, r5, pc}
+ 256              	.L42:
+ 257 001e 094B     		ldr	r3, .L44
+ 258 0020 DD22     		movs	r2, #221
+ 259 0022 0949     		ldr	r1, .L44+4
+ 260 0024 0948     		ldr	r0, .L44+8
+ 261 0026 FFF7FEFF 		bl	printf
+ 262 002a EDE7     		b	.L37
+ 263              	.L43:
+ 264 002c 054B     		ldr	r3, .L44
+ 265 002e DE22     		movs	r2, #222
+ 266 0030 0749     		ldr	r1, .L44+12
+ 267 0032 0648     		ldr	r0, .L44+8
+ 268 0034 FFF7FEFF 		bl	printf
+ 269 0038 E7E7     		b	.L38
+ 270              	.L39:
+ 271 003a 2146     		mov	r1, r4
+ 272 003c 2846     		mov	r0, r5
+ 273 003e FFF7FEFF 		bl	ip4_input
+ 274 0042 EBE7     		b	.L40
+ 275              	.L45:
+ 276              		.align	2
+ 277              	.L44:
+ 278 0044 00000000 		.word	.LC0
+ 279 0048 00000000 		.word	.LC4
+ 280 004c 54000000 		.word	.LC2
+ 281 0050 1C000000 		.word	.LC5
+ 283              		.section	.text.netif_set_ipaddr,"ax",%progbits
+ 284              		.align	1
+ 285              		.global	netif_set_ipaddr
+ 286              		.syntax unified
+ 287              		.thumb
+ 288              		.thumb_func
+ 289              		.fpu fpv4-sp-d16
+ 291              	netif_set_ipaddr:
+ 292              		@ args = 0, pretend = 0, frame = 8
+ 293              		@ frame_needed = 0, uses_anonymous_args = 0
+ 294 0000 00B5     		push	{lr}
+ 295 0002 83B0     		sub	sp, sp, #12
+ 296 0004 40B1     		cbz	r0, .L52
+ 297 0006 0346     		mov	r3, r0
+ 298 0008 71B1     		cbz	r1, .L53
+ 299              	.L49:
+ 300 000a 01AA     		add	r2, sp, #4
+ 301 000c 1846     		mov	r0, r3
+ 302 000e FFF7FEFF 		bl	netif_do_set_ipaddr
+ARM GAS  /tmp/cco1Sv87.s 			page 6
+
+
+ 303              	.L46:
+ 304 0012 03B0     		add	sp, sp, #12
+ 305              		@ sp needed
+ 306 0014 5DF804FB 		ldr	pc, [sp], #4
+ 307              	.L52:
+ 308 0018 044B     		ldr	r3, .L54
+ 309 001a 4FF4FC72 		mov	r2, #504
+ 310 001e 0449     		ldr	r1, .L54+4
+ 311 0020 0448     		ldr	r0, .L54+8
+ 312 0022 FFF7FEFF 		bl	printf
+ 313 0026 F4E7     		b	.L46
+ 314              	.L53:
+ 315 0028 0349     		ldr	r1, .L54+12
+ 316 002a EEE7     		b	.L49
+ 317              	.L55:
+ 318              		.align	2
+ 319              	.L54:
+ 320 002c 00000000 		.word	.LC0
+ 321 0030 00000000 		.word	.LC6
+ 322 0034 54000000 		.word	.LC2
+ 323 0038 00000000 		.word	ip_addr_any
+ 325              		.section	.text.netif_set_netmask,"ax",%progbits
+ 326              		.align	1
+ 327              		.global	netif_set_netmask
+ 328              		.syntax unified
+ 329              		.thumb
+ 330              		.thumb_func
+ 331              		.fpu fpv4-sp-d16
+ 333              	netif_set_netmask:
+ 334              		@ args = 0, pretend = 0, frame = 0
+ 335              		@ frame_needed = 0, uses_anonymous_args = 0
+ 336 0000 08B5     		push	{r3, lr}
+ 337 0002 30B1     		cbz	r0, .L62
+ 338 0004 0346     		mov	r3, r0
+ 339 0006 61B1     		cbz	r1, .L63
+ 340              	.L59:
+ 341 0008 0022     		movs	r2, #0
+ 342 000a 1846     		mov	r0, r3
+ 343 000c FFF7FEFF 		bl	netif_do_set_netmask
+ 344              	.L56:
+ 345 0010 08BD     		pop	{r3, pc}
+ 346              	.L62:
+ 347 0012 054B     		ldr	r3, .L64
+ 348 0014 40F23A22 		movw	r2, #570
+ 349 0018 0449     		ldr	r1, .L64+4
+ 350 001a 0548     		ldr	r0, .L64+8
+ 351 001c FFF7FEFF 		bl	printf
+ 352 0020 F6E7     		b	.L56
+ 353              	.L63:
+ 354 0022 0449     		ldr	r1, .L64+12
+ 355 0024 F0E7     		b	.L59
+ 356              	.L65:
+ 357 0026 00BF     		.align	2
+ 358              	.L64:
+ 359 0028 00000000 		.word	.LC0
+ 360 002c 00000000 		.word	.LC7
+ 361 0030 54000000 		.word	.LC2
+ARM GAS  /tmp/cco1Sv87.s 			page 7
+
+
+ 362 0034 00000000 		.word	ip_addr_any
+ 364              		.section	.text.netif_set_gw,"ax",%progbits
+ 365              		.align	1
+ 366              		.global	netif_set_gw
+ 367              		.syntax unified
+ 368              		.thumb
+ 369              		.thumb_func
+ 370              		.fpu fpv4-sp-d16
+ 372              	netif_set_gw:
+ 373              		@ args = 0, pretend = 0, frame = 0
+ 374              		@ frame_needed = 0, uses_anonymous_args = 0
+ 375 0000 08B5     		push	{r3, lr}
+ 376 0002 30B1     		cbz	r0, .L72
+ 377 0004 0346     		mov	r3, r0
+ 378 0006 61B1     		cbz	r1, .L73
+ 379              	.L69:
+ 380 0008 0022     		movs	r2, #0
+ 381 000a 1846     		mov	r0, r3
+ 382 000c FFF7FEFF 		bl	netif_do_set_gw
+ 383              	.L66:
+ 384 0010 08BD     		pop	{r3, pc}
+ 385              	.L72:
+ 386 0012 054B     		ldr	r3, .L74
+ 387 0014 40F27722 		movw	r2, #631
+ 388 0018 0449     		ldr	r1, .L74+4
+ 389 001a 0548     		ldr	r0, .L74+8
+ 390 001c FFF7FEFF 		bl	printf
+ 391 0020 F6E7     		b	.L66
+ 392              	.L73:
+ 393 0022 0449     		ldr	r1, .L74+12
+ 394 0024 F0E7     		b	.L69
+ 395              	.L75:
+ 396 0026 00BF     		.align	2
+ 397              	.L74:
+ 398 0028 00000000 		.word	.LC0
+ 399 002c 00000000 		.word	.LC8
+ 400 0030 54000000 		.word	.LC2
+ 401 0034 00000000 		.word	ip_addr_any
+ 403              		.section	.text.netif_set_addr,"ax",%progbits
+ 404              		.align	1
+ 405              		.global	netif_set_addr
+ 406              		.syntax unified
+ 407              		.thumb
+ 408              		.thumb_func
+ 409              		.fpu fpv4-sp-d16
+ 411              	netif_set_addr:
+ 412              		@ args = 0, pretend = 0, frame = 8
+ 413              		@ frame_needed = 0, uses_anonymous_args = 0
+ 414 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 415 0004 82B0     		sub	sp, sp, #8
+ 416 0006 0546     		mov	r5, r0
+ 417 0008 1746     		mov	r7, r2
+ 418 000a 1E46     		mov	r6, r3
+ 419 000c 0C46     		mov	r4, r1
+ 420 000e D9B1     		cbz	r1, .L88
+ 421              	.L77:
+ 422 0010 E7B1     		cbz	r7, .L89
+ARM GAS  /tmp/cco1Sv87.s 			page 8
+
+
+ 423              	.L78:
+ 424 0012 EEB1     		cbz	r6, .L90
+ 425              	.L79:
+ 426 0014 0CB1     		cbz	r4, .L80
+ 427 0016 2368     		ldr	r3, [r4]
+ 428 0018 E3B9     		cbnz	r3, .L86
+ 429              	.L80:
+ 430 001a 01AA     		add	r2, sp, #4
+ 431 001c 2146     		mov	r1, r4
+ 432 001e 2846     		mov	r0, r5
+ 433 0020 FFF7FEFF 		bl	netif_do_set_ipaddr
+ 434 0024 4FF00108 		mov	r8, #1
+ 435              	.L81:
+ 436 0028 0022     		movs	r2, #0
+ 437 002a 3946     		mov	r1, r7
+ 438 002c 2846     		mov	r0, r5
+ 439 002e FFF7FEFF 		bl	netif_do_set_netmask
+ 440 0032 0022     		movs	r2, #0
+ 441 0034 3146     		mov	r1, r6
+ 442 0036 2846     		mov	r0, r5
+ 443 0038 FFF7FEFF 		bl	netif_do_set_gw
+ 444 003c B8F1000F 		cmp	r8, #0
+ 445 0040 0BD0     		beq	.L91
+ 446              	.L76:
+ 447 0042 02B0     		add	sp, sp, #8
+ 448              		@ sp needed
+ 449 0044 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 450              	.L88:
+ 451 0048 074C     		ldr	r4, .L92
+ 452 004a E1E7     		b	.L77
+ 453              	.L89:
+ 454 004c 064F     		ldr	r7, .L92
+ 455 004e E0E7     		b	.L78
+ 456              	.L90:
+ 457 0050 054E     		ldr	r6, .L92
+ 458 0052 DFE7     		b	.L79
+ 459              	.L86:
+ 460 0054 4FF00008 		mov	r8, #0
+ 461 0058 E6E7     		b	.L81
+ 462              	.L91:
+ 463 005a 01AA     		add	r2, sp, #4
+ 464 005c 2146     		mov	r1, r4
+ 465 005e 2846     		mov	r0, r5
+ 466 0060 FFF7FEFF 		bl	netif_do_set_ipaddr
+ 467 0064 EDE7     		b	.L76
+ 468              	.L93:
+ 469 0066 00BF     		.align	2
+ 470              	.L92:
+ 471 0068 00000000 		.word	ip_addr_any
+ 473              		.section	.text.netif_add,"ax",%progbits
+ 474              		.align	1
+ 475              		.global	netif_add
+ 476              		.syntax unified
+ 477              		.thumb
+ 478              		.thumb_func
+ 479              		.fpu fpv4-sp-d16
+ 481              	netif_add:
+ARM GAS  /tmp/cco1Sv87.s 			page 9
+
+
+ 482              		@ args = 12, pretend = 0, frame = 0
+ 483              		@ frame_needed = 0, uses_anonymous_args = 0
+ 484 0000 70B5     		push	{r4, r5, r6, lr}
+ 485 0002 059C     		ldr	r4, [sp, #20]
+ 486 0004 0646     		mov	r6, r0
+ 487 0006 18B3     		cbz	r0, .L116
+ 488 0008 002C     		cmp	r4, #0
+ 489 000a 2AD0     		beq	.L117
+ 490 000c 0029     		cmp	r1, #0
+ 491 000e 31D0     		beq	.L118
+ 492              	.L98:
+ 493 0010 002A     		cmp	r2, #0
+ 494 0012 31D0     		beq	.L119
+ 495              	.L99:
+ 496 0014 002B     		cmp	r3, #0
+ 497 0016 31D0     		beq	.L120
+ 498              	.L100:
+ 499 0018 0020     		movs	r0, #0
+ 500 001a 7060     		str	r0, [r6, #4]
+ 501 001c B060     		str	r0, [r6, #8]
+ 502 001e F060     		str	r0, [r6, #12]
+ 503 0020 364D     		ldr	r5, .L127
+ 504 0022 7561     		str	r5, [r6, #20]
+ 505 0024 3085     		strh	r0, [r6, #40]	@ movhi
+ 506 0026 86F83100 		strb	r0, [r6, #49]
+ 507 002a 7062     		str	r0, [r6, #36]	@ unaligned
+ 508 002c F061     		str	r0, [r6, #28]
+ 509 002e 0498     		ldr	r0, [sp, #16]
+ 510 0030 3062     		str	r0, [r6, #32]
+ 511 0032 3348     		ldr	r0, .L127+4
+ 512 0034 0078     		ldrb	r0, [r0]	@ zero_extendqisi2
+ 513 0036 86F83400 		strb	r0, [r6, #52]
+ 514 003a 0698     		ldr	r0, [sp, #24]
+ 515 003c 3061     		str	r0, [r6, #16]
+ 516 003e 3046     		mov	r0, r6
+ 517 0040 FFF7FEFF 		bl	netif_set_addr
+ 518 0044 3046     		mov	r0, r6
+ 519 0046 A047     		blx	r4
+ 520 0048 0028     		cmp	r0, #0
+ 521 004a 3ED0     		beq	.L108
+ 522 004c 0020     		movs	r0, #0
+ 523 004e 50E0     		b	.L94
+ 524              	.L116:
+ 525 0050 2C4B     		ldr	r3, .L127+8
+ 526 0052 40F22712 		movw	r2, #295
+ 527 0056 2C49     		ldr	r1, .L127+12
+ 528 0058 2C48     		ldr	r0, .L127+16
+ 529 005a FFF7FEFF 		bl	printf
+ 530 005e 3046     		mov	r0, r6
+ 531 0060 47E0     		b	.L94
+ 532              	.L117:
+ 533 0062 284B     		ldr	r3, .L127+8
+ 534 0064 4FF49472 		mov	r2, #296
+ 535 0068 2949     		ldr	r1, .L127+20
+ 536 006a 2848     		ldr	r0, .L127+16
+ 537 006c FFF7FEFF 		bl	printf
+ 538 0070 0020     		movs	r0, #0
+ARM GAS  /tmp/cco1Sv87.s 			page 10
+
+
+ 539 0072 3EE0     		b	.L94
+ 540              	.L118:
+ 541 0074 2749     		ldr	r1, .L127+24
+ 542 0076 CBE7     		b	.L98
+ 543              	.L119:
+ 544 0078 264A     		ldr	r2, .L127+24
+ 545 007a CBE7     		b	.L99
+ 546              	.L120:
+ 547 007c 254B     		ldr	r3, .L127+24
+ 548 007e CBE7     		b	.L100
+ 549              	.L125:
+ 550 0080 0023     		movs	r3, #0
+ 551 0082 86F83430 		strb	r3, [r6, #52]
+ 552 0086 24E0     		b	.L101
+ 553              	.L122:
+ 554 0088 1E4B     		ldr	r3, .L127+8
+ 555 008a 40F28B12 		movw	r2, #395
+ 556 008e 2249     		ldr	r1, .L127+28
+ 557 0090 1E48     		ldr	r0, .L127+16
+ 558 0092 FFF7FEFF 		bl	printf
+ 559 0096 10E0     		b	.L103
+ 560              	.L123:
+ 561 0098 1A4B     		ldr	r3, .L127+8
+ 562 009a 40F28D12 		movw	r2, #397
+ 563 009e 1F49     		ldr	r1, .L127+32
+ 564 00a0 1A48     		ldr	r0, .L127+16
+ 565 00a2 FFF7FEFF 		bl	printf
+ 566              	.L104:
+ 567 00a6 94F83420 		ldrb	r2, [r4, #52]	@ zero_extendqisi2
+ 568 00aa 96F83430 		ldrb	r3, [r6, #52]	@ zero_extendqisi2
+ 569 00ae 9A42     		cmp	r2, r3
+ 570 00b0 07D0     		beq	.L121
+ 571 00b2 2468     		ldr	r4, [r4]
+ 572              	.L102:
+ 573 00b4 44B1     		cbz	r4, .L106
+ 574 00b6 B442     		cmp	r4, r6
+ 575 00b8 E6D0     		beq	.L122
+ 576              	.L103:
+ 577 00ba 0135     		adds	r5, r5, #1
+ 578 00bc FF2D     		cmp	r5, #255
+ 579 00be F2DD     		ble	.L104
+ 580 00c0 EAE7     		b	.L123
+ 581              	.L121:
+ 582 00c2 0133     		adds	r3, r3, #1
+ 583 00c4 86F83430 		strb	r3, [r6, #52]
+ 584              	.L106:
+ 585 00c8 3CB1     		cbz	r4, .L124
+ 586              	.L108:
+ 587 00ca 96F83430 		ldrb	r3, [r6, #52]	@ zero_extendqisi2
+ 588 00ce FF2B     		cmp	r3, #255
+ 589 00d0 D6D0     		beq	.L125
+ 590              	.L101:
+ 591 00d2 134B     		ldr	r3, .L127+36
+ 592 00d4 1C68     		ldr	r4, [r3]
+ 593 00d6 0025     		movs	r5, #0
+ 594 00d8 ECE7     		b	.L102
+ 595              	.L124:
+ARM GAS  /tmp/cco1Sv87.s 			page 11
+
+
+ 596 00da 96F83430 		ldrb	r3, [r6, #52]	@ zero_extendqisi2
+ 597 00de FE2B     		cmp	r3, #254
+ 598 00e0 08D0     		beq	.L126
+ 599 00e2 0133     		adds	r3, r3, #1
+ 600 00e4 064A     		ldr	r2, .L127+4
+ 601 00e6 1370     		strb	r3, [r2]
+ 602              	.L110:
+ 603 00e8 0D4B     		ldr	r3, .L127+36
+ 604 00ea 1A68     		ldr	r2, [r3]
+ 605 00ec 3260     		str	r2, [r6]
+ 606 00ee 1E60     		str	r6, [r3]
+ 607 00f0 3046     		mov	r0, r6
+ 608              	.L94:
+ 609 00f2 70BD     		pop	{r4, r5, r6, pc}
+ 610              	.L126:
+ 611 00f4 024B     		ldr	r3, .L127+4
+ 612 00f6 0022     		movs	r2, #0
+ 613 00f8 1A70     		strb	r2, [r3]
+ 614 00fa F5E7     		b	.L110
+ 615              	.L128:
+ 616              		.align	2
+ 617              	.L127:
+ 618 00fc 00000000 		.word	netif_null_output_ip4
+ 619 0100 00000000 		.word	.LANCHOR0
+ 620 0104 00000000 		.word	.LC0
+ 621 0108 00000000 		.word	.LC9
+ 622 010c 54000000 		.word	.LC2
+ 623 0110 1C000000 		.word	.LC10
+ 624 0114 00000000 		.word	ip_addr_any
+ 625 0118 40000000 		.word	.LC11
+ 626 011c 54000000 		.word	.LC12
+ 627 0120 00000000 		.word	netif_list
+ 629              		.section	.text.netif_add_noaddr,"ax",%progbits
+ 630              		.align	1
+ 631              		.global	netif_add_noaddr
+ 632              		.syntax unified
+ 633              		.thumb
+ 634              		.thumb_func
+ 635              		.fpu fpv4-sp-d16
+ 637              	netif_add_noaddr:
+ 638              		@ args = 0, pretend = 0, frame = 0
+ 639              		@ frame_needed = 0, uses_anonymous_args = 0
+ 640 0000 00B5     		push	{lr}
+ 641 0002 85B0     		sub	sp, sp, #20
+ 642 0004 0293     		str	r3, [sp, #8]
+ 643 0006 0192     		str	r2, [sp, #4]
+ 644 0008 0091     		str	r1, [sp]
+ 645 000a 0023     		movs	r3, #0
+ 646 000c 1A46     		mov	r2, r3
+ 647 000e 1946     		mov	r1, r3
+ 648 0010 FFF7FEFF 		bl	netif_add
+ 649 0014 05B0     		add	sp, sp, #20
+ 650              		@ sp needed
+ 651 0016 5DF804FB 		ldr	pc, [sp], #4
+ 653              		.section	.text.netif_set_default,"ax",%progbits
+ 654              		.align	1
+ 655              		.global	netif_set_default
+ARM GAS  /tmp/cco1Sv87.s 			page 12
+
+
+ 656              		.syntax unified
+ 657              		.thumb
+ 658              		.thumb_func
+ 659              		.fpu fpv4-sp-d16
+ 661              	netif_set_default:
+ 662              		@ args = 0, pretend = 0, frame = 0
+ 663              		@ frame_needed = 0, uses_anonymous_args = 0
+ 664              		@ link register save eliminated.
+ 665 0000 014B     		ldr	r3, .L132
+ 666 0002 1860     		str	r0, [r3]
+ 667 0004 7047     		bx	lr
+ 668              	.L133:
+ 669 0006 00BF     		.align	2
+ 670              	.L132:
+ 671 0008 00000000 		.word	netif_default
+ 673              		.section	.text.netif_set_up,"ax",%progbits
+ 674              		.align	1
+ 675              		.global	netif_set_up
+ 676              		.syntax unified
+ 677              		.thumb
+ 678              		.thumb_func
+ 679              		.fpu fpv4-sp-d16
+ 681              	netif_set_up:
+ 682              		@ args = 0, pretend = 0, frame = 0
+ 683              		@ frame_needed = 0, uses_anonymous_args = 0
+ 684 0000 08B5     		push	{r3, lr}
+ 685 0002 28B1     		cbz	r0, .L138
+ 686 0004 90F83130 		ldrb	r3, [r0, #49]	@ zero_extendqisi2
+ 687 0008 13F0010F 		tst	r3, #1
+ 688 000c 08D0     		beq	.L139
+ 689              	.L134:
+ 690 000e 08BD     		pop	{r3, pc}
+ 691              	.L138:
+ 692 0010 074B     		ldr	r3, .L140
+ 693 0012 4FF45472 		mov	r2, #848
+ 694 0016 0749     		ldr	r1, .L140+4
+ 695 0018 0748     		ldr	r0, .L140+8
+ 696 001a FFF7FEFF 		bl	printf
+ 697 001e F6E7     		b	.L134
+ 698              	.L139:
+ 699 0020 43F00103 		orr	r3, r3, #1
+ 700 0024 80F83130 		strb	r3, [r0, #49]
+ 701 0028 0321     		movs	r1, #3
+ 702 002a FFF7FEFF 		bl	netif_issue_reports
+ 703 002e EEE7     		b	.L134
+ 704              	.L141:
+ 705              		.align	2
+ 706              	.L140:
+ 707 0030 00000000 		.word	.LC0
+ 708 0034 00000000 		.word	.LC13
+ 709 0038 54000000 		.word	.LC2
+ 711              		.section	.text.netif_set_down,"ax",%progbits
+ 712              		.align	1
+ 713              		.global	netif_set_down
+ 714              		.syntax unified
+ 715              		.thumb
+ 716              		.thumb_func
+ARM GAS  /tmp/cco1Sv87.s 			page 13
+
+
+ 717              		.fpu fpv4-sp-d16
+ 719              	netif_set_down:
+ 720              		@ args = 0, pretend = 0, frame = 0
+ 721              		@ frame_needed = 0, uses_anonymous_args = 0
+ 722 0000 08B5     		push	{r3, lr}
+ 723 0002 60B1     		cbz	r0, .L146
+ 724 0004 90F83130 		ldrb	r3, [r0, #49]	@ zero_extendqisi2
+ 725 0008 13F0010F 		tst	r3, #1
+ 726 000c 06D0     		beq	.L142
+ 727 000e 03F0FE03 		and	r3, r3, #254
+ 728 0012 80F83130 		strb	r3, [r0, #49]
+ 729 0016 13F0080F 		tst	r3, #8
+ 730 001a 08D1     		bne	.L147
+ 731              	.L142:
+ 732 001c 08BD     		pop	{r3, pc}
+ 733              	.L146:
+ 734 001e 054B     		ldr	r3, .L148
+ 735 0020 40F29B32 		movw	r2, #923
+ 736 0024 0449     		ldr	r1, .L148+4
+ 737 0026 0548     		ldr	r0, .L148+8
+ 738 0028 FFF7FEFF 		bl	printf
+ 739 002c F6E7     		b	.L142
+ 740              	.L147:
+ 741 002e FFF7FEFF 		bl	etharp_cleanup_netif
+ 742 0032 F3E7     		b	.L142
+ 743              	.L149:
+ 744              		.align	2
+ 745              	.L148:
+ 746 0034 00000000 		.word	.LC0
+ 747 0038 00000000 		.word	.LC14
+ 748 003c 54000000 		.word	.LC2
+ 750              		.section	.text.netif_remove,"ax",%progbits
+ 751              		.align	1
+ 752              		.global	netif_remove
+ 753              		.syntax unified
+ 754              		.thumb
+ 755              		.thumb_func
+ 756              		.fpu fpv4-sp-d16
+ 758              	netif_remove:
+ 759              		@ args = 0, pretend = 0, frame = 0
+ 760              		@ frame_needed = 0, uses_anonymous_args = 0
+ 761 0000 50B3     		cbz	r0, .L160
+ 762 0002 10B5     		push	{r4, lr}
+ 763 0004 0446     		mov	r4, r0
+ 764 0006 4368     		ldr	r3, [r0, #4]
+ 765 0008 93B9     		cbnz	r3, .L163
+ 766              	.L152:
+ 767 000a 94F83130 		ldrb	r3, [r4, #49]	@ zero_extendqisi2
+ 768 000e 13F0010F 		tst	r3, #1
+ 769 0012 12D1     		bne	.L164
+ 770              	.L153:
+ 771 0014 114B     		ldr	r3, .L168
+ 772 0016 1B68     		ldr	r3, [r3]
+ 773 0018 A342     		cmp	r3, r4
+ 774 001a 12D0     		beq	.L165
+ 775              	.L154:
+ 776 001c 104B     		ldr	r3, .L168+4
+ARM GAS  /tmp/cco1Sv87.s 			page 14
+
+
+ 777 001e 1B68     		ldr	r3, [r3]
+ 778 0020 A342     		cmp	r3, r4
+ 779 0022 12D0     		beq	.L166
+ 780              	.L155:
+ 781 0024 BBB1     		cbz	r3, .L150
+ 782 0026 1A68     		ldr	r2, [r3]
+ 783 0028 A242     		cmp	r2, r4
+ 784 002a 12D0     		beq	.L167
+ 785 002c 1346     		mov	r3, r2
+ 786 002e F9E7     		b	.L155
+ 787              	.L163:
+ 788 0030 0021     		movs	r1, #0
+ 789 0032 0430     		adds	r0, r0, #4
+ 790 0034 FFF7FEFF 		bl	netif_do_ip_addr_changed
+ 791 0038 E7E7     		b	.L152
+ 792              	.L164:
+ 793 003a 2046     		mov	r0, r4
+ 794 003c FFF7FEFF 		bl	netif_set_down
+ 795 0040 E8E7     		b	.L153
+ 796              	.L165:
+ 797 0042 0020     		movs	r0, #0
+ 798 0044 FFF7FEFF 		bl	netif_set_default
+ 799 0048 E8E7     		b	.L154
+ 800              	.L166:
+ 801 004a 2268     		ldr	r2, [r4]
+ 802 004c 044B     		ldr	r3, .L168+4
+ 803 004e 1A60     		str	r2, [r3]
+ 804 0050 01E0     		b	.L150
+ 805              	.L167:
+ 806 0052 2268     		ldr	r2, [r4]
+ 807 0054 1A60     		str	r2, [r3]
+ 808              	.L150:
+ 809 0056 10BD     		pop	{r4, pc}
+ 810              	.L160:
+ 811 0058 7047     		bx	lr
+ 812              	.L169:
+ 813 005a 00BF     		.align	2
+ 814              	.L168:
+ 815 005c 00000000 		.word	netif_default
+ 816 0060 00000000 		.word	netif_list
+ 818              		.section	.text.netif_set_link_up,"ax",%progbits
+ 819              		.align	1
+ 820              		.global	netif_set_link_up
+ 821              		.syntax unified
+ 822              		.thumb
+ 823              		.thumb_func
+ 824              		.fpu fpv4-sp-d16
+ 826              	netif_set_link_up:
+ 827              		@ args = 0, pretend = 0, frame = 0
+ 828              		@ frame_needed = 0, uses_anonymous_args = 0
+ 829 0000 10B5     		push	{r4, lr}
+ 830 0002 30B1     		cbz	r0, .L174
+ 831 0004 0446     		mov	r4, r0
+ 832 0006 90F83130 		ldrb	r3, [r0, #49]	@ zero_extendqisi2
+ 833 000a 13F0040F 		tst	r3, #4
+ 834 000e 08D0     		beq	.L175
+ 835              	.L170:
+ARM GAS  /tmp/cco1Sv87.s 			page 15
+
+
+ 836 0010 10BD     		pop	{r4, pc}
+ 837              	.L174:
+ 838 0012 0C4B     		ldr	r3, .L176
+ 839 0014 4FF47872 		mov	r2, #992
+ 840 0018 0B49     		ldr	r1, .L176+4
+ 841 001a 0C48     		ldr	r0, .L176+8
+ 842 001c FFF7FEFF 		bl	printf
+ 843 0020 F6E7     		b	.L170
+ 844              	.L175:
+ 845 0022 43F00403 		orr	r3, r3, #4
+ 846 0026 80F83130 		strb	r3, [r0, #49]
+ 847 002a FFF7FEFF 		bl	dhcp_network_changed
+ 848 002e 0321     		movs	r1, #3
+ 849 0030 2046     		mov	r0, r4
+ 850 0032 FFF7FEFF 		bl	netif_issue_reports
+ 851 0036 E369     		ldr	r3, [r4, #28]
+ 852 0038 002B     		cmp	r3, #0
+ 853 003a E9D0     		beq	.L170
+ 854 003c 2046     		mov	r0, r4
+ 855 003e 9847     		blx	r3
+ 856 0040 E6E7     		b	.L170
+ 857              	.L177:
+ 858 0042 00BF     		.align	2
+ 859              	.L176:
+ 860 0044 00000000 		.word	.LC0
+ 861 0048 00000000 		.word	.LC15
+ 862 004c 54000000 		.word	.LC2
+ 864              		.section	.text.netif_set_link_down,"ax",%progbits
+ 865              		.align	1
+ 866              		.global	netif_set_link_down
+ 867              		.syntax unified
+ 868              		.thumb
+ 869              		.thumb_func
+ 870              		.fpu fpv4-sp-d16
+ 872              	netif_set_link_down:
+ 873              		@ args = 0, pretend = 0, frame = 0
+ 874              		@ frame_needed = 0, uses_anonymous_args = 0
+ 875 0000 08B5     		push	{r3, lr}
+ 876 0002 60B1     		cbz	r0, .L182
+ 877 0004 90F83130 		ldrb	r3, [r0, #49]	@ zero_extendqisi2
+ 878 0008 13F0040F 		tst	r3, #4
+ 879 000c 06D0     		beq	.L178
+ 880 000e 03F0FB03 		and	r3, r3, #251
+ 881 0012 80F83130 		strb	r3, [r0, #49]
+ 882 0016 C369     		ldr	r3, [r0, #28]
+ 883 0018 03B1     		cbz	r3, .L178
+ 884 001a 9847     		blx	r3
+ 885              	.L178:
+ 886 001c 08BD     		pop	{r3, pc}
+ 887              	.L182:
+ 888 001e 044B     		ldr	r3, .L183
+ 889 0020 40F20642 		movw	r2, #1030
+ 890 0024 0349     		ldr	r1, .L183+4
+ 891 0026 0448     		ldr	r0, .L183+8
+ 892 0028 FFF7FEFF 		bl	printf
+ 893 002c F6E7     		b	.L178
+ 894              	.L184:
+ARM GAS  /tmp/cco1Sv87.s 			page 16
+
+
+ 895 002e 00BF     		.align	2
+ 896              	.L183:
+ 897 0030 00000000 		.word	.LC0
+ 898 0034 00000000 		.word	.LC16
+ 899 0038 54000000 		.word	.LC2
+ 901              		.section	.text.netif_set_link_callback,"ax",%progbits
+ 902              		.align	1
+ 903              		.global	netif_set_link_callback
+ 904              		.syntax unified
+ 905              		.thumb
+ 906              		.thumb_func
+ 907              		.fpu fpv4-sp-d16
+ 909              	netif_set_link_callback:
+ 910              		@ args = 0, pretend = 0, frame = 0
+ 911              		@ frame_needed = 0, uses_anonymous_args = 0
+ 912              		@ link register save eliminated.
+ 913 0000 00B1     		cbz	r0, .L185
+ 914 0002 C161     		str	r1, [r0, #28]
+ 915              	.L185:
+ 916 0004 7047     		bx	lr
+ 918              		.section	.text.netif_get_by_index,"ax",%progbits
+ 919              		.align	1
+ 920              		.global	netif_get_by_index
+ 921              		.syntax unified
+ 922              		.thumb
+ 923              		.thumb_func
+ 924              		.fpu fpv4-sp-d16
+ 926              	netif_get_by_index:
+ 927              		@ args = 0, pretend = 0, frame = 0
+ 928              		@ frame_needed = 0, uses_anonymous_args = 0
+ 929              		@ link register save eliminated.
+ 930 0000 0246     		mov	r2, r0
+ 931 0002 58B1     		cbz	r0, .L191
+ 932 0004 064B     		ldr	r3, .L193
+ 933 0006 1868     		ldr	r0, [r3]
+ 934              	.L189:
+ 935 0008 38B1     		cbz	r0, .L192
+ 936 000a 90F83430 		ldrb	r3, [r0, #52]	@ zero_extendqisi2
+ 937 000e 0133     		adds	r3, r3, #1
+ 938 0010 DBB2     		uxtb	r3, r3
+ 939 0012 9342     		cmp	r3, r2
+ 940 0014 03D0     		beq	.L187
+ 941 0016 0068     		ldr	r0, [r0]
+ 942 0018 F6E7     		b	.L189
+ 943              	.L192:
+ 944 001a 7047     		bx	lr
+ 945              	.L191:
+ 946 001c 0020     		movs	r0, #0
+ 947              	.L187:
+ 948 001e 7047     		bx	lr
+ 949              	.L194:
+ 950              		.align	2
+ 951              	.L193:
+ 952 0020 00000000 		.word	netif_list
+ 954              		.section	.text.netif_index_to_name,"ax",%progbits
+ 955              		.align	1
+ 956              		.global	netif_index_to_name
+ARM GAS  /tmp/cco1Sv87.s 			page 17
+
+
+ 957              		.syntax unified
+ 958              		.thumb
+ 959              		.thumb_func
+ 960              		.fpu fpv4-sp-d16
+ 962              	netif_index_to_name:
+ 963              		@ args = 0, pretend = 0, frame = 0
+ 964              		@ frame_needed = 0, uses_anonymous_args = 0
+ 965 0000 38B5     		push	{r3, r4, r5, lr}
+ 966 0002 0546     		mov	r5, r0
+ 967 0004 0C46     		mov	r4, r1
+ 968 0006 FFF7FEFF 		bl	netif_get_by_index
+ 969 000a 0346     		mov	r3, r0
+ 970 000c 58B1     		cbz	r0, .L195
+ 971 000e 90F83220 		ldrb	r2, [r0, #50]	@ zero_extendqisi2
+ 972 0012 2270     		strb	r2, [r4]
+ 973 0014 90F83330 		ldrb	r3, [r0, #51]	@ zero_extendqisi2
+ 974 0018 6370     		strb	r3, [r4, #1]
+ 975 001a 6A1E     		subs	r2, r5, #1
+ 976 001c 0421     		movs	r1, #4
+ 977 001e A01C     		adds	r0, r4, #2
+ 978 0020 FFF7FEFF 		bl	lwip_itoa
+ 979 0024 2346     		mov	r3, r4
+ 980              	.L195:
+ 981 0026 1846     		mov	r0, r3
+ 982 0028 38BD     		pop	{r3, r4, r5, pc}
+ 984              		.section	.text.netif_find,"ax",%progbits
+ 985              		.align	1
+ 986              		.global	netif_find
+ 987              		.syntax unified
+ 988              		.thumb
+ 989              		.thumb_func
+ 990              		.fpu fpv4-sp-d16
+ 992              	netif_find:
+ 993              		@ args = 0, pretend = 0, frame = 0
+ 994              		@ frame_needed = 0, uses_anonymous_args = 0
+ 995 0000 10B5     		push	{r4, lr}
+ 996 0002 0446     		mov	r4, r0
+ 997 0004 B0B1     		cbz	r0, .L198
+ 998 0006 0230     		adds	r0, r0, #2
+ 999 0008 FFF7FEFF 		bl	atoi
+ 1000 000c C2B2     		uxtb	r2, r0
+ 1001 000e 0A4B     		ldr	r3, .L205
+ 1002 0010 1868     		ldr	r0, [r3]
+ 1003 0012 00E0     		b	.L200
+ 1004              	.L201:
+ 1005 0014 0068     		ldr	r0, [r0]
+ 1006              	.L200:
+ 1007 0016 68B1     		cbz	r0, .L198
+ 1008 0018 90F83430 		ldrb	r3, [r0, #52]	@ zero_extendqisi2
+ 1009 001c 9342     		cmp	r3, r2
+ 1010 001e F9D1     		bne	.L201
+ 1011 0020 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 1012 0022 90F83230 		ldrb	r3, [r0, #50]	@ zero_extendqisi2
+ 1013 0026 9942     		cmp	r1, r3
+ 1014 0028 F4D1     		bne	.L201
+ 1015 002a 6178     		ldrb	r1, [r4, #1]	@ zero_extendqisi2
+ 1016 002c 90F83330 		ldrb	r3, [r0, #51]	@ zero_extendqisi2
+ARM GAS  /tmp/cco1Sv87.s 			page 18
+
+
+ 1017 0030 9942     		cmp	r1, r3
+ 1018 0032 EFD1     		bne	.L201
+ 1019              	.L198:
+ 1020 0034 10BD     		pop	{r4, pc}
+ 1021              	.L206:
+ 1022 0036 00BF     		.align	2
+ 1023              	.L205:
+ 1024 0038 00000000 		.word	netif_list
+ 1026              		.section	.text.netif_name_to_index,"ax",%progbits
+ 1027              		.align	1
+ 1028              		.global	netif_name_to_index
+ 1029              		.syntax unified
+ 1030              		.thumb
+ 1031              		.thumb_func
+ 1032              		.fpu fpv4-sp-d16
+ 1034              	netif_name_to_index:
+ 1035              		@ args = 0, pretend = 0, frame = 0
+ 1036              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1037 0000 08B5     		push	{r3, lr}
+ 1038 0002 FFF7FEFF 		bl	netif_find
+ 1039 0006 20B1     		cbz	r0, .L209
+ 1040 0008 90F83400 		ldrb	r0, [r0, #52]	@ zero_extendqisi2
+ 1041 000c 0130     		adds	r0, r0, #1
+ 1042 000e C0B2     		uxtb	r0, r0
+ 1043              	.L208:
+ 1044 0010 08BD     		pop	{r3, pc}
+ 1045              	.L209:
+ 1046 0012 0020     		movs	r0, #0
+ 1047 0014 FCE7     		b	.L208
+ 1049              		.comm	netif_default,4,4
+ 1050              		.comm	netif_list,4,4
+ 1051              		.section	.bss.netif_num,"aw",%nobits
+ 1052              		.set	.LANCHOR0,. + 0
+ 1055              	netif_num:
+ 1056 0000 00       		.space	1
+ 1057              		.section	.rodata.netif_add.str1.4,"aMS",%progbits,1
+ 1058              		.align	2
+ 1059              	.LC9:
+ 1060 0000 6E657469 		.ascii	"netif_add: invalid netif\000"
+ 1060      665F6164 
+ 1060      643A2069 
+ 1060      6E76616C 
+ 1060      6964206E 
+ 1061 0019 000000   		.space	3
+ 1062              	.LC10:
+ 1063 001c 6E657469 		.ascii	"netif_add: No init function given\000"
+ 1063      665F6164 
+ 1063      643A204E 
+ 1063      6F20696E 
+ 1063      69742066 
+ 1064 003e 0000     		.space	2
+ 1065              	.LC11:
+ 1066 0040 6E657469 		.ascii	"netif already added\000"
+ 1066      6620616C 
+ 1066      72656164 
+ 1066      79206164 
+ 1066      64656400 
+ARM GAS  /tmp/cco1Sv87.s 			page 19
+
+
+ 1067              	.LC12:
+ 1068 0054 746F6F20 		.ascii	"too many netifs, max. supported number is 255\000"
+ 1068      6D616E79 
+ 1068      206E6574 
+ 1068      6966732C 
+ 1068      206D6178 
+ 1069              		.section	.rodata.netif_do_set_ipaddr.str1.4,"aMS",%progbits,1
+ 1070              		.align	2
+ 1071              	.LC3:
+ 1072 0000 696E7661 		.ascii	"invalid pointer\000"
+ 1072      6C696420 
+ 1072      706F696E 
+ 1072      74657200 
+ 1073              		.section	.rodata.netif_input.str1.4,"aMS",%progbits,1
+ 1074              		.align	2
+ 1075              	.LC4:
+ 1076 0000 6E657469 		.ascii	"netif_input: invalid pbuf\000"
+ 1076      665F696E 
+ 1076      7075743A 
+ 1076      20696E76 
+ 1076      616C6964 
+ 1077 001a 0000     		.space	2
+ 1078              	.LC5:
+ 1079 001c 6E657469 		.ascii	"netif_input: invalid netif\000"
+ 1079      665F696E 
+ 1079      7075743A 
+ 1079      20696E76 
+ 1079      616C6964 
+ 1080              		.section	.rodata.netif_issue_reports.str1.4,"aMS",%progbits,1
+ 1081              		.align	2
+ 1082              	.LC0:
+ 1083 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/core/netif.c\000"
+ 1083      6C657761 
+ 1083      7265732F 
+ 1083      54686972 
+ 1083      645F5061 
+ 1084 002e 0000     		.space	2
+ 1085              	.LC1:
+ 1086 0030 6E657469 		.ascii	"netif_issue_reports: invalid netif\000"
+ 1086      665F6973 
+ 1086      7375655F 
+ 1086      7265706F 
+ 1086      7274733A 
+ 1087 0053 00       		.space	1
+ 1088              	.LC2:
+ 1089 0054 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ 1089      7274696F 
+ 1089      6E202225 
+ 1089      73222066 
+ 1089      61696C65 
+ 1090              		.section	.rodata.netif_set_down.str1.4,"aMS",%progbits,1
+ 1091              		.align	2
+ 1092              	.LC14:
+ 1093 0000 6E657469 		.ascii	"netif_set_down: invalid netif\000"
+ 1093      665F7365 
+ 1093      745F646F 
+ 1093      776E3A20 
+ARM GAS  /tmp/cco1Sv87.s 			page 20
+
+
+ 1093      696E7661 
+ 1094              		.section	.rodata.netif_set_gw.str1.4,"aMS",%progbits,1
+ 1095              		.align	2
+ 1096              	.LC8:
+ 1097 0000 6E657469 		.ascii	"netif_set_gw: invalid netif\000"
+ 1097      665F7365 
+ 1097      745F6777 
+ 1097      3A20696E 
+ 1097      76616C69 
+ 1098              		.section	.rodata.netif_set_ipaddr.str1.4,"aMS",%progbits,1
+ 1099              		.align	2
+ 1100              	.LC6:
+ 1101 0000 6E657469 		.ascii	"netif_set_ipaddr: invalid netif\000"
+ 1101      665F7365 
+ 1101      745F6970 
+ 1101      61646472 
+ 1101      3A20696E 
+ 1102              		.section	.rodata.netif_set_link_down.str1.4,"aMS",%progbits,1
+ 1103              		.align	2
+ 1104              	.LC16:
+ 1105 0000 6E657469 		.ascii	"netif_set_link_down: invalid netif\000"
+ 1105      665F7365 
+ 1105      745F6C69 
+ 1105      6E6B5F64 
+ 1105      6F776E3A 
+ 1106              		.section	.rodata.netif_set_link_up.str1.4,"aMS",%progbits,1
+ 1107              		.align	2
+ 1108              	.LC15:
+ 1109 0000 6E657469 		.ascii	"netif_set_link_up: invalid netif\000"
+ 1109      665F7365 
+ 1109      745F6C69 
+ 1109      6E6B5F75 
+ 1109      703A2069 
+ 1110              		.section	.rodata.netif_set_netmask.str1.4,"aMS",%progbits,1
+ 1111              		.align	2
+ 1112              	.LC7:
+ 1113 0000 6E657469 		.ascii	"netif_set_netmask: invalid netif\000"
+ 1113      665F7365 
+ 1113      745F6E65 
+ 1113      746D6173 
+ 1113      6B3A2069 
+ 1114              		.section	.rodata.netif_set_up.str1.4,"aMS",%progbits,1
+ 1115              		.align	2
+ 1116              	.LC13:
+ 1117 0000 6E657469 		.ascii	"netif_set_up: invalid netif\000"
+ 1117      665F7365 
+ 1117      745F7570 
+ 1117      3A20696E 
+ 1117      76616C69 
+ 1118              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/cco1Sv87.s 			page 21
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 netif.c
+     /tmp/cco1Sv87.s:16     .text.netif_do_set_netmask:0000000000000000 $t
+     /tmp/cco1Sv87.s:23     .text.netif_do_set_netmask:0000000000000000 netif_do_set_netmask
+     /tmp/cco1Sv87.s:44     .text.netif_do_set_gw:0000000000000000 $t
+     /tmp/cco1Sv87.s:50     .text.netif_do_set_gw:0000000000000000 netif_do_set_gw
+     /tmp/cco1Sv87.s:71     .text.netif_null_output_ip4:0000000000000000 $t
+     /tmp/cco1Sv87.s:77     .text.netif_null_output_ip4:0000000000000000 netif_null_output_ip4
+     /tmp/cco1Sv87.s:85     .text.netif_do_ip_addr_changed:0000000000000000 $t
+     /tmp/cco1Sv87.s:91     .text.netif_do_ip_addr_changed:0000000000000000 netif_do_ip_addr_changed
+     /tmp/cco1Sv87.s:104    .text.netif_issue_reports:0000000000000000 $t
+     /tmp/cco1Sv87.s:110    .text.netif_issue_reports:0000000000000000 netif_issue_reports
+     /tmp/cco1Sv87.s:145    .text.netif_issue_reports:0000000000000040 $d
+     /tmp/cco1Sv87.s:150    .text.netif_do_set_ipaddr:0000000000000000 $t
+     /tmp/cco1Sv87.s:156    .text.netif_do_set_ipaddr:0000000000000000 netif_do_set_ipaddr
+     /tmp/cco1Sv87.s:212    .text.netif_do_set_ipaddr:0000000000000060 $d
+     /tmp/cco1Sv87.s:217    .text.netif_init:0000000000000000 $t
+     /tmp/cco1Sv87.s:224    .text.netif_init:0000000000000000 netif_init
+     /tmp/cco1Sv87.s:231    .text.netif_input:0000000000000000 $t
+     /tmp/cco1Sv87.s:238    .text.netif_input:0000000000000000 netif_input
+     /tmp/cco1Sv87.s:278    .text.netif_input:0000000000000044 $d
+     /tmp/cco1Sv87.s:284    .text.netif_set_ipaddr:0000000000000000 $t
+     /tmp/cco1Sv87.s:291    .text.netif_set_ipaddr:0000000000000000 netif_set_ipaddr
+     /tmp/cco1Sv87.s:320    .text.netif_set_ipaddr:000000000000002c $d
+     /tmp/cco1Sv87.s:326    .text.netif_set_netmask:0000000000000000 $t
+     /tmp/cco1Sv87.s:333    .text.netif_set_netmask:0000000000000000 netif_set_netmask
+     /tmp/cco1Sv87.s:359    .text.netif_set_netmask:0000000000000028 $d
+     /tmp/cco1Sv87.s:365    .text.netif_set_gw:0000000000000000 $t
+     /tmp/cco1Sv87.s:372    .text.netif_set_gw:0000000000000000 netif_set_gw
+     /tmp/cco1Sv87.s:398    .text.netif_set_gw:0000000000000028 $d
+     /tmp/cco1Sv87.s:404    .text.netif_set_addr:0000000000000000 $t
+     /tmp/cco1Sv87.s:411    .text.netif_set_addr:0000000000000000 netif_set_addr
+     /tmp/cco1Sv87.s:471    .text.netif_set_addr:0000000000000068 $d
+     /tmp/cco1Sv87.s:474    .text.netif_add:0000000000000000 $t
+     /tmp/cco1Sv87.s:481    .text.netif_add:0000000000000000 netif_add
+     /tmp/cco1Sv87.s:618    .text.netif_add:00000000000000fc $d
+                            *COM*:0000000000000004 netif_list
+     /tmp/cco1Sv87.s:630    .text.netif_add_noaddr:0000000000000000 $t
+     /tmp/cco1Sv87.s:637    .text.netif_add_noaddr:0000000000000000 netif_add_noaddr
+     /tmp/cco1Sv87.s:654    .text.netif_set_default:0000000000000000 $t
+     /tmp/cco1Sv87.s:661    .text.netif_set_default:0000000000000000 netif_set_default
+     /tmp/cco1Sv87.s:671    .text.netif_set_default:0000000000000008 $d
+                            *COM*:0000000000000004 netif_default
+     /tmp/cco1Sv87.s:674    .text.netif_set_up:0000000000000000 $t
+     /tmp/cco1Sv87.s:681    .text.netif_set_up:0000000000000000 netif_set_up
+     /tmp/cco1Sv87.s:707    .text.netif_set_up:0000000000000030 $d
+     /tmp/cco1Sv87.s:712    .text.netif_set_down:0000000000000000 $t
+     /tmp/cco1Sv87.s:719    .text.netif_set_down:0000000000000000 netif_set_down
+     /tmp/cco1Sv87.s:746    .text.netif_set_down:0000000000000034 $d
+     /tmp/cco1Sv87.s:751    .text.netif_remove:0000000000000000 $t
+     /tmp/cco1Sv87.s:758    .text.netif_remove:0000000000000000 netif_remove
+     /tmp/cco1Sv87.s:815    .text.netif_remove:000000000000005c $d
+     /tmp/cco1Sv87.s:819    .text.netif_set_link_up:0000000000000000 $t
+     /tmp/cco1Sv87.s:826    .text.netif_set_link_up:0000000000000000 netif_set_link_up
+     /tmp/cco1Sv87.s:860    .text.netif_set_link_up:0000000000000044 $d
+     /tmp/cco1Sv87.s:865    .text.netif_set_link_down:0000000000000000 $t
+     /tmp/cco1Sv87.s:872    .text.netif_set_link_down:0000000000000000 netif_set_link_down
+ARM GAS  /tmp/cco1Sv87.s 			page 22
+
+
+     /tmp/cco1Sv87.s:897    .text.netif_set_link_down:0000000000000030 $d
+     /tmp/cco1Sv87.s:902    .text.netif_set_link_callback:0000000000000000 $t
+     /tmp/cco1Sv87.s:909    .text.netif_set_link_callback:0000000000000000 netif_set_link_callback
+     /tmp/cco1Sv87.s:919    .text.netif_get_by_index:0000000000000000 $t
+     /tmp/cco1Sv87.s:926    .text.netif_get_by_index:0000000000000000 netif_get_by_index
+     /tmp/cco1Sv87.s:952    .text.netif_get_by_index:0000000000000020 $d
+     /tmp/cco1Sv87.s:955    .text.netif_index_to_name:0000000000000000 $t
+     /tmp/cco1Sv87.s:962    .text.netif_index_to_name:0000000000000000 netif_index_to_name
+     /tmp/cco1Sv87.s:985    .text.netif_find:0000000000000000 $t
+     /tmp/cco1Sv87.s:992    .text.netif_find:0000000000000000 netif_find
+     /tmp/cco1Sv87.s:1024   .text.netif_find:0000000000000038 $d
+     /tmp/cco1Sv87.s:1027   .text.netif_name_to_index:0000000000000000 $t
+     /tmp/cco1Sv87.s:1034   .text.netif_name_to_index:0000000000000000 netif_name_to_index
+     /tmp/cco1Sv87.s:1055   .bss.netif_num:0000000000000000 netif_num
+     /tmp/cco1Sv87.s:1056   .bss.netif_num:0000000000000000 $d
+     /tmp/cco1Sv87.s:1058   .rodata.netif_add.str1.4:0000000000000000 $d
+     /tmp/cco1Sv87.s:1070   .rodata.netif_do_set_ipaddr.str1.4:0000000000000000 $d
+     /tmp/cco1Sv87.s:1074   .rodata.netif_input.str1.4:0000000000000000 $d
+     /tmp/cco1Sv87.s:1081   .rodata.netif_issue_reports.str1.4:0000000000000000 $d
+     /tmp/cco1Sv87.s:1091   .rodata.netif_set_down.str1.4:0000000000000000 $d
+     /tmp/cco1Sv87.s:1095   .rodata.netif_set_gw.str1.4:0000000000000000 $d
+     /tmp/cco1Sv87.s:1099   .rodata.netif_set_ipaddr.str1.4:0000000000000000 $d
+     /tmp/cco1Sv87.s:1103   .rodata.netif_set_link_down.str1.4:0000000000000000 $d
+     /tmp/cco1Sv87.s:1107   .rodata.netif_set_link_up.str1.4:0000000000000000 $d
+     /tmp/cco1Sv87.s:1111   .rodata.netif_set_netmask.str1.4:0000000000000000 $d
+     /tmp/cco1Sv87.s:1115   .rodata.netif_set_up.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+tcp_netif_ip_addr_changed
+udp_netif_ip_addr_changed
+printf
+etharp_request
+ethernet_input
+ip4_input
+ip_addr_any
+etharp_cleanup_netif
+dhcp_network_changed
+lwip_itoa
+atoi

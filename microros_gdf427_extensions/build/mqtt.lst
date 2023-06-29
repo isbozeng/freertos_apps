@@ -1,0 +1,3152 @@
+ARM GAS  /tmp/ccofpZl4.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"mqtt.c"
+  14              		.text
+  15              		.section	.text.msg_generate_packet_id,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	msg_generate_packet_id:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26              		@ link register save eliminated.
+  27 0000 C388     		ldrh	r3, [r0, #6]
+  28 0002 0133     		adds	r3, r3, #1
+  29 0004 9BB2     		uxth	r3, r3
+  30 0006 C380     		strh	r3, [r0, #6]	@ movhi
+  31 0008 0BB9     		cbnz	r3, .L2
+  32 000a 0133     		adds	r3, r3, #1
+  33 000c C380     		strh	r3, [r0, #6]	@ movhi
+  34              	.L2:
+  35 000e C088     		ldrh	r0, [r0, #6]
+  36 0010 7047     		bx	lr
+  38              		.section	.text.mqtt_ringbuf_put,"ax",%progbits
+  39              		.align	1
+  40              		.syntax unified
+  41              		.thumb
+  42              		.thumb_func
+  43              		.fpu fpv4-sp-d16
+  45              	mqtt_ringbuf_put:
+  46              		@ args = 0, pretend = 0, frame = 0
+  47              		@ frame_needed = 0, uses_anonymous_args = 0
+  48              		@ link register save eliminated.
+  49 0000 0388     		ldrh	r3, [r0]
+  50 0002 C218     		adds	r2, r0, r3
+  51 0004 1171     		strb	r1, [r2, #4]
+  52 0006 0133     		adds	r3, r3, #1
+  53 0008 9BB2     		uxth	r3, r3
+  54 000a 0380     		strh	r3, [r0]	@ movhi
+  55 000c FF2B     		cmp	r3, #255
+  56 000e 01D9     		bls	.L3
+  57 0010 0023     		movs	r3, #0
+  58 0012 0380     		strh	r3, [r0]	@ movhi
+  59              	.L3:
+  60 0014 7047     		bx	lr
+ARM GAS  /tmp/ccofpZl4.s 			page 2
+
+
+  62              		.section	.text.mqtt_ringbuf_get_ptr,"ax",%progbits
+  63              		.align	1
+  64              		.syntax unified
+  65              		.thumb
+  66              		.thumb_func
+  67              		.fpu fpv4-sp-d16
+  69              	mqtt_ringbuf_get_ptr:
+  70              		@ args = 0, pretend = 0, frame = 0
+  71              		@ frame_needed = 0, uses_anonymous_args = 0
+  72              		@ link register save eliminated.
+  73 0000 4388     		ldrh	r3, [r0, #2]
+  74 0002 1844     		add	r0, r0, r3
+  75 0004 0430     		adds	r0, r0, #4
+  76 0006 7047     		bx	lr
+  78              		.section	.text.mqtt_ringbuf_len,"ax",%progbits
+  79              		.align	1
+  80              		.syntax unified
+  81              		.thumb
+  82              		.thumb_func
+  83              		.fpu fpv4-sp-d16
+  85              	mqtt_ringbuf_len:
+  86              		@ args = 0, pretend = 0, frame = 0
+  87              		@ frame_needed = 0, uses_anonymous_args = 0
+  88              		@ link register save eliminated.
+  89 0000 0388     		ldrh	r3, [r0]
+  90 0002 4088     		ldrh	r0, [r0, #2]
+  91 0004 181A     		subs	r0, r3, r0
+  92 0006 B0F5803F 		cmp	r0, #65536
+  93 000a 01D3     		bcc	.L7
+  94 000c 00F58070 		add	r0, r0, #256
+  95              	.L7:
+  96 0010 80B2     		uxth	r0, r0
+  97 0012 7047     		bx	lr
+  99              		.section	.text.mqtt_delete_request,"ax",%progbits
+ 100              		.align	1
+ 101              		.syntax unified
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.fpu fpv4-sp-d16
+ 106              	mqtt_delete_request:
+ 107              		@ args = 0, pretend = 0, frame = 0
+ 108              		@ frame_needed = 0, uses_anonymous_args = 0
+ 109              		@ link register save eliminated.
+ 110 0000 0346     		mov	r3, r0
+ 111 0002 00B1     		cbz	r0, .L8
+ 112 0004 1860     		str	r0, [r3]
+ 113              	.L8:
+ 114 0006 7047     		bx	lr
+ 116              		.section	.text.mqtt_output_append_u8,"ax",%progbits
+ 117              		.align	1
+ 118              		.syntax unified
+ 119              		.thumb
+ 120              		.thumb_func
+ 121              		.fpu fpv4-sp-d16
+ 123              	mqtt_output_append_u8:
+ 124              		@ args = 0, pretend = 0, frame = 0
+ 125              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccofpZl4.s 			page 3
+
+
+ 126 0000 08B5     		push	{r3, lr}
+ 127 0002 FFF7FEFF 		bl	mqtt_ringbuf_put
+ 128 0006 08BD     		pop	{r3, pc}
+ 130              		.section	.text.mqtt_output_append_u16,"ax",%progbits
+ 131              		.align	1
+ 132              		.syntax unified
+ 133              		.thumb
+ 134              		.thumb_func
+ 135              		.fpu fpv4-sp-d16
+ 137              	mqtt_output_append_u16:
+ 138              		@ args = 0, pretend = 0, frame = 0
+ 139              		@ frame_needed = 0, uses_anonymous_args = 0
+ 140 0000 38B5     		push	{r3, r4, r5, lr}
+ 141 0002 0546     		mov	r5, r0
+ 142 0004 0C46     		mov	r4, r1
+ 143 0006 090A     		lsrs	r1, r1, #8
+ 144 0008 FFF7FEFF 		bl	mqtt_ringbuf_put
+ 145 000c E1B2     		uxtb	r1, r4
+ 146 000e 2846     		mov	r0, r5
+ 147 0010 FFF7FEFF 		bl	mqtt_ringbuf_put
+ 148 0014 38BD     		pop	{r3, r4, r5, pc}
+ 150              		.section	.text.mqtt_output_append_buf,"ax",%progbits
+ 151              		.align	1
+ 152              		.syntax unified
+ 153              		.thumb
+ 154              		.thumb_func
+ 155              		.fpu fpv4-sp-d16
+ 157              	mqtt_output_append_buf:
+ 158              		@ args = 0, pretend = 0, frame = 0
+ 159              		@ frame_needed = 0, uses_anonymous_args = 0
+ 160 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 161 0002 0746     		mov	r7, r0
+ 162 0004 0E46     		mov	r6, r1
+ 163 0006 1546     		mov	r5, r2
+ 164 0008 0024     		movs	r4, #0
+ 165              	.L15:
+ 166 000a AC42     		cmp	r4, r5
+ 167 000c 06D2     		bcs	.L18
+ 168 000e 315D     		ldrb	r1, [r6, r4]	@ zero_extendqisi2
+ 169 0010 3846     		mov	r0, r7
+ 170 0012 FFF7FEFF 		bl	mqtt_ringbuf_put
+ 171 0016 0134     		adds	r4, r4, #1
+ 172 0018 A4B2     		uxth	r4, r4
+ 173 001a F6E7     		b	.L15
+ 174              	.L18:
+ 175 001c F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 177              		.section	.text.mqtt_output_append_string,"ax",%progbits
+ 178              		.align	1
+ 179              		.syntax unified
+ 180              		.thumb
+ 181              		.thumb_func
+ 182              		.fpu fpv4-sp-d16
+ 184              	mqtt_output_append_string:
+ 185              		@ args = 0, pretend = 0, frame = 0
+ 186              		@ frame_needed = 0, uses_anonymous_args = 0
+ 187 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 188 0002 0646     		mov	r6, r0
+ARM GAS  /tmp/ccofpZl4.s 			page 4
+
+
+ 189 0004 0F46     		mov	r7, r1
+ 190 0006 1546     		mov	r5, r2
+ 191 0008 110A     		lsrs	r1, r2, #8
+ 192 000a FFF7FEFF 		bl	mqtt_ringbuf_put
+ 193 000e E9B2     		uxtb	r1, r5
+ 194 0010 3046     		mov	r0, r6
+ 195 0012 FFF7FEFF 		bl	mqtt_ringbuf_put
+ 196 0016 0024     		movs	r4, #0
+ 197              	.L20:
+ 198 0018 AC42     		cmp	r4, r5
+ 199 001a 06D2     		bcs	.L23
+ 200 001c 395D     		ldrb	r1, [r7, r4]	@ zero_extendqisi2
+ 201 001e 3046     		mov	r0, r6
+ 202 0020 FFF7FEFF 		bl	mqtt_ringbuf_put
+ 203 0024 0134     		adds	r4, r4, #1
+ 204 0026 A4B2     		uxth	r4, r4
+ 205 0028 F6E7     		b	.L20
+ 206              	.L23:
+ 207 002a F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 209              		.section	.text.mqtt_output_append_fixed_header,"ax",%progbits
+ 210              		.align	1
+ 211              		.syntax unified
+ 212              		.thumb
+ 213              		.thumb_func
+ 214              		.fpu fpv4-sp-d16
+ 216              	mqtt_output_append_fixed_header:
+ 217              		@ args = 8, pretend = 0, frame = 0
+ 218              		@ frame_needed = 0, uses_anonymous_args = 0
+ 219 0000 38B5     		push	{r3, r4, r5, lr}
+ 220 0002 0546     		mov	r5, r0
+ 221 0004 BDF81440 		ldrh	r4, [sp, #20]
+ 222 0008 D200     		lsls	r2, r2, #3
+ 223 000a 02F00802 		and	r2, r2, #8
+ 224 000e 42EA0112 		orr	r2, r2, r1, lsl #4
+ 225 0012 52B2     		sxtb	r2, r2
+ 226 0014 5900     		lsls	r1, r3, #1
+ 227 0016 01F00601 		and	r1, r1, #6
+ 228 001a 0A43     		orrs	r2, r2, r1
+ 229 001c 9DF81010 		ldrb	r1, [sp, #16]	@ zero_extendqisi2
+ 230 0020 01F00101 		and	r1, r1, #1
+ 231 0024 1143     		orrs	r1, r1, r2
+ 232 0026 C9B2     		uxtb	r1, r1
+ 233 0028 FFF7FEFF 		bl	mqtt_output_append_u8
+ 234 002c 07E0     		b	.L26
+ 235              	.L27:
+ 236 002e 0023     		movs	r3, #0
+ 237              	.L25:
+ 238 0030 1943     		orrs	r1, r1, r3
+ 239 0032 C9B2     		uxtb	r1, r1
+ 240 0034 2846     		mov	r0, r5
+ 241 0036 FFF7FEFF 		bl	mqtt_output_append_u8
+ 242 003a E409     		lsrs	r4, r4, #7
+ 243 003c 06D0     		beq	.L29
+ 244              	.L26:
+ 245 003e 04F07F01 		and	r1, r4, #127
+ 246 0042 7F2C     		cmp	r4, #127
+ 247 0044 F3D9     		bls	.L27
+ARM GAS  /tmp/ccofpZl4.s 			page 5
+
+
+ 248 0046 6FF07F03 		mvn	r3, #127
+ 249 004a F1E7     		b	.L25
+ 250              	.L29:
+ 251 004c 38BD     		pop	{r3, r4, r5, pc}
+ 253              		.section	.text.mqtt_incomming_suback,"ax",%progbits
+ 254              		.align	1
+ 255              		.syntax unified
+ 256              		.thumb
+ 257              		.thumb_func
+ 258              		.fpu fpv4-sp-d16
+ 260              	mqtt_incomming_suback:
+ 261              		@ args = 0, pretend = 0, frame = 0
+ 262              		@ frame_needed = 0, uses_anonymous_args = 0
+ 263 0000 08B5     		push	{r3, lr}
+ 264 0002 4368     		ldr	r3, [r0, #4]
+ 265 0004 23B1     		cbz	r3, .L30
+ 266 0006 8068     		ldr	r0, [r0, #8]
+ 267 0008 0229     		cmp	r1, #2
+ 268 000a 02D8     		bhi	.L33
+ 269 000c 0021     		movs	r1, #0
+ 270              	.L32:
+ 271 000e 9847     		blx	r3
+ 272              	.L30:
+ 273 0010 08BD     		pop	{r3, pc}
+ 274              	.L33:
+ 275 0012 6FF00C01 		mvn	r1, #12
+ 276 0016 FAE7     		b	.L32
+ 278              		.section	.text.mqtt_create_request,"ax",%progbits
+ 279              		.align	1
+ 280              		.syntax unified
+ 281              		.thumb
+ 282              		.thumb_func
+ 283              		.fpu fpv4-sp-d16
+ 285              	mqtt_create_request:
+ 286              		@ args = 4, pretend = 0, frame = 0
+ 287              		@ frame_needed = 0, uses_anonymous_args = 0
+ 288 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 289 0002 0D46     		mov	r5, r1
+ 290 0004 1646     		mov	r6, r2
+ 291 0006 1F46     		mov	r7, r3
+ 292 0008 0446     		mov	r4, r0
+ 293 000a 50B1     		cbz	r0, .L42
+ 294              	.L36:
+ 295 000c 0023     		movs	r3, #0
+ 296              	.L37:
+ 297 000e AB42     		cmp	r3, r5
+ 298 0010 16D2     		bcs	.L43
+ 299 0012 1A01     		lsls	r2, r3, #4
+ 300 0014 A018     		adds	r0, r4, r2
+ 301 0016 A258     		ldr	r2, [r4, r2]
+ 302 0018 9042     		cmp	r0, r2
+ 303 001a 0AD0     		beq	.L44
+ 304 001c 0133     		adds	r3, r3, #1
+ 305 001e DBB2     		uxtb	r3, r3
+ 306 0020 F5E7     		b	.L37
+ 307              	.L42:
+ 308 0022 084B     		ldr	r3, .L45
+ARM GAS  /tmp/ccofpZl4.s 			page 6
+
+
+ 309 0024 40F22312 		movw	r2, #291
+ 310 0028 0749     		ldr	r1, .L45+4
+ 311 002a 0848     		ldr	r0, .L45+8
+ 312 002c FFF7FEFF 		bl	printf
+ 313 0030 ECE7     		b	.L36
+ 314              	.L44:
+ 315 0032 0023     		movs	r3, #0
+ 316 0034 0360     		str	r3, [r0]
+ 317 0036 4760     		str	r7, [r0, #4]
+ 318 0038 069B     		ldr	r3, [sp, #24]
+ 319 003a 8360     		str	r3, [r0, #8]
+ 320 003c 8681     		strh	r6, [r0, #12]	@ movhi
+ 321 003e 00E0     		b	.L35
+ 322              	.L43:
+ 323 0040 0020     		movs	r0, #0
+ 324              	.L35:
+ 325 0042 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 326              	.L46:
+ 327              		.align	2
+ 328              	.L45:
+ 329 0044 00000000 		.word	.LC0
+ 330 0048 34000000 		.word	.LC1
+ 331 004c 58000000 		.word	.LC2
+ 333              		.section	.text.mqtt_output_check_space,"ax",%progbits
+ 334              		.align	1
+ 335              		.syntax unified
+ 336              		.thumb
+ 337              		.thumb_func
+ 338              		.fpu fpv4-sp-d16
+ 340              	mqtt_output_check_space:
+ 341              		@ args = 0, pretend = 0, frame = 0
+ 342              		@ frame_needed = 0, uses_anonymous_args = 0
+ 343 0000 70B5     		push	{r4, r5, r6, lr}
+ 344 0002 0D46     		mov	r5, r1
+ 345 0004 4C1C     		adds	r4, r1, #1
+ 346 0006 A4B2     		uxth	r4, r4
+ 347 0008 0646     		mov	r6, r0
+ 348 000a 68B1     		cbz	r0, .L51
+ 349              	.L49:
+ 350 000c 0134     		adds	r4, r4, #1
+ 351 000e A4B2     		uxth	r4, r4
+ 352 0010 ED09     		lsrs	r5, r5, #7
+ 353 0012 FBD1     		bne	.L49
+ 354 0014 3046     		mov	r0, r6
+ 355 0016 FFF7FEFF 		bl	mqtt_ringbuf_len
+ 356 001a C0F58070 		rsb	r0, r0, #256
+ 357 001e 8442     		cmp	r4, r0
+ 358 0020 CCBF     		ite	gt
+ 359 0022 0020     		movgt	r0, #0
+ 360 0024 0120     		movle	r0, #1
+ 361 0026 70BD     		pop	{r4, r5, r6, pc}
+ 362              	.L51:
+ 363 0028 034B     		ldr	r3, .L52
+ 364 002a 40F20722 		movw	r2, #519
+ 365 002e 0349     		ldr	r1, .L52+4
+ 366 0030 0348     		ldr	r0, .L52+8
+ 367 0032 FFF7FEFF 		bl	printf
+ARM GAS  /tmp/ccofpZl4.s 			page 7
+
+
+ 368 0036 E9E7     		b	.L49
+ 369              	.L53:
+ 370              		.align	2
+ 371              	.L52:
+ 372 0038 00000000 		.word	.LC0
+ 373 003c 00000000 		.word	.LC3
+ 374 0040 58000000 		.word	.LC2
+ 376              		.section	.text.mqtt_append_request,"ax",%progbits
+ 377              		.align	1
+ 378              		.syntax unified
+ 379              		.thumb
+ 380              		.thumb_func
+ 381              		.fpu fpv4-sp-d16
+ 383              	mqtt_append_request:
+ 384              		@ args = 0, pretend = 0, frame = 0
+ 385              		@ frame_needed = 0, uses_anonymous_args = 0
+ 386 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 387 0002 0E46     		mov	r6, r1
+ 388 0004 0746     		mov	r7, r0
+ 389 0006 48B1     		cbz	r0, .L62
+ 390              	.L55:
+ 391 0008 3B68     		ldr	r3, [r7]
+ 392 000a 0024     		movs	r4, #0
+ 393 000c 2546     		mov	r5, r4
+ 394              	.L56:
+ 395 000e 6BB1     		cbz	r3, .L63
+ 396 0010 DA89     		ldrh	r2, [r3, #14]
+ 397 0012 1444     		add	r4, r4, r2
+ 398 0014 24B2     		sxth	r4, r4
+ 399 0016 1D46     		mov	r5, r3
+ 400 0018 1B68     		ldr	r3, [r3]
+ 401 001a F8E7     		b	.L56
+ 402              	.L62:
+ 403 001c 0C4B     		ldr	r3, .L66
+ 404 001e 40F23F12 		movw	r2, #319
+ 405 0022 0C49     		ldr	r1, .L66+4
+ 406 0024 0C48     		ldr	r0, .L66+8
+ 407 0026 FFF7FEFF 		bl	printf
+ 408 002a EDE7     		b	.L55
+ 409              	.L63:
+ 410 002c 1E2C     		cmp	r4, #30
+ 411 002e 05DC     		bgt	.L64
+ 412              	.L58:
+ 413 0030 C4F11E04 		rsb	r4, r4, #30
+ 414 0034 F481     		strh	r4, [r6, #14]	@ movhi
+ 415 0036 4DB1     		cbz	r5, .L65
+ 416 0038 2E60     		str	r6, [r5]
+ 417              	.L54:
+ 418 003a F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 419              	.L64:
+ 420 003c 044B     		ldr	r3, .L66
+ 421 003e 40F24712 		movw	r2, #327
+ 422 0042 0649     		ldr	r1, .L66+12
+ 423 0044 0448     		ldr	r0, .L66+8
+ 424 0046 FFF7FEFF 		bl	printf
+ 425 004a F1E7     		b	.L58
+ 426              	.L65:
+ARM GAS  /tmp/ccofpZl4.s 			page 8
+
+
+ 427 004c 3E60     		str	r6, [r7]
+ 428 004e F4E7     		b	.L54
+ 429              	.L67:
+ 430              		.align	2
+ 431              	.L66:
+ 432 0050 00000000 		.word	.LC0
+ 433 0054 00000000 		.word	.LC4
+ 434 0058 58000000 		.word	.LC2
+ 435 005c 24000000 		.word	.LC5
+ 437              		.section	.text.mqtt_ringbuf_advance_get_idx,"ax",%progbits
+ 438              		.align	1
+ 439              		.syntax unified
+ 440              		.thumb
+ 441              		.thumb_func
+ 442              		.fpu fpv4-sp-d16
+ 444              	mqtt_ringbuf_advance_get_idx:
+ 445              		@ args = 0, pretend = 0, frame = 0
+ 446              		@ frame_needed = 0, uses_anonymous_args = 0
+ 447 0000 38B5     		push	{r3, r4, r5, lr}
+ 448 0002 0546     		mov	r5, r0
+ 449 0004 0C46     		mov	r4, r1
+ 450 0006 FF29     		cmp	r1, #255
+ 451 0008 09D8     		bhi	.L72
+ 452              	.L69:
+ 453 000a 6988     		ldrh	r1, [r5, #2]
+ 454 000c 2144     		add	r1, r1, r4
+ 455 000e 89B2     		uxth	r1, r1
+ 456 0010 6980     		strh	r1, [r5, #2]	@ movhi
+ 457 0012 FF29     		cmp	r1, #255
+ 458 0014 02D9     		bls	.L68
+ 459 0016 A1F58071 		sub	r1, r1, #256
+ 460 001a 6980     		strh	r1, [r5, #2]	@ movhi
+ 461              	.L68:
+ 462 001c 38BD     		pop	{r3, r4, r5, pc}
+ 463              	.L72:
+ 464 001e 034B     		ldr	r3, .L73
+ 465 0020 CB22     		movs	r2, #203
+ 466 0022 0349     		ldr	r1, .L73+4
+ 467 0024 0348     		ldr	r0, .L73+8
+ 468 0026 FFF7FEFF 		bl	printf
+ 469 002a EEE7     		b	.L69
+ 470              	.L74:
+ 471              		.align	2
+ 472              	.L73:
+ 473 002c 00000000 		.word	.LC0
+ 474 0030 00000000 		.word	.LC6
+ 475 0034 58000000 		.word	.LC2
+ 477              		.section	.text.mqtt_request_time_elapsed,"ax",%progbits
+ 478              		.align	1
+ 479              		.syntax unified
+ 480              		.thumb
+ 481              		.thumb_func
+ 482              		.fpu fpv4-sp-d16
+ 484              	mqtt_request_time_elapsed:
+ 485              		@ args = 0, pretend = 0, frame = 0
+ 486              		@ frame_needed = 0, uses_anonymous_args = 0
+ 487 0000 70B5     		push	{r4, r5, r6, lr}
+ARM GAS  /tmp/ccofpZl4.s 			page 9
+
+
+ 488 0002 0D46     		mov	r5, r1
+ 489 0004 0646     		mov	r6, r0
+ 490 0006 08B1     		cbz	r0, .L83
+ 491              	.L76:
+ 492 0008 3468     		ldr	r4, [r6]
+ 493 000a 0BE0     		b	.L77
+ 494              	.L83:
+ 495 000c 104B     		ldr	r3, .L84
+ 496 000e 4FF4C572 		mov	r2, #394
+ 497 0012 1049     		ldr	r1, .L84+4
+ 498 0014 1048     		ldr	r0, .L84+8
+ 499 0016 FFF7FEFF 		bl	printf
+ 500 001a F5E7     		b	.L76
+ 501              	.L79:
+ 502 001c 2046     		mov	r0, r4
+ 503 001e FFF7FEFF 		bl	mqtt_delete_request
+ 504 0022 3468     		ldr	r4, [r6]
+ 505              	.L77:
+ 506 0024 9DB1     		cbz	r5, .L75
+ 507 0026 94B1     		cbz	r4, .L75
+ 508 0028 AAB2     		uxth	r2, r5
+ 509 002a E389     		ldrh	r3, [r4, #14]
+ 510 002c 9A42     		cmp	r2, r3
+ 511 002e 0CD3     		bcc	.L78
+ 512 0030 DBB2     		uxtb	r3, r3
+ 513 0032 ED1A     		subs	r5, r5, r3
+ 514 0034 EDB2     		uxtb	r5, r5
+ 515 0036 2368     		ldr	r3, [r4]
+ 516 0038 3360     		str	r3, [r6]
+ 517 003a 6368     		ldr	r3, [r4, #4]
+ 518 003c 002B     		cmp	r3, #0
+ 519 003e EDD0     		beq	.L79
+ 520 0040 6FF00201 		mvn	r1, #2
+ 521 0044 A068     		ldr	r0, [r4, #8]
+ 522 0046 9847     		blx	r3
+ 523 0048 E8E7     		b	.L79
+ 524              	.L78:
+ 525 004a 9B1A     		subs	r3, r3, r2
+ 526 004c E381     		strh	r3, [r4, #14]	@ movhi
+ 527              	.L75:
+ 528 004e 70BD     		pop	{r4, r5, r6, pc}
+ 529              	.L85:
+ 530              		.align	2
+ 531              	.L84:
+ 532 0050 00000000 		.word	.LC0
+ 533 0054 00000000 		.word	.LC7
+ 534 0058 58000000 		.word	.LC2
+ 536              		.section	.text.mqtt_clear_requests,"ax",%progbits
+ 537              		.align	1
+ 538              		.syntax unified
+ 539              		.thumb
+ 540              		.thumb_func
+ 541              		.fpu fpv4-sp-d16
+ 543              	mqtt_clear_requests:
+ 544              		@ args = 0, pretend = 0, frame = 0
+ 545              		@ frame_needed = 0, uses_anonymous_args = 0
+ 546 0000 38B5     		push	{r3, r4, r5, lr}
+ARM GAS  /tmp/ccofpZl4.s 			page 10
+
+
+ 547 0002 0546     		mov	r5, r0
+ 548 0004 30B1     		cbz	r0, .L91
+ 549              	.L87:
+ 550 0006 2868     		ldr	r0, [r5]
+ 551              	.L88:
+ 552 0008 60B1     		cbz	r0, .L92
+ 553 000a 0468     		ldr	r4, [r0]
+ 554 000c FFF7FEFF 		bl	mqtt_delete_request
+ 555 0010 2046     		mov	r0, r4
+ 556 0012 F9E7     		b	.L88
+ 557              	.L91:
+ 558 0014 054B     		ldr	r3, .L93
+ 559 0016 40F2A712 		movw	r2, #423
+ 560 001a 0549     		ldr	r1, .L93+4
+ 561 001c 0548     		ldr	r0, .L93+8
+ 562 001e FFF7FEFF 		bl	printf
+ 563 0022 F0E7     		b	.L87
+ 564              	.L92:
+ 565 0024 0023     		movs	r3, #0
+ 566 0026 2B60     		str	r3, [r5]
+ 567 0028 38BD     		pop	{r3, r4, r5, pc}
+ 568              	.L94:
+ 569 002a 00BF     		.align	2
+ 570              	.L93:
+ 571 002c 00000000 		.word	.LC0
+ 572 0030 00000000 		.word	.LC8
+ 573 0034 58000000 		.word	.LC2
+ 575              		.section	.text.mqtt_take_request,"ax",%progbits
+ 576              		.align	1
+ 577              		.syntax unified
+ 578              		.thumb
+ 579              		.thumb_func
+ 580              		.fpu fpv4-sp-d16
+ 582              	mqtt_take_request:
+ 583              		@ args = 0, pretend = 0, frame = 0
+ 584              		@ frame_needed = 0, uses_anonymous_args = 0
+ 585 0000 38B5     		push	{r3, r4, r5, lr}
+ 586 0002 0C46     		mov	r4, r1
+ 587 0004 0546     		mov	r5, r0
+ 588 0006 40B1     		cbz	r0, .L105
+ 589              	.L96:
+ 590 0008 2868     		ldr	r0, [r5]
+ 591 000a 0022     		movs	r2, #0
+ 592              	.L97:
+ 593 000c 68B1     		cbz	r0, .L98
+ 594 000e 8389     		ldrh	r3, [r0, #12]
+ 595 0010 A342     		cmp	r3, r4
+ 596 0012 0AD0     		beq	.L98
+ 597 0014 0246     		mov	r2, r0
+ 598 0016 0068     		ldr	r0, [r0]
+ 599 0018 F8E7     		b	.L97
+ 600              	.L105:
+ 601 001a 0C4B     		ldr	r3, .L107
+ 602 001c 40F26712 		movw	r2, #359
+ 603 0020 0B49     		ldr	r1, .L107+4
+ 604 0022 0C48     		ldr	r0, .L107+8
+ 605 0024 FFF7FEFF 		bl	printf
+ARM GAS  /tmp/ccofpZl4.s 			page 11
+
+
+ 606 0028 EEE7     		b	.L96
+ 607              	.L98:
+ 608 002a 50B1     		cbz	r0, .L95
+ 609 002c 52B1     		cbz	r2, .L106
+ 610 002e 0368     		ldr	r3, [r0]
+ 611 0030 1360     		str	r3, [r2]
+ 612              	.L102:
+ 613 0032 0368     		ldr	r3, [r0]
+ 614 0034 1BB1     		cbz	r3, .L103
+ 615 0036 C289     		ldrh	r2, [r0, #14]
+ 616 0038 D989     		ldrh	r1, [r3, #14]
+ 617 003a 0A44     		add	r2, r2, r1
+ 618 003c DA81     		strh	r2, [r3, #14]	@ movhi
+ 619              	.L103:
+ 620 003e 0023     		movs	r3, #0
+ 621 0040 0360     		str	r3, [r0]
+ 622              	.L95:
+ 623 0042 38BD     		pop	{r3, r4, r5, pc}
+ 624              	.L106:
+ 625 0044 0368     		ldr	r3, [r0]
+ 626 0046 2B60     		str	r3, [r5]
+ 627 0048 F3E7     		b	.L102
+ 628              	.L108:
+ 629 004a 00BF     		.align	2
+ 630              	.L107:
+ 631 004c 00000000 		.word	.LC0
+ 632 0050 00000000 		.word	.LC9
+ 633 0054 58000000 		.word	.LC2
+ 635              		.section	.text.mqtt_init_requests,"ax",%progbits
+ 636              		.align	1
+ 637              		.syntax unified
+ 638              		.thumb
+ 639              		.thumb_func
+ 640              		.fpu fpv4-sp-d16
+ 642              	mqtt_init_requests:
+ 643              		@ args = 0, pretend = 0, frame = 0
+ 644              		@ frame_needed = 0, uses_anonymous_args = 0
+ 645 0000 38B5     		push	{r3, r4, r5, lr}
+ 646 0002 0D46     		mov	r5, r1
+ 647 0004 0446     		mov	r4, r0
+ 648 0006 40B1     		cbz	r0, .L114
+ 649              	.L110:
+ 650 0008 0023     		movs	r3, #0
+ 651              	.L111:
+ 652 000a AB42     		cmp	r3, r5
+ 653 000c 0DD2     		bcs	.L115
+ 654 000e 1A01     		lsls	r2, r3, #4
+ 655 0010 A118     		adds	r1, r4, r2
+ 656 0012 A150     		str	r1, [r4, r2]
+ 657 0014 0133     		adds	r3, r3, #1
+ 658 0016 DBB2     		uxtb	r3, r3
+ 659 0018 F7E7     		b	.L111
+ 660              	.L114:
+ 661 001a 044B     		ldr	r3, .L116
+ 662 001c 40F2B712 		movw	r2, #439
+ 663 0020 0349     		ldr	r1, .L116+4
+ 664 0022 0448     		ldr	r0, .L116+8
+ARM GAS  /tmp/ccofpZl4.s 			page 12
+
+
+ 665 0024 FFF7FEFF 		bl	printf
+ 666 0028 EEE7     		b	.L110
+ 667              	.L115:
+ 668 002a 38BD     		pop	{r3, r4, r5, pc}
+ 669              	.L117:
+ 670              		.align	2
+ 671              	.L116:
+ 672 002c 00000000 		.word	.LC0
+ 673 0030 00000000 		.word	.LC10
+ 674 0034 58000000 		.word	.LC2
+ 676              		.section	.text.mqtt_output_send,"ax",%progbits
+ 677              		.align	1
+ 678              		.syntax unified
+ 679              		.thumb
+ 680              		.thumb_func
+ 681              		.fpu fpv4-sp-d16
+ 683              	mqtt_output_send:
+ 684              		@ args = 0, pretend = 0, frame = 0
+ 685              		@ frame_needed = 0, uses_anonymous_args = 0
+ 686 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 687 0004 0746     		mov	r7, r0
+ 688 0006 0D46     		mov	r5, r1
+ 689 0008 FFF7FEFF 		bl	mqtt_ringbuf_len
+ 690 000c 0446     		mov	r4, r0
+ 691 000e 7B88     		ldrh	r3, [r7, #2]
+ 692 0010 C3F58072 		rsb	r2, r3, #256
+ 693 0014 9042     		cmp	r0, r2
+ 694 0016 00DB     		blt	.L119
+ 695 0018 94B2     		uxth	r4, r2
+ 696              	.L119:
+ 697 001a B5F86460 		ldrh	r6, [r5, #100]
+ 698 001e 75B1     		cbz	r5, .L132
+ 699              	.L120:
+ 700 0020 46B3     		cbz	r6, .L118
+ 701 0022 3CB3     		cbz	r4, .L118
+ 702 0024 B442     		cmp	r4, r6
+ 703 0026 11D2     		bcs	.L127
+ 704 0028 3846     		mov	r0, r7
+ 705 002a FFF7FEFF 		bl	mqtt_ringbuf_len
+ 706 002e A042     		cmp	r0, r4
+ 707 0030 94BF     		ite	ls
+ 708 0032 4FF00008 		movls	r8, #0
+ 709 0036 4FF00108 		movhi	r8, #1
+ 710 003a 2646     		mov	r6, r4
+ 711 003c 08E0     		b	.L122
+ 712              	.L132:
+ 713 003e 264B     		ldr	r3, .L135
+ 714 0040 F022     		movs	r2, #240
+ 715 0042 2649     		ldr	r1, .L135+4
+ 716 0044 2648     		ldr	r0, .L135+8
+ 717 0046 FFF7FEFF 		bl	printf
+ 718 004a E9E7     		b	.L120
+ 719              	.L127:
+ 720 004c 4FF00008 		mov	r8, #0
+ 721              	.L122:
+ 722 0050 3846     		mov	r0, r7
+ 723 0052 FFF7FEFF 		bl	mqtt_ringbuf_get_ptr
+ARM GAS  /tmp/ccofpZl4.s 			page 13
+
+
+ 724 0056 0146     		mov	r1, r0
+ 725 0058 B8F1000F 		cmp	r8, #0
+ 726 005c 0CD0     		beq	.L128
+ 727 005e 0323     		movs	r3, #3
+ 728              	.L123:
+ 729 0060 3246     		mov	r2, r6
+ 730 0062 2846     		mov	r0, r5
+ 731 0064 FFF7FEFF 		bl	tcp_write
+ 732 0068 0346     		mov	r3, r0
+ 733 006a 10B9     		cbnz	r0, .L124
+ 734 006c B8F1000F 		cmp	r8, #0
+ 735 0070 04D1     		bne	.L133
+ 736              	.L124:
+ 737 0072 4BB3     		cbz	r3, .L134
+ 738              	.L118:
+ 739 0074 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 740              	.L128:
+ 741 0078 0123     		movs	r3, #1
+ 742 007a F1E7     		b	.L123
+ 743              	.L133:
+ 744 007c 3146     		mov	r1, r6
+ 745 007e 3846     		mov	r0, r7
+ 746 0080 FFF7FEFF 		bl	mqtt_ringbuf_advance_get_idx
+ 747 0084 B5F86460 		ldrh	r6, [r5, #100]
+ 748 0088 3446     		mov	r4, r6
+ 749 008a 3846     		mov	r0, r7
+ 750 008c FFF7FEFF 		bl	mqtt_ringbuf_len
+ 751 0090 7A88     		ldrh	r2, [r7, #2]
+ 752 0092 C2F58073 		rsb	r3, r2, #256
+ 753 0096 9842     		cmp	r0, r3
+ 754 0098 12DA     		bge	.L129
+ 755 009a 0146     		mov	r1, r0
+ 756              	.L125:
+ 757 009c 8C42     		cmp	r4, r1
+ 758 009e 04DB     		blt	.L126
+ 759 00a0 9842     		cmp	r0, r3
+ 760 00a2 0FDB     		blt	.L130
+ 761 00a4 C2F58076 		rsb	r6, r2, #256
+ 762 00a8 B6B2     		uxth	r6, r6
+ 763              	.L126:
+ 764 00aa 3846     		mov	r0, r7
+ 765 00ac FFF7FEFF 		bl	mqtt_ringbuf_get_ptr
+ 766 00b0 0123     		movs	r3, #1
+ 767 00b2 3246     		mov	r2, r6
+ 768 00b4 0146     		mov	r1, r0
+ 769 00b6 2846     		mov	r0, r5
+ 770 00b8 FFF7FEFF 		bl	tcp_write
+ 771 00bc 0346     		mov	r3, r0
+ 772 00be D8E7     		b	.L124
+ 773              	.L129:
+ 774 00c0 1946     		mov	r1, r3
+ 775 00c2 EBE7     		b	.L125
+ 776              	.L130:
+ 777 00c4 0646     		mov	r6, r0
+ 778 00c6 F0E7     		b	.L126
+ 779              	.L134:
+ 780 00c8 3146     		mov	r1, r6
+ARM GAS  /tmp/ccofpZl4.s 			page 14
+
+
+ 781 00ca 3846     		mov	r0, r7
+ 782 00cc FFF7FEFF 		bl	mqtt_ringbuf_advance_get_idx
+ 783 00d0 2846     		mov	r0, r5
+ 784 00d2 FFF7FEFF 		bl	tcp_output
+ 785 00d6 CDE7     		b	.L118
+ 786              	.L136:
+ 787              		.align	2
+ 788              	.L135:
+ 789 00d8 00000000 		.word	.LC0
+ 790 00dc 00000000 		.word	.LC11
+ 791 00e0 58000000 		.word	.LC2
+ 793              		.section	.text.mqtt_tcp_poll_cb,"ax",%progbits
+ 794              		.align	1
+ 795              		.syntax unified
+ 796              		.thumb
+ 797              		.thumb_func
+ 798              		.fpu fpv4-sp-d16
+ 800              	mqtt_tcp_poll_cb:
+ 801              		@ args = 0, pretend = 0, frame = 0
+ 802              		@ frame_needed = 0, uses_anonymous_args = 0
+ 803 0000 08B5     		push	{r3, lr}
+ 804 0002 837A     		ldrb	r3, [r0, #10]	@ zero_extendqisi2
+ 805 0004 032B     		cmp	r3, #3
+ 806 0006 01D0     		beq	.L140
+ 807              	.L138:
+ 808 0008 0020     		movs	r0, #0
+ 809 000a 08BD     		pop	{r3, pc}
+ 810              	.L140:
+ 811 000c EC30     		adds	r0, r0, #236
+ 812 000e FFF7FEFF 		bl	mqtt_output_send
+ 813 0012 F9E7     		b	.L138
+ 815              		.section	.text.mqtt_tcp_sent_cb,"ax",%progbits
+ 816              		.align	1
+ 817              		.syntax unified
+ 818              		.thumb
+ 819              		.thumb_func
+ 820              		.fpu fpv4-sp-d16
+ 822              	mqtt_tcp_sent_cb:
+ 823              		@ args = 0, pretend = 0, frame = 0
+ 824              		@ frame_needed = 0, uses_anonymous_args = 0
+ 825 0000 38B5     		push	{r3, r4, r5, lr}
+ 826 0002 837A     		ldrb	r3, [r0, #10]	@ zero_extendqisi2
+ 827 0004 032B     		cmp	r3, #3
+ 828 0006 01D0     		beq	.L147
+ 829              	.L142:
+ 830 0008 0020     		movs	r0, #0
+ 831 000a 38BD     		pop	{r3, r4, r5, pc}
+ 832              	.L147:
+ 833 000c 0546     		mov	r5, r0
+ 834 000e 0023     		movs	r3, #0
+ 835 0010 0380     		strh	r3, [r0]	@ movhi
+ 836 0012 8380     		strh	r3, [r0, #4]	@ movhi
+ 837 0014 02E0     		b	.L143
+ 838              	.L144:
+ 839 0016 2046     		mov	r0, r4
+ 840 0018 FFF7FEFF 		bl	mqtt_delete_request
+ 841              	.L143:
+ARM GAS  /tmp/ccofpZl4.s 			page 15
+
+
+ 842 001c 0021     		movs	r1, #0
+ 843 001e 05F11800 		add	r0, r5, #24
+ 844 0022 FFF7FEFF 		bl	mqtt_take_request
+ 845 0026 0446     		mov	r4, r0
+ 846 0028 30B1     		cbz	r0, .L148
+ 847 002a 6368     		ldr	r3, [r4, #4]
+ 848 002c 002B     		cmp	r3, #0
+ 849 002e F2D0     		beq	.L144
+ 850 0030 0021     		movs	r1, #0
+ 851 0032 A068     		ldr	r0, [r4, #8]
+ 852 0034 9847     		blx	r3
+ 853 0036 EEE7     		b	.L144
+ 854              	.L148:
+ 855 0038 E968     		ldr	r1, [r5, #12]
+ 856 003a 05F1EC00 		add	r0, r5, #236
+ 857 003e FFF7FEFF 		bl	mqtt_output_send
+ 858 0042 E1E7     		b	.L142
+ 860              		.section	.text.pub_ack_rec_rel_response,"ax",%progbits
+ 861              		.align	1
+ 862              		.syntax unified
+ 863              		.thumb
+ 864              		.thumb_func
+ 865              		.fpu fpv4-sp-d16
+ 867              	pub_ack_rec_rel_response:
+ 868              		@ args = 0, pretend = 0, frame = 0
+ 869              		@ frame_needed = 0, uses_anonymous_args = 0
+ 870 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 871 0004 83B0     		sub	sp, sp, #12
+ 872 0006 0646     		mov	r6, r0
+ 873 0008 8846     		mov	r8, r1
+ 874 000a 1746     		mov	r7, r2
+ 875 000c 9946     		mov	r9, r3
+ 876 000e 00F1EC05 		add	r5, r0, #236
+ 877 0012 0221     		movs	r1, #2
+ 878 0014 2846     		mov	r0, r5
+ 879 0016 FFF7FEFF 		bl	mqtt_output_check_space
+ 880 001a A8B1     		cbz	r0, .L151
+ 881 001c 0223     		movs	r3, #2
+ 882 001e 0193     		str	r3, [sp, #4]
+ 883 0020 0024     		movs	r4, #0
+ 884 0022 0094     		str	r4, [sp]
+ 885 0024 4B46     		mov	r3, r9
+ 886 0026 2246     		mov	r2, r4
+ 887 0028 4146     		mov	r1, r8
+ 888 002a 2846     		mov	r0, r5
+ 889 002c FFF7FEFF 		bl	mqtt_output_append_fixed_header
+ 890 0030 3946     		mov	r1, r7
+ 891 0032 2846     		mov	r0, r5
+ 892 0034 FFF7FEFF 		bl	mqtt_output_append_u16
+ 893 0038 F168     		ldr	r1, [r6, #12]
+ 894 003a 2846     		mov	r0, r5
+ 895 003c FFF7FEFF 		bl	mqtt_output_send
+ 896 0040 2046     		mov	r0, r4
+ 897              	.L150:
+ 898 0042 03B0     		add	sp, sp, #12
+ 899              		@ sp needed
+ 900 0044 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ARM GAS  /tmp/ccofpZl4.s 			page 16
+
+
+ 901              	.L151:
+ 902 0048 4FF0FF30 		mov	r0, #-1
+ 903 004c F9E7     		b	.L150
+ 905              		.section	.text.mqtt_message_received,"ax",%progbits
+ 906              		.align	1
+ 907              		.syntax unified
+ 908              		.thumb
+ 909              		.thumb_func
+ 910              		.fpu fpv4-sp-d16
+ 912              	mqtt_message_received:
+ 913              		@ args = 0, pretend = 0, frame = 8
+ 914              		@ frame_needed = 0, uses_anonymous_args = 0
+ 915 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 916 0004 83B0     		sub	sp, sp, #12
+ 917 0006 0446     		mov	r4, r0
+ 918 0008 8A46     		mov	r10, r1
+ 919 000a 1646     		mov	r6, r2
+ 920 000c 9846     		mov	r8, r3
+ 921 000e 00F16C0B 		add	fp, r0, #108
+ 922 0012 0BEB0107 		add	r7, fp, r1
+ 923 0016 C1F18005 		rsb	r5, r1, #128
+ 924 001a 90F86C90 		ldrb	r9, [r0, #108]	@ zero_extendqisi2
+ 925 001e 4FEA1919 		lsr	r9, r9, #4
+ 926 0022 836E     		ldr	r3, [r0, #104]
+ 927 0024 7F2B     		cmp	r3, #127
+ 928 0026 42D8     		bhi	.L193
+ 929              	.L154:
+ 930 0028 A36E     		ldr	r3, [r4, #104]
+ 931 002a 9A45     		cmp	r10, r3
+ 932 002c 47D8     		bhi	.L194
+ 933              	.L155:
+ 934 002e 0AEB0603 		add	r3, r10, r6
+ 935 0032 802B     		cmp	r3, #128
+ 936 0034 4BDC     		bgt	.L195
+ 937 0036 B9F1020F 		cmp	r9, #2
+ 938 003a 52D0     		beq	.L196
+ 939 003c B9F10D0F 		cmp	r9, #13
+ 940 0040 00F00481 		beq	.L175
+ 941 0044 B9F1030F 		cmp	r9, #3
+ 942 0048 64D0     		beq	.L197
+ 943 004a 1BF80A10 		ldrb	r1, [fp, r10]	@ zero_extendqisi2
+ 944 004e 7A78     		ldrb	r2, [r7, #1]	@ zero_extendqisi2
+ 945 0050 52EA0121 		orrs	r1, r2, r1, lsl #8
+ 946 0054 00F01581 		beq	.L188
+ 947 0058 B9F1050F 		cmp	r9, #5
+ 948 005c 00F0DD80 		beq	.L198
+ 949 0060 B9F1060F 		cmp	r9, #6
+ 950 0064 00F0E180 		beq	.L199
+ 951 0068 B9F1090F 		cmp	r9, #9
+ 952 006c 09D0     		beq	.L170
+ 953 006e B9F10B0F 		cmp	r9, #11
+ 954 0072 06D0     		beq	.L170
+ 955 0074 B9F1070F 		cmp	r9, #7
+ 956 0078 03D0     		beq	.L170
+ 957 007a B9F1040F 		cmp	r9, #4
+ 958 007e 40F00381 		bne	.L189
+ 959              	.L170:
+ARM GAS  /tmp/ccofpZl4.s 			page 17
+
+
+ 960 0082 04F11800 		add	r0, r4, #24
+ 961 0086 FFF7FEFF 		bl	mqtt_take_request
+ 962 008a 0446     		mov	r4, r0
+ 963 008c 0028     		cmp	r0, #0
+ 964 008e 00F0FE80 		beq	.L190
+ 965 0092 B9F1090F 		cmp	r9, #9
+ 966 0096 00F0D080 		beq	.L200
+ 967 009a 4368     		ldr	r3, [r0, #4]
+ 968 009c 13B1     		cbz	r3, .L172
+ 969 009e 0021     		movs	r1, #0
+ 970 00a0 8068     		ldr	r0, [r0, #8]
+ 971 00a2 9847     		blx	r3
+ 972              	.L172:
+ 973 00a4 2046     		mov	r0, r4
+ 974 00a6 FFF7FEFF 		bl	mqtt_delete_request
+ 975 00aa 0025     		movs	r5, #0
+ 976 00ac CFE0     		b	.L157
+ 977              	.L193:
+ 978 00ae 7A4B     		ldr	r3, .L203
+ 979 00b0 40F2AB22 		movw	r2, #683
+ 980 00b4 7949     		ldr	r1, .L203+4
+ 981 00b6 7A48     		ldr	r0, .L203+8
+ 982 00b8 FFF7FEFF 		bl	printf
+ 983 00bc B4E7     		b	.L154
+ 984              	.L194:
+ 985 00be 764B     		ldr	r3, .L203
+ 986 00c0 4FF42B72 		mov	r2, #684
+ 987 00c4 7749     		ldr	r1, .L203+12
+ 988 00c6 7648     		ldr	r0, .L203+8
+ 989 00c8 FFF7FEFF 		bl	printf
+ 990 00cc AFE7     		b	.L155
+ 991              	.L195:
+ 992 00ce 724B     		ldr	r3, .L203
+ 993 00d0 40F2AE22 		movw	r2, #686
+ 994 00d4 7449     		ldr	r1, .L203+16
+ 995 00d6 7248     		ldr	r0, .L203+8
+ 996 00d8 FFF7FEFF 		bl	printf
+ 997 00dc 4FF48075 		mov	r5, #256
+ 998 00e0 B5E0     		b	.L157
+ 999              	.L196:
+ 1000 00e2 A37A     		ldrb	r3, [r4, #10]	@ zero_extendqisi2
+ 1001 00e4 022B     		cmp	r3, #2
+ 1002 00e6 01D0     		beq	.L201
+ 1003 00e8 0025     		movs	r5, #0
+ 1004 00ea B0E0     		b	.L157
+ 1005              	.L201:
+ 1006 00ec 012E     		cmp	r6, #1
+ 1007 00ee 40F2AA80 		bls	.L174
+ 1008 00f2 7D78     		ldrb	r5, [r7, #1]	@ zero_extendqisi2
+ 1009 00f4 002D     		cmp	r5, #0
+ 1010 00f6 40F0AA80 		bne	.L157
+ 1011 00fa 0023     		movs	r3, #0
+ 1012 00fc 2380     		strh	r3, [r4]	@ movhi
+ 1013 00fe 0323     		movs	r3, #3
+ 1014 0100 A372     		strb	r3, [r4, #10]
+ 1015 0102 6369     		ldr	r3, [r4, #20]
+ 1016 0104 002B     		cmp	r3, #0
+ARM GAS  /tmp/ccofpZl4.s 			page 18
+
+
+ 1017 0106 00F0A280 		beq	.L157
+ 1018 010a 2A46     		mov	r2, r5
+ 1019 010c 2169     		ldr	r1, [r4, #16]
+ 1020 010e 2046     		mov	r0, r4
+ 1021 0110 9847     		blx	r3
+ 1022 0112 9CE0     		b	.L157
+ 1023              	.L197:
+ 1024 0114 94F86C90 		ldrb	r9, [r4, #108]	@ zero_extendqisi2
+ 1025 0118 C9F34109 		ubfx	r9, r9, #1, #2
+ 1026 011c A36E     		ldr	r3, [r4, #104]
+ 1027 011e 802B     		cmp	r3, #128
+ 1028 0120 54D8     		bhi	.L176
+ 1029 0122 B9F1000F 		cmp	r9, #0
+ 1030 0126 35D0     		beq	.L177
+ 1031 0128 0223     		movs	r3, #2
+ 1032              	.L161:
+ 1033 012a 5A1C     		adds	r2, r3, #1
+ 1034 012c 9642     		cmp	r6, r2
+ 1035 012e 40F39280 		ble	.L178
+ 1036 0132 1BF80A20 		ldrb	r2, [fp, r10]	@ zero_extendqisi2
+ 1037 0136 97F801B0 		ldrb	fp, [r7, #1]	@ zero_extendqisi2
+ 1038 013a 0BEB022B 		add	fp, fp, r2, lsl #8
+ 1039 013e 1FFA8BFB 		uxth	fp, fp
+ 1040 0142 9A1C     		adds	r2, r3, #2
+ 1041 0144 B21A     		subs	r2, r6, r2
+ 1042 0146 9345     		cmp	fp, r2
+ 1043 0148 00F38880 		bgt	.L179
+ 1044 014c EB1A     		subs	r3, r5, r3
+ 1045 014e 023B     		subs	r3, r3, #2
+ 1046 0150 9B45     		cmp	fp, r3
+ 1047 0152 00F28680 		bhi	.L180
+ 1048 0156 BB1C     		adds	r3, r7, #2
+ 1049 0158 0093     		str	r3, [sp]
+ 1050 015a 0BF1020A 		add	r10, fp, #2
+ 1051 015e 1FFA8AFA 		uxth	r10, r10
+ 1052 0162 5246     		mov	r2, r10
+ 1053 0164 B9F1000F 		cmp	r9, #0
+ 1054 0168 16D0     		beq	.L181
+ 1055 016a 0223     		movs	r3, #2
+ 1056              	.L162:
+ 1057 016c 1344     		add	r3, r3, r2
+ 1058 016e AB42     		cmp	r3, r5
+ 1059 0170 7AD8     		bhi	.L182
+ 1060 0172 B9F1000F 		cmp	r9, #0
+ 1061 0176 11D0     		beq	.L163
+ 1062 0178 931C     		adds	r3, r2, #2
+ 1063 017a 9E42     		cmp	r6, r3
+ 1064 017c 77D3     		bcc	.L183
+ 1065 017e B95C     		ldrb	r1, [r7, r2]	@ zero_extendqisi2
+ 1066 0180 3A44     		add	r2, r2, r7
+ 1067 0182 5378     		ldrb	r3, [r2, #1]	@ zero_extendqisi2
+ 1068 0184 03EB0123 		add	r3, r3, r1, lsl #8
+ 1069 0188 2381     		strh	r3, [r4, #8]	@ movhi
+ 1070 018a 0BF1040A 		add	r10, fp, #4
+ 1071 018e 1FFA8AFA 		uxth	r10, r10
+ 1072 0192 05E0     		b	.L164
+ 1073              	.L177:
+ARM GAS  /tmp/ccofpZl4.s 			page 19
+
+
+ 1074 0194 0023     		movs	r3, #0
+ 1075 0196 C8E7     		b	.L161
+ 1076              	.L181:
+ 1077 0198 0123     		movs	r3, #1
+ 1078 019a E7E7     		b	.L162
+ 1079              	.L163:
+ 1080 019c 0023     		movs	r3, #0
+ 1081 019e 2381     		strh	r3, [r4, #8]	@ movhi
+ 1082              	.L164:
+ 1083 01a0 0099     		ldr	r1, [sp]
+ 1084 01a2 11F80B30 		ldrb	r3, [r1, fp]	@ zero_extendqisi2
+ 1085 01a6 0193     		str	r3, [sp, #4]
+ 1086 01a8 0023     		movs	r3, #0
+ 1087 01aa 01F80B30 		strb	r3, [r1, fp]
+ 1088 01ae A6EB0A05 		sub	r5, r6, r10
+ 1089 01b2 ADB2     		uxth	r5, r5
+ 1090 01b4 636E     		ldr	r3, [r4, #100]
+ 1091 01b6 1BB1     		cbz	r3, .L165
+ 1092 01b8 05EB0802 		add	r2, r5, r8
+ 1093 01bc E06D     		ldr	r0, [r4, #92]
+ 1094 01be 9847     		blx	r3
+ 1095              	.L165:
+ 1096 01c0 009B     		ldr	r3, [sp]
+ 1097 01c2 1A46     		mov	r2, r3
+ 1098 01c4 019B     		ldr	r3, [sp, #4]
+ 1099 01c6 02F80B30 		strb	r3, [r2, fp]
+ 1100 01ca 02E0     		b	.L160
+ 1101              	.L176:
+ 1102 01cc 3546     		mov	r5, r6
+ 1103 01ce 4FF0000A 		mov	r10, #0
+ 1104              	.L160:
+ 1105 01d2 15B9     		cbnz	r5, .L166
+ 1106 01d4 B8F1000F 		cmp	r8, #0
+ 1107 01d8 39D1     		bne	.L157
+ 1108              	.L166:
+ 1109 01da 0AEB0503 		add	r3, r10, r5
+ 1110 01de 9E42     		cmp	r6, r3
+ 1111 01e0 48D3     		bcc	.L184
+ 1112 01e2 266E     		ldr	r6, [r4, #96]
+ 1113 01e4 B8FA88F3 		clz	r3, r8
+ 1114 01e8 5B09     		lsrs	r3, r3, #5
+ 1115 01ea 2A46     		mov	r2, r5
+ 1116 01ec 07EB0A01 		add	r1, r7, r10
+ 1117 01f0 E06D     		ldr	r0, [r4, #92]
+ 1118 01f2 B047     		blx	r6
+ 1119 01f4 B8F1000F 		cmp	r8, #0
+ 1120 01f8 3FD1     		bne	.L185
+ 1121 01fa B9F1000F 		cmp	r9, #0
+ 1122 01fe 3ED0     		beq	.L186
+ 1123 0200 B9F1010F 		cmp	r9, #1
+ 1124 0204 07D0     		beq	.L202
+ 1125 0206 0521     		movs	r1, #5
+ 1126              	.L167:
+ 1127 0208 0023     		movs	r3, #0
+ 1128 020a 2289     		ldrh	r2, [r4, #8]
+ 1129 020c 2046     		mov	r0, r4
+ 1130 020e FFF7FEFF 		bl	pub_ack_rec_rel_response
+ARM GAS  /tmp/ccofpZl4.s 			page 20
+
+
+ 1131 0212 0025     		movs	r5, #0
+ 1132 0214 1BE0     		b	.L157
+ 1133              	.L202:
+ 1134 0216 0421     		movs	r1, #4
+ 1135 0218 F6E7     		b	.L167
+ 1136              	.L198:
+ 1137 021a 0123     		movs	r3, #1
+ 1138 021c 0A46     		mov	r2, r1
+ 1139 021e 0621     		movs	r1, #6
+ 1140 0220 2046     		mov	r0, r4
+ 1141 0222 FFF7FEFF 		bl	pub_ack_rec_rel_response
+ 1142 0226 0025     		movs	r5, #0
+ 1143 0228 11E0     		b	.L157
+ 1144              	.L199:
+ 1145 022a 0023     		movs	r3, #0
+ 1146 022c 0A46     		mov	r2, r1
+ 1147 022e 0721     		movs	r1, #7
+ 1148 0230 2046     		mov	r0, r4
+ 1149 0232 FFF7FEFF 		bl	pub_ack_rec_rel_response
+ 1150 0236 0025     		movs	r5, #0
+ 1151 0238 09E0     		b	.L157
+ 1152              	.L200:
+ 1153 023a 022E     		cmp	r6, #2
+ 1154 023c 29D9     		bls	.L191
+ 1155 023e B978     		ldrb	r1, [r7, #2]	@ zero_extendqisi2
+ 1156 0240 FFF7FEFF 		bl	mqtt_incomming_suback
+ 1157 0244 2EE7     		b	.L172
+ 1158              	.L174:
+ 1159 0246 4FF48075 		mov	r5, #256
+ 1160 024a 00E0     		b	.L157
+ 1161              	.L175:
+ 1162 024c 0025     		movs	r5, #0
+ 1163              	.L157:
+ 1164 024e 2846     		mov	r0, r5
+ 1165 0250 03B0     		add	sp, sp, #12
+ 1166              		@ sp needed
+ 1167 0252 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1168              	.L178:
+ 1169 0256 4FF48075 		mov	r5, #256
+ 1170 025a F8E7     		b	.L157
+ 1171              	.L179:
+ 1172 025c 4FF48075 		mov	r5, #256
+ 1173 0260 F5E7     		b	.L157
+ 1174              	.L180:
+ 1175 0262 4FF48075 		mov	r5, #256
+ 1176 0266 F2E7     		b	.L157
+ 1177              	.L182:
+ 1178 0268 4FF48075 		mov	r5, #256
+ 1179 026c EFE7     		b	.L157
+ 1180              	.L183:
+ 1181 026e 4FF48075 		mov	r5, #256
+ 1182 0272 ECE7     		b	.L157
+ 1183              	.L184:
+ 1184 0274 4FF48075 		mov	r5, #256
+ 1185 0278 E9E7     		b	.L157
+ 1186              	.L185:
+ 1187 027a 0025     		movs	r5, #0
+ARM GAS  /tmp/ccofpZl4.s 			page 21
+
+
+ 1188 027c E7E7     		b	.L157
+ 1189              	.L186:
+ 1190 027e 0025     		movs	r5, #0
+ 1191 0280 E5E7     		b	.L157
+ 1192              	.L188:
+ 1193 0282 4FF48075 		mov	r5, #256
+ 1194 0286 E2E7     		b	.L157
+ 1195              	.L189:
+ 1196 0288 4FF48075 		mov	r5, #256
+ 1197 028c DFE7     		b	.L157
+ 1198              	.L190:
+ 1199 028e 0025     		movs	r5, #0
+ 1200 0290 DDE7     		b	.L157
+ 1201              	.L191:
+ 1202 0292 4FF48075 		mov	r5, #256
+ 1203 0296 DAE7     		b	.L157
+ 1204              	.L204:
+ 1205              		.align	2
+ 1206              	.L203:
+ 1207 0298 00000000 		.word	.LC0
+ 1208 029c 00000000 		.word	.LC12
+ 1209 02a0 58000000 		.word	.LC2
+ 1210 02a4 30000000 		.word	.LC13
+ 1211 02a8 54000000 		.word	.LC14
+ 1213              		.section	.text.mqtt_close,"ax",%progbits
+ 1214              		.align	1
+ 1215              		.syntax unified
+ 1216              		.thumb
+ 1217              		.thumb_func
+ 1218              		.fpu fpv4-sp-d16
+ 1220              	mqtt_close:
+ 1221              		@ args = 0, pretend = 0, frame = 0
+ 1222              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1223 0000 38B5     		push	{r3, r4, r5, lr}
+ 1224 0002 0D46     		mov	r5, r1
+ 1225 0004 0446     		mov	r4, r0
+ 1226 0006 28B3     		cbz	r0, .L211
+ 1227              	.L206:
+ 1228 0008 E068     		ldr	r0, [r4, #12]
+ 1229 000a 80B1     		cbz	r0, .L207
+ 1230 000c 0021     		movs	r1, #0
+ 1231 000e FFF7FEFF 		bl	tcp_recv
+ 1232 0012 0021     		movs	r1, #0
+ 1233 0014 E068     		ldr	r0, [r4, #12]
+ 1234 0016 FFF7FEFF 		bl	tcp_err
+ 1235 001a 0021     		movs	r1, #0
+ 1236 001c E068     		ldr	r0, [r4, #12]
+ 1237 001e FFF7FEFF 		bl	tcp_sent
+ 1238 0022 E068     		ldr	r0, [r4, #12]
+ 1239 0024 FFF7FEFF 		bl	tcp_close
+ 1240 0028 E0B9     		cbnz	r0, .L212
+ 1241              	.L208:
+ 1242 002a 0023     		movs	r3, #0
+ 1243 002c E360     		str	r3, [r4, #12]
+ 1244              	.L207:
+ 1245 002e 04F11800 		add	r0, r4, #24
+ 1246 0032 FFF7FEFF 		bl	mqtt_clear_requests
+ARM GAS  /tmp/ccofpZl4.s 			page 22
+
+
+ 1247 0036 2146     		mov	r1, r4
+ 1248 0038 0C48     		ldr	r0, .L213
+ 1249 003a FFF7FEFF 		bl	sys_untimeout
+ 1250 003e A37A     		ldrb	r3, [r4, #10]	@ zero_extendqisi2
+ 1251 0040 3BB1     		cbz	r3, .L205
+ 1252 0042 0023     		movs	r3, #0
+ 1253 0044 A372     		strb	r3, [r4, #10]
+ 1254 0046 6369     		ldr	r3, [r4, #20]
+ 1255 0048 1BB1     		cbz	r3, .L205
+ 1256 004a 2A46     		mov	r2, r5
+ 1257 004c 2169     		ldr	r1, [r4, #16]
+ 1258 004e 2046     		mov	r0, r4
+ 1259 0050 9847     		blx	r3
+ 1260              	.L205:
+ 1261 0052 38BD     		pop	{r3, r4, r5, pc}
+ 1262              	.L211:
+ 1263 0054 064B     		ldr	r3, .L213+4
+ 1264 0056 40F21B22 		movw	r2, #539
+ 1265 005a 0649     		ldr	r1, .L213+8
+ 1266 005c 0648     		ldr	r0, .L213+12
+ 1267 005e FFF7FEFF 		bl	printf
+ 1268 0062 D1E7     		b	.L206
+ 1269              	.L212:
+ 1270 0064 E068     		ldr	r0, [r4, #12]
+ 1271 0066 FFF7FEFF 		bl	tcp_abort
+ 1272 006a DEE7     		b	.L208
+ 1273              	.L214:
+ 1274              		.align	2
+ 1275              	.L213:
+ 1276 006c 00000000 		.word	mqtt_cyclic_timer
+ 1277 0070 00000000 		.word	.LC0
+ 1278 0074 00000000 		.word	.LC15
+ 1279 0078 58000000 		.word	.LC2
+ 1281              		.section	.text.mqtt_tcp_err_cb,"ax",%progbits
+ 1282              		.align	1
+ 1283              		.syntax unified
+ 1284              		.thumb
+ 1285              		.thumb_func
+ 1286              		.fpu fpv4-sp-d16
+ 1288              	mqtt_tcp_err_cb:
+ 1289              		@ args = 0, pretend = 0, frame = 0
+ 1290              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1291 0000 10B5     		push	{r4, lr}
+ 1292 0002 0446     		mov	r4, r0
+ 1293 0004 38B1     		cbz	r0, .L218
+ 1294              	.L216:
+ 1295 0006 0023     		movs	r3, #0
+ 1296 0008 E360     		str	r3, [r4, #12]
+ 1297 000a 4FF48071 		mov	r1, #256
+ 1298 000e 2046     		mov	r0, r4
+ 1299 0010 FFF7FEFF 		bl	mqtt_close
+ 1300 0014 10BD     		pop	{r4, pc}
+ 1301              	.L218:
+ 1302 0016 044B     		ldr	r3, .L219
+ 1303 0018 40F2F632 		movw	r2, #1014
+ 1304 001c 0349     		ldr	r1, .L219+4
+ 1305 001e 0448     		ldr	r0, .L219+8
+ARM GAS  /tmp/ccofpZl4.s 			page 23
+
+
+ 1306 0020 FFF7FEFF 		bl	printf
+ 1307 0024 EFE7     		b	.L216
+ 1308              	.L220:
+ 1309 0026 00BF     		.align	2
+ 1310              	.L219:
+ 1311 0028 00000000 		.word	.LC0
+ 1312 002c 00000000 		.word	.LC16
+ 1313 0030 58000000 		.word	.LC2
+ 1315              		.section	.text.mqtt_cyclic_timer,"ax",%progbits
+ 1316              		.align	1
+ 1317              		.syntax unified
+ 1318              		.thumb
+ 1319              		.thumb_func
+ 1320              		.fpu fpv4-sp-d16
+ 1322              	mqtt_cyclic_timer:
+ 1323              		@ args = 0, pretend = 0, frame = 0
+ 1324              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1325 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 1326 0002 83B0     		sub	sp, sp, #12
+ 1327 0004 0446     		mov	r4, r0
+ 1328 0006 30B1     		cbz	r0, .L231
+ 1329              	.L222:
+ 1330 0008 A37A     		ldrb	r3, [r4, #10]	@ zero_extendqisi2
+ 1331 000a 022B     		cmp	r3, #2
+ 1332 000c 0BD0     		beq	.L232
+ 1333 000e 032B     		cmp	r3, #3
+ 1334 0010 1ED0     		beq	.L233
+ 1335              	.L221:
+ 1336 0012 03B0     		add	sp, sp, #12
+ 1337              		@ sp needed
+ 1338 0014 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 1339              	.L231:
+ 1340 0016 2A4B     		ldr	r3, .L237
+ 1341 0018 4FF41172 		mov	r2, #580
+ 1342 001c 2949     		ldr	r1, .L237+4
+ 1343 001e 2A48     		ldr	r0, .L237+8
+ 1344 0020 FFF7FEFF 		bl	printf
+ 1345 0024 F0E7     		b	.L222
+ 1346              	.L232:
+ 1347 0026 2388     		ldrh	r3, [r4]
+ 1348 0028 0133     		adds	r3, r3, #1
+ 1349 002a 9BB2     		uxth	r3, r3
+ 1350 002c 2380     		strh	r3, [r4]	@ movhi
+ 1351 002e 03EB8303 		add	r3, r3, r3, lsl #2
+ 1352 0032 632B     		cmp	r3, #99
+ 1353 0034 06DC     		bgt	.L234
+ 1354              	.L224:
+ 1355 0036 2246     		mov	r2, r4
+ 1356 0038 2449     		ldr	r1, .L237+12
+ 1357 003a 41F28830 		movw	r0, #5000
+ 1358 003e FFF7FEFF 		bl	sys_timeout
+ 1359 0042 E6E7     		b	.L221
+ 1360              	.L234:
+ 1361 0044 40F20111 		movw	r1, #257
+ 1362 0048 2046     		mov	r0, r4
+ 1363 004a FFF7FEFF 		bl	mqtt_close
+ 1364 004e E0E7     		b	.L221
+ARM GAS  /tmp/ccofpZl4.s 			page 24
+
+
+ 1365              	.L233:
+ 1366 0050 0521     		movs	r1, #5
+ 1367 0052 04F11800 		add	r0, r4, #24
+ 1368 0056 FFF7FEFF 		bl	mqtt_request_time_elapsed
+ 1369 005a 6288     		ldrh	r2, [r4, #2]
+ 1370 005c 002A     		cmp	r2, #0
+ 1371 005e EAD0     		beq	.L224
+ 1372 0060 A388     		ldrh	r3, [r4, #4]
+ 1373 0062 0133     		adds	r3, r3, #1
+ 1374 0064 9BB2     		uxth	r3, r3
+ 1375 0066 A380     		strh	r3, [r4, #4]	@ movhi
+ 1376 0068 03EB8303 		add	r3, r3, r3, lsl #2
+ 1377 006c 02EB5202 		add	r2, r2, r2, lsr #1
+ 1378 0070 9342     		cmp	r3, r2
+ 1379 0072 0BDC     		bgt	.L235
+ 1380 0074 0125     		movs	r5, #1
+ 1381              	.L226:
+ 1382 0076 2388     		ldrh	r3, [r4]
+ 1383 0078 03EB8301 		add	r1, r3, r3, lsl #2
+ 1384 007c 6288     		ldrh	r2, [r4, #2]
+ 1385 007e 9142     		cmp	r1, r2
+ 1386 0080 0BDA     		bge	.L236
+ 1387 0082 0133     		adds	r3, r3, #1
+ 1388 0084 2380     		strh	r3, [r4]	@ movhi
+ 1389              	.L228:
+ 1390 0086 002D     		cmp	r5, #0
+ 1391 0088 C3D0     		beq	.L221
+ 1392 008a D4E7     		b	.L224
+ 1393              	.L235:
+ 1394 008c 40F20111 		movw	r1, #257
+ 1395 0090 2046     		mov	r0, r4
+ 1396 0092 FFF7FEFF 		bl	mqtt_close
+ 1397 0096 0025     		movs	r5, #0
+ 1398 0098 EDE7     		b	.L226
+ 1399              	.L236:
+ 1400 009a 04F1EC06 		add	r6, r4, #236
+ 1401 009e 0021     		movs	r1, #0
+ 1402 00a0 3046     		mov	r0, r6
+ 1403 00a2 FFF7FEFF 		bl	mqtt_output_check_space
+ 1404 00a6 0028     		cmp	r0, #0
+ 1405 00a8 EDD0     		beq	.L228
+ 1406 00aa 0027     		movs	r7, #0
+ 1407 00ac 0197     		str	r7, [sp, #4]
+ 1408 00ae 0097     		str	r7, [sp]
+ 1409 00b0 3B46     		mov	r3, r7
+ 1410 00b2 3A46     		mov	r2, r7
+ 1411 00b4 0C21     		movs	r1, #12
+ 1412 00b6 3046     		mov	r0, r6
+ 1413 00b8 FFF7FEFF 		bl	mqtt_output_append_fixed_header
+ 1414 00bc 2780     		strh	r7, [r4]	@ movhi
+ 1415 00be E2E7     		b	.L228
+ 1416              	.L238:
+ 1417              		.align	2
+ 1418              	.L237:
+ 1419 00c0 00000000 		.word	.LC0
+ 1420 00c4 00000000 		.word	.LC17
+ 1421 00c8 58000000 		.word	.LC2
+ARM GAS  /tmp/ccofpZl4.s 			page 25
+
+
+ 1422 00cc 00000000 		.word	mqtt_cyclic_timer
+ 1424              		.section	.text.mqtt_tcp_connect_cb,"ax",%progbits
+ 1425              		.align	1
+ 1426              		.syntax unified
+ 1427              		.thumb
+ 1428              		.thumb_func
+ 1429              		.fpu fpv4-sp-d16
+ 1431              	mqtt_tcp_connect_cb:
+ 1432              		@ args = 0, pretend = 0, frame = 0
+ 1433              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1434 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1435 0002 1646     		mov	r6, r2
+ 1436 0004 0AB1     		cbz	r2, .L242
+ 1437              	.L240:
+ 1438 0006 3046     		mov	r0, r6
+ 1439 0008 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1440              	.L242:
+ 1441 000a 0446     		mov	r4, r0
+ 1442 000c 0D46     		mov	r5, r1
+ 1443 000e 0027     		movs	r7, #0
+ 1444 0010 8766     		str	r7, [r0, #104]
+ 1445 0012 0E49     		ldr	r1, .L243
+ 1446 0014 2846     		mov	r0, r5
+ 1447 0016 FFF7FEFF 		bl	tcp_recv
+ 1448 001a 0D49     		ldr	r1, .L243+4
+ 1449 001c 2846     		mov	r0, r5
+ 1450 001e FFF7FEFF 		bl	tcp_sent
+ 1451 0022 0222     		movs	r2, #2
+ 1452 0024 0B49     		ldr	r1, .L243+8
+ 1453 0026 2846     		mov	r0, r5
+ 1454 0028 FFF7FEFF 		bl	tcp_poll
+ 1455 002c 0223     		movs	r3, #2
+ 1456 002e A372     		strb	r3, [r4, #10]
+ 1457 0030 2246     		mov	r2, r4
+ 1458 0032 0949     		ldr	r1, .L243+12
+ 1459 0034 41F28830 		movw	r0, #5000
+ 1460 0038 FFF7FEFF 		bl	sys_timeout
+ 1461 003c 2780     		strh	r7, [r4]	@ movhi
+ 1462 003e E168     		ldr	r1, [r4, #12]
+ 1463 0040 04F1EC00 		add	r0, r4, #236
+ 1464 0044 FFF7FEFF 		bl	mqtt_output_send
+ 1465 0048 DDE7     		b	.L240
+ 1466              	.L244:
+ 1467 004a 00BF     		.align	2
+ 1468              	.L243:
+ 1469 004c 00000000 		.word	mqtt_tcp_recv_cb
+ 1470 0050 00000000 		.word	mqtt_tcp_sent_cb
+ 1471 0054 00000000 		.word	mqtt_tcp_poll_cb
+ 1472 0058 00000000 		.word	mqtt_cyclic_timer
+ 1474              		.section	.text.mqtt_parse_incoming,"ax",%progbits
+ 1475              		.align	1
+ 1476              		.syntax unified
+ 1477              		.thumb
+ 1478              		.thumb_func
+ 1479              		.fpu fpv4-sp-d16
+ 1481              	mqtt_parse_incoming:
+ 1482              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  /tmp/ccofpZl4.s 			page 26
+
+
+ 1483              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1484 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 1485 0004 83B0     		sub	sp, sp, #12
+ 1486 0006 0746     		mov	r7, r0
+ 1487 0008 0091     		str	r1, [sp]
+ 1488 000a 4FF0000A 		mov	r10, #0
+ 1489 000e 5446     		mov	r4, r10
+ 1490 0010 D046     		mov	r8, r10
+ 1491 0012 5646     		mov	r6, r10
+ 1492 0014 1BE0     		b	.L246
+ 1493              	.L247:
+ 1494 0016 BB6E     		ldr	r3, [r7, #104]
+ 1495 0018 9C42     		cmp	r4, r3
+ 1496 001a 61D2     		bcs	.L249
+ 1497 001c 3B19     		adds	r3, r7, r4
+ 1498 001e 93F86CA0 		ldrb	r10, [r3, #108]	@ zero_extendqisi2
+ 1499              	.L250:
+ 1500 0022 0134     		adds	r4, r4, #1
+ 1501 0024 E4B2     		uxtb	r4, r4
+ 1502 0026 012C     		cmp	r4, #1
+ 1503 0028 11D9     		bls	.L246
+ 1504 002a 0AF07F03 		and	r3, r10, #127
+ 1505 002e A21E     		subs	r2, r4, #2
+ 1506 0030 C2EBC202 		rsb	r2, r2, r2, lsl #3
+ 1507 0034 9340     		lsls	r3, r3, r2
+ 1508 0036 48EA0308 		orr	r8, r8, r3
+ 1509 003a 1AF0800F 		tst	r10, #128
+ 1510 003e 06D1     		bne	.L246
+ 1511 0040 B8F1000F 		cmp	r8, #0
+ 1512 0044 5BD0     		beq	.L261
+ 1513 0046 A044     		add	r8, r8, r4
+ 1514 0048 BB6E     		ldr	r3, [r7, #104]
+ 1515 004a A8EB0308 		sub	r8, r8, r3
+ 1516              	.L246:
+ 1517 004e 009B     		ldr	r3, [sp]
+ 1518 0050 1B89     		ldrh	r3, [r3, #8]
+ 1519 0052 B342     		cmp	r3, r6
+ 1520 0054 5CD9     		bls	.L262
+ 1521 0056 012C     		cmp	r4, #1
+ 1522 0058 DDD9     		bls	.L247
+ 1523 005a 1AF0800F 		tst	r10, #128
+ 1524 005e DAD1     		bne	.L247
+ 1525 0060 BD6E     		ldr	r5, [r7, #104]
+ 1526 0062 2D1B     		subs	r5, r5, r4
+ 1527 0064 C4F18002 		rsb	r2, r4, #128
+ 1528 0068 B5FBF2F9 		udiv	r9, r5, r2
+ 1529 006c 02FB1959 		mls	r9, r2, r9, r5
+ 1530 0070 A2B2     		uxth	r2, r4
+ 1531 0072 0192     		str	r2, [sp, #4]
+ 1532 0074 12FA89F9 		uxtah	r9, r2, r9
+ 1533 0078 1FFA89F9 		uxth	r9, r9
+ 1534 007c 9D1B     		subs	r5, r3, r6
+ 1535 007e ADB2     		uxth	r5, r5
+ 1536 0080 4545     		cmp	r5, r8
+ 1537 0082 01D3     		bcc	.L253
+ 1538 0084 1FFA88F5 		uxth	r5, r8
+ 1539              	.L253:
+ARM GAS  /tmp/ccofpZl4.s 			page 27
+
+
+ 1540 0088 C9F1800B 		rsb	fp, r9, #128
+ 1541 008c 1FFA8BFB 		uxth	fp, fp
+ 1542 0090 5D45     		cmp	r5, fp
+ 1543 0092 00D9     		bls	.L254
+ 1544 0094 5D46     		mov	r5, fp
+ 1545              	.L254:
+ 1546 0096 07F16C01 		add	r1, r7, #108
+ 1547 009a 3346     		mov	r3, r6
+ 1548 009c 2A46     		mov	r2, r5
+ 1549 009e 4944     		add	r1, r1, r9
+ 1550 00a0 0098     		ldr	r0, [sp]
+ 1551 00a2 FFF7FEFF 		bl	pbuf_copy_partial
+ 1552 00a6 BB6E     		ldr	r3, [r7, #104]
+ 1553 00a8 2B44     		add	r3, r3, r5
+ 1554 00aa BB66     		str	r3, [r7, #104]
+ 1555 00ac 2E44     		add	r6, r6, r5
+ 1556 00ae B6B2     		uxth	r6, r6
+ 1557 00b0 B8EB0508 		subs	r8, r8, r5
+ 1558 00b4 01D0     		beq	.L255
+ 1559 00b6 5D45     		cmp	r5, fp
+ 1560 00b8 C9D1     		bne	.L246
+ 1561              	.L255:
+ 1562 00ba 05EB0902 		add	r2, r5, r9
+ 1563 00be 92B2     		uxth	r2, r2
+ 1564 00c0 019B     		ldr	r3, [sp, #4]
+ 1565 00c2 D21A     		subs	r2, r2, r3
+ 1566 00c4 4346     		mov	r3, r8
+ 1567 00c6 92B2     		uxth	r2, r2
+ 1568 00c8 2146     		mov	r1, r4
+ 1569 00ca 3846     		mov	r0, r7
+ 1570 00cc FFF7FEFF 		bl	mqtt_message_received
+ 1571 00d0 0346     		mov	r3, r0
+ 1572 00d2 F0B9     		cbnz	r0, .L256
+ 1573 00d4 B8F1000F 		cmp	r8, #0
+ 1574 00d8 B9D1     		bne	.L246
+ 1575 00da 0024     		movs	r4, #0
+ 1576 00dc BC66     		str	r4, [r7, #104]
+ 1577 00de B6E7     		b	.L246
+ 1578              	.L249:
+ 1579 00e0 751C     		adds	r5, r6, #1
+ 1580 00e2 ADB2     		uxth	r5, r5
+ 1581 00e4 3146     		mov	r1, r6
+ 1582 00e6 0098     		ldr	r0, [sp]
+ 1583 00e8 FFF7FEFF 		bl	pbuf_get_at
+ 1584 00ec 8246     		mov	r10, r0
+ 1585 00ee BB6E     		ldr	r3, [r7, #104]
+ 1586 00f0 5A1C     		adds	r2, r3, #1
+ 1587 00f2 BA66     		str	r2, [r7, #104]
+ 1588 00f4 3B44     		add	r3, r3, r7
+ 1589 00f6 83F86C00 		strb	r0, [r3, #108]
+ 1590 00fa 2E46     		mov	r6, r5
+ 1591 00fc 91E7     		b	.L250
+ 1592              	.L261:
+ 1593 00fe 0023     		movs	r3, #0
+ 1594 0100 1A46     		mov	r2, r3
+ 1595 0102 2146     		mov	r1, r4
+ 1596 0104 3846     		mov	r0, r7
+ARM GAS  /tmp/ccofpZl4.s 			page 28
+
+
+ 1597 0106 FFF7FEFF 		bl	mqtt_message_received
+ 1598 010a 0024     		movs	r4, #0
+ 1599 010c BC66     		str	r4, [r7, #104]
+ 1600 010e 9EE7     		b	.L246
+ 1601              	.L262:
+ 1602 0110 0023     		movs	r3, #0
+ 1603              	.L256:
+ 1604 0112 1846     		mov	r0, r3
+ 1605 0114 03B0     		add	sp, sp, #12
+ 1606              		@ sp needed
+ 1607 0116 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1609              		.section	.text.mqtt_tcp_recv_cb,"ax",%progbits
+ 1610              		.align	1
+ 1611              		.syntax unified
+ 1612              		.thumb
+ 1613              		.thumb_func
+ 1614              		.fpu fpv4-sp-d16
+ 1616              	mqtt_tcp_recv_cb:
+ 1617              		@ args = 0, pretend = 0, frame = 0
+ 1618              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1619 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1620 0002 0F46     		mov	r7, r1
+ 1621 0004 1446     		mov	r4, r2
+ 1622 0006 1E46     		mov	r6, r3
+ 1623 0008 0546     		mov	r5, r0
+ 1624 000a E8B1     		cbz	r0, .L271
+ 1625              	.L264:
+ 1626 000c EB68     		ldr	r3, [r5, #12]
+ 1627 000e BB42     		cmp	r3, r7
+ 1628 0010 06D0     		beq	.L265
+ 1629 0012 1A4B     		ldr	r3, .L275
+ 1630 0014 4FF46A72 		mov	r2, #936
+ 1631 0018 1949     		ldr	r1, .L275+4
+ 1632 001a 1A48     		ldr	r0, .L275+8
+ 1633 001c FFF7FEFF 		bl	printf
+ 1634              	.L265:
+ 1635 0020 D4B1     		cbz	r4, .L272
+ 1636 0022 06BB     		cbnz	r6, .L273
+ 1637 0024 2189     		ldrh	r1, [r4, #8]
+ 1638 0026 3846     		mov	r0, r7
+ 1639 0028 FFF7FEFF 		bl	tcp_recved
+ 1640 002c 2146     		mov	r1, r4
+ 1641 002e 2846     		mov	r0, r5
+ 1642 0030 FFF7FEFF 		bl	mqtt_parse_incoming
+ 1643 0034 0746     		mov	r7, r0
+ 1644 0036 2046     		mov	r0, r4
+ 1645 0038 FFF7FEFF 		bl	pbuf_free
+ 1646 003c C7B9     		cbnz	r7, .L274
+ 1647              	.L269:
+ 1648 003e 6B88     		ldrh	r3, [r5, #2]
+ 1649 0040 A3B1     		cbz	r3, .L267
+ 1650 0042 0023     		movs	r3, #0
+ 1651 0044 AB80     		strh	r3, [r5, #4]	@ movhi
+ 1652 0046 11E0     		b	.L267
+ 1653              	.L271:
+ 1654 0048 0C4B     		ldr	r3, .L275
+ 1655 004a 40F2A732 		movw	r2, #935
+ARM GAS  /tmp/ccofpZl4.s 			page 29
+
+
+ 1656 004e 0E49     		ldr	r1, .L275+12
+ 1657 0050 0C48     		ldr	r0, .L275+8
+ 1658 0052 FFF7FEFF 		bl	printf
+ 1659 0056 D9E7     		b	.L264
+ 1660              	.L272:
+ 1661 0058 4FF48071 		mov	r1, #256
+ 1662 005c 2846     		mov	r0, r5
+ 1663 005e FFF7FEFF 		bl	mqtt_close
+ 1664 0062 0026     		movs	r6, #0
+ 1665 0064 02E0     		b	.L267
+ 1666              	.L273:
+ 1667 0066 2046     		mov	r0, r4
+ 1668 0068 FFF7FEFF 		bl	pbuf_free
+ 1669              	.L267:
+ 1670 006c 3046     		mov	r0, r6
+ 1671 006e F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1672              	.L274:
+ 1673 0070 3946     		mov	r1, r7
+ 1674 0072 2846     		mov	r0, r5
+ 1675 0074 FFF7FEFF 		bl	mqtt_close
+ 1676 0078 E1E7     		b	.L269
+ 1677              	.L276:
+ 1678 007a 00BF     		.align	2
+ 1679              	.L275:
+ 1680 007c 00000000 		.word	.LC0
+ 1681 0080 24000000 		.word	.LC19
+ 1682 0084 58000000 		.word	.LC2
+ 1683 0088 00000000 		.word	.LC18
+ 1685              		.section	.text.mqtt_publish,"ax",%progbits
+ 1686              		.align	1
+ 1687              		.global	mqtt_publish
+ 1688              		.syntax unified
+ 1689              		.thumb
+ 1690              		.thumb_func
+ 1691              		.fpu fpv4-sp-d16
+ 1693              	mqtt_publish:
+ 1694              		@ args = 16, pretend = 0, frame = 8
+ 1695              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1696 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 1697 0004 85B0     		sub	sp, sp, #20
+ 1698 0006 8846     		mov	r8, r1
+ 1699 0008 9346     		mov	fp, r2
+ 1700 000a 9A46     		mov	r10, r3
+ 1701 000c 9DF83890 		ldrb	r9, [sp, #56]	@ zero_extendqisi2
+ 1702 0010 0546     		mov	r5, r0
+ 1703 0012 0028     		cmp	r0, #0
+ 1704 0014 51D0     		beq	.L291
+ 1705              	.L278:
+ 1706 0016 B8F1000F 		cmp	r8, #0
+ 1707 001a 56D0     		beq	.L292
+ 1708              	.L279:
+ 1709 001c AB7A     		ldrb	r3, [r5, #10]	@ zero_extendqisi2
+ 1710 001e 002B     		cmp	r3, #0
+ 1711 0020 5BD0     		beq	.L293
+ 1712 0022 4046     		mov	r0, r8
+ 1713 0024 FFF7FEFF 		bl	strlen
+ 1714 0028 4FF6FD73 		movw	r3, #65533
+ARM GAS  /tmp/ccofpZl4.s 			page 30
+
+
+ 1715 002c 9842     		cmp	r0, r3
+ 1716 002e 5ED8     		bhi	.L294
+ 1717 0030 86B2     		uxth	r6, r0
+ 1718 0032 B41C     		adds	r4, r6, #2
+ 1719 0034 5444     		add	r4, r4, r10
+ 1720 0036 B9F1000F 		cmp	r9, #0
+ 1721 003a 62D1     		bne	.L295
+ 1722 003c 0023     		movs	r3, #0
+ 1723 003e 0293     		str	r3, [sp, #8]
+ 1724              	.L283:
+ 1725 0040 B4F5803F 		cmp	r4, #65536
+ 1726 0044 63D2     		bcs	.L296
+ 1727 0046 A4B2     		uxth	r4, r4
+ 1728 0048 119B     		ldr	r3, [sp, #68]
+ 1729 004a 0093     		str	r3, [sp]
+ 1730 004c 109B     		ldr	r3, [sp, #64]
+ 1731 004e 029A     		ldr	r2, [sp, #8]
+ 1732 0050 0421     		movs	r1, #4
+ 1733 0052 05F11C00 		add	r0, r5, #28
+ 1734 0056 FFF7FEFF 		bl	mqtt_create_request
+ 1735 005a 0390     		str	r0, [sp, #12]
+ 1736 005c 0028     		cmp	r0, #0
+ 1737 005e 71D0     		beq	.L289
+ 1738 0060 05F1EC07 		add	r7, r5, #236
+ 1739 0064 2146     		mov	r1, r4
+ 1740 0066 3846     		mov	r0, r7
+ 1741 0068 FFF7FEFF 		bl	mqtt_output_check_space
+ 1742 006c 0028     		cmp	r0, #0
+ 1743 006e 58D0     		beq	.L297
+ 1744 0070 0194     		str	r4, [sp, #4]
+ 1745 0072 9DF83C30 		ldrb	r3, [sp, #60]	@ zero_extendqisi2
+ 1746 0076 0093     		str	r3, [sp]
+ 1747 0078 4B46     		mov	r3, r9
+ 1748 007a 0022     		movs	r2, #0
+ 1749 007c 0321     		movs	r1, #3
+ 1750 007e 3846     		mov	r0, r7
+ 1751 0080 FFF7FEFF 		bl	mqtt_output_append_fixed_header
+ 1752 0084 3246     		mov	r2, r6
+ 1753 0086 4146     		mov	r1, r8
+ 1754 0088 3846     		mov	r0, r7
+ 1755 008a FFF7FEFF 		bl	mqtt_output_append_string
+ 1756 008e B9F1000F 		cmp	r9, #0
+ 1757 0092 4CD1     		bne	.L298
+ 1758              	.L286:
+ 1759 0094 BBF1000F 		cmp	fp, #0
+ 1760 0098 02D0     		beq	.L287
+ 1761 009a BAF1000F 		cmp	r10, #0
+ 1762 009e 4BD1     		bne	.L299
+ 1763              	.L287:
+ 1764 00a0 0399     		ldr	r1, [sp, #12]
+ 1765 00a2 05F11800 		add	r0, r5, #24
+ 1766 00a6 FFF7FEFF 		bl	mqtt_append_request
+ 1767 00aa E968     		ldr	r1, [r5, #12]
+ 1768 00ac 3846     		mov	r0, r7
+ 1769 00ae FFF7FEFF 		bl	mqtt_output_send
+ 1770 00b2 0020     		movs	r0, #0
+ 1771              	.L281:
+ARM GAS  /tmp/ccofpZl4.s 			page 31
+
+
+ 1772 00b4 05B0     		add	sp, sp, #20
+ 1773              		@ sp needed
+ 1774 00b6 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1775              	.L291:
+ 1776 00ba 244B     		ldr	r3, .L300
+ 1777 00bc 40F25442 		movw	r2, #1108
+ 1778 00c0 2349     		ldr	r1, .L300+4
+ 1779 00c2 2448     		ldr	r0, .L300+8
+ 1780 00c4 FFF7FEFF 		bl	printf
+ 1781 00c8 A5E7     		b	.L278
+ 1782              	.L292:
+ 1783 00ca 204B     		ldr	r3, .L300
+ 1784 00cc 40F25542 		movw	r2, #1109
+ 1785 00d0 2149     		ldr	r1, .L300+12
+ 1786 00d2 2048     		ldr	r0, .L300+8
+ 1787 00d4 FFF7FEFF 		bl	printf
+ 1788 00d8 A0E7     		b	.L279
+ 1789              	.L293:
+ 1790 00da 1C4B     		ldr	r3, .L300
+ 1791 00dc 40F25642 		movw	r2, #1110
+ 1792 00e0 1E49     		ldr	r1, .L300+16
+ 1793 00e2 1C48     		ldr	r0, .L300+8
+ 1794 00e4 FFF7FEFF 		bl	printf
+ 1795 00e8 6FF00A00 		mvn	r0, #10
+ 1796 00ec E2E7     		b	.L281
+ 1797              	.L294:
+ 1798 00ee 174B     		ldr	r3, .L300
+ 1799 00f0 40F25942 		movw	r2, #1113
+ 1800 00f4 1A49     		ldr	r1, .L300+20
+ 1801 00f6 1748     		ldr	r0, .L300+8
+ 1802 00f8 FFF7FEFF 		bl	printf
+ 1803 00fc 6FF00F00 		mvn	r0, #15
+ 1804 0100 D8E7     		b	.L281
+ 1805              	.L295:
+ 1806 0102 0234     		adds	r4, r4, #2
+ 1807 0104 2846     		mov	r0, r5
+ 1808 0106 FFF7FEFF 		bl	msg_generate_packet_id
+ 1809 010a 0290     		str	r0, [sp, #8]
+ 1810 010c 98E7     		b	.L283
+ 1811              	.L296:
+ 1812 010e 0F4B     		ldr	r3, .L300
+ 1813 0110 40F26542 		movw	r2, #1125
+ 1814 0114 1349     		ldr	r1, .L300+24
+ 1815 0116 0F48     		ldr	r0, .L300+8
+ 1816 0118 FFF7FEFF 		bl	printf
+ 1817 011c 6FF00F00 		mvn	r0, #15
+ 1818 0120 C8E7     		b	.L281
+ 1819              	.L297:
+ 1820 0122 0398     		ldr	r0, [sp, #12]
+ 1821 0124 FFF7FEFF 		bl	mqtt_delete_request
+ 1822 0128 4FF0FF30 		mov	r0, #-1
+ 1823 012c C2E7     		b	.L281
+ 1824              	.L298:
+ 1825 012e 0299     		ldr	r1, [sp, #8]
+ 1826 0130 3846     		mov	r0, r7
+ 1827 0132 FFF7FEFF 		bl	mqtt_output_append_u16
+ 1828 0136 ADE7     		b	.L286
+ARM GAS  /tmp/ccofpZl4.s 			page 32
+
+
+ 1829              	.L299:
+ 1830 0138 5246     		mov	r2, r10
+ 1831 013a 5946     		mov	r1, fp
+ 1832 013c 3846     		mov	r0, r7
+ 1833 013e FFF7FEFF 		bl	mqtt_output_append_buf
+ 1834 0142 ADE7     		b	.L287
+ 1835              	.L289:
+ 1836 0144 4FF0FF30 		mov	r0, #-1
+ 1837 0148 B4E7     		b	.L281
+ 1838              	.L301:
+ 1839 014a 00BF     		.align	2
+ 1840              	.L300:
+ 1841 014c 00000000 		.word	.LC0
+ 1842 0150 00000000 		.word	.LC20
+ 1843 0154 58000000 		.word	.LC2
+ 1844 0158 20000000 		.word	.LC21
+ 1845 015c 3C000000 		.word	.LC22
+ 1846 0160 5C000000 		.word	.LC23
+ 1847 0164 80000000 		.word	.LC24
+ 1849              		.section	.text.mqtt_sub_unsub,"ax",%progbits
+ 1850              		.align	1
+ 1851              		.global	mqtt_sub_unsub
+ 1852              		.syntax unified
+ 1853              		.thumb
+ 1854              		.thumb_func
+ 1855              		.fpu fpv4-sp-d16
+ 1857              	mqtt_sub_unsub:
+ 1858              		@ args = 8, pretend = 0, frame = 8
+ 1859              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1860 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 1861 0004 85B0     		sub	sp, sp, #20
+ 1862 0006 8846     		mov	r8, r1
+ 1863 0008 9346     		mov	fp, r2
+ 1864 000a 1E46     		mov	r6, r3
+ 1865 000c 9DF83C90 		ldrb	r9, [sp, #60]	@ zero_extendqisi2
+ 1866 0010 0546     		mov	r5, r0
+ 1867 0012 0028     		cmp	r0, #0
+ 1868 0014 55D0     		beq	.L316
+ 1869              	.L303:
+ 1870 0016 B8F1000F 		cmp	r8, #0
+ 1871 001a 5AD0     		beq	.L317
+ 1872              	.L304:
+ 1873 001c 4046     		mov	r0, r8
+ 1874 001e FFF7FEFF 		bl	strlen
+ 1875 0022 4FF6FD73 		movw	r3, #65533
+ 1876 0026 9842     		cmp	r0, r3
+ 1877 0028 5BD8     		bhi	.L318
+ 1878 002a 87B2     		uxth	r7, r0
+ 1879 002c 3C1D     		adds	r4, r7, #4
+ 1880 002e B9F1000F 		cmp	r9, #0
+ 1881 0032 18BF     		it	ne
+ 1882 0034 0134     		addne	r4, r4, #1
+ 1883 0036 B4F5803F 		cmp	r4, #65536
+ 1884 003a 5CD2     		bcs	.L319
+ 1885 003c A4B2     		uxth	r4, r4
+ 1886 003e BBF1020F 		cmp	fp, #2
+ 1887 0042 62D8     		bhi	.L320
+ARM GAS  /tmp/ccofpZl4.s 			page 33
+
+
+ 1888              	.L308:
+ 1889 0044 AB7A     		ldrb	r3, [r5, #10]	@ zero_extendqisi2
+ 1890 0046 002B     		cmp	r3, #0
+ 1891 0048 77D0     		beq	.L312
+ 1892 004a 2846     		mov	r0, r5
+ 1893 004c FFF7FEFF 		bl	msg_generate_packet_id
+ 1894 0050 8246     		mov	r10, r0
+ 1895 0052 0E9B     		ldr	r3, [sp, #56]
+ 1896 0054 0093     		str	r3, [sp]
+ 1897 0056 3346     		mov	r3, r6
+ 1898 0058 0246     		mov	r2, r0
+ 1899 005a 0421     		movs	r1, #4
+ 1900 005c 05F11C00 		add	r0, r5, #28
+ 1901 0060 FFF7FEFF 		bl	mqtt_create_request
+ 1902 0064 0390     		str	r0, [sp, #12]
+ 1903 0066 0028     		cmp	r0, #0
+ 1904 0068 6AD0     		beq	.L313
+ 1905 006a 05F1EC06 		add	r6, r5, #236
+ 1906 006e 2146     		mov	r1, r4
+ 1907 0070 3046     		mov	r0, r6
+ 1908 0072 FFF7FEFF 		bl	mqtt_output_check_space
+ 1909 0076 0028     		cmp	r0, #0
+ 1910 0078 4FD0     		beq	.L321
+ 1911 007a B9F1000F 		cmp	r9, #0
+ 1912 007e 52D0     		beq	.L314
+ 1913 0080 0821     		movs	r1, #8
+ 1914              	.L310:
+ 1915 0082 0194     		str	r4, [sp, #4]
+ 1916 0084 0022     		movs	r2, #0
+ 1917 0086 0092     		str	r2, [sp]
+ 1918 0088 0123     		movs	r3, #1
+ 1919 008a 3046     		mov	r0, r6
+ 1920 008c FFF7FEFF 		bl	mqtt_output_append_fixed_header
+ 1921 0090 5146     		mov	r1, r10
+ 1922 0092 3046     		mov	r0, r6
+ 1923 0094 FFF7FEFF 		bl	mqtt_output_append_u16
+ 1924 0098 3A46     		mov	r2, r7
+ 1925 009a 4146     		mov	r1, r8
+ 1926 009c 3046     		mov	r0, r6
+ 1927 009e FFF7FEFF 		bl	mqtt_output_append_string
+ 1928 00a2 B9F1000F 		cmp	r9, #0
+ 1929 00a6 40D1     		bne	.L322
+ 1930              	.L311:
+ 1931 00a8 0399     		ldr	r1, [sp, #12]
+ 1932 00aa 05F11800 		add	r0, r5, #24
+ 1933 00ae FFF7FEFF 		bl	mqtt_append_request
+ 1934 00b2 E968     		ldr	r1, [r5, #12]
+ 1935 00b4 3046     		mov	r0, r6
+ 1936 00b6 FFF7FEFF 		bl	mqtt_output_send
+ 1937 00ba 0020     		movs	r0, #0
+ 1938              	.L306:
+ 1939 00bc 05B0     		add	sp, sp, #20
+ 1940              		@ sp needed
+ 1941 00be BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1942              	.L316:
+ 1943 00c2 214B     		ldr	r3, .L323
+ 1944 00c4 40F29F42 		movw	r2, #1183
+ARM GAS  /tmp/ccofpZl4.s 			page 34
+
+
+ 1945 00c8 2049     		ldr	r1, .L323+4
+ 1946 00ca 2148     		ldr	r0, .L323+8
+ 1947 00cc FFF7FEFF 		bl	printf
+ 1948 00d0 A1E7     		b	.L303
+ 1949              	.L317:
+ 1950 00d2 1D4B     		ldr	r3, .L323
+ 1951 00d4 4FF49462 		mov	r2, #1184
+ 1952 00d8 1E49     		ldr	r1, .L323+12
+ 1953 00da 1D48     		ldr	r0, .L323+8
+ 1954 00dc FFF7FEFF 		bl	printf
+ 1955 00e0 9CE7     		b	.L304
+ 1956              	.L318:
+ 1957 00e2 194B     		ldr	r3, .L323
+ 1958 00e4 40F2A342 		movw	r2, #1187
+ 1959 00e8 1B49     		ldr	r1, .L323+16
+ 1960 00ea 1948     		ldr	r0, .L323+8
+ 1961 00ec FFF7FEFF 		bl	printf
+ 1962 00f0 6FF00F00 		mvn	r0, #15
+ 1963 00f4 E2E7     		b	.L306
+ 1964              	.L319:
+ 1965 00f6 144B     		ldr	r3, .L323
+ 1966 00f8 40F2A742 		movw	r2, #1191
+ 1967 00fc 1749     		ldr	r1, .L323+20
+ 1968 00fe 1448     		ldr	r0, .L323+8
+ 1969 0100 FFF7FEFF 		bl	printf
+ 1970 0104 6FF00F00 		mvn	r0, #15
+ 1971 0108 D8E7     		b	.L306
+ 1972              	.L320:
+ 1973 010a 0F4B     		ldr	r3, .L323
+ 1974 010c 40F2AA42 		movw	r2, #1194
+ 1975 0110 1349     		ldr	r1, .L323+24
+ 1976 0112 0F48     		ldr	r0, .L323+8
+ 1977 0114 FFF7FEFF 		bl	printf
+ 1978 0118 94E7     		b	.L308
+ 1979              	.L321:
+ 1980 011a 0398     		ldr	r0, [sp, #12]
+ 1981 011c FFF7FEFF 		bl	mqtt_delete_request
+ 1982 0120 4FF0FF30 		mov	r0, #-1
+ 1983 0124 CAE7     		b	.L306
+ 1984              	.L314:
+ 1985 0126 0A21     		movs	r1, #10
+ 1986 0128 ABE7     		b	.L310
+ 1987              	.L322:
+ 1988 012a 5946     		mov	r1, fp
+ 1989 012c 0229     		cmp	r1, #2
+ 1990 012e 28BF     		it	cs
+ 1991 0130 0221     		movcs	r1, #2
+ 1992 0132 3046     		mov	r0, r6
+ 1993 0134 FFF7FEFF 		bl	mqtt_output_append_u8
+ 1994 0138 B6E7     		b	.L311
+ 1995              	.L312:
+ 1996 013a 6FF00A00 		mvn	r0, #10
+ 1997 013e BDE7     		b	.L306
+ 1998              	.L313:
+ 1999 0140 4FF0FF30 		mov	r0, #-1
+ 2000 0144 BAE7     		b	.L306
+ 2001              	.L324:
+ARM GAS  /tmp/ccofpZl4.s 			page 35
+
+
+ 2002 0146 00BF     		.align	2
+ 2003              	.L323:
+ 2004 0148 00000000 		.word	.LC0
+ 2005 014c 00000000 		.word	.LC25
+ 2006 0150 58000000 		.word	.LC2
+ 2007 0154 20000000 		.word	.LC26
+ 2008 0158 40000000 		.word	.LC27
+ 2009 015c 68000000 		.word	.LC28
+ 2010 0160 90000000 		.word	.LC29
+ 2012              		.section	.text.mqtt_set_inpub_callback,"ax",%progbits
+ 2013              		.align	1
+ 2014              		.global	mqtt_set_inpub_callback
+ 2015              		.syntax unified
+ 2016              		.thumb
+ 2017              		.thumb_func
+ 2018              		.fpu fpv4-sp-d16
+ 2020              	mqtt_set_inpub_callback:
+ 2021              		@ args = 0, pretend = 0, frame = 0
+ 2022              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2023 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 2024 0002 0E46     		mov	r6, r1
+ 2025 0004 1746     		mov	r7, r2
+ 2026 0006 1D46     		mov	r5, r3
+ 2027 0008 0446     		mov	r4, r0
+ 2028 000a 18B1     		cbz	r0, .L328
+ 2029              	.L326:
+ 2030 000c 2766     		str	r7, [r4, #96]
+ 2031 000e 6666     		str	r6, [r4, #100]
+ 2032 0010 E565     		str	r5, [r4, #92]
+ 2033 0012 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 2034              	.L328:
+ 2035 0014 034B     		ldr	r3, .L329
+ 2036 0016 40F2DA42 		movw	r2, #1242
+ 2037 001a 0349     		ldr	r1, .L329+4
+ 2038 001c 0348     		ldr	r0, .L329+8
+ 2039 001e FFF7FEFF 		bl	printf
+ 2040 0022 F3E7     		b	.L326
+ 2041              	.L330:
+ 2042              		.align	2
+ 2043              	.L329:
+ 2044 0024 00000000 		.word	.LC0
+ 2045 0028 00000000 		.word	.LC30
+ 2046 002c 58000000 		.word	.LC2
+ 2048              		.section	.text.mqtt_client_new,"ax",%progbits
+ 2049              		.align	1
+ 2050              		.global	mqtt_client_new
+ 2051              		.syntax unified
+ 2052              		.thumb
+ 2053              		.thumb_func
+ 2054              		.fpu fpv4-sp-d16
+ 2056              	mqtt_client_new:
+ 2057              		@ args = 0, pretend = 0, frame = 0
+ 2058              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2059 0000 08B5     		push	{r3, lr}
+ 2060 0002 4FF4F871 		mov	r1, #496
+ 2061 0006 0120     		movs	r0, #1
+ 2062 0008 FFF7FEFF 		bl	mem_calloc
+ARM GAS  /tmp/ccofpZl4.s 			page 36
+
+
+ 2063 000c 08BD     		pop	{r3, pc}
+ 2065              		.section	.text.mqtt_client_free,"ax",%progbits
+ 2066              		.align	1
+ 2067              		.global	mqtt_client_free
+ 2068              		.syntax unified
+ 2069              		.thumb
+ 2070              		.thumb_func
+ 2071              		.fpu fpv4-sp-d16
+ 2073              	mqtt_client_free:
+ 2074              		@ args = 0, pretend = 0, frame = 0
+ 2075              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2076 0000 08B5     		push	{r3, lr}
+ 2077 0002 FFF7FEFF 		bl	mem_free
+ 2078 0006 08BD     		pop	{r3, pc}
+ 2080              		.section	.text.mqtt_client_connect,"ax",%progbits
+ 2081              		.align	1
+ 2082              		.global	mqtt_client_connect
+ 2083              		.syntax unified
+ 2084              		.thumb
+ 2085              		.thumb_func
+ 2086              		.fpu fpv4-sp-d16
+ 2088              	mqtt_client_connect:
+ 2089              		@ args = 8, pretend = 0, frame = 24
+ 2090              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2091 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 2092 0004 89B0     		sub	sp, sp, #36
+ 2093 0006 0291     		str	r1, [sp, #8]
+ 2094 0008 0492     		str	r2, [sp, #16]
+ 2095 000a 1F46     		mov	r7, r3
+ 2096 000c 139E     		ldr	r6, [sp, #76]
+ 2097 000e 0446     		mov	r4, r0
+ 2098 0010 0028     		cmp	r0, #0
+ 2099 0012 00F0BA80 		beq	.L368
+ 2100              	.L336:
+ 2101 0016 029B     		ldr	r3, [sp, #8]
+ 2102 0018 002B     		cmp	r3, #0
+ 2103 001a 00F0BE80 		beq	.L369
+ 2104              	.L337:
+ 2105 001e 002E     		cmp	r6, #0
+ 2106 0020 00F0C380 		beq	.L370
+ 2107              	.L338:
+ 2108 0024 3368     		ldr	r3, [r6]
+ 2109 0026 002B     		cmp	r3, #0
+ 2110 0028 00F0C780 		beq	.L371
+ 2111              	.L339:
+ 2112 002c A57A     		ldrb	r5, [r4, #10]	@ zero_extendqisi2
+ 2113 002e 002D     		cmp	r5, #0
+ 2114 0030 40F0A781 		bne	.L360
+ 2115 0034 4FF4F872 		mov	r2, #496
+ 2116 0038 0021     		movs	r1, #0
+ 2117 003a 2046     		mov	r0, r4
+ 2118 003c FFF7FEFF 		bl	memset
+ 2119 0040 129B     		ldr	r3, [sp, #72]
+ 2120 0042 2361     		str	r3, [r4, #16]
+ 2121 0044 6761     		str	r7, [r4, #20]
+ 2122 0046 B389     		ldrh	r3, [r6, #12]
+ 2123 0048 6380     		strh	r3, [r4, #2]	@ movhi
+ARM GAS  /tmp/ccofpZl4.s 			page 37
+
+
+ 2124 004a 0421     		movs	r1, #4
+ 2125 004c 04F11C00 		add	r0, r4, #28
+ 2126 0050 FFF7FEFF 		bl	mqtt_init_requests
+ 2127 0054 3069     		ldr	r0, [r6, #16]
+ 2128 0056 0028     		cmp	r0, #0
+ 2129 0058 00F0D880 		beq	.L361
+ 2130 005c D6F81480 		ldr	r8, [r6, #20]
+ 2131 0060 B8F1000F 		cmp	r8, #0
+ 2132 0064 00F0D780 		beq	.L362
+ 2133 0068 357E     		ldrb	r5, [r6, #24]	@ zero_extendqisi2
+ 2134 006a ED00     		lsls	r5, r5, #3
+ 2135 006c 05F01805 		and	r5, r5, #24
+ 2136 0070 45F00405 		orr	r5, r5, #4
+ 2137 0074 737E     		ldrb	r3, [r6, #25]	@ zero_extendqisi2
+ 2138 0076 0BB1     		cbz	r3, .L342
+ 2139 0078 45F02005 		orr	r5, r5, #32
+ 2140              	.L342:
+ 2141 007c FFF7FEFF 		bl	strlen
+ 2142 0080 0746     		mov	r7, r0
+ 2143 0082 FF28     		cmp	r0, #255
+ 2144 0084 00F2A180 		bhi	.L372
+ 2145 0088 0028     		cmp	r0, #0
+ 2146 008a 00F0A980 		beq	.L373
+ 2147 008e C3B2     		uxtb	r3, r0
+ 2148 0090 0693     		str	r3, [sp, #24]
+ 2149 0092 4046     		mov	r0, r8
+ 2150 0094 FFF7FEFF 		bl	strlen
+ 2151 0098 FF28     		cmp	r0, #255
+ 2152 009a 00F2AC80 		bhi	.L374
+ 2153 009e C3B2     		uxtb	r3, r0
+ 2154 00a0 0793     		str	r3, [sp, #28]
+ 2155 00a2 5FFA87F9 		uxtb	r9, r7
+ 2156 00a6 09F10E09 		add	r9, r9, #14
+ 2157 00aa 9944     		add	r9, r9, r3
+ 2158 00ac 1FFA89F9 		uxth	r9, r9
+ 2159              	.L341:
+ 2160 00b0 7068     		ldr	r0, [r6, #4]
+ 2161 00b2 0028     		cmp	r0, #0
+ 2162 00b4 00F0D580 		beq	.L363
+ 2163 00b8 45F08005 		orr	r5, r5, #128
+ 2164 00bc FFF7FEFF 		bl	strlen
+ 2165 00c0 B0F5803F 		cmp	r0, #65536
+ 2166 00c4 80F0AC80 		bcs	.L375
+ 2167 00c8 0028     		cmp	r0, #0
+ 2168 00ca 00F0B480 		beq	.L376
+ 2169 00ce 1FFA80F8 		uxth	r8, r0
+ 2170 00d2 09F10209 		add	r9, r9, #2
+ 2171 00d6 C144     		add	r9, r9, r8
+ 2172 00d8 B9F5803F 		cmp	r9, #65536
+ 2173 00dc 80F0B680 		bcs	.L377
+ 2174 00e0 1FFA89F9 		uxth	r9, r9
+ 2175              	.L347:
+ 2176 00e4 B068     		ldr	r0, [r6, #8]
+ 2177 00e6 0028     		cmp	r0, #0
+ 2178 00e8 00F0DF80 		beq	.L364
+ 2179 00ec 45F04005 		orr	r5, r5, #64
+ 2180 00f0 FFF7FEFF 		bl	strlen
+ARM GAS  /tmp/ccofpZl4.s 			page 38
+
+
+ 2181 00f4 B0F5803F 		cmp	r0, #65536
+ 2182 00f8 80F0B680 		bcs	.L378
+ 2183 00fc 0028     		cmp	r0, #0
+ 2184 00fe 00F0BE80 		beq	.L379
+ 2185 0102 1FFA80FB 		uxth	fp, r0
+ 2186 0106 09F10209 		add	r9, r9, #2
+ 2187 010a D944     		add	r9, r9, fp
+ 2188 010c B9F5803F 		cmp	r9, #65536
+ 2189 0110 80F0C080 		bcs	.L380
+ 2190 0114 1FFA89F9 		uxth	r9, r9
+ 2191              	.L351:
+ 2192 0118 45F0020A 		orr	r10, r5, #2
+ 2193 011c 3068     		ldr	r0, [r6]
+ 2194 011e FFF7FEFF 		bl	strlen
+ 2195 0122 B0F5803F 		cmp	r0, #65536
+ 2196 0126 80F0C380 		bcs	.L381
+ 2197 012a 87B2     		uxth	r7, r0
+ 2198 012c 09F10209 		add	r9, r9, #2
+ 2199 0130 B944     		add	r9, r9, r7
+ 2200 0132 B9F5803F 		cmp	r9, #65536
+ 2201 0136 80F0C680 		bcs	.L382
+ 2202 013a 1FFA89F9 		uxth	r9, r9
+ 2203 013e 04F1EC03 		add	r3, r4, #236
+ 2204 0142 4946     		mov	r1, r9
+ 2205 0144 0593     		str	r3, [sp, #20]
+ 2206 0146 1846     		mov	r0, r3
+ 2207 0148 FFF7FEFF 		bl	mqtt_output_check_space
+ 2208 014c 0028     		cmp	r0, #0
+ 2209 014e 00F01C81 		beq	.L365
+ 2210 0152 0020     		movs	r0, #0
+ 2211 0154 FFF7FEFF 		bl	tcp_new_ip_type
+ 2212 0158 E060     		str	r0, [r4, #12]
+ 2213 015a 0028     		cmp	r0, #0
+ 2214 015c 00F01981 		beq	.L366
+ 2215 0160 2146     		mov	r1, r4
+ 2216 0162 FFF7FEFF 		bl	tcp_arg
+ 2217 0166 0022     		movs	r2, #0
+ 2218 0168 8C49     		ldr	r1, .L386
+ 2219 016a E068     		ldr	r0, [r4, #12]
+ 2220 016c FFF7FEFF 		bl	tcp_bind
+ 2221 0170 0390     		str	r0, [sp, #12]
+ 2222 0172 0028     		cmp	r0, #0
+ 2223 0174 00F0B280 		beq	.L383
+ 2224              	.L357:
+ 2225 0178 E068     		ldr	r0, [r4, #12]
+ 2226 017a FFF7FEFF 		bl	tcp_abort
+ 2227 017e 0023     		movs	r3, #0
+ 2228 0180 E360     		str	r3, [r4, #12]
+ 2229              	.L340:
+ 2230 0182 0398     		ldr	r0, [sp, #12]
+ 2231 0184 09B0     		add	sp, sp, #36
+ 2232              		@ sp needed
+ 2233 0186 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 2234              	.L368:
+ 2235 018a 854B     		ldr	r3, .L386+4
+ 2236 018c 40F20F52 		movw	r2, #1295
+ 2237 0190 8449     		ldr	r1, .L386+8
+ARM GAS  /tmp/ccofpZl4.s 			page 39
+
+
+ 2238 0192 8548     		ldr	r0, .L386+12
+ 2239 0194 FFF7FEFF 		bl	printf
+ 2240 0198 3DE7     		b	.L336
+ 2241              	.L369:
+ 2242 019a 814B     		ldr	r3, .L386+4
+ 2243 019c 4FF4A262 		mov	r2, #1296
+ 2244 01a0 8249     		ldr	r1, .L386+16
+ 2245 01a2 8148     		ldr	r0, .L386+12
+ 2246 01a4 FFF7FEFF 		bl	printf
+ 2247 01a8 39E7     		b	.L337
+ 2248              	.L370:
+ 2249 01aa 7D4B     		ldr	r3, .L386+4
+ 2250 01ac 40F21152 		movw	r2, #1297
+ 2251 01b0 7F49     		ldr	r1, .L386+20
+ 2252 01b2 7D48     		ldr	r0, .L386+12
+ 2253 01b4 FFF7FEFF 		bl	printf
+ 2254 01b8 34E7     		b	.L338
+ 2255              	.L371:
+ 2256 01ba 794B     		ldr	r3, .L386+4
+ 2257 01bc 40F21252 		movw	r2, #1298
+ 2258 01c0 7C49     		ldr	r1, .L386+24
+ 2259 01c2 7948     		ldr	r0, .L386+12
+ 2260 01c4 FFF7FEFF 		bl	printf
+ 2261 01c8 30E7     		b	.L339
+ 2262              	.L372:
+ 2263 01ca 754B     		ldr	r3, .L386+4
+ 2264 01cc 4FF4A562 		mov	r2, #1320
+ 2265 01d0 7949     		ldr	r1, .L386+28
+ 2266 01d2 7548     		ldr	r0, .L386+12
+ 2267 01d4 FFF7FEFF 		bl	printf
+ 2268 01d8 6FF00503 		mvn	r3, #5
+ 2269 01dc 0393     		str	r3, [sp, #12]
+ 2270 01de D0E7     		b	.L340
+ 2271              	.L373:
+ 2272 01e0 6F4B     		ldr	r3, .L386+4
+ 2273 01e2 40F22952 		movw	r2, #1321
+ 2274 01e6 7549     		ldr	r1, .L386+32
+ 2275 01e8 6F48     		ldr	r0, .L386+12
+ 2276 01ea FFF7FEFF 		bl	printf
+ 2277 01ee 6FF00503 		mvn	r3, #5
+ 2278 01f2 0393     		str	r3, [sp, #12]
+ 2279 01f4 C5E7     		b	.L340
+ 2280              	.L374:
+ 2281 01f6 6A4B     		ldr	r3, .L386+4
+ 2282 01f8 40F22C52 		movw	r2, #1324
+ 2283 01fc 7049     		ldr	r1, .L386+36
+ 2284 01fe 6A48     		ldr	r0, .L386+12
+ 2285 0200 FFF7FEFF 		bl	printf
+ 2286 0204 6FF00503 		mvn	r3, #5
+ 2287 0208 0393     		str	r3, [sp, #12]
+ 2288 020a BAE7     		b	.L340
+ 2289              	.L361:
+ 2290 020c 0795     		str	r5, [sp, #28]
+ 2291 020e 0695     		str	r5, [sp, #24]
+ 2292 0210 4FF00A09 		mov	r9, #10
+ 2293 0214 4CE7     		b	.L341
+ 2294              	.L362:
+ARM GAS  /tmp/ccofpZl4.s 			page 40
+
+
+ 2295 0216 0795     		str	r5, [sp, #28]
+ 2296 0218 0695     		str	r5, [sp, #24]
+ 2297 021a 4FF00A09 		mov	r9, #10
+ 2298 021e 47E7     		b	.L341
+ 2299              	.L375:
+ 2300 0220 5F4B     		ldr	r3, .L386+4
+ 2301 0222 40F23552 		movw	r2, #1333
+ 2302 0226 6749     		ldr	r1, .L386+40
+ 2303 0228 5F48     		ldr	r0, .L386+12
+ 2304 022a FFF7FEFF 		bl	printf
+ 2305 022e 6FF00503 		mvn	r3, #5
+ 2306 0232 0393     		str	r3, [sp, #12]
+ 2307 0234 A5E7     		b	.L340
+ 2308              	.L376:
+ 2309 0236 5A4B     		ldr	r3, .L386+4
+ 2310 0238 40F23652 		movw	r2, #1334
+ 2311 023c 6249     		ldr	r1, .L386+44
+ 2312 023e 5A48     		ldr	r0, .L386+12
+ 2313 0240 FFF7FEFF 		bl	printf
+ 2314 0244 6FF00503 		mvn	r3, #5
+ 2315 0248 0393     		str	r3, [sp, #12]
+ 2316 024a 9AE7     		b	.L340
+ 2317              	.L377:
+ 2318 024c 544B     		ldr	r3, .L386+4
+ 2319 024e 40F23952 		movw	r2, #1337
+ 2320 0252 5E49     		ldr	r1, .L386+48
+ 2321 0254 5448     		ldr	r0, .L386+12
+ 2322 0256 FFF7FEFF 		bl	printf
+ 2323 025a 6FF00503 		mvn	r3, #5
+ 2324 025e 0393     		str	r3, [sp, #12]
+ 2325 0260 8FE7     		b	.L340
+ 2326              	.L363:
+ 2327 0262 4FF00008 		mov	r8, #0
+ 2328 0266 3DE7     		b	.L347
+ 2329              	.L378:
+ 2330 0268 4D4B     		ldr	r3, .L386+4
+ 2331 026a 40F23F52 		movw	r2, #1343
+ 2332 026e 5849     		ldr	r1, .L386+52
+ 2333 0270 4D48     		ldr	r0, .L386+12
+ 2334 0272 FFF7FEFF 		bl	printf
+ 2335 0276 6FF00503 		mvn	r3, #5
+ 2336 027a 0393     		str	r3, [sp, #12]
+ 2337 027c 81E7     		b	.L340
+ 2338              	.L379:
+ 2339 027e 484B     		ldr	r3, .L386+4
+ 2340 0280 4FF4A862 		mov	r2, #1344
+ 2341 0284 5349     		ldr	r1, .L386+56
+ 2342 0286 4848     		ldr	r0, .L386+12
+ 2343 0288 FFF7FEFF 		bl	printf
+ 2344 028c 6FF00503 		mvn	r3, #5
+ 2345 0290 0393     		str	r3, [sp, #12]
+ 2346 0292 76E7     		b	.L340
+ 2347              	.L380:
+ 2348 0294 424B     		ldr	r3, .L386+4
+ 2349 0296 40F24352 		movw	r2, #1347
+ 2350 029a 4C49     		ldr	r1, .L386+48
+ 2351 029c 4248     		ldr	r0, .L386+12
+ARM GAS  /tmp/ccofpZl4.s 			page 41
+
+
+ 2352 029e FFF7FEFF 		bl	printf
+ 2353 02a2 6FF00503 		mvn	r3, #5
+ 2354 02a6 0393     		str	r3, [sp, #12]
+ 2355 02a8 6BE7     		b	.L340
+ 2356              	.L364:
+ 2357 02aa 4FF0000B 		mov	fp, #0
+ 2358 02ae 33E7     		b	.L351
+ 2359              	.L381:
+ 2360 02b0 3B4B     		ldr	r3, .L386+4
+ 2361 02b2 40F24B52 		movw	r2, #1355
+ 2362 02b6 4849     		ldr	r1, .L386+60
+ 2363 02b8 3B48     		ldr	r0, .L386+12
+ 2364 02ba FFF7FEFF 		bl	printf
+ 2365 02be 6FF00503 		mvn	r3, #5
+ 2366 02c2 0393     		str	r3, [sp, #12]
+ 2367 02c4 5DE7     		b	.L340
+ 2368              	.L382:
+ 2369 02c6 364B     		ldr	r3, .L386+4
+ 2370 02c8 40F24E52 		movw	r2, #1358
+ 2371 02cc 3F49     		ldr	r1, .L386+48
+ 2372 02ce 3648     		ldr	r0, .L386+12
+ 2373 02d0 FFF7FEFF 		bl	printf
+ 2374 02d4 6FF00503 		mvn	r3, #5
+ 2375 02d8 0393     		str	r3, [sp, #12]
+ 2376 02da 52E7     		b	.L340
+ 2377              	.L383:
+ 2378 02dc 3F4B     		ldr	r3, .L386+64
+ 2379 02de 049A     		ldr	r2, [sp, #16]
+ 2380 02e0 0299     		ldr	r1, [sp, #8]
+ 2381 02e2 E068     		ldr	r0, [r4, #12]
+ 2382 02e4 FFF7FEFF 		bl	tcp_connect
+ 2383 02e8 0390     		str	r0, [sp, #12]
+ 2384 02ea 0028     		cmp	r0, #0
+ 2385 02ec 7FF444AF 		bne	.L357
+ 2386 02f0 3B49     		ldr	r1, .L386+68
+ 2387 02f2 E068     		ldr	r0, [r4, #12]
+ 2388 02f4 FFF7FEFF 		bl	tcp_err
+ 2389 02f8 0121     		movs	r1, #1
+ 2390 02fa A172     		strb	r1, [r4, #10]
+ 2391 02fc CDF80490 		str	r9, [sp, #4]
+ 2392 0300 0022     		movs	r2, #0
+ 2393 0302 0092     		str	r2, [sp]
+ 2394 0304 1346     		mov	r3, r2
+ 2395 0306 059C     		ldr	r4, [sp, #20]
+ 2396 0308 2046     		mov	r0, r4
+ 2397 030a FFF7FEFF 		bl	mqtt_output_append_fixed_header
+ 2398 030e 0422     		movs	r2, #4
+ 2399 0310 3449     		ldr	r1, .L386+72
+ 2400 0312 2046     		mov	r0, r4
+ 2401 0314 FFF7FEFF 		bl	mqtt_output_append_string
+ 2402 0318 0421     		movs	r1, #4
+ 2403 031a 2046     		mov	r0, r4
+ 2404 031c FFF7FEFF 		bl	mqtt_output_append_u8
+ 2405 0320 5146     		mov	r1, r10
+ 2406 0322 2046     		mov	r0, r4
+ 2407 0324 FFF7FEFF 		bl	mqtt_output_append_u8
+ 2408 0328 B189     		ldrh	r1, [r6, #12]
+ARM GAS  /tmp/ccofpZl4.s 			page 42
+
+
+ 2409 032a 2046     		mov	r0, r4
+ 2410 032c FFF7FEFF 		bl	mqtt_output_append_u16
+ 2411 0330 3A46     		mov	r2, r7
+ 2412 0332 3168     		ldr	r1, [r6]
+ 2413 0334 2046     		mov	r0, r4
+ 2414 0336 FFF7FEFF 		bl	mqtt_output_append_string
+ 2415 033a 15F0040F 		tst	r5, #4
+ 2416 033e 0CD1     		bne	.L384
+ 2417              	.L358:
+ 2418 0340 1AF0800F 		tst	r10, #128
+ 2419 0344 17D1     		bne	.L385
+ 2420              	.L359:
+ 2421 0346 15F0400F 		tst	r5, #64
+ 2422 034a 3FF41AAF 		beq	.L340
+ 2423 034e 5A46     		mov	r2, fp
+ 2424 0350 B168     		ldr	r1, [r6, #8]
+ 2425 0352 0598     		ldr	r0, [sp, #20]
+ 2426 0354 FFF7FEFF 		bl	mqtt_output_append_string
+ 2427 0358 13E7     		b	.L340
+ 2428              	.L384:
+ 2429 035a BDF81820 		ldrh	r2, [sp, #24]
+ 2430 035e 3169     		ldr	r1, [r6, #16]
+ 2431 0360 059C     		ldr	r4, [sp, #20]
+ 2432 0362 2046     		mov	r0, r4
+ 2433 0364 FFF7FEFF 		bl	mqtt_output_append_string
+ 2434 0368 BDF81C20 		ldrh	r2, [sp, #28]
+ 2435 036c 7169     		ldr	r1, [r6, #20]
+ 2436 036e 2046     		mov	r0, r4
+ 2437 0370 FFF7FEFF 		bl	mqtt_output_append_string
+ 2438 0374 E4E7     		b	.L358
+ 2439              	.L385:
+ 2440 0376 4246     		mov	r2, r8
+ 2441 0378 7168     		ldr	r1, [r6, #4]
+ 2442 037a 0598     		ldr	r0, [sp, #20]
+ 2443 037c FFF7FEFF 		bl	mqtt_output_append_string
+ 2444 0380 E1E7     		b	.L359
+ 2445              	.L360:
+ 2446 0382 6FF00903 		mvn	r3, #9
+ 2447 0386 0393     		str	r3, [sp, #12]
+ 2448 0388 FBE6     		b	.L340
+ 2449              	.L365:
+ 2450 038a 4FF0FF33 		mov	r3, #-1
+ 2451 038e 0393     		str	r3, [sp, #12]
+ 2452 0390 F7E6     		b	.L340
+ 2453              	.L366:
+ 2454 0392 4FF0FF33 		mov	r3, #-1
+ 2455 0396 0393     		str	r3, [sp, #12]
+ 2456 0398 F3E6     		b	.L340
+ 2457              	.L387:
+ 2458 039a 00BF     		.align	2
+ 2459              	.L386:
+ 2460 039c 00000000 		.word	ip_addr_any
+ 2461 03a0 00000000 		.word	.LC0
+ 2462 03a4 00000000 		.word	.LC31
+ 2463 03a8 58000000 		.word	.LC2
+ 2464 03ac 24000000 		.word	.LC32
+ 2465 03b0 4C000000 		.word	.LC33
+ARM GAS  /tmp/ccofpZl4.s 			page 43
+
+
+ 2466 03b4 78000000 		.word	.LC34
+ 2467 03b8 AC000000 		.word	.LC35
+ 2468 03bc EC000000 		.word	.LC36
+ 2469 03c0 2C010000 		.word	.LC37
+ 2470 03c4 98010000 		.word	.LC39
+ 2471 03c8 D8010000 		.word	.LC40
+ 2472 03cc 68010000 		.word	.LC38
+ 2473 03d0 1C020000 		.word	.LC41
+ 2474 03d4 5C020000 		.word	.LC42
+ 2475 03d8 A0020000 		.word	.LC43
+ 2476 03dc 00000000 		.word	mqtt_tcp_connect_cb
+ 2477 03e0 00000000 		.word	mqtt_tcp_err_cb
+ 2478 03e4 DC020000 		.word	.LC44
+ 2480              		.section	.text.mqtt_disconnect,"ax",%progbits
+ 2481              		.align	1
+ 2482              		.global	mqtt_disconnect
+ 2483              		.syntax unified
+ 2484              		.thumb
+ 2485              		.thumb_func
+ 2486              		.fpu fpv4-sp-d16
+ 2488              	mqtt_disconnect:
+ 2489              		@ args = 0, pretend = 0, frame = 0
+ 2490              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2491 0000 10B5     		push	{r4, lr}
+ 2492 0002 0446     		mov	r4, r0
+ 2493 0004 10B1     		cbz	r0, .L392
+ 2494              	.L389:
+ 2495 0006 A37A     		ldrb	r3, [r4, #10]	@ zero_extendqisi2
+ 2496 0008 43B9     		cbnz	r3, .L393
+ 2497              	.L388:
+ 2498 000a 10BD     		pop	{r4, pc}
+ 2499              	.L392:
+ 2500 000c 064B     		ldr	r3, .L394
+ 2501 000e 4FF4B462 		mov	r2, #1440
+ 2502 0012 0649     		ldr	r1, .L394+4
+ 2503 0014 0648     		ldr	r0, .L394+8
+ 2504 0016 FFF7FEFF 		bl	printf
+ 2505 001a F4E7     		b	.L389
+ 2506              	.L393:
+ 2507 001c 0021     		movs	r1, #0
+ 2508 001e A172     		strb	r1, [r4, #10]
+ 2509 0020 2046     		mov	r0, r4
+ 2510 0022 FFF7FEFF 		bl	mqtt_close
+ 2511 0026 F0E7     		b	.L388
+ 2512              	.L395:
+ 2513              		.align	2
+ 2514              	.L394:
+ 2515 0028 00000000 		.word	.LC0
+ 2516 002c 00000000 		.word	.LC45
+ 2517 0030 58000000 		.word	.LC2
+ 2519              		.section	.text.mqtt_client_is_connected,"ax",%progbits
+ 2520              		.align	1
+ 2521              		.global	mqtt_client_is_connected
+ 2522              		.syntax unified
+ 2523              		.thumb
+ 2524              		.thumb_func
+ 2525              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccofpZl4.s 			page 44
+
+
+ 2527              	mqtt_client_is_connected:
+ 2528              		@ args = 0, pretend = 0, frame = 0
+ 2529              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2530 0000 10B5     		push	{r4, lr}
+ 2531 0002 0446     		mov	r4, r0
+ 2532 0004 28B1     		cbz	r0, .L399
+ 2533              	.L397:
+ 2534 0006 A07A     		ldrb	r0, [r4, #10]	@ zero_extendqisi2
+ 2535 0008 0328     		cmp	r0, #3
+ 2536 000a 14BF     		ite	ne
+ 2537 000c 0020     		movne	r0, #0
+ 2538 000e 0120     		moveq	r0, #1
+ 2539 0010 10BD     		pop	{r4, pc}
+ 2540              	.L399:
+ 2541 0012 044B     		ldr	r3, .L400
+ 2542 0014 40F2B352 		movw	r2, #1459
+ 2543 0018 0349     		ldr	r1, .L400+4
+ 2544 001a 0448     		ldr	r0, .L400+8
+ 2545 001c FFF7FEFF 		bl	printf
+ 2546 0020 F1E7     		b	.L397
+ 2547              	.L401:
+ 2548 0022 00BF     		.align	2
+ 2549              	.L400:
+ 2550 0024 00000000 		.word	.LC0
+ 2551 0028 00000000 		.word	.LC46
+ 2552 002c 58000000 		.word	.LC2
+ 2554              		.section	.rodata.mqtt_append_request.str1.4,"aMS",%progbits,1
+ 2555              		.align	2
+ 2556              	.LC4:
+ 2557 0000 6D717474 		.ascii	"mqtt_append_request: tail != NULL\000"
+ 2557      5F617070 
+ 2557      656E645F 
+ 2557      72657175 
+ 2557      6573743A 
+ 2558 0022 0000     		.space	2
+ 2559              	.LC5:
+ 2560 0024 6D717474 		.ascii	"mqtt_append_request: time_before <= MQTT_REQ_TIMEOU"
+ 2560      5F617070 
+ 2560      656E645F 
+ 2560      72657175 
+ 2560      6573743A 
+ 2561 0057 5400     		.ascii	"T\000"
+ 2562              		.section	.rodata.mqtt_clear_requests.str1.4,"aMS",%progbits,1
+ 2563              		.align	2
+ 2564              	.LC8:
+ 2565 0000 6D717474 		.ascii	"mqtt_clear_requests: tail != NULL\000"
+ 2565      5F636C65 
+ 2565      61725F72 
+ 2565      65717565 
+ 2565      7374733A 
+ 2566              		.section	.rodata.mqtt_client_connect.str1.4,"aMS",%progbits,1
+ 2567              		.align	2
+ 2568              	.LC31:
+ 2569 0000 6D717474 		.ascii	"mqtt_client_connect: client != NULL\000"
+ 2569      5F636C69 
+ 2569      656E745F 
+ 2569      636F6E6E 
+ARM GAS  /tmp/ccofpZl4.s 			page 45
+
+
+ 2569      6563743A 
+ 2570              	.LC32:
+ 2571 0024 6D717474 		.ascii	"mqtt_client_connect: ip_addr != NULL\000"
+ 2571      5F636C69 
+ 2571      656E745F 
+ 2571      636F6E6E 
+ 2571      6563743A 
+ 2572 0049 000000   		.space	3
+ 2573              	.LC33:
+ 2574 004c 6D717474 		.ascii	"mqtt_client_connect: client_info != NULL\000"
+ 2574      5F636C69 
+ 2574      656E745F 
+ 2574      636F6E6E 
+ 2574      6563743A 
+ 2575 0075 000000   		.space	3
+ 2576              	.LC34:
+ 2577 0078 6D717474 		.ascii	"mqtt_client_connect: client_info->client_id != NULL"
+ 2577      5F636C69 
+ 2577      656E745F 
+ 2577      636F6E6E 
+ 2577      6563743A 
+ 2578 00ab 00       		.ascii	"\000"
+ 2579              	.LC35:
+ 2580 00ac 6D717474 		.ascii	"mqtt_client_connect: client_info->will_topic length"
+ 2580      5F636C69 
+ 2580      656E745F 
+ 2580      636F6E6E 
+ 2580      6563743A 
+ 2581 00df 206F7665 		.ascii	" overflow\000"
+ 2581      72666C6F 
+ 2581      7700
+ 2582 00e9 000000   		.space	3
+ 2583              	.LC36:
+ 2584 00ec 6D717474 		.ascii	"mqtt_client_connect: client_info->will_topic length"
+ 2584      5F636C69 
+ 2584      656E745F 
+ 2584      636F6E6E 
+ 2584      6563743A 
+ 2585 011f 206D7573 		.ascii	" must be > 0\000"
+ 2585      74206265 
+ 2585      203E2030 
+ 2585      00
+ 2586              	.LC37:
+ 2587 012c 6D717474 		.ascii	"mqtt_client_connect: client_info->will_msg length o"
+ 2587      5F636C69 
+ 2587      656E745F 
+ 2587      636F6E6E 
+ 2587      6563743A 
+ 2588 015f 76657266 		.ascii	"verflow\000"
+ 2588      6C6F7700 
+ 2589 0167 00       		.space	1
+ 2590              	.LC38:
+ 2591 0168 6D717474 		.ascii	"mqtt_client_connect: remaining_length overflow\000"
+ 2591      5F636C69 
+ 2591      656E745F 
+ 2591      636F6E6E 
+ 2591      6563743A 
+ARM GAS  /tmp/ccofpZl4.s 			page 46
+
+
+ 2592 0197 00       		.space	1
+ 2593              	.LC39:
+ 2594 0198 6D717474 		.ascii	"mqtt_client_connect: client_info->client_user lengt"
+ 2594      5F636C69 
+ 2594      656E745F 
+ 2594      636F6E6E 
+ 2594      6563743A 
+ 2595 01cb 68206F76 		.ascii	"h overflow\000"
+ 2595      6572666C 
+ 2595      6F7700
+ 2596 01d6 0000     		.space	2
+ 2597              	.LC40:
+ 2598 01d8 6D717474 		.ascii	"mqtt_client_connect: client_info->client_user lengt"
+ 2598      5F636C69 
+ 2598      656E745F 
+ 2598      636F6E6E 
+ 2598      6563743A 
+ 2599 020b 68206D75 		.ascii	"h must be > 0\000"
+ 2599      73742062 
+ 2599      65203E20 
+ 2599      3000
+ 2600 0219 000000   		.space	3
+ 2601              	.LC41:
+ 2602 021c 6D717474 		.ascii	"mqtt_client_connect: client_info->client_pass lengt"
+ 2602      5F636C69 
+ 2602      656E745F 
+ 2602      636F6E6E 
+ 2602      6563743A 
+ 2603 024f 68206F76 		.ascii	"h overflow\000"
+ 2603      6572666C 
+ 2603      6F7700
+ 2604 025a 0000     		.space	2
+ 2605              	.LC42:
+ 2606 025c 6D717474 		.ascii	"mqtt_client_connect: client_info->client_pass lengt"
+ 2606      5F636C69 
+ 2606      656E745F 
+ 2606      636F6E6E 
+ 2606      6563743A 
+ 2607 028f 68206D75 		.ascii	"h must be > 0\000"
+ 2607      73742062 
+ 2607      65203E20 
+ 2607      3000
+ 2608 029d 000000   		.space	3
+ 2609              	.LC43:
+ 2610 02a0 6D717474 		.ascii	"mqtt_client_connect: client_info->client_id length "
+ 2610      5F636C69 
+ 2610      656E745F 
+ 2610      636F6E6E 
+ 2610      6563743A 
+ 2611 02d3 6F766572 		.ascii	"overflow\000"
+ 2611      666C6F77 
+ 2611      00
+ 2612              	.LC44:
+ 2613 02dc 4D515454 		.ascii	"MQTT\000"
+ 2613      00
+ 2614              		.section	.rodata.mqtt_client_is_connected.str1.4,"aMS",%progbits,1
+ 2615              		.align	2
+ARM GAS  /tmp/ccofpZl4.s 			page 47
+
+
+ 2616              	.LC46:
+ 2617 0000 6D717474 		.ascii	"mqtt_client_is_connected: client != NULL\000"
+ 2617      5F636C69 
+ 2617      656E745F 
+ 2617      69735F63 
+ 2617      6F6E6E65 
+ 2618              		.section	.rodata.mqtt_close.str1.4,"aMS",%progbits,1
+ 2619              		.align	2
+ 2620              	.LC15:
+ 2621 0000 6D717474 		.ascii	"mqtt_close: client != NULL\000"
+ 2621      5F636C6F 
+ 2621      73653A20 
+ 2621      636C6965 
+ 2621      6E742021 
+ 2622              		.section	.rodata.mqtt_create_request.str1.4,"aMS",%progbits,1
+ 2623              		.align	2
+ 2624              	.LC0:
+ 2625 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c\000"
+ 2625      6C657761 
+ 2625      7265732F 
+ 2625      54686972 
+ 2625      645F5061 
+ 2626 0032 0000     		.space	2
+ 2627              	.LC1:
+ 2628 0034 6D717474 		.ascii	"mqtt_create_request: r_objs != NULL\000"
+ 2628      5F637265 
+ 2628      6174655F 
+ 2628      72657175 
+ 2628      6573743A 
+ 2629              	.LC2:
+ 2630 0058 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ 2630      7274696F 
+ 2630      6E202225 
+ 2630      73222066 
+ 2630      61696C65 
+ 2631              		.section	.rodata.mqtt_cyclic_timer.str1.4,"aMS",%progbits,1
+ 2632              		.align	2
+ 2633              	.LC17:
+ 2634 0000 6D717474 		.ascii	"mqtt_cyclic_timer: client != NULL\000"
+ 2634      5F637963 
+ 2634      6C69635F 
+ 2634      74696D65 
+ 2634      723A2063 
+ 2635              		.section	.rodata.mqtt_disconnect.str1.4,"aMS",%progbits,1
+ 2636              		.align	2
+ 2637              	.LC45:
+ 2638 0000 6D717474 		.ascii	"mqtt_disconnect: client != NULL\000"
+ 2638      5F646973 
+ 2638      636F6E6E 
+ 2638      6563743A 
+ 2638      20636C69 
+ 2639              		.section	.rodata.mqtt_init_requests.str1.4,"aMS",%progbits,1
+ 2640              		.align	2
+ 2641              	.LC10:
+ 2642 0000 6D717474 		.ascii	"mqtt_init_requests: r_objs != NULL\000"
+ 2642      5F696E69 
+ 2642      745F7265 
+ARM GAS  /tmp/ccofpZl4.s 			page 48
+
+
+ 2642      71756573 
+ 2642      74733A20 
+ 2643              		.section	.rodata.mqtt_message_received.str1.4,"aMS",%progbits,1
+ 2644              		.align	2
+ 2645              	.LC12:
+ 2646 0000 636C6965 		.ascii	"client->msg_idx < MQTT_VAR_HEADER_BUFFER_LEN\000"
+ 2646      6E742D3E 
+ 2646      6D73675F 
+ 2646      69647820 
+ 2646      3C204D51 
+ 2647 002d 000000   		.space	3
+ 2648              	.LC13:
+ 2649 0030 66697865 		.ascii	"fixed_hdr_idx <= client->msg_idx\000"
+ 2649      645F6864 
+ 2649      725F6964 
+ 2649      78203C3D 
+ 2649      20636C69 
+ 2650 0051 000000   		.space	3
+ 2651              	.LC14:
+ 2652 0054 62756666 		.ascii	"buffer length mismatch\000"
+ 2652      6572206C 
+ 2652      656E6774 
+ 2652      68206D69 
+ 2652      736D6174 
+ 2653              		.section	.rodata.mqtt_output_check_space.str1.4,"aMS",%progbits,1
+ 2654              		.align	2
+ 2655              	.LC3:
+ 2656 0000 6D717474 		.ascii	"mqtt_output_check_space: rb != NULL\000"
+ 2656      5F6F7574 
+ 2656      7075745F 
+ 2656      63686563 
+ 2656      6B5F7370 
+ 2657              		.section	.rodata.mqtt_output_send.str1.4,"aMS",%progbits,1
+ 2658              		.align	2
+ 2659              	.LC11:
+ 2660 0000 6D717474 		.ascii	"mqtt_output_send: tpcb != NULL\000"
+ 2660      5F6F7574 
+ 2660      7075745F 
+ 2660      73656E64 
+ 2660      3A207470 
+ 2661              		.section	.rodata.mqtt_publish.str1.4,"aMS",%progbits,1
+ 2662              		.align	2
+ 2663              	.LC20:
+ 2664 0000 6D717474 		.ascii	"mqtt_publish: client != NULL\000"
+ 2664      5F707562 
+ 2664      6C697368 
+ 2664      3A20636C 
+ 2664      69656E74 
+ 2665 001d 000000   		.space	3
+ 2666              	.LC21:
+ 2667 0020 6D717474 		.ascii	"mqtt_publish: topic != NULL\000"
+ 2667      5F707562 
+ 2667      6C697368 
+ 2667      3A20746F 
+ 2667      70696320 
+ 2668              	.LC22:
+ 2669 003c 6D717474 		.ascii	"mqtt_publish: TCP disconnected\000"
+ARM GAS  /tmp/ccofpZl4.s 			page 49
+
+
+ 2669      5F707562 
+ 2669      6C697368 
+ 2669      3A205443 
+ 2669      50206469 
+ 2670 005b 00       		.space	1
+ 2671              	.LC23:
+ 2672 005c 6D717474 		.ascii	"mqtt_publish: topic length overflow\000"
+ 2672      5F707562 
+ 2672      6C697368 
+ 2672      3A20746F 
+ 2672      70696320 
+ 2673              	.LC24:
+ 2674 0080 6D717474 		.ascii	"mqtt_publish: total length overflow\000"
+ 2674      5F707562 
+ 2674      6C697368 
+ 2674      3A20746F 
+ 2674      74616C20 
+ 2675              		.section	.rodata.mqtt_request_time_elapsed.str1.4,"aMS",%progbits,1
+ 2676              		.align	2
+ 2677              	.LC7:
+ 2678 0000 6D717474 		.ascii	"mqtt_request_time_elapsed: tail != NULL\000"
+ 2678      5F726571 
+ 2678      75657374 
+ 2678      5F74696D 
+ 2678      655F656C 
+ 2679              		.section	.rodata.mqtt_ringbuf_advance_get_idx.str1.4,"aMS",%progbits,1
+ 2680              		.align	2
+ 2681              	.LC6:
+ 2682 0000 6D717474 		.ascii	"mqtt_ringbuf_advance_get_idx: len < MQTT_OUTPUT_RIN"
+ 2682      5F72696E 
+ 2682      67627566 
+ 2682      5F616476 
+ 2682      616E6365 
+ 2683 0033 47425546 		.ascii	"GBUF_SIZE\000"
+ 2683      5F53495A 
+ 2683      4500
+ 2684              		.section	.rodata.mqtt_set_inpub_callback.str1.4,"aMS",%progbits,1
+ 2685              		.align	2
+ 2686              	.LC30:
+ 2687 0000 6D717474 		.ascii	"mqtt_set_inpub_callback: client != NULL\000"
+ 2687      5F736574 
+ 2687      5F696E70 
+ 2687      75625F63 
+ 2687      616C6C62 
+ 2688              		.section	.rodata.mqtt_sub_unsub.str1.4,"aMS",%progbits,1
+ 2689              		.align	2
+ 2690              	.LC25:
+ 2691 0000 6D717474 		.ascii	"mqtt_sub_unsub: client != NULL\000"
+ 2691      5F737562 
+ 2691      5F756E73 
+ 2691      75623A20 
+ 2691      636C6965 
+ 2692 001f 00       		.space	1
+ 2693              	.LC26:
+ 2694 0020 6D717474 		.ascii	"mqtt_sub_unsub: topic != NULL\000"
+ 2694      5F737562 
+ 2694      5F756E73 
+ARM GAS  /tmp/ccofpZl4.s 			page 50
+
+
+ 2694      75623A20 
+ 2694      746F7069 
+ 2695 003e 0000     		.space	2
+ 2696              	.LC27:
+ 2697 0040 6D717474 		.ascii	"mqtt_sub_unsub: topic length overflow\000"
+ 2697      5F737562 
+ 2697      5F756E73 
+ 2697      75623A20 
+ 2697      746F7069 
+ 2698 0066 0000     		.space	2
+ 2699              	.LC28:
+ 2700 0068 6D717474 		.ascii	"mqtt_sub_unsub: total length overflow\000"
+ 2700      5F737562 
+ 2700      5F756E73 
+ 2700      75623A20 
+ 2700      746F7461 
+ 2701 008e 0000     		.space	2
+ 2702              	.LC29:
+ 2703 0090 6D717474 		.ascii	"mqtt_sub_unsub: qos < 3\000"
+ 2703      5F737562 
+ 2703      5F756E73 
+ 2703      75623A20 
+ 2703      716F7320 
+ 2704              		.section	.rodata.mqtt_take_request.str1.4,"aMS",%progbits,1
+ 2705              		.align	2
+ 2706              	.LC9:
+ 2707 0000 6D717474 		.ascii	"mqtt_take_request: tail != NULL\000"
+ 2707      5F74616B 
+ 2707      655F7265 
+ 2707      71756573 
+ 2707      743A2074 
+ 2708              		.section	.rodata.mqtt_tcp_err_cb.str1.4,"aMS",%progbits,1
+ 2709              		.align	2
+ 2710              	.LC16:
+ 2711 0000 6D717474 		.ascii	"mqtt_tcp_err_cb: client != NULL\000"
+ 2711      5F746370 
+ 2711      5F657272 
+ 2711      5F63623A 
+ 2711      20636C69 
+ 2712              		.section	.rodata.mqtt_tcp_recv_cb.str1.4,"aMS",%progbits,1
+ 2713              		.align	2
+ 2714              	.LC18:
+ 2715 0000 6D717474 		.ascii	"mqtt_tcp_recv_cb: client != NULL\000"
+ 2715      5F746370 
+ 2715      5F726563 
+ 2715      765F6362 
+ 2715      3A20636C 
+ 2716 0021 000000   		.space	3
+ 2717              	.LC19:
+ 2718 0024 6D717474 		.ascii	"mqtt_tcp_recv_cb: client->conn == pcb\000"
+ 2718      5F746370 
+ 2718      5F726563 
+ 2718      765F6362 
+ 2718      3A20636C 
+ 2719              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccofpZl4.s 			page 51
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 mqtt.c
+     /tmp/ccofpZl4.s:16     .text.msg_generate_packet_id:0000000000000000 $t
+     /tmp/ccofpZl4.s:23     .text.msg_generate_packet_id:0000000000000000 msg_generate_packet_id
+     /tmp/ccofpZl4.s:39     .text.mqtt_ringbuf_put:0000000000000000 $t
+     /tmp/ccofpZl4.s:45     .text.mqtt_ringbuf_put:0000000000000000 mqtt_ringbuf_put
+     /tmp/ccofpZl4.s:63     .text.mqtt_ringbuf_get_ptr:0000000000000000 $t
+     /tmp/ccofpZl4.s:69     .text.mqtt_ringbuf_get_ptr:0000000000000000 mqtt_ringbuf_get_ptr
+     /tmp/ccofpZl4.s:79     .text.mqtt_ringbuf_len:0000000000000000 $t
+     /tmp/ccofpZl4.s:85     .text.mqtt_ringbuf_len:0000000000000000 mqtt_ringbuf_len
+     /tmp/ccofpZl4.s:100    .text.mqtt_delete_request:0000000000000000 $t
+     /tmp/ccofpZl4.s:106    .text.mqtt_delete_request:0000000000000000 mqtt_delete_request
+     /tmp/ccofpZl4.s:117    .text.mqtt_output_append_u8:0000000000000000 $t
+     /tmp/ccofpZl4.s:123    .text.mqtt_output_append_u8:0000000000000000 mqtt_output_append_u8
+     /tmp/ccofpZl4.s:131    .text.mqtt_output_append_u16:0000000000000000 $t
+     /tmp/ccofpZl4.s:137    .text.mqtt_output_append_u16:0000000000000000 mqtt_output_append_u16
+     /tmp/ccofpZl4.s:151    .text.mqtt_output_append_buf:0000000000000000 $t
+     /tmp/ccofpZl4.s:157    .text.mqtt_output_append_buf:0000000000000000 mqtt_output_append_buf
+     /tmp/ccofpZl4.s:178    .text.mqtt_output_append_string:0000000000000000 $t
+     /tmp/ccofpZl4.s:184    .text.mqtt_output_append_string:0000000000000000 mqtt_output_append_string
+     /tmp/ccofpZl4.s:210    .text.mqtt_output_append_fixed_header:0000000000000000 $t
+     /tmp/ccofpZl4.s:216    .text.mqtt_output_append_fixed_header:0000000000000000 mqtt_output_append_fixed_header
+     /tmp/ccofpZl4.s:254    .text.mqtt_incomming_suback:0000000000000000 $t
+     /tmp/ccofpZl4.s:260    .text.mqtt_incomming_suback:0000000000000000 mqtt_incomming_suback
+     /tmp/ccofpZl4.s:279    .text.mqtt_create_request:0000000000000000 $t
+     /tmp/ccofpZl4.s:285    .text.mqtt_create_request:0000000000000000 mqtt_create_request
+     /tmp/ccofpZl4.s:329    .text.mqtt_create_request:0000000000000044 $d
+     /tmp/ccofpZl4.s:334    .text.mqtt_output_check_space:0000000000000000 $t
+     /tmp/ccofpZl4.s:340    .text.mqtt_output_check_space:0000000000000000 mqtt_output_check_space
+     /tmp/ccofpZl4.s:372    .text.mqtt_output_check_space:0000000000000038 $d
+     /tmp/ccofpZl4.s:377    .text.mqtt_append_request:0000000000000000 $t
+     /tmp/ccofpZl4.s:383    .text.mqtt_append_request:0000000000000000 mqtt_append_request
+     /tmp/ccofpZl4.s:432    .text.mqtt_append_request:0000000000000050 $d
+     /tmp/ccofpZl4.s:438    .text.mqtt_ringbuf_advance_get_idx:0000000000000000 $t
+     /tmp/ccofpZl4.s:444    .text.mqtt_ringbuf_advance_get_idx:0000000000000000 mqtt_ringbuf_advance_get_idx
+     /tmp/ccofpZl4.s:473    .text.mqtt_ringbuf_advance_get_idx:000000000000002c $d
+     /tmp/ccofpZl4.s:478    .text.mqtt_request_time_elapsed:0000000000000000 $t
+     /tmp/ccofpZl4.s:484    .text.mqtt_request_time_elapsed:0000000000000000 mqtt_request_time_elapsed
+     /tmp/ccofpZl4.s:532    .text.mqtt_request_time_elapsed:0000000000000050 $d
+     /tmp/ccofpZl4.s:537    .text.mqtt_clear_requests:0000000000000000 $t
+     /tmp/ccofpZl4.s:543    .text.mqtt_clear_requests:0000000000000000 mqtt_clear_requests
+     /tmp/ccofpZl4.s:571    .text.mqtt_clear_requests:000000000000002c $d
+     /tmp/ccofpZl4.s:576    .text.mqtt_take_request:0000000000000000 $t
+     /tmp/ccofpZl4.s:582    .text.mqtt_take_request:0000000000000000 mqtt_take_request
+     /tmp/ccofpZl4.s:631    .text.mqtt_take_request:000000000000004c $d
+     /tmp/ccofpZl4.s:636    .text.mqtt_init_requests:0000000000000000 $t
+     /tmp/ccofpZl4.s:642    .text.mqtt_init_requests:0000000000000000 mqtt_init_requests
+     /tmp/ccofpZl4.s:672    .text.mqtt_init_requests:000000000000002c $d
+     /tmp/ccofpZl4.s:677    .text.mqtt_output_send:0000000000000000 $t
+     /tmp/ccofpZl4.s:683    .text.mqtt_output_send:0000000000000000 mqtt_output_send
+     /tmp/ccofpZl4.s:789    .text.mqtt_output_send:00000000000000d8 $d
+     /tmp/ccofpZl4.s:794    .text.mqtt_tcp_poll_cb:0000000000000000 $t
+     /tmp/ccofpZl4.s:800    .text.mqtt_tcp_poll_cb:0000000000000000 mqtt_tcp_poll_cb
+     /tmp/ccofpZl4.s:816    .text.mqtt_tcp_sent_cb:0000000000000000 $t
+     /tmp/ccofpZl4.s:822    .text.mqtt_tcp_sent_cb:0000000000000000 mqtt_tcp_sent_cb
+     /tmp/ccofpZl4.s:861    .text.pub_ack_rec_rel_response:0000000000000000 $t
+     /tmp/ccofpZl4.s:867    .text.pub_ack_rec_rel_response:0000000000000000 pub_ack_rec_rel_response
+ARM GAS  /tmp/ccofpZl4.s 			page 52
+
+
+     /tmp/ccofpZl4.s:906    .text.mqtt_message_received:0000000000000000 $t
+     /tmp/ccofpZl4.s:912    .text.mqtt_message_received:0000000000000000 mqtt_message_received
+     /tmp/ccofpZl4.s:1207   .text.mqtt_message_received:0000000000000298 $d
+     /tmp/ccofpZl4.s:1214   .text.mqtt_close:0000000000000000 $t
+     /tmp/ccofpZl4.s:1220   .text.mqtt_close:0000000000000000 mqtt_close
+     /tmp/ccofpZl4.s:1276   .text.mqtt_close:000000000000006c $d
+     /tmp/ccofpZl4.s:1322   .text.mqtt_cyclic_timer:0000000000000000 mqtt_cyclic_timer
+     /tmp/ccofpZl4.s:1282   .text.mqtt_tcp_err_cb:0000000000000000 $t
+     /tmp/ccofpZl4.s:1288   .text.mqtt_tcp_err_cb:0000000000000000 mqtt_tcp_err_cb
+     /tmp/ccofpZl4.s:1311   .text.mqtt_tcp_err_cb:0000000000000028 $d
+     /tmp/ccofpZl4.s:1316   .text.mqtt_cyclic_timer:0000000000000000 $t
+     /tmp/ccofpZl4.s:1419   .text.mqtt_cyclic_timer:00000000000000c0 $d
+     /tmp/ccofpZl4.s:1425   .text.mqtt_tcp_connect_cb:0000000000000000 $t
+     /tmp/ccofpZl4.s:1431   .text.mqtt_tcp_connect_cb:0000000000000000 mqtt_tcp_connect_cb
+     /tmp/ccofpZl4.s:1469   .text.mqtt_tcp_connect_cb:000000000000004c $d
+     /tmp/ccofpZl4.s:1616   .text.mqtt_tcp_recv_cb:0000000000000000 mqtt_tcp_recv_cb
+     /tmp/ccofpZl4.s:1475   .text.mqtt_parse_incoming:0000000000000000 $t
+     /tmp/ccofpZl4.s:1481   .text.mqtt_parse_incoming:0000000000000000 mqtt_parse_incoming
+     /tmp/ccofpZl4.s:1610   .text.mqtt_tcp_recv_cb:0000000000000000 $t
+     /tmp/ccofpZl4.s:1680   .text.mqtt_tcp_recv_cb:000000000000007c $d
+     /tmp/ccofpZl4.s:1686   .text.mqtt_publish:0000000000000000 $t
+     /tmp/ccofpZl4.s:1693   .text.mqtt_publish:0000000000000000 mqtt_publish
+     /tmp/ccofpZl4.s:1841   .text.mqtt_publish:000000000000014c $d
+     /tmp/ccofpZl4.s:1850   .text.mqtt_sub_unsub:0000000000000000 $t
+     /tmp/ccofpZl4.s:1857   .text.mqtt_sub_unsub:0000000000000000 mqtt_sub_unsub
+     /tmp/ccofpZl4.s:2004   .text.mqtt_sub_unsub:0000000000000148 $d
+     /tmp/ccofpZl4.s:2013   .text.mqtt_set_inpub_callback:0000000000000000 $t
+     /tmp/ccofpZl4.s:2020   .text.mqtt_set_inpub_callback:0000000000000000 mqtt_set_inpub_callback
+     /tmp/ccofpZl4.s:2044   .text.mqtt_set_inpub_callback:0000000000000024 $d
+     /tmp/ccofpZl4.s:2049   .text.mqtt_client_new:0000000000000000 $t
+     /tmp/ccofpZl4.s:2056   .text.mqtt_client_new:0000000000000000 mqtt_client_new
+     /tmp/ccofpZl4.s:2066   .text.mqtt_client_free:0000000000000000 $t
+     /tmp/ccofpZl4.s:2073   .text.mqtt_client_free:0000000000000000 mqtt_client_free
+     /tmp/ccofpZl4.s:2081   .text.mqtt_client_connect:0000000000000000 $t
+     /tmp/ccofpZl4.s:2088   .text.mqtt_client_connect:0000000000000000 mqtt_client_connect
+     /tmp/ccofpZl4.s:2460   .text.mqtt_client_connect:000000000000039c $d
+     /tmp/ccofpZl4.s:2481   .text.mqtt_disconnect:0000000000000000 $t
+     /tmp/ccofpZl4.s:2488   .text.mqtt_disconnect:0000000000000000 mqtt_disconnect
+     /tmp/ccofpZl4.s:2515   .text.mqtt_disconnect:0000000000000028 $d
+     /tmp/ccofpZl4.s:2520   .text.mqtt_client_is_connected:0000000000000000 $t
+     /tmp/ccofpZl4.s:2527   .text.mqtt_client_is_connected:0000000000000000 mqtt_client_is_connected
+     /tmp/ccofpZl4.s:2550   .text.mqtt_client_is_connected:0000000000000024 $d
+     /tmp/ccofpZl4.s:2555   .rodata.mqtt_append_request.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2563   .rodata.mqtt_clear_requests.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2567   .rodata.mqtt_client_connect.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2615   .rodata.mqtt_client_is_connected.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2619   .rodata.mqtt_close.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2623   .rodata.mqtt_create_request.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2632   .rodata.mqtt_cyclic_timer.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2636   .rodata.mqtt_disconnect.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2640   .rodata.mqtt_init_requests.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2644   .rodata.mqtt_message_received.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2654   .rodata.mqtt_output_check_space.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2658   .rodata.mqtt_output_send.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2662   .rodata.mqtt_publish.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2676   .rodata.mqtt_request_time_elapsed.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2680   .rodata.mqtt_ringbuf_advance_get_idx.str1.4:0000000000000000 $d
+ARM GAS  /tmp/ccofpZl4.s 			page 53
+
+
+     /tmp/ccofpZl4.s:2685   .rodata.mqtt_set_inpub_callback.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2689   .rodata.mqtt_sub_unsub.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2705   .rodata.mqtt_take_request.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2709   .rodata.mqtt_tcp_err_cb.str1.4:0000000000000000 $d
+     /tmp/ccofpZl4.s:2713   .rodata.mqtt_tcp_recv_cb.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+printf
+tcp_write
+tcp_output
+tcp_recv
+tcp_err
+tcp_sent
+tcp_close
+sys_untimeout
+tcp_abort
+sys_timeout
+tcp_poll
+pbuf_copy_partial
+pbuf_get_at
+tcp_recved
+pbuf_free
+strlen
+mem_calloc
+mem_free
+memset
+tcp_new_ip_type
+tcp_arg
+tcp_bind
+tcp_connect
+ip_addr_any

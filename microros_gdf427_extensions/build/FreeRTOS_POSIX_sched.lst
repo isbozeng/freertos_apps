@@ -1,0 +1,91 @@
+ARM GAS  /tmp/ccrFFTGG.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"FreeRTOS_POSIX_sched.c"
+  14              		.text
+  15              		.section	.text.sched_get_priority_max,"ax",%progbits
+  16              		.align	1
+  17              		.global	sched_get_priority_max
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	sched_get_priority_max:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27              		@ link register save eliminated.
+  28 0000 3720     		movs	r0, #55
+  29 0002 7047     		bx	lr
+  31              		.section	.text.sched_get_priority_min,"ax",%progbits
+  32              		.align	1
+  33              		.global	sched_get_priority_min
+  34              		.syntax unified
+  35              		.thumb
+  36              		.thumb_func
+  37              		.fpu fpv4-sp-d16
+  39              	sched_get_priority_min:
+  40              		@ args = 0, pretend = 0, frame = 0
+  41              		@ frame_needed = 0, uses_anonymous_args = 0
+  42              		@ link register save eliminated.
+  43 0000 0020     		movs	r0, #0
+  44 0002 7047     		bx	lr
+  46              		.section	.text.sched_yield,"ax",%progbits
+  47              		.align	1
+  48              		.global	sched_yield
+  49              		.syntax unified
+  50              		.thumb
+  51              		.thumb_func
+  52              		.fpu fpv4-sp-d16
+  54              	sched_yield:
+  55              		@ args = 0, pretend = 0, frame = 0
+  56              		@ frame_needed = 0, uses_anonymous_args = 0
+  57              		@ link register save eliminated.
+  58 0000 044B     		ldr	r3, .L4
+  59 0002 4FF08052 		mov	r2, #268435456
+  60 0006 1A60     		str	r2, [r3]
+  61              		.syntax unified
+  62              	@ 59 "FreeRTOS-Plus-POSIX/source/FreeRTOS_POSIX_sched.c" 1
+ARM GAS  /tmp/ccrFFTGG.s 			page 2
+
+
+  63 0008 BFF34F8F 		dsb
+  64              	@ 0 "" 2
+  65              	@ 59 "FreeRTOS-Plus-POSIX/source/FreeRTOS_POSIX_sched.c" 1
+  66 000c BFF36F8F 		isb
+  67              	@ 0 "" 2
+  68              		.thumb
+  69              		.syntax unified
+  70 0010 0020     		movs	r0, #0
+  71 0012 7047     		bx	lr
+  72              	.L5:
+  73              		.align	2
+  74              	.L4:
+  75 0014 04ED00E0 		.word	-536810236
+  77              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccrFFTGG.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 FreeRTOS_POSIX_sched.c
+     /tmp/ccrFFTGG.s:16     .text.sched_get_priority_max:0000000000000000 $t
+     /tmp/ccrFFTGG.s:24     .text.sched_get_priority_max:0000000000000000 sched_get_priority_max
+     /tmp/ccrFFTGG.s:32     .text.sched_get_priority_min:0000000000000000 $t
+     /tmp/ccrFFTGG.s:39     .text.sched_get_priority_min:0000000000000000 sched_get_priority_min
+     /tmp/ccrFFTGG.s:47     .text.sched_yield:0000000000000000 $t
+     /tmp/ccrFFTGG.s:54     .text.sched_yield:0000000000000000 sched_yield
+     /tmp/ccrFFTGG.s:75     .text.sched_yield:0000000000000014 $d
+
+NO UNDEFINED SYMBOLS

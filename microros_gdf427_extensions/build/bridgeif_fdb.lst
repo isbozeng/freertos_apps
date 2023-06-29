@@ -1,0 +1,330 @@
+ARM GAS  /tmp/cchZKJkT.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"bridgeif_fdb.c"
+  14              		.text
+  15              		.section	.text.bridgeif_fdb_age_one_second,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	bridgeif_fdb_age_one_second:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26              		@ link register save eliminated.
+  27 0000 0023     		movs	r3, #0
+  28 0002 0288     		ldrh	r2, [r0]
+  29 0004 9A42     		cmp	r2, r3
+  30 0006 16DD     		ble	.L8
+  31 0008 30B4     		push	{r4, r5}
+  32 000a 03E0     		b	.L4
+  33              	.L3:
+  34 000c 0133     		adds	r3, r3, #1
+  35 000e 0288     		ldrh	r2, [r0]
+  36 0010 9A42     		cmp	r2, r3
+  37 0012 0EDD     		ble	.L9
+  38              	.L4:
+  39 0014 4168     		ldr	r1, [r0, #4]
+  40 0016 1A01     		lsls	r2, r3, #4
+  41 0018 8D18     		adds	r5, r1, r2
+  42 001a 8C5C     		ldrb	r4, [r1, r2]	@ zero_extendqisi2
+  43 001c 002C     		cmp	r4, #0
+  44 001e F5D0     		beq	.L3
+  45 0020 6C68     		ldr	r4, [r5, #4]
+  46 0022 002C     		cmp	r4, #0
+  47 0024 F2D0     		beq	.L3
+  48 0026 013C     		subs	r4, r4, #1
+  49 0028 6C60     		str	r4, [r5, #4]
+  50 002a 002C     		cmp	r4, #0
+  51 002c EED1     		bne	.L3
+  52 002e 8C54     		strb	r4, [r1, r2]
+  53 0030 ECE7     		b	.L3
+  54              	.L9:
+  55 0032 30BC     		pop	{r4, r5}
+  56 0034 7047     		bx	lr
+  57              	.L8:
+  58 0036 7047     		bx	lr
+ARM GAS  /tmp/cchZKJkT.s 			page 2
+
+
+  60              		.section	.text.bridgeif_age_tmr,"ax",%progbits
+  61              		.align	1
+  62              		.syntax unified
+  63              		.thumb
+  64              		.thumb_func
+  65              		.fpu fpv4-sp-d16
+  67              	bridgeif_age_tmr:
+  68              		@ args = 0, pretend = 0, frame = 0
+  69              		@ frame_needed = 0, uses_anonymous_args = 0
+  70 0000 10B5     		push	{r4, lr}
+  71 0002 0446     		mov	r4, r0
+  72 0004 48B1     		cbz	r0, .L13
+  73              	.L11:
+  74 0006 2046     		mov	r0, r4
+  75 0008 FFF7FEFF 		bl	bridgeif_fdb_age_one_second
+  76 000c 2246     		mov	r2, r4
+  77 000e 0649     		ldr	r1, .L14
+  78 0010 4FF47A70 		mov	r0, #1000
+  79 0014 FFF7FEFF 		bl	sys_timeout
+  80 0018 10BD     		pop	{r4, pc}
+  81              	.L13:
+  82 001a 044B     		ldr	r3, .L14+4
+  83 001c B822     		movs	r2, #184
+  84 001e 0449     		ldr	r1, .L14+8
+  85 0020 0448     		ldr	r0, .L14+12
+  86 0022 FFF7FEFF 		bl	printf
+  87 0026 EEE7     		b	.L11
+  88              	.L15:
+  89              		.align	2
+  90              	.L14:
+  91 0028 00000000 		.word	bridgeif_age_tmr
+  92 002c 00000000 		.word	.LC0
+  93 0030 38000000 		.word	.LC1
+  94 0034 44000000 		.word	.LC2
+  96              		.section	.text.bridgeif_fdb_update_src,"ax",%progbits
+  97              		.align	1
+  98              		.global	bridgeif_fdb_update_src
+  99              		.syntax unified
+ 100              		.thumb
+ 101              		.thumb_func
+ 102              		.fpu fpv4-sp-d16
+ 104              	bridgeif_fdb_update_src:
+ 105              		@ args = 0, pretend = 0, frame = 0
+ 106              		@ frame_needed = 0, uses_anonymous_args = 0
+ 107 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 108 0004 0546     		mov	r5, r0
+ 109 0006 0E46     		mov	r6, r1
+ 110 0008 1746     		mov	r7, r2
+ 111 000a 0024     		movs	r4, #0
+ 112 000c 00E0     		b	.L17
+ 113              	.L18:
+ 114 000e 0134     		adds	r4, r4, #1
+ 115              	.L17:
+ 116 0010 2B88     		ldrh	r3, [r5]
+ 117 0012 A342     		cmp	r3, r4
+ 118 0014 19DD     		ble	.L27
+ 119 0016 6A68     		ldr	r2, [r5, #4]
+ARM GAS  /tmp/cchZKJkT.s 			page 3
+
+
+ 120 0018 2301     		lsls	r3, r4, #4
+ 121 001a 02EB0308 		add	r8, r2, r3
+ 122 001e D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 123 0020 002B     		cmp	r3, #0
+ 124 0022 F4D0     		beq	.L18
+ 125 0024 D8F80430 		ldr	r3, [r8, #4]
+ 126 0028 002B     		cmp	r3, #0
+ 127 002a F0D0     		beq	.L18
+ 128 002c 0622     		movs	r2, #6
+ 129 002e 3146     		mov	r1, r6
+ 130 0030 08F10800 		add	r0, r8, #8
+ 131 0034 FFF7FEFF 		bl	memcmp
+ 132 0038 0028     		cmp	r0, #0
+ 133 003a E8D1     		bne	.L18
+ 134 003c 4FF49673 		mov	r3, #300
+ 135 0040 C8F80430 		str	r3, [r8, #4]
+ 136 0044 88F80170 		strb	r7, [r8, #1]
+ 137 0048 1BE0     		b	.L16
+ 138              	.L27:
+ 139 004a 0022     		movs	r2, #0
+ 140 004c 03E0     		b	.L21
+ 141              	.L22:
+ 142 004e 71B1     		cbz	r1, .L24
+ 143 0050 6168     		ldr	r1, [r4, #4]
+ 144 0052 61B1     		cbz	r1, .L24
+ 145              	.L23:
+ 146 0054 0132     		adds	r2, r2, #1
+ 147              	.L21:
+ 148 0056 9342     		cmp	r3, r2
+ 149 0058 13DD     		ble	.L16
+ 150 005a 6868     		ldr	r0, [r5, #4]
+ 151 005c 1101     		lsls	r1, r2, #4
+ 152 005e 4418     		adds	r4, r0, r1
+ 153 0060 415C     		ldrb	r1, [r0, r1]	@ zero_extendqisi2
+ 154 0062 0029     		cmp	r1, #0
+ 155 0064 F3D0     		beq	.L22
+ 156 0066 6068     		ldr	r0, [r4, #4]
+ 157 0068 0028     		cmp	r0, #0
+ 158 006a F3D1     		bne	.L23
+ 159 006c EFE7     		b	.L22
+ 160              	.L24:
+ 161 006e 3368     		ldr	r3, [r6]	@ unaligned
+ 162 0070 A360     		str	r3, [r4, #8]	@ unaligned
+ 163 0072 B388     		ldrh	r3, [r6, #4]	@ unaligned
+ 164 0074 A381     		strh	r3, [r4, #12]	@ unaligned
+ 165 0076 4FF49673 		mov	r3, #300
+ 166 007a 6360     		str	r3, [r4, #4]
+ 167 007c 6770     		strb	r7, [r4, #1]
+ 168 007e 0123     		movs	r3, #1
+ 169 0080 2370     		strb	r3, [r4]
+ 170              	.L16:
+ 171 0082 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 173              		.section	.text.bridgeif_fdb_get_dst_ports,"ax",%progbits
+ 174              		.align	1
+ 175              		.global	bridgeif_fdb_get_dst_ports
+ 176              		.syntax unified
+ 177              		.thumb
+ARM GAS  /tmp/cchZKJkT.s 			page 4
+
+
+ 178              		.thumb_func
+ 179              		.fpu fpv4-sp-d16
+ 181              	bridgeif_fdb_get_dst_ports:
+ 182              		@ args = 0, pretend = 0, frame = 0
+ 183              		@ frame_needed = 0, uses_anonymous_args = 0
+ 184 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 185 0002 0546     		mov	r5, r0
+ 186 0004 0F46     		mov	r7, r1
+ 187 0006 0024     		movs	r4, #0
+ 188 0008 00E0     		b	.L29
+ 189              	.L30:
+ 190 000a 0134     		adds	r4, r4, #1
+ 191              	.L29:
+ 192 000c 2B88     		ldrh	r3, [r5]
+ 193 000e A342     		cmp	r3, r4
+ 194 0010 15DD     		ble	.L34
+ 195 0012 6A68     		ldr	r2, [r5, #4]
+ 196 0014 2301     		lsls	r3, r4, #4
+ 197 0016 D618     		adds	r6, r2, r3
+ 198 0018 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 199 001a 002B     		cmp	r3, #0
+ 200 001c F5D0     		beq	.L30
+ 201 001e 7368     		ldr	r3, [r6, #4]
+ 202 0020 002B     		cmp	r3, #0
+ 203 0022 F2D0     		beq	.L30
+ 204 0024 0622     		movs	r2, #6
+ 205 0026 3946     		mov	r1, r7
+ 206 0028 06F10800 		add	r0, r6, #8
+ 207 002c FFF7FEFF 		bl	memcmp
+ 208 0030 0028     		cmp	r0, #0
+ 209 0032 EAD1     		bne	.L30
+ 210 0034 7378     		ldrb	r3, [r6, #1]	@ zero_extendqisi2
+ 211 0036 0120     		movs	r0, #1
+ 212 0038 9840     		lsls	r0, r0, r3
+ 213 003a C0B2     		uxtb	r0, r0
+ 214 003c 00E0     		b	.L31
+ 215              	.L34:
+ 216 003e FF20     		movs	r0, #255
+ 217              	.L31:
+ 218 0040 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 220              		.section	.text.bridgeif_fdb_init,"ax",%progbits
+ 221              		.align	1
+ 222              		.global	bridgeif_fdb_init
+ 223              		.syntax unified
+ 224              		.thumb
+ 225              		.thumb_func
+ 226              		.fpu fpv4-sp-d16
+ 228              	bridgeif_fdb_init:
+ 229              		@ args = 0, pretend = 0, frame = 0
+ 230              		@ frame_needed = 0, uses_anonymous_args = 0
+ 231 0000 38B5     		push	{r3, r4, r5, lr}
+ 232 0002 0546     		mov	r5, r0
+ 233 0004 0301     		lsls	r3, r0, #4
+ 234 0006 0833     		adds	r3, r3, #8
+ 235 0008 9CB2     		uxth	r4, r3
+ 236 000a A342     		cmp	r3, r4
+ 237 000c 11D1     		bne	.L39
+ARM GAS  /tmp/cchZKJkT.s 			page 5
+
+
+ 238              	.L36:
+ 239 000e 2146     		mov	r1, r4
+ 240 0010 0120     		movs	r0, #1
+ 241 0012 FFF7FEFF 		bl	mem_calloc
+ 242 0016 0446     		mov	r4, r0
+ 243 0018 48B1     		cbz	r0, .L35
+ 244 001a 0346     		mov	r3, r0
+ 245 001c 23F8085B 		strh	r5, [r3], #8	@ movhi
+ 246 0020 4360     		str	r3, [r0, #4]
+ 247 0022 0246     		mov	r2, r0
+ 248 0024 0649     		ldr	r1, .L40
+ 249 0026 4FF47A70 		mov	r0, #1000
+ 250 002a FFF7FEFF 		bl	sys_timeout
+ 251              	.L35:
+ 252 002e 2046     		mov	r0, r4
+ 253 0030 38BD     		pop	{r3, r4, r5, pc}
+ 254              	.L39:
+ 255 0032 044B     		ldr	r3, .L40+4
+ 256 0034 C822     		movs	r2, #200
+ 257 0036 0449     		ldr	r1, .L40+8
+ 258 0038 0448     		ldr	r0, .L40+12
+ 259 003a FFF7FEFF 		bl	printf
+ 260 003e E6E7     		b	.L36
+ 261              	.L41:
+ 262              		.align	2
+ 263              	.L40:
+ 264 0040 00000000 		.word	bridgeif_age_tmr
+ 265 0044 00000000 		.word	.LC0
+ 266 0048 00000000 		.word	.LC3
+ 267 004c 44000000 		.word	.LC2
+ 269              		.section	.rodata.bridgeif_age_tmr.str1.4,"aMS",%progbits,1
+ 270              		.align	2
+ 271              	.LC0:
+ 272 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/netif/bridgeif_fdb"
+ 272      6C657761 
+ 272      7265732F 
+ 272      54686972 
+ 272      645F5061 
+ 273 0033 2E6300   		.ascii	".c\000"
+ 274 0036 0000     		.space	2
+ 275              	.LC1:
+ 276 0038 696E7661 		.ascii	"invalid arg\000"
+ 276      6C696420 
+ 276      61726700 
+ 277              	.LC2:
+ 278 0044 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ 278      7274696F 
+ 278      6E202225 
+ 278      73222066 
+ 278      61696C65 
+ 279              		.section	.rodata.bridgeif_fdb_init.str1.4,"aMS",%progbits,1
+ 280              		.align	2
+ 281              	.LC3:
+ 282 0000 616C6C6F 		.ascii	"alloc_len == alloc_len_sizet\000"
+ 282      635F6C65 
+ 282      6E203D3D 
+ 282      20616C6C 
+ARM GAS  /tmp/cchZKJkT.s 			page 6
+
+
+ 282      6F635F6C 
+ 283              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/cchZKJkT.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 bridgeif_fdb.c
+     /tmp/cchZKJkT.s:16     .text.bridgeif_fdb_age_one_second:0000000000000000 $t
+     /tmp/cchZKJkT.s:23     .text.bridgeif_fdb_age_one_second:0000000000000000 bridgeif_fdb_age_one_second
+     /tmp/cchZKJkT.s:61     .text.bridgeif_age_tmr:0000000000000000 $t
+     /tmp/cchZKJkT.s:67     .text.bridgeif_age_tmr:0000000000000000 bridgeif_age_tmr
+     /tmp/cchZKJkT.s:91     .text.bridgeif_age_tmr:0000000000000028 $d
+     /tmp/cchZKJkT.s:97     .text.bridgeif_fdb_update_src:0000000000000000 $t
+     /tmp/cchZKJkT.s:104    .text.bridgeif_fdb_update_src:0000000000000000 bridgeif_fdb_update_src
+     /tmp/cchZKJkT.s:174    .text.bridgeif_fdb_get_dst_ports:0000000000000000 $t
+     /tmp/cchZKJkT.s:181    .text.bridgeif_fdb_get_dst_ports:0000000000000000 bridgeif_fdb_get_dst_ports
+     /tmp/cchZKJkT.s:221    .text.bridgeif_fdb_init:0000000000000000 $t
+     /tmp/cchZKJkT.s:228    .text.bridgeif_fdb_init:0000000000000000 bridgeif_fdb_init
+     /tmp/cchZKJkT.s:264    .text.bridgeif_fdb_init:0000000000000040 $d
+     /tmp/cchZKJkT.s:270    .rodata.bridgeif_age_tmr.str1.4:0000000000000000 $d
+     /tmp/cchZKJkT.s:280    .rodata.bridgeif_fdb_init.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+sys_timeout
+printf
+memcmp
+mem_calloc

@@ -1,0 +1,213 @@
+ARM GAS  /tmp/ccY9vA4K.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_fwdgt.c"
+  14              		.text
+  15              		.section	.text.fwdgt_write_enable,"ax",%progbits
+  16              		.align	1
+  17              		.global	fwdgt_write_enable
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	fwdgt_write_enable:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27              		@ link register save eliminated.
+  28 0000 024B     		ldr	r3, .L2
+  29 0002 45F25552 		movw	r2, #21845
+  30 0006 1A60     		str	r2, [r3]
+  31 0008 7047     		bx	lr
+  32              	.L3:
+  33 000a 00BF     		.align	2
+  34              	.L2:
+  35 000c 00300040 		.word	1073754112
+  37              		.section	.text.fwdgt_write_disable,"ax",%progbits
+  38              		.align	1
+  39              		.global	fwdgt_write_disable
+  40              		.syntax unified
+  41              		.thumb
+  42              		.thumb_func
+  43              		.fpu fpv4-sp-d16
+  45              	fwdgt_write_disable:
+  46              		@ args = 0, pretend = 0, frame = 0
+  47              		@ frame_needed = 0, uses_anonymous_args = 0
+  48              		@ link register save eliminated.
+  49 0000 014B     		ldr	r3, .L5
+  50 0002 0022     		movs	r2, #0
+  51 0004 1A60     		str	r2, [r3]
+  52 0006 7047     		bx	lr
+  53              	.L6:
+  54              		.align	2
+  55              	.L5:
+  56 0008 00300040 		.word	1073754112
+  58              		.section	.text.fwdgt_enable,"ax",%progbits
+  59              		.align	1
+  60              		.global	fwdgt_enable
+  61              		.syntax unified
+ARM GAS  /tmp/ccY9vA4K.s 			page 2
+
+
+  62              		.thumb
+  63              		.thumb_func
+  64              		.fpu fpv4-sp-d16
+  66              	fwdgt_enable:
+  67              		@ args = 0, pretend = 0, frame = 0
+  68              		@ frame_needed = 0, uses_anonymous_args = 0
+  69              		@ link register save eliminated.
+  70 0000 024B     		ldr	r3, .L8
+  71 0002 4CF6CC42 		movw	r2, #52428
+  72 0006 1A60     		str	r2, [r3]
+  73 0008 7047     		bx	lr
+  74              	.L9:
+  75 000a 00BF     		.align	2
+  76              	.L8:
+  77 000c 00300040 		.word	1073754112
+  79              		.section	.text.fwdgt_counter_reload,"ax",%progbits
+  80              		.align	1
+  81              		.global	fwdgt_counter_reload
+  82              		.syntax unified
+  83              		.thumb
+  84              		.thumb_func
+  85              		.fpu fpv4-sp-d16
+  87              	fwdgt_counter_reload:
+  88              		@ args = 0, pretend = 0, frame = 0
+  89              		@ frame_needed = 0, uses_anonymous_args = 0
+  90              		@ link register save eliminated.
+  91 0000 024B     		ldr	r3, .L11
+  92 0002 4AF6AA22 		movw	r2, #43690
+  93 0006 1A60     		str	r2, [r3]
+  94 0008 7047     		bx	lr
+  95              	.L12:
+  96 000a 00BF     		.align	2
+  97              	.L11:
+  98 000c 00300040 		.word	1073754112
+ 100              		.section	.text.fwdgt_config,"ax",%progbits
+ 101              		.align	1
+ 102              		.global	fwdgt_config
+ 103              		.syntax unified
+ 104              		.thumb
+ 105              		.thumb_func
+ 106              		.fpu fpv4-sp-d16
+ 108              	fwdgt_config:
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111              		@ link register save eliminated.
+ 112 0000 134B     		ldr	r3, .L21
+ 113 0002 45F25552 		movw	r2, #21845
+ 114 0006 1A60     		str	r2, [r3]
+ 115 0008 124A     		ldr	r2, .L21+4
+ 116              	.L15:
+ 117 000a 134B     		ldr	r3, .L21+8
+ 118 000c 1B68     		ldr	r3, [r3]
+ 119 000e 03F00103 		and	r3, r3, #1
+ 120 0012 013A     		subs	r2, r2, #1
+ 121 0014 01D0     		beq	.L14
+ 122 0016 002B     		cmp	r3, #0
+ 123 0018 F7D1     		bne	.L15
+ARM GAS  /tmp/ccY9vA4K.s 			page 3
+
+
+ 124              	.L14:
+ 125 001a ABB9     		cbnz	r3, .L19
+ 126 001c 0F4B     		ldr	r3, .L21+12
+ 127 001e 1960     		str	r1, [r3]
+ 128 0020 0C4A     		ldr	r2, .L21+4
+ 129              	.L18:
+ 130 0022 0D4B     		ldr	r3, .L21+8
+ 131 0024 1B68     		ldr	r3, [r3]
+ 132 0026 03F00203 		and	r3, r3, #2
+ 133 002a 013A     		subs	r2, r2, #1
+ 134 002c 01D0     		beq	.L17
+ 135 002e 002B     		cmp	r3, #0
+ 136 0030 F7D1     		bne	.L18
+ 137              	.L17:
+ 138 0032 5BB9     		cbnz	r3, .L20
+ 139 0034 C0F30B00 		ubfx	r0, r0, #0, #12
+ 140 0038 094B     		ldr	r3, .L21+16
+ 141 003a 1860     		str	r0, [r3]
+ 142 003c 083B     		subs	r3, r3, #8
+ 143 003e 4AF6AA22 		movw	r2, #43690
+ 144 0042 1A60     		str	r2, [r3]
+ 145 0044 0120     		movs	r0, #1
+ 146 0046 7047     		bx	lr
+ 147              	.L19:
+ 148 0048 0020     		movs	r0, #0
+ 149 004a 7047     		bx	lr
+ 150              	.L20:
+ 151 004c 0020     		movs	r0, #0
+ 152 004e 7047     		bx	lr
+ 153              	.L22:
+ 154              		.align	2
+ 155              	.L21:
+ 156 0050 00300040 		.word	1073754112
+ 157 0054 FFFF0F00 		.word	1048575
+ 158 0058 0C300040 		.word	1073754124
+ 159 005c 04300040 		.word	1073754116
+ 160 0060 08300040 		.word	1073754120
+ 162              		.section	.text.fwdgt_flag_get,"ax",%progbits
+ 163              		.align	1
+ 164              		.global	fwdgt_flag_get
+ 165              		.syntax unified
+ 166              		.thumb
+ 167              		.thumb_func
+ 168              		.fpu fpv4-sp-d16
+ 170              	fwdgt_flag_get:
+ 171              		@ args = 0, pretend = 0, frame = 0
+ 172              		@ frame_needed = 0, uses_anonymous_args = 0
+ 173              		@ link register save eliminated.
+ 174 0000 034B     		ldr	r3, .L26
+ 175 0002 1B68     		ldr	r3, [r3]
+ 176 0004 1842     		tst	r0, r3
+ 177 0006 01D1     		bne	.L25
+ 178 0008 0020     		movs	r0, #0
+ 179 000a 7047     		bx	lr
+ 180              	.L25:
+ 181 000c 0120     		movs	r0, #1
+ 182 000e 7047     		bx	lr
+ARM GAS  /tmp/ccY9vA4K.s 			page 4
+
+
+ 183              	.L27:
+ 184              		.align	2
+ 185              	.L26:
+ 186 0010 0C300040 		.word	1073754124
+ 188              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccY9vA4K.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_fwdgt.c
+     /tmp/ccY9vA4K.s:16     .text.fwdgt_write_enable:0000000000000000 $t
+     /tmp/ccY9vA4K.s:24     .text.fwdgt_write_enable:0000000000000000 fwdgt_write_enable
+     /tmp/ccY9vA4K.s:35     .text.fwdgt_write_enable:000000000000000c $d
+     /tmp/ccY9vA4K.s:38     .text.fwdgt_write_disable:0000000000000000 $t
+     /tmp/ccY9vA4K.s:45     .text.fwdgt_write_disable:0000000000000000 fwdgt_write_disable
+     /tmp/ccY9vA4K.s:56     .text.fwdgt_write_disable:0000000000000008 $d
+     /tmp/ccY9vA4K.s:59     .text.fwdgt_enable:0000000000000000 $t
+     /tmp/ccY9vA4K.s:66     .text.fwdgt_enable:0000000000000000 fwdgt_enable
+     /tmp/ccY9vA4K.s:77     .text.fwdgt_enable:000000000000000c $d
+     /tmp/ccY9vA4K.s:80     .text.fwdgt_counter_reload:0000000000000000 $t
+     /tmp/ccY9vA4K.s:87     .text.fwdgt_counter_reload:0000000000000000 fwdgt_counter_reload
+     /tmp/ccY9vA4K.s:98     .text.fwdgt_counter_reload:000000000000000c $d
+     /tmp/ccY9vA4K.s:101    .text.fwdgt_config:0000000000000000 $t
+     /tmp/ccY9vA4K.s:108    .text.fwdgt_config:0000000000000000 fwdgt_config
+     /tmp/ccY9vA4K.s:156    .text.fwdgt_config:0000000000000050 $d
+     /tmp/ccY9vA4K.s:163    .text.fwdgt_flag_get:0000000000000000 $t
+     /tmp/ccY9vA4K.s:170    .text.fwdgt_flag_get:0000000000000000 fwdgt_flag_get
+     /tmp/ccY9vA4K.s:186    .text.fwdgt_flag_get:0000000000000010 $d
+
+NO UNDEFINED SYMBOLS

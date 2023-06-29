@@ -1,0 +1,4282 @@
+ARM GAS  /tmp/cc1iSaBg.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"tasks.c"
+  14              		.text
+  15              		.section	.text.prvTaskIsTaskSuspended,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	prvTaskIsTaskSuspended:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26              		@ link register save eliminated.
+  27 0000 4269     		ldr	r2, [r0, #20]
+  28 0002 084B     		ldr	r3, .L7
+  29 0004 9A42     		cmp	r2, r3
+  30 0006 01D0     		beq	.L6
+  31 0008 0020     		movs	r0, #0
+  32 000a 7047     		bx	lr
+  33              	.L6:
+  34 000c 836A     		ldr	r3, [r0, #40]
+  35 000e 064A     		ldr	r2, .L7+4
+  36 0010 9342     		cmp	r3, r2
+  37 0012 02D0     		beq	.L4
+  38 0014 1BB1     		cbz	r3, .L5
+  39 0016 0020     		movs	r0, #0
+  40 0018 7047     		bx	lr
+  41              	.L4:
+  42 001a 0020     		movs	r0, #0
+  43 001c 7047     		bx	lr
+  44              	.L5:
+  45 001e 0120     		movs	r0, #1
+  46 0020 7047     		bx	lr
+  47              	.L8:
+  48 0022 00BF     		.align	2
+  49              	.L7:
+  50 0024 00000000 		.word	.LANCHOR0
+  51 0028 00000000 		.word	.LANCHOR1
+  53              		.section	.text.prvSearchForNameWithinSingleList,"ax",%progbits
+  54              		.align	1
+  55              		.syntax unified
+  56              		.thumb
+  57              		.thumb_func
+  58              		.fpu fpv4-sp-d16
+  60              	prvSearchForNameWithinSingleList:
+ARM GAS  /tmp/cc1iSaBg.s 			page 2
+
+
+  61              		@ args = 0, pretend = 0, frame = 0
+  62              		@ frame_needed = 0, uses_anonymous_args = 0
+  63              		@ link register save eliminated.
+  64 0000 F0B4     		push	{r4, r5, r6, r7}
+  65 0002 0368     		ldr	r3, [r0]
+  66 0004 4BB3     		cbz	r3, .L17
+  67 0006 4368     		ldr	r3, [r0, #4]
+  68 0008 5B68     		ldr	r3, [r3, #4]
+  69 000a 4360     		str	r3, [r0, #4]
+  70 000c 00F10807 		add	r7, r0, #8
+  71 0010 BB42     		cmp	r3, r7
+  72 0012 04D0     		beq	.L20
+  73              	.L11:
+  74 0014 4368     		ldr	r3, [r0, #4]
+  75 0016 D3F80CC0 		ldr	ip, [r3, #12]
+  76 001a 0026     		movs	r6, #0
+  77 001c 09E0     		b	.L16
+  78              	.L20:
+  79 001e 5B68     		ldr	r3, [r3, #4]
+  80 0020 4360     		str	r3, [r0, #4]
+  81 0022 F7E7     		b	.L11
+  82              	.L21:
+  83 0024 5B68     		ldr	r3, [r3, #4]
+  84 0026 4360     		str	r3, [r0, #4]
+  85 0028 08E0     		b	.L12
+  86              	.L18:
+  87 002a 2E46     		mov	r6, r5
+  88              	.L14:
+  89 002c B6B9     		cbnz	r6, .L9
+  90 002e AC45     		cmp	ip, r5
+  91 0030 14D0     		beq	.L9
+  92              	.L16:
+  93 0032 4368     		ldr	r3, [r0, #4]
+  94 0034 5B68     		ldr	r3, [r3, #4]
+  95 0036 4360     		str	r3, [r0, #4]
+  96 0038 9F42     		cmp	r7, r3
+  97 003a F3D0     		beq	.L21
+  98              	.L12:
+  99 003c 4368     		ldr	r3, [r0, #4]
+ 100 003e DD68     		ldr	r5, [r3, #12]
+ 101 0040 0023     		movs	r3, #0
+ 102              	.L13:
+ 103 0042 0F2B     		cmp	r3, #15
+ 104 0044 F2D8     		bhi	.L14
+ 105 0046 EA18     		adds	r2, r5, r3
+ 106 0048 92F83420 		ldrb	r2, [r2, #52]	@ zero_extendqisi2
+ 107 004c CC5C     		ldrb	r4, [r1, r3]	@ zero_extendqisi2
+ 108 004e 9442     		cmp	r4, r2
+ 109 0050 ECD1     		bne	.L14
+ 110 0052 002A     		cmp	r2, #0
+ 111 0054 E9D0     		beq	.L18
+ 112 0056 0133     		adds	r3, r3, #1
+ 113 0058 F3E7     		b	.L13
+ 114              	.L17:
+ 115 005a 0026     		movs	r6, #0
+ 116              	.L9:
+ 117 005c 3046     		mov	r0, r6
+ARM GAS  /tmp/cc1iSaBg.s 			page 3
+
+
+ 118 005e F0BC     		pop	{r4, r5, r6, r7}
+ 119 0060 7047     		bx	lr
+ 121              		.section	.text.prvTaskCheckFreeStackSpace,"ax",%progbits
+ 122              		.align	1
+ 123              		.syntax unified
+ 124              		.thumb
+ 125              		.thumb_func
+ 126              		.fpu fpv4-sp-d16
+ 128              	prvTaskCheckFreeStackSpace:
+ 129              		@ args = 0, pretend = 0, frame = 0
+ 130              		@ frame_needed = 0, uses_anonymous_args = 0
+ 131              		@ link register save eliminated.
+ 132 0000 0023     		movs	r3, #0
+ 133              	.L23:
+ 134 0002 0278     		ldrb	r2, [r0]	@ zero_extendqisi2
+ 135 0004 A52A     		cmp	r2, #165
+ 136 0006 02D1     		bne	.L25
+ 137 0008 0130     		adds	r0, r0, #1
+ 138 000a 0133     		adds	r3, r3, #1
+ 139 000c F9E7     		b	.L23
+ 140              	.L25:
+ 141 000e C3F38F00 		ubfx	r0, r3, #2, #16
+ 142 0012 7047     		bx	lr
+ 144              		.section	.text.prvResetNextTaskUnblockTime,"ax",%progbits
+ 145              		.align	1
+ 146              		.syntax unified
+ 147              		.thumb
+ 148              		.thumb_func
+ 149              		.fpu fpv4-sp-d16
+ 151              	prvResetNextTaskUnblockTime:
+ 152              		@ args = 0, pretend = 0, frame = 0
+ 153              		@ frame_needed = 0, uses_anonymous_args = 0
+ 154              		@ link register save eliminated.
+ 155 0000 084B     		ldr	r3, .L29
+ 156 0002 1B68     		ldr	r3, [r3]
+ 157 0004 1B68     		ldr	r3, [r3]
+ 158 0006 23B9     		cbnz	r3, .L27
+ 159 0008 074B     		ldr	r3, .L29+4
+ 160 000a 4FF0FF32 		mov	r2, #-1
+ 161 000e 1A60     		str	r2, [r3]
+ 162 0010 7047     		bx	lr
+ 163              	.L27:
+ 164 0012 044B     		ldr	r3, .L29
+ 165 0014 1B68     		ldr	r3, [r3]
+ 166 0016 DB68     		ldr	r3, [r3, #12]
+ 167 0018 DB68     		ldr	r3, [r3, #12]
+ 168 001a 5A68     		ldr	r2, [r3, #4]
+ 169 001c 024B     		ldr	r3, .L29+4
+ 170 001e 1A60     		str	r2, [r3]
+ 171 0020 7047     		bx	lr
+ 172              	.L30:
+ 173 0022 00BF     		.align	2
+ 174              	.L29:
+ 175 0024 00000000 		.word	.LANCHOR2
+ 176 0028 00000000 		.word	.LANCHOR3
+ 178              		.section	.text.prvInitialiseNewTask,"ax",%progbits
+ 179              		.align	1
+ARM GAS  /tmp/cc1iSaBg.s 			page 4
+
+
+ 180              		.syntax unified
+ 181              		.thumb
+ 182              		.thumb_func
+ 183              		.fpu fpv4-sp-d16
+ 185              	prvInitialiseNewTask:
+ 186              		@ args = 16, pretend = 0, frame = 0
+ 187              		@ frame_needed = 0, uses_anonymous_args = 0
+ 188 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 189 0004 8146     		mov	r9, r0
+ 190 0006 0D46     		mov	r5, r1
+ 191 0008 1746     		mov	r7, r2
+ 192 000a 9A46     		mov	r10, r3
+ 193 000c 089E     		ldr	r6, [sp, #32]
+ 194 000e DDF82480 		ldr	r8, [sp, #36]
+ 195 0012 0A9C     		ldr	r4, [sp, #40]
+ 196 0014 9200     		lsls	r2, r2, #2
+ 197 0016 A521     		movs	r1, #165
+ 198 0018 206B     		ldr	r0, [r4, #48]
+ 199 001a FFF7FEFF 		bl	memset
+ 200 001e 236B     		ldr	r3, [r4, #48]
+ 201 0020 07F18042 		add	r2, r7, #1073741824
+ 202 0024 013A     		subs	r2, r2, #1
+ 203 0026 03EB8207 		add	r7, r3, r2, lsl #2
+ 204 002a 27F00707 		bic	r7, r7, #7
+ 205 002e 85B3     		cbz	r5, .L43
+ 206 0030 0023     		movs	r3, #0
+ 207              	.L32:
+ 208 0032 0F2B     		cmp	r3, #15
+ 209 0034 06D8     		bhi	.L34
+ 210 0036 EA5C     		ldrb	r2, [r5, r3]	@ zero_extendqisi2
+ 211 0038 E118     		adds	r1, r4, r3
+ 212 003a 81F83420 		strb	r2, [r1, #52]
+ 213 003e 0AB1     		cbz	r2, .L34
+ 214 0040 0133     		adds	r3, r3, #1
+ 215 0042 F6E7     		b	.L32
+ 216              	.L34:
+ 217 0044 0023     		movs	r3, #0
+ 218 0046 84F84330 		strb	r3, [r4, #67]
+ 219              	.L36:
+ 220 004a 372E     		cmp	r6, #55
+ 221 004c 00D9     		bls	.L37
+ 222 004e 3726     		movs	r6, #55
+ 223              	.L37:
+ 224 0050 E662     		str	r6, [r4, #44]
+ 225 0052 E664     		str	r6, [r4, #76]
+ 226 0054 0025     		movs	r5, #0
+ 227 0056 2565     		str	r5, [r4, #80]
+ 228 0058 201D     		adds	r0, r4, #4
+ 229 005a FFF7FEFF 		bl	vListInitialiseItem
+ 230 005e 04F11800 		add	r0, r4, #24
+ 231 0062 FFF7FEFF 		bl	vListInitialiseItem
+ 232 0066 2461     		str	r4, [r4, #16]
+ 233 0068 C6F13806 		rsb	r6, r6, #56
+ 234 006c A661     		str	r6, [r4, #24]
+ 235 006e 6462     		str	r4, [r4, #36]
+ 236 0070 6565     		str	r5, [r4, #84]
+ 237 0072 A565     		str	r5, [r4, #88]
+ARM GAS  /tmp/cc1iSaBg.s 			page 5
+
+
+ 238 0074 84F85C50 		strb	r5, [r4, #92]
+ 239 0078 5246     		mov	r2, r10
+ 240 007a 4946     		mov	r1, r9
+ 241 007c 3846     		mov	r0, r7
+ 242 007e FFF7FEFF 		bl	pxPortInitialiseStack
+ 243 0082 2060     		str	r0, [r4]
+ 244 0084 B8F1000F 		cmp	r8, #0
+ 245 0088 01D0     		beq	.L31
+ 246 008a C8F80040 		str	r4, [r8]
+ 247              	.L31:
+ 248 008e BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 249              	.L43:
+ 250 0092 0023     		movs	r3, #0
+ 251 0094 84F83430 		strb	r3, [r4, #52]
+ 252 0098 D7E7     		b	.L36
+ 254              		.section	.text.prvInitialiseTaskLists,"ax",%progbits
+ 255              		.align	1
+ 256              		.syntax unified
+ 257              		.thumb
+ 258              		.thumb_func
+ 259              		.fpu fpv4-sp-d16
+ 261              	prvInitialiseTaskLists:
+ 262              		@ args = 0, pretend = 0, frame = 0
+ 263              		@ frame_needed = 0, uses_anonymous_args = 0
+ 264 0000 38B5     		push	{r3, r4, r5, lr}
+ 265 0002 0024     		movs	r4, #0
+ 266              	.L45:
+ 267 0004 372C     		cmp	r4, #55
+ 268 0006 08D8     		bhi	.L48
+ 269 0008 04EB8402 		add	r2, r4, r4, lsl #2
+ 270 000c 9300     		lsls	r3, r2, #2
+ 271 000e 0E48     		ldr	r0, .L49
+ 272 0010 1844     		add	r0, r0, r3
+ 273 0012 FFF7FEFF 		bl	vListInitialise
+ 274 0016 0134     		adds	r4, r4, #1
+ 275 0018 F4E7     		b	.L45
+ 276              	.L48:
+ 277 001a 0C4D     		ldr	r5, .L49+4
+ 278 001c 2846     		mov	r0, r5
+ 279 001e FFF7FEFF 		bl	vListInitialise
+ 280 0022 0B4C     		ldr	r4, .L49+8
+ 281 0024 2046     		mov	r0, r4
+ 282 0026 FFF7FEFF 		bl	vListInitialise
+ 283 002a 0A48     		ldr	r0, .L49+12
+ 284 002c FFF7FEFF 		bl	vListInitialise
+ 285 0030 0948     		ldr	r0, .L49+16
+ 286 0032 FFF7FEFF 		bl	vListInitialise
+ 287 0036 0948     		ldr	r0, .L49+20
+ 288 0038 FFF7FEFF 		bl	vListInitialise
+ 289 003c 084B     		ldr	r3, .L49+24
+ 290 003e 1D60     		str	r5, [r3]
+ 291 0040 084B     		ldr	r3, .L49+28
+ 292 0042 1C60     		str	r4, [r3]
+ 293 0044 38BD     		pop	{r3, r4, r5, pc}
+ 294              	.L50:
+ 295 0046 00BF     		.align	2
+ 296              	.L49:
+ARM GAS  /tmp/cc1iSaBg.s 			page 6
+
+
+ 297 0048 00000000 		.word	.LANCHOR4
+ 298 004c 00000000 		.word	.LANCHOR5
+ 299 0050 00000000 		.word	.LANCHOR6
+ 300 0054 00000000 		.word	.LANCHOR1
+ 301 0058 00000000 		.word	.LANCHOR7
+ 302 005c 00000000 		.word	.LANCHOR0
+ 303 0060 00000000 		.word	.LANCHOR2
+ 304 0064 00000000 		.word	.LANCHOR8
+ 306              		.section	.text.prvAddNewTaskToReadyList,"ax",%progbits
+ 307              		.align	1
+ 308              		.syntax unified
+ 309              		.thumb
+ 310              		.thumb_func
+ 311              		.fpu fpv4-sp-d16
+ 313              	prvAddNewTaskToReadyList:
+ 314              		@ args = 0, pretend = 0, frame = 0
+ 315              		@ frame_needed = 0, uses_anonymous_args = 0
+ 316 0000 10B5     		push	{r4, lr}
+ 317 0002 0446     		mov	r4, r0
+ 318 0004 FFF7FEFF 		bl	vPortEnterCritical
+ 319 0008 214A     		ldr	r2, .L59
+ 320 000a 1368     		ldr	r3, [r2]
+ 321 000c 0133     		adds	r3, r3, #1
+ 322 000e 1360     		str	r3, [r2]
+ 323 0010 204B     		ldr	r3, .L59+4
+ 324 0012 1B68     		ldr	r3, [r3]
+ 325 0014 5BB1     		cbz	r3, .L57
+ 326 0016 204B     		ldr	r3, .L59+8
+ 327 0018 1B68     		ldr	r3, [r3]
+ 328 001a 6BB9     		cbnz	r3, .L53
+ 329 001c 1D4B     		ldr	r3, .L59+4
+ 330 001e 1B68     		ldr	r3, [r3]
+ 331 0020 DA6A     		ldr	r2, [r3, #44]
+ 332 0022 E36A     		ldr	r3, [r4, #44]
+ 333 0024 9A42     		cmp	r2, r3
+ 334 0026 07D8     		bhi	.L53
+ 335 0028 1A4B     		ldr	r3, .L59+4
+ 336 002a 1C60     		str	r4, [r3]
+ 337 002c 04E0     		b	.L53
+ 338              	.L57:
+ 339 002e 194B     		ldr	r3, .L59+4
+ 340 0030 1C60     		str	r4, [r3]
+ 341 0032 1368     		ldr	r3, [r2]
+ 342 0034 012B     		cmp	r3, #1
+ 343 0036 27D0     		beq	.L58
+ 344              	.L53:
+ 345 0038 184A     		ldr	r2, .L59+12
+ 346 003a 1368     		ldr	r3, [r2]
+ 347 003c 0133     		adds	r3, r3, #1
+ 348 003e 1360     		str	r3, [r2]
+ 349 0040 6364     		str	r3, [r4, #68]
+ 350 0042 E36A     		ldr	r3, [r4, #44]
+ 351 0044 164A     		ldr	r2, .L59+16
+ 352 0046 1268     		ldr	r2, [r2]
+ 353 0048 9342     		cmp	r3, r2
+ 354 004a 01D9     		bls	.L54
+ 355 004c 144A     		ldr	r2, .L59+16
+ARM GAS  /tmp/cc1iSaBg.s 			page 7
+
+
+ 356 004e 1360     		str	r3, [r2]
+ 357              	.L54:
+ 358 0050 03EB8303 		add	r3, r3, r3, lsl #2
+ 359 0054 9A00     		lsls	r2, r3, #2
+ 360 0056 211D     		adds	r1, r4, #4
+ 361 0058 1248     		ldr	r0, .L59+20
+ 362 005a 1044     		add	r0, r0, r2
+ 363 005c FFF7FEFF 		bl	vListInsertEnd
+ 364 0060 FFF7FEFF 		bl	vPortExitCritical
+ 365 0064 0C4B     		ldr	r3, .L59+8
+ 366 0066 1B68     		ldr	r3, [r3]
+ 367 0068 6BB1     		cbz	r3, .L51
+ 368 006a 0A4B     		ldr	r3, .L59+4
+ 369 006c 1B68     		ldr	r3, [r3]
+ 370 006e DA6A     		ldr	r2, [r3, #44]
+ 371 0070 E36A     		ldr	r3, [r4, #44]
+ 372 0072 9A42     		cmp	r2, r3
+ 373 0074 07D2     		bcs	.L51
+ 374 0076 0C4B     		ldr	r3, .L59+24
+ 375 0078 4FF08052 		mov	r2, #268435456
+ 376 007c 1A60     		str	r2, [r3]
+ 377              		.syntax unified
+ 378              	@ 1141 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 379 007e BFF34F8F 		dsb
+ 380              	@ 0 "" 2
+ 381              	@ 1141 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 382 0082 BFF36F8F 		isb
+ 383              	@ 0 "" 2
+ 384              		.thumb
+ 385              		.syntax unified
+ 386              	.L51:
+ 387 0086 10BD     		pop	{r4, pc}
+ 388              	.L58:
+ 389 0088 FFF7FEFF 		bl	prvInitialiseTaskLists
+ 390 008c D4E7     		b	.L53
+ 391              	.L60:
+ 392 008e 00BF     		.align	2
+ 393              	.L59:
+ 394 0090 00000000 		.word	.LANCHOR9
+ 395 0094 00000000 		.word	.LANCHOR10
+ 396 0098 00000000 		.word	.LANCHOR11
+ 397 009c 00000000 		.word	.LANCHOR12
+ 398 00a0 00000000 		.word	.LANCHOR13
+ 399 00a4 00000000 		.word	.LANCHOR4
+ 400 00a8 04ED00E0 		.word	-536810236
+ 402              		.section	.text.prvDeleteTCB,"ax",%progbits
+ 403              		.align	1
+ 404              		.syntax unified
+ 405              		.thumb
+ 406              		.thumb_func
+ 407              		.fpu fpv4-sp-d16
+ 409              	prvDeleteTCB:
+ 410              		@ args = 0, pretend = 0, frame = 0
+ 411              		@ frame_needed = 0, uses_anonymous_args = 0
+ 412 0000 10B5     		push	{r4, lr}
+ 413 0002 0446     		mov	r4, r0
+ 414 0004 90F85D30 		ldrb	r3, [r0, #93]	@ zero_extendqisi2
+ARM GAS  /tmp/cc1iSaBg.s 			page 8
+
+
+ 415 0008 13B1     		cbz	r3, .L65
+ 416 000a 012B     		cmp	r3, #1
+ 417 000c 07D0     		beq	.L66
+ 418              	.L61:
+ 419 000e 10BD     		pop	{r4, pc}
+ 420              	.L65:
+ 421 0010 006B     		ldr	r0, [r0, #48]
+ 422 0012 FFF7FEFF 		bl	vPortFree
+ 423 0016 2046     		mov	r0, r4
+ 424 0018 FFF7FEFF 		bl	vPortFree
+ 425 001c F7E7     		b	.L61
+ 426              	.L66:
+ 427 001e FFF7FEFF 		bl	vPortFree
+ 428 0022 F4E7     		b	.L61
+ 430              		.section	.text.prvCheckTasksWaitingTermination,"ax",%progbits
+ 431              		.align	1
+ 432              		.syntax unified
+ 433              		.thumb
+ 434              		.thumb_func
+ 435              		.fpu fpv4-sp-d16
+ 437              	prvCheckTasksWaitingTermination:
+ 438              		@ args = 0, pretend = 0, frame = 0
+ 439              		@ frame_needed = 0, uses_anonymous_args = 0
+ 440 0000 0F4B     		ldr	r3, .L74
+ 441 0002 1B68     		ldr	r3, [r3]
+ 442 0004 D3B1     		cbz	r3, .L73
+ 443 0006 10B5     		push	{r4, lr}
+ 444              	.L69:
+ 445 0008 FFF7FEFF 		bl	vPortEnterCritical
+ 446 000c 0D4B     		ldr	r3, .L74+4
+ 447 000e DB68     		ldr	r3, [r3, #12]
+ 448 0010 DC68     		ldr	r4, [r3, #12]
+ 449 0012 201D     		adds	r0, r4, #4
+ 450 0014 FFF7FEFF 		bl	uxListRemove
+ 451 0018 0B4A     		ldr	r2, .L74+8
+ 452 001a 1368     		ldr	r3, [r2]
+ 453 001c 013B     		subs	r3, r3, #1
+ 454 001e 1360     		str	r3, [r2]
+ 455 0020 074A     		ldr	r2, .L74
+ 456 0022 1368     		ldr	r3, [r2]
+ 457 0024 013B     		subs	r3, r3, #1
+ 458 0026 1360     		str	r3, [r2]
+ 459 0028 FFF7FEFF 		bl	vPortExitCritical
+ 460 002c 2046     		mov	r0, r4
+ 461 002e FFF7FEFF 		bl	prvDeleteTCB
+ 462 0032 034B     		ldr	r3, .L74
+ 463 0034 1B68     		ldr	r3, [r3]
+ 464 0036 002B     		cmp	r3, #0
+ 465 0038 E6D1     		bne	.L69
+ 466 003a 10BD     		pop	{r4, pc}
+ 467              	.L73:
+ 468 003c 7047     		bx	lr
+ 469              	.L75:
+ 470 003e 00BF     		.align	2
+ 471              	.L74:
+ 472 0040 00000000 		.word	.LANCHOR14
+ 473 0044 00000000 		.word	.LANCHOR7
+ARM GAS  /tmp/cc1iSaBg.s 			page 9
+
+
+ 474 0048 00000000 		.word	.LANCHOR9
+ 476              		.section	.text.prvIdleTask,"ax",%progbits
+ 477              		.align	1
+ 478              		.syntax unified
+ 479              		.thumb
+ 480              		.thumb_func
+ 481              		.fpu fpv4-sp-d16
+ 483              	prvIdleTask:
+ 484              		@ Volatile: function does not return.
+ 485              		@ args = 0, pretend = 0, frame = 0
+ 486              		@ frame_needed = 0, uses_anonymous_args = 0
+ 487 0000 08B5     		push	{r3, lr}
+ 488              	.L77:
+ 489 0002 FFF7FEFF 		bl	prvCheckTasksWaitingTermination
+ 490 0006 064B     		ldr	r3, .L80
+ 491 0008 1B68     		ldr	r3, [r3]
+ 492 000a 012B     		cmp	r3, #1
+ 493 000c F9D9     		bls	.L77
+ 494 000e 054B     		ldr	r3, .L80+4
+ 495 0010 4FF08052 		mov	r2, #268435456
+ 496 0014 1A60     		str	r2, [r3]
+ 497              		.syntax unified
+ 498              	@ 3376 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 499 0016 BFF34F8F 		dsb
+ 500              	@ 0 "" 2
+ 501              	@ 3376 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 502 001a BFF36F8F 		isb
+ 503              	@ 0 "" 2
+ 504              		.thumb
+ 505              		.syntax unified
+ 506 001e F0E7     		b	.L77
+ 507              	.L81:
+ 508              		.align	2
+ 509              	.L80:
+ 510 0020 00000000 		.word	.LANCHOR4
+ 511 0024 04ED00E0 		.word	-536810236
+ 513              		.section	.text.prvAddCurrentTaskToDelayedList,"ax",%progbits
+ 514              		.align	1
+ 515              		.syntax unified
+ 516              		.thumb
+ 517              		.thumb_func
+ 518              		.fpu fpv4-sp-d16
+ 520              	prvAddCurrentTaskToDelayedList:
+ 521              		@ args = 0, pretend = 0, frame = 0
+ 522              		@ frame_needed = 0, uses_anonymous_args = 0
+ 523 0000 70B5     		push	{r4, r5, r6, lr}
+ 524 0002 0446     		mov	r4, r0
+ 525 0004 0E46     		mov	r6, r1
+ 526 0006 174B     		ldr	r3, .L88
+ 527 0008 1D68     		ldr	r5, [r3]
+ 528 000a 174B     		ldr	r3, .L88+4
+ 529 000c 1868     		ldr	r0, [r3]
+ 530 000e 0430     		adds	r0, r0, #4
+ 531 0010 FFF7FEFF 		bl	uxListRemove
+ 532 0014 B4F1FF3F 		cmp	r4, #-1
+ 533 0018 0DD0     		beq	.L87
+ 534              	.L83:
+ARM GAS  /tmp/cc1iSaBg.s 			page 10
+
+
+ 535 001a 2C44     		add	r4, r4, r5
+ 536 001c 124B     		ldr	r3, .L88+4
+ 537 001e 1B68     		ldr	r3, [r3]
+ 538 0020 5C60     		str	r4, [r3, #4]
+ 539 0022 A542     		cmp	r5, r4
+ 540 0024 10D9     		bls	.L85
+ 541 0026 114B     		ldr	r3, .L88+8
+ 542 0028 1868     		ldr	r0, [r3]
+ 543 002a 0F4B     		ldr	r3, .L88+4
+ 544 002c 1968     		ldr	r1, [r3]
+ 545 002e 0431     		adds	r1, r1, #4
+ 546 0030 FFF7FEFF 		bl	vListInsert
+ 547              	.L82:
+ 548 0034 70BD     		pop	{r4, r5, r6, pc}
+ 549              	.L87:
+ 550 0036 002E     		cmp	r6, #0
+ 551 0038 EFD0     		beq	.L83
+ 552 003a 0B4B     		ldr	r3, .L88+4
+ 553 003c 1968     		ldr	r1, [r3]
+ 554 003e 0431     		adds	r1, r1, #4
+ 555 0040 0B48     		ldr	r0, .L88+12
+ 556 0042 FFF7FEFF 		bl	vListInsertEnd
+ 557 0046 F5E7     		b	.L82
+ 558              	.L85:
+ 559 0048 0A4B     		ldr	r3, .L88+16
+ 560 004a 1868     		ldr	r0, [r3]
+ 561 004c 064B     		ldr	r3, .L88+4
+ 562 004e 1968     		ldr	r1, [r3]
+ 563 0050 0431     		adds	r1, r1, #4
+ 564 0052 FFF7FEFF 		bl	vListInsert
+ 565 0056 084B     		ldr	r3, .L88+20
+ 566 0058 1B68     		ldr	r3, [r3]
+ 567 005a A342     		cmp	r3, r4
+ 568 005c EAD9     		bls	.L82
+ 569 005e 064B     		ldr	r3, .L88+20
+ 570 0060 1C60     		str	r4, [r3]
+ 571 0062 E7E7     		b	.L82
+ 572              	.L89:
+ 573              		.align	2
+ 574              	.L88:
+ 575 0064 00000000 		.word	.LANCHOR15
+ 576 0068 00000000 		.word	.LANCHOR10
+ 577 006c 00000000 		.word	.LANCHOR8
+ 578 0070 00000000 		.word	.LANCHOR0
+ 579 0074 00000000 		.word	.LANCHOR2
+ 580 0078 00000000 		.word	.LANCHOR3
+ 582              		.section	.text.prvWriteNameToBuffer,"ax",%progbits
+ 583              		.align	1
+ 584              		.syntax unified
+ 585              		.thumb
+ 586              		.thumb_func
+ 587              		.fpu fpv4-sp-d16
+ 589              	prvWriteNameToBuffer:
+ 590              		@ args = 0, pretend = 0, frame = 0
+ 591              		@ frame_needed = 0, uses_anonymous_args = 0
+ 592 0000 10B5     		push	{r4, lr}
+ 593 0002 0446     		mov	r4, r0
+ARM GAS  /tmp/cc1iSaBg.s 			page 11
+
+
+ 594 0004 FFF7FEFF 		bl	strcpy
+ 595 0008 2046     		mov	r0, r4
+ 596 000a FFF7FEFF 		bl	strlen
+ 597              	.L91:
+ 598 000e 0E28     		cmp	r0, #14
+ 599 0010 03D8     		bhi	.L94
+ 600 0012 2023     		movs	r3, #32
+ 601 0014 2354     		strb	r3, [r4, r0]
+ 602 0016 0130     		adds	r0, r0, #1
+ 603 0018 F9E7     		b	.L91
+ 604              	.L94:
+ 605 001a 0023     		movs	r3, #0
+ 606 001c 2354     		strb	r3, [r4, r0]
+ 607 001e 2044     		add	r0, r0, r4
+ 608 0020 10BD     		pop	{r4, pc}
+ 610              		.section	.text.xTaskCreateStatic,"ax",%progbits
+ 611              		.align	1
+ 612              		.global	xTaskCreateStatic
+ 613              		.syntax unified
+ 614              		.thumb
+ 615              		.thumb_func
+ 616              		.fpu fpv4-sp-d16
+ 618              	xTaskCreateStatic:
+ 619              		@ args = 12, pretend = 0, frame = 8
+ 620              		@ frame_needed = 0, uses_anonymous_args = 0
+ 621 0000 70B5     		push	{r4, r5, r6, lr}
+ 622 0002 86B0     		sub	sp, sp, #24
+ 623 0004 0B9D     		ldr	r5, [sp, #44]
+ 624 0006 0C9C     		ldr	r4, [sp, #48]
+ 625 0008 6426     		movs	r6, #100
+ 626 000a 0496     		str	r6, [sp, #16]
+ 627 000c 049E     		ldr	r6, [sp, #16]
+ 628 000e 8CB1     		cbz	r4, .L96
+ 629 0010 85B1     		cbz	r5, .L96
+ 630 0012 2563     		str	r5, [r4, #48]
+ 631 0014 0225     		movs	r5, #2
+ 632 0016 84F85D50 		strb	r5, [r4, #93]
+ 633 001a 0025     		movs	r5, #0
+ 634 001c 0395     		str	r5, [sp, #12]
+ 635 001e 0294     		str	r4, [sp, #8]
+ 636 0020 05AD     		add	r5, sp, #20
+ 637 0022 0195     		str	r5, [sp, #4]
+ 638 0024 0A9D     		ldr	r5, [sp, #40]
+ 639 0026 0095     		str	r5, [sp]
+ 640 0028 FFF7FEFF 		bl	prvInitialiseNewTask
+ 641 002c 2046     		mov	r0, r4
+ 642 002e FFF7FEFF 		bl	prvAddNewTaskToReadyList
+ 643 0032 01E0     		b	.L97
+ 644              	.L96:
+ 645 0034 0023     		movs	r3, #0
+ 646 0036 0593     		str	r3, [sp, #20]
+ 647              	.L97:
+ 648 0038 0598     		ldr	r0, [sp, #20]
+ 649 003a 06B0     		add	sp, sp, #24
+ 650              		@ sp needed
+ 651 003c 70BD     		pop	{r4, r5, r6, pc}
+ 653              		.section	.text.xTaskCreate,"ax",%progbits
+ARM GAS  /tmp/cc1iSaBg.s 			page 12
+
+
+ 654              		.align	1
+ 655              		.global	xTaskCreate
+ 656              		.syntax unified
+ 657              		.thumb
+ 658              		.thumb_func
+ 659              		.fpu fpv4-sp-d16
+ 661              	xTaskCreate:
+ 662              		@ args = 8, pretend = 0, frame = 0
+ 663              		@ frame_needed = 0, uses_anonymous_args = 0
+ 664 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 665 0004 85B0     		sub	sp, sp, #20
+ 666 0006 0746     		mov	r7, r0
+ 667 0008 8846     		mov	r8, r1
+ 668 000a 1546     		mov	r5, r2
+ 669 000c 9946     		mov	r9, r3
+ 670 000e 9000     		lsls	r0, r2, #2
+ 671 0010 FFF7FEFF 		bl	pvPortMalloc
+ 672 0014 F8B1     		cbz	r0, .L103
+ 673 0016 0646     		mov	r6, r0
+ 674 0018 6420     		movs	r0, #100
+ 675 001a FFF7FEFF 		bl	pvPortMalloc
+ 676 001e 0446     		mov	r4, r0
+ 677 0020 A8B1     		cbz	r0, .L101
+ 678 0022 0663     		str	r6, [r0, #48]
+ 679              	.L102:
+ 680 0024 E4B1     		cbz	r4, .L104
+ 681 0026 0023     		movs	r3, #0
+ 682 0028 84F85D30 		strb	r3, [r4, #93]
+ 683 002c 0393     		str	r3, [sp, #12]
+ 684 002e 0294     		str	r4, [sp, #8]
+ 685 0030 0D9B     		ldr	r3, [sp, #52]
+ 686 0032 0193     		str	r3, [sp, #4]
+ 687 0034 0C9B     		ldr	r3, [sp, #48]
+ 688 0036 0093     		str	r3, [sp]
+ 689 0038 4B46     		mov	r3, r9
+ 690 003a 2A46     		mov	r2, r5
+ 691 003c 4146     		mov	r1, r8
+ 692 003e 3846     		mov	r0, r7
+ 693 0040 FFF7FEFF 		bl	prvInitialiseNewTask
+ 694 0044 2046     		mov	r0, r4
+ 695 0046 FFF7FEFF 		bl	prvAddNewTaskToReadyList
+ 696 004a 0120     		movs	r0, #1
+ 697 004c 05E0     		b	.L99
+ 698              	.L101:
+ 699 004e 3046     		mov	r0, r6
+ 700 0050 FFF7FEFF 		bl	vPortFree
+ 701 0054 E6E7     		b	.L102
+ 702              	.L103:
+ 703 0056 4FF0FF30 		mov	r0, #-1
+ 704              	.L99:
+ 705 005a 05B0     		add	sp, sp, #20
+ 706              		@ sp needed
+ 707 005c BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 708              	.L104:
+ 709 0060 4FF0FF30 		mov	r0, #-1
+ 710 0064 F9E7     		b	.L99
+ 712              		.section	.text.vTaskDelete,"ax",%progbits
+ARM GAS  /tmp/cc1iSaBg.s 			page 13
+
+
+ 713              		.align	1
+ 714              		.global	vTaskDelete
+ 715              		.syntax unified
+ 716              		.thumb
+ 717              		.thumb_func
+ 718              		.fpu fpv4-sp-d16
+ 720              	vTaskDelete:
+ 721              		@ args = 0, pretend = 0, frame = 0
+ 722              		@ frame_needed = 0, uses_anonymous_args = 0
+ 723 0000 38B5     		push	{r3, r4, r5, lr}
+ 724 0002 0446     		mov	r4, r0
+ 725 0004 FFF7FEFF 		bl	vPortEnterCritical
+ 726 0008 24B3     		cbz	r4, .L113
+ 727              	.L107:
+ 728 000a 251D     		adds	r5, r4, #4
+ 729 000c 2846     		mov	r0, r5
+ 730 000e FFF7FEFF 		bl	uxListRemove
+ 731 0012 A36A     		ldr	r3, [r4, #40]
+ 732 0014 1BB1     		cbz	r3, .L108
+ 733 0016 04F11800 		add	r0, r4, #24
+ 734 001a FFF7FEFF 		bl	uxListRemove
+ 735              	.L108:
+ 736 001e 184A     		ldr	r2, .L116
+ 737 0020 1368     		ldr	r3, [r2]
+ 738 0022 0133     		adds	r3, r3, #1
+ 739 0024 1360     		str	r3, [r2]
+ 740 0026 174B     		ldr	r3, .L116+4
+ 741 0028 1B68     		ldr	r3, [r3]
+ 742 002a A342     		cmp	r3, r4
+ 743 002c 15D0     		beq	.L114
+ 744 002e 164A     		ldr	r2, .L116+8
+ 745 0030 1368     		ldr	r3, [r2]
+ 746 0032 013B     		subs	r3, r3, #1
+ 747 0034 1360     		str	r3, [r2]
+ 748 0036 2046     		mov	r0, r4
+ 749 0038 FFF7FEFF 		bl	prvDeleteTCB
+ 750 003c FFF7FEFF 		bl	prvResetNextTaskUnblockTime
+ 751              	.L110:
+ 752 0040 FFF7FEFF 		bl	vPortExitCritical
+ 753 0044 114B     		ldr	r3, .L116+12
+ 754 0046 1B68     		ldr	r3, [r3]
+ 755 0048 1BB1     		cbz	r3, .L106
+ 756 004a 0E4B     		ldr	r3, .L116+4
+ 757 004c 1B68     		ldr	r3, [r3]
+ 758 004e A342     		cmp	r3, r4
+ 759 0050 0CD0     		beq	.L115
+ 760              	.L106:
+ 761 0052 38BD     		pop	{r3, r4, r5, pc}
+ 762              	.L113:
+ 763 0054 0B4B     		ldr	r3, .L116+4
+ 764 0056 1C68     		ldr	r4, [r3]
+ 765 0058 D7E7     		b	.L107
+ 766              	.L114:
+ 767 005a 2946     		mov	r1, r5
+ 768 005c 0C48     		ldr	r0, .L116+16
+ 769 005e FFF7FEFF 		bl	vListInsertEnd
+ 770 0062 0C4A     		ldr	r2, .L116+20
+ARM GAS  /tmp/cc1iSaBg.s 			page 14
+
+
+ 771 0064 1368     		ldr	r3, [r2]
+ 772 0066 0133     		adds	r3, r3, #1
+ 773 0068 1360     		str	r3, [r2]
+ 774 006a E9E7     		b	.L110
+ 775              	.L115:
+ 776 006c 0A4B     		ldr	r3, .L116+24
+ 777 006e 4FF08052 		mov	r2, #268435456
+ 778 0072 1A60     		str	r2, [r3]
+ 779              		.syntax unified
+ 780              	@ 1235 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 781 0074 BFF34F8F 		dsb
+ 782              	@ 0 "" 2
+ 783              	@ 1235 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 784 0078 BFF36F8F 		isb
+ 785              	@ 0 "" 2
+ 786              		.thumb
+ 787              		.syntax unified
+ 788 007c E9E7     		b	.L106
+ 789              	.L117:
+ 790 007e 00BF     		.align	2
+ 791              	.L116:
+ 792 0080 00000000 		.word	.LANCHOR12
+ 793 0084 00000000 		.word	.LANCHOR10
+ 794 0088 00000000 		.word	.LANCHOR9
+ 795 008c 00000000 		.word	.LANCHOR11
+ 796 0090 00000000 		.word	.LANCHOR7
+ 797 0094 00000000 		.word	.LANCHOR14
+ 798 0098 04ED00E0 		.word	-536810236
+ 800              		.section	.text.eTaskGetState,"ax",%progbits
+ 801              		.align	1
+ 802              		.global	eTaskGetState
+ 803              		.syntax unified
+ 804              		.thumb
+ 805              		.thumb_func
+ 806              		.fpu fpv4-sp-d16
+ 808              	eTaskGetState:
+ 809              		@ args = 0, pretend = 0, frame = 0
+ 810              		@ frame_needed = 0, uses_anonymous_args = 0
+ 811 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 812 0002 194B     		ldr	r3, .L133
+ 813 0004 1B68     		ldr	r3, [r3]
+ 814 0006 8342     		cmp	r3, r0
+ 815 0008 25D0     		beq	.L121
+ 816 000a 0446     		mov	r4, r0
+ 817 000c FFF7FEFF 		bl	vPortEnterCritical
+ 818 0010 6569     		ldr	r5, [r4, #20]
+ 819 0012 164B     		ldr	r3, .L133+4
+ 820 0014 1E68     		ldr	r6, [r3]
+ 821 0016 164B     		ldr	r3, .L133+8
+ 822 0018 1F68     		ldr	r7, [r3]
+ 823 001a FFF7FEFF 		bl	vPortExitCritical
+ 824 001e B542     		cmp	r5, r6
+ 825 0020 1BD0     		beq	.L122
+ 826 0022 BD42     		cmp	r5, r7
+ 827 0024 1BD0     		beq	.L123
+ 828 0026 134B     		ldr	r3, .L133+12
+ 829 0028 9D42     		cmp	r5, r3
+ARM GAS  /tmp/cc1iSaBg.s 			page 15
+
+
+ 830 002a 05D0     		beq	.L129
+ 831 002c 124B     		ldr	r3, .L133+16
+ 832 002e 9D42     		cmp	r5, r3
+ 833 0030 17D0     		beq	.L126
+ 834 0032 75B1     		cbz	r5, .L130
+ 835 0034 0120     		movs	r0, #1
+ 836 0036 0FE0     		b	.L119
+ 837              	.L129:
+ 838 0038 A36A     		ldr	r3, [r4, #40]
+ 839 003a 0BB1     		cbz	r3, .L131
+ 840 003c 0220     		movs	r0, #2
+ 841 003e 0BE0     		b	.L119
+ 842              	.L131:
+ 843 0040 94F85C30 		ldrb	r3, [r4, #92]	@ zero_extendqisi2
+ 844 0044 DBB2     		uxtb	r3, r3
+ 845 0046 012B     		cmp	r3, #1
+ 846 0048 01D0     		beq	.L132
+ 847 004a 0320     		movs	r0, #3
+ 848 004c 04E0     		b	.L119
+ 849              	.L132:
+ 850 004e 0220     		movs	r0, #2
+ 851 0050 02E0     		b	.L119
+ 852              	.L130:
+ 853 0052 0420     		movs	r0, #4
+ 854 0054 00E0     		b	.L119
+ 855              	.L121:
+ 856 0056 0020     		movs	r0, #0
+ 857              	.L119:
+ 858 0058 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 859              	.L122:
+ 860 005a 0220     		movs	r0, #2
+ 861 005c FCE7     		b	.L119
+ 862              	.L123:
+ 863 005e 0220     		movs	r0, #2
+ 864 0060 FAE7     		b	.L119
+ 865              	.L126:
+ 866 0062 0420     		movs	r0, #4
+ 867 0064 F8E7     		b	.L119
+ 868              	.L134:
+ 869 0066 00BF     		.align	2
+ 870              	.L133:
+ 871 0068 00000000 		.word	.LANCHOR10
+ 872 006c 00000000 		.word	.LANCHOR2
+ 873 0070 00000000 		.word	.LANCHOR8
+ 874 0074 00000000 		.word	.LANCHOR0
+ 875 0078 00000000 		.word	.LANCHOR7
+ 877              		.section	.text.uxTaskPriorityGet,"ax",%progbits
+ 878              		.align	1
+ 879              		.global	uxTaskPriorityGet
+ 880              		.syntax unified
+ 881              		.thumb
+ 882              		.thumb_func
+ 883              		.fpu fpv4-sp-d16
+ 885              	uxTaskPriorityGet:
+ 886              		@ args = 0, pretend = 0, frame = 0
+ 887              		@ frame_needed = 0, uses_anonymous_args = 0
+ 888 0000 10B5     		push	{r4, lr}
+ARM GAS  /tmp/cc1iSaBg.s 			page 16
+
+
+ 889 0002 0446     		mov	r4, r0
+ 890 0004 FFF7FEFF 		bl	vPortEnterCritical
+ 891 0008 24B1     		cbz	r4, .L138
+ 892              	.L136:
+ 893 000a E46A     		ldr	r4, [r4, #44]
+ 894 000c FFF7FEFF 		bl	vPortExitCritical
+ 895 0010 2046     		mov	r0, r4
+ 896 0012 10BD     		pop	{r4, pc}
+ 897              	.L138:
+ 898 0014 014B     		ldr	r3, .L139
+ 899 0016 1C68     		ldr	r4, [r3]
+ 900 0018 F7E7     		b	.L136
+ 901              	.L140:
+ 902 001a 00BF     		.align	2
+ 903              	.L139:
+ 904 001c 00000000 		.word	.LANCHOR10
+ 906              		.section	.text.uxTaskPriorityGetFromISR,"ax",%progbits
+ 907              		.align	1
+ 908              		.global	uxTaskPriorityGetFromISR
+ 909              		.syntax unified
+ 910              		.thumb
+ 911              		.thumb_func
+ 912              		.fpu fpv4-sp-d16
+ 914              	uxTaskPriorityGetFromISR:
+ 915              		@ args = 0, pretend = 0, frame = 0
+ 916              		@ frame_needed = 0, uses_anonymous_args = 0
+ 917 0000 10B5     		push	{r4, lr}
+ 918 0002 0446     		mov	r4, r0
+ 919 0004 FFF7FEFF 		bl	vPortValidateInterruptPriority
+ 920              		.syntax unified
+ 921              	@ 211 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h" 1
+ 922 0008 EFF31183 			mrs r3, basepri											
+ 923 000c 4FF05002 		mov r2, #80												
+ 924 0010 82F31188 		msr basepri, r2											
+ 925 0014 BFF36F8F 		isb														
+ 926 0018 BFF34F8F 		dsb														
+ 927              	
+ 928              	@ 0 "" 2
+ 929              		.thumb
+ 930              		.syntax unified
+ 931 001c 1CB1     		cbz	r4, .L144
+ 932              	.L142:
+ 933 001e E06A     		ldr	r0, [r4, #44]
+ 934              		.syntax unified
+ 935              	@ 229 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h" 1
+ 936 0020 83F31188 			msr basepri, r3	
+ 937              	@ 0 "" 2
+ 938              		.thumb
+ 939              		.syntax unified
+ 940 0024 10BD     		pop	{r4, pc}
+ 941              	.L144:
+ 942 0026 014A     		ldr	r2, .L145
+ 943 0028 1468     		ldr	r4, [r2]
+ 944 002a F8E7     		b	.L142
+ 945              	.L146:
+ 946              		.align	2
+ 947              	.L145:
+ARM GAS  /tmp/cc1iSaBg.s 			page 17
+
+
+ 948 002c 00000000 		.word	.LANCHOR10
+ 950              		.section	.text.vTaskPrioritySet,"ax",%progbits
+ 951              		.align	1
+ 952              		.global	vTaskPrioritySet
+ 953              		.syntax unified
+ 954              		.thumb
+ 955              		.thumb_func
+ 956              		.fpu fpv4-sp-d16
+ 958              	vTaskPrioritySet:
+ 959              		@ args = 0, pretend = 0, frame = 0
+ 960              		@ frame_needed = 0, uses_anonymous_args = 0
+ 961 0000 70B5     		push	{r4, r5, r6, lr}
+ 962 0002 0446     		mov	r4, r0
+ 963 0004 0D46     		mov	r5, r1
+ 964 0006 3729     		cmp	r1, #55
+ 965 0008 00D9     		bls	.L148
+ 966 000a 3725     		movs	r5, #55
+ 967              	.L148:
+ 968 000c FFF7FEFF 		bl	vPortEnterCritical
+ 969 0010 74B1     		cbz	r4, .L162
+ 970              	.L149:
+ 971 0012 E26C     		ldr	r2, [r4, #76]
+ 972 0014 9542     		cmp	r5, r2
+ 973 0016 2ED0     		beq	.L150
+ 974 0018 0DD9     		bls	.L151
+ 975 001a 264B     		ldr	r3, .L165
+ 976 001c 1B68     		ldr	r3, [r3]
+ 977 001e A342     		cmp	r3, r4
+ 978 0020 2CD0     		beq	.L158
+ 979 0022 244B     		ldr	r3, .L165
+ 980 0024 1B68     		ldr	r3, [r3]
+ 981 0026 DB6A     		ldr	r3, [r3, #44]
+ 982 0028 AB42     		cmp	r3, r5
+ 983 002a 29D9     		bls	.L159
+ 984 002c 0026     		movs	r6, #0
+ 985 002e 07E0     		b	.L152
+ 986              	.L162:
+ 987 0030 204B     		ldr	r3, .L165
+ 988 0032 1C68     		ldr	r4, [r3]
+ 989 0034 EDE7     		b	.L149
+ 990              	.L151:
+ 991 0036 1F4B     		ldr	r3, .L165
+ 992 0038 1B68     		ldr	r3, [r3]
+ 993 003a A342     		cmp	r3, r4
+ 994 003c 22D0     		beq	.L160
+ 995 003e 0026     		movs	r6, #0
+ 996              	.L152:
+ 997 0040 E36A     		ldr	r3, [r4, #44]
+ 998 0042 9A42     		cmp	r2, r3
+ 999 0044 20D0     		beq	.L163
+ 1000              	.L153:
+ 1001 0046 E564     		str	r5, [r4, #76]
+ 1002 0048 A269     		ldr	r2, [r4, #24]
+ 1003 004a 002A     		cmp	r2, #0
+ 1004 004c 02DB     		blt	.L154
+ 1005 004e C5F13805 		rsb	r5, r5, #56
+ 1006 0052 A561     		str	r5, [r4, #24]
+ARM GAS  /tmp/cc1iSaBg.s 			page 18
+
+
+ 1007              	.L154:
+ 1008 0054 6169     		ldr	r1, [r4, #20]
+ 1009 0056 03EB8303 		add	r3, r3, r3, lsl #2
+ 1010 005a 9A00     		lsls	r2, r3, #2
+ 1011 005c 164B     		ldr	r3, .L165+4
+ 1012 005e 1344     		add	r3, r3, r2
+ 1013 0060 9942     		cmp	r1, r3
+ 1014 0062 13D0     		beq	.L164
+ 1015              	.L155:
+ 1016 0064 3EB1     		cbz	r6, .L150
+ 1017 0066 154B     		ldr	r3, .L165+8
+ 1018 0068 4FF08052 		mov	r2, #268435456
+ 1019 006c 1A60     		str	r2, [r3]
+ 1020              		.syntax unified
+ 1021              	@ 1676 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 1022 006e BFF34F8F 		dsb
+ 1023              	@ 0 "" 2
+ 1024              	@ 1676 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 1025 0072 BFF36F8F 		isb
+ 1026              	@ 0 "" 2
+ 1027              		.thumb
+ 1028              		.syntax unified
+ 1029              	.L150:
+ 1030 0076 FFF7FEFF 		bl	vPortExitCritical
+ 1031 007a 70BD     		pop	{r4, r5, r6, pc}
+ 1032              	.L158:
+ 1033 007c 0026     		movs	r6, #0
+ 1034 007e DFE7     		b	.L152
+ 1035              	.L159:
+ 1036 0080 0126     		movs	r6, #1
+ 1037 0082 DDE7     		b	.L152
+ 1038              	.L160:
+ 1039 0084 0126     		movs	r6, #1
+ 1040 0086 DBE7     		b	.L152
+ 1041              	.L163:
+ 1042 0088 E562     		str	r5, [r4, #44]
+ 1043 008a DCE7     		b	.L153
+ 1044              	.L164:
+ 1045 008c 251D     		adds	r5, r4, #4
+ 1046 008e 2846     		mov	r0, r5
+ 1047 0090 FFF7FEFF 		bl	uxListRemove
+ 1048 0094 E36A     		ldr	r3, [r4, #44]
+ 1049 0096 0A4A     		ldr	r2, .L165+12
+ 1050 0098 1268     		ldr	r2, [r2]
+ 1051 009a 9342     		cmp	r3, r2
+ 1052 009c 01D9     		bls	.L156
+ 1053 009e 084A     		ldr	r2, .L165+12
+ 1054 00a0 1360     		str	r3, [r2]
+ 1055              	.L156:
+ 1056 00a2 03EB8303 		add	r3, r3, r3, lsl #2
+ 1057 00a6 9A00     		lsls	r2, r3, #2
+ 1058 00a8 2946     		mov	r1, r5
+ 1059 00aa 0348     		ldr	r0, .L165+4
+ 1060 00ac 1044     		add	r0, r0, r2
+ 1061 00ae FFF7FEFF 		bl	vListInsertEnd
+ 1062 00b2 D7E7     		b	.L155
+ 1063              	.L166:
+ARM GAS  /tmp/cc1iSaBg.s 			page 19
+
+
+ 1064              		.align	2
+ 1065              	.L165:
+ 1066 00b4 00000000 		.word	.LANCHOR10
+ 1067 00b8 00000000 		.word	.LANCHOR4
+ 1068 00bc 04ED00E0 		.word	-536810236
+ 1069 00c0 00000000 		.word	.LANCHOR13
+ 1071              		.section	.text.vTaskResume,"ax",%progbits
+ 1072              		.align	1
+ 1073              		.global	vTaskResume
+ 1074              		.syntax unified
+ 1075              		.thumb
+ 1076              		.thumb_func
+ 1077              		.fpu fpv4-sp-d16
+ 1079              	vTaskResume:
+ 1080              		@ args = 0, pretend = 0, frame = 0
+ 1081              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1082 0000 38B5     		push	{r3, r4, r5, lr}
+ 1083 0002 184B     		ldr	r3, .L173
+ 1084 0004 1B68     		ldr	r3, [r3]
+ 1085 0006 8342     		cmp	r3, r0
+ 1086 0008 09D0     		beq	.L167
+ 1087 000a 40B1     		cbz	r0, .L167
+ 1088 000c 0446     		mov	r4, r0
+ 1089 000e FFF7FEFF 		bl	vPortEnterCritical
+ 1090 0012 2046     		mov	r0, r4
+ 1091 0014 FFF7FEFF 		bl	prvTaskIsTaskSuspended
+ 1092 0018 10B9     		cbnz	r0, .L172
+ 1093              	.L169:
+ 1094 001a FFF7FEFF 		bl	vPortExitCritical
+ 1095              	.L167:
+ 1096 001e 38BD     		pop	{r3, r4, r5, pc}
+ 1097              	.L172:
+ 1098 0020 251D     		adds	r5, r4, #4
+ 1099 0022 2846     		mov	r0, r5
+ 1100 0024 FFF7FEFF 		bl	uxListRemove
+ 1101 0028 E36A     		ldr	r3, [r4, #44]
+ 1102 002a 0F4A     		ldr	r2, .L173+4
+ 1103 002c 1268     		ldr	r2, [r2]
+ 1104 002e 9342     		cmp	r3, r2
+ 1105 0030 01D9     		bls	.L170
+ 1106 0032 0D4A     		ldr	r2, .L173+4
+ 1107 0034 1360     		str	r3, [r2]
+ 1108              	.L170:
+ 1109 0036 03EB8303 		add	r3, r3, r3, lsl #2
+ 1110 003a 9A00     		lsls	r2, r3, #2
+ 1111 003c 2946     		mov	r1, r5
+ 1112 003e 0B48     		ldr	r0, .L173+8
+ 1113 0040 1044     		add	r0, r0, r2
+ 1114 0042 FFF7FEFF 		bl	vListInsertEnd
+ 1115 0046 E26A     		ldr	r2, [r4, #44]
+ 1116 0048 064B     		ldr	r3, .L173
+ 1117 004a 1B68     		ldr	r3, [r3]
+ 1118 004c DB6A     		ldr	r3, [r3, #44]
+ 1119 004e 9A42     		cmp	r2, r3
+ 1120 0050 E3D3     		bcc	.L169
+ 1121 0052 074B     		ldr	r3, .L173+12
+ 1122 0054 4FF08052 		mov	r2, #268435456
+ARM GAS  /tmp/cc1iSaBg.s 			page 20
+
+
+ 1123 0058 1A60     		str	r2, [r3]
+ 1124              		.syntax unified
+ 1125              	@ 1871 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 1126 005a BFF34F8F 		dsb
+ 1127              	@ 0 "" 2
+ 1128              	@ 1871 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 1129 005e BFF36F8F 		isb
+ 1130              	@ 0 "" 2
+ 1131              		.thumb
+ 1132              		.syntax unified
+ 1133 0062 DAE7     		b	.L169
+ 1134              	.L174:
+ 1135              		.align	2
+ 1136              	.L173:
+ 1137 0064 00000000 		.word	.LANCHOR10
+ 1138 0068 00000000 		.word	.LANCHOR13
+ 1139 006c 00000000 		.word	.LANCHOR4
+ 1140 0070 04ED00E0 		.word	-536810236
+ 1142              		.section	.text.xTaskResumeFromISR,"ax",%progbits
+ 1143              		.align	1
+ 1144              		.global	xTaskResumeFromISR
+ 1145              		.syntax unified
+ 1146              		.thumb
+ 1147              		.thumb_func
+ 1148              		.fpu fpv4-sp-d16
+ 1150              	xTaskResumeFromISR:
+ 1151              		@ args = 0, pretend = 0, frame = 0
+ 1152              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1153 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1154 0002 0446     		mov	r4, r0
+ 1155 0004 FFF7FEFF 		bl	vPortValidateInterruptPriority
+ 1156              		.syntax unified
+ 1157              	@ 211 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h" 1
+ 1158 0008 EFF31186 			mrs r6, basepri											
+ 1159 000c 4FF05003 		mov r3, #80												
+ 1160 0010 83F31188 		msr basepri, r3											
+ 1161 0014 BFF36F8F 		isb														
+ 1162 0018 BFF34F8F 		dsb														
+ 1163              	
+ 1164              	@ 0 "" 2
+ 1165              		.thumb
+ 1166              		.syntax unified
+ 1167 001c 2046     		mov	r0, r4
+ 1168 001e FFF7FEFF 		bl	prvTaskIsTaskSuspended
+ 1169 0022 0546     		mov	r5, r0
+ 1170 0024 E0B1     		cbz	r0, .L176
+ 1171 0026 154B     		ldr	r3, .L182
+ 1172 0028 1B68     		ldr	r3, [r3]
+ 1173 002a FBB9     		cbnz	r3, .L177
+ 1174 002c E26A     		ldr	r2, [r4, #44]
+ 1175 002e 144B     		ldr	r3, .L182+4
+ 1176 0030 1B68     		ldr	r3, [r3]
+ 1177 0032 DB6A     		ldr	r3, [r3, #44]
+ 1178 0034 9A42     		cmp	r2, r3
+ 1179 0036 17D2     		bcs	.L180
+ 1180 0038 0025     		movs	r5, #0
+ 1181              	.L178:
+ARM GAS  /tmp/cc1iSaBg.s 			page 21
+
+
+ 1182 003a 271D     		adds	r7, r4, #4
+ 1183 003c 3846     		mov	r0, r7
+ 1184 003e FFF7FEFF 		bl	uxListRemove
+ 1185 0042 E36A     		ldr	r3, [r4, #44]
+ 1186 0044 0F4A     		ldr	r2, .L182+8
+ 1187 0046 1268     		ldr	r2, [r2]
+ 1188 0048 9342     		cmp	r3, r2
+ 1189 004a 01D9     		bls	.L179
+ 1190 004c 0D4A     		ldr	r2, .L182+8
+ 1191 004e 1360     		str	r3, [r2]
+ 1192              	.L179:
+ 1193 0050 03EB8303 		add	r3, r3, r3, lsl #2
+ 1194 0054 9A00     		lsls	r2, r3, #2
+ 1195 0056 3946     		mov	r1, r7
+ 1196 0058 0B48     		ldr	r0, .L182+12
+ 1197 005a 1044     		add	r0, r0, r2
+ 1198 005c FFF7FEFF 		bl	vListInsertEnd
+ 1199              	.L176:
+ 1200              		.syntax unified
+ 1201              	@ 229 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h" 1
+ 1202 0060 86F31188 			msr basepri, r6	
+ 1203              	@ 0 "" 2
+ 1204              		.thumb
+ 1205              		.syntax unified
+ 1206 0064 2846     		mov	r0, r5
+ 1207 0066 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1208              	.L180:
+ 1209 0068 0125     		movs	r5, #1
+ 1210 006a E6E7     		b	.L178
+ 1211              	.L177:
+ 1212 006c 04F11801 		add	r1, r4, #24
+ 1213 0070 0648     		ldr	r0, .L182+16
+ 1214 0072 FFF7FEFF 		bl	vListInsertEnd
+ 1215 0076 0025     		movs	r5, #0
+ 1216 0078 F2E7     		b	.L176
+ 1217              	.L183:
+ 1218 007a 00BF     		.align	2
+ 1219              	.L182:
+ 1220 007c 00000000 		.word	.LANCHOR16
+ 1221 0080 00000000 		.word	.LANCHOR10
+ 1222 0084 00000000 		.word	.LANCHOR13
+ 1223 0088 00000000 		.word	.LANCHOR4
+ 1224 008c 00000000 		.word	.LANCHOR1
+ 1226              		.section	.text.vTaskStartScheduler,"ax",%progbits
+ 1227              		.align	1
+ 1228              		.global	vTaskStartScheduler
+ 1229              		.syntax unified
+ 1230              		.thumb
+ 1231              		.thumb_func
+ 1232              		.fpu fpv4-sp-d16
+ 1234              	vTaskStartScheduler:
+ 1235              		@ args = 0, pretend = 0, frame = 16
+ 1236              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1237 0000 10B5     		push	{r4, lr}
+ 1238 0002 88B0     		sub	sp, sp, #32
+ 1239 0004 0024     		movs	r4, #0
+ 1240 0006 0594     		str	r4, [sp, #20]
+ARM GAS  /tmp/cc1iSaBg.s 			page 22
+
+
+ 1241 0008 0694     		str	r4, [sp, #24]
+ 1242 000a 07AA     		add	r2, sp, #28
+ 1243 000c 06A9     		add	r1, sp, #24
+ 1244 000e 05A8     		add	r0, sp, #20
+ 1245 0010 FFF7FEFF 		bl	vApplicationGetIdleTaskMemory
+ 1246 0014 059B     		ldr	r3, [sp, #20]
+ 1247 0016 0293     		str	r3, [sp, #8]
+ 1248 0018 069B     		ldr	r3, [sp, #24]
+ 1249 001a 0193     		str	r3, [sp, #4]
+ 1250 001c 0094     		str	r4, [sp]
+ 1251 001e 2346     		mov	r3, r4
+ 1252 0020 079A     		ldr	r2, [sp, #28]
+ 1253 0022 1149     		ldr	r1, .L190
+ 1254 0024 1148     		ldr	r0, .L190+4
+ 1255 0026 FFF7FEFF 		bl	xTaskCreateStatic
+ 1256 002a 28B1     		cbz	r0, .L185
+ 1257 002c FFF7FEFF 		bl	xTimerCreateTimerTask
+ 1258              	.L186:
+ 1259 0030 0128     		cmp	r0, #1
+ 1260 0032 03D0     		beq	.L189
+ 1261              	.L184:
+ 1262 0034 08B0     		add	sp, sp, #32
+ 1263              		@ sp needed
+ 1264 0036 10BD     		pop	{r4, pc}
+ 1265              	.L185:
+ 1266 0038 0020     		movs	r0, #0
+ 1267 003a F9E7     		b	.L186
+ 1268              	.L189:
+ 1269              		.syntax unified
+ 1270              	@ 195 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h" 1
+ 1271 003c 4FF05003 			mov r3, #80												
+ 1272 0040 83F31188 		msr basepri, r3											
+ 1273 0044 BFF36F8F 		isb														
+ 1274 0048 BFF34F8F 		dsb														
+ 1275              	
+ 1276              	@ 0 "" 2
+ 1277              		.thumb
+ 1278              		.syntax unified
+ 1279 004c 084B     		ldr	r3, .L190+8
+ 1280 004e 4FF0FF32 		mov	r2, #-1
+ 1281 0052 1A60     		str	r2, [r3]
+ 1282 0054 074B     		ldr	r3, .L190+12
+ 1283 0056 0122     		movs	r2, #1
+ 1284 0058 1A60     		str	r2, [r3]
+ 1285 005a 074B     		ldr	r3, .L190+16
+ 1286 005c 0022     		movs	r2, #0
+ 1287 005e 1A60     		str	r2, [r3]
+ 1288 0060 FFF7FEFF 		bl	xPortStartScheduler
+ 1289 0064 E6E7     		b	.L184
+ 1290              	.L191:
+ 1291 0066 00BF     		.align	2
+ 1292              	.L190:
+ 1293 0068 00000000 		.word	.LC0
+ 1294 006c 00000000 		.word	prvIdleTask
+ 1295 0070 00000000 		.word	.LANCHOR3
+ 1296 0074 00000000 		.word	.LANCHOR11
+ 1297 0078 00000000 		.word	.LANCHOR15
+ARM GAS  /tmp/cc1iSaBg.s 			page 23
+
+
+ 1299              		.section	.text.vTaskEndScheduler,"ax",%progbits
+ 1300              		.align	1
+ 1301              		.global	vTaskEndScheduler
+ 1302              		.syntax unified
+ 1303              		.thumb
+ 1304              		.thumb_func
+ 1305              		.fpu fpv4-sp-d16
+ 1307              	vTaskEndScheduler:
+ 1308              		@ args = 0, pretend = 0, frame = 0
+ 1309              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1310 0000 08B5     		push	{r3, lr}
+ 1311              		.syntax unified
+ 1312              	@ 195 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h" 1
+ 1313 0002 4FF05003 			mov r3, #80												
+ 1314 0006 83F31188 		msr basepri, r3											
+ 1315 000a BFF36F8F 		isb														
+ 1316 000e BFF34F8F 		dsb														
+ 1317              	
+ 1318              	@ 0 "" 2
+ 1319              		.thumb
+ 1320              		.syntax unified
+ 1321 0012 034B     		ldr	r3, .L194
+ 1322 0014 0022     		movs	r2, #0
+ 1323 0016 1A60     		str	r2, [r3]
+ 1324 0018 FFF7FEFF 		bl	vPortEndScheduler
+ 1325 001c 08BD     		pop	{r3, pc}
+ 1326              	.L195:
+ 1327 001e 00BF     		.align	2
+ 1328              	.L194:
+ 1329 0020 00000000 		.word	.LANCHOR11
+ 1331              		.section	.text.vTaskSuspendAll,"ax",%progbits
+ 1332              		.align	1
+ 1333              		.global	vTaskSuspendAll
+ 1334              		.syntax unified
+ 1335              		.thumb
+ 1336              		.thumb_func
+ 1337              		.fpu fpv4-sp-d16
+ 1339              	vTaskSuspendAll:
+ 1340              		@ args = 0, pretend = 0, frame = 0
+ 1341              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1342              		@ link register save eliminated.
+ 1343 0000 024A     		ldr	r2, .L197
+ 1344 0002 1368     		ldr	r3, [r2]
+ 1345 0004 0133     		adds	r3, r3, #1
+ 1346 0006 1360     		str	r3, [r2]
+ 1347 0008 7047     		bx	lr
+ 1348              	.L198:
+ 1349 000a 00BF     		.align	2
+ 1350              	.L197:
+ 1351 000c 00000000 		.word	.LANCHOR16
+ 1353              		.section	.text.xTaskGetTickCount,"ax",%progbits
+ 1354              		.align	1
+ 1355              		.global	xTaskGetTickCount
+ 1356              		.syntax unified
+ 1357              		.thumb
+ 1358              		.thumb_func
+ 1359              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/cc1iSaBg.s 			page 24
+
+
+ 1361              	xTaskGetTickCount:
+ 1362              		@ args = 0, pretend = 0, frame = 0
+ 1363              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1364              		@ link register save eliminated.
+ 1365 0000 014B     		ldr	r3, .L200
+ 1366 0002 1868     		ldr	r0, [r3]
+ 1367 0004 7047     		bx	lr
+ 1368              	.L201:
+ 1369 0006 00BF     		.align	2
+ 1370              	.L200:
+ 1371 0008 00000000 		.word	.LANCHOR15
+ 1373              		.section	.text.xTaskGetTickCountFromISR,"ax",%progbits
+ 1374              		.align	1
+ 1375              		.global	xTaskGetTickCountFromISR
+ 1376              		.syntax unified
+ 1377              		.thumb
+ 1378              		.thumb_func
+ 1379              		.fpu fpv4-sp-d16
+ 1381              	xTaskGetTickCountFromISR:
+ 1382              		@ args = 0, pretend = 0, frame = 0
+ 1383              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1384 0000 08B5     		push	{r3, lr}
+ 1385 0002 FFF7FEFF 		bl	vPortValidateInterruptPriority
+ 1386 0006 014B     		ldr	r3, .L204
+ 1387 0008 1868     		ldr	r0, [r3]
+ 1388 000a 08BD     		pop	{r3, pc}
+ 1389              	.L205:
+ 1390              		.align	2
+ 1391              	.L204:
+ 1392 000c 00000000 		.word	.LANCHOR15
+ 1394              		.section	.text.uxTaskGetNumberOfTasks,"ax",%progbits
+ 1395              		.align	1
+ 1396              		.global	uxTaskGetNumberOfTasks
+ 1397              		.syntax unified
+ 1398              		.thumb
+ 1399              		.thumb_func
+ 1400              		.fpu fpv4-sp-d16
+ 1402              	uxTaskGetNumberOfTasks:
+ 1403              		@ args = 0, pretend = 0, frame = 0
+ 1404              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1405              		@ link register save eliminated.
+ 1406 0000 014B     		ldr	r3, .L207
+ 1407 0002 1868     		ldr	r0, [r3]
+ 1408 0004 7047     		bx	lr
+ 1409              	.L208:
+ 1410 0006 00BF     		.align	2
+ 1411              	.L207:
+ 1412 0008 00000000 		.word	.LANCHOR9
+ 1414              		.section	.text.pcTaskGetName,"ax",%progbits
+ 1415              		.align	1
+ 1416              		.global	pcTaskGetName
+ 1417              		.syntax unified
+ 1418              		.thumb
+ 1419              		.thumb_func
+ 1420              		.fpu fpv4-sp-d16
+ 1422              	pcTaskGetName:
+ 1423              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/cc1iSaBg.s 			page 25
+
+
+ 1424              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1425              		@ link register save eliminated.
+ 1426 0000 0346     		mov	r3, r0
+ 1427 0002 10B1     		cbz	r0, .L211
+ 1428              	.L210:
+ 1429 0004 03F13400 		add	r0, r3, #52
+ 1430 0008 7047     		bx	lr
+ 1431              	.L211:
+ 1432 000a 014B     		ldr	r3, .L212
+ 1433 000c 1B68     		ldr	r3, [r3]
+ 1434 000e F9E7     		b	.L210
+ 1435              	.L213:
+ 1436              		.align	2
+ 1437              	.L212:
+ 1438 0010 00000000 		.word	.LANCHOR10
+ 1440              		.section	.text.xTaskIncrementTick,"ax",%progbits
+ 1441              		.align	1
+ 1442              		.global	xTaskIncrementTick
+ 1443              		.syntax unified
+ 1444              		.thumb
+ 1445              		.thumb_func
+ 1446              		.fpu fpv4-sp-d16
+ 1448              	xTaskIncrementTick:
+ 1449              		@ args = 0, pretend = 0, frame = 0
+ 1450              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1451 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1452 0002 344B     		ldr	r3, .L235
+ 1453 0004 1B68     		ldr	r3, [r3]
+ 1454 0006 002B     		cmp	r3, #0
+ 1455 0008 58D1     		bne	.L215
+ 1456 000a 334B     		ldr	r3, .L235+4
+ 1457 000c 1E68     		ldr	r6, [r3]
+ 1458 000e 0136     		adds	r6, r6, #1
+ 1459 0010 1E60     		str	r6, [r3]
+ 1460 0012 86B1     		cbz	r6, .L232
+ 1461              	.L216:
+ 1462 0014 314B     		ldr	r3, .L235+8
+ 1463 0016 1B68     		ldr	r3, [r3]
+ 1464 0018 B342     		cmp	r3, r6
+ 1465 001a 45D9     		bls	.L227
+ 1466 001c 0027     		movs	r7, #0
+ 1467              	.L218:
+ 1468 001e 304B     		ldr	r3, .L235+12
+ 1469 0020 1B68     		ldr	r3, [r3]
+ 1470 0022 DB6A     		ldr	r3, [r3, #44]
+ 1471 0024 03EB8303 		add	r3, r3, r3, lsl #2
+ 1472 0028 9A00     		lsls	r2, r3, #2
+ 1473 002a 2E4B     		ldr	r3, .L235+16
+ 1474 002c 9B58     		ldr	r3, [r3, r2]
+ 1475 002e 012B     		cmp	r3, #1
+ 1476 0030 49D9     		bls	.L225
+ 1477 0032 0127     		movs	r7, #1
+ 1478 0034 47E0     		b	.L225
+ 1479              	.L232:
+ 1480 0036 2C4A     		ldr	r2, .L235+20
+ 1481 0038 1168     		ldr	r1, [r2]
+ 1482 003a 2C4B     		ldr	r3, .L235+24
+ARM GAS  /tmp/cc1iSaBg.s 			page 26
+
+
+ 1483 003c 1868     		ldr	r0, [r3]
+ 1484 003e 1060     		str	r0, [r2]
+ 1485 0040 1960     		str	r1, [r3]
+ 1486 0042 2B4A     		ldr	r2, .L235+28
+ 1487 0044 1368     		ldr	r3, [r2]
+ 1488 0046 0133     		adds	r3, r3, #1
+ 1489 0048 1360     		str	r3, [r2]
+ 1490 004a FFF7FEFF 		bl	prvResetNextTaskUnblockTime
+ 1491 004e E1E7     		b	.L216
+ 1492              	.L228:
+ 1493 0050 0127     		movs	r7, #1
+ 1494              	.L217:
+ 1495 0052 254B     		ldr	r3, .L235+20
+ 1496 0054 1B68     		ldr	r3, [r3]
+ 1497 0056 1B68     		ldr	r3, [r3]
+ 1498 0058 43B3     		cbz	r3, .L233
+ 1499 005a 234B     		ldr	r3, .L235+20
+ 1500 005c 1B68     		ldr	r3, [r3]
+ 1501 005e DB68     		ldr	r3, [r3, #12]
+ 1502 0060 DC68     		ldr	r4, [r3, #12]
+ 1503 0062 6368     		ldr	r3, [r4, #4]
+ 1504 0064 9E42     		cmp	r6, r3
+ 1505 0066 26D3     		bcc	.L234
+ 1506 0068 251D     		adds	r5, r4, #4
+ 1507 006a 2846     		mov	r0, r5
+ 1508 006c FFF7FEFF 		bl	uxListRemove
+ 1509 0070 A36A     		ldr	r3, [r4, #40]
+ 1510 0072 1BB1     		cbz	r3, .L221
+ 1511 0074 04F11800 		add	r0, r4, #24
+ 1512 0078 FFF7FEFF 		bl	uxListRemove
+ 1513              	.L221:
+ 1514 007c E36A     		ldr	r3, [r4, #44]
+ 1515 007e 1D4A     		ldr	r2, .L235+32
+ 1516 0080 1268     		ldr	r2, [r2]
+ 1517 0082 9342     		cmp	r3, r2
+ 1518 0084 01D9     		bls	.L222
+ 1519 0086 1B4A     		ldr	r2, .L235+32
+ 1520 0088 1360     		str	r3, [r2]
+ 1521              	.L222:
+ 1522 008a 03EB8303 		add	r3, r3, r3, lsl #2
+ 1523 008e 9A00     		lsls	r2, r3, #2
+ 1524 0090 2946     		mov	r1, r5
+ 1525 0092 1448     		ldr	r0, .L235+16
+ 1526 0094 1044     		add	r0, r0, r2
+ 1527 0096 FFF7FEFF 		bl	vListInsertEnd
+ 1528 009a E26A     		ldr	r2, [r4, #44]
+ 1529 009c 104B     		ldr	r3, .L235+12
+ 1530 009e 1B68     		ldr	r3, [r3]
+ 1531 00a0 DB6A     		ldr	r3, [r3, #44]
+ 1532 00a2 9A42     		cmp	r2, r3
+ 1533 00a4 D4D2     		bcs	.L228
+ 1534 00a6 D4E7     		b	.L217
+ 1535              	.L227:
+ 1536 00a8 0027     		movs	r7, #0
+ 1537 00aa D2E7     		b	.L217
+ 1538              	.L233:
+ 1539 00ac 0B4B     		ldr	r3, .L235+8
+ARM GAS  /tmp/cc1iSaBg.s 			page 27
+
+
+ 1540 00ae 4FF0FF32 		mov	r2, #-1
+ 1541 00b2 1A60     		str	r2, [r3]
+ 1542 00b4 B3E7     		b	.L218
+ 1543              	.L234:
+ 1544 00b6 094A     		ldr	r2, .L235+8
+ 1545 00b8 1360     		str	r3, [r2]
+ 1546 00ba B0E7     		b	.L218
+ 1547              	.L215:
+ 1548 00bc 0E4A     		ldr	r2, .L235+36
+ 1549 00be 1368     		ldr	r3, [r2]
+ 1550 00c0 0133     		adds	r3, r3, #1
+ 1551 00c2 1360     		str	r3, [r2]
+ 1552 00c4 0027     		movs	r7, #0
+ 1553              	.L225:
+ 1554 00c6 0D4B     		ldr	r3, .L235+40
+ 1555 00c8 1B68     		ldr	r3, [r3]
+ 1556 00ca 03B1     		cbz	r3, .L214
+ 1557 00cc 0127     		movs	r7, #1
+ 1558              	.L214:
+ 1559 00ce 3846     		mov	r0, r7
+ 1560 00d0 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1561              	.L236:
+ 1562 00d2 00BF     		.align	2
+ 1563              	.L235:
+ 1564 00d4 00000000 		.word	.LANCHOR16
+ 1565 00d8 00000000 		.word	.LANCHOR15
+ 1566 00dc 00000000 		.word	.LANCHOR3
+ 1567 00e0 00000000 		.word	.LANCHOR10
+ 1568 00e4 00000000 		.word	.LANCHOR4
+ 1569 00e8 00000000 		.word	.LANCHOR2
+ 1570 00ec 00000000 		.word	.LANCHOR8
+ 1571 00f0 00000000 		.word	.LANCHOR17
+ 1572 00f4 00000000 		.word	.LANCHOR13
+ 1573 00f8 00000000 		.word	.LANCHOR18
+ 1574 00fc 00000000 		.word	.LANCHOR19
+ 1576              		.section	.text.xTaskResumeAll,"ax",%progbits
+ 1577              		.align	1
+ 1578              		.global	xTaskResumeAll
+ 1579              		.syntax unified
+ 1580              		.thumb
+ 1581              		.thumb_func
+ 1582              		.fpu fpv4-sp-d16
+ 1584              	xTaskResumeAll:
+ 1585              		@ args = 0, pretend = 0, frame = 0
+ 1586              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1587 0000 38B5     		push	{r3, r4, r5, lr}
+ 1588 0002 FFF7FEFF 		bl	vPortEnterCritical
+ 1589 0006 2D4B     		ldr	r3, .L252
+ 1590 0008 1A68     		ldr	r2, [r3]
+ 1591 000a 013A     		subs	r2, r2, #1
+ 1592 000c 1A60     		str	r2, [r3]
+ 1593 000e 1B68     		ldr	r3, [r3]
+ 1594 0010 002B     		cmp	r3, #0
+ 1595 0012 4DD1     		bne	.L247
+ 1596 0014 2A4B     		ldr	r3, .L252+4
+ 1597 0016 1B68     		ldr	r3, [r3]
+ 1598 0018 0BB9     		cbnz	r3, .L248
+ARM GAS  /tmp/cc1iSaBg.s 			page 28
+
+
+ 1599 001a 0024     		movs	r4, #0
+ 1600 001c 49E0     		b	.L238
+ 1601              	.L248:
+ 1602 001e 0024     		movs	r4, #0
+ 1603              	.L239:
+ 1604 0020 284B     		ldr	r3, .L252+8
+ 1605 0022 1B68     		ldr	r3, [r3]
+ 1606 0024 1BB3     		cbz	r3, .L250
+ 1607 0026 274B     		ldr	r3, .L252+8
+ 1608 0028 DB68     		ldr	r3, [r3, #12]
+ 1609 002a DC68     		ldr	r4, [r3, #12]
+ 1610 002c 04F11800 		add	r0, r4, #24
+ 1611 0030 FFF7FEFF 		bl	uxListRemove
+ 1612 0034 251D     		adds	r5, r4, #4
+ 1613 0036 2846     		mov	r0, r5
+ 1614 0038 FFF7FEFF 		bl	uxListRemove
+ 1615 003c E36A     		ldr	r3, [r4, #44]
+ 1616 003e 224A     		ldr	r2, .L252+12
+ 1617 0040 1268     		ldr	r2, [r2]
+ 1618 0042 9342     		cmp	r3, r2
+ 1619 0044 01D9     		bls	.L240
+ 1620 0046 204A     		ldr	r2, .L252+12
+ 1621 0048 1360     		str	r3, [r2]
+ 1622              	.L240:
+ 1623 004a 03EB8303 		add	r3, r3, r3, lsl #2
+ 1624 004e 9A00     		lsls	r2, r3, #2
+ 1625 0050 2946     		mov	r1, r5
+ 1626 0052 1E48     		ldr	r0, .L252+16
+ 1627 0054 1044     		add	r0, r0, r2
+ 1628 0056 FFF7FEFF 		bl	vListInsertEnd
+ 1629 005a E26A     		ldr	r2, [r4, #44]
+ 1630 005c 1C4B     		ldr	r3, .L252+20
+ 1631 005e 1B68     		ldr	r3, [r3]
+ 1632 0060 DB6A     		ldr	r3, [r3, #44]
+ 1633 0062 9A42     		cmp	r2, r3
+ 1634 0064 DCD3     		bcc	.L239
+ 1635 0066 1B4B     		ldr	r3, .L252+24
+ 1636 0068 0122     		movs	r2, #1
+ 1637 006a 1A60     		str	r2, [r3]
+ 1638 006c D8E7     		b	.L239
+ 1639              	.L250:
+ 1640 006e 0CB1     		cbz	r4, .L243
+ 1641 0070 FFF7FEFF 		bl	prvResetNextTaskUnblockTime
+ 1642              	.L243:
+ 1643 0074 184B     		ldr	r3, .L252+28
+ 1644 0076 1C68     		ldr	r4, [r3]
+ 1645 0078 74B9     		cbnz	r4, .L246
+ 1646              	.L244:
+ 1647 007a 164B     		ldr	r3, .L252+24
+ 1648 007c 1C68     		ldr	r4, [r3]
+ 1649 007e C4B1     		cbz	r4, .L238
+ 1650 0080 164B     		ldr	r3, .L252+32
+ 1651 0082 4FF08052 		mov	r2, #268435456
+ 1652 0086 1A60     		str	r2, [r3]
+ 1653              		.syntax unified
+ 1654              	@ 2265 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 1655 0088 BFF34F8F 		dsb
+ARM GAS  /tmp/cc1iSaBg.s 			page 29
+
+
+ 1656              	@ 0 "" 2
+ 1657              	@ 2265 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 1658 008c BFF36F8F 		isb
+ 1659              	@ 0 "" 2
+ 1660              		.thumb
+ 1661              		.syntax unified
+ 1662 0090 0124     		movs	r4, #1
+ 1663 0092 0EE0     		b	.L238
+ 1664              	.L245:
+ 1665 0094 013C     		subs	r4, r4, #1
+ 1666 0096 07D0     		beq	.L251
+ 1667              	.L246:
+ 1668 0098 FFF7FEFF 		bl	xTaskIncrementTick
+ 1669 009c 0028     		cmp	r0, #0
+ 1670 009e F9D0     		beq	.L245
+ 1671 00a0 0C4B     		ldr	r3, .L252+24
+ 1672 00a2 0122     		movs	r2, #1
+ 1673 00a4 1A60     		str	r2, [r3]
+ 1674 00a6 F5E7     		b	.L245
+ 1675              	.L251:
+ 1676 00a8 0B4B     		ldr	r3, .L252+28
+ 1677 00aa 0022     		movs	r2, #0
+ 1678 00ac 1A60     		str	r2, [r3]
+ 1679 00ae E4E7     		b	.L244
+ 1680              	.L247:
+ 1681 00b0 0024     		movs	r4, #0
+ 1682              	.L238:
+ 1683 00b2 FFF7FEFF 		bl	vPortExitCritical
+ 1684 00b6 2046     		mov	r0, r4
+ 1685 00b8 38BD     		pop	{r3, r4, r5, pc}
+ 1686              	.L253:
+ 1687 00ba 00BF     		.align	2
+ 1688              	.L252:
+ 1689 00bc 00000000 		.word	.LANCHOR16
+ 1690 00c0 00000000 		.word	.LANCHOR9
+ 1691 00c4 00000000 		.word	.LANCHOR1
+ 1692 00c8 00000000 		.word	.LANCHOR13
+ 1693 00cc 00000000 		.word	.LANCHOR4
+ 1694 00d0 00000000 		.word	.LANCHOR10
+ 1695 00d4 00000000 		.word	.LANCHOR19
+ 1696 00d8 00000000 		.word	.LANCHOR18
+ 1697 00dc 04ED00E0 		.word	-536810236
+ 1699              		.section	.text.vTaskDelayUntil,"ax",%progbits
+ 1700              		.align	1
+ 1701              		.global	vTaskDelayUntil
+ 1702              		.syntax unified
+ 1703              		.thumb
+ 1704              		.thumb_func
+ 1705              		.fpu fpv4-sp-d16
+ 1707              	vTaskDelayUntil:
+ 1708              		@ args = 0, pretend = 0, frame = 0
+ 1709              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1710 0000 38B5     		push	{r3, r4, r5, lr}
+ 1711 0002 0546     		mov	r5, r0
+ 1712 0004 0C46     		mov	r4, r1
+ 1713 0006 FFF7FEFF 		bl	vTaskSuspendAll
+ 1714 000a 134B     		ldr	r3, .L264
+ARM GAS  /tmp/cc1iSaBg.s 			page 30
+
+
+ 1715 000c 1868     		ldr	r0, [r3]
+ 1716 000e 2A68     		ldr	r2, [r5]
+ 1717 0010 1444     		add	r4, r4, r2
+ 1718 0012 8242     		cmp	r2, r0
+ 1719 0014 09D9     		bls	.L255
+ 1720 0016 A242     		cmp	r2, r4
+ 1721 0018 01D8     		bhi	.L256
+ 1722 001a 2C60     		str	r4, [r5]
+ 1723 001c 0EE0     		b	.L257
+ 1724              	.L256:
+ 1725 001e A042     		cmp	r0, r4
+ 1726 0020 01D3     		bcc	.L258
+ 1727 0022 2C60     		str	r4, [r5]
+ 1728 0024 0AE0     		b	.L257
+ 1729              	.L258:
+ 1730 0026 2C60     		str	r4, [r5]
+ 1731 0028 04E0     		b	.L259
+ 1732              	.L255:
+ 1733 002a A242     		cmp	r2, r4
+ 1734 002c 01D8     		bhi	.L260
+ 1735 002e A042     		cmp	r0, r4
+ 1736 0030 10D2     		bcs	.L261
+ 1737              	.L260:
+ 1738 0032 2C60     		str	r4, [r5]
+ 1739              	.L259:
+ 1740 0034 0021     		movs	r1, #0
+ 1741 0036 201A     		subs	r0, r4, r0
+ 1742 0038 FFF7FEFF 		bl	prvAddCurrentTaskToDelayedList
+ 1743              	.L257:
+ 1744 003c FFF7FEFF 		bl	xTaskResumeAll
+ 1745 0040 38B9     		cbnz	r0, .L254
+ 1746 0042 064B     		ldr	r3, .L264+4
+ 1747 0044 4FF08052 		mov	r2, #268435456
+ 1748 0048 1A60     		str	r2, [r3]
+ 1749              		.syntax unified
+ 1750              	@ 1320 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 1751 004a BFF34F8F 		dsb
+ 1752              	@ 0 "" 2
+ 1753              	@ 1320 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 1754 004e BFF36F8F 		isb
+ 1755              	@ 0 "" 2
+ 1756              		.thumb
+ 1757              		.syntax unified
+ 1758              	.L254:
+ 1759 0052 38BD     		pop	{r3, r4, r5, pc}
+ 1760              	.L261:
+ 1761 0054 2C60     		str	r4, [r5]
+ 1762 0056 F1E7     		b	.L257
+ 1763              	.L265:
+ 1764              		.align	2
+ 1765              	.L264:
+ 1766 0058 00000000 		.word	.LANCHOR15
+ 1767 005c 04ED00E0 		.word	-536810236
+ 1769              		.section	.text.vTaskDelay,"ax",%progbits
+ 1770              		.align	1
+ 1771              		.global	vTaskDelay
+ 1772              		.syntax unified
+ARM GAS  /tmp/cc1iSaBg.s 			page 31
+
+
+ 1773              		.thumb
+ 1774              		.thumb_func
+ 1775              		.fpu fpv4-sp-d16
+ 1777              	vTaskDelay:
+ 1778              		@ args = 0, pretend = 0, frame = 0
+ 1779              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1780 0000 10B5     		push	{r4, lr}
+ 1781 0002 40B9     		cbnz	r0, .L270
+ 1782              	.L267:
+ 1783 0004 0A4B     		ldr	r3, .L271
+ 1784 0006 4FF08052 		mov	r2, #268435456
+ 1785 000a 1A60     		str	r2, [r3]
+ 1786              		.syntax unified
+ 1787              	@ 1365 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 1788 000c BFF34F8F 		dsb
+ 1789              	@ 0 "" 2
+ 1790              	@ 1365 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 1791 0010 BFF36F8F 		isb
+ 1792              	@ 0 "" 2
+ 1793              		.thumb
+ 1794              		.syntax unified
+ 1795              	.L266:
+ 1796 0014 10BD     		pop	{r4, pc}
+ 1797              	.L270:
+ 1798 0016 0446     		mov	r4, r0
+ 1799 0018 FFF7FEFF 		bl	vTaskSuspendAll
+ 1800 001c 0021     		movs	r1, #0
+ 1801 001e 2046     		mov	r0, r4
+ 1802 0020 FFF7FEFF 		bl	prvAddCurrentTaskToDelayedList
+ 1803 0024 FFF7FEFF 		bl	xTaskResumeAll
+ 1804 0028 0028     		cmp	r0, #0
+ 1805 002a F3D1     		bne	.L266
+ 1806 002c EAE7     		b	.L267
+ 1807              	.L272:
+ 1808 002e 00BF     		.align	2
+ 1809              	.L271:
+ 1810 0030 04ED00E0 		.word	-536810236
+ 1812              		.section	.text.xTaskGetHandle,"ax",%progbits
+ 1813              		.align	1
+ 1814              		.global	xTaskGetHandle
+ 1815              		.syntax unified
+ 1816              		.thumb
+ 1817              		.thumb_func
+ 1818              		.fpu fpv4-sp-d16
+ 1820              	xTaskGetHandle:
+ 1821              		@ args = 0, pretend = 0, frame = 0
+ 1822              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1823 0000 70B5     		push	{r4, r5, r6, lr}
+ 1824 0002 0646     		mov	r6, r0
+ 1825 0004 FFF7FEFF 		bl	vTaskSuspendAll
+ 1826 0008 3824     		movs	r4, #56
+ 1827              	.L275:
+ 1828 000a 013C     		subs	r4, r4, #1
+ 1829 000c 04EB8402 		add	r2, r4, r4, lsl #2
+ 1830 0010 9300     		lsls	r3, r2, #2
+ 1831 0012 3146     		mov	r1, r6
+ 1832 0014 1448     		ldr	r0, .L285
+ARM GAS  /tmp/cc1iSaBg.s 			page 32
+
+
+ 1833 0016 1844     		add	r0, r0, r3
+ 1834 0018 FFF7FEFF 		bl	prvSearchForNameWithinSingleList
+ 1835 001c 0546     		mov	r5, r0
+ 1836 001e 08B9     		cbnz	r0, .L274
+ 1837 0020 002C     		cmp	r4, #0
+ 1838 0022 F2D1     		bne	.L275
+ 1839              	.L274:
+ 1840 0024 35B1     		cbz	r5, .L281
+ 1841              	.L276:
+ 1842 0026 65B1     		cbz	r5, .L282
+ 1843              	.L277:
+ 1844 0028 95B1     		cbz	r5, .L283
+ 1845              	.L278:
+ 1846 002a BDB1     		cbz	r5, .L284
+ 1847              	.L279:
+ 1848 002c FFF7FEFF 		bl	xTaskResumeAll
+ 1849 0030 2846     		mov	r0, r5
+ 1850 0032 70BD     		pop	{r4, r5, r6, pc}
+ 1851              	.L281:
+ 1852 0034 0D4B     		ldr	r3, .L285+4
+ 1853 0036 1868     		ldr	r0, [r3]
+ 1854 0038 3146     		mov	r1, r6
+ 1855 003a FFF7FEFF 		bl	prvSearchForNameWithinSingleList
+ 1856 003e 0546     		mov	r5, r0
+ 1857 0040 F1E7     		b	.L276
+ 1858              	.L282:
+ 1859 0042 0B4B     		ldr	r3, .L285+8
+ 1860 0044 1868     		ldr	r0, [r3]
+ 1861 0046 3146     		mov	r1, r6
+ 1862 0048 FFF7FEFF 		bl	prvSearchForNameWithinSingleList
+ 1863 004c 0546     		mov	r5, r0
+ 1864 004e EBE7     		b	.L277
+ 1865              	.L283:
+ 1866 0050 3146     		mov	r1, r6
+ 1867 0052 0848     		ldr	r0, .L285+12
+ 1868 0054 FFF7FEFF 		bl	prvSearchForNameWithinSingleList
+ 1869 0058 0546     		mov	r5, r0
+ 1870 005a E6E7     		b	.L278
+ 1871              	.L284:
+ 1872 005c 3146     		mov	r1, r6
+ 1873 005e 0648     		ldr	r0, .L285+16
+ 1874 0060 FFF7FEFF 		bl	prvSearchForNameWithinSingleList
+ 1875 0064 0546     		mov	r5, r0
+ 1876 0066 E1E7     		b	.L279
+ 1877              	.L286:
+ 1878              		.align	2
+ 1879              	.L285:
+ 1880 0068 00000000 		.word	.LANCHOR4
+ 1881 006c 00000000 		.word	.LANCHOR2
+ 1882 0070 00000000 		.word	.LANCHOR8
+ 1883 0074 00000000 		.word	.LANCHOR0
+ 1884 0078 00000000 		.word	.LANCHOR7
+ 1886              		.section	.text.vTaskSetApplicationTaskTag,"ax",%progbits
+ 1887              		.align	1
+ 1888              		.global	vTaskSetApplicationTaskTag
+ 1889              		.syntax unified
+ 1890              		.thumb
+ARM GAS  /tmp/cc1iSaBg.s 			page 33
+
+
+ 1891              		.thumb_func
+ 1892              		.fpu fpv4-sp-d16
+ 1894              	vTaskSetApplicationTaskTag:
+ 1895              		@ args = 0, pretend = 0, frame = 0
+ 1896              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1897 0000 38B5     		push	{r3, r4, r5, lr}
+ 1898 0002 0D46     		mov	r5, r1
+ 1899 0004 0446     		mov	r4, r0
+ 1900 0006 28B1     		cbz	r0, .L290
+ 1901              	.L288:
+ 1902 0008 FFF7FEFF 		bl	vPortEnterCritical
+ 1903 000c 6565     		str	r5, [r4, #84]
+ 1904 000e FFF7FEFF 		bl	vPortExitCritical
+ 1905 0012 38BD     		pop	{r3, r4, r5, pc}
+ 1906              	.L290:
+ 1907 0014 014B     		ldr	r3, .L291
+ 1908 0016 1C68     		ldr	r4, [r3]
+ 1909 0018 F6E7     		b	.L288
+ 1910              	.L292:
+ 1911 001a 00BF     		.align	2
+ 1912              	.L291:
+ 1913 001c 00000000 		.word	.LANCHOR10
+ 1915              		.section	.text.xTaskGetApplicationTaskTag,"ax",%progbits
+ 1916              		.align	1
+ 1917              		.global	xTaskGetApplicationTaskTag
+ 1918              		.syntax unified
+ 1919              		.thumb
+ 1920              		.thumb_func
+ 1921              		.fpu fpv4-sp-d16
+ 1923              	xTaskGetApplicationTaskTag:
+ 1924              		@ args = 0, pretend = 0, frame = 0
+ 1925              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1926 0000 10B5     		push	{r4, lr}
+ 1927 0002 0446     		mov	r4, r0
+ 1928 0004 30B1     		cbz	r0, .L296
+ 1929              	.L294:
+ 1930 0006 FFF7FEFF 		bl	vPortEnterCritical
+ 1931 000a 646D     		ldr	r4, [r4, #84]
+ 1932 000c FFF7FEFF 		bl	vPortExitCritical
+ 1933 0010 2046     		mov	r0, r4
+ 1934 0012 10BD     		pop	{r4, pc}
+ 1935              	.L296:
+ 1936 0014 014B     		ldr	r3, .L297
+ 1937 0016 1C68     		ldr	r4, [r3]
+ 1938 0018 F5E7     		b	.L294
+ 1939              	.L298:
+ 1940 001a 00BF     		.align	2
+ 1941              	.L297:
+ 1942 001c 00000000 		.word	.LANCHOR10
+ 1944              		.section	.text.xTaskGetApplicationTaskTagFromISR,"ax",%progbits
+ 1945              		.align	1
+ 1946              		.global	xTaskGetApplicationTaskTagFromISR
+ 1947              		.syntax unified
+ 1948              		.thumb
+ 1949              		.thumb_func
+ 1950              		.fpu fpv4-sp-d16
+ 1952              	xTaskGetApplicationTaskTagFromISR:
+ARM GAS  /tmp/cc1iSaBg.s 			page 34
+
+
+ 1953              		@ args = 0, pretend = 0, frame = 0
+ 1954              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1955              		@ link register save eliminated.
+ 1956 0000 0346     		mov	r3, r0
+ 1957 0002 68B1     		cbz	r0, .L301
+ 1958              	.L300:
+ 1959              		.syntax unified
+ 1960              	@ 211 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h" 1
+ 1961 0004 EFF31182 			mrs r2, basepri											
+ 1962 0008 4FF05001 		mov r1, #80												
+ 1963 000c 81F31188 		msr basepri, r1											
+ 1964 0010 BFF36F8F 		isb														
+ 1965 0014 BFF34F8F 		dsb														
+ 1966              	
+ 1967              	@ 0 "" 2
+ 1968              		.thumb
+ 1969              		.syntax unified
+ 1970 0018 586D     		ldr	r0, [r3, #84]
+ 1971              		.syntax unified
+ 1972              	@ 229 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h" 1
+ 1973 001a 82F31188 			msr basepri, r2	
+ 1974              	@ 0 "" 2
+ 1975              		.thumb
+ 1976              		.syntax unified
+ 1977 001e 7047     		bx	lr
+ 1978              	.L301:
+ 1979 0020 014B     		ldr	r3, .L302
+ 1980 0022 1B68     		ldr	r3, [r3]
+ 1981 0024 EEE7     		b	.L300
+ 1982              	.L303:
+ 1983 0026 00BF     		.align	2
+ 1984              	.L302:
+ 1985 0028 00000000 		.word	.LANCHOR10
+ 1987              		.section	.text.xTaskCallApplicationTaskHook,"ax",%progbits
+ 1988              		.align	1
+ 1989              		.global	xTaskCallApplicationTaskHook
+ 1990              		.syntax unified
+ 1991              		.thumb
+ 1992              		.thumb_func
+ 1993              		.fpu fpv4-sp-d16
+ 1995              	xTaskCallApplicationTaskHook:
+ 1996              		@ args = 0, pretend = 0, frame = 0
+ 1997              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1998 0000 08B5     		push	{r3, lr}
+ 1999 0002 0346     		mov	r3, r0
+ 2000 0004 20B1     		cbz	r0, .L309
+ 2001              	.L305:
+ 2002 0006 5B6D     		ldr	r3, [r3, #84]
+ 2003 0008 2BB1     		cbz	r3, .L307
+ 2004 000a 0846     		mov	r0, r1
+ 2005 000c 9847     		blx	r3
+ 2006              	.L304:
+ 2007 000e 08BD     		pop	{r3, pc}
+ 2008              	.L309:
+ 2009 0010 024B     		ldr	r3, .L310
+ 2010 0012 1B68     		ldr	r3, [r3]
+ 2011 0014 F7E7     		b	.L305
+ARM GAS  /tmp/cc1iSaBg.s 			page 35
+
+
+ 2012              	.L307:
+ 2013 0016 0020     		movs	r0, #0
+ 2014 0018 F9E7     		b	.L304
+ 2015              	.L311:
+ 2016 001a 00BF     		.align	2
+ 2017              	.L310:
+ 2018 001c 00000000 		.word	.LANCHOR10
+ 2020              		.section	.text.vTaskSwitchContext,"ax",%progbits
+ 2021              		.align	1
+ 2022              		.global	vTaskSwitchContext
+ 2023              		.syntax unified
+ 2024              		.thumb
+ 2025              		.thumb_func
+ 2026              		.fpu fpv4-sp-d16
+ 2028              	vTaskSwitchContext:
+ 2029              		@ args = 0, pretend = 0, frame = 0
+ 2030              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2031              		@ link register save eliminated.
+ 2032 0000 204B     		ldr	r3, .L323
+ 2033 0002 1B68     		ldr	r3, [r3]
+ 2034 0004 1BB1     		cbz	r3, .L313
+ 2035 0006 204B     		ldr	r3, .L323+4
+ 2036 0008 0122     		movs	r2, #1
+ 2037 000a 1A60     		str	r2, [r3]
+ 2038 000c 7047     		bx	lr
+ 2039              	.L313:
+ 2040 000e 10B4     		push	{r4}
+ 2041 0010 1D4B     		ldr	r3, .L323+4
+ 2042 0012 0022     		movs	r2, #0
+ 2043 0014 1A60     		str	r2, [r3]
+ 2044 0016 1D4B     		ldr	r3, .L323+8
+ 2045 0018 1B68     		ldr	r3, [r3]
+ 2046 001a 1D4A     		ldr	r2, .L323+12
+ 2047 001c 1268     		ldr	r2, [r2]
+ 2048 001e 1A66     		str	r2, [r3, #96]
+ 2049 0020 1C4B     		ldr	r3, .L323+16
+ 2050 0022 1B68     		ldr	r3, [r3]
+ 2051              	.L315:
+ 2052 0024 03EB8301 		add	r1, r3, r3, lsl #2
+ 2053 0028 8A00     		lsls	r2, r1, #2
+ 2054 002a 1B49     		ldr	r1, .L323+20
+ 2055 002c 8A58     		ldr	r2, [r1, r2]
+ 2056 002e 0AB9     		cbnz	r2, .L321
+ 2057 0030 013B     		subs	r3, r3, #1
+ 2058 0032 F7E7     		b	.L315
+ 2059              	.L321:
+ 2060 0034 0846     		mov	r0, r1
+ 2061 0036 9A00     		lsls	r2, r3, #2
+ 2062 0038 D418     		adds	r4, r2, r3
+ 2063 003a A100     		lsls	r1, r4, #2
+ 2064 003c 0144     		add	r1, r1, r0
+ 2065 003e 4C68     		ldr	r4, [r1, #4]
+ 2066 0040 6468     		ldr	r4, [r4, #4]
+ 2067 0042 4C60     		str	r4, [r1, #4]
+ 2068 0044 1A44     		add	r2, r2, r3
+ 2069 0046 9100     		lsls	r1, r2, #2
+ 2070 0048 0831     		adds	r1, r1, #8
+ARM GAS  /tmp/cc1iSaBg.s 			page 36
+
+
+ 2071 004a 0844     		add	r0, r0, r1
+ 2072 004c 8442     		cmp	r4, r0
+ 2073 004e 11D0     		beq	.L322
+ 2074              	.L317:
+ 2075 0050 03EB8302 		add	r2, r3, r3, lsl #2
+ 2076 0054 9100     		lsls	r1, r2, #2
+ 2077 0056 104A     		ldr	r2, .L323+20
+ 2078 0058 0A44     		add	r2, r2, r1
+ 2079 005a 5268     		ldr	r2, [r2, #4]
+ 2080 005c D168     		ldr	r1, [r2, #12]
+ 2081 005e 0B4A     		ldr	r2, .L323+8
+ 2082 0060 1160     		str	r1, [r2]
+ 2083 0062 0C49     		ldr	r1, .L323+16
+ 2084 0064 0B60     		str	r3, [r1]
+ 2085 0066 1368     		ldr	r3, [r2]
+ 2086 0068 1A6E     		ldr	r2, [r3, #96]
+ 2087 006a 094B     		ldr	r3, .L323+12
+ 2088 006c 1A60     		str	r2, [r3]
+ 2089 006e 5DF8044B 		ldr	r4, [sp], #4
+ 2090 0072 7047     		bx	lr
+ 2091              	.L322:
+ 2092 0074 6068     		ldr	r0, [r4, #4]
+ 2093 0076 03EB8302 		add	r2, r3, r3, lsl #2
+ 2094 007a 9100     		lsls	r1, r2, #2
+ 2095 007c 064A     		ldr	r2, .L323+20
+ 2096 007e 0A44     		add	r2, r2, r1
+ 2097 0080 5060     		str	r0, [r2, #4]
+ 2098 0082 E5E7     		b	.L317
+ 2099              	.L324:
+ 2100              		.align	2
+ 2101              	.L323:
+ 2102 0084 00000000 		.word	.LANCHOR16
+ 2103 0088 00000000 		.word	.LANCHOR19
+ 2104 008c 00000000 		.word	.LANCHOR10
+ 2105 0090 00000000 		.word	.LANCHOR20
+ 2106 0094 00000000 		.word	.LANCHOR13
+ 2107 0098 00000000 		.word	.LANCHOR4
+ 2109              		.section	.text.vTaskSuspend,"ax",%progbits
+ 2110              		.align	1
+ 2111              		.global	vTaskSuspend
+ 2112              		.syntax unified
+ 2113              		.thumb
+ 2114              		.thumb_func
+ 2115              		.fpu fpv4-sp-d16
+ 2117              	vTaskSuspend:
+ 2118              		@ args = 0, pretend = 0, frame = 0
+ 2119              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2120 0000 38B5     		push	{r3, r4, r5, lr}
+ 2121 0002 0446     		mov	r4, r0
+ 2122 0004 FFF7FEFF 		bl	vPortEnterCritical
+ 2123 0008 E4B1     		cbz	r4, .L334
+ 2124              	.L326:
+ 2125 000a 251D     		adds	r5, r4, #4
+ 2126 000c 2846     		mov	r0, r5
+ 2127 000e FFF7FEFF 		bl	uxListRemove
+ 2128 0012 A36A     		ldr	r3, [r4, #40]
+ 2129 0014 1BB1     		cbz	r3, .L327
+ARM GAS  /tmp/cc1iSaBg.s 			page 37
+
+
+ 2130 0016 04F11800 		add	r0, r4, #24
+ 2131 001a FFF7FEFF 		bl	uxListRemove
+ 2132              	.L327:
+ 2133 001e 2946     		mov	r1, r5
+ 2134 0020 1C48     		ldr	r0, .L338
+ 2135 0022 FFF7FEFF 		bl	vListInsertEnd
+ 2136 0026 94F85C30 		ldrb	r3, [r4, #92]	@ zero_extendqisi2
+ 2137 002a DBB2     		uxtb	r3, r3
+ 2138 002c 012B     		cmp	r3, #1
+ 2139 002e 0CD0     		beq	.L335
+ 2140              	.L328:
+ 2141 0030 FFF7FEFF 		bl	vPortExitCritical
+ 2142 0034 184B     		ldr	r3, .L338+4
+ 2143 0036 1B68     		ldr	r3, [r3]
+ 2144 0038 5BB9     		cbnz	r3, .L336
+ 2145              	.L329:
+ 2146 003a 184B     		ldr	r3, .L338+8
+ 2147 003c 1B68     		ldr	r3, [r3]
+ 2148 003e A342     		cmp	r3, r4
+ 2149 0040 0ED0     		beq	.L337
+ 2150              	.L325:
+ 2151 0042 38BD     		pop	{r3, r4, r5, pc}
+ 2152              	.L334:
+ 2153 0044 154B     		ldr	r3, .L338+8
+ 2154 0046 1C68     		ldr	r4, [r3]
+ 2155 0048 DFE7     		b	.L326
+ 2156              	.L335:
+ 2157 004a 0023     		movs	r3, #0
+ 2158 004c 84F85C30 		strb	r3, [r4, #92]
+ 2159 0050 EEE7     		b	.L328
+ 2160              	.L336:
+ 2161 0052 FFF7FEFF 		bl	vPortEnterCritical
+ 2162 0056 FFF7FEFF 		bl	prvResetNextTaskUnblockTime
+ 2163 005a FFF7FEFF 		bl	vPortExitCritical
+ 2164 005e ECE7     		b	.L329
+ 2165              	.L337:
+ 2166 0060 0D4B     		ldr	r3, .L338+4
+ 2167 0062 1B68     		ldr	r3, [r3]
+ 2168 0064 43B1     		cbz	r3, .L331
+ 2169 0066 0E4B     		ldr	r3, .L338+12
+ 2170 0068 4FF08052 		mov	r2, #268435456
+ 2171 006c 1A60     		str	r2, [r3]
+ 2172              		.syntax unified
+ 2173              	@ 1765 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 2174 006e BFF34F8F 		dsb
+ 2175              	@ 0 "" 2
+ 2176              	@ 1765 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 2177 0072 BFF36F8F 		isb
+ 2178              	@ 0 "" 2
+ 2179              		.thumb
+ 2180              		.syntax unified
+ 2181 0076 E4E7     		b	.L325
+ 2182              	.L331:
+ 2183 0078 064B     		ldr	r3, .L338
+ 2184 007a 1A68     		ldr	r2, [r3]
+ 2185 007c 094B     		ldr	r3, .L338+16
+ 2186 007e 1B68     		ldr	r3, [r3]
+ARM GAS  /tmp/cc1iSaBg.s 			page 38
+
+
+ 2187 0080 9A42     		cmp	r2, r3
+ 2188 0082 03D1     		bne	.L332
+ 2189 0084 054B     		ldr	r3, .L338+8
+ 2190 0086 0022     		movs	r2, #0
+ 2191 0088 1A60     		str	r2, [r3]
+ 2192 008a DAE7     		b	.L325
+ 2193              	.L332:
+ 2194 008c FFF7FEFF 		bl	vTaskSwitchContext
+ 2195 0090 D7E7     		b	.L325
+ 2196              	.L339:
+ 2197 0092 00BF     		.align	2
+ 2198              	.L338:
+ 2199 0094 00000000 		.word	.LANCHOR0
+ 2200 0098 00000000 		.word	.LANCHOR11
+ 2201 009c 00000000 		.word	.LANCHOR10
+ 2202 00a0 04ED00E0 		.word	-536810236
+ 2203 00a4 00000000 		.word	.LANCHOR9
+ 2205              		.section	.text.vTaskPlaceOnEventList,"ax",%progbits
+ 2206              		.align	1
+ 2207              		.global	vTaskPlaceOnEventList
+ 2208              		.syntax unified
+ 2209              		.thumb
+ 2210              		.thumb_func
+ 2211              		.fpu fpv4-sp-d16
+ 2213              	vTaskPlaceOnEventList:
+ 2214              		@ args = 0, pretend = 0, frame = 0
+ 2215              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2216 0000 10B5     		push	{r4, lr}
+ 2217 0002 0C46     		mov	r4, r1
+ 2218 0004 044B     		ldr	r3, .L342
+ 2219 0006 1968     		ldr	r1, [r3]
+ 2220 0008 1831     		adds	r1, r1, #24
+ 2221 000a FFF7FEFF 		bl	vListInsert
+ 2222 000e 0121     		movs	r1, #1
+ 2223 0010 2046     		mov	r0, r4
+ 2224 0012 FFF7FEFF 		bl	prvAddCurrentTaskToDelayedList
+ 2225 0016 10BD     		pop	{r4, pc}
+ 2226              	.L343:
+ 2227              		.align	2
+ 2228              	.L342:
+ 2229 0018 00000000 		.word	.LANCHOR10
+ 2231              		.section	.text.vTaskPlaceOnUnorderedEventList,"ax",%progbits
+ 2232              		.align	1
+ 2233              		.global	vTaskPlaceOnUnorderedEventList
+ 2234              		.syntax unified
+ 2235              		.thumb
+ 2236              		.thumb_func
+ 2237              		.fpu fpv4-sp-d16
+ 2239              	vTaskPlaceOnUnorderedEventList:
+ 2240              		@ args = 0, pretend = 0, frame = 0
+ 2241              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2242 0000 10B5     		push	{r4, lr}
+ 2243 0002 1446     		mov	r4, r2
+ 2244 0004 064B     		ldr	r3, .L346
+ 2245 0006 1A68     		ldr	r2, [r3]
+ 2246 0008 41F00041 		orr	r1, r1, #-2147483648
+ 2247 000c 9161     		str	r1, [r2, #24]
+ARM GAS  /tmp/cc1iSaBg.s 			page 39
+
+
+ 2248 000e 1968     		ldr	r1, [r3]
+ 2249 0010 1831     		adds	r1, r1, #24
+ 2250 0012 FFF7FEFF 		bl	vListInsertEnd
+ 2251 0016 0121     		movs	r1, #1
+ 2252 0018 2046     		mov	r0, r4
+ 2253 001a FFF7FEFF 		bl	prvAddCurrentTaskToDelayedList
+ 2254 001e 10BD     		pop	{r4, pc}
+ 2255              	.L347:
+ 2256              		.align	2
+ 2257              	.L346:
+ 2258 0020 00000000 		.word	.LANCHOR10
+ 2260              		.section	.text.vTaskPlaceOnEventListRestricted,"ax",%progbits
+ 2261              		.align	1
+ 2262              		.global	vTaskPlaceOnEventListRestricted
+ 2263              		.syntax unified
+ 2264              		.thumb
+ 2265              		.thumb_func
+ 2266              		.fpu fpv4-sp-d16
+ 2268              	vTaskPlaceOnEventListRestricted:
+ 2269              		@ args = 0, pretend = 0, frame = 0
+ 2270              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2271 0000 38B5     		push	{r3, r4, r5, lr}
+ 2272 0002 0D46     		mov	r5, r1
+ 2273 0004 1446     		mov	r4, r2
+ 2274 0006 064B     		ldr	r3, .L352
+ 2275 0008 1968     		ldr	r1, [r3]
+ 2276 000a 1831     		adds	r1, r1, #24
+ 2277 000c FFF7FEFF 		bl	vListInsertEnd
+ 2278 0010 0CB1     		cbz	r4, .L349
+ 2279 0012 4FF0FF35 		mov	r5, #-1
+ 2280              	.L349:
+ 2281 0016 2146     		mov	r1, r4
+ 2282 0018 2846     		mov	r0, r5
+ 2283 001a FFF7FEFF 		bl	prvAddCurrentTaskToDelayedList
+ 2284 001e 38BD     		pop	{r3, r4, r5, pc}
+ 2285              	.L353:
+ 2286              		.align	2
+ 2287              	.L352:
+ 2288 0020 00000000 		.word	.LANCHOR10
+ 2290              		.section	.text.xTaskRemoveFromEventList,"ax",%progbits
+ 2291              		.align	1
+ 2292              		.global	xTaskRemoveFromEventList
+ 2293              		.syntax unified
+ 2294              		.thumb
+ 2295              		.thumb_func
+ 2296              		.fpu fpv4-sp-d16
+ 2298              	xTaskRemoveFromEventList:
+ 2299              		@ args = 0, pretend = 0, frame = 0
+ 2300              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2301 0000 38B5     		push	{r3, r4, r5, lr}
+ 2302 0002 C368     		ldr	r3, [r0, #12]
+ 2303 0004 DC68     		ldr	r4, [r3, #12]
+ 2304 0006 04F11805 		add	r5, r4, #24
+ 2305 000a 2846     		mov	r0, r5
+ 2306 000c FFF7FEFF 		bl	uxListRemove
+ 2307 0010 134B     		ldr	r3, .L361
+ 2308 0012 1B68     		ldr	r3, [r3]
+ARM GAS  /tmp/cc1iSaBg.s 			page 40
+
+
+ 2309 0014 E3B9     		cbnz	r3, .L355
+ 2310 0016 251D     		adds	r5, r4, #4
+ 2311 0018 2846     		mov	r0, r5
+ 2312 001a FFF7FEFF 		bl	uxListRemove
+ 2313 001e E36A     		ldr	r3, [r4, #44]
+ 2314 0020 104A     		ldr	r2, .L361+4
+ 2315 0022 1268     		ldr	r2, [r2]
+ 2316 0024 9342     		cmp	r3, r2
+ 2317 0026 01D9     		bls	.L356
+ 2318 0028 0E4A     		ldr	r2, .L361+4
+ 2319 002a 1360     		str	r3, [r2]
+ 2320              	.L356:
+ 2321 002c 03EB8303 		add	r3, r3, r3, lsl #2
+ 2322 0030 9A00     		lsls	r2, r3, #2
+ 2323 0032 2946     		mov	r1, r5
+ 2324 0034 0C48     		ldr	r0, .L361+8
+ 2325 0036 1044     		add	r0, r0, r2
+ 2326 0038 FFF7FEFF 		bl	vListInsertEnd
+ 2327              	.L357:
+ 2328 003c E26A     		ldr	r2, [r4, #44]
+ 2329 003e 0B4B     		ldr	r3, .L361+12
+ 2330 0040 1B68     		ldr	r3, [r3]
+ 2331 0042 DB6A     		ldr	r3, [r3, #44]
+ 2332 0044 9A42     		cmp	r2, r3
+ 2333 0046 08D9     		bls	.L359
+ 2334 0048 0120     		movs	r0, #1
+ 2335 004a 094B     		ldr	r3, .L361+16
+ 2336 004c 1860     		str	r0, [r3]
+ 2337 004e 05E0     		b	.L354
+ 2338              	.L355:
+ 2339 0050 2946     		mov	r1, r5
+ 2340 0052 0848     		ldr	r0, .L361+20
+ 2341 0054 FFF7FEFF 		bl	vListInsertEnd
+ 2342 0058 F0E7     		b	.L357
+ 2343              	.L359:
+ 2344 005a 0020     		movs	r0, #0
+ 2345              	.L354:
+ 2346 005c 38BD     		pop	{r3, r4, r5, pc}
+ 2347              	.L362:
+ 2348 005e 00BF     		.align	2
+ 2349              	.L361:
+ 2350 0060 00000000 		.word	.LANCHOR16
+ 2351 0064 00000000 		.word	.LANCHOR13
+ 2352 0068 00000000 		.word	.LANCHOR4
+ 2353 006c 00000000 		.word	.LANCHOR10
+ 2354 0070 00000000 		.word	.LANCHOR19
+ 2355 0074 00000000 		.word	.LANCHOR1
+ 2357              		.section	.text.vTaskRemoveFromUnorderedEventList,"ax",%progbits
+ 2358              		.align	1
+ 2359              		.global	vTaskRemoveFromUnorderedEventList
+ 2360              		.syntax unified
+ 2361              		.thumb
+ 2362              		.thumb_func
+ 2363              		.fpu fpv4-sp-d16
+ 2365              	vTaskRemoveFromUnorderedEventList:
+ 2366              		@ args = 0, pretend = 0, frame = 0
+ 2367              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/cc1iSaBg.s 			page 41
+
+
+ 2368 0000 38B5     		push	{r3, r4, r5, lr}
+ 2369 0002 41F00041 		orr	r1, r1, #-2147483648
+ 2370 0006 0160     		str	r1, [r0]
+ 2371 0008 C468     		ldr	r4, [r0, #12]
+ 2372 000a FFF7FEFF 		bl	uxListRemove
+ 2373 000e 251D     		adds	r5, r4, #4
+ 2374 0010 2846     		mov	r0, r5
+ 2375 0012 FFF7FEFF 		bl	uxListRemove
+ 2376 0016 E36A     		ldr	r3, [r4, #44]
+ 2377 0018 0B4A     		ldr	r2, .L367
+ 2378 001a 1268     		ldr	r2, [r2]
+ 2379 001c 9342     		cmp	r3, r2
+ 2380 001e 01D9     		bls	.L364
+ 2381 0020 094A     		ldr	r2, .L367
+ 2382 0022 1360     		str	r3, [r2]
+ 2383              	.L364:
+ 2384 0024 03EB8303 		add	r3, r3, r3, lsl #2
+ 2385 0028 9A00     		lsls	r2, r3, #2
+ 2386 002a 2946     		mov	r1, r5
+ 2387 002c 0748     		ldr	r0, .L367+4
+ 2388 002e 1044     		add	r0, r0, r2
+ 2389 0030 FFF7FEFF 		bl	vListInsertEnd
+ 2390 0034 E26A     		ldr	r2, [r4, #44]
+ 2391 0036 064B     		ldr	r3, .L367+8
+ 2392 0038 1B68     		ldr	r3, [r3]
+ 2393 003a DB6A     		ldr	r3, [r3, #44]
+ 2394 003c 9A42     		cmp	r2, r3
+ 2395 003e 02D9     		bls	.L363
+ 2396 0040 044B     		ldr	r3, .L367+12
+ 2397 0042 0122     		movs	r2, #1
+ 2398 0044 1A60     		str	r2, [r3]
+ 2399              	.L363:
+ 2400 0046 38BD     		pop	{r3, r4, r5, pc}
+ 2401              	.L368:
+ 2402              		.align	2
+ 2403              	.L367:
+ 2404 0048 00000000 		.word	.LANCHOR13
+ 2405 004c 00000000 		.word	.LANCHOR4
+ 2406 0050 00000000 		.word	.LANCHOR10
+ 2407 0054 00000000 		.word	.LANCHOR19
+ 2409              		.section	.text.vTaskSetTimeOutState,"ax",%progbits
+ 2410              		.align	1
+ 2411              		.global	vTaskSetTimeOutState
+ 2412              		.syntax unified
+ 2413              		.thumb
+ 2414              		.thumb_func
+ 2415              		.fpu fpv4-sp-d16
+ 2417              	vTaskSetTimeOutState:
+ 2418              		@ args = 0, pretend = 0, frame = 0
+ 2419              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2420 0000 10B5     		push	{r4, lr}
+ 2421 0002 0446     		mov	r4, r0
+ 2422 0004 FFF7FEFF 		bl	vPortEnterCritical
+ 2423 0008 044B     		ldr	r3, .L371
+ 2424 000a 1B68     		ldr	r3, [r3]
+ 2425 000c 2360     		str	r3, [r4]
+ 2426 000e 044B     		ldr	r3, .L371+4
+ARM GAS  /tmp/cc1iSaBg.s 			page 42
+
+
+ 2427 0010 1B68     		ldr	r3, [r3]
+ 2428 0012 6360     		str	r3, [r4, #4]
+ 2429 0014 FFF7FEFF 		bl	vPortExitCritical
+ 2430 0018 10BD     		pop	{r4, pc}
+ 2431              	.L372:
+ 2432 001a 00BF     		.align	2
+ 2433              	.L371:
+ 2434 001c 00000000 		.word	.LANCHOR17
+ 2435 0020 00000000 		.word	.LANCHOR15
+ 2437              		.section	.text.vTaskInternalSetTimeOutState,"ax",%progbits
+ 2438              		.align	1
+ 2439              		.global	vTaskInternalSetTimeOutState
+ 2440              		.syntax unified
+ 2441              		.thumb
+ 2442              		.thumb_func
+ 2443              		.fpu fpv4-sp-d16
+ 2445              	vTaskInternalSetTimeOutState:
+ 2446              		@ args = 0, pretend = 0, frame = 0
+ 2447              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2448              		@ link register save eliminated.
+ 2449 0000 034B     		ldr	r3, .L374
+ 2450 0002 1B68     		ldr	r3, [r3]
+ 2451 0004 0360     		str	r3, [r0]
+ 2452 0006 034B     		ldr	r3, .L374+4
+ 2453 0008 1B68     		ldr	r3, [r3]
+ 2454 000a 4360     		str	r3, [r0, #4]
+ 2455 000c 7047     		bx	lr
+ 2456              	.L375:
+ 2457 000e 00BF     		.align	2
+ 2458              	.L374:
+ 2459 0010 00000000 		.word	.LANCHOR17
+ 2460 0014 00000000 		.word	.LANCHOR15
+ 2462              		.section	.text.xTaskCheckForTimeOut,"ax",%progbits
+ 2463              		.align	1
+ 2464              		.global	xTaskCheckForTimeOut
+ 2465              		.syntax unified
+ 2466              		.thumb
+ 2467              		.thumb_func
+ 2468              		.fpu fpv4-sp-d16
+ 2470              	xTaskCheckForTimeOut:
+ 2471              		@ args = 0, pretend = 0, frame = 0
+ 2472              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2473 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 2474 0002 0446     		mov	r4, r0
+ 2475 0004 0D46     		mov	r5, r1
+ 2476 0006 FFF7FEFF 		bl	vPortEnterCritical
+ 2477 000a 124B     		ldr	r3, .L384
+ 2478 000c 1968     		ldr	r1, [r3]
+ 2479 000e 6368     		ldr	r3, [r4, #4]
+ 2480 0010 C81A     		subs	r0, r1, r3
+ 2481 0012 2A68     		ldr	r2, [r5]
+ 2482 0014 B2F1FF3F 		cmp	r2, #-1
+ 2483 0018 14D0     		beq	.L380
+ 2484 001a 2768     		ldr	r7, [r4]
+ 2485 001c 0E4E     		ldr	r6, .L384+4
+ 2486 001e 3668     		ldr	r6, [r6]
+ 2487 0020 B742     		cmp	r7, r6
+ARM GAS  /tmp/cc1iSaBg.s 			page 43
+
+
+ 2488 0022 01D0     		beq	.L378
+ 2489 0024 8B42     		cmp	r3, r1
+ 2490 0026 12D9     		bls	.L381
+ 2491              	.L378:
+ 2492 0028 8242     		cmp	r2, r0
+ 2493 002a 03D8     		bhi	.L383
+ 2494 002c 0023     		movs	r3, #0
+ 2495 002e 2B60     		str	r3, [r5]
+ 2496 0030 0124     		movs	r4, #1
+ 2497 0032 08E0     		b	.L377
+ 2498              	.L383:
+ 2499 0034 5B1A     		subs	r3, r3, r1
+ 2500 0036 1344     		add	r3, r3, r2
+ 2501 0038 2B60     		str	r3, [r5]
+ 2502 003a 2046     		mov	r0, r4
+ 2503 003c FFF7FEFF 		bl	vTaskInternalSetTimeOutState
+ 2504 0040 0024     		movs	r4, #0
+ 2505 0042 00E0     		b	.L377
+ 2506              	.L380:
+ 2507 0044 0024     		movs	r4, #0
+ 2508              	.L377:
+ 2509 0046 FFF7FEFF 		bl	vPortExitCritical
+ 2510 004a 2046     		mov	r0, r4
+ 2511 004c F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 2512              	.L381:
+ 2513 004e 0124     		movs	r4, #1
+ 2514 0050 F9E7     		b	.L377
+ 2515              	.L385:
+ 2516 0052 00BF     		.align	2
+ 2517              	.L384:
+ 2518 0054 00000000 		.word	.LANCHOR15
+ 2519 0058 00000000 		.word	.LANCHOR17
+ 2521              		.section	.text.vTaskMissedYield,"ax",%progbits
+ 2522              		.align	1
+ 2523              		.global	vTaskMissedYield
+ 2524              		.syntax unified
+ 2525              		.thumb
+ 2526              		.thumb_func
+ 2527              		.fpu fpv4-sp-d16
+ 2529              	vTaskMissedYield:
+ 2530              		@ args = 0, pretend = 0, frame = 0
+ 2531              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2532              		@ link register save eliminated.
+ 2533 0000 014B     		ldr	r3, .L387
+ 2534 0002 0122     		movs	r2, #1
+ 2535 0004 1A60     		str	r2, [r3]
+ 2536 0006 7047     		bx	lr
+ 2537              	.L388:
+ 2538              		.align	2
+ 2539              	.L387:
+ 2540 0008 00000000 		.word	.LANCHOR19
+ 2542              		.section	.text.uxTaskGetTaskNumber,"ax",%progbits
+ 2543              		.align	1
+ 2544              		.global	uxTaskGetTaskNumber
+ 2545              		.syntax unified
+ 2546              		.thumb
+ 2547              		.thumb_func
+ARM GAS  /tmp/cc1iSaBg.s 			page 44
+
+
+ 2548              		.fpu fpv4-sp-d16
+ 2550              	uxTaskGetTaskNumber:
+ 2551              		@ args = 0, pretend = 0, frame = 0
+ 2552              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2553              		@ link register save eliminated.
+ 2554 0000 08B1     		cbz	r0, .L391
+ 2555 0002 806C     		ldr	r0, [r0, #72]
+ 2556 0004 7047     		bx	lr
+ 2557              	.L391:
+ 2558 0006 0020     		movs	r0, #0
+ 2559 0008 7047     		bx	lr
+ 2561              		.section	.text.vTaskSetTaskNumber,"ax",%progbits
+ 2562              		.align	1
+ 2563              		.global	vTaskSetTaskNumber
+ 2564              		.syntax unified
+ 2565              		.thumb
+ 2566              		.thumb_func
+ 2567              		.fpu fpv4-sp-d16
+ 2569              	vTaskSetTaskNumber:
+ 2570              		@ args = 0, pretend = 0, frame = 0
+ 2571              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2572              		@ link register save eliminated.
+ 2573 0000 00B1     		cbz	r0, .L392
+ 2574 0002 8164     		str	r1, [r0, #72]
+ 2575              	.L392:
+ 2576 0004 7047     		bx	lr
+ 2578              		.section	.text.vTaskGetInfo,"ax",%progbits
+ 2579              		.align	1
+ 2580              		.global	vTaskGetInfo
+ 2581              		.syntax unified
+ 2582              		.thumb
+ 2583              		.thumb_func
+ 2584              		.fpu fpv4-sp-d16
+ 2586              	vTaskGetInfo:
+ 2587              		@ args = 0, pretend = 0, frame = 0
+ 2588              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2589 0000 70B5     		push	{r4, r5, r6, lr}
+ 2590 0002 0C46     		mov	r4, r1
+ 2591 0004 1646     		mov	r6, r2
+ 2592 0006 0546     		mov	r5, r0
+ 2593 0008 D0B1     		cbz	r0, .L403
+ 2594              	.L395:
+ 2595 000a 2560     		str	r5, [r4]
+ 2596 000c 05F13402 		add	r2, r5, #52
+ 2597 0010 6260     		str	r2, [r4, #4]
+ 2598 0012 EA6A     		ldr	r2, [r5, #44]
+ 2599 0014 2261     		str	r2, [r4, #16]
+ 2600 0016 2A6B     		ldr	r2, [r5, #48]
+ 2601 0018 E261     		str	r2, [r4, #28]
+ 2602 001a 6A6C     		ldr	r2, [r5, #68]
+ 2603 001c A260     		str	r2, [r4, #8]
+ 2604 001e EA6C     		ldr	r2, [r5, #76]
+ 2605 0020 6261     		str	r2, [r4, #20]
+ 2606 0022 0022     		movs	r2, #0
+ 2607 0024 A261     		str	r2, [r4, #24]
+ 2608 0026 052B     		cmp	r3, #5
+ 2609 0028 19D0     		beq	.L396
+ARM GAS  /tmp/cc1iSaBg.s 			page 45
+
+
+ 2610 002a 124A     		ldr	r2, .L407
+ 2611 002c 1268     		ldr	r2, [r2]
+ 2612 002e AA42     		cmp	r2, r5
+ 2613 0030 09D0     		beq	.L404
+ 2614 0032 2373     		strb	r3, [r4, #12]
+ 2615 0034 032B     		cmp	r3, #3
+ 2616 0036 09D0     		beq	.L405
+ 2617              	.L398:
+ 2618 0038 B6B9     		cbnz	r6, .L406
+ 2619 003a 0023     		movs	r3, #0
+ 2620 003c 2384     		strh	r3, [r4, #32]	@ movhi
+ 2621              	.L394:
+ 2622 003e 70BD     		pop	{r4, r5, r6, pc}
+ 2623              	.L403:
+ 2624 0040 0C4A     		ldr	r2, .L407
+ 2625 0042 1568     		ldr	r5, [r2]
+ 2626 0044 E1E7     		b	.L395
+ 2627              	.L404:
+ 2628 0046 0023     		movs	r3, #0
+ 2629 0048 2373     		strb	r3, [r4, #12]
+ 2630 004a F5E7     		b	.L398
+ 2631              	.L405:
+ 2632 004c FFF7FEFF 		bl	vTaskSuspendAll
+ 2633 0050 AB6A     		ldr	r3, [r5, #40]
+ 2634 0052 0BB1     		cbz	r3, .L399
+ 2635 0054 0223     		movs	r3, #2
+ 2636 0056 2373     		strb	r3, [r4, #12]
+ 2637              	.L399:
+ 2638 0058 FFF7FEFF 		bl	xTaskResumeAll
+ 2639 005c ECE7     		b	.L398
+ 2640              	.L396:
+ 2641 005e 2846     		mov	r0, r5
+ 2642 0060 FFF7FEFF 		bl	eTaskGetState
+ 2643 0064 2073     		strb	r0, [r4, #12]
+ 2644 0066 E7E7     		b	.L398
+ 2645              	.L406:
+ 2646 0068 286B     		ldr	r0, [r5, #48]
+ 2647 006a FFF7FEFF 		bl	prvTaskCheckFreeStackSpace
+ 2648 006e 2084     		strh	r0, [r4, #32]	@ movhi
+ 2649 0070 E5E7     		b	.L394
+ 2650              	.L408:
+ 2651 0072 00BF     		.align	2
+ 2652              	.L407:
+ 2653 0074 00000000 		.word	.LANCHOR10
+ 2655              		.section	.text.prvListTasksWithinSingleList,"ax",%progbits
+ 2656              		.align	1
+ 2657              		.syntax unified
+ 2658              		.thumb
+ 2659              		.thumb_func
+ 2660              		.fpu fpv4-sp-d16
+ 2662              	prvListTasksWithinSingleList:
+ 2663              		@ args = 0, pretend = 0, frame = 0
+ 2664              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2665 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 2666 0004 0C68     		ldr	r4, [r1]
+ 2667 0006 3CB3     		cbz	r4, .L409
+ 2668 0008 4B68     		ldr	r3, [r1, #4]
+ARM GAS  /tmp/cc1iSaBg.s 			page 46
+
+
+ 2669 000a 5B68     		ldr	r3, [r3, #4]
+ 2670 000c 4B60     		str	r3, [r1, #4]
+ 2671 000e 01F10809 		add	r9, r1, #8
+ 2672 0012 4B45     		cmp	r3, r9
+ 2673 0014 07D0     		beq	.L415
+ 2674              	.L411:
+ 2675 0016 9046     		mov	r8, r2
+ 2676 0018 0D46     		mov	r5, r1
+ 2677 001a 0746     		mov	r7, r0
+ 2678 001c 4B68     		ldr	r3, [r1, #4]
+ 2679 001e D3F80CA0 		ldr	r10, [r3, #12]
+ 2680 0022 0024     		movs	r4, #0
+ 2681 0024 12E0     		b	.L413
+ 2682              	.L415:
+ 2683 0026 5B68     		ldr	r3, [r3, #4]
+ 2684 0028 4B60     		str	r3, [r1, #4]
+ 2685 002a F4E7     		b	.L411
+ 2686              	.L416:
+ 2687 002c 5B68     		ldr	r3, [r3, #4]
+ 2688 002e 6B60     		str	r3, [r5, #4]
+ 2689              	.L412:
+ 2690 0030 6B68     		ldr	r3, [r5, #4]
+ 2691 0032 DE68     		ldr	r6, [r3, #12]
+ 2692 0034 04EBC403 		add	r3, r4, r4, lsl #3
+ 2693 0038 9900     		lsls	r1, r3, #2
+ 2694 003a 4346     		mov	r3, r8
+ 2695 003c 0122     		movs	r2, #1
+ 2696 003e 3944     		add	r1, r1, r7
+ 2697 0040 3046     		mov	r0, r6
+ 2698 0042 FFF7FEFF 		bl	vTaskGetInfo
+ 2699 0046 0134     		adds	r4, r4, #1
+ 2700 0048 B245     		cmp	r10, r6
+ 2701 004a 05D0     		beq	.L409
+ 2702              	.L413:
+ 2703 004c 6B68     		ldr	r3, [r5, #4]
+ 2704 004e 5B68     		ldr	r3, [r3, #4]
+ 2705 0050 6B60     		str	r3, [r5, #4]
+ 2706 0052 9945     		cmp	r9, r3
+ 2707 0054 ECD1     		bne	.L412
+ 2708 0056 E9E7     		b	.L416
+ 2709              	.L409:
+ 2710 0058 2046     		mov	r0, r4
+ 2711 005a BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 2713              		.section	.text.uxTaskGetSystemState,"ax",%progbits
+ 2714              		.align	1
+ 2715              		.global	uxTaskGetSystemState
+ 2716              		.syntax unified
+ 2717              		.thumb
+ 2718              		.thumb_func
+ 2719              		.fpu fpv4-sp-d16
+ 2721              	uxTaskGetSystemState:
+ 2722              		@ args = 0, pretend = 0, frame = 0
+ 2723              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2724 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 2725 0002 0746     		mov	r7, r0
+ 2726 0004 0C46     		mov	r4, r1
+ 2727 0006 1646     		mov	r6, r2
+ARM GAS  /tmp/cc1iSaBg.s 			page 47
+
+
+ 2728 0008 FFF7FEFF 		bl	vTaskSuspendAll
+ 2729 000c 224B     		ldr	r3, .L422
+ 2730 000e 1B68     		ldr	r3, [r3]
+ 2731 0010 A342     		cmp	r3, r4
+ 2732 0012 3BD8     		bhi	.L420
+ 2733 0014 3824     		movs	r4, #56
+ 2734 0016 0025     		movs	r5, #0
+ 2735              	.L419:
+ 2736 0018 013C     		subs	r4, r4, #1
+ 2737 001a 05EBC503 		add	r3, r5, r5, lsl #3
+ 2738 001e 9800     		lsls	r0, r3, #2
+ 2739 0020 04EB8402 		add	r2, r4, r4, lsl #2
+ 2740 0024 9300     		lsls	r3, r2, #2
+ 2741 0026 0122     		movs	r2, #1
+ 2742 0028 1C49     		ldr	r1, .L422+4
+ 2743 002a 1944     		add	r1, r1, r3
+ 2744 002c 3844     		add	r0, r0, r7
+ 2745 002e FFF7FEFF 		bl	prvListTasksWithinSingleList
+ 2746 0032 0544     		add	r5, r5, r0
+ 2747 0034 002C     		cmp	r4, #0
+ 2748 0036 EFD1     		bne	.L419
+ 2749 0038 05EBC503 		add	r3, r5, r5, lsl #3
+ 2750 003c 9800     		lsls	r0, r3, #2
+ 2751 003e 184B     		ldr	r3, .L422+8
+ 2752 0040 1968     		ldr	r1, [r3]
+ 2753 0042 0222     		movs	r2, #2
+ 2754 0044 3844     		add	r0, r0, r7
+ 2755 0046 FFF7FEFF 		bl	prvListTasksWithinSingleList
+ 2756 004a 0544     		add	r5, r5, r0
+ 2757 004c 05EBC503 		add	r3, r5, r5, lsl #3
+ 2758 0050 9800     		lsls	r0, r3, #2
+ 2759 0052 144B     		ldr	r3, .L422+12
+ 2760 0054 1968     		ldr	r1, [r3]
+ 2761 0056 0222     		movs	r2, #2
+ 2762 0058 3844     		add	r0, r0, r7
+ 2763 005a FFF7FEFF 		bl	prvListTasksWithinSingleList
+ 2764 005e 0544     		add	r5, r5, r0
+ 2765 0060 05EBC503 		add	r3, r5, r5, lsl #3
+ 2766 0064 9800     		lsls	r0, r3, #2
+ 2767 0066 0422     		movs	r2, #4
+ 2768 0068 0F49     		ldr	r1, .L422+16
+ 2769 006a 3844     		add	r0, r0, r7
+ 2770 006c FFF7FEFF 		bl	prvListTasksWithinSingleList
+ 2771 0070 2C18     		adds	r4, r5, r0
+ 2772 0072 04EBC403 		add	r3, r4, r4, lsl #3
+ 2773 0076 9800     		lsls	r0, r3, #2
+ 2774 0078 0322     		movs	r2, #3
+ 2775 007a 0C49     		ldr	r1, .L422+20
+ 2776 007c 3844     		add	r0, r0, r7
+ 2777 007e FFF7FEFF 		bl	prvListTasksWithinSingleList
+ 2778 0082 0444     		add	r4, r4, r0
+ 2779 0084 1EB1     		cbz	r6, .L418
+ 2780 0086 0023     		movs	r3, #0
+ 2781 0088 3360     		str	r3, [r6]
+ 2782 008a 00E0     		b	.L418
+ 2783              	.L420:
+ 2784 008c 0024     		movs	r4, #0
+ARM GAS  /tmp/cc1iSaBg.s 			page 48
+
+
+ 2785              	.L418:
+ 2786 008e FFF7FEFF 		bl	xTaskResumeAll
+ 2787 0092 2046     		mov	r0, r4
+ 2788 0094 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 2789              	.L423:
+ 2790 0096 00BF     		.align	2
+ 2791              	.L422:
+ 2792 0098 00000000 		.word	.LANCHOR9
+ 2793 009c 00000000 		.word	.LANCHOR4
+ 2794 00a0 00000000 		.word	.LANCHOR2
+ 2795 00a4 00000000 		.word	.LANCHOR8
+ 2796 00a8 00000000 		.word	.LANCHOR7
+ 2797 00ac 00000000 		.word	.LANCHOR0
+ 2799              		.section	.text.uxTaskGetStackHighWaterMark,"ax",%progbits
+ 2800              		.align	1
+ 2801              		.global	uxTaskGetStackHighWaterMark
+ 2802              		.syntax unified
+ 2803              		.thumb
+ 2804              		.thumb_func
+ 2805              		.fpu fpv4-sp-d16
+ 2807              	uxTaskGetStackHighWaterMark:
+ 2808              		@ args = 0, pretend = 0, frame = 0
+ 2809              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2810 0000 08B5     		push	{r3, lr}
+ 2811 0002 0346     		mov	r3, r0
+ 2812 0004 18B1     		cbz	r0, .L427
+ 2813              	.L425:
+ 2814 0006 186B     		ldr	r0, [r3, #48]
+ 2815 0008 FFF7FEFF 		bl	prvTaskCheckFreeStackSpace
+ 2816 000c 08BD     		pop	{r3, pc}
+ 2817              	.L427:
+ 2818 000e 014B     		ldr	r3, .L428
+ 2819 0010 1B68     		ldr	r3, [r3]
+ 2820 0012 F8E7     		b	.L425
+ 2821              	.L429:
+ 2822              		.align	2
+ 2823              	.L428:
+ 2824 0014 00000000 		.word	.LANCHOR10
+ 2826              		.section	.text.xTaskGetCurrentTaskHandle,"ax",%progbits
+ 2827              		.align	1
+ 2828              		.global	xTaskGetCurrentTaskHandle
+ 2829              		.syntax unified
+ 2830              		.thumb
+ 2831              		.thumb_func
+ 2832              		.fpu fpv4-sp-d16
+ 2834              	xTaskGetCurrentTaskHandle:
+ 2835              		@ args = 0, pretend = 0, frame = 0
+ 2836              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2837              		@ link register save eliminated.
+ 2838 0000 014B     		ldr	r3, .L431
+ 2839 0002 1868     		ldr	r0, [r3]
+ 2840 0004 7047     		bx	lr
+ 2841              	.L432:
+ 2842 0006 00BF     		.align	2
+ 2843              	.L431:
+ 2844 0008 00000000 		.word	.LANCHOR10
+ 2846              		.section	.text.xTaskGetSchedulerState,"ax",%progbits
+ARM GAS  /tmp/cc1iSaBg.s 			page 49
+
+
+ 2847              		.align	1
+ 2848              		.global	xTaskGetSchedulerState
+ 2849              		.syntax unified
+ 2850              		.thumb
+ 2851              		.thumb_func
+ 2852              		.fpu fpv4-sp-d16
+ 2854              	xTaskGetSchedulerState:
+ 2855              		@ args = 0, pretend = 0, frame = 0
+ 2856              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2857              		@ link register save eliminated.
+ 2858 0000 054B     		ldr	r3, .L438
+ 2859 0002 1B68     		ldr	r3, [r3]
+ 2860 0004 33B1     		cbz	r3, .L435
+ 2861 0006 054B     		ldr	r3, .L438+4
+ 2862 0008 1B68     		ldr	r3, [r3]
+ 2863 000a 0BB1     		cbz	r3, .L437
+ 2864 000c 0020     		movs	r0, #0
+ 2865 000e 7047     		bx	lr
+ 2866              	.L437:
+ 2867 0010 0220     		movs	r0, #2
+ 2868 0012 7047     		bx	lr
+ 2869              	.L435:
+ 2870 0014 0120     		movs	r0, #1
+ 2871 0016 7047     		bx	lr
+ 2872              	.L439:
+ 2873              		.align	2
+ 2874              	.L438:
+ 2875 0018 00000000 		.word	.LANCHOR11
+ 2876 001c 00000000 		.word	.LANCHOR16
+ 2878              		.section	.text.xTaskPriorityInherit,"ax",%progbits
+ 2879              		.align	1
+ 2880              		.global	xTaskPriorityInherit
+ 2881              		.syntax unified
+ 2882              		.thumb
+ 2883              		.thumb_func
+ 2884              		.fpu fpv4-sp-d16
+ 2886              	xTaskPriorityInherit:
+ 2887              		@ args = 0, pretend = 0, frame = 0
+ 2888              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2889 0000 0028     		cmp	r0, #0
+ 2890 0002 3ED0     		beq	.L446
+ 2891 0004 38B5     		push	{r3, r4, r5, lr}
+ 2892 0006 0546     		mov	r5, r0
+ 2893 0008 C26A     		ldr	r2, [r0, #44]
+ 2894 000a 2049     		ldr	r1, .L453
+ 2895 000c 0968     		ldr	r1, [r1]
+ 2896 000e C96A     		ldr	r1, [r1, #44]
+ 2897 0010 8A42     		cmp	r2, r1
+ 2898 0012 2ED2     		bcs	.L442
+ 2899 0014 8169     		ldr	r1, [r0, #24]
+ 2900 0016 0029     		cmp	r1, #0
+ 2901 0018 05DB     		blt	.L443
+ 2902 001a 1C49     		ldr	r1, .L453
+ 2903 001c 0968     		ldr	r1, [r1]
+ 2904 001e C96A     		ldr	r1, [r1, #44]
+ 2905 0020 C1F13801 		rsb	r1, r1, #56
+ 2906 0024 8161     		str	r1, [r0, #24]
+ARM GAS  /tmp/cc1iSaBg.s 			page 50
+
+
+ 2907              	.L443:
+ 2908 0026 6869     		ldr	r0, [r5, #20]
+ 2909 0028 02EB8202 		add	r2, r2, r2, lsl #2
+ 2910 002c 9100     		lsls	r1, r2, #2
+ 2911 002e 184A     		ldr	r2, .L453+4
+ 2912 0030 0A44     		add	r2, r2, r1
+ 2913 0032 9042     		cmp	r0, r2
+ 2914 0034 05D0     		beq	.L452
+ 2915 0036 154A     		ldr	r2, .L453
+ 2916 0038 1268     		ldr	r2, [r2]
+ 2917 003a D26A     		ldr	r2, [r2, #44]
+ 2918 003c EA62     		str	r2, [r5, #44]
+ 2919 003e 0120     		movs	r0, #1
+ 2920              	.L440:
+ 2921 0040 38BD     		pop	{r3, r4, r5, pc}
+ 2922              	.L452:
+ 2923 0042 2C1D     		adds	r4, r5, #4
+ 2924 0044 2046     		mov	r0, r4
+ 2925 0046 FFF7FEFF 		bl	uxListRemove
+ 2926 004a 104B     		ldr	r3, .L453
+ 2927 004c 1B68     		ldr	r3, [r3]
+ 2928 004e DB6A     		ldr	r3, [r3, #44]
+ 2929 0050 EB62     		str	r3, [r5, #44]
+ 2930 0052 104A     		ldr	r2, .L453+8
+ 2931 0054 1268     		ldr	r2, [r2]
+ 2932 0056 9342     		cmp	r3, r2
+ 2933 0058 01D9     		bls	.L445
+ 2934 005a 0E4A     		ldr	r2, .L453+8
+ 2935 005c 1360     		str	r3, [r2]
+ 2936              	.L445:
+ 2937 005e 03EB8303 		add	r3, r3, r3, lsl #2
+ 2938 0062 9A00     		lsls	r2, r3, #2
+ 2939 0064 2146     		mov	r1, r4
+ 2940 0066 0A48     		ldr	r0, .L453+4
+ 2941 0068 1044     		add	r0, r0, r2
+ 2942 006a FFF7FEFF 		bl	vListInsertEnd
+ 2943 006e 0120     		movs	r0, #1
+ 2944 0070 E6E7     		b	.L440
+ 2945              	.L442:
+ 2946 0072 C26C     		ldr	r2, [r0, #76]
+ 2947 0074 054B     		ldr	r3, .L453
+ 2948 0076 1B68     		ldr	r3, [r3]
+ 2949 0078 DB6A     		ldr	r3, [r3, #44]
+ 2950 007a 9A42     		cmp	r2, r3
+ 2951 007c 03D3     		bcc	.L447
+ 2952 007e 0020     		movs	r0, #0
+ 2953 0080 DEE7     		b	.L440
+ 2954              	.L446:
+ 2955 0082 0020     		movs	r0, #0
+ 2956 0084 7047     		bx	lr
+ 2957              	.L447:
+ 2958 0086 0120     		movs	r0, #1
+ 2959 0088 DAE7     		b	.L440
+ 2960              	.L454:
+ 2961 008a 00BF     		.align	2
+ 2962              	.L453:
+ 2963 008c 00000000 		.word	.LANCHOR10
+ARM GAS  /tmp/cc1iSaBg.s 			page 51
+
+
+ 2964 0090 00000000 		.word	.LANCHOR4
+ 2965 0094 00000000 		.word	.LANCHOR13
+ 2967              		.section	.text.xTaskPriorityDisinherit,"ax",%progbits
+ 2968              		.align	1
+ 2969              		.global	xTaskPriorityDisinherit
+ 2970              		.syntax unified
+ 2971              		.thumb
+ 2972              		.thumb_func
+ 2973              		.fpu fpv4-sp-d16
+ 2975              	xTaskPriorityDisinherit:
+ 2976              		@ args = 0, pretend = 0, frame = 0
+ 2977              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2978 0000 20B3     		cbz	r0, .L458
+ 2979 0002 38B5     		push	{r3, r4, r5, lr}
+ 2980 0004 0446     		mov	r4, r0
+ 2981 0006 026D     		ldr	r2, [r0, #80]
+ 2982 0008 013A     		subs	r2, r2, #1
+ 2983 000a 0265     		str	r2, [r0, #80]
+ 2984 000c C06A     		ldr	r0, [r0, #44]
+ 2985 000e E16C     		ldr	r1, [r4, #76]
+ 2986 0010 8842     		cmp	r0, r1
+ 2987 0012 1DD0     		beq	.L459
+ 2988 0014 0AB1     		cbz	r2, .L465
+ 2989 0016 0020     		movs	r0, #0
+ 2990              	.L455:
+ 2991 0018 38BD     		pop	{r3, r4, r5, pc}
+ 2992              	.L465:
+ 2993 001a 251D     		adds	r5, r4, #4
+ 2994 001c 2846     		mov	r0, r5
+ 2995 001e FFF7FEFF 		bl	uxListRemove
+ 2996 0022 E36C     		ldr	r3, [r4, #76]
+ 2997 0024 E362     		str	r3, [r4, #44]
+ 2998 0026 C3F13802 		rsb	r2, r3, #56
+ 2999 002a A261     		str	r2, [r4, #24]
+ 3000 002c 094A     		ldr	r2, .L466
+ 3001 002e 1268     		ldr	r2, [r2]
+ 3002 0030 9342     		cmp	r3, r2
+ 3003 0032 01D9     		bls	.L457
+ 3004 0034 074A     		ldr	r2, .L466
+ 3005 0036 1360     		str	r3, [r2]
+ 3006              	.L457:
+ 3007 0038 03EB8303 		add	r3, r3, r3, lsl #2
+ 3008 003c 9A00     		lsls	r2, r3, #2
+ 3009 003e 2946     		mov	r1, r5
+ 3010 0040 0548     		ldr	r0, .L466+4
+ 3011 0042 1044     		add	r0, r0, r2
+ 3012 0044 FFF7FEFF 		bl	vListInsertEnd
+ 3013 0048 0120     		movs	r0, #1
+ 3014 004a E5E7     		b	.L455
+ 3015              	.L458:
+ 3016 004c 0020     		movs	r0, #0
+ 3017 004e 7047     		bx	lr
+ 3018              	.L459:
+ 3019 0050 0020     		movs	r0, #0
+ 3020 0052 E1E7     		b	.L455
+ 3021              	.L467:
+ 3022              		.align	2
+ARM GAS  /tmp/cc1iSaBg.s 			page 52
+
+
+ 3023              	.L466:
+ 3024 0054 00000000 		.word	.LANCHOR13
+ 3025 0058 00000000 		.word	.LANCHOR4
+ 3027              		.section	.text.vTaskPriorityDisinheritAfterTimeout,"ax",%progbits
+ 3028              		.align	1
+ 3029              		.global	vTaskPriorityDisinheritAfterTimeout
+ 3030              		.syntax unified
+ 3031              		.thumb
+ 3032              		.thumb_func
+ 3033              		.fpu fpv4-sp-d16
+ 3035              	vTaskPriorityDisinheritAfterTimeout:
+ 3036              		@ args = 0, pretend = 0, frame = 0
+ 3037              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3038 0000 78B3     		cbz	r0, .L474
+ 3039 0002 38B5     		push	{r3, r4, r5, lr}
+ 3040 0004 0446     		mov	r4, r0
+ 3041 0006 C26C     		ldr	r2, [r0, #76]
+ 3042 0008 8A42     		cmp	r2, r1
+ 3043 000a 00D2     		bcs	.L470
+ 3044 000c 0A46     		mov	r2, r1
+ 3045              	.L470:
+ 3046 000e E16A     		ldr	r1, [r4, #44]
+ 3047 0010 9142     		cmp	r1, r2
+ 3048 0012 02D0     		beq	.L468
+ 3049 0014 206D     		ldr	r0, [r4, #80]
+ 3050 0016 0128     		cmp	r0, #1
+ 3051 0018 00D0     		beq	.L477
+ 3052              	.L468:
+ 3053 001a 38BD     		pop	{r3, r4, r5, pc}
+ 3054              	.L477:
+ 3055 001c E262     		str	r2, [r4, #44]
+ 3056 001e A069     		ldr	r0, [r4, #24]
+ 3057 0020 0028     		cmp	r0, #0
+ 3058 0022 02DB     		blt	.L471
+ 3059 0024 C2F13802 		rsb	r2, r2, #56
+ 3060 0028 A261     		str	r2, [r4, #24]
+ 3061              	.L471:
+ 3062 002a 6369     		ldr	r3, [r4, #20]
+ 3063 002c 01EB8101 		add	r1, r1, r1, lsl #2
+ 3064 0030 8800     		lsls	r0, r1, #2
+ 3065 0032 0C4A     		ldr	r2, .L478
+ 3066 0034 0244     		add	r2, r2, r0
+ 3067 0036 9342     		cmp	r3, r2
+ 3068 0038 EFD1     		bne	.L468
+ 3069 003a 251D     		adds	r5, r4, #4
+ 3070 003c 2846     		mov	r0, r5
+ 3071 003e FFF7FEFF 		bl	uxListRemove
+ 3072 0042 E36A     		ldr	r3, [r4, #44]
+ 3073 0044 084A     		ldr	r2, .L478+4
+ 3074 0046 1268     		ldr	r2, [r2]
+ 3075 0048 9342     		cmp	r3, r2
+ 3076 004a 01D9     		bls	.L472
+ 3077 004c 064A     		ldr	r2, .L478+4
+ 3078 004e 1360     		str	r3, [r2]
+ 3079              	.L472:
+ 3080 0050 03EB8303 		add	r3, r3, r3, lsl #2
+ 3081 0054 9A00     		lsls	r2, r3, #2
+ARM GAS  /tmp/cc1iSaBg.s 			page 53
+
+
+ 3082 0056 2946     		mov	r1, r5
+ 3083 0058 0248     		ldr	r0, .L478
+ 3084 005a 1044     		add	r0, r0, r2
+ 3085 005c FFF7FEFF 		bl	vListInsertEnd
+ 3086 0060 DBE7     		b	.L468
+ 3087              	.L474:
+ 3088 0062 7047     		bx	lr
+ 3089              	.L479:
+ 3090              		.align	2
+ 3091              	.L478:
+ 3092 0064 00000000 		.word	.LANCHOR4
+ 3093 0068 00000000 		.word	.LANCHOR13
+ 3095              		.section	.text.vTaskList,"ax",%progbits
+ 3096              		.align	1
+ 3097              		.global	vTaskList
+ 3098              		.syntax unified
+ 3099              		.thumb
+ 3100              		.thumb_func
+ 3101              		.fpu fpv4-sp-d16
+ 3103              	vTaskList:
+ 3104              		@ args = 0, pretend = 0, frame = 0
+ 3105              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3106 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 3107 0004 83B0     		sub	sp, sp, #12
+ 3108 0006 0546     		mov	r5, r0
+ 3109 0008 0023     		movs	r3, #0
+ 3110 000a 0370     		strb	r3, [r0]
+ 3111 000c 284B     		ldr	r3, .L494
+ 3112 000e 1C68     		ldr	r4, [r3]
+ 3113 0010 1B68     		ldr	r3, [r3]
+ 3114 0012 03EBC303 		add	r3, r3, r3, lsl #3
+ 3115 0016 9800     		lsls	r0, r3, #2
+ 3116 0018 FFF7FEFF 		bl	pvPortMalloc
+ 3117 001c 0028     		cmp	r0, #0
+ 3118 001e 44D0     		beq	.L480
+ 3119 0020 0746     		mov	r7, r0
+ 3120 0022 0022     		movs	r2, #0
+ 3121 0024 2146     		mov	r1, r4
+ 3122 0026 FFF7FEFF 		bl	uxTaskGetSystemState
+ 3123 002a 8046     		mov	r8, r0
+ 3124 002c 0026     		movs	r6, #0
+ 3125 002e 23E0     		b	.L482
+ 3126              	.L489:
+ 3127 0030 4FF05809 		mov	r9, #88
+ 3128 0034 0DE0     		b	.L488
+ 3129              	.L487:
+ 3130 0036 4FF04209 		mov	r9, #66
+ 3131 003a 0AE0     		b	.L488
+ 3132              	.L486:
+ 3133 003c 4FF05309 		mov	r9, #83
+ 3134 0040 07E0     		b	.L488
+ 3135              	.L484:
+ 3136 0042 4FF04409 		mov	r9, #68
+ 3137 0046 04E0     		b	.L488
+ 3138              	.L483:
+ 3139 0048 4FF00009 		mov	r9, #0
+ 3140 004c 01E0     		b	.L488
+ARM GAS  /tmp/cc1iSaBg.s 			page 54
+
+
+ 3141              	.L491:
+ 3142 004e 4FF05209 		mov	r9, #82
+ 3143              	.L488:
+ 3144 0052 6168     		ldr	r1, [r4, #4]
+ 3145 0054 2846     		mov	r0, r5
+ 3146 0056 FFF7FEFF 		bl	prvWriteNameToBuffer
+ 3147 005a 0546     		mov	r5, r0
+ 3148 005c 2369     		ldr	r3, [r4, #16]
+ 3149 005e 228C     		ldrh	r2, [r4, #32]
+ 3150 0060 A168     		ldr	r1, [r4, #8]
+ 3151 0062 0191     		str	r1, [sp, #4]
+ 3152 0064 0092     		str	r2, [sp]
+ 3153 0066 4A46     		mov	r2, r9
+ 3154 0068 1249     		ldr	r1, .L494+4
+ 3155 006a FFF7FEFF 		bl	sprintf
+ 3156 006e 2846     		mov	r0, r5
+ 3157 0070 FFF7FEFF 		bl	strlen
+ 3158 0074 0544     		add	r5, r5, r0
+ 3159 0076 0136     		adds	r6, r6, #1
+ 3160              	.L482:
+ 3161 0078 4645     		cmp	r6, r8
+ 3162 007a 13D2     		bcs	.L493
+ 3163 007c 06EBC603 		add	r3, r6, r6, lsl #3
+ 3164 0080 9C00     		lsls	r4, r3, #2
+ 3165 0082 3C44     		add	r4, r4, r7
+ 3166 0084 237B     		ldrb	r3, [r4, #12]	@ zero_extendqisi2
+ 3167 0086 042B     		cmp	r3, #4
+ 3168 0088 DED8     		bhi	.L483
+ 3169 008a 01A2     		adr	r2, .L485
+ 3170 008c 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 3171              		.p2align 2
+ 3172              	.L485:
+ 3173 0090 31000000 		.word	.L489+1
+ 3174 0094 4F000000 		.word	.L491+1
+ 3175 0098 37000000 		.word	.L487+1
+ 3176 009c 3D000000 		.word	.L486+1
+ 3177 00a0 43000000 		.word	.L484+1
+ 3178              		.p2align 1
+ 3179              	.L493:
+ 3180 00a4 3846     		mov	r0, r7
+ 3181 00a6 FFF7FEFF 		bl	vPortFree
+ 3182              	.L480:
+ 3183 00aa 03B0     		add	sp, sp, #12
+ 3184              		@ sp needed
+ 3185 00ac BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 3186              	.L495:
+ 3187              		.align	2
+ 3188              	.L494:
+ 3189 00b0 00000000 		.word	.LANCHOR9
+ 3190 00b4 00000000 		.word	.LC1
+ 3192              		.section	.text.uxTaskResetEventItemValue,"ax",%progbits
+ 3193              		.align	1
+ 3194              		.global	uxTaskResetEventItemValue
+ 3195              		.syntax unified
+ 3196              		.thumb
+ 3197              		.thumb_func
+ 3198              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/cc1iSaBg.s 			page 55
+
+
+ 3200              	uxTaskResetEventItemValue:
+ 3201              		@ args = 0, pretend = 0, frame = 0
+ 3202              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3203              		@ link register save eliminated.
+ 3204 0000 044A     		ldr	r2, .L497
+ 3205 0002 1368     		ldr	r3, [r2]
+ 3206 0004 9869     		ldr	r0, [r3, #24]
+ 3207 0006 1368     		ldr	r3, [r2]
+ 3208 0008 DB6A     		ldr	r3, [r3, #44]
+ 3209 000a 1268     		ldr	r2, [r2]
+ 3210 000c C3F13803 		rsb	r3, r3, #56
+ 3211 0010 9361     		str	r3, [r2, #24]
+ 3212 0012 7047     		bx	lr
+ 3213              	.L498:
+ 3214              		.align	2
+ 3215              	.L497:
+ 3216 0014 00000000 		.word	.LANCHOR10
+ 3218              		.section	.text.pvTaskIncrementMutexHeldCount,"ax",%progbits
+ 3219              		.align	1
+ 3220              		.global	pvTaskIncrementMutexHeldCount
+ 3221              		.syntax unified
+ 3222              		.thumb
+ 3223              		.thumb_func
+ 3224              		.fpu fpv4-sp-d16
+ 3226              	pvTaskIncrementMutexHeldCount:
+ 3227              		@ args = 0, pretend = 0, frame = 0
+ 3228              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3229              		@ link register save eliminated.
+ 3230 0000 054B     		ldr	r3, .L501
+ 3231 0002 1B68     		ldr	r3, [r3]
+ 3232 0004 23B1     		cbz	r3, .L500
+ 3233 0006 044B     		ldr	r3, .L501
+ 3234 0008 1A68     		ldr	r2, [r3]
+ 3235 000a 136D     		ldr	r3, [r2, #80]
+ 3236 000c 0133     		adds	r3, r3, #1
+ 3237 000e 1365     		str	r3, [r2, #80]
+ 3238              	.L500:
+ 3239 0010 014B     		ldr	r3, .L501
+ 3240 0012 1868     		ldr	r0, [r3]
+ 3241 0014 7047     		bx	lr
+ 3242              	.L502:
+ 3243 0016 00BF     		.align	2
+ 3244              	.L501:
+ 3245 0018 00000000 		.word	.LANCHOR10
+ 3247              		.section	.text.ulTaskNotifyTake,"ax",%progbits
+ 3248              		.align	1
+ 3249              		.global	ulTaskNotifyTake
+ 3250              		.syntax unified
+ 3251              		.thumb
+ 3252              		.thumb_func
+ 3253              		.fpu fpv4-sp-d16
+ 3255              	ulTaskNotifyTake:
+ 3256              		@ args = 0, pretend = 0, frame = 0
+ 3257              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3258 0000 38B5     		push	{r3, r4, r5, lr}
+ 3259 0002 0546     		mov	r5, r0
+ 3260 0004 0C46     		mov	r4, r1
+ARM GAS  /tmp/cc1iSaBg.s 			page 56
+
+
+ 3261 0006 FFF7FEFF 		bl	vPortEnterCritical
+ 3262 000a 194B     		ldr	r3, .L509
+ 3263 000c 1B68     		ldr	r3, [r3]
+ 3264 000e 9B6D     		ldr	r3, [r3, #88]
+ 3265 0010 2BB9     		cbnz	r3, .L504
+ 3266 0012 174B     		ldr	r3, .L509
+ 3267 0014 1B68     		ldr	r3, [r3]
+ 3268 0016 0122     		movs	r2, #1
+ 3269 0018 83F85C20 		strb	r2, [r3, #92]
+ 3270 001c ACB9     		cbnz	r4, .L508
+ 3271              	.L504:
+ 3272 001e FFF7FEFF 		bl	vPortExitCritical
+ 3273 0022 FFF7FEFF 		bl	vPortEnterCritical
+ 3274 0026 124B     		ldr	r3, .L509
+ 3275 0028 1B68     		ldr	r3, [r3]
+ 3276 002a 9C6D     		ldr	r4, [r3, #88]
+ 3277 002c 24B1     		cbz	r4, .L505
+ 3278 002e CDB1     		cbz	r5, .L506
+ 3279 0030 0F4B     		ldr	r3, .L509
+ 3280 0032 1B68     		ldr	r3, [r3]
+ 3281 0034 0022     		movs	r2, #0
+ 3282 0036 9A65     		str	r2, [r3, #88]
+ 3283              	.L505:
+ 3284 0038 0D4B     		ldr	r3, .L509
+ 3285 003a 1B68     		ldr	r3, [r3]
+ 3286 003c 0022     		movs	r2, #0
+ 3287 003e 83F85C20 		strb	r2, [r3, #92]
+ 3288 0042 FFF7FEFF 		bl	vPortExitCritical
+ 3289 0046 2046     		mov	r0, r4
+ 3290 0048 38BD     		pop	{r3, r4, r5, pc}
+ 3291              	.L508:
+ 3292 004a 1146     		mov	r1, r2
+ 3293 004c 2046     		mov	r0, r4
+ 3294 004e FFF7FEFF 		bl	prvAddCurrentTaskToDelayedList
+ 3295 0052 084B     		ldr	r3, .L509+4
+ 3296 0054 4FF08052 		mov	r2, #268435456
+ 3297 0058 1A60     		str	r2, [r3]
+ 3298              		.syntax unified
+ 3299              	@ 4587 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 3300 005a BFF34F8F 		dsb
+ 3301              	@ 0 "" 2
+ 3302              	@ 4587 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 3303 005e BFF36F8F 		isb
+ 3304              	@ 0 "" 2
+ 3305              		.thumb
+ 3306              		.syntax unified
+ 3307 0062 DCE7     		b	.L504
+ 3308              	.L506:
+ 3309 0064 024B     		ldr	r3, .L509
+ 3310 0066 1B68     		ldr	r3, [r3]
+ 3311 0068 621E     		subs	r2, r4, #1
+ 3312 006a 9A65     		str	r2, [r3, #88]
+ 3313 006c E4E7     		b	.L505
+ 3314              	.L510:
+ 3315 006e 00BF     		.align	2
+ 3316              	.L509:
+ 3317 0070 00000000 		.word	.LANCHOR10
+ARM GAS  /tmp/cc1iSaBg.s 			page 57
+
+
+ 3318 0074 04ED00E0 		.word	-536810236
+ 3320              		.section	.text.xTaskNotifyWait,"ax",%progbits
+ 3321              		.align	1
+ 3322              		.global	xTaskNotifyWait
+ 3323              		.syntax unified
+ 3324              		.thumb
+ 3325              		.thumb_func
+ 3326              		.fpu fpv4-sp-d16
+ 3328              	xTaskNotifyWait:
+ 3329              		@ args = 0, pretend = 0, frame = 0
+ 3330              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3331 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 3332 0002 0746     		mov	r7, r0
+ 3333 0004 0D46     		mov	r5, r1
+ 3334 0006 1446     		mov	r4, r2
+ 3335 0008 1E46     		mov	r6, r3
+ 3336 000a FFF7FEFF 		bl	vPortEnterCritical
+ 3337 000e 204B     		ldr	r3, .L519
+ 3338 0010 1B68     		ldr	r3, [r3]
+ 3339 0012 93F85C30 		ldrb	r3, [r3, #92]	@ zero_extendqisi2
+ 3340 0016 DBB2     		uxtb	r3, r3
+ 3341 0018 022B     		cmp	r3, #2
+ 3342 001a 0AD0     		beq	.L512
+ 3343 001c 1C4B     		ldr	r3, .L519
+ 3344 001e 1A68     		ldr	r2, [r3]
+ 3345 0020 906D     		ldr	r0, [r2, #88]
+ 3346 0022 20EA0700 		bic	r0, r0, r7
+ 3347 0026 9065     		str	r0, [r2, #88]
+ 3348 0028 1B68     		ldr	r3, [r3]
+ 3349 002a 0122     		movs	r2, #1
+ 3350 002c 83F85C20 		strb	r2, [r3, #92]
+ 3351 0030 CEB9     		cbnz	r6, .L517
+ 3352              	.L512:
+ 3353 0032 FFF7FEFF 		bl	vPortExitCritical
+ 3354 0036 FFF7FEFF 		bl	vPortEnterCritical
+ 3355 003a 1CB1     		cbz	r4, .L513
+ 3356 003c 144B     		ldr	r3, .L519
+ 3357 003e 1B68     		ldr	r3, [r3]
+ 3358 0040 9B6D     		ldr	r3, [r3, #88]
+ 3359 0042 2360     		str	r3, [r4]
+ 3360              	.L513:
+ 3361 0044 124B     		ldr	r3, .L519
+ 3362 0046 1B68     		ldr	r3, [r3]
+ 3363 0048 93F85C30 		ldrb	r3, [r3, #92]	@ zero_extendqisi2
+ 3364 004c DBB2     		uxtb	r3, r3
+ 3365 004e 022B     		cmp	r3, #2
+ 3366 0050 16D0     		beq	.L518
+ 3367 0052 0024     		movs	r4, #0
+ 3368              	.L514:
+ 3369 0054 0E4B     		ldr	r3, .L519
+ 3370 0056 1B68     		ldr	r3, [r3]
+ 3371 0058 0022     		movs	r2, #0
+ 3372 005a 83F85C20 		strb	r2, [r3, #92]
+ 3373 005e FFF7FEFF 		bl	vPortExitCritical
+ 3374 0062 2046     		mov	r0, r4
+ 3375 0064 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 3376              	.L517:
+ARM GAS  /tmp/cc1iSaBg.s 			page 58
+
+
+ 3377 0066 1146     		mov	r1, r2
+ 3378 0068 3046     		mov	r0, r6
+ 3379 006a FFF7FEFF 		bl	prvAddCurrentTaskToDelayedList
+ 3380 006e 094B     		ldr	r3, .L519+4
+ 3381 0070 4FF08052 		mov	r2, #268435456
+ 3382 0074 1A60     		str	r2, [r3]
+ 3383              		.syntax unified
+ 3384              	@ 4660 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 3385 0076 BFF34F8F 		dsb
+ 3386              	@ 0 "" 2
+ 3387              	@ 4660 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 3388 007a BFF36F8F 		isb
+ 3389              	@ 0 "" 2
+ 3390              		.thumb
+ 3391              		.syntax unified
+ 3392 007e D8E7     		b	.L512
+ 3393              	.L518:
+ 3394 0080 034B     		ldr	r3, .L519
+ 3395 0082 1A68     		ldr	r2, [r3]
+ 3396 0084 936D     		ldr	r3, [r2, #88]
+ 3397 0086 23EA0505 		bic	r5, r3, r5
+ 3398 008a 9565     		str	r5, [r2, #88]
+ 3399 008c 0124     		movs	r4, #1
+ 3400 008e E1E7     		b	.L514
+ 3401              	.L520:
+ 3402              		.align	2
+ 3403              	.L519:
+ 3404 0090 00000000 		.word	.LANCHOR10
+ 3405 0094 04ED00E0 		.word	-536810236
+ 3407              		.section	.text.xTaskGenericNotify,"ax",%progbits
+ 3408              		.align	1
+ 3409              		.global	xTaskGenericNotify
+ 3410              		.syntax unified
+ 3411              		.thumb
+ 3412              		.thumb_func
+ 3413              		.fpu fpv4-sp-d16
+ 3415              	xTaskGenericNotify:
+ 3416              		@ args = 0, pretend = 0, frame = 0
+ 3417              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3418 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 3419 0002 0446     		mov	r4, r0
+ 3420 0004 0F46     		mov	r7, r1
+ 3421 0006 1546     		mov	r5, r2
+ 3422 0008 1E46     		mov	r6, r3
+ 3423 000a FFF7FEFF 		bl	vPortEnterCritical
+ 3424 000e 0EB1     		cbz	r6, .L522
+ 3425 0010 A36D     		ldr	r3, [r4, #88]
+ 3426 0012 3360     		str	r3, [r6]
+ 3427              	.L522:
+ 3428 0014 94F85C30 		ldrb	r3, [r4, #92]	@ zero_extendqisi2
+ 3429 0018 DBB2     		uxtb	r3, r3
+ 3430 001a 0222     		movs	r2, #2
+ 3431 001c 84F85C20 		strb	r2, [r4, #92]
+ 3432 0020 6A1E     		subs	r2, r5, #1
+ 3433 0022 032A     		cmp	r2, #3
+ 3434 0024 1AD8     		bhi	.L531
+ 3435 0026 DFE802F0 		tbb	[pc, r2]
+ARM GAS  /tmp/cc1iSaBg.s 			page 59
+
+
+ 3436              	.L525:
+ 3437 002a 02       		.byte	(.L528-.L525)/2
+ 3438 002b 0C       		.byte	(.L527-.L525)/2
+ 3439 002c 11       		.byte	(.L526-.L525)/2
+ 3440 002d 14       		.byte	(.L524-.L525)/2
+ 3441              		.p2align 1
+ 3442              	.L528:
+ 3443 002e A26D     		ldr	r2, [r4, #88]
+ 3444 0030 1743     		orrs	r7, r7, r2
+ 3445 0032 A765     		str	r7, [r4, #88]
+ 3446 0034 0125     		movs	r5, #1
+ 3447              	.L523:
+ 3448 0036 012B     		cmp	r3, #1
+ 3449 0038 14D0     		beq	.L534
+ 3450              	.L529:
+ 3451 003a FFF7FEFF 		bl	vPortExitCritical
+ 3452 003e 2846     		mov	r0, r5
+ 3453 0040 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 3454              	.L527:
+ 3455 0042 A26D     		ldr	r2, [r4, #88]
+ 3456 0044 0132     		adds	r2, r2, #1
+ 3457 0046 A265     		str	r2, [r4, #88]
+ 3458 0048 0125     		movs	r5, #1
+ 3459 004a F4E7     		b	.L523
+ 3460              	.L526:
+ 3461 004c A765     		str	r7, [r4, #88]
+ 3462 004e 0125     		movs	r5, #1
+ 3463 0050 F1E7     		b	.L523
+ 3464              	.L524:
+ 3465 0052 022B     		cmp	r3, #2
+ 3466 0054 04D0     		beq	.L532
+ 3467 0056 A765     		str	r7, [r4, #88]
+ 3468 0058 0125     		movs	r5, #1
+ 3469 005a ECE7     		b	.L523
+ 3470              	.L531:
+ 3471 005c 0125     		movs	r5, #1
+ 3472 005e EAE7     		b	.L523
+ 3473              	.L532:
+ 3474 0060 0025     		movs	r5, #0
+ 3475 0062 E8E7     		b	.L523
+ 3476              	.L534:
+ 3477 0064 261D     		adds	r6, r4, #4
+ 3478 0066 3046     		mov	r0, r6
+ 3479 0068 FFF7FEFF 		bl	uxListRemove
+ 3480 006c E36A     		ldr	r3, [r4, #44]
+ 3481 006e 0E4A     		ldr	r2, .L535
+ 3482 0070 1268     		ldr	r2, [r2]
+ 3483 0072 9342     		cmp	r3, r2
+ 3484 0074 01D9     		bls	.L530
+ 3485 0076 0C4A     		ldr	r2, .L535
+ 3486 0078 1360     		str	r3, [r2]
+ 3487              	.L530:
+ 3488 007a 03EB8303 		add	r3, r3, r3, lsl #2
+ 3489 007e 9A00     		lsls	r2, r3, #2
+ 3490 0080 3146     		mov	r1, r6
+ 3491 0082 0A48     		ldr	r0, .L535+4
+ 3492 0084 1044     		add	r0, r0, r2
+ARM GAS  /tmp/cc1iSaBg.s 			page 60
+
+
+ 3493 0086 FFF7FEFF 		bl	vListInsertEnd
+ 3494 008a E26A     		ldr	r2, [r4, #44]
+ 3495 008c 084B     		ldr	r3, .L535+8
+ 3496 008e 1B68     		ldr	r3, [r3]
+ 3497 0090 DB6A     		ldr	r3, [r3, #44]
+ 3498 0092 9A42     		cmp	r2, r3
+ 3499 0094 D1D9     		bls	.L529
+ 3500 0096 074B     		ldr	r3, .L535+12
+ 3501 0098 4FF08052 		mov	r2, #268435456
+ 3502 009c 1A60     		str	r2, [r3]
+ 3503              		.syntax unified
+ 3504              	@ 4806 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 3505 009e BFF34F8F 		dsb
+ 3506              	@ 0 "" 2
+ 3507              	@ 4806 "Middlewares/Third_Party/FreeRTOS/Source/tasks.c" 1
+ 3508 00a2 BFF36F8F 		isb
+ 3509              	@ 0 "" 2
+ 3510              		.thumb
+ 3511              		.syntax unified
+ 3512 00a6 C8E7     		b	.L529
+ 3513              	.L536:
+ 3514              		.align	2
+ 3515              	.L535:
+ 3516 00a8 00000000 		.word	.LANCHOR13
+ 3517 00ac 00000000 		.word	.LANCHOR4
+ 3518 00b0 00000000 		.word	.LANCHOR10
+ 3519 00b4 04ED00E0 		.word	-536810236
+ 3521              		.section	.text.xTaskGenericNotifyFromISR,"ax",%progbits
+ 3522              		.align	1
+ 3523              		.global	xTaskGenericNotifyFromISR
+ 3524              		.syntax unified
+ 3525              		.thumb
+ 3526              		.thumb_func
+ 3527              		.fpu fpv4-sp-d16
+ 3529              	xTaskGenericNotifyFromISR:
+ 3530              		@ args = 4, pretend = 0, frame = 0
+ 3531              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3532 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 3533 0004 0446     		mov	r4, r0
+ 3534 0006 8846     		mov	r8, r1
+ 3535 0008 1546     		mov	r5, r2
+ 3536 000a 1E46     		mov	r6, r3
+ 3537 000c FFF7FEFF 		bl	vPortValidateInterruptPriority
+ 3538              		.syntax unified
+ 3539              	@ 211 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h" 1
+ 3540 0010 EFF31187 			mrs r7, basepri											
+ 3541 0014 4FF05003 		mov r3, #80												
+ 3542 0018 83F31188 		msr basepri, r3											
+ 3543 001c BFF36F8F 		isb														
+ 3544 0020 BFF34F8F 		dsb														
+ 3545              	
+ 3546              	@ 0 "" 2
+ 3547              		.thumb
+ 3548              		.syntax unified
+ 3549 0024 0EB1     		cbz	r6, .L538
+ 3550 0026 A36D     		ldr	r3, [r4, #88]
+ 3551 0028 3360     		str	r3, [r6]
+ARM GAS  /tmp/cc1iSaBg.s 			page 61
+
+
+ 3552              	.L538:
+ 3553 002a 94F85C30 		ldrb	r3, [r4, #92]	@ zero_extendqisi2
+ 3554 002e DBB2     		uxtb	r3, r3
+ 3555 0030 0222     		movs	r2, #2
+ 3556 0032 84F85C20 		strb	r2, [r4, #92]
+ 3557 0036 6A1E     		subs	r2, r5, #1
+ 3558 0038 032A     		cmp	r2, #3
+ 3559 003a 1ED8     		bhi	.L550
+ 3560 003c DFE802F0 		tbb	[pc, r2]
+ 3561              	.L541:
+ 3562 0040 02       		.byte	(.L544-.L541)/2
+ 3563 0041 0E       		.byte	(.L543-.L541)/2
+ 3564 0042 13       		.byte	(.L542-.L541)/2
+ 3565 0043 17       		.byte	(.L540-.L541)/2
+ 3566              		.p2align 1
+ 3567              	.L544:
+ 3568 0044 A26D     		ldr	r2, [r4, #88]
+ 3569 0046 42EA0802 		orr	r2, r2, r8
+ 3570 004a A265     		str	r2, [r4, #88]
+ 3571 004c 0125     		movs	r5, #1
+ 3572              	.L539:
+ 3573 004e 012B     		cmp	r3, #1
+ 3574 0050 17D0     		beq	.L553
+ 3575              	.L545:
+ 3576              		.syntax unified
+ 3577              	@ 229 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h" 1
+ 3578 0052 87F31188 			msr basepri, r7	
+ 3579              	@ 0 "" 2
+ 3580              		.thumb
+ 3581              		.syntax unified
+ 3582 0056 2846     		mov	r0, r5
+ 3583 0058 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 3584              	.L543:
+ 3585 005c A26D     		ldr	r2, [r4, #88]
+ 3586 005e 0132     		adds	r2, r2, #1
+ 3587 0060 A265     		str	r2, [r4, #88]
+ 3588 0062 0125     		movs	r5, #1
+ 3589 0064 F3E7     		b	.L539
+ 3590              	.L542:
+ 3591 0066 C4F85880 		str	r8, [r4, #88]
+ 3592 006a 0125     		movs	r5, #1
+ 3593 006c EFE7     		b	.L539
+ 3594              	.L540:
+ 3595 006e 022B     		cmp	r3, #2
+ 3596 0070 05D0     		beq	.L551
+ 3597 0072 C4F85880 		str	r8, [r4, #88]
+ 3598 0076 0125     		movs	r5, #1
+ 3599 0078 E9E7     		b	.L539
+ 3600              	.L550:
+ 3601 007a 0125     		movs	r5, #1
+ 3602 007c E7E7     		b	.L539
+ 3603              	.L551:
+ 3604 007e 0025     		movs	r5, #0
+ 3605 0080 E5E7     		b	.L539
+ 3606              	.L553:
+ 3607 0082 154B     		ldr	r3, .L554
+ 3608 0084 1B68     		ldr	r3, [r3]
+ARM GAS  /tmp/cc1iSaBg.s 			page 62
+
+
+ 3609 0086 0BBB     		cbnz	r3, .L546
+ 3610 0088 261D     		adds	r6, r4, #4
+ 3611 008a 3046     		mov	r0, r6
+ 3612 008c FFF7FEFF 		bl	uxListRemove
+ 3613 0090 E36A     		ldr	r3, [r4, #44]
+ 3614 0092 124A     		ldr	r2, .L554+4
+ 3615 0094 1268     		ldr	r2, [r2]
+ 3616 0096 9342     		cmp	r3, r2
+ 3617 0098 01D9     		bls	.L547
+ 3618 009a 104A     		ldr	r2, .L554+4
+ 3619 009c 1360     		str	r3, [r2]
+ 3620              	.L547:
+ 3621 009e 03EB8303 		add	r3, r3, r3, lsl #2
+ 3622 00a2 9A00     		lsls	r2, r3, #2
+ 3623 00a4 3146     		mov	r1, r6
+ 3624 00a6 0E48     		ldr	r0, .L554+8
+ 3625 00a8 1044     		add	r0, r0, r2
+ 3626 00aa FFF7FEFF 		bl	vListInsertEnd
+ 3627              	.L548:
+ 3628 00ae E26A     		ldr	r2, [r4, #44]
+ 3629 00b0 0C4B     		ldr	r3, .L554+12
+ 3630 00b2 1B68     		ldr	r3, [r3]
+ 3631 00b4 DB6A     		ldr	r3, [r3, #44]
+ 3632 00b6 9A42     		cmp	r2, r3
+ 3633 00b8 CBD9     		bls	.L545
+ 3634 00ba 069B     		ldr	r3, [sp, #24]
+ 3635 00bc 13B1     		cbz	r3, .L549
+ 3636 00be 0123     		movs	r3, #1
+ 3637 00c0 069A     		ldr	r2, [sp, #24]
+ 3638 00c2 1360     		str	r3, [r2]
+ 3639              	.L549:
+ 3640 00c4 084B     		ldr	r3, .L554+16
+ 3641 00c6 0122     		movs	r2, #1
+ 3642 00c8 1A60     		str	r2, [r3]
+ 3643 00ca C2E7     		b	.L545
+ 3644              	.L546:
+ 3645 00cc 04F11801 		add	r1, r4, #24
+ 3646 00d0 0648     		ldr	r0, .L554+20
+ 3647 00d2 FFF7FEFF 		bl	vListInsertEnd
+ 3648 00d6 EAE7     		b	.L548
+ 3649              	.L555:
+ 3650              		.align	2
+ 3651              	.L554:
+ 3652 00d8 00000000 		.word	.LANCHOR16
+ 3653 00dc 00000000 		.word	.LANCHOR13
+ 3654 00e0 00000000 		.word	.LANCHOR4
+ 3655 00e4 00000000 		.word	.LANCHOR10
+ 3656 00e8 00000000 		.word	.LANCHOR19
+ 3657 00ec 00000000 		.word	.LANCHOR1
+ 3659              		.section	.text.vTaskNotifyGiveFromISR,"ax",%progbits
+ 3660              		.align	1
+ 3661              		.global	vTaskNotifyGiveFromISR
+ 3662              		.syntax unified
+ 3663              		.thumb
+ 3664              		.thumb_func
+ 3665              		.fpu fpv4-sp-d16
+ 3667              	vTaskNotifyGiveFromISR:
+ARM GAS  /tmp/cc1iSaBg.s 			page 63
+
+
+ 3668              		@ args = 0, pretend = 0, frame = 0
+ 3669              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3670 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 3671 0002 0446     		mov	r4, r0
+ 3672 0004 0E46     		mov	r6, r1
+ 3673 0006 FFF7FEFF 		bl	vPortValidateInterruptPriority
+ 3674              		.syntax unified
+ 3675              	@ 211 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h" 1
+ 3676 000a EFF31185 			mrs r5, basepri											
+ 3677 000e 4FF05003 		mov r3, #80												
+ 3678 0012 83F31188 		msr basepri, r3											
+ 3679 0016 BFF36F8F 		isb														
+ 3680 001a BFF34F8F 		dsb														
+ 3681              	
+ 3682              	@ 0 "" 2
+ 3683              		.thumb
+ 3684              		.syntax unified
+ 3685 001e 94F85C30 		ldrb	r3, [r4, #92]	@ zero_extendqisi2
+ 3686 0022 DBB2     		uxtb	r3, r3
+ 3687 0024 0222     		movs	r2, #2
+ 3688 0026 84F85C20 		strb	r2, [r4, #92]
+ 3689 002a A26D     		ldr	r2, [r4, #88]
+ 3690 002c 0132     		adds	r2, r2, #1
+ 3691 002e A265     		str	r2, [r4, #88]
+ 3692 0030 012B     		cmp	r3, #1
+ 3693 0032 02D0     		beq	.L563
+ 3694              	.L557:
+ 3695              		.syntax unified
+ 3696              	@ 229 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h" 1
+ 3697 0034 85F31188 			msr basepri, r5	
+ 3698              	@ 0 "" 2
+ 3699              		.thumb
+ 3700              		.syntax unified
+ 3701 0038 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 3702              	.L563:
+ 3703 003a 144B     		ldr	r3, .L564
+ 3704 003c 1B68     		ldr	r3, [r3]
+ 3705 003e FBB9     		cbnz	r3, .L558
+ 3706 0040 271D     		adds	r7, r4, #4
+ 3707 0042 3846     		mov	r0, r7
+ 3708 0044 FFF7FEFF 		bl	uxListRemove
+ 3709 0048 E36A     		ldr	r3, [r4, #44]
+ 3710 004a 114A     		ldr	r2, .L564+4
+ 3711 004c 1268     		ldr	r2, [r2]
+ 3712 004e 9342     		cmp	r3, r2
+ 3713 0050 01D9     		bls	.L559
+ 3714 0052 0F4A     		ldr	r2, .L564+4
+ 3715 0054 1360     		str	r3, [r2]
+ 3716              	.L559:
+ 3717 0056 03EB8303 		add	r3, r3, r3, lsl #2
+ 3718 005a 9A00     		lsls	r2, r3, #2
+ 3719 005c 3946     		mov	r1, r7
+ 3720 005e 0D48     		ldr	r0, .L564+8
+ 3721 0060 1044     		add	r0, r0, r2
+ 3722 0062 FFF7FEFF 		bl	vListInsertEnd
+ 3723              	.L560:
+ 3724 0066 E26A     		ldr	r2, [r4, #44]
+ARM GAS  /tmp/cc1iSaBg.s 			page 64
+
+
+ 3725 0068 0B4B     		ldr	r3, .L564+12
+ 3726 006a 1B68     		ldr	r3, [r3]
+ 3727 006c DB6A     		ldr	r3, [r3, #44]
+ 3728 006e 9A42     		cmp	r2, r3
+ 3729 0070 E0D9     		bls	.L557
+ 3730 0072 0EB1     		cbz	r6, .L561
+ 3731 0074 0123     		movs	r3, #1
+ 3732 0076 3360     		str	r3, [r6]
+ 3733              	.L561:
+ 3734 0078 084B     		ldr	r3, .L564+16
+ 3735 007a 0122     		movs	r2, #1
+ 3736 007c 1A60     		str	r2, [r3]
+ 3737 007e D9E7     		b	.L557
+ 3738              	.L558:
+ 3739 0080 04F11801 		add	r1, r4, #24
+ 3740 0084 0648     		ldr	r0, .L564+20
+ 3741 0086 FFF7FEFF 		bl	vListInsertEnd
+ 3742 008a ECE7     		b	.L560
+ 3743              	.L565:
+ 3744              		.align	2
+ 3745              	.L564:
+ 3746 008c 00000000 		.word	.LANCHOR16
+ 3747 0090 00000000 		.word	.LANCHOR13
+ 3748 0094 00000000 		.word	.LANCHOR4
+ 3749 0098 00000000 		.word	.LANCHOR10
+ 3750 009c 00000000 		.word	.LANCHOR19
+ 3751 00a0 00000000 		.word	.LANCHOR1
+ 3753              		.section	.text.xTaskNotifyStateClear,"ax",%progbits
+ 3754              		.align	1
+ 3755              		.global	xTaskNotifyStateClear
+ 3756              		.syntax unified
+ 3757              		.thumb
+ 3758              		.thumb_func
+ 3759              		.fpu fpv4-sp-d16
+ 3761              	xTaskNotifyStateClear:
+ 3762              		@ args = 0, pretend = 0, frame = 0
+ 3763              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3764 0000 10B5     		push	{r4, lr}
+ 3765 0002 0446     		mov	r4, r0
+ 3766 0004 58B1     		cbz	r0, .L571
+ 3767              	.L567:
+ 3768 0006 FFF7FEFF 		bl	vPortEnterCritical
+ 3769 000a 94F85C30 		ldrb	r3, [r4, #92]	@ zero_extendqisi2
+ 3770 000e DBB2     		uxtb	r3, r3
+ 3771 0010 022B     		cmp	r3, #2
+ 3772 0012 07D0     		beq	.L572
+ 3773 0014 0024     		movs	r4, #0
+ 3774              	.L568:
+ 3775 0016 FFF7FEFF 		bl	vPortExitCritical
+ 3776 001a 2046     		mov	r0, r4
+ 3777 001c 10BD     		pop	{r4, pc}
+ 3778              	.L571:
+ 3779 001e 044B     		ldr	r3, .L573
+ 3780 0020 1C68     		ldr	r4, [r3]
+ 3781 0022 F0E7     		b	.L567
+ 3782              	.L572:
+ 3783 0024 0023     		movs	r3, #0
+ARM GAS  /tmp/cc1iSaBg.s 			page 65
+
+
+ 3784 0026 84F85C30 		strb	r3, [r4, #92]
+ 3785 002a 0124     		movs	r4, #1
+ 3786 002c F3E7     		b	.L568
+ 3787              	.L574:
+ 3788 002e 00BF     		.align	2
+ 3789              	.L573:
+ 3790 0030 00000000 		.word	.LANCHOR10
+ 3792              		.global	FreeRTOS_errno
+ 3793              		.global	pxCurrentTCB
+ 3794              		.section	.bss.FreeRTOS_errno,"aw",%nobits
+ 3795              		.align	2
+ 3796              		.set	.LANCHOR20,. + 0
+ 3799              	FreeRTOS_errno:
+ 3800 0000 00000000 		.space	4
+ 3801              		.section	.bss.pxCurrentTCB,"aw",%nobits
+ 3802              		.align	2
+ 3803              		.set	.LANCHOR10,. + 0
+ 3806              	pxCurrentTCB:
+ 3807 0000 00000000 		.space	4
+ 3808              		.section	.bss.pxDelayedTaskList,"aw",%nobits
+ 3809              		.align	2
+ 3810              		.set	.LANCHOR2,. + 0
+ 3813              	pxDelayedTaskList:
+ 3814 0000 00000000 		.space	4
+ 3815              		.section	.bss.pxOverflowDelayedTaskList,"aw",%nobits
+ 3816              		.align	2
+ 3817              		.set	.LANCHOR8,. + 0
+ 3820              	pxOverflowDelayedTaskList:
+ 3821 0000 00000000 		.space	4
+ 3822              		.section	.bss.pxReadyTasksLists,"aw",%nobits
+ 3823              		.align	2
+ 3824              		.set	.LANCHOR4,. + 0
+ 3827              	pxReadyTasksLists:
+ 3828 0000 00000000 		.space	1120
+ 3828      00000000 
+ 3828      00000000 
+ 3828      00000000 
+ 3828      00000000 
+ 3829              		.section	.bss.uxCurrentNumberOfTasks,"aw",%nobits
+ 3830              		.align	2
+ 3831              		.set	.LANCHOR9,. + 0
+ 3834              	uxCurrentNumberOfTasks:
+ 3835 0000 00000000 		.space	4
+ 3836              		.section	.bss.uxDeletedTasksWaitingCleanUp,"aw",%nobits
+ 3837              		.align	2
+ 3838              		.set	.LANCHOR14,. + 0
+ 3841              	uxDeletedTasksWaitingCleanUp:
+ 3842 0000 00000000 		.space	4
+ 3843              		.section	.bss.uxPendedTicks,"aw",%nobits
+ 3844              		.align	2
+ 3845              		.set	.LANCHOR18,. + 0
+ 3848              	uxPendedTicks:
+ 3849 0000 00000000 		.space	4
+ 3850              		.section	.bss.uxSchedulerSuspended,"aw",%nobits
+ 3851              		.align	2
+ 3852              		.set	.LANCHOR16,. + 0
+ 3855              	uxSchedulerSuspended:
+ARM GAS  /tmp/cc1iSaBg.s 			page 66
+
+
+ 3856 0000 00000000 		.space	4
+ 3857              		.section	.bss.uxTaskNumber,"aw",%nobits
+ 3858              		.align	2
+ 3859              		.set	.LANCHOR12,. + 0
+ 3862              	uxTaskNumber:
+ 3863 0000 00000000 		.space	4
+ 3864              		.section	.bss.uxTopReadyPriority,"aw",%nobits
+ 3865              		.align	2
+ 3866              		.set	.LANCHOR13,. + 0
+ 3869              	uxTopReadyPriority:
+ 3870 0000 00000000 		.space	4
+ 3871              		.section	.bss.xDelayedTaskList1,"aw",%nobits
+ 3872              		.align	2
+ 3873              		.set	.LANCHOR5,. + 0
+ 3876              	xDelayedTaskList1:
+ 3877 0000 00000000 		.space	20
+ 3877      00000000 
+ 3877      00000000 
+ 3877      00000000 
+ 3877      00000000 
+ 3878              		.section	.bss.xDelayedTaskList2,"aw",%nobits
+ 3879              		.align	2
+ 3880              		.set	.LANCHOR6,. + 0
+ 3883              	xDelayedTaskList2:
+ 3884 0000 00000000 		.space	20
+ 3884      00000000 
+ 3884      00000000 
+ 3884      00000000 
+ 3884      00000000 
+ 3885              		.section	.bss.xNextTaskUnblockTime,"aw",%nobits
+ 3886              		.align	2
+ 3887              		.set	.LANCHOR3,. + 0
+ 3890              	xNextTaskUnblockTime:
+ 3891 0000 00000000 		.space	4
+ 3892              		.section	.bss.xNumOfOverflows,"aw",%nobits
+ 3893              		.align	2
+ 3894              		.set	.LANCHOR17,. + 0
+ 3897              	xNumOfOverflows:
+ 3898 0000 00000000 		.space	4
+ 3899              		.section	.bss.xPendingReadyList,"aw",%nobits
+ 3900              		.align	2
+ 3901              		.set	.LANCHOR1,. + 0
+ 3904              	xPendingReadyList:
+ 3905 0000 00000000 		.space	20
+ 3905      00000000 
+ 3905      00000000 
+ 3905      00000000 
+ 3905      00000000 
+ 3906              		.section	.bss.xSchedulerRunning,"aw",%nobits
+ 3907              		.align	2
+ 3908              		.set	.LANCHOR11,. + 0
+ 3911              	xSchedulerRunning:
+ 3912 0000 00000000 		.space	4
+ 3913              		.section	.bss.xSuspendedTaskList,"aw",%nobits
+ 3914              		.align	2
+ 3915              		.set	.LANCHOR0,. + 0
+ 3918              	xSuspendedTaskList:
+ARM GAS  /tmp/cc1iSaBg.s 			page 67
+
+
+ 3919 0000 00000000 		.space	20
+ 3919      00000000 
+ 3919      00000000 
+ 3919      00000000 
+ 3919      00000000 
+ 3920              		.section	.bss.xTasksWaitingTermination,"aw",%nobits
+ 3921              		.align	2
+ 3922              		.set	.LANCHOR7,. + 0
+ 3925              	xTasksWaitingTermination:
+ 3926 0000 00000000 		.space	20
+ 3926      00000000 
+ 3926      00000000 
+ 3926      00000000 
+ 3926      00000000 
+ 3927              		.section	.bss.xTickCount,"aw",%nobits
+ 3928              		.align	2
+ 3929              		.set	.LANCHOR15,. + 0
+ 3932              	xTickCount:
+ 3933 0000 00000000 		.space	4
+ 3934              		.section	.bss.xYieldPending,"aw",%nobits
+ 3935              		.align	2
+ 3936              		.set	.LANCHOR19,. + 0
+ 3939              	xYieldPending:
+ 3940 0000 00000000 		.space	4
+ 3941              		.section	.rodata.vTaskList.str1.4,"aMS",%progbits,1
+ 3942              		.align	2
+ 3943              	.LC1:
+ 3944 0000 09256309 		.ascii	"\011%c\011%u\011%u\011%u\015\012\000"
+ 3944      25750925 
+ 3944      75092575 
+ 3944      0D0A00
+ 3945              		.section	.rodata.vTaskStartScheduler.str1.4,"aMS",%progbits,1
+ 3946              		.align	2
+ 3947              	.LC0:
+ 3948 0000 49444C45 		.ascii	"IDLE\000"
+ 3948      00
+ 3949              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/cc1iSaBg.s 			page 68
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 tasks.c
+     /tmp/cc1iSaBg.s:16     .text.prvTaskIsTaskSuspended:0000000000000000 $t
+     /tmp/cc1iSaBg.s:23     .text.prvTaskIsTaskSuspended:0000000000000000 prvTaskIsTaskSuspended
+     /tmp/cc1iSaBg.s:50     .text.prvTaskIsTaskSuspended:0000000000000024 $d
+     /tmp/cc1iSaBg.s:54     .text.prvSearchForNameWithinSingleList:0000000000000000 $t
+     /tmp/cc1iSaBg.s:60     .text.prvSearchForNameWithinSingleList:0000000000000000 prvSearchForNameWithinSingleList
+     /tmp/cc1iSaBg.s:122    .text.prvTaskCheckFreeStackSpace:0000000000000000 $t
+     /tmp/cc1iSaBg.s:128    .text.prvTaskCheckFreeStackSpace:0000000000000000 prvTaskCheckFreeStackSpace
+     /tmp/cc1iSaBg.s:145    .text.prvResetNextTaskUnblockTime:0000000000000000 $t
+     /tmp/cc1iSaBg.s:151    .text.prvResetNextTaskUnblockTime:0000000000000000 prvResetNextTaskUnblockTime
+     /tmp/cc1iSaBg.s:175    .text.prvResetNextTaskUnblockTime:0000000000000024 $d
+     /tmp/cc1iSaBg.s:179    .text.prvInitialiseNewTask:0000000000000000 $t
+     /tmp/cc1iSaBg.s:185    .text.prvInitialiseNewTask:0000000000000000 prvInitialiseNewTask
+     /tmp/cc1iSaBg.s:255    .text.prvInitialiseTaskLists:0000000000000000 $t
+     /tmp/cc1iSaBg.s:261    .text.prvInitialiseTaskLists:0000000000000000 prvInitialiseTaskLists
+     /tmp/cc1iSaBg.s:297    .text.prvInitialiseTaskLists:0000000000000048 $d
+     /tmp/cc1iSaBg.s:307    .text.prvAddNewTaskToReadyList:0000000000000000 $t
+     /tmp/cc1iSaBg.s:313    .text.prvAddNewTaskToReadyList:0000000000000000 prvAddNewTaskToReadyList
+     /tmp/cc1iSaBg.s:394    .text.prvAddNewTaskToReadyList:0000000000000090 $d
+     /tmp/cc1iSaBg.s:403    .text.prvDeleteTCB:0000000000000000 $t
+     /tmp/cc1iSaBg.s:409    .text.prvDeleteTCB:0000000000000000 prvDeleteTCB
+     /tmp/cc1iSaBg.s:431    .text.prvCheckTasksWaitingTermination:0000000000000000 $t
+     /tmp/cc1iSaBg.s:437    .text.prvCheckTasksWaitingTermination:0000000000000000 prvCheckTasksWaitingTermination
+     /tmp/cc1iSaBg.s:472    .text.prvCheckTasksWaitingTermination:0000000000000040 $d
+     /tmp/cc1iSaBg.s:477    .text.prvIdleTask:0000000000000000 $t
+     /tmp/cc1iSaBg.s:483    .text.prvIdleTask:0000000000000000 prvIdleTask
+     /tmp/cc1iSaBg.s:510    .text.prvIdleTask:0000000000000020 $d
+     /tmp/cc1iSaBg.s:514    .text.prvAddCurrentTaskToDelayedList:0000000000000000 $t
+     /tmp/cc1iSaBg.s:520    .text.prvAddCurrentTaskToDelayedList:0000000000000000 prvAddCurrentTaskToDelayedList
+     /tmp/cc1iSaBg.s:575    .text.prvAddCurrentTaskToDelayedList:0000000000000064 $d
+     /tmp/cc1iSaBg.s:583    .text.prvWriteNameToBuffer:0000000000000000 $t
+     /tmp/cc1iSaBg.s:589    .text.prvWriteNameToBuffer:0000000000000000 prvWriteNameToBuffer
+     /tmp/cc1iSaBg.s:611    .text.xTaskCreateStatic:0000000000000000 $t
+     /tmp/cc1iSaBg.s:618    .text.xTaskCreateStatic:0000000000000000 xTaskCreateStatic
+     /tmp/cc1iSaBg.s:654    .text.xTaskCreate:0000000000000000 $t
+     /tmp/cc1iSaBg.s:661    .text.xTaskCreate:0000000000000000 xTaskCreate
+     /tmp/cc1iSaBg.s:713    .text.vTaskDelete:0000000000000000 $t
+     /tmp/cc1iSaBg.s:720    .text.vTaskDelete:0000000000000000 vTaskDelete
+     /tmp/cc1iSaBg.s:792    .text.vTaskDelete:0000000000000080 $d
+     /tmp/cc1iSaBg.s:801    .text.eTaskGetState:0000000000000000 $t
+     /tmp/cc1iSaBg.s:808    .text.eTaskGetState:0000000000000000 eTaskGetState
+     /tmp/cc1iSaBg.s:871    .text.eTaskGetState:0000000000000068 $d
+     /tmp/cc1iSaBg.s:878    .text.uxTaskPriorityGet:0000000000000000 $t
+     /tmp/cc1iSaBg.s:885    .text.uxTaskPriorityGet:0000000000000000 uxTaskPriorityGet
+     /tmp/cc1iSaBg.s:904    .text.uxTaskPriorityGet:000000000000001c $d
+     /tmp/cc1iSaBg.s:907    .text.uxTaskPriorityGetFromISR:0000000000000000 $t
+     /tmp/cc1iSaBg.s:914    .text.uxTaskPriorityGetFromISR:0000000000000000 uxTaskPriorityGetFromISR
+     /tmp/cc1iSaBg.s:948    .text.uxTaskPriorityGetFromISR:000000000000002c $d
+     /tmp/cc1iSaBg.s:951    .text.vTaskPrioritySet:0000000000000000 $t
+     /tmp/cc1iSaBg.s:958    .text.vTaskPrioritySet:0000000000000000 vTaskPrioritySet
+     /tmp/cc1iSaBg.s:1066   .text.vTaskPrioritySet:00000000000000b4 $d
+     /tmp/cc1iSaBg.s:1072   .text.vTaskResume:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1079   .text.vTaskResume:0000000000000000 vTaskResume
+     /tmp/cc1iSaBg.s:1137   .text.vTaskResume:0000000000000064 $d
+     /tmp/cc1iSaBg.s:1143   .text.xTaskResumeFromISR:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1150   .text.xTaskResumeFromISR:0000000000000000 xTaskResumeFromISR
+ARM GAS  /tmp/cc1iSaBg.s 			page 69
+
+
+     /tmp/cc1iSaBg.s:1220   .text.xTaskResumeFromISR:000000000000007c $d
+     /tmp/cc1iSaBg.s:1227   .text.vTaskStartScheduler:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1234   .text.vTaskStartScheduler:0000000000000000 vTaskStartScheduler
+     /tmp/cc1iSaBg.s:1293   .text.vTaskStartScheduler:0000000000000068 $d
+     /tmp/cc1iSaBg.s:1300   .text.vTaskEndScheduler:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1307   .text.vTaskEndScheduler:0000000000000000 vTaskEndScheduler
+     /tmp/cc1iSaBg.s:1329   .text.vTaskEndScheduler:0000000000000020 $d
+     /tmp/cc1iSaBg.s:1332   .text.vTaskSuspendAll:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1339   .text.vTaskSuspendAll:0000000000000000 vTaskSuspendAll
+     /tmp/cc1iSaBg.s:1351   .text.vTaskSuspendAll:000000000000000c $d
+     /tmp/cc1iSaBg.s:1354   .text.xTaskGetTickCount:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1361   .text.xTaskGetTickCount:0000000000000000 xTaskGetTickCount
+     /tmp/cc1iSaBg.s:1371   .text.xTaskGetTickCount:0000000000000008 $d
+     /tmp/cc1iSaBg.s:1374   .text.xTaskGetTickCountFromISR:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1381   .text.xTaskGetTickCountFromISR:0000000000000000 xTaskGetTickCountFromISR
+     /tmp/cc1iSaBg.s:1392   .text.xTaskGetTickCountFromISR:000000000000000c $d
+     /tmp/cc1iSaBg.s:1395   .text.uxTaskGetNumberOfTasks:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1402   .text.uxTaskGetNumberOfTasks:0000000000000000 uxTaskGetNumberOfTasks
+     /tmp/cc1iSaBg.s:1412   .text.uxTaskGetNumberOfTasks:0000000000000008 $d
+     /tmp/cc1iSaBg.s:1415   .text.pcTaskGetName:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1422   .text.pcTaskGetName:0000000000000000 pcTaskGetName
+     /tmp/cc1iSaBg.s:1438   .text.pcTaskGetName:0000000000000010 $d
+     /tmp/cc1iSaBg.s:1441   .text.xTaskIncrementTick:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1448   .text.xTaskIncrementTick:0000000000000000 xTaskIncrementTick
+     /tmp/cc1iSaBg.s:1564   .text.xTaskIncrementTick:00000000000000d4 $d
+     /tmp/cc1iSaBg.s:1577   .text.xTaskResumeAll:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1584   .text.xTaskResumeAll:0000000000000000 xTaskResumeAll
+     /tmp/cc1iSaBg.s:1689   .text.xTaskResumeAll:00000000000000bc $d
+     /tmp/cc1iSaBg.s:1700   .text.vTaskDelayUntil:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1707   .text.vTaskDelayUntil:0000000000000000 vTaskDelayUntil
+     /tmp/cc1iSaBg.s:1766   .text.vTaskDelayUntil:0000000000000058 $d
+     /tmp/cc1iSaBg.s:1770   .text.vTaskDelay:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1777   .text.vTaskDelay:0000000000000000 vTaskDelay
+     /tmp/cc1iSaBg.s:1810   .text.vTaskDelay:0000000000000030 $d
+     /tmp/cc1iSaBg.s:1813   .text.xTaskGetHandle:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1820   .text.xTaskGetHandle:0000000000000000 xTaskGetHandle
+     /tmp/cc1iSaBg.s:1880   .text.xTaskGetHandle:0000000000000068 $d
+     /tmp/cc1iSaBg.s:1887   .text.vTaskSetApplicationTaskTag:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1894   .text.vTaskSetApplicationTaskTag:0000000000000000 vTaskSetApplicationTaskTag
+     /tmp/cc1iSaBg.s:1913   .text.vTaskSetApplicationTaskTag:000000000000001c $d
+     /tmp/cc1iSaBg.s:1916   .text.xTaskGetApplicationTaskTag:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1923   .text.xTaskGetApplicationTaskTag:0000000000000000 xTaskGetApplicationTaskTag
+     /tmp/cc1iSaBg.s:1942   .text.xTaskGetApplicationTaskTag:000000000000001c $d
+     /tmp/cc1iSaBg.s:1945   .text.xTaskGetApplicationTaskTagFromISR:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1952   .text.xTaskGetApplicationTaskTagFromISR:0000000000000000 xTaskGetApplicationTaskTagFromISR
+     /tmp/cc1iSaBg.s:1985   .text.xTaskGetApplicationTaskTagFromISR:0000000000000028 $d
+     /tmp/cc1iSaBg.s:1988   .text.xTaskCallApplicationTaskHook:0000000000000000 $t
+     /tmp/cc1iSaBg.s:1995   .text.xTaskCallApplicationTaskHook:0000000000000000 xTaskCallApplicationTaskHook
+     /tmp/cc1iSaBg.s:2018   .text.xTaskCallApplicationTaskHook:000000000000001c $d
+     /tmp/cc1iSaBg.s:2021   .text.vTaskSwitchContext:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2028   .text.vTaskSwitchContext:0000000000000000 vTaskSwitchContext
+     /tmp/cc1iSaBg.s:2102   .text.vTaskSwitchContext:0000000000000084 $d
+     /tmp/cc1iSaBg.s:2110   .text.vTaskSuspend:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2117   .text.vTaskSuspend:0000000000000000 vTaskSuspend
+     /tmp/cc1iSaBg.s:2199   .text.vTaskSuspend:0000000000000094 $d
+     /tmp/cc1iSaBg.s:2206   .text.vTaskPlaceOnEventList:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2213   .text.vTaskPlaceOnEventList:0000000000000000 vTaskPlaceOnEventList
+ARM GAS  /tmp/cc1iSaBg.s 			page 70
+
+
+     /tmp/cc1iSaBg.s:2229   .text.vTaskPlaceOnEventList:0000000000000018 $d
+     /tmp/cc1iSaBg.s:2232   .text.vTaskPlaceOnUnorderedEventList:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2239   .text.vTaskPlaceOnUnorderedEventList:0000000000000000 vTaskPlaceOnUnorderedEventList
+     /tmp/cc1iSaBg.s:2258   .text.vTaskPlaceOnUnorderedEventList:0000000000000020 $d
+     /tmp/cc1iSaBg.s:2261   .text.vTaskPlaceOnEventListRestricted:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2268   .text.vTaskPlaceOnEventListRestricted:0000000000000000 vTaskPlaceOnEventListRestricted
+     /tmp/cc1iSaBg.s:2288   .text.vTaskPlaceOnEventListRestricted:0000000000000020 $d
+     /tmp/cc1iSaBg.s:2291   .text.xTaskRemoveFromEventList:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2298   .text.xTaskRemoveFromEventList:0000000000000000 xTaskRemoveFromEventList
+     /tmp/cc1iSaBg.s:2350   .text.xTaskRemoveFromEventList:0000000000000060 $d
+     /tmp/cc1iSaBg.s:2358   .text.vTaskRemoveFromUnorderedEventList:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2365   .text.vTaskRemoveFromUnorderedEventList:0000000000000000 vTaskRemoveFromUnorderedEventList
+     /tmp/cc1iSaBg.s:2404   .text.vTaskRemoveFromUnorderedEventList:0000000000000048 $d
+     /tmp/cc1iSaBg.s:2410   .text.vTaskSetTimeOutState:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2417   .text.vTaskSetTimeOutState:0000000000000000 vTaskSetTimeOutState
+     /tmp/cc1iSaBg.s:2434   .text.vTaskSetTimeOutState:000000000000001c $d
+     /tmp/cc1iSaBg.s:2438   .text.vTaskInternalSetTimeOutState:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2445   .text.vTaskInternalSetTimeOutState:0000000000000000 vTaskInternalSetTimeOutState
+     /tmp/cc1iSaBg.s:2459   .text.vTaskInternalSetTimeOutState:0000000000000010 $d
+     /tmp/cc1iSaBg.s:2463   .text.xTaskCheckForTimeOut:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2470   .text.xTaskCheckForTimeOut:0000000000000000 xTaskCheckForTimeOut
+     /tmp/cc1iSaBg.s:2518   .text.xTaskCheckForTimeOut:0000000000000054 $d
+     /tmp/cc1iSaBg.s:2522   .text.vTaskMissedYield:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2529   .text.vTaskMissedYield:0000000000000000 vTaskMissedYield
+     /tmp/cc1iSaBg.s:2540   .text.vTaskMissedYield:0000000000000008 $d
+     /tmp/cc1iSaBg.s:2543   .text.uxTaskGetTaskNumber:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2550   .text.uxTaskGetTaskNumber:0000000000000000 uxTaskGetTaskNumber
+     /tmp/cc1iSaBg.s:2562   .text.vTaskSetTaskNumber:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2569   .text.vTaskSetTaskNumber:0000000000000000 vTaskSetTaskNumber
+     /tmp/cc1iSaBg.s:2579   .text.vTaskGetInfo:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2586   .text.vTaskGetInfo:0000000000000000 vTaskGetInfo
+     /tmp/cc1iSaBg.s:2653   .text.vTaskGetInfo:0000000000000074 $d
+     /tmp/cc1iSaBg.s:2656   .text.prvListTasksWithinSingleList:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2662   .text.prvListTasksWithinSingleList:0000000000000000 prvListTasksWithinSingleList
+     /tmp/cc1iSaBg.s:2714   .text.uxTaskGetSystemState:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2721   .text.uxTaskGetSystemState:0000000000000000 uxTaskGetSystemState
+     /tmp/cc1iSaBg.s:2792   .text.uxTaskGetSystemState:0000000000000098 $d
+     /tmp/cc1iSaBg.s:2800   .text.uxTaskGetStackHighWaterMark:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2807   .text.uxTaskGetStackHighWaterMark:0000000000000000 uxTaskGetStackHighWaterMark
+     /tmp/cc1iSaBg.s:2824   .text.uxTaskGetStackHighWaterMark:0000000000000014 $d
+     /tmp/cc1iSaBg.s:2827   .text.xTaskGetCurrentTaskHandle:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2834   .text.xTaskGetCurrentTaskHandle:0000000000000000 xTaskGetCurrentTaskHandle
+     /tmp/cc1iSaBg.s:2844   .text.xTaskGetCurrentTaskHandle:0000000000000008 $d
+     /tmp/cc1iSaBg.s:2847   .text.xTaskGetSchedulerState:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2854   .text.xTaskGetSchedulerState:0000000000000000 xTaskGetSchedulerState
+     /tmp/cc1iSaBg.s:2875   .text.xTaskGetSchedulerState:0000000000000018 $d
+     /tmp/cc1iSaBg.s:2879   .text.xTaskPriorityInherit:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2886   .text.xTaskPriorityInherit:0000000000000000 xTaskPriorityInherit
+     /tmp/cc1iSaBg.s:2963   .text.xTaskPriorityInherit:000000000000008c $d
+     /tmp/cc1iSaBg.s:2968   .text.xTaskPriorityDisinherit:0000000000000000 $t
+     /tmp/cc1iSaBg.s:2975   .text.xTaskPriorityDisinherit:0000000000000000 xTaskPriorityDisinherit
+     /tmp/cc1iSaBg.s:3024   .text.xTaskPriorityDisinherit:0000000000000054 $d
+     /tmp/cc1iSaBg.s:3028   .text.vTaskPriorityDisinheritAfterTimeout:0000000000000000 $t
+     /tmp/cc1iSaBg.s:3035   .text.vTaskPriorityDisinheritAfterTimeout:0000000000000000 vTaskPriorityDisinheritAfterTimeout
+     /tmp/cc1iSaBg.s:3092   .text.vTaskPriorityDisinheritAfterTimeout:0000000000000064 $d
+     /tmp/cc1iSaBg.s:3096   .text.vTaskList:0000000000000000 $t
+     /tmp/cc1iSaBg.s:3103   .text.vTaskList:0000000000000000 vTaskList
+ARM GAS  /tmp/cc1iSaBg.s 			page 71
+
+
+     /tmp/cc1iSaBg.s:3173   .text.vTaskList:0000000000000090 $d
+     /tmp/cc1iSaBg.s:3178   .text.vTaskList:00000000000000a4 $t
+     /tmp/cc1iSaBg.s:3189   .text.vTaskList:00000000000000b0 $d
+     /tmp/cc1iSaBg.s:3193   .text.uxTaskResetEventItemValue:0000000000000000 $t
+     /tmp/cc1iSaBg.s:3200   .text.uxTaskResetEventItemValue:0000000000000000 uxTaskResetEventItemValue
+     /tmp/cc1iSaBg.s:3216   .text.uxTaskResetEventItemValue:0000000000000014 $d
+     /tmp/cc1iSaBg.s:3219   .text.pvTaskIncrementMutexHeldCount:0000000000000000 $t
+     /tmp/cc1iSaBg.s:3226   .text.pvTaskIncrementMutexHeldCount:0000000000000000 pvTaskIncrementMutexHeldCount
+     /tmp/cc1iSaBg.s:3245   .text.pvTaskIncrementMutexHeldCount:0000000000000018 $d
+     /tmp/cc1iSaBg.s:3248   .text.ulTaskNotifyTake:0000000000000000 $t
+     /tmp/cc1iSaBg.s:3255   .text.ulTaskNotifyTake:0000000000000000 ulTaskNotifyTake
+     /tmp/cc1iSaBg.s:3317   .text.ulTaskNotifyTake:0000000000000070 $d
+     /tmp/cc1iSaBg.s:3321   .text.xTaskNotifyWait:0000000000000000 $t
+     /tmp/cc1iSaBg.s:3328   .text.xTaskNotifyWait:0000000000000000 xTaskNotifyWait
+     /tmp/cc1iSaBg.s:3404   .text.xTaskNotifyWait:0000000000000090 $d
+     /tmp/cc1iSaBg.s:3408   .text.xTaskGenericNotify:0000000000000000 $t
+     /tmp/cc1iSaBg.s:3415   .text.xTaskGenericNotify:0000000000000000 xTaskGenericNotify
+     /tmp/cc1iSaBg.s:3437   .text.xTaskGenericNotify:000000000000002a $d
+     /tmp/cc1iSaBg.s:3441   .text.xTaskGenericNotify:000000000000002e $t
+     /tmp/cc1iSaBg.s:3516   .text.xTaskGenericNotify:00000000000000a8 $d
+     /tmp/cc1iSaBg.s:3522   .text.xTaskGenericNotifyFromISR:0000000000000000 $t
+     /tmp/cc1iSaBg.s:3529   .text.xTaskGenericNotifyFromISR:0000000000000000 xTaskGenericNotifyFromISR
+     /tmp/cc1iSaBg.s:3562   .text.xTaskGenericNotifyFromISR:0000000000000040 $d
+     /tmp/cc1iSaBg.s:3566   .text.xTaskGenericNotifyFromISR:0000000000000044 $t
+     /tmp/cc1iSaBg.s:3652   .text.xTaskGenericNotifyFromISR:00000000000000d8 $d
+     /tmp/cc1iSaBg.s:3660   .text.vTaskNotifyGiveFromISR:0000000000000000 $t
+     /tmp/cc1iSaBg.s:3667   .text.vTaskNotifyGiveFromISR:0000000000000000 vTaskNotifyGiveFromISR
+     /tmp/cc1iSaBg.s:3746   .text.vTaskNotifyGiveFromISR:000000000000008c $d
+     /tmp/cc1iSaBg.s:3754   .text.xTaskNotifyStateClear:0000000000000000 $t
+     /tmp/cc1iSaBg.s:3761   .text.xTaskNotifyStateClear:0000000000000000 xTaskNotifyStateClear
+     /tmp/cc1iSaBg.s:3790   .text.xTaskNotifyStateClear:0000000000000030 $d
+     /tmp/cc1iSaBg.s:3799   .bss.FreeRTOS_errno:0000000000000000 FreeRTOS_errno
+     /tmp/cc1iSaBg.s:3806   .bss.pxCurrentTCB:0000000000000000 pxCurrentTCB
+     /tmp/cc1iSaBg.s:3795   .bss.FreeRTOS_errno:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3802   .bss.pxCurrentTCB:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3809   .bss.pxDelayedTaskList:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3813   .bss.pxDelayedTaskList:0000000000000000 pxDelayedTaskList
+     /tmp/cc1iSaBg.s:3816   .bss.pxOverflowDelayedTaskList:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3820   .bss.pxOverflowDelayedTaskList:0000000000000000 pxOverflowDelayedTaskList
+     /tmp/cc1iSaBg.s:3823   .bss.pxReadyTasksLists:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3827   .bss.pxReadyTasksLists:0000000000000000 pxReadyTasksLists
+     /tmp/cc1iSaBg.s:3830   .bss.uxCurrentNumberOfTasks:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3834   .bss.uxCurrentNumberOfTasks:0000000000000000 uxCurrentNumberOfTasks
+     /tmp/cc1iSaBg.s:3837   .bss.uxDeletedTasksWaitingCleanUp:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3841   .bss.uxDeletedTasksWaitingCleanUp:0000000000000000 uxDeletedTasksWaitingCleanUp
+     /tmp/cc1iSaBg.s:3844   .bss.uxPendedTicks:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3848   .bss.uxPendedTicks:0000000000000000 uxPendedTicks
+     /tmp/cc1iSaBg.s:3851   .bss.uxSchedulerSuspended:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3855   .bss.uxSchedulerSuspended:0000000000000000 uxSchedulerSuspended
+     /tmp/cc1iSaBg.s:3858   .bss.uxTaskNumber:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3862   .bss.uxTaskNumber:0000000000000000 uxTaskNumber
+     /tmp/cc1iSaBg.s:3865   .bss.uxTopReadyPriority:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3869   .bss.uxTopReadyPriority:0000000000000000 uxTopReadyPriority
+     /tmp/cc1iSaBg.s:3872   .bss.xDelayedTaskList1:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3876   .bss.xDelayedTaskList1:0000000000000000 xDelayedTaskList1
+     /tmp/cc1iSaBg.s:3879   .bss.xDelayedTaskList2:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3883   .bss.xDelayedTaskList2:0000000000000000 xDelayedTaskList2
+ARM GAS  /tmp/cc1iSaBg.s 			page 72
+
+
+     /tmp/cc1iSaBg.s:3886   .bss.xNextTaskUnblockTime:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3890   .bss.xNextTaskUnblockTime:0000000000000000 xNextTaskUnblockTime
+     /tmp/cc1iSaBg.s:3893   .bss.xNumOfOverflows:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3897   .bss.xNumOfOverflows:0000000000000000 xNumOfOverflows
+     /tmp/cc1iSaBg.s:3900   .bss.xPendingReadyList:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3904   .bss.xPendingReadyList:0000000000000000 xPendingReadyList
+     /tmp/cc1iSaBg.s:3907   .bss.xSchedulerRunning:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3911   .bss.xSchedulerRunning:0000000000000000 xSchedulerRunning
+     /tmp/cc1iSaBg.s:3914   .bss.xSuspendedTaskList:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3918   .bss.xSuspendedTaskList:0000000000000000 xSuspendedTaskList
+     /tmp/cc1iSaBg.s:3921   .bss.xTasksWaitingTermination:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3925   .bss.xTasksWaitingTermination:0000000000000000 xTasksWaitingTermination
+     /tmp/cc1iSaBg.s:3928   .bss.xTickCount:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3932   .bss.xTickCount:0000000000000000 xTickCount
+     /tmp/cc1iSaBg.s:3935   .bss.xYieldPending:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3939   .bss.xYieldPending:0000000000000000 xYieldPending
+     /tmp/cc1iSaBg.s:3942   .rodata.vTaskList.str1.4:0000000000000000 $d
+     /tmp/cc1iSaBg.s:3946   .rodata.vTaskStartScheduler.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+memset
+vListInitialiseItem
+pxPortInitialiseStack
+vListInitialise
+vPortEnterCritical
+vListInsertEnd
+vPortExitCritical
+vPortFree
+uxListRemove
+vListInsert
+strcpy
+strlen
+pvPortMalloc
+vPortValidateInterruptPriority
+vApplicationGetIdleTaskMemory
+xTimerCreateTimerTask
+xPortStartScheduler
+vPortEndScheduler
+sprintf

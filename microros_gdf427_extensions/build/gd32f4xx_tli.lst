@@ -1,0 +1,853 @@
+ARM GAS  /tmp/ccfNHpbC.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_tli.c"
+  14              		.text
+  15              		.section	.text.tli_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	tli_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	tli_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 40F61A10 		movw	r0, #2330
+  29 0006 FFF7FEFF 		bl	rcu_periph_reset_enable
+  30 000a 40F61A10 		movw	r0, #2330
+  31 000e FFF7FEFF 		bl	rcu_periph_reset_disable
+  32 0012 08BD     		pop	{r3, pc}
+  34              		.section	.text.tli_struct_para_init,"ax",%progbits
+  35              		.align	1
+  36              		.global	tli_struct_para_init
+  37              		.syntax unified
+  38              		.thumb
+  39              		.thumb_func
+  40              		.fpu fpv4-sp-d16
+  42              	tli_struct_para_init:
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 0, uses_anonymous_args = 0
+  45              		@ link register save eliminated.
+  46 0000 0023     		movs	r3, #0
+  47 0002 0380     		strh	r3, [r0]	@ movhi
+  48 0004 4380     		strh	r3, [r0, #2]	@ movhi
+  49 0006 8380     		strh	r3, [r0, #4]	@ movhi
+  50 0008 C380     		strh	r3, [r0, #6]	@ movhi
+  51 000a 8360     		str	r3, [r0, #8]
+  52 000c C360     		str	r3, [r0, #12]
+  53 000e 0361     		str	r3, [r0, #16]
+  54 0010 4361     		str	r3, [r0, #20]
+  55 0012 8361     		str	r3, [r0, #24]
+  56 0014 C361     		str	r3, [r0, #28]
+  57 0016 0362     		str	r3, [r0, #32]
+  58 0018 4362     		str	r3, [r0, #36]
+  59 001a 8362     		str	r3, [r0, #40]
+  60 001c C362     		str	r3, [r0, #44]
+ARM GAS  /tmp/ccfNHpbC.s 			page 2
+
+
+  61 001e 0363     		str	r3, [r0, #48]
+  62 0020 7047     		bx	lr
+  64              		.section	.text.tli_init,"ax",%progbits
+  65              		.align	1
+  66              		.global	tli_init
+  67              		.syntax unified
+  68              		.thumb
+  69              		.thumb_func
+  70              		.fpu fpv4-sp-d16
+  72              	tli_init:
+  73              		@ args = 0, pretend = 0, frame = 0
+  74              		@ frame_needed = 0, uses_anonymous_args = 0
+  75              		@ link register save eliminated.
+  76 0000 10B4     		push	{r4}
+  77 0002 234B     		ldr	r3, .L6
+  78 0004 1A68     		ldr	r2, [r3]
+  79 0006 02F0F022 		and	r2, r2, #-268374016
+  80 000a 1A60     		str	r2, [r3]
+  81 000c 0288     		ldrh	r2, [r0]
+  82 000e 4188     		ldrh	r1, [r0, #2]
+  83 0010 42EA0142 		orr	r2, r2, r1, lsl #16
+  84 0014 1A60     		str	r2, [r3]
+  85 0016 0433     		adds	r3, r3, #4
+  86 0018 1A68     		ldr	r2, [r3]
+  87 001a 02F0F022 		and	r2, r2, #-268374016
+  88 001e 1A60     		str	r2, [r3]
+  89 0020 8288     		ldrh	r2, [r0, #4]
+  90 0022 C188     		ldrh	r1, [r0, #6]
+  91 0024 42EA0142 		orr	r2, r2, r1, lsl #16
+  92 0028 1A60     		str	r2, [r3]
+  93 002a 0433     		adds	r3, r3, #4
+  94 002c 1A68     		ldr	r2, [r3]
+  95 002e 02F0F022 		and	r2, r2, #-268374016
+  96 0032 1A60     		str	r2, [r3]
+  97 0034 8268     		ldr	r2, [r0, #8]
+  98 0036 C168     		ldr	r1, [r0, #12]
+  99 0038 42EA0142 		orr	r2, r2, r1, lsl #16
+ 100 003c 1A60     		str	r2, [r3]
+ 101 003e 0433     		adds	r3, r3, #4
+ 102 0040 1A68     		ldr	r2, [r3]
+ 103 0042 02F0F022 		and	r2, r2, #-268374016
+ 104 0046 1A60     		str	r2, [r3]
+ 105 0048 0269     		ldr	r2, [r0, #16]
+ 106 004a 4169     		ldr	r1, [r0, #20]
+ 107 004c 42EA0142 		orr	r2, r2, r1, lsl #16
+ 108 0050 1A60     		str	r2, [r3]
+ 109 0052 104A     		ldr	r2, .L6+4
+ 110 0054 1368     		ldr	r3, [r2]
+ 111 0056 03F07F43 		and	r3, r3, #-16777216
+ 112 005a 1360     		str	r3, [r2]
+ 113 005c 036A     		ldr	r3, [r0, #32]
+ 114 005e C169     		ldr	r1, [r0, #28]
+ 115 0060 43EA0123 		orr	r3, r3, r1, lsl #8
+ 116 0064 8169     		ldr	r1, [r0, #24]
+ 117 0066 43EA0143 		orr	r3, r3, r1, lsl #16
+ 118 006a 1360     		str	r3, [r2]
+ 119 006c 143A     		subs	r2, r2, #20
+ARM GAS  /tmp/ccfNHpbC.s 			page 3
+
+
+ 120 006e 1368     		ldr	r3, [r2]
+ 121 0070 23F07043 		bic	r3, r3, #-268435456
+ 122 0074 1360     		str	r3, [r2]
+ 123 0076 1168     		ldr	r1, [r2]
+ 124 0078 436A     		ldr	r3, [r0, #36]
+ 125 007a 846A     		ldr	r4, [r0, #40]
+ 126 007c 2343     		orrs	r3, r3, r4
+ 127 007e C46A     		ldr	r4, [r0, #44]
+ 128 0080 2343     		orrs	r3, r3, r4
+ 129 0082 006B     		ldr	r0, [r0, #48]
+ 130 0084 0343     		orrs	r3, r3, r0
+ 131 0086 0B43     		orrs	r3, r3, r1
+ 132 0088 1360     		str	r3, [r2]
+ 133 008a 5DF8044B 		ldr	r4, [sp], #4
+ 134 008e 7047     		bx	lr
+ 135              	.L7:
+ 136              		.align	2
+ 137              	.L6:
+ 138 0090 08680140 		.word	1073833992
+ 139 0094 2C680140 		.word	1073834028
+ 141              		.section	.text.tli_dither_config,"ax",%progbits
+ 142              		.align	1
+ 143              		.global	tli_dither_config
+ 144              		.syntax unified
+ 145              		.thumb
+ 146              		.thumb_func
+ 147              		.fpu fpv4-sp-d16
+ 149              	tli_dither_config:
+ 150              		@ args = 0, pretend = 0, frame = 0
+ 151              		@ frame_needed = 0, uses_anonymous_args = 0
+ 152              		@ link register save eliminated.
+ 153 0000 0128     		cmp	r0, #1
+ 154 0002 05D0     		beq	.L11
+ 155 0004 054A     		ldr	r2, .L12
+ 156 0006 1368     		ldr	r3, [r2]
+ 157 0008 23F48033 		bic	r3, r3, #65536
+ 158 000c 1360     		str	r3, [r2]
+ 159 000e 7047     		bx	lr
+ 160              	.L11:
+ 161 0010 024A     		ldr	r2, .L12
+ 162 0012 1368     		ldr	r3, [r2]
+ 163 0014 43F48033 		orr	r3, r3, #65536
+ 164 0018 1360     		str	r3, [r2]
+ 165 001a 7047     		bx	lr
+ 166              	.L13:
+ 167              		.align	2
+ 168              	.L12:
+ 169 001c 18680140 		.word	1073834008
+ 171              		.section	.text.tli_enable,"ax",%progbits
+ 172              		.align	1
+ 173              		.global	tli_enable
+ 174              		.syntax unified
+ 175              		.thumb
+ 176              		.thumb_func
+ 177              		.fpu fpv4-sp-d16
+ 179              	tli_enable:
+ 180              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/ccfNHpbC.s 			page 4
+
+
+ 181              		@ frame_needed = 0, uses_anonymous_args = 0
+ 182              		@ link register save eliminated.
+ 183 0000 024A     		ldr	r2, .L15
+ 184 0002 1368     		ldr	r3, [r2]
+ 185 0004 43F00103 		orr	r3, r3, #1
+ 186 0008 1360     		str	r3, [r2]
+ 187 000a 7047     		bx	lr
+ 188              	.L16:
+ 189              		.align	2
+ 190              	.L15:
+ 191 000c 18680140 		.word	1073834008
+ 193              		.section	.text.tli_disable,"ax",%progbits
+ 194              		.align	1
+ 195              		.global	tli_disable
+ 196              		.syntax unified
+ 197              		.thumb
+ 198              		.thumb_func
+ 199              		.fpu fpv4-sp-d16
+ 201              	tli_disable:
+ 202              		@ args = 0, pretend = 0, frame = 0
+ 203              		@ frame_needed = 0, uses_anonymous_args = 0
+ 204              		@ link register save eliminated.
+ 205 0000 024A     		ldr	r2, .L18
+ 206 0002 1368     		ldr	r3, [r2]
+ 207 0004 23F00103 		bic	r3, r3, #1
+ 208 0008 1360     		str	r3, [r2]
+ 209 000a 7047     		bx	lr
+ 210              	.L19:
+ 211              		.align	2
+ 212              	.L18:
+ 213 000c 18680140 		.word	1073834008
+ 215              		.section	.text.tli_reload_config,"ax",%progbits
+ 216              		.align	1
+ 217              		.global	tli_reload_config
+ 218              		.syntax unified
+ 219              		.thumb
+ 220              		.thumb_func
+ 221              		.fpu fpv4-sp-d16
+ 223              	tli_reload_config:
+ 224              		@ args = 0, pretend = 0, frame = 0
+ 225              		@ frame_needed = 0, uses_anonymous_args = 0
+ 226              		@ link register save eliminated.
+ 227 0000 28B9     		cbnz	r0, .L21
+ 228 0002 064A     		ldr	r2, .L23
+ 229 0004 1368     		ldr	r3, [r2]
+ 230 0006 43F00203 		orr	r3, r3, #2
+ 231 000a 1360     		str	r3, [r2]
+ 232 000c 7047     		bx	lr
+ 233              	.L21:
+ 234 000e 034A     		ldr	r2, .L23
+ 235 0010 1368     		ldr	r3, [r2]
+ 236 0012 43F00103 		orr	r3, r3, #1
+ 237 0016 1360     		str	r3, [r2]
+ 238 0018 7047     		bx	lr
+ 239              	.L24:
+ 240 001a 00BF     		.align	2
+ 241              	.L23:
+ARM GAS  /tmp/ccfNHpbC.s 			page 5
+
+
+ 242 001c 24680140 		.word	1073834020
+ 244              		.section	.text.tli_layer_struct_para_init,"ax",%progbits
+ 245              		.align	1
+ 246              		.global	tli_layer_struct_para_init
+ 247              		.syntax unified
+ 248              		.thumb
+ 249              		.thumb_func
+ 250              		.fpu fpv4-sp-d16
+ 252              	tli_layer_struct_para_init:
+ 253              		@ args = 0, pretend = 0, frame = 0
+ 254              		@ frame_needed = 0, uses_anonymous_args = 0
+ 255              		@ link register save eliminated.
+ 256 0000 0023     		movs	r3, #0
+ 257 0002 0380     		strh	r3, [r0]	@ movhi
+ 258 0004 4380     		strh	r3, [r0, #2]	@ movhi
+ 259 0006 8380     		strh	r3, [r0, #4]	@ movhi
+ 260 0008 C380     		strh	r3, [r0, #6]	@ movhi
+ 261 000a 8360     		str	r3, [r0, #8]
+ 262 000c FF22     		movs	r2, #255
+ 263 000e 0273     		strb	r2, [r0, #12]
+ 264 0010 4373     		strb	r3, [r0, #13]
+ 265 0012 8373     		strb	r3, [r0, #14]
+ 266 0014 C373     		strb	r3, [r0, #15]
+ 267 0016 0374     		strb	r3, [r0, #16]
+ 268 0018 4FF4C062 		mov	r2, #1536
+ 269 001c 4261     		str	r2, [r0, #20]
+ 270 001e 0722     		movs	r2, #7
+ 271 0020 8261     		str	r2, [r0, #24]
+ 272 0022 C361     		str	r3, [r0, #28]
+ 273 0024 0384     		strh	r3, [r0, #32]	@ movhi
+ 274 0026 4384     		strh	r3, [r0, #34]	@ movhi
+ 275 0028 8384     		strh	r3, [r0, #36]	@ movhi
+ 276 002a 7047     		bx	lr
+ 278              		.section	.text.tli_layer_init,"ax",%progbits
+ 279              		.align	1
+ 280              		.global	tli_layer_init
+ 281              		.syntax unified
+ 282              		.thumb
+ 283              		.thumb_func
+ 284              		.fpu fpv4-sp-d16
+ 286              	tli_layer_init:
+ 287              		@ args = 0, pretend = 0, frame = 0
+ 288              		@ frame_needed = 0, uses_anonymous_args = 0
+ 289              		@ link register save eliminated.
+ 290 0000 10B4     		push	{r4}
+ 291 0002 D0F88830 		ldr	r3, [r0, #136]
+ 292 0006 03F0F023 		and	r3, r3, #-268374016
+ 293 000a C0F88830 		str	r3, [r0, #136]
+ 294 000e 4B88     		ldrh	r3, [r1, #2]
+ 295 0010 0A88     		ldrh	r2, [r1]
+ 296 0012 43EA0243 		orr	r3, r3, r2, lsl #16
+ 297 0016 C0F88830 		str	r3, [r0, #136]
+ 298 001a D0F88C30 		ldr	r3, [r0, #140]
+ 299 001e 03F0F023 		and	r3, r3, #-268374016
+ 300 0022 C0F88C30 		str	r3, [r0, #140]
+ 301 0026 CB88     		ldrh	r3, [r1, #6]
+ 302 0028 8A88     		ldrh	r2, [r1, #4]
+ARM GAS  /tmp/ccfNHpbC.s 			page 6
+
+
+ 303 002a 43EA0243 		orr	r3, r3, r2, lsl #16
+ 304 002e C0F88C30 		str	r3, [r0, #140]
+ 305 0032 D0F89430 		ldr	r3, [r0, #148]
+ 306 0036 23F00703 		bic	r3, r3, #7
+ 307 003a C0F89430 		str	r3, [r0, #148]
+ 308 003e 8B68     		ldr	r3, [r1, #8]
+ 309 0040 C0F89430 		str	r3, [r0, #148]
+ 310 0044 D0F89830 		ldr	r3, [r0, #152]
+ 311 0048 23F0FF03 		bic	r3, r3, #255
+ 312 004c C0F89830 		str	r3, [r0, #152]
+ 313 0050 0B7B     		ldrb	r3, [r1, #12]	@ zero_extendqisi2
+ 314 0052 C0F89830 		str	r3, [r0, #152]
+ 315 0056 D0F89C30 		ldr	r3, [r0, #156]
+ 316 005a 0022     		movs	r2, #0
+ 317 005c C0F89C20 		str	r2, [r0, #156]
+ 318 0060 0B7C     		ldrb	r3, [r1, #16]	@ zero_extendqisi2
+ 319 0062 CC7B     		ldrb	r4, [r1, #15]	@ zero_extendqisi2
+ 320 0064 43EA0423 		orr	r3, r3, r4, lsl #8
+ 321 0068 8C7B     		ldrb	r4, [r1, #14]	@ zero_extendqisi2
+ 322 006a 43EA0443 		orr	r3, r3, r4, lsl #16
+ 323 006e 4C7B     		ldrb	r4, [r1, #13]	@ zero_extendqisi2
+ 324 0070 43EA0463 		orr	r3, r3, r4, lsl #24
+ 325 0074 C0F89C30 		str	r3, [r0, #156]
+ 326 0078 D0F8A030 		ldr	r3, [r0, #160]
+ 327 007c 23F4E063 		bic	r3, r3, #1792
+ 328 0080 23F00703 		bic	r3, r3, #7
+ 329 0084 C0F8A030 		str	r3, [r0, #160]
+ 330 0088 8B69     		ldr	r3, [r1, #24]
+ 331 008a 4C69     		ldr	r4, [r1, #20]
+ 332 008c 2343     		orrs	r3, r3, r4
+ 333 008e C0F8A030 		str	r3, [r0, #160]
+ 334 0092 D0F8AC30 		ldr	r3, [r0, #172]
+ 335 0096 C0F8AC20 		str	r2, [r0, #172]
+ 336 009a CB69     		ldr	r3, [r1, #28]
+ 337 009c C0F8AC30 		str	r3, [r0, #172]
+ 338 00a0 D0F8B030 		ldr	r3, [r0, #176]
+ 339 00a4 03F0C023 		and	r3, r3, #-1073692672
+ 340 00a8 C0F8B030 		str	r3, [r0, #176]
+ 341 00ac 4B8C     		ldrh	r3, [r1, #34]
+ 342 00ae 0A8C     		ldrh	r2, [r1, #32]
+ 343 00b0 43EA0243 		orr	r3, r3, r2, lsl #16
+ 344 00b4 C0F8B030 		str	r3, [r0, #176]
+ 345 00b8 D0F8B430 		ldr	r3, [r0, #180]
+ 346 00bc 23F4FF63 		bic	r3, r3, #2040
+ 347 00c0 23F00703 		bic	r3, r3, #7
+ 348 00c4 C0F8B430 		str	r3, [r0, #180]
+ 349 00c8 8B8C     		ldrh	r3, [r1, #36]
+ 350 00ca C0F8B430 		str	r3, [r0, #180]
+ 351 00ce 5DF8044B 		ldr	r4, [sp], #4
+ 352 00d2 7047     		bx	lr
+ 354              		.section	.text.tli_layer_window_offset_modify,"ax",%progbits
+ 355              		.align	1
+ 356              		.global	tli_layer_window_offset_modify
+ 357              		.syntax unified
+ 358              		.thumb
+ 359              		.thumb_func
+ 360              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccfNHpbC.s 			page 7
+
+
+ 362              	tli_layer_window_offset_modify:
+ 363              		@ args = 0, pretend = 0, frame = 0
+ 364              		@ frame_needed = 0, uses_anonymous_args = 0
+ 365              		@ link register save eliminated.
+ 366 0000 30B4     		push	{r4, r5}
+ 367 0002 D0F88830 		ldr	r3, [r0, #136]
+ 368 0006 03F0F023 		and	r3, r3, #-268374016
+ 369 000a C0F88830 		str	r3, [r0, #136]
+ 370 000e D0F88C30 		ldr	r3, [r0, #140]
+ 371 0012 03F0F023 		and	r3, r3, #-268374016
+ 372 0016 C0F88C30 		str	r3, [r0, #140]
+ 373 001a 244C     		ldr	r4, .L37
+ 374 001c 2368     		ldr	r3, [r4]
+ 375 001e C3F30B43 		ubfx	r3, r3, #16, #12
+ 376 0022 1944     		add	r1, r1, r3
+ 377 0024 0131     		adds	r1, r1, #1
+ 378 0026 2368     		ldr	r3, [r4]
+ 379 0028 C3F30B03 		ubfx	r3, r3, #0, #12
+ 380 002c 1A44     		add	r2, r2, r3
+ 381 002e 0132     		adds	r2, r2, #1
+ 382 0030 D0F8B440 		ldr	r4, [r0, #180]
+ 383 0034 C4F30A04 		ubfx	r4, r4, #0, #11
+ 384 0038 D0F89430 		ldr	r3, [r0, #148]
+ 385 003c 03F00703 		and	r3, r3, #7
+ 386 0040 072B     		cmp	r3, #7
+ 387 0042 30D8     		bhi	.L35
+ 388 0044 DFE803F0 		tbb	[pc, r3]
+ 389              	.L31:
+ 390 0048 04       		.byte	(.L34-.L31)/2
+ 391 0049 18       		.byte	(.L33-.L31)/2
+ 392 004a 22       		.byte	(.L30-.L31)/2
+ 393 004b 22       		.byte	(.L30-.L31)/2
+ 394 004c 22       		.byte	(.L30-.L31)/2
+ 395 004d 29       		.byte	(.L32-.L31)/2
+ 396 004e 29       		.byte	(.L32-.L31)/2
+ 397 004f 22       		.byte	(.L30-.L31)/2
+ 398              		.p2align 1
+ 399              	.L34:
+ 400 0050 D0F8B030 		ldr	r3, [r0, #176]
+ 401 0054 C3F30D03 		ubfx	r3, r3, #0, #14
+ 402 0058 033B     		subs	r3, r3, #3
+ 403 005a 9B08     		lsrs	r3, r3, #2
+ 404              	.L29:
+ 405 005c 0B44     		add	r3, r3, r1
+ 406 005e 013B     		subs	r3, r3, #1
+ 407 0060 41EA0341 		orr	r1, r1, r3, lsl #16
+ 408 0064 C0F88810 		str	r1, [r0, #136]
+ 409 0068 1444     		add	r4, r4, r2
+ 410 006a 013C     		subs	r4, r4, #1
+ 411 006c 42EA0442 		orr	r2, r2, r4, lsl #16
+ 412 0070 C0F88C20 		str	r2, [r0, #140]
+ 413 0074 30BC     		pop	{r4, r5}
+ 414 0076 7047     		bx	lr
+ 415              	.L33:
+ 416 0078 D0F8B030 		ldr	r3, [r0, #176]
+ 417 007c C3F30D03 		ubfx	r3, r3, #0, #14
+ 418 0080 033B     		subs	r3, r3, #3
+ARM GAS  /tmp/ccfNHpbC.s 			page 8
+
+
+ 419 0082 0B4D     		ldr	r5, .L37+4
+ 420 0084 A5FB0353 		umull	r5, r3, r5, r3
+ 421 0088 5B08     		lsrs	r3, r3, #1
+ 422 008a E7E7     		b	.L29
+ 423              	.L30:
+ 424 008c D0F8B030 		ldr	r3, [r0, #176]
+ 425 0090 C3F30D03 		ubfx	r3, r3, #0, #14
+ 426 0094 033B     		subs	r3, r3, #3
+ 427 0096 5B08     		lsrs	r3, r3, #1
+ 428 0098 E0E7     		b	.L29
+ 429              	.L32:
+ 430 009a D0F8B030 		ldr	r3, [r0, #176]
+ 431 009e C3F30D03 		ubfx	r3, r3, #0, #14
+ 432 00a2 033B     		subs	r3, r3, #3
+ 433 00a4 DAE7     		b	.L29
+ 434              	.L35:
+ 435 00a6 0023     		movs	r3, #0
+ 436 00a8 D8E7     		b	.L29
+ 437              	.L38:
+ 438 00aa 00BF     		.align	2
+ 439              	.L37:
+ 440 00ac 0C680140 		.word	1073833996
+ 441 00b0 ABAAAAAA 		.word	-1431655765
+ 443              		.section	.text.tli_lut_struct_para_init,"ax",%progbits
+ 444              		.align	1
+ 445              		.global	tli_lut_struct_para_init
+ 446              		.syntax unified
+ 447              		.thumb
+ 448              		.thumb_func
+ 449              		.fpu fpv4-sp-d16
+ 451              	tli_lut_struct_para_init:
+ 452              		@ args = 0, pretend = 0, frame = 0
+ 453              		@ frame_needed = 0, uses_anonymous_args = 0
+ 454              		@ link register save eliminated.
+ 455 0000 0023     		movs	r3, #0
+ 456 0002 0360     		str	r3, [r0]
+ 457 0004 0371     		strb	r3, [r0, #4]
+ 458 0006 4371     		strb	r3, [r0, #5]
+ 459 0008 8371     		strb	r3, [r0, #6]
+ 460 000a 7047     		bx	lr
+ 462              		.section	.text.tli_lut_init,"ax",%progbits
+ 463              		.align	1
+ 464              		.global	tli_lut_init
+ 465              		.syntax unified
+ 466              		.thumb
+ 467              		.thumb_func
+ 468              		.fpu fpv4-sp-d16
+ 470              	tli_lut_init:
+ 471              		@ args = 0, pretend = 0, frame = 0
+ 472              		@ frame_needed = 0, uses_anonymous_args = 0
+ 473              		@ link register save eliminated.
+ 474 0000 10B4     		push	{r4}
+ 475 0002 D0F8C430 		ldr	r3, [r0, #196]
+ 476 0006 0023     		movs	r3, #0
+ 477 0008 C0F8C430 		str	r3, [r0, #196]
+ 478 000c 8B79     		ldrb	r3, [r1, #6]	@ zero_extendqisi2
+ 479 000e 4A79     		ldrb	r2, [r1, #5]	@ zero_extendqisi2
+ARM GAS  /tmp/ccfNHpbC.s 			page 9
+
+
+ 480 0010 43EA0223 		orr	r3, r3, r2, lsl #8
+ 481 0014 0C79     		ldrb	r4, [r1, #4]	@ zero_extendqisi2
+ 482 0016 0A68     		ldr	r2, [r1]
+ 483 0018 1206     		lsls	r2, r2, #24
+ 484 001a 42EA0442 		orr	r2, r2, r4, lsl #16
+ 485 001e 1343     		orrs	r3, r3, r2
+ 486 0020 C0F8C430 		str	r3, [r0, #196]
+ 487 0024 5DF8044B 		ldr	r4, [sp], #4
+ 488 0028 7047     		bx	lr
+ 490              		.section	.text.tli_color_key_init,"ax",%progbits
+ 491              		.align	1
+ 492              		.global	tli_color_key_init
+ 493              		.syntax unified
+ 494              		.thumb
+ 495              		.thumb_func
+ 496              		.fpu fpv4-sp-d16
+ 498              	tli_color_key_init:
+ 499              		@ args = 0, pretend = 0, frame = 0
+ 500              		@ frame_needed = 0, uses_anonymous_args = 0
+ 501              		@ link register save eliminated.
+ 502 0000 43EA0223 		orr	r3, r3, r2, lsl #8
+ 503 0004 43EA0143 		orr	r3, r3, r1, lsl #16
+ 504 0008 C0F89030 		str	r3, [r0, #144]
+ 505 000c 7047     		bx	lr
+ 507              		.section	.text.tli_layer_enable,"ax",%progbits
+ 508              		.align	1
+ 509              		.global	tli_layer_enable
+ 510              		.syntax unified
+ 511              		.thumb
+ 512              		.thumb_func
+ 513              		.fpu fpv4-sp-d16
+ 515              	tli_layer_enable:
+ 516              		@ args = 0, pretend = 0, frame = 0
+ 517              		@ frame_needed = 0, uses_anonymous_args = 0
+ 518              		@ link register save eliminated.
+ 519 0000 D0F88430 		ldr	r3, [r0, #132]
+ 520 0004 43F00103 		orr	r3, r3, #1
+ 521 0008 C0F88430 		str	r3, [r0, #132]
+ 522 000c 7047     		bx	lr
+ 524              		.section	.text.tli_layer_disable,"ax",%progbits
+ 525              		.align	1
+ 526              		.global	tli_layer_disable
+ 527              		.syntax unified
+ 528              		.thumb
+ 529              		.thumb_func
+ 530              		.fpu fpv4-sp-d16
+ 532              	tli_layer_disable:
+ 533              		@ args = 0, pretend = 0, frame = 0
+ 534              		@ frame_needed = 0, uses_anonymous_args = 0
+ 535              		@ link register save eliminated.
+ 536 0000 D0F88430 		ldr	r3, [r0, #132]
+ 537 0004 23F00103 		bic	r3, r3, #1
+ 538 0008 C0F88430 		str	r3, [r0, #132]
+ 539 000c 7047     		bx	lr
+ 541              		.section	.text.tli_color_key_enable,"ax",%progbits
+ 542              		.align	1
+ 543              		.global	tli_color_key_enable
+ARM GAS  /tmp/ccfNHpbC.s 			page 10
+
+
+ 544              		.syntax unified
+ 545              		.thumb
+ 546              		.thumb_func
+ 547              		.fpu fpv4-sp-d16
+ 549              	tli_color_key_enable:
+ 550              		@ args = 0, pretend = 0, frame = 0
+ 551              		@ frame_needed = 0, uses_anonymous_args = 0
+ 552              		@ link register save eliminated.
+ 553 0000 D0F88430 		ldr	r3, [r0, #132]
+ 554 0004 43F00203 		orr	r3, r3, #2
+ 555 0008 C0F88430 		str	r3, [r0, #132]
+ 556 000c 7047     		bx	lr
+ 558              		.section	.text.tli_color_key_disable,"ax",%progbits
+ 559              		.align	1
+ 560              		.global	tli_color_key_disable
+ 561              		.syntax unified
+ 562              		.thumb
+ 563              		.thumb_func
+ 564              		.fpu fpv4-sp-d16
+ 566              	tli_color_key_disable:
+ 567              		@ args = 0, pretend = 0, frame = 0
+ 568              		@ frame_needed = 0, uses_anonymous_args = 0
+ 569              		@ link register save eliminated.
+ 570 0000 D0F88430 		ldr	r3, [r0, #132]
+ 571 0004 23F00203 		bic	r3, r3, #2
+ 572 0008 C0F88430 		str	r3, [r0, #132]
+ 573 000c 7047     		bx	lr
+ 575              		.section	.text.tli_lut_enable,"ax",%progbits
+ 576              		.align	1
+ 577              		.global	tli_lut_enable
+ 578              		.syntax unified
+ 579              		.thumb
+ 580              		.thumb_func
+ 581              		.fpu fpv4-sp-d16
+ 583              	tli_lut_enable:
+ 584              		@ args = 0, pretend = 0, frame = 0
+ 585              		@ frame_needed = 0, uses_anonymous_args = 0
+ 586              		@ link register save eliminated.
+ 587 0000 D0F88430 		ldr	r3, [r0, #132]
+ 588 0004 43F01003 		orr	r3, r3, #16
+ 589 0008 C0F88430 		str	r3, [r0, #132]
+ 590 000c 7047     		bx	lr
+ 592              		.section	.text.tli_lut_disable,"ax",%progbits
+ 593              		.align	1
+ 594              		.global	tli_lut_disable
+ 595              		.syntax unified
+ 596              		.thumb
+ 597              		.thumb_func
+ 598              		.fpu fpv4-sp-d16
+ 600              	tli_lut_disable:
+ 601              		@ args = 0, pretend = 0, frame = 0
+ 602              		@ frame_needed = 0, uses_anonymous_args = 0
+ 603              		@ link register save eliminated.
+ 604 0000 D0F88430 		ldr	r3, [r0, #132]
+ 605 0004 23F01003 		bic	r3, r3, #16
+ 606 0008 C0F88430 		str	r3, [r0, #132]
+ 607 000c 7047     		bx	lr
+ARM GAS  /tmp/ccfNHpbC.s 			page 11
+
+
+ 609              		.section	.text.tli_line_mark_set,"ax",%progbits
+ 610              		.align	1
+ 611              		.global	tli_line_mark_set
+ 612              		.syntax unified
+ 613              		.thumb
+ 614              		.thumb_func
+ 615              		.fpu fpv4-sp-d16
+ 617              	tli_line_mark_set:
+ 618              		@ args = 0, pretend = 0, frame = 0
+ 619              		@ frame_needed = 0, uses_anonymous_args = 0
+ 620              		@ link register save eliminated.
+ 621 0000 044A     		ldr	r2, .L50
+ 622 0002 1368     		ldr	r3, [r2]
+ 623 0004 23F4FF63 		bic	r3, r3, #2040
+ 624 0008 23F00703 		bic	r3, r3, #7
+ 625 000c 1360     		str	r3, [r2]
+ 626 000e 1060     		str	r0, [r2]
+ 627 0010 7047     		bx	lr
+ 628              	.L51:
+ 629 0012 00BF     		.align	2
+ 630              	.L50:
+ 631 0014 40680140 		.word	1073834048
+ 633              		.section	.text.tli_current_pos_get,"ax",%progbits
+ 634              		.align	1
+ 635              		.global	tli_current_pos_get
+ 636              		.syntax unified
+ 637              		.thumb
+ 638              		.thumb_func
+ 639              		.fpu fpv4-sp-d16
+ 641              	tli_current_pos_get:
+ 642              		@ args = 0, pretend = 0, frame = 0
+ 643              		@ frame_needed = 0, uses_anonymous_args = 0
+ 644              		@ link register save eliminated.
+ 645 0000 014B     		ldr	r3, .L53
+ 646 0002 1868     		ldr	r0, [r3]
+ 647 0004 7047     		bx	lr
+ 648              	.L54:
+ 649 0006 00BF     		.align	2
+ 650              	.L53:
+ 651 0008 44680140 		.word	1073834052
+ 653              		.section	.text.tli_interrupt_enable,"ax",%progbits
+ 654              		.align	1
+ 655              		.global	tli_interrupt_enable
+ 656              		.syntax unified
+ 657              		.thumb
+ 658              		.thumb_func
+ 659              		.fpu fpv4-sp-d16
+ 661              	tli_interrupt_enable:
+ 662              		@ args = 0, pretend = 0, frame = 0
+ 663              		@ frame_needed = 0, uses_anonymous_args = 0
+ 664              		@ link register save eliminated.
+ 665 0000 024A     		ldr	r2, .L56
+ 666 0002 1368     		ldr	r3, [r2]
+ 667 0004 1843     		orrs	r0, r0, r3
+ 668 0006 1060     		str	r0, [r2]
+ 669 0008 7047     		bx	lr
+ 670              	.L57:
+ARM GAS  /tmp/ccfNHpbC.s 			page 12
+
+
+ 671 000a 00BF     		.align	2
+ 672              	.L56:
+ 673 000c 34680140 		.word	1073834036
+ 675              		.section	.text.tli_interrupt_disable,"ax",%progbits
+ 676              		.align	1
+ 677              		.global	tli_interrupt_disable
+ 678              		.syntax unified
+ 679              		.thumb
+ 680              		.thumb_func
+ 681              		.fpu fpv4-sp-d16
+ 683              	tli_interrupt_disable:
+ 684              		@ args = 0, pretend = 0, frame = 0
+ 685              		@ frame_needed = 0, uses_anonymous_args = 0
+ 686              		@ link register save eliminated.
+ 687 0000 024A     		ldr	r2, .L59
+ 688 0002 1368     		ldr	r3, [r2]
+ 689 0004 23EA0000 		bic	r0, r3, r0
+ 690 0008 1060     		str	r0, [r2]
+ 691 000a 7047     		bx	lr
+ 692              	.L60:
+ 693              		.align	2
+ 694              	.L59:
+ 695 000c 34680140 		.word	1073834036
+ 697              		.section	.text.tli_interrupt_flag_get,"ax",%progbits
+ 698              		.align	1
+ 699              		.global	tli_interrupt_flag_get
+ 700              		.syntax unified
+ 701              		.thumb
+ 702              		.thumb_func
+ 703              		.fpu fpv4-sp-d16
+ 705              	tli_interrupt_flag_get:
+ 706              		@ args = 0, pretend = 0, frame = 0
+ 707              		@ frame_needed = 0, uses_anonymous_args = 0
+ 708              		@ link register save eliminated.
+ 709 0000 064B     		ldr	r3, .L65
+ 710 0002 1B68     		ldr	r3, [r3]
+ 711 0004 0342     		tst	r3, r0
+ 712 0006 05D0     		beq	.L63
+ 713 0008 054B     		ldr	r3, .L65+4
+ 714 000a 1B68     		ldr	r3, [r3]
+ 715 000c 1842     		tst	r0, r3
+ 716 000e 03D1     		bne	.L64
+ 717 0010 0020     		movs	r0, #0
+ 718 0012 7047     		bx	lr
+ 719              	.L63:
+ 720 0014 0020     		movs	r0, #0
+ 721 0016 7047     		bx	lr
+ 722              	.L64:
+ 723 0018 0120     		movs	r0, #1
+ 724 001a 7047     		bx	lr
+ 725              	.L66:
+ 726              		.align	2
+ 727              	.L65:
+ 728 001c 38680140 		.word	1073834040
+ 729 0020 34680140 		.word	1073834036
+ 731              		.section	.text.tli_interrupt_flag_clear,"ax",%progbits
+ 732              		.align	1
+ARM GAS  /tmp/ccfNHpbC.s 			page 13
+
+
+ 733              		.global	tli_interrupt_flag_clear
+ 734              		.syntax unified
+ 735              		.thumb
+ 736              		.thumb_func
+ 737              		.fpu fpv4-sp-d16
+ 739              	tli_interrupt_flag_clear:
+ 740              		@ args = 0, pretend = 0, frame = 0
+ 741              		@ frame_needed = 0, uses_anonymous_args = 0
+ 742              		@ link register save eliminated.
+ 743 0000 024A     		ldr	r2, .L68
+ 744 0002 1368     		ldr	r3, [r2]
+ 745 0004 1843     		orrs	r0, r0, r3
+ 746 0006 1060     		str	r0, [r2]
+ 747 0008 7047     		bx	lr
+ 748              	.L69:
+ 749 000a 00BF     		.align	2
+ 750              	.L68:
+ 751 000c 3C680140 		.word	1073834044
+ 753              		.section	.text.tli_flag_get,"ax",%progbits
+ 754              		.align	1
+ 755              		.global	tli_flag_get
+ 756              		.syntax unified
+ 757              		.thumb
+ 758              		.thumb_func
+ 759              		.fpu fpv4-sp-d16
+ 761              	tli_flag_get:
+ 762              		@ args = 0, pretend = 0, frame = 0
+ 763              		@ frame_needed = 0, uses_anonymous_args = 0
+ 764              		@ link register save eliminated.
+ 765 0000 0028     		cmp	r0, #0
+ 766 0002 05DB     		blt	.L75
+ 767 0004 054B     		ldr	r3, .L76
+ 768 0006 1B68     		ldr	r3, [r3]
+ 769              	.L72:
+ 770 0008 0342     		tst	r3, r0
+ 771 000a 04D0     		beq	.L74
+ 772 000c 0120     		movs	r0, #1
+ 773 000e 7047     		bx	lr
+ 774              	.L75:
+ 775 0010 034B     		ldr	r3, .L76+4
+ 776 0012 1B68     		ldr	r3, [r3]
+ 777 0014 F8E7     		b	.L72
+ 778              	.L74:
+ 779 0016 0020     		movs	r0, #0
+ 780 0018 7047     		bx	lr
+ 781              	.L77:
+ 782 001a 00BF     		.align	2
+ 783              	.L76:
+ 784 001c 48680140 		.word	1073834056
+ 785 0020 38680140 		.word	1073834040
+ 787              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccfNHpbC.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_tli.c
+     /tmp/ccfNHpbC.s:16     .text.tli_deinit:0000000000000000 $t
+     /tmp/ccfNHpbC.s:24     .text.tli_deinit:0000000000000000 tli_deinit
+     /tmp/ccfNHpbC.s:35     .text.tli_struct_para_init:0000000000000000 $t
+     /tmp/ccfNHpbC.s:42     .text.tli_struct_para_init:0000000000000000 tli_struct_para_init
+     /tmp/ccfNHpbC.s:65     .text.tli_init:0000000000000000 $t
+     /tmp/ccfNHpbC.s:72     .text.tli_init:0000000000000000 tli_init
+     /tmp/ccfNHpbC.s:138    .text.tli_init:0000000000000090 $d
+     /tmp/ccfNHpbC.s:142    .text.tli_dither_config:0000000000000000 $t
+     /tmp/ccfNHpbC.s:149    .text.tli_dither_config:0000000000000000 tli_dither_config
+     /tmp/ccfNHpbC.s:169    .text.tli_dither_config:000000000000001c $d
+     /tmp/ccfNHpbC.s:172    .text.tli_enable:0000000000000000 $t
+     /tmp/ccfNHpbC.s:179    .text.tli_enable:0000000000000000 tli_enable
+     /tmp/ccfNHpbC.s:191    .text.tli_enable:000000000000000c $d
+     /tmp/ccfNHpbC.s:194    .text.tli_disable:0000000000000000 $t
+     /tmp/ccfNHpbC.s:201    .text.tli_disable:0000000000000000 tli_disable
+     /tmp/ccfNHpbC.s:213    .text.tli_disable:000000000000000c $d
+     /tmp/ccfNHpbC.s:216    .text.tli_reload_config:0000000000000000 $t
+     /tmp/ccfNHpbC.s:223    .text.tli_reload_config:0000000000000000 tli_reload_config
+     /tmp/ccfNHpbC.s:242    .text.tli_reload_config:000000000000001c $d
+     /tmp/ccfNHpbC.s:245    .text.tli_layer_struct_para_init:0000000000000000 $t
+     /tmp/ccfNHpbC.s:252    .text.tli_layer_struct_para_init:0000000000000000 tli_layer_struct_para_init
+     /tmp/ccfNHpbC.s:279    .text.tli_layer_init:0000000000000000 $t
+     /tmp/ccfNHpbC.s:286    .text.tli_layer_init:0000000000000000 tli_layer_init
+     /tmp/ccfNHpbC.s:355    .text.tli_layer_window_offset_modify:0000000000000000 $t
+     /tmp/ccfNHpbC.s:362    .text.tli_layer_window_offset_modify:0000000000000000 tli_layer_window_offset_modify
+     /tmp/ccfNHpbC.s:390    .text.tli_layer_window_offset_modify:0000000000000048 $d
+     /tmp/ccfNHpbC.s:398    .text.tli_layer_window_offset_modify:0000000000000050 $t
+     /tmp/ccfNHpbC.s:440    .text.tli_layer_window_offset_modify:00000000000000ac $d
+     /tmp/ccfNHpbC.s:444    .text.tli_lut_struct_para_init:0000000000000000 $t
+     /tmp/ccfNHpbC.s:451    .text.tli_lut_struct_para_init:0000000000000000 tli_lut_struct_para_init
+     /tmp/ccfNHpbC.s:463    .text.tli_lut_init:0000000000000000 $t
+     /tmp/ccfNHpbC.s:470    .text.tli_lut_init:0000000000000000 tli_lut_init
+     /tmp/ccfNHpbC.s:491    .text.tli_color_key_init:0000000000000000 $t
+     /tmp/ccfNHpbC.s:498    .text.tli_color_key_init:0000000000000000 tli_color_key_init
+     /tmp/ccfNHpbC.s:508    .text.tli_layer_enable:0000000000000000 $t
+     /tmp/ccfNHpbC.s:515    .text.tli_layer_enable:0000000000000000 tli_layer_enable
+     /tmp/ccfNHpbC.s:525    .text.tli_layer_disable:0000000000000000 $t
+     /tmp/ccfNHpbC.s:532    .text.tli_layer_disable:0000000000000000 tli_layer_disable
+     /tmp/ccfNHpbC.s:542    .text.tli_color_key_enable:0000000000000000 $t
+     /tmp/ccfNHpbC.s:549    .text.tli_color_key_enable:0000000000000000 tli_color_key_enable
+     /tmp/ccfNHpbC.s:559    .text.tli_color_key_disable:0000000000000000 $t
+     /tmp/ccfNHpbC.s:566    .text.tli_color_key_disable:0000000000000000 tli_color_key_disable
+     /tmp/ccfNHpbC.s:576    .text.tli_lut_enable:0000000000000000 $t
+     /tmp/ccfNHpbC.s:583    .text.tli_lut_enable:0000000000000000 tli_lut_enable
+     /tmp/ccfNHpbC.s:593    .text.tli_lut_disable:0000000000000000 $t
+     /tmp/ccfNHpbC.s:600    .text.tli_lut_disable:0000000000000000 tli_lut_disable
+     /tmp/ccfNHpbC.s:610    .text.tli_line_mark_set:0000000000000000 $t
+     /tmp/ccfNHpbC.s:617    .text.tli_line_mark_set:0000000000000000 tli_line_mark_set
+     /tmp/ccfNHpbC.s:631    .text.tli_line_mark_set:0000000000000014 $d
+     /tmp/ccfNHpbC.s:634    .text.tli_current_pos_get:0000000000000000 $t
+     /tmp/ccfNHpbC.s:641    .text.tli_current_pos_get:0000000000000000 tli_current_pos_get
+     /tmp/ccfNHpbC.s:651    .text.tli_current_pos_get:0000000000000008 $d
+     /tmp/ccfNHpbC.s:654    .text.tli_interrupt_enable:0000000000000000 $t
+     /tmp/ccfNHpbC.s:661    .text.tli_interrupt_enable:0000000000000000 tli_interrupt_enable
+     /tmp/ccfNHpbC.s:673    .text.tli_interrupt_enable:000000000000000c $d
+ARM GAS  /tmp/ccfNHpbC.s 			page 15
+
+
+     /tmp/ccfNHpbC.s:676    .text.tli_interrupt_disable:0000000000000000 $t
+     /tmp/ccfNHpbC.s:683    .text.tli_interrupt_disable:0000000000000000 tli_interrupt_disable
+     /tmp/ccfNHpbC.s:695    .text.tli_interrupt_disable:000000000000000c $d
+     /tmp/ccfNHpbC.s:698    .text.tli_interrupt_flag_get:0000000000000000 $t
+     /tmp/ccfNHpbC.s:705    .text.tli_interrupt_flag_get:0000000000000000 tli_interrupt_flag_get
+     /tmp/ccfNHpbC.s:728    .text.tli_interrupt_flag_get:000000000000001c $d
+     /tmp/ccfNHpbC.s:732    .text.tli_interrupt_flag_clear:0000000000000000 $t
+     /tmp/ccfNHpbC.s:739    .text.tli_interrupt_flag_clear:0000000000000000 tli_interrupt_flag_clear
+     /tmp/ccfNHpbC.s:751    .text.tli_interrupt_flag_clear:000000000000000c $d
+     /tmp/ccfNHpbC.s:754    .text.tli_flag_get:0000000000000000 $t
+     /tmp/ccfNHpbC.s:761    .text.tli_flag_get:0000000000000000 tli_flag_get
+     /tmp/ccfNHpbC.s:784    .text.tli_flag_get:000000000000001c $d
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable

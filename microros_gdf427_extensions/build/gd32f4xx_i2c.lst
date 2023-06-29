@@ -1,0 +1,967 @@
+ARM GAS  /tmp/ccYz4Wc4.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_i2c.c"
+  14              		.text
+  15              		.section	.text.i2c_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	i2c_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	i2c_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 134B     		ldr	r3, .L7
+  29 0004 9842     		cmp	r0, r3
+  30 0006 11D0     		beq	.L2
+  31 0008 03F58063 		add	r3, r3, #1024
+  32 000c 9842     		cmp	r0, r3
+  33 000e 16D0     		beq	.L3
+  34 0010 A3F50063 		sub	r3, r3, #2048
+  35 0014 9842     		cmp	r0, r3
+  36 0016 00D0     		beq	.L6
+  37              	.L1:
+  38 0018 08BD     		pop	{r3, pc}
+  39              	.L6:
+  40 001a 40F61500 		movw	r0, #2069
+  41 001e FFF7FEFF 		bl	rcu_periph_reset_enable
+  42 0022 40F61500 		movw	r0, #2069
+  43 0026 FFF7FEFF 		bl	rcu_periph_reset_disable
+  44 002a F5E7     		b	.L1
+  45              	.L2:
+  46 002c 40F61600 		movw	r0, #2070
+  47 0030 FFF7FEFF 		bl	rcu_periph_reset_enable
+  48 0034 40F61600 		movw	r0, #2070
+  49 0038 FFF7FEFF 		bl	rcu_periph_reset_disable
+  50 003c ECE7     		b	.L1
+  51              	.L3:
+  52 003e 40F61700 		movw	r0, #2071
+  53 0042 FFF7FEFF 		bl	rcu_periph_reset_enable
+  54 0046 40F61700 		movw	r0, #2071
+  55 004a FFF7FEFF 		bl	rcu_periph_reset_disable
+  56 004e E3E7     		b	.L1
+  57              	.L8:
+  58              		.align	2
+ARM GAS  /tmp/ccYz4Wc4.s 			page 2
+
+
+  59              	.L7:
+  60 0050 00580040 		.word	1073764352
+  62              		.section	.text.i2c_clock_config,"ax",%progbits
+  63              		.align	1
+  64              		.global	i2c_clock_config
+  65              		.syntax unified
+  66              		.thumb
+  67              		.thumb_func
+  68              		.fpu fpv4-sp-d16
+  70              	i2c_clock_config:
+  71              		@ args = 0, pretend = 0, frame = 0
+  72              		@ frame_needed = 0, uses_anonymous_args = 0
+  73 0000 70B5     		push	{r4, r5, r6, lr}
+  74 0002 0546     		mov	r5, r0
+  75 0004 0C46     		mov	r4, r1
+  76 0006 1646     		mov	r6, r2
+  77 0008 0220     		movs	r0, #2
+  78 000a FFF7FEFF 		bl	rcu_clock_freq_get
+  79 000e 294B     		ldr	r3, .L22
+  80 0010 A3FB0023 		umull	r2, r3, r3, r0
+  81 0014 9B0C     		lsrs	r3, r3, #18
+  82 0016 284A     		ldr	r2, .L22+4
+  83 0018 9042     		cmp	r0, r2
+  84 001a 19D8     		bhi	.L19
+  85 001c 1946     		mov	r1, r3
+  86              	.L10:
+  87 001e 6A68     		ldr	r2, [r5, #4]
+  88 0020 22F03F02 		bic	r2, r2, #63
+  89 0024 0A43     		orrs	r2, r2, r1
+  90 0026 6A60     		str	r2, [r5, #4]
+  91 0028 244A     		ldr	r2, .L22+8
+  92 002a 9442     		cmp	r4, r2
+  93 002c 14D8     		bhi	.L11
+  94 002e 0133     		adds	r3, r3, #1
+  95 0030 312B     		cmp	r3, #49
+  96 0032 0FD9     		bls	.L12
+  97 0034 3223     		movs	r3, #50
+  98 0036 2B62     		str	r3, [r5, #32]
+  99              	.L13:
+ 100 0038 6400     		lsls	r4, r4, #1
+ 101 003a B0FBF4F0 		udiv	r0, r0, r4
+ 102 003e 0328     		cmp	r0, #3
+ 103 0040 00D8     		bhi	.L14
+ 104 0042 0420     		movs	r0, #4
+ 105              	.L14:
+ 106 0044 EC69     		ldr	r4, [r5, #28]
+ 107 0046 C0F30B00 		ubfx	r0, r0, #0, #12
+ 108 004a 2043     		orrs	r0, r0, r4
+ 109 004c E861     		str	r0, [r5, #28]
+ 110              	.L9:
+ 111 004e 70BD     		pop	{r4, r5, r6, pc}
+ 112              	.L19:
+ 113 0050 3221     		movs	r1, #50
+ 114 0052 E4E7     		b	.L10
+ 115              	.L12:
+ 116 0054 2B62     		str	r3, [r5, #32]
+ 117 0056 EFE7     		b	.L13
+ARM GAS  /tmp/ccYz4Wc4.s 			page 3
+
+
+ 118              	.L11:
+ 119 0058 194B     		ldr	r3, .L22+12
+ 120 005a 9C42     		cmp	r4, r3
+ 121 005c F7D8     		bhi	.L9
+ 122 005e 4FF49673 		mov	r3, #300
+ 123 0062 03FB01F3 		mul	r3, r3, r1
+ 124 0066 174A     		ldr	r2, .L22+16
+ 125 0068 A2FB0323 		umull	r2, r3, r2, r3
+ 126 006c 9B09     		lsrs	r3, r3, #6
+ 127 006e 0133     		adds	r3, r3, #1
+ 128 0070 2B62     		str	r3, [r5, #32]
+ 129 0072 A6B9     		cbnz	r6, .L16
+ 130 0074 04EB4404 		add	r4, r4, r4, lsl #1
+ 131 0078 B0FBF4F0 		udiv	r0, r0, r4
+ 132 007c EB69     		ldr	r3, [r5, #28]
+ 133 007e 23F48043 		bic	r3, r3, #16384
+ 134 0082 EB61     		str	r3, [r5, #28]
+ 135              	.L17:
+ 136 0084 C0F30B03 		ubfx	r3, r0, #0, #12
+ 137 0088 0BB9     		cbnz	r3, .L18
+ 138 008a 40F00100 		orr	r0, r0, #1
+ 139              	.L18:
+ 140 008e EB69     		ldr	r3, [r5, #28]
+ 141 0090 43F40043 		orr	r3, r3, #32768
+ 142 0094 EB61     		str	r3, [r5, #28]
+ 143 0096 EC69     		ldr	r4, [r5, #28]
+ 144 0098 2043     		orrs	r0, r0, r4
+ 145 009a E861     		str	r0, [r5, #28]
+ 146 009c D7E7     		b	.L9
+ 147              	.L16:
+ 148 009e 04EB8404 		add	r4, r4, r4, lsl #2
+ 149 00a2 04EB8404 		add	r4, r4, r4, lsl #2
+ 150 00a6 B0FBF4F0 		udiv	r0, r0, r4
+ 151 00aa EB69     		ldr	r3, [r5, #28]
+ 152 00ac 43F48043 		orr	r3, r3, #16384
+ 153 00b0 EB61     		str	r3, [r5, #28]
+ 154 00b2 E7E7     		b	.L17
+ 155              	.L23:
+ 156              		.align	2
+ 157              	.L22:
+ 158 00b4 83DE1B43 		.word	1125899907
+ 159 00b8 7FF0FA02 		.word	49999999
+ 160 00bc A0860100 		.word	100000
+ 161 00c0 801A0600 		.word	400000
+ 162 00c4 D34D6210 		.word	274877907
+ 164              		.section	.text.i2c_mode_addr_config,"ax",%progbits
+ 165              		.align	1
+ 166              		.global	i2c_mode_addr_config
+ 167              		.syntax unified
+ 168              		.thumb
+ 169              		.thumb_func
+ 170              		.fpu fpv4-sp-d16
+ 172              	i2c_mode_addr_config:
+ 173              		@ args = 0, pretend = 0, frame = 0
+ 174              		@ frame_needed = 0, uses_anonymous_args = 0
+ 175              		@ link register save eliminated.
+ 176 0000 10B4     		push	{r4}
+ARM GAS  /tmp/ccYz4Wc4.s 			page 4
+
+
+ 177 0002 0468     		ldr	r4, [r0]
+ 178 0004 24F00204 		bic	r4, r4, #2
+ 179 0008 2143     		orrs	r1, r1, r4
+ 180 000a 0160     		str	r1, [r0]
+ 181 000c C3F30903 		ubfx	r3, r3, #0, #10
+ 182 0010 1343     		orrs	r3, r3, r2
+ 183 0012 8360     		str	r3, [r0, #8]
+ 184 0014 5DF8044B 		ldr	r4, [sp], #4
+ 185 0018 7047     		bx	lr
+ 187              		.section	.text.i2c_smbus_type_config,"ax",%progbits
+ 188              		.align	1
+ 189              		.global	i2c_smbus_type_config
+ 190              		.syntax unified
+ 191              		.thumb
+ 192              		.thumb_func
+ 193              		.fpu fpv4-sp-d16
+ 195              	i2c_smbus_type_config:
+ 196              		@ args = 0, pretend = 0, frame = 0
+ 197              		@ frame_needed = 0, uses_anonymous_args = 0
+ 198              		@ link register save eliminated.
+ 199 0000 0829     		cmp	r1, #8
+ 200 0002 04D0     		beq	.L29
+ 201 0004 0368     		ldr	r3, [r0]
+ 202 0006 23F00803 		bic	r3, r3, #8
+ 203 000a 0360     		str	r3, [r0]
+ 204 000c 7047     		bx	lr
+ 205              	.L29:
+ 206 000e 0368     		ldr	r3, [r0]
+ 207 0010 43F00803 		orr	r3, r3, #8
+ 208 0014 0360     		str	r3, [r0]
+ 209 0016 7047     		bx	lr
+ 211              		.section	.text.i2c_ack_config,"ax",%progbits
+ 212              		.align	1
+ 213              		.global	i2c_ack_config
+ 214              		.syntax unified
+ 215              		.thumb
+ 216              		.thumb_func
+ 217              		.fpu fpv4-sp-d16
+ 219              	i2c_ack_config:
+ 220              		@ args = 0, pretend = 0, frame = 0
+ 221              		@ frame_needed = 0, uses_anonymous_args = 0
+ 222              		@ link register save eliminated.
+ 223 0000 0129     		cmp	r1, #1
+ 224 0002 04D0     		beq	.L33
+ 225 0004 0368     		ldr	r3, [r0]
+ 226 0006 23F48063 		bic	r3, r3, #1024
+ 227 000a 0360     		str	r3, [r0]
+ 228 000c 7047     		bx	lr
+ 229              	.L33:
+ 230 000e 0368     		ldr	r3, [r0]
+ 231 0010 43F48063 		orr	r3, r3, #1024
+ 232 0014 0360     		str	r3, [r0]
+ 233 0016 7047     		bx	lr
+ 235              		.section	.text.i2c_ackpos_config,"ax",%progbits
+ 236              		.align	1
+ 237              		.global	i2c_ackpos_config
+ 238              		.syntax unified
+ARM GAS  /tmp/ccYz4Wc4.s 			page 5
+
+
+ 239              		.thumb
+ 240              		.thumb_func
+ 241              		.fpu fpv4-sp-d16
+ 243              	i2c_ackpos_config:
+ 244              		@ args = 0, pretend = 0, frame = 0
+ 245              		@ frame_needed = 0, uses_anonymous_args = 0
+ 246              		@ link register save eliminated.
+ 247 0000 21B9     		cbnz	r1, .L35
+ 248 0002 0368     		ldr	r3, [r0]
+ 249 0004 43F40063 		orr	r3, r3, #2048
+ 250 0008 0360     		str	r3, [r0]
+ 251 000a 7047     		bx	lr
+ 252              	.L35:
+ 253 000c 0368     		ldr	r3, [r0]
+ 254 000e 23F40063 		bic	r3, r3, #2048
+ 255 0012 0360     		str	r3, [r0]
+ 256 0014 7047     		bx	lr
+ 258              		.section	.text.i2c_master_addressing,"ax",%progbits
+ 259              		.align	1
+ 260              		.global	i2c_master_addressing
+ 261              		.syntax unified
+ 262              		.thumb
+ 263              		.thumb_func
+ 264              		.fpu fpv4-sp-d16
+ 266              	i2c_master_addressing:
+ 267              		@ args = 0, pretend = 0, frame = 0
+ 268              		@ frame_needed = 0, uses_anonymous_args = 0
+ 269              		@ link register save eliminated.
+ 270 0000 12F1020F 		cmn	r2, #2
+ 271 0004 03D0     		beq	.L40
+ 272 0006 41F00101 		orr	r1, r1, #1
+ 273              	.L39:
+ 274 000a 0161     		str	r1, [r0, #16]
+ 275 000c 7047     		bx	lr
+ 276              	.L40:
+ 277 000e 21F00101 		bic	r1, r1, #1
+ 278 0012 FAE7     		b	.L39
+ 280              		.section	.text.i2c_dualaddr_enable,"ax",%progbits
+ 281              		.align	1
+ 282              		.global	i2c_dualaddr_enable
+ 283              		.syntax unified
+ 284              		.thumb
+ 285              		.thumb_func
+ 286              		.fpu fpv4-sp-d16
+ 288              	i2c_dualaddr_enable:
+ 289              		@ args = 0, pretend = 0, frame = 0
+ 290              		@ frame_needed = 0, uses_anonymous_args = 0
+ 291              		@ link register save eliminated.
+ 292 0000 01F0FE01 		and	r1, r1, #254
+ 293 0004 41F00101 		orr	r1, r1, #1
+ 294 0008 C160     		str	r1, [r0, #12]
+ 295 000a 7047     		bx	lr
+ 297              		.section	.text.i2c_dualaddr_disable,"ax",%progbits
+ 298              		.align	1
+ 299              		.global	i2c_dualaddr_disable
+ 300              		.syntax unified
+ 301              		.thumb
+ARM GAS  /tmp/ccYz4Wc4.s 			page 6
+
+
+ 302              		.thumb_func
+ 303              		.fpu fpv4-sp-d16
+ 305              	i2c_dualaddr_disable:
+ 306              		@ args = 0, pretend = 0, frame = 0
+ 307              		@ frame_needed = 0, uses_anonymous_args = 0
+ 308              		@ link register save eliminated.
+ 309 0000 C368     		ldr	r3, [r0, #12]
+ 310 0002 23F00103 		bic	r3, r3, #1
+ 311 0006 C360     		str	r3, [r0, #12]
+ 312 0008 7047     		bx	lr
+ 314              		.section	.text.i2c_enable,"ax",%progbits
+ 315              		.align	1
+ 316              		.global	i2c_enable
+ 317              		.syntax unified
+ 318              		.thumb
+ 319              		.thumb_func
+ 320              		.fpu fpv4-sp-d16
+ 322              	i2c_enable:
+ 323              		@ args = 0, pretend = 0, frame = 0
+ 324              		@ frame_needed = 0, uses_anonymous_args = 0
+ 325              		@ link register save eliminated.
+ 326 0000 0368     		ldr	r3, [r0]
+ 327 0002 43F00103 		orr	r3, r3, #1
+ 328 0006 0360     		str	r3, [r0]
+ 329 0008 7047     		bx	lr
+ 331              		.section	.text.i2c_disable,"ax",%progbits
+ 332              		.align	1
+ 333              		.global	i2c_disable
+ 334              		.syntax unified
+ 335              		.thumb
+ 336              		.thumb_func
+ 337              		.fpu fpv4-sp-d16
+ 339              	i2c_disable:
+ 340              		@ args = 0, pretend = 0, frame = 0
+ 341              		@ frame_needed = 0, uses_anonymous_args = 0
+ 342              		@ link register save eliminated.
+ 343 0000 0368     		ldr	r3, [r0]
+ 344 0002 23F00103 		bic	r3, r3, #1
+ 345 0006 0360     		str	r3, [r0]
+ 346 0008 7047     		bx	lr
+ 348              		.section	.text.i2c_start_on_bus,"ax",%progbits
+ 349              		.align	1
+ 350              		.global	i2c_start_on_bus
+ 351              		.syntax unified
+ 352              		.thumb
+ 353              		.thumb_func
+ 354              		.fpu fpv4-sp-d16
+ 356              	i2c_start_on_bus:
+ 357              		@ args = 0, pretend = 0, frame = 0
+ 358              		@ frame_needed = 0, uses_anonymous_args = 0
+ 359              		@ link register save eliminated.
+ 360 0000 0368     		ldr	r3, [r0]
+ 361 0002 43F48073 		orr	r3, r3, #256
+ 362 0006 0360     		str	r3, [r0]
+ 363 0008 7047     		bx	lr
+ 365              		.section	.text.i2c_stop_on_bus,"ax",%progbits
+ 366              		.align	1
+ARM GAS  /tmp/ccYz4Wc4.s 			page 7
+
+
+ 367              		.global	i2c_stop_on_bus
+ 368              		.syntax unified
+ 369              		.thumb
+ 370              		.thumb_func
+ 371              		.fpu fpv4-sp-d16
+ 373              	i2c_stop_on_bus:
+ 374              		@ args = 0, pretend = 0, frame = 0
+ 375              		@ frame_needed = 0, uses_anonymous_args = 0
+ 376              		@ link register save eliminated.
+ 377 0000 0368     		ldr	r3, [r0]
+ 378 0002 43F40073 		orr	r3, r3, #512
+ 379 0006 0360     		str	r3, [r0]
+ 380 0008 7047     		bx	lr
+ 382              		.section	.text.i2c_data_transmit,"ax",%progbits
+ 383              		.align	1
+ 384              		.global	i2c_data_transmit
+ 385              		.syntax unified
+ 386              		.thumb
+ 387              		.thumb_func
+ 388              		.fpu fpv4-sp-d16
+ 390              	i2c_data_transmit:
+ 391              		@ args = 0, pretend = 0, frame = 0
+ 392              		@ frame_needed = 0, uses_anonymous_args = 0
+ 393              		@ link register save eliminated.
+ 394 0000 0161     		str	r1, [r0, #16]
+ 395 0002 7047     		bx	lr
+ 397              		.section	.text.i2c_data_receive,"ax",%progbits
+ 398              		.align	1
+ 399              		.global	i2c_data_receive
+ 400              		.syntax unified
+ 401              		.thumb
+ 402              		.thumb_func
+ 403              		.fpu fpv4-sp-d16
+ 405              	i2c_data_receive:
+ 406              		@ args = 0, pretend = 0, frame = 0
+ 407              		@ frame_needed = 0, uses_anonymous_args = 0
+ 408              		@ link register save eliminated.
+ 409 0000 0069     		ldr	r0, [r0, #16]
+ 410 0002 C0B2     		uxtb	r0, r0
+ 411 0004 7047     		bx	lr
+ 413              		.section	.text.i2c_dma_enable,"ax",%progbits
+ 414              		.align	1
+ 415              		.global	i2c_dma_enable
+ 416              		.syntax unified
+ 417              		.thumb
+ 418              		.thumb_func
+ 419              		.fpu fpv4-sp-d16
+ 421              	i2c_dma_enable:
+ 422              		@ args = 0, pretend = 0, frame = 0
+ 423              		@ frame_needed = 0, uses_anonymous_args = 0
+ 424              		@ link register save eliminated.
+ 425 0000 4368     		ldr	r3, [r0, #4]
+ 426 0002 23F40063 		bic	r3, r3, #2048
+ 427 0006 1943     		orrs	r1, r1, r3
+ 428 0008 4160     		str	r1, [r0, #4]
+ 429 000a 7047     		bx	lr
+ 431              		.section	.text.i2c_dma_last_transfer_config,"ax",%progbits
+ARM GAS  /tmp/ccYz4Wc4.s 			page 8
+
+
+ 432              		.align	1
+ 433              		.global	i2c_dma_last_transfer_config
+ 434              		.syntax unified
+ 435              		.thumb
+ 436              		.thumb_func
+ 437              		.fpu fpv4-sp-d16
+ 439              	i2c_dma_last_transfer_config:
+ 440              		@ args = 0, pretend = 0, frame = 0
+ 441              		@ frame_needed = 0, uses_anonymous_args = 0
+ 442              		@ link register save eliminated.
+ 443 0000 4368     		ldr	r3, [r0, #4]
+ 444 0002 23F48053 		bic	r3, r3, #4096
+ 445 0006 1943     		orrs	r1, r1, r3
+ 446 0008 4160     		str	r1, [r0, #4]
+ 447 000a 7047     		bx	lr
+ 449              		.section	.text.i2c_stretch_scl_low_config,"ax",%progbits
+ 450              		.align	1
+ 451              		.global	i2c_stretch_scl_low_config
+ 452              		.syntax unified
+ 453              		.thumb
+ 454              		.thumb_func
+ 455              		.fpu fpv4-sp-d16
+ 457              	i2c_stretch_scl_low_config:
+ 458              		@ args = 0, pretend = 0, frame = 0
+ 459              		@ frame_needed = 0, uses_anonymous_args = 0
+ 460              		@ link register save eliminated.
+ 461 0000 0368     		ldr	r3, [r0]
+ 462 0002 23F08003 		bic	r3, r3, #128
+ 463 0006 1943     		orrs	r1, r1, r3
+ 464 0008 0160     		str	r1, [r0]
+ 465 000a 7047     		bx	lr
+ 467              		.section	.text.i2c_slave_response_to_gcall_config,"ax",%progbits
+ 468              		.align	1
+ 469              		.global	i2c_slave_response_to_gcall_config
+ 470              		.syntax unified
+ 471              		.thumb
+ 472              		.thumb_func
+ 473              		.fpu fpv4-sp-d16
+ 475              	i2c_slave_response_to_gcall_config:
+ 476              		@ args = 0, pretend = 0, frame = 0
+ 477              		@ frame_needed = 0, uses_anonymous_args = 0
+ 478              		@ link register save eliminated.
+ 479 0000 0368     		ldr	r3, [r0]
+ 480 0002 23F04003 		bic	r3, r3, #64
+ 481 0006 1943     		orrs	r1, r1, r3
+ 482 0008 0160     		str	r1, [r0]
+ 483 000a 7047     		bx	lr
+ 485              		.section	.text.i2c_software_reset_config,"ax",%progbits
+ 486              		.align	1
+ 487              		.global	i2c_software_reset_config
+ 488              		.syntax unified
+ 489              		.thumb
+ 490              		.thumb_func
+ 491              		.fpu fpv4-sp-d16
+ 493              	i2c_software_reset_config:
+ 494              		@ args = 0, pretend = 0, frame = 0
+ 495              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccYz4Wc4.s 			page 9
+
+
+ 496              		@ link register save eliminated.
+ 497 0000 0368     		ldr	r3, [r0]
+ 498 0002 23F40043 		bic	r3, r3, #32768
+ 499 0006 1943     		orrs	r1, r1, r3
+ 500 0008 0160     		str	r1, [r0]
+ 501 000a 7047     		bx	lr
+ 503              		.section	.text.i2c_pec_enable,"ax",%progbits
+ 504              		.align	1
+ 505              		.global	i2c_pec_enable
+ 506              		.syntax unified
+ 507              		.thumb
+ 508              		.thumb_func
+ 509              		.fpu fpv4-sp-d16
+ 511              	i2c_pec_enable:
+ 512              		@ args = 0, pretend = 0, frame = 0
+ 513              		@ frame_needed = 0, uses_anonymous_args = 0
+ 514              		@ link register save eliminated.
+ 515 0000 0368     		ldr	r3, [r0]
+ 516 0002 23F02003 		bic	r3, r3, #32
+ 517 0006 1943     		orrs	r1, r1, r3
+ 518 0008 0160     		str	r1, [r0]
+ 519 000a 7047     		bx	lr
+ 521              		.section	.text.i2c_pec_transfer_enable,"ax",%progbits
+ 522              		.align	1
+ 523              		.global	i2c_pec_transfer_enable
+ 524              		.syntax unified
+ 525              		.thumb
+ 526              		.thumb_func
+ 527              		.fpu fpv4-sp-d16
+ 529              	i2c_pec_transfer_enable:
+ 530              		@ args = 0, pretend = 0, frame = 0
+ 531              		@ frame_needed = 0, uses_anonymous_args = 0
+ 532              		@ link register save eliminated.
+ 533 0000 0368     		ldr	r3, [r0]
+ 534 0002 23F48053 		bic	r3, r3, #4096
+ 535 0006 1943     		orrs	r1, r1, r3
+ 536 0008 0160     		str	r1, [r0]
+ 537 000a 7047     		bx	lr
+ 539              		.section	.text.i2c_pec_value_get,"ax",%progbits
+ 540              		.align	1
+ 541              		.global	i2c_pec_value_get
+ 542              		.syntax unified
+ 543              		.thumb
+ 544              		.thumb_func
+ 545              		.fpu fpv4-sp-d16
+ 547              	i2c_pec_value_get:
+ 548              		@ args = 0, pretend = 0, frame = 0
+ 549              		@ frame_needed = 0, uses_anonymous_args = 0
+ 550              		@ link register save eliminated.
+ 551 0000 8069     		ldr	r0, [r0, #24]
+ 552 0002 C0F30720 		ubfx	r0, r0, #8, #8
+ 553 0006 7047     		bx	lr
+ 555              		.section	.text.i2c_smbus_issue_alert,"ax",%progbits
+ 556              		.align	1
+ 557              		.global	i2c_smbus_issue_alert
+ 558              		.syntax unified
+ 559              		.thumb
+ARM GAS  /tmp/ccYz4Wc4.s 			page 10
+
+
+ 560              		.thumb_func
+ 561              		.fpu fpv4-sp-d16
+ 563              	i2c_smbus_issue_alert:
+ 564              		@ args = 0, pretend = 0, frame = 0
+ 565              		@ frame_needed = 0, uses_anonymous_args = 0
+ 566              		@ link register save eliminated.
+ 567 0000 0368     		ldr	r3, [r0]
+ 568 0002 23F40053 		bic	r3, r3, #8192
+ 569 0006 1943     		orrs	r1, r1, r3
+ 570 0008 0160     		str	r1, [r0]
+ 571 000a 7047     		bx	lr
+ 573              		.section	.text.i2c_smbus_arp_enable,"ax",%progbits
+ 574              		.align	1
+ 575              		.global	i2c_smbus_arp_enable
+ 576              		.syntax unified
+ 577              		.thumb
+ 578              		.thumb_func
+ 579              		.fpu fpv4-sp-d16
+ 581              	i2c_smbus_arp_enable:
+ 582              		@ args = 0, pretend = 0, frame = 0
+ 583              		@ frame_needed = 0, uses_anonymous_args = 0
+ 584              		@ link register save eliminated.
+ 585 0000 0368     		ldr	r3, [r0]
+ 586 0002 23F01003 		bic	r3, r3, #16
+ 587 0006 1943     		orrs	r1, r1, r3
+ 588 0008 0160     		str	r1, [r0]
+ 589 000a 7047     		bx	lr
+ 591              		.section	.text.i2c_analog_noise_filter_disable,"ax",%progbits
+ 592              		.align	1
+ 593              		.global	i2c_analog_noise_filter_disable
+ 594              		.syntax unified
+ 595              		.thumb
+ 596              		.thumb_func
+ 597              		.fpu fpv4-sp-d16
+ 599              	i2c_analog_noise_filter_disable:
+ 600              		@ args = 0, pretend = 0, frame = 0
+ 601              		@ frame_needed = 0, uses_anonymous_args = 0
+ 602              		@ link register save eliminated.
+ 603 0000 436A     		ldr	r3, [r0, #36]
+ 604 0002 43F01003 		orr	r3, r3, #16
+ 605 0006 4362     		str	r3, [r0, #36]
+ 606 0008 7047     		bx	lr
+ 608              		.section	.text.i2c_analog_noise_filter_enable,"ax",%progbits
+ 609              		.align	1
+ 610              		.global	i2c_analog_noise_filter_enable
+ 611              		.syntax unified
+ 612              		.thumb
+ 613              		.thumb_func
+ 614              		.fpu fpv4-sp-d16
+ 616              	i2c_analog_noise_filter_enable:
+ 617              		@ args = 0, pretend = 0, frame = 0
+ 618              		@ frame_needed = 0, uses_anonymous_args = 0
+ 619              		@ link register save eliminated.
+ 620 0000 436A     		ldr	r3, [r0, #36]
+ 621 0002 23F01003 		bic	r3, r3, #16
+ 622 0006 4362     		str	r3, [r0, #36]
+ 623 0008 7047     		bx	lr
+ARM GAS  /tmp/ccYz4Wc4.s 			page 11
+
+
+ 625              		.section	.text.i2c_digital_noise_filter_config,"ax",%progbits
+ 626              		.align	1
+ 627              		.global	i2c_digital_noise_filter_config
+ 628              		.syntax unified
+ 629              		.thumb
+ 630              		.thumb_func
+ 631              		.fpu fpv4-sp-d16
+ 633              	i2c_digital_noise_filter_config:
+ 634              		@ args = 0, pretend = 0, frame = 0
+ 635              		@ frame_needed = 0, uses_anonymous_args = 0
+ 636              		@ link register save eliminated.
+ 637 0000 436A     		ldr	r3, [r0, #36]
+ 638 0002 1943     		orrs	r1, r1, r3
+ 639 0004 4162     		str	r1, [r0, #36]
+ 640 0006 7047     		bx	lr
+ 642              		.section	.text.i2c_sam_enable,"ax",%progbits
+ 643              		.align	1
+ 644              		.global	i2c_sam_enable
+ 645              		.syntax unified
+ 646              		.thumb
+ 647              		.thumb_func
+ 648              		.fpu fpv4-sp-d16
+ 650              	i2c_sam_enable:
+ 651              		@ args = 0, pretend = 0, frame = 0
+ 652              		@ frame_needed = 0, uses_anonymous_args = 0
+ 653              		@ link register save eliminated.
+ 654 0000 D0F88030 		ldr	r3, [r0, #128]
+ 655 0004 43F00103 		orr	r3, r3, #1
+ 656 0008 C0F88030 		str	r3, [r0, #128]
+ 657 000c 7047     		bx	lr
+ 659              		.section	.text.i2c_sam_disable,"ax",%progbits
+ 660              		.align	1
+ 661              		.global	i2c_sam_disable
+ 662              		.syntax unified
+ 663              		.thumb
+ 664              		.thumb_func
+ 665              		.fpu fpv4-sp-d16
+ 667              	i2c_sam_disable:
+ 668              		@ args = 0, pretend = 0, frame = 0
+ 669              		@ frame_needed = 0, uses_anonymous_args = 0
+ 670              		@ link register save eliminated.
+ 671 0000 D0F88030 		ldr	r3, [r0, #128]
+ 672 0004 23F00103 		bic	r3, r3, #1
+ 673 0008 C0F88030 		str	r3, [r0, #128]
+ 674 000c 7047     		bx	lr
+ 676              		.section	.text.i2c_sam_timeout_enable,"ax",%progbits
+ 677              		.align	1
+ 678              		.global	i2c_sam_timeout_enable
+ 679              		.syntax unified
+ 680              		.thumb
+ 681              		.thumb_func
+ 682              		.fpu fpv4-sp-d16
+ 684              	i2c_sam_timeout_enable:
+ 685              		@ args = 0, pretend = 0, frame = 0
+ 686              		@ frame_needed = 0, uses_anonymous_args = 0
+ 687              		@ link register save eliminated.
+ 688 0000 D0F88030 		ldr	r3, [r0, #128]
+ARM GAS  /tmp/ccYz4Wc4.s 			page 12
+
+
+ 689 0004 43F00203 		orr	r3, r3, #2
+ 690 0008 C0F88030 		str	r3, [r0, #128]
+ 691 000c 7047     		bx	lr
+ 693              		.section	.text.i2c_sam_timeout_disable,"ax",%progbits
+ 694              		.align	1
+ 695              		.global	i2c_sam_timeout_disable
+ 696              		.syntax unified
+ 697              		.thumb
+ 698              		.thumb_func
+ 699              		.fpu fpv4-sp-d16
+ 701              	i2c_sam_timeout_disable:
+ 702              		@ args = 0, pretend = 0, frame = 0
+ 703              		@ frame_needed = 0, uses_anonymous_args = 0
+ 704              		@ link register save eliminated.
+ 705 0000 D0F88030 		ldr	r3, [r0, #128]
+ 706 0004 23F00203 		bic	r3, r3, #2
+ 707 0008 C0F88030 		str	r3, [r0, #128]
+ 708 000c 7047     		bx	lr
+ 710              		.section	.text.i2c_flag_get,"ax",%progbits
+ 711              		.align	1
+ 712              		.global	i2c_flag_get
+ 713              		.syntax unified
+ 714              		.thumb
+ 715              		.thumb_func
+ 716              		.fpu fpv4-sp-d16
+ 718              	i2c_flag_get:
+ 719              		@ args = 0, pretend = 0, frame = 0
+ 720              		@ frame_needed = 0, uses_anonymous_args = 0
+ 721              		@ link register save eliminated.
+ 722 0000 8B09     		lsrs	r3, r1, #6
+ 723 0002 1B58     		ldr	r3, [r3, r0]
+ 724 0004 01F01F01 		and	r1, r1, #31
+ 725 0008 23FA01F1 		lsr	r1, r3, r1
+ 726 000c 11F0010F 		tst	r1, #1
+ 727 0010 01D0     		beq	.L68
+ 728 0012 0120     		movs	r0, #1
+ 729 0014 7047     		bx	lr
+ 730              	.L68:
+ 731 0016 0020     		movs	r0, #0
+ 732 0018 7047     		bx	lr
+ 734              		.section	.text.i2c_flag_clear,"ax",%progbits
+ 735              		.align	1
+ 736              		.global	i2c_flag_clear
+ 737              		.syntax unified
+ 738              		.thumb
+ 739              		.thumb_func
+ 740              		.fpu fpv4-sp-d16
+ 742              	i2c_flag_clear:
+ 743              		@ args = 0, pretend = 0, frame = 0
+ 744              		@ frame_needed = 0, uses_anonymous_args = 0
+ 745              		@ link register save eliminated.
+ 746 0000 40F20153 		movw	r3, #1281
+ 747 0004 9942     		cmp	r1, r3
+ 748 0006 0DD0     		beq	.L75
+ 749 0008 10B4     		push	{r4}
+ 750 000a 8C09     		lsrs	r4, r1, #6
+ 751 000c 2358     		ldr	r3, [r4, r0]
+ARM GAS  /tmp/ccYz4Wc4.s 			page 13
+
+
+ 752 000e 01F01F01 		and	r1, r1, #31
+ 753 0012 0122     		movs	r2, #1
+ 754 0014 02FA01F1 		lsl	r1, r2, r1
+ 755 0018 23EA0103 		bic	r3, r3, r1
+ 756 001c 2350     		str	r3, [r4, r0]
+ 757 001e 5DF8044B 		ldr	r4, [sp], #4
+ 758 0022 7047     		bx	lr
+ 759              	.L75:
+ 760 0024 4369     		ldr	r3, [r0, #20]
+ 761 0026 8369     		ldr	r3, [r0, #24]
+ 762 0028 7047     		bx	lr
+ 764              		.section	.text.i2c_interrupt_enable,"ax",%progbits
+ 765              		.align	1
+ 766              		.global	i2c_interrupt_enable
+ 767              		.syntax unified
+ 768              		.thumb
+ 769              		.thumb_func
+ 770              		.fpu fpv4-sp-d16
+ 772              	i2c_interrupt_enable:
+ 773              		@ args = 0, pretend = 0, frame = 0
+ 774              		@ frame_needed = 0, uses_anonymous_args = 0
+ 775              		@ link register save eliminated.
+ 776 0000 10B4     		push	{r4}
+ 777 0002 8C09     		lsrs	r4, r1, #6
+ 778 0004 2358     		ldr	r3, [r4, r0]
+ 779 0006 01F01F01 		and	r1, r1, #31
+ 780 000a 0122     		movs	r2, #1
+ 781 000c 02FA01F1 		lsl	r1, r2, r1
+ 782 0010 0B43     		orrs	r3, r3, r1
+ 783 0012 2350     		str	r3, [r4, r0]
+ 784 0014 5DF8044B 		ldr	r4, [sp], #4
+ 785 0018 7047     		bx	lr
+ 787              		.section	.text.i2c_interrupt_disable,"ax",%progbits
+ 788              		.align	1
+ 789              		.global	i2c_interrupt_disable
+ 790              		.syntax unified
+ 791              		.thumb
+ 792              		.thumb_func
+ 793              		.fpu fpv4-sp-d16
+ 795              	i2c_interrupt_disable:
+ 796              		@ args = 0, pretend = 0, frame = 0
+ 797              		@ frame_needed = 0, uses_anonymous_args = 0
+ 798              		@ link register save eliminated.
+ 799 0000 10B4     		push	{r4}
+ 800 0002 8C09     		lsrs	r4, r1, #6
+ 801 0004 2358     		ldr	r3, [r4, r0]
+ 802 0006 01F01F01 		and	r1, r1, #31
+ 803 000a 0122     		movs	r2, #1
+ 804 000c 02FA01F1 		lsl	r1, r2, r1
+ 805 0010 23EA0103 		bic	r3, r3, r1
+ 806 0014 2350     		str	r3, [r4, r0]
+ 807 0016 5DF8044B 		ldr	r4, [sp], #4
+ 808 001a 7047     		bx	lr
+ 810              		.section	.text.i2c_interrupt_flag_get,"ax",%progbits
+ 811              		.align	1
+ 812              		.global	i2c_interrupt_flag_get
+ 813              		.syntax unified
+ARM GAS  /tmp/ccYz4Wc4.s 			page 14
+
+
+ 814              		.thumb
+ 815              		.thumb_func
+ 816              		.fpu fpv4-sp-d16
+ 818              	i2c_interrupt_flag_get:
+ 819              		@ args = 0, pretend = 0, frame = 0
+ 820              		@ frame_needed = 0, uses_anonymous_args = 0
+ 821              		@ link register save eliminated.
+ 822 0000 30B4     		push	{r4, r5}
+ 823 0002 4568     		ldr	r5, [r0, #4]
+ 824 0004 05F48065 		and	r5, r5, #1024
+ 825 0008 C1F38913 		ubfx	r3, r1, #6, #10
+ 826 000c 1A58     		ldr	r2, [r3, r0]
+ 827 000e 01F01F04 		and	r4, r1, #31
+ 828 0012 0123     		movs	r3, #1
+ 829 0014 03FA04F4 		lsl	r4, r3, r4
+ 830 0018 2240     		ands	r2, r2, r4
+ 831 001a 8C0D     		lsrs	r4, r1, #22
+ 832 001c 2058     		ldr	r0, [r4, r0]
+ 833 001e C1F30444 		ubfx	r4, r1, #16, #5
+ 834 0022 A340     		lsls	r3, r3, r4
+ 835 0024 0340     		ands	r3, r3, r0
+ 836 0026 0C48     		ldr	r0, .L89
+ 837 0028 8142     		cmp	r1, r0
+ 838 002a 07D0     		beq	.L81
+ 839 002c 00F58030 		add	r0, r0, #65536
+ 840 0030 8142     		cmp	r1, r0
+ 841 0032 03D0     		beq	.L81
+ 842              	.L82:
+ 843 0034 53B1     		cbz	r3, .L86
+ 844 0036 62B9     		cbnz	r2, .L87
+ 845 0038 0020     		movs	r0, #0
+ 846 003a 08E0     		b	.L83
+ 847              	.L81:
+ 848 003c 12B1     		cbz	r2, .L84
+ 849 003e 1DB9     		cbnz	r5, .L85
+ 850 0040 0022     		movs	r2, #0
+ 851 0042 F7E7     		b	.L82
+ 852              	.L84:
+ 853 0044 0022     		movs	r2, #0
+ 854 0046 F5E7     		b	.L82
+ 855              	.L85:
+ 856 0048 0122     		movs	r2, #1
+ 857 004a F3E7     		b	.L82
+ 858              	.L86:
+ 859 004c 0020     		movs	r0, #0
+ 860              	.L83:
+ 861 004e 30BC     		pop	{r4, r5}
+ 862 0050 7047     		bx	lr
+ 863              	.L87:
+ 864 0052 0120     		movs	r0, #1
+ 865 0054 FBE7     		b	.L83
+ 866              	.L90:
+ 867 0056 00BF     		.align	2
+ 868              	.L89:
+ 869 0058 09010605 		.word	84279561
+ 871              		.section	.text.i2c_interrupt_flag_clear,"ax",%progbits
+ 872              		.align	1
+ARM GAS  /tmp/ccYz4Wc4.s 			page 15
+
+
+ 873              		.global	i2c_interrupt_flag_clear
+ 874              		.syntax unified
+ 875              		.thumb
+ 876              		.thumb_func
+ 877              		.fpu fpv4-sp-d16
+ 879              	i2c_interrupt_flag_clear:
+ 880              		@ args = 0, pretend = 0, frame = 0
+ 881              		@ frame_needed = 0, uses_anonymous_args = 0
+ 882              		@ link register save eliminated.
+ 883 0000 094B     		ldr	r3, .L98
+ 884 0002 9942     		cmp	r1, r3
+ 885 0004 0DD0     		beq	.L97
+ 886 0006 10B4     		push	{r4}
+ 887 0008 8C0D     		lsrs	r4, r1, #22
+ 888 000a 2358     		ldr	r3, [r4, r0]
+ 889 000c C1F30441 		ubfx	r1, r1, #16, #5
+ 890 0010 0122     		movs	r2, #1
+ 891 0012 02FA01F1 		lsl	r1, r2, r1
+ 892 0016 23EA0103 		bic	r3, r3, r1
+ 893 001a 2350     		str	r3, [r4, r0]
+ 894 001c 5DF8044B 		ldr	r4, [sp], #4
+ 895 0020 7047     		bx	lr
+ 896              	.L97:
+ 897 0022 4369     		ldr	r3, [r0, #20]
+ 898 0024 8369     		ldr	r3, [r0, #24]
+ 899 0026 7047     		bx	lr
+ 900              	.L99:
+ 901              		.align	2
+ 902              	.L98:
+ 903 0028 09010105 		.word	83951881
+ 905              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccYz4Wc4.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_i2c.c
+     /tmp/ccYz4Wc4.s:16     .text.i2c_deinit:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:24     .text.i2c_deinit:0000000000000000 i2c_deinit
+     /tmp/ccYz4Wc4.s:60     .text.i2c_deinit:0000000000000050 $d
+     /tmp/ccYz4Wc4.s:63     .text.i2c_clock_config:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:70     .text.i2c_clock_config:0000000000000000 i2c_clock_config
+     /tmp/ccYz4Wc4.s:158    .text.i2c_clock_config:00000000000000b4 $d
+     /tmp/ccYz4Wc4.s:165    .text.i2c_mode_addr_config:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:172    .text.i2c_mode_addr_config:0000000000000000 i2c_mode_addr_config
+     /tmp/ccYz4Wc4.s:188    .text.i2c_smbus_type_config:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:195    .text.i2c_smbus_type_config:0000000000000000 i2c_smbus_type_config
+     /tmp/ccYz4Wc4.s:212    .text.i2c_ack_config:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:219    .text.i2c_ack_config:0000000000000000 i2c_ack_config
+     /tmp/ccYz4Wc4.s:236    .text.i2c_ackpos_config:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:243    .text.i2c_ackpos_config:0000000000000000 i2c_ackpos_config
+     /tmp/ccYz4Wc4.s:259    .text.i2c_master_addressing:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:266    .text.i2c_master_addressing:0000000000000000 i2c_master_addressing
+     /tmp/ccYz4Wc4.s:281    .text.i2c_dualaddr_enable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:288    .text.i2c_dualaddr_enable:0000000000000000 i2c_dualaddr_enable
+     /tmp/ccYz4Wc4.s:298    .text.i2c_dualaddr_disable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:305    .text.i2c_dualaddr_disable:0000000000000000 i2c_dualaddr_disable
+     /tmp/ccYz4Wc4.s:315    .text.i2c_enable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:322    .text.i2c_enable:0000000000000000 i2c_enable
+     /tmp/ccYz4Wc4.s:332    .text.i2c_disable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:339    .text.i2c_disable:0000000000000000 i2c_disable
+     /tmp/ccYz4Wc4.s:349    .text.i2c_start_on_bus:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:356    .text.i2c_start_on_bus:0000000000000000 i2c_start_on_bus
+     /tmp/ccYz4Wc4.s:366    .text.i2c_stop_on_bus:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:373    .text.i2c_stop_on_bus:0000000000000000 i2c_stop_on_bus
+     /tmp/ccYz4Wc4.s:383    .text.i2c_data_transmit:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:390    .text.i2c_data_transmit:0000000000000000 i2c_data_transmit
+     /tmp/ccYz4Wc4.s:398    .text.i2c_data_receive:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:405    .text.i2c_data_receive:0000000000000000 i2c_data_receive
+     /tmp/ccYz4Wc4.s:414    .text.i2c_dma_enable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:421    .text.i2c_dma_enable:0000000000000000 i2c_dma_enable
+     /tmp/ccYz4Wc4.s:432    .text.i2c_dma_last_transfer_config:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:439    .text.i2c_dma_last_transfer_config:0000000000000000 i2c_dma_last_transfer_config
+     /tmp/ccYz4Wc4.s:450    .text.i2c_stretch_scl_low_config:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:457    .text.i2c_stretch_scl_low_config:0000000000000000 i2c_stretch_scl_low_config
+     /tmp/ccYz4Wc4.s:468    .text.i2c_slave_response_to_gcall_config:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:475    .text.i2c_slave_response_to_gcall_config:0000000000000000 i2c_slave_response_to_gcall_config
+     /tmp/ccYz4Wc4.s:486    .text.i2c_software_reset_config:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:493    .text.i2c_software_reset_config:0000000000000000 i2c_software_reset_config
+     /tmp/ccYz4Wc4.s:504    .text.i2c_pec_enable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:511    .text.i2c_pec_enable:0000000000000000 i2c_pec_enable
+     /tmp/ccYz4Wc4.s:522    .text.i2c_pec_transfer_enable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:529    .text.i2c_pec_transfer_enable:0000000000000000 i2c_pec_transfer_enable
+     /tmp/ccYz4Wc4.s:540    .text.i2c_pec_value_get:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:547    .text.i2c_pec_value_get:0000000000000000 i2c_pec_value_get
+     /tmp/ccYz4Wc4.s:556    .text.i2c_smbus_issue_alert:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:563    .text.i2c_smbus_issue_alert:0000000000000000 i2c_smbus_issue_alert
+     /tmp/ccYz4Wc4.s:574    .text.i2c_smbus_arp_enable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:581    .text.i2c_smbus_arp_enable:0000000000000000 i2c_smbus_arp_enable
+     /tmp/ccYz4Wc4.s:592    .text.i2c_analog_noise_filter_disable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:599    .text.i2c_analog_noise_filter_disable:0000000000000000 i2c_analog_noise_filter_disable
+     /tmp/ccYz4Wc4.s:609    .text.i2c_analog_noise_filter_enable:0000000000000000 $t
+ARM GAS  /tmp/ccYz4Wc4.s 			page 17
+
+
+     /tmp/ccYz4Wc4.s:616    .text.i2c_analog_noise_filter_enable:0000000000000000 i2c_analog_noise_filter_enable
+     /tmp/ccYz4Wc4.s:626    .text.i2c_digital_noise_filter_config:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:633    .text.i2c_digital_noise_filter_config:0000000000000000 i2c_digital_noise_filter_config
+     /tmp/ccYz4Wc4.s:643    .text.i2c_sam_enable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:650    .text.i2c_sam_enable:0000000000000000 i2c_sam_enable
+     /tmp/ccYz4Wc4.s:660    .text.i2c_sam_disable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:667    .text.i2c_sam_disable:0000000000000000 i2c_sam_disable
+     /tmp/ccYz4Wc4.s:677    .text.i2c_sam_timeout_enable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:684    .text.i2c_sam_timeout_enable:0000000000000000 i2c_sam_timeout_enable
+     /tmp/ccYz4Wc4.s:694    .text.i2c_sam_timeout_disable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:701    .text.i2c_sam_timeout_disable:0000000000000000 i2c_sam_timeout_disable
+     /tmp/ccYz4Wc4.s:711    .text.i2c_flag_get:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:718    .text.i2c_flag_get:0000000000000000 i2c_flag_get
+     /tmp/ccYz4Wc4.s:735    .text.i2c_flag_clear:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:742    .text.i2c_flag_clear:0000000000000000 i2c_flag_clear
+     /tmp/ccYz4Wc4.s:765    .text.i2c_interrupt_enable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:772    .text.i2c_interrupt_enable:0000000000000000 i2c_interrupt_enable
+     /tmp/ccYz4Wc4.s:788    .text.i2c_interrupt_disable:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:795    .text.i2c_interrupt_disable:0000000000000000 i2c_interrupt_disable
+     /tmp/ccYz4Wc4.s:811    .text.i2c_interrupt_flag_get:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:818    .text.i2c_interrupt_flag_get:0000000000000000 i2c_interrupt_flag_get
+     /tmp/ccYz4Wc4.s:869    .text.i2c_interrupt_flag_get:0000000000000058 $d
+     /tmp/ccYz4Wc4.s:872    .text.i2c_interrupt_flag_clear:0000000000000000 $t
+     /tmp/ccYz4Wc4.s:879    .text.i2c_interrupt_flag_clear:0000000000000000 i2c_interrupt_flag_clear
+     /tmp/ccYz4Wc4.s:903    .text.i2c_interrupt_flag_clear:0000000000000028 $d
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable
+rcu_clock_freq_get

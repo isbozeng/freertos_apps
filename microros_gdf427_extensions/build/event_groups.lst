@@ -1,0 +1,578 @@
+ARM GAS  /tmp/cczx38Zx.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"event_groups.c"
+  14              		.text
+  15              		.section	.text.prvTestWaitCondition,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	prvTestWaitCondition:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26              		@ link register save eliminated.
+  27 0000 1AB9     		cbnz	r2, .L2
+  28 0002 0842     		tst	r0, r1
+  29 0004 06D1     		bne	.L4
+  30 0006 1046     		mov	r0, r2
+  31 0008 7047     		bx	lr
+  32              	.L2:
+  33 000a 31EA0003 		bics	r3, r1, r0
+  34 000e 03D0     		beq	.L5
+  35 0010 0020     		movs	r0, #0
+  36 0012 7047     		bx	lr
+  37              	.L4:
+  38 0014 0120     		movs	r0, #1
+  39 0016 7047     		bx	lr
+  40              	.L5:
+  41 0018 0120     		movs	r0, #1
+  42 001a 7047     		bx	lr
+  44              		.section	.text.xEventGroupCreateStatic,"ax",%progbits
+  45              		.align	1
+  46              		.global	xEventGroupCreateStatic
+  47              		.syntax unified
+  48              		.thumb
+  49              		.thumb_func
+  50              		.fpu fpv4-sp-d16
+  52              	xEventGroupCreateStatic:
+  53              		@ args = 0, pretend = 0, frame = 8
+  54              		@ frame_needed = 0, uses_anonymous_args = 0
+  55 0000 10B5     		push	{r4, lr}
+  56 0002 82B0     		sub	sp, sp, #8
+  57 0004 2023     		movs	r3, #32
+  58 0006 0193     		str	r3, [sp, #4]
+  59 0008 0446     		mov	r4, r0
+  60 000a 30B1     		cbz	r0, .L7
+ARM GAS  /tmp/cczx38Zx.s 			page 2
+
+
+  61 000c 0023     		movs	r3, #0
+  62 000e 40F8043B 		str	r3, [r0], #4
+  63 0012 FFF7FEFF 		bl	vListInitialise
+  64 0016 0123     		movs	r3, #1
+  65 0018 2377     		strb	r3, [r4, #28]
+  66              	.L7:
+  67 001a 2046     		mov	r0, r4
+  68 001c 02B0     		add	sp, sp, #8
+  69              		@ sp needed
+  70 001e 10BD     		pop	{r4, pc}
+  72              		.section	.text.xEventGroupCreate,"ax",%progbits
+  73              		.align	1
+  74              		.global	xEventGroupCreate
+  75              		.syntax unified
+  76              		.thumb
+  77              		.thumb_func
+  78              		.fpu fpv4-sp-d16
+  80              	xEventGroupCreate:
+  81              		@ args = 0, pretend = 0, frame = 0
+  82              		@ frame_needed = 0, uses_anonymous_args = 0
+  83 0000 38B5     		push	{r3, r4, r5, lr}
+  84 0002 2020     		movs	r0, #32
+  85 0004 FFF7FEFF 		bl	pvPortMalloc
+  86 0008 0446     		mov	r4, r0
+  87 000a 28B1     		cbz	r0, .L9
+  88 000c 0025     		movs	r5, #0
+  89 000e 40F8045B 		str	r5, [r0], #4
+  90 0012 FFF7FEFF 		bl	vListInitialise
+  91 0016 2577     		strb	r5, [r4, #28]
+  92              	.L9:
+  93 0018 2046     		mov	r0, r4
+  94 001a 38BD     		pop	{r3, r4, r5, pc}
+  96              		.section	.text.xEventGroupWaitBits,"ax",%progbits
+  97              		.align	1
+  98              		.global	xEventGroupWaitBits
+  99              		.syntax unified
+ 100              		.thumb
+ 101              		.thumb_func
+ 102              		.fpu fpv4-sp-d16
+ 104              	xEventGroupWaitBits:
+ 105              		@ args = 4, pretend = 0, frame = 0
+ 106              		@ frame_needed = 0, uses_anonymous_args = 0
+ 107 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 108 0004 0746     		mov	r7, r0
+ 109 0006 0E46     		mov	r6, r1
+ 110 0008 9146     		mov	r9, r2
+ 111 000a 9846     		mov	r8, r3
+ 112 000c 089D     		ldr	r5, [sp, #32]
+ 113 000e FFF7FEFF 		bl	vTaskSuspendAll
+ 114 0012 3C68     		ldr	r4, [r7]
+ 115 0014 4246     		mov	r2, r8
+ 116 0016 3146     		mov	r1, r6
+ 117 0018 2046     		mov	r0, r4
+ 118 001a FFF7FEFF 		bl	prvTestWaitCondition
+ 119 001e E8B1     		cbz	r0, .L13
+ 120 0020 B9F1000F 		cmp	r9, #0
+ 121 0024 2FD0     		beq	.L21
+ARM GAS  /tmp/cczx38Zx.s 			page 3
+
+
+ 122 0026 24EA0603 		bic	r3, r4, r6
+ 123 002a 3B60     		str	r3, [r7]
+ 124 002c 0025     		movs	r5, #0
+ 125              	.L14:
+ 126 002e FFF7FEFF 		bl	xTaskResumeAll
+ 127 0032 85B1     		cbz	r5, .L12
+ 128 0034 38B9     		cbnz	r0, .L18
+ 129 0036 1E4B     		ldr	r3, .L25
+ 130 0038 4FF08052 		mov	r2, #268435456
+ 131 003c 1A60     		str	r2, [r3]
+ 132              		.syntax unified
+ 133              	@ 403 "Middlewares/Third_Party/FreeRTOS/Source/event_groups.c" 1
+ 134 003e BFF34F8F 		dsb
+ 135              	@ 0 "" 2
+ 136              	@ 403 "Middlewares/Third_Party/FreeRTOS/Source/event_groups.c" 1
+ 137 0042 BFF36F8F 		isb
+ 138              	@ 0 "" 2
+ 139              		.thumb
+ 140              		.syntax unified
+ 141              	.L18:
+ 142 0046 FFF7FEFF 		bl	uxTaskResetEventItemValue
+ 143 004a 0446     		mov	r4, r0
+ 144 004c 10F0007F 		tst	r0, #33554432
+ 145 0050 1BD0     		beq	.L24
+ 146              	.L19:
+ 147 0052 24F07F44 		bic	r4, r4, #-16777216
+ 148              	.L12:
+ 149 0056 2046     		mov	r0, r4
+ 150 0058 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 151              	.L13:
+ 152 005c 002D     		cmp	r5, #0
+ 153 005e E6D0     		beq	.L14
+ 154 0060 B9F1000F 		cmp	r9, #0
+ 155 0064 0CD1     		bne	.L22
+ 156 0066 0021     		movs	r1, #0
+ 157              	.L15:
+ 158 0068 B8F1000F 		cmp	r8, #0
+ 159 006c 01D0     		beq	.L16
+ 160 006e 41F08061 		orr	r1, r1, #67108864
+ 161              	.L16:
+ 162 0072 2A46     		mov	r2, r5
+ 163 0074 3143     		orrs	r1, r1, r6
+ 164 0076 381D     		adds	r0, r7, #4
+ 165 0078 FFF7FEFF 		bl	vTaskPlaceOnUnorderedEventList
+ 166 007c 0024     		movs	r4, #0
+ 167 007e D6E7     		b	.L14
+ 168              	.L22:
+ 169 0080 4FF08071 		mov	r1, #16777216
+ 170 0084 F0E7     		b	.L15
+ 171              	.L21:
+ 172 0086 0025     		movs	r5, #0
+ 173 0088 D1E7     		b	.L14
+ 174              	.L24:
+ 175 008a FFF7FEFF 		bl	vPortEnterCritical
+ 176 008e 3C68     		ldr	r4, [r7]
+ 177 0090 4246     		mov	r2, r8
+ 178 0092 3146     		mov	r1, r6
+ARM GAS  /tmp/cczx38Zx.s 			page 4
+
+
+ 179 0094 2046     		mov	r0, r4
+ 180 0096 FFF7FEFF 		bl	prvTestWaitCondition
+ 181 009a 28B1     		cbz	r0, .L20
+ 182 009c B9F1000F 		cmp	r9, #0
+ 183 00a0 02D0     		beq	.L20
+ 184 00a2 24EA0606 		bic	r6, r4, r6
+ 185 00a6 3E60     		str	r6, [r7]
+ 186              	.L20:
+ 187 00a8 FFF7FEFF 		bl	vPortExitCritical
+ 188 00ac D1E7     		b	.L19
+ 189              	.L26:
+ 190 00ae 00BF     		.align	2
+ 191              	.L25:
+ 192 00b0 04ED00E0 		.word	-536810236
+ 194              		.section	.text.xEventGroupClearBits,"ax",%progbits
+ 195              		.align	1
+ 196              		.global	xEventGroupClearBits
+ 197              		.syntax unified
+ 198              		.thumb
+ 199              		.thumb_func
+ 200              		.fpu fpv4-sp-d16
+ 202              	xEventGroupClearBits:
+ 203              		@ args = 0, pretend = 0, frame = 0
+ 204              		@ frame_needed = 0, uses_anonymous_args = 0
+ 205 0000 70B5     		push	{r4, r5, r6, lr}
+ 206 0002 0646     		mov	r6, r0
+ 207 0004 0C46     		mov	r4, r1
+ 208 0006 FFF7FEFF 		bl	vPortEnterCritical
+ 209 000a 3568     		ldr	r5, [r6]
+ 210 000c 25EA0404 		bic	r4, r5, r4
+ 211 0010 3460     		str	r4, [r6]
+ 212 0012 FFF7FEFF 		bl	vPortExitCritical
+ 213 0016 2846     		mov	r0, r5
+ 214 0018 70BD     		pop	{r4, r5, r6, pc}
+ 216              		.section	.text.vEventGroupClearBitsCallback,"ax",%progbits
+ 217              		.align	1
+ 218              		.global	vEventGroupClearBitsCallback
+ 219              		.syntax unified
+ 220              		.thumb
+ 221              		.thumb_func
+ 222              		.fpu fpv4-sp-d16
+ 224              	vEventGroupClearBitsCallback:
+ 225              		@ args = 0, pretend = 0, frame = 0
+ 226              		@ frame_needed = 0, uses_anonymous_args = 0
+ 227 0000 08B5     		push	{r3, lr}
+ 228 0002 FFF7FEFF 		bl	xEventGroupClearBits
+ 229 0006 08BD     		pop	{r3, pc}
+ 231              		.section	.text.xEventGroupClearBitsFromISR,"ax",%progbits
+ 232              		.align	1
+ 233              		.global	xEventGroupClearBitsFromISR
+ 234              		.syntax unified
+ 235              		.thumb
+ 236              		.thumb_func
+ 237              		.fpu fpv4-sp-d16
+ 239              	xEventGroupClearBitsFromISR:
+ 240              		@ args = 0, pretend = 0, frame = 0
+ 241              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/cczx38Zx.s 			page 5
+
+
+ 242 0000 08B5     		push	{r3, lr}
+ 243 0002 0023     		movs	r3, #0
+ 244 0004 0A46     		mov	r2, r1
+ 245 0006 0146     		mov	r1, r0
+ 246 0008 0148     		ldr	r0, .L33
+ 247 000a FFF7FEFF 		bl	xTimerPendFunctionCallFromISR
+ 248 000e 08BD     		pop	{r3, pc}
+ 249              	.L34:
+ 250              		.align	2
+ 251              	.L33:
+ 252 0010 00000000 		.word	vEventGroupClearBitsCallback
+ 254              		.section	.text.xEventGroupGetBitsFromISR,"ax",%progbits
+ 255              		.align	1
+ 256              		.global	xEventGroupGetBitsFromISR
+ 257              		.syntax unified
+ 258              		.thumb
+ 259              		.thumb_func
+ 260              		.fpu fpv4-sp-d16
+ 262              	xEventGroupGetBitsFromISR:
+ 263              		@ args = 0, pretend = 0, frame = 0
+ 264              		@ frame_needed = 0, uses_anonymous_args = 0
+ 265              		@ link register save eliminated.
+ 266              		.syntax unified
+ 267              	@ 211 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h" 1
+ 268 0000 EFF31183 			mrs r3, basepri											
+ 269 0004 4FF05002 		mov r2, #80												
+ 270 0008 82F31188 		msr basepri, r2											
+ 271 000c BFF36F8F 		isb														
+ 272 0010 BFF34F8F 		dsb														
+ 273              	
+ 274              	@ 0 "" 2
+ 275              		.thumb
+ 276              		.syntax unified
+ 277 0014 0068     		ldr	r0, [r0]
+ 278              		.syntax unified
+ 279              	@ 229 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h" 1
+ 280 0016 83F31188 			msr basepri, r3	
+ 281              	@ 0 "" 2
+ 282              		.thumb
+ 283              		.syntax unified
+ 284 001a 7047     		bx	lr
+ 286              		.section	.text.xEventGroupSetBits,"ax",%progbits
+ 287              		.align	1
+ 288              		.global	xEventGroupSetBits
+ 289              		.syntax unified
+ 290              		.thumb
+ 291              		.thumb_func
+ 292              		.fpu fpv4-sp-d16
+ 294              	xEventGroupSetBits:
+ 295              		@ args = 0, pretend = 0, frame = 0
+ 296              		@ frame_needed = 0, uses_anonymous_args = 0
+ 297 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 298 0002 0446     		mov	r4, r0
+ 299 0004 0D46     		mov	r5, r1
+ 300 0006 00F10C06 		add	r6, r0, #12
+ 301 000a FFF7FEFF 		bl	vTaskSuspendAll
+ 302 000e 2069     		ldr	r0, [r4, #16]
+ARM GAS  /tmp/cczx38Zx.s 			page 6
+
+
+ 303 0010 2168     		ldr	r1, [r4]
+ 304 0012 2943     		orrs	r1, r1, r5
+ 305 0014 2160     		str	r1, [r4]
+ 306 0016 0027     		movs	r7, #0
+ 307 0018 0AE0     		b	.L37
+ 308              	.L38:
+ 309 001a 2168     		ldr	r1, [r4]
+ 310 001c 32EA0101 		bics	r1, r2, r1
+ 311 0020 05D1     		bne	.L40
+ 312 0022 11E0     		b	.L39
+ 313              	.L41:
+ 314 0024 2168     		ldr	r1, [r4]
+ 315 0026 41F00071 		orr	r1, r1, #33554432
+ 316 002a FFF7FEFF 		bl	vTaskRemoveFromUnorderedEventList
+ 317              	.L40:
+ 318 002e 2846     		mov	r0, r5
+ 319              	.L37:
+ 320 0030 B042     		cmp	r0, r6
+ 321 0032 0ED0     		beq	.L44
+ 322 0034 4568     		ldr	r5, [r0, #4]
+ 323 0036 0368     		ldr	r3, [r0]
+ 324 0038 23F07F42 		bic	r2, r3, #-16777216
+ 325 003c 13F0806F 		tst	r3, #67108864
+ 326 0040 EBD1     		bne	.L38
+ 327 0042 2168     		ldr	r1, [r4]
+ 328 0044 1142     		tst	r1, r2
+ 329 0046 F2D0     		beq	.L40
+ 330              	.L39:
+ 331 0048 13F0807F 		tst	r3, #16777216
+ 332 004c EAD0     		beq	.L41
+ 333 004e 1743     		orrs	r7, r7, r2
+ 334 0050 E8E7     		b	.L41
+ 335              	.L44:
+ 336 0052 2368     		ldr	r3, [r4]
+ 337 0054 23EA0707 		bic	r7, r3, r7
+ 338 0058 2760     		str	r7, [r4]
+ 339 005a FFF7FEFF 		bl	xTaskResumeAll
+ 340 005e 2068     		ldr	r0, [r4]
+ 341 0060 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 343              		.section	.text.xEventGroupSync,"ax",%progbits
+ 344              		.align	1
+ 345              		.global	xEventGroupSync
+ 346              		.syntax unified
+ 347              		.thumb
+ 348              		.thumb_func
+ 349              		.fpu fpv4-sp-d16
+ 351              	xEventGroupSync:
+ 352              		@ args = 0, pretend = 0, frame = 0
+ 353              		@ frame_needed = 0, uses_anonymous_args = 0
+ 354 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 355 0004 0546     		mov	r5, r0
+ 356 0006 0F46     		mov	r7, r1
+ 357 0008 9046     		mov	r8, r2
+ 358 000a 1E46     		mov	r6, r3
+ 359 000c FFF7FEFF 		bl	vTaskSuspendAll
+ 360 0010 2C68     		ldr	r4, [r5]
+ 361 0012 3946     		mov	r1, r7
+ARM GAS  /tmp/cczx38Zx.s 			page 7
+
+
+ 362 0014 2846     		mov	r0, r5
+ 363 0016 FFF7FEFF 		bl	xEventGroupSetBits
+ 364 001a 3C43     		orrs	r4, r4, r7
+ 365 001c 38EA0403 		bics	r3, r8, r4
+ 366 0020 18D0     		beq	.L54
+ 367 0022 EEB9     		cbnz	r6, .L55
+ 368 0024 2C68     		ldr	r4, [r5]
+ 369              	.L47:
+ 370 0026 FFF7FEFF 		bl	xTaskResumeAll
+ 371 002a 86B1     		cbz	r6, .L45
+ 372 002c 38B9     		cbnz	r0, .L50
+ 373 002e 174B     		ldr	r3, .L58
+ 374 0030 4FF08052 		mov	r2, #268435456
+ 375 0034 1A60     		str	r2, [r3]
+ 376              		.syntax unified
+ 377              	@ 255 "Middlewares/Third_Party/FreeRTOS/Source/event_groups.c" 1
+ 378 0036 BFF34F8F 		dsb
+ 379              	@ 0 "" 2
+ 380              	@ 255 "Middlewares/Third_Party/FreeRTOS/Source/event_groups.c" 1
+ 381 003a BFF36F8F 		isb
+ 382              	@ 0 "" 2
+ 383              		.thumb
+ 384              		.syntax unified
+ 385              	.L50:
+ 386 003e FFF7FEFF 		bl	uxTaskResetEventItemValue
+ 387 0042 0446     		mov	r4, r0
+ 388 0044 10F0007F 		tst	r0, #33554432
+ 389 0048 12D0     		beq	.L56
+ 390              	.L51:
+ 391 004a 24F07F44 		bic	r4, r4, #-16777216
+ 392              	.L45:
+ 393 004e 2046     		mov	r0, r4
+ 394 0050 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 395              	.L54:
+ 396 0054 2B68     		ldr	r3, [r5]
+ 397 0056 23EA0803 		bic	r3, r3, r8
+ 398 005a 2B60     		str	r3, [r5]
+ 399 005c 0026     		movs	r6, #0
+ 400 005e E2E7     		b	.L47
+ 401              	.L55:
+ 402 0060 3246     		mov	r2, r6
+ 403 0062 48F0A061 		orr	r1, r8, #83886080
+ 404 0066 281D     		adds	r0, r5, #4
+ 405 0068 FFF7FEFF 		bl	vTaskPlaceOnUnorderedEventList
+ 406 006c 0024     		movs	r4, #0
+ 407 006e DAE7     		b	.L47
+ 408              	.L56:
+ 409 0070 FFF7FEFF 		bl	vPortEnterCritical
+ 410 0074 2C68     		ldr	r4, [r5]
+ 411 0076 38EA0403 		bics	r3, r8, r4
+ 412 007a 02D0     		beq	.L57
+ 413              	.L52:
+ 414 007c FFF7FEFF 		bl	vPortExitCritical
+ 415 0080 E3E7     		b	.L51
+ 416              	.L57:
+ 417 0082 24EA0803 		bic	r3, r4, r8
+ 418 0086 2B60     		str	r3, [r5]
+ARM GAS  /tmp/cczx38Zx.s 			page 8
+
+
+ 419 0088 F8E7     		b	.L52
+ 420              	.L59:
+ 421 008a 00BF     		.align	2
+ 422              	.L58:
+ 423 008c 04ED00E0 		.word	-536810236
+ 425              		.section	.text.vEventGroupSetBitsCallback,"ax",%progbits
+ 426              		.align	1
+ 427              		.global	vEventGroupSetBitsCallback
+ 428              		.syntax unified
+ 429              		.thumb
+ 430              		.thumb_func
+ 431              		.fpu fpv4-sp-d16
+ 433              	vEventGroupSetBitsCallback:
+ 434              		@ args = 0, pretend = 0, frame = 0
+ 435              		@ frame_needed = 0, uses_anonymous_args = 0
+ 436 0000 08B5     		push	{r3, lr}
+ 437 0002 FFF7FEFF 		bl	xEventGroupSetBits
+ 438 0006 08BD     		pop	{r3, pc}
+ 440              		.section	.text.vEventGroupDelete,"ax",%progbits
+ 441              		.align	1
+ 442              		.global	vEventGroupDelete
+ 443              		.syntax unified
+ 444              		.thumb
+ 445              		.thumb_func
+ 446              		.fpu fpv4-sp-d16
+ 448              	vEventGroupDelete:
+ 449              		@ args = 0, pretend = 0, frame = 0
+ 450              		@ frame_needed = 0, uses_anonymous_args = 0
+ 451 0000 10B5     		push	{r4, lr}
+ 452 0002 0446     		mov	r4, r0
+ 453 0004 FFF7FEFF 		bl	vTaskSuspendAll
+ 454              	.L63:
+ 455 0008 6368     		ldr	r3, [r4, #4]
+ 456 000a 2BB1     		cbz	r3, .L67
+ 457 000c 4FF00071 		mov	r1, #33554432
+ 458 0010 2069     		ldr	r0, [r4, #16]
+ 459 0012 FFF7FEFF 		bl	vTaskRemoveFromUnorderedEventList
+ 460 0016 F7E7     		b	.L63
+ 461              	.L67:
+ 462 0018 237F     		ldrb	r3, [r4, #28]	@ zero_extendqisi2
+ 463 001a 13B1     		cbz	r3, .L68
+ 464              	.L65:
+ 465 001c FFF7FEFF 		bl	xTaskResumeAll
+ 466 0020 10BD     		pop	{r4, pc}
+ 467              	.L68:
+ 468 0022 2046     		mov	r0, r4
+ 469 0024 FFF7FEFF 		bl	vPortFree
+ 470 0028 F8E7     		b	.L65
+ 472              		.section	.text.xEventGroupSetBitsFromISR,"ax",%progbits
+ 473              		.align	1
+ 474              		.global	xEventGroupSetBitsFromISR
+ 475              		.syntax unified
+ 476              		.thumb
+ 477              		.thumb_func
+ 478              		.fpu fpv4-sp-d16
+ 480              	xEventGroupSetBitsFromISR:
+ 481              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/cczx38Zx.s 			page 9
+
+
+ 482              		@ frame_needed = 0, uses_anonymous_args = 0
+ 483 0000 08B5     		push	{r3, lr}
+ 484 0002 1346     		mov	r3, r2
+ 485 0004 0A46     		mov	r2, r1
+ 486 0006 0146     		mov	r1, r0
+ 487 0008 0148     		ldr	r0, .L71
+ 488 000a FFF7FEFF 		bl	xTimerPendFunctionCallFromISR
+ 489 000e 08BD     		pop	{r3, pc}
+ 490              	.L72:
+ 491              		.align	2
+ 492              	.L71:
+ 493 0010 00000000 		.word	vEventGroupSetBitsCallback
+ 495              		.section	.text.uxEventGroupGetNumber,"ax",%progbits
+ 496              		.align	1
+ 497              		.global	uxEventGroupGetNumber
+ 498              		.syntax unified
+ 499              		.thumb
+ 500              		.thumb_func
+ 501              		.fpu fpv4-sp-d16
+ 503              	uxEventGroupGetNumber:
+ 504              		@ args = 0, pretend = 0, frame = 0
+ 505              		@ frame_needed = 0, uses_anonymous_args = 0
+ 506              		@ link register save eliminated.
+ 507 0000 08B1     		cbz	r0, .L75
+ 508 0002 8069     		ldr	r0, [r0, #24]
+ 509 0004 7047     		bx	lr
+ 510              	.L75:
+ 511 0006 0020     		movs	r0, #0
+ 512 0008 7047     		bx	lr
+ 514              		.section	.text.vEventGroupSetNumber,"ax",%progbits
+ 515              		.align	1
+ 516              		.global	vEventGroupSetNumber
+ 517              		.syntax unified
+ 518              		.thumb
+ 519              		.thumb_func
+ 520              		.fpu fpv4-sp-d16
+ 522              	vEventGroupSetNumber:
+ 523              		@ args = 0, pretend = 0, frame = 0
+ 524              		@ frame_needed = 0, uses_anonymous_args = 0
+ 525              		@ link register save eliminated.
+ 526 0000 8161     		str	r1, [r0, #24]
+ 527 0002 7047     		bx	lr
+ 529              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/cczx38Zx.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 event_groups.c
+     /tmp/cczx38Zx.s:16     .text.prvTestWaitCondition:0000000000000000 $t
+     /tmp/cczx38Zx.s:23     .text.prvTestWaitCondition:0000000000000000 prvTestWaitCondition
+     /tmp/cczx38Zx.s:45     .text.xEventGroupCreateStatic:0000000000000000 $t
+     /tmp/cczx38Zx.s:52     .text.xEventGroupCreateStatic:0000000000000000 xEventGroupCreateStatic
+     /tmp/cczx38Zx.s:73     .text.xEventGroupCreate:0000000000000000 $t
+     /tmp/cczx38Zx.s:80     .text.xEventGroupCreate:0000000000000000 xEventGroupCreate
+     /tmp/cczx38Zx.s:97     .text.xEventGroupWaitBits:0000000000000000 $t
+     /tmp/cczx38Zx.s:104    .text.xEventGroupWaitBits:0000000000000000 xEventGroupWaitBits
+     /tmp/cczx38Zx.s:192    .text.xEventGroupWaitBits:00000000000000b0 $d
+     /tmp/cczx38Zx.s:195    .text.xEventGroupClearBits:0000000000000000 $t
+     /tmp/cczx38Zx.s:202    .text.xEventGroupClearBits:0000000000000000 xEventGroupClearBits
+     /tmp/cczx38Zx.s:217    .text.vEventGroupClearBitsCallback:0000000000000000 $t
+     /tmp/cczx38Zx.s:224    .text.vEventGroupClearBitsCallback:0000000000000000 vEventGroupClearBitsCallback
+     /tmp/cczx38Zx.s:232    .text.xEventGroupClearBitsFromISR:0000000000000000 $t
+     /tmp/cczx38Zx.s:239    .text.xEventGroupClearBitsFromISR:0000000000000000 xEventGroupClearBitsFromISR
+     /tmp/cczx38Zx.s:252    .text.xEventGroupClearBitsFromISR:0000000000000010 $d
+     /tmp/cczx38Zx.s:255    .text.xEventGroupGetBitsFromISR:0000000000000000 $t
+     /tmp/cczx38Zx.s:262    .text.xEventGroupGetBitsFromISR:0000000000000000 xEventGroupGetBitsFromISR
+     /tmp/cczx38Zx.s:287    .text.xEventGroupSetBits:0000000000000000 $t
+     /tmp/cczx38Zx.s:294    .text.xEventGroupSetBits:0000000000000000 xEventGroupSetBits
+     /tmp/cczx38Zx.s:344    .text.xEventGroupSync:0000000000000000 $t
+     /tmp/cczx38Zx.s:351    .text.xEventGroupSync:0000000000000000 xEventGroupSync
+     /tmp/cczx38Zx.s:423    .text.xEventGroupSync:000000000000008c $d
+     /tmp/cczx38Zx.s:426    .text.vEventGroupSetBitsCallback:0000000000000000 $t
+     /tmp/cczx38Zx.s:433    .text.vEventGroupSetBitsCallback:0000000000000000 vEventGroupSetBitsCallback
+     /tmp/cczx38Zx.s:441    .text.vEventGroupDelete:0000000000000000 $t
+     /tmp/cczx38Zx.s:448    .text.vEventGroupDelete:0000000000000000 vEventGroupDelete
+     /tmp/cczx38Zx.s:473    .text.xEventGroupSetBitsFromISR:0000000000000000 $t
+     /tmp/cczx38Zx.s:480    .text.xEventGroupSetBitsFromISR:0000000000000000 xEventGroupSetBitsFromISR
+     /tmp/cczx38Zx.s:493    .text.xEventGroupSetBitsFromISR:0000000000000010 $d
+     /tmp/cczx38Zx.s:496    .text.uxEventGroupGetNumber:0000000000000000 $t
+     /tmp/cczx38Zx.s:503    .text.uxEventGroupGetNumber:0000000000000000 uxEventGroupGetNumber
+     /tmp/cczx38Zx.s:515    .text.vEventGroupSetNumber:0000000000000000 $t
+     /tmp/cczx38Zx.s:522    .text.vEventGroupSetNumber:0000000000000000 vEventGroupSetNumber
+
+UNDEFINED SYMBOLS
+vListInitialise
+pvPortMalloc
+vTaskSuspendAll
+xTaskResumeAll
+uxTaskResetEventItemValue
+vTaskPlaceOnUnorderedEventList
+vPortEnterCritical
+vPortExitCritical
+xTimerPendFunctionCallFromISR
+vTaskRemoveFromUnorderedEventList
+vPortFree

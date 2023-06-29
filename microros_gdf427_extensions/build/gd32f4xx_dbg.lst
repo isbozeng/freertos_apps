@@ -1,0 +1,244 @@
+ARM GAS  /tmp/ccTMfK5e.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_dbg.c"
+  14              		.text
+  15              		.section	.text.dbg_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	dbg_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	dbg_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27              		@ link register save eliminated.
+  28 0000 0023     		movs	r3, #0
+  29 0002 024A     		ldr	r2, .L2
+  30 0004 1360     		str	r3, [r2]
+  31 0006 0432     		adds	r2, r2, #4
+  32 0008 1360     		str	r3, [r2]
+  33 000a 7047     		bx	lr
+  34              	.L3:
+  35              		.align	2
+  36              	.L2:
+  37 000c 042004E0 		.word	-536600572
+  39              		.section	.text.dbg_id_get,"ax",%progbits
+  40              		.align	1
+  41              		.global	dbg_id_get
+  42              		.syntax unified
+  43              		.thumb
+  44              		.thumb_func
+  45              		.fpu fpv4-sp-d16
+  47              	dbg_id_get:
+  48              		@ args = 0, pretend = 0, frame = 0
+  49              		@ frame_needed = 0, uses_anonymous_args = 0
+  50              		@ link register save eliminated.
+  51 0000 014B     		ldr	r3, .L5
+  52 0002 1868     		ldr	r0, [r3]
+  53 0004 7047     		bx	lr
+  54              	.L6:
+  55 0006 00BF     		.align	2
+  56              	.L5:
+  57 0008 002004E0 		.word	-536600576
+  59              		.section	.text.dbg_low_power_enable,"ax",%progbits
+  60              		.align	1
+  61              		.global	dbg_low_power_enable
+ARM GAS  /tmp/ccTMfK5e.s 			page 2
+
+
+  62              		.syntax unified
+  63              		.thumb
+  64              		.thumb_func
+  65              		.fpu fpv4-sp-d16
+  67              	dbg_low_power_enable:
+  68              		@ args = 0, pretend = 0, frame = 0
+  69              		@ frame_needed = 0, uses_anonymous_args = 0
+  70              		@ link register save eliminated.
+  71 0000 024A     		ldr	r2, .L8
+  72 0002 1368     		ldr	r3, [r2]
+  73 0004 1843     		orrs	r0, r0, r3
+  74 0006 1060     		str	r0, [r2]
+  75 0008 7047     		bx	lr
+  76              	.L9:
+  77 000a 00BF     		.align	2
+  78              	.L8:
+  79 000c 042004E0 		.word	-536600572
+  81              		.section	.text.dbg_low_power_disable,"ax",%progbits
+  82              		.align	1
+  83              		.global	dbg_low_power_disable
+  84              		.syntax unified
+  85              		.thumb
+  86              		.thumb_func
+  87              		.fpu fpv4-sp-d16
+  89              	dbg_low_power_disable:
+  90              		@ args = 0, pretend = 0, frame = 0
+  91              		@ frame_needed = 0, uses_anonymous_args = 0
+  92              		@ link register save eliminated.
+  93 0000 024A     		ldr	r2, .L11
+  94 0002 1368     		ldr	r3, [r2]
+  95 0004 23EA0000 		bic	r0, r3, r0
+  96 0008 1060     		str	r0, [r2]
+  97 000a 7047     		bx	lr
+  98              	.L12:
+  99              		.align	2
+ 100              	.L11:
+ 101 000c 042004E0 		.word	-536600572
+ 103              		.section	.text.dbg_periph_enable,"ax",%progbits
+ 104              		.align	1
+ 105              		.global	dbg_periph_enable
+ 106              		.syntax unified
+ 107              		.thumb
+ 108              		.thumb_func
+ 109              		.fpu fpv4-sp-d16
+ 111              	dbg_periph_enable:
+ 112              		@ args = 0, pretend = 0, frame = 0
+ 113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 114              		@ link register save eliminated.
+ 115 0000 8309     		lsrs	r3, r0, #6
+ 116 0002 03F16043 		add	r3, r3, #-536870912
+ 117 0006 03F58423 		add	r3, r3, #270336
+ 118 000a 1A68     		ldr	r2, [r3]
+ 119 000c 00F01F00 		and	r0, r0, #31
+ 120 0010 0121     		movs	r1, #1
+ 121 0012 01FA00F0 		lsl	r0, r1, r0
+ 122 0016 0243     		orrs	r2, r2, r0
+ 123 0018 1A60     		str	r2, [r3]
+ARM GAS  /tmp/ccTMfK5e.s 			page 3
+
+
+ 124 001a 7047     		bx	lr
+ 126              		.section	.text.dbg_periph_disable,"ax",%progbits
+ 127              		.align	1
+ 128              		.global	dbg_periph_disable
+ 129              		.syntax unified
+ 130              		.thumb
+ 131              		.thumb_func
+ 132              		.fpu fpv4-sp-d16
+ 134              	dbg_periph_disable:
+ 135              		@ args = 0, pretend = 0, frame = 0
+ 136              		@ frame_needed = 0, uses_anonymous_args = 0
+ 137              		@ link register save eliminated.
+ 138 0000 8309     		lsrs	r3, r0, #6
+ 139 0002 03F16043 		add	r3, r3, #-536870912
+ 140 0006 03F58423 		add	r3, r3, #270336
+ 141 000a 1A68     		ldr	r2, [r3]
+ 142 000c 00F01F00 		and	r0, r0, #31
+ 143 0010 0121     		movs	r1, #1
+ 144 0012 01FA00F0 		lsl	r0, r1, r0
+ 145 0016 22EA0002 		bic	r2, r2, r0
+ 146 001a 1A60     		str	r2, [r3]
+ 147 001c 7047     		bx	lr
+ 149              		.section	.text.dbg_trace_pin_enable,"ax",%progbits
+ 150              		.align	1
+ 151              		.global	dbg_trace_pin_enable
+ 152              		.syntax unified
+ 153              		.thumb
+ 154              		.thumb_func
+ 155              		.fpu fpv4-sp-d16
+ 157              	dbg_trace_pin_enable:
+ 158              		@ args = 0, pretend = 0, frame = 0
+ 159              		@ frame_needed = 0, uses_anonymous_args = 0
+ 160              		@ link register save eliminated.
+ 161 0000 024A     		ldr	r2, .L16
+ 162 0002 1368     		ldr	r3, [r2]
+ 163 0004 43F02003 		orr	r3, r3, #32
+ 164 0008 1360     		str	r3, [r2]
+ 165 000a 7047     		bx	lr
+ 166              	.L17:
+ 167              		.align	2
+ 168              	.L16:
+ 169 000c 042004E0 		.word	-536600572
+ 171              		.section	.text.dbg_trace_pin_disable,"ax",%progbits
+ 172              		.align	1
+ 173              		.global	dbg_trace_pin_disable
+ 174              		.syntax unified
+ 175              		.thumb
+ 176              		.thumb_func
+ 177              		.fpu fpv4-sp-d16
+ 179              	dbg_trace_pin_disable:
+ 180              		@ args = 0, pretend = 0, frame = 0
+ 181              		@ frame_needed = 0, uses_anonymous_args = 0
+ 182              		@ link register save eliminated.
+ 183 0000 024A     		ldr	r2, .L19
+ 184 0002 1368     		ldr	r3, [r2]
+ 185 0004 23F02003 		bic	r3, r3, #32
+ 186 0008 1360     		str	r3, [r2]
+ARM GAS  /tmp/ccTMfK5e.s 			page 4
+
+
+ 187 000a 7047     		bx	lr
+ 188              	.L20:
+ 189              		.align	2
+ 190              	.L19:
+ 191 000c 042004E0 		.word	-536600572
+ 193              		.section	.text.dbg_trace_pin_mode_set,"ax",%progbits
+ 194              		.align	1
+ 195              		.global	dbg_trace_pin_mode_set
+ 196              		.syntax unified
+ 197              		.thumb
+ 198              		.thumb_func
+ 199              		.fpu fpv4-sp-d16
+ 201              	dbg_trace_pin_mode_set:
+ 202              		@ args = 0, pretend = 0, frame = 0
+ 203              		@ frame_needed = 0, uses_anonymous_args = 0
+ 204              		@ link register save eliminated.
+ 205 0000 044B     		ldr	r3, .L22
+ 206 0002 1A68     		ldr	r2, [r3]
+ 207 0004 22F0C002 		bic	r2, r2, #192
+ 208 0008 1A60     		str	r2, [r3]
+ 209 000a 1A68     		ldr	r2, [r3]
+ 210 000c 1043     		orrs	r0, r0, r2
+ 211 000e 1860     		str	r0, [r3]
+ 212 0010 7047     		bx	lr
+ 213              	.L23:
+ 214 0012 00BF     		.align	2
+ 215              	.L22:
+ 216 0014 042004E0 		.word	-536600572
+ 218              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccTMfK5e.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_dbg.c
+     /tmp/ccTMfK5e.s:16     .text.dbg_deinit:0000000000000000 $t
+     /tmp/ccTMfK5e.s:24     .text.dbg_deinit:0000000000000000 dbg_deinit
+     /tmp/ccTMfK5e.s:37     .text.dbg_deinit:000000000000000c $d
+     /tmp/ccTMfK5e.s:40     .text.dbg_id_get:0000000000000000 $t
+     /tmp/ccTMfK5e.s:47     .text.dbg_id_get:0000000000000000 dbg_id_get
+     /tmp/ccTMfK5e.s:57     .text.dbg_id_get:0000000000000008 $d
+     /tmp/ccTMfK5e.s:60     .text.dbg_low_power_enable:0000000000000000 $t
+     /tmp/ccTMfK5e.s:67     .text.dbg_low_power_enable:0000000000000000 dbg_low_power_enable
+     /tmp/ccTMfK5e.s:79     .text.dbg_low_power_enable:000000000000000c $d
+     /tmp/ccTMfK5e.s:82     .text.dbg_low_power_disable:0000000000000000 $t
+     /tmp/ccTMfK5e.s:89     .text.dbg_low_power_disable:0000000000000000 dbg_low_power_disable
+     /tmp/ccTMfK5e.s:101    .text.dbg_low_power_disable:000000000000000c $d
+     /tmp/ccTMfK5e.s:104    .text.dbg_periph_enable:0000000000000000 $t
+     /tmp/ccTMfK5e.s:111    .text.dbg_periph_enable:0000000000000000 dbg_periph_enable
+     /tmp/ccTMfK5e.s:127    .text.dbg_periph_disable:0000000000000000 $t
+     /tmp/ccTMfK5e.s:134    .text.dbg_periph_disable:0000000000000000 dbg_periph_disable
+     /tmp/ccTMfK5e.s:150    .text.dbg_trace_pin_enable:0000000000000000 $t
+     /tmp/ccTMfK5e.s:157    .text.dbg_trace_pin_enable:0000000000000000 dbg_trace_pin_enable
+     /tmp/ccTMfK5e.s:169    .text.dbg_trace_pin_enable:000000000000000c $d
+     /tmp/ccTMfK5e.s:172    .text.dbg_trace_pin_disable:0000000000000000 $t
+     /tmp/ccTMfK5e.s:179    .text.dbg_trace_pin_disable:0000000000000000 dbg_trace_pin_disable
+     /tmp/ccTMfK5e.s:191    .text.dbg_trace_pin_disable:000000000000000c $d
+     /tmp/ccTMfK5e.s:194    .text.dbg_trace_pin_mode_set:0000000000000000 $t
+     /tmp/ccTMfK5e.s:201    .text.dbg_trace_pin_mode_set:0000000000000000 dbg_trace_pin_mode_set
+     /tmp/ccTMfK5e.s:216    .text.dbg_trace_pin_mode_set:0000000000000014 $d
+
+NO UNDEFINED SYMBOLS

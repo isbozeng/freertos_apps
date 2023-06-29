@@ -1,0 +1,81 @@
+ARM GAS  /tmp/ccfUltkU.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"err.c"
+  14              		.text
+  15              		.section	.text.err_to_errno,"ax",%progbits
+  16              		.align	1
+  17              		.global	err_to_errno
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	err_to_errno:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27              		@ link register save eliminated.
+  28 0000 00F11003 		add	r3, r0, #16
+  29 0004 DBB2     		uxtb	r3, r3
+  30 0006 102B     		cmp	r3, #16
+  31 0008 04D8     		bhi	.L3
+  32 000a 4042     		rsbs	r0, r0, #0
+  33 000c 024B     		ldr	r3, .L4
+  34 000e 53F82000 		ldr	r0, [r3, r0, lsl #2]
+  35 0012 7047     		bx	lr
+  36              	.L3:
+  37 0014 0520     		movs	r0, #5
+  38 0016 7047     		bx	lr
+  39              	.L5:
+  40              		.align	2
+  41              	.L4:
+  42 0018 00000000 		.word	.LANCHOR0
+  44              		.section	.rodata.err_to_errno_table,"a"
+  45              		.align	2
+  46              		.set	.LANCHOR0,. + 0
+  49              	err_to_errno_table:
+  50 0000 00000000 		.word	0
+  51 0004 0C000000 		.word	12
+  52 0008 69000000 		.word	105
+  53 000c 0B000000 		.word	11
+  54 0010 71000000 		.word	113
+  55 0014 73000000 		.word	115
+  56 0018 16000000 		.word	22
+  57 001c 0B000000 		.word	11
+  58 0020 62000000 		.word	98
+  59 0024 72000000 		.word	114
+  60 0028 6A000000 		.word	106
+  61 002c 6B000000 		.word	107
+ARM GAS  /tmp/ccfUltkU.s 			page 2
+
+
+  62 0030 FFFFFFFF 		.word	-1
+  63 0034 67000000 		.word	103
+  64 0038 68000000 		.word	104
+  65 003c 6B000000 		.word	107
+  66 0040 05000000 		.word	5
+  67              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccfUltkU.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 err.c
+     /tmp/ccfUltkU.s:16     .text.err_to_errno:0000000000000000 $t
+     /tmp/ccfUltkU.s:24     .text.err_to_errno:0000000000000000 err_to_errno
+     /tmp/ccfUltkU.s:42     .text.err_to_errno:0000000000000018 $d
+     /tmp/ccfUltkU.s:45     .rodata.err_to_errno_table:0000000000000000 $d
+     /tmp/ccfUltkU.s:49     .rodata.err_to_errno_table:0000000000000000 err_to_errno_table
+
+NO UNDEFINED SYMBOLS

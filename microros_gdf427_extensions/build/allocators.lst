@@ -1,0 +1,186 @@
+ARM GAS  /tmp/ccydZU7k.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"allocators.c"
+  14              		.text
+  15              		.section	.text.__freertos_allocate,"ax",%progbits
+  16              		.align	1
+  17              		.global	__freertos_allocate
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	__freertos_allocate:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 054B     		ldr	r3, .L3
+  29 0004 1A68     		ldr	r2, [r3]
+  30 0006 0244     		add	r2, r2, r0
+  31 0008 1A60     		str	r2, [r3]
+  32 000a 044A     		ldr	r2, .L3+4
+  33 000c 1368     		ldr	r3, [r2]
+  34 000e 0344     		add	r3, r3, r0
+  35 0010 1360     		str	r3, [r2]
+  36 0012 FFF7FEFF 		bl	pvPortMalloc
+  37 0016 08BD     		pop	{r3, pc}
+  38              	.L4:
+  39              		.align	2
+  40              	.L3:
+  41 0018 00000000 		.word	.LANCHOR0
+  42 001c 00000000 		.word	.LANCHOR1
+  44              		.section	.text.__freertos_deallocate,"ax",%progbits
+  45              		.align	1
+  46              		.global	__freertos_deallocate
+  47              		.syntax unified
+  48              		.thumb
+  49              		.thumb_func
+  50              		.fpu fpv4-sp-d16
+  52              	__freertos_deallocate:
+  53              		@ args = 0, pretend = 0, frame = 0
+  54              		@ frame_needed = 0, uses_anonymous_args = 0
+  55 0000 58B1     		cbz	r0, .L8
+  56 0002 10B5     		push	{r4, lr}
+  57 0004 0446     		mov	r4, r0
+  58 0006 FFF7FEFF 		bl	getBlockSize
+  59 000a 044A     		ldr	r2, .L11
+  60 000c 1368     		ldr	r3, [r2]
+ARM GAS  /tmp/ccydZU7k.s 			page 2
+
+
+  61 000e 181A     		subs	r0, r3, r0
+  62 0010 1060     		str	r0, [r2]
+  63 0012 2046     		mov	r0, r4
+  64 0014 FFF7FEFF 		bl	vPortFree
+  65 0018 10BD     		pop	{r4, pc}
+  66              	.L8:
+  67 001a 7047     		bx	lr
+  68              	.L12:
+  69              		.align	2
+  70              	.L11:
+  71 001c 00000000 		.word	.LANCHOR1
+  73              		.section	.text.__freertos_reallocate,"ax",%progbits
+  74              		.align	1
+  75              		.global	__freertos_reallocate
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  81              	__freertos_reallocate:
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 0, uses_anonymous_args = 0
+  84 0000 38B5     		push	{r3, r4, r5, lr}
+  85 0002 0C46     		mov	r4, r1
+  86 0004 0C4A     		ldr	r2, .L18
+  87 0006 1368     		ldr	r3, [r2]
+  88 0008 0B44     		add	r3, r3, r1
+  89 000a 1360     		str	r3, [r2]
+  90 000c 0B4A     		ldr	r2, .L18+4
+  91 000e 1368     		ldr	r3, [r2]
+  92 0010 0B44     		add	r3, r3, r1
+  93 0012 1360     		str	r3, [r2]
+  94 0014 58B1     		cbz	r0, .L17
+  95 0016 0546     		mov	r5, r0
+  96 0018 FFF7FEFF 		bl	getBlockSize
+  97 001c 074A     		ldr	r2, .L18+4
+  98 001e 1368     		ldr	r3, [r2]
+  99 0020 181A     		subs	r0, r3, r0
+ 100 0022 1060     		str	r0, [r2]
+ 101 0024 2146     		mov	r1, r4
+ 102 0026 2846     		mov	r0, r5
+ 103 0028 FFF7FEFF 		bl	pvPortRealloc
+ 104              	.L13:
+ 105 002c 38BD     		pop	{r3, r4, r5, pc}
+ 106              	.L17:
+ 107 002e 0846     		mov	r0, r1
+ 108 0030 FFF7FEFF 		bl	pvPortMalloc
+ 109 0034 FAE7     		b	.L13
+ 110              	.L19:
+ 111 0036 00BF     		.align	2
+ 112              	.L18:
+ 113 0038 00000000 		.word	.LANCHOR0
+ 114 003c 00000000 		.word	.LANCHOR1
+ 116              		.section	.text.__freertos_zero_allocate,"ax",%progbits
+ 117              		.align	1
+ 118              		.global	__freertos_zero_allocate
+ 119              		.syntax unified
+ 120              		.thumb
+ARM GAS  /tmp/ccydZU7k.s 			page 3
+
+
+ 121              		.thumb_func
+ 122              		.fpu fpv4-sp-d16
+ 124              	__freertos_zero_allocate:
+ 125              		@ args = 0, pretend = 0, frame = 0
+ 126              		@ frame_needed = 0, uses_anonymous_args = 0
+ 127 0000 10B5     		push	{r4, lr}
+ 128 0002 01FB00F4 		mul	r4, r1, r0
+ 129 0006 054B     		ldr	r3, .L22
+ 130 0008 1A68     		ldr	r2, [r3]
+ 131 000a 2244     		add	r2, r2, r4
+ 132 000c 1A60     		str	r2, [r3]
+ 133 000e 044A     		ldr	r2, .L22+4
+ 134 0010 1368     		ldr	r3, [r2]
+ 135 0012 2344     		add	r3, r3, r4
+ 136 0014 1360     		str	r3, [r2]
+ 137 0016 FFF7FEFF 		bl	pvPortCalloc
+ 138 001a 10BD     		pop	{r4, pc}
+ 139              	.L23:
+ 140              		.align	2
+ 141              	.L22:
+ 142 001c 00000000 		.word	.LANCHOR0
+ 143 0020 00000000 		.word	.LANCHOR1
+ 145              		.global	usedMemory
+ 146              		.global	absoluteUsedMemory
+ 147              		.section	.bss.absoluteUsedMemory,"aw",%nobits
+ 148              		.align	2
+ 149              		.set	.LANCHOR0,. + 0
+ 152              	absoluteUsedMemory:
+ 153 0000 00000000 		.space	4
+ 154              		.section	.bss.usedMemory,"aw",%nobits
+ 155              		.align	2
+ 156              		.set	.LANCHOR1,. + 0
+ 159              	usedMemory:
+ 160 0000 00000000 		.space	4
+ 161              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccydZU7k.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 allocators.c
+     /tmp/ccydZU7k.s:16     .text.__freertos_allocate:0000000000000000 $t
+     /tmp/ccydZU7k.s:24     .text.__freertos_allocate:0000000000000000 __freertos_allocate
+     /tmp/ccydZU7k.s:41     .text.__freertos_allocate:0000000000000018 $d
+     /tmp/ccydZU7k.s:45     .text.__freertos_deallocate:0000000000000000 $t
+     /tmp/ccydZU7k.s:52     .text.__freertos_deallocate:0000000000000000 __freertos_deallocate
+     /tmp/ccydZU7k.s:71     .text.__freertos_deallocate:000000000000001c $d
+     /tmp/ccydZU7k.s:74     .text.__freertos_reallocate:0000000000000000 $t
+     /tmp/ccydZU7k.s:81     .text.__freertos_reallocate:0000000000000000 __freertos_reallocate
+     /tmp/ccydZU7k.s:113    .text.__freertos_reallocate:0000000000000038 $d
+     /tmp/ccydZU7k.s:117    .text.__freertos_zero_allocate:0000000000000000 $t
+     /tmp/ccydZU7k.s:124    .text.__freertos_zero_allocate:0000000000000000 __freertos_zero_allocate
+     /tmp/ccydZU7k.s:142    .text.__freertos_zero_allocate:000000000000001c $d
+     /tmp/ccydZU7k.s:159    .bss.usedMemory:0000000000000000 usedMemory
+     /tmp/ccydZU7k.s:152    .bss.absoluteUsedMemory:0000000000000000 absoluteUsedMemory
+     /tmp/ccydZU7k.s:148    .bss.absoluteUsedMemory:0000000000000000 $d
+     /tmp/ccydZU7k.s:155    .bss.usedMemory:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+pvPortMalloc
+getBlockSize
+vPortFree
+pvPortRealloc
+pvPortCalloc

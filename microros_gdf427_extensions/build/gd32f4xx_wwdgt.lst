@@ -1,0 +1,212 @@
+ARM GAS  /tmp/ccdcqhiC.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_wwdgt.c"
+  14              		.text
+  15              		.section	.text.wwdgt_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	wwdgt_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	wwdgt_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 40F60B00 		movw	r0, #2059
+  29 0006 FFF7FEFF 		bl	rcu_periph_reset_enable
+  30 000a 40F60B00 		movw	r0, #2059
+  31 000e FFF7FEFF 		bl	rcu_periph_reset_disable
+  32 0012 08BD     		pop	{r3, pc}
+  34              		.section	.text.wwdgt_enable,"ax",%progbits
+  35              		.align	1
+  36              		.global	wwdgt_enable
+  37              		.syntax unified
+  38              		.thumb
+  39              		.thumb_func
+  40              		.fpu fpv4-sp-d16
+  42              	wwdgt_enable:
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 0, uses_anonymous_args = 0
+  45              		@ link register save eliminated.
+  46 0000 024A     		ldr	r2, .L4
+  47 0002 1368     		ldr	r3, [r2]
+  48 0004 43F08003 		orr	r3, r3, #128
+  49 0008 1360     		str	r3, [r2]
+  50 000a 7047     		bx	lr
+  51              	.L5:
+  52              		.align	2
+  53              	.L4:
+  54 000c 002C0040 		.word	1073753088
+  56              		.section	.text.wwdgt_counter_update,"ax",%progbits
+  57              		.align	1
+  58              		.global	wwdgt_counter_update
+  59              		.syntax unified
+  60              		.thumb
+  61              		.thumb_func
+ARM GAS  /tmp/ccdcqhiC.s 			page 2
+
+
+  62              		.fpu fpv4-sp-d16
+  64              	wwdgt_counter_update:
+  65              		@ args = 0, pretend = 0, frame = 0
+  66              		@ frame_needed = 0, uses_anonymous_args = 0
+  67              		@ link register save eliminated.
+  68 0000 044A     		ldr	r2, .L7
+  69 0002 1368     		ldr	r3, [r2]
+  70 0004 23F07F03 		bic	r3, r3, #127
+  71 0008 00F07F00 		and	r0, r0, #127
+  72 000c 1843     		orrs	r0, r0, r3
+  73 000e 1060     		str	r0, [r2]
+  74 0010 7047     		bx	lr
+  75              	.L8:
+  76 0012 00BF     		.align	2
+  77              	.L7:
+  78 0014 002C0040 		.word	1073753088
+  80              		.section	.text.wwdgt_config,"ax",%progbits
+  81              		.align	1
+  82              		.global	wwdgt_config
+  83              		.syntax unified
+  84              		.thumb
+  85              		.thumb_func
+  86              		.fpu fpv4-sp-d16
+  88              	wwdgt_config:
+  89              		@ args = 0, pretend = 0, frame = 0
+  90              		@ frame_needed = 0, uses_anonymous_args = 0
+  91              		@ link register save eliminated.
+  92 0000 70B4     		push	{r4, r5, r6}
+  93 0002 0A4D     		ldr	r5, .L11
+  94 0004 2B68     		ldr	r3, [r5]
+  95 0006 23F4FF73 		bic	r3, r3, #510
+  96 000a 23F00103 		bic	r3, r3, #1
+  97 000e 084E     		ldr	r6, .L11+4
+  98 0010 3468     		ldr	r4, [r6]
+  99 0012 24F07F04 		bic	r4, r4, #127
+ 100 0016 01F07F01 		and	r1, r1, #127
+ 101 001a 1943     		orrs	r1, r1, r3
+ 102 001c 1143     		orrs	r1, r1, r2
+ 103 001e 00F07F00 		and	r0, r0, #127
+ 104 0022 2043     		orrs	r0, r0, r4
+ 105 0024 3060     		str	r0, [r6]
+ 106 0026 2960     		str	r1, [r5]
+ 107 0028 70BC     		pop	{r4, r5, r6}
+ 108 002a 7047     		bx	lr
+ 109              	.L12:
+ 110              		.align	2
+ 111              	.L11:
+ 112 002c 042C0040 		.word	1073753092
+ 113 0030 002C0040 		.word	1073753088
+ 115              		.section	.text.wwdgt_interrupt_enable,"ax",%progbits
+ 116              		.align	1
+ 117              		.global	wwdgt_interrupt_enable
+ 118              		.syntax unified
+ 119              		.thumb
+ 120              		.thumb_func
+ 121              		.fpu fpv4-sp-d16
+ 123              	wwdgt_interrupt_enable:
+ARM GAS  /tmp/ccdcqhiC.s 			page 3
+
+
+ 124              		@ args = 0, pretend = 0, frame = 0
+ 125              		@ frame_needed = 0, uses_anonymous_args = 0
+ 126              		@ link register save eliminated.
+ 127 0000 024A     		ldr	r2, .L14
+ 128 0002 1368     		ldr	r3, [r2]
+ 129 0004 43F40073 		orr	r3, r3, #512
+ 130 0008 1360     		str	r3, [r2]
+ 131 000a 7047     		bx	lr
+ 132              	.L15:
+ 133              		.align	2
+ 134              	.L14:
+ 135 000c 042C0040 		.word	1073753092
+ 137              		.section	.text.wwdgt_flag_get,"ax",%progbits
+ 138              		.align	1
+ 139              		.global	wwdgt_flag_get
+ 140              		.syntax unified
+ 141              		.thumb
+ 142              		.thumb_func
+ 143              		.fpu fpv4-sp-d16
+ 145              	wwdgt_flag_get:
+ 146              		@ args = 0, pretend = 0, frame = 0
+ 147              		@ frame_needed = 0, uses_anonymous_args = 0
+ 148              		@ link register save eliminated.
+ 149 0000 044B     		ldr	r3, .L19
+ 150 0002 1B68     		ldr	r3, [r3]
+ 151 0004 13F0010F 		tst	r3, #1
+ 152 0008 01D1     		bne	.L18
+ 153 000a 0020     		movs	r0, #0
+ 154 000c 7047     		bx	lr
+ 155              	.L18:
+ 156 000e 0120     		movs	r0, #1
+ 157 0010 7047     		bx	lr
+ 158              	.L20:
+ 159 0012 00BF     		.align	2
+ 160              	.L19:
+ 161 0014 082C0040 		.word	1073753096
+ 163              		.section	.text.wwdgt_flag_clear,"ax",%progbits
+ 164              		.align	1
+ 165              		.global	wwdgt_flag_clear
+ 166              		.syntax unified
+ 167              		.thumb
+ 168              		.thumb_func
+ 169              		.fpu fpv4-sp-d16
+ 171              	wwdgt_flag_clear:
+ 172              		@ args = 0, pretend = 0, frame = 0
+ 173              		@ frame_needed = 0, uses_anonymous_args = 0
+ 174              		@ link register save eliminated.
+ 175 0000 024A     		ldr	r2, .L22
+ 176 0002 1368     		ldr	r3, [r2]
+ 177 0004 23F00103 		bic	r3, r3, #1
+ 178 0008 1360     		str	r3, [r2]
+ 179 000a 7047     		bx	lr
+ 180              	.L23:
+ 181              		.align	2
+ 182              	.L22:
+ 183 000c 082C0040 		.word	1073753096
+ 185              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccdcqhiC.s 			page 4
+
+
+ARM GAS  /tmp/ccdcqhiC.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_wwdgt.c
+     /tmp/ccdcqhiC.s:16     .text.wwdgt_deinit:0000000000000000 $t
+     /tmp/ccdcqhiC.s:24     .text.wwdgt_deinit:0000000000000000 wwdgt_deinit
+     /tmp/ccdcqhiC.s:35     .text.wwdgt_enable:0000000000000000 $t
+     /tmp/ccdcqhiC.s:42     .text.wwdgt_enable:0000000000000000 wwdgt_enable
+     /tmp/ccdcqhiC.s:54     .text.wwdgt_enable:000000000000000c $d
+     /tmp/ccdcqhiC.s:57     .text.wwdgt_counter_update:0000000000000000 $t
+     /tmp/ccdcqhiC.s:64     .text.wwdgt_counter_update:0000000000000000 wwdgt_counter_update
+     /tmp/ccdcqhiC.s:78     .text.wwdgt_counter_update:0000000000000014 $d
+     /tmp/ccdcqhiC.s:81     .text.wwdgt_config:0000000000000000 $t
+     /tmp/ccdcqhiC.s:88     .text.wwdgt_config:0000000000000000 wwdgt_config
+     /tmp/ccdcqhiC.s:112    .text.wwdgt_config:000000000000002c $d
+     /tmp/ccdcqhiC.s:116    .text.wwdgt_interrupt_enable:0000000000000000 $t
+     /tmp/ccdcqhiC.s:123    .text.wwdgt_interrupt_enable:0000000000000000 wwdgt_interrupt_enable
+     /tmp/ccdcqhiC.s:135    .text.wwdgt_interrupt_enable:000000000000000c $d
+     /tmp/ccdcqhiC.s:138    .text.wwdgt_flag_get:0000000000000000 $t
+     /tmp/ccdcqhiC.s:145    .text.wwdgt_flag_get:0000000000000000 wwdgt_flag_get
+     /tmp/ccdcqhiC.s:161    .text.wwdgt_flag_get:0000000000000014 $d
+     /tmp/ccdcqhiC.s:164    .text.wwdgt_flag_clear:0000000000000000 $t
+     /tmp/ccdcqhiC.s:171    .text.wwdgt_flag_clear:0000000000000000 wwdgt_flag_clear
+     /tmp/ccdcqhiC.s:183    .text.wwdgt_flag_clear:000000000000000c $d
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable

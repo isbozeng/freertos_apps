@@ -1,0 +1,1765 @@
+ARM GAS  /tmp/ccnudN2P.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"dns.c"
+  14              		.text
+  15              		.section	.text.dns_backupserver_available,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	dns_backupserver_available:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26              		@ link register save eliminated.
+  27 0000 38B1     		cbz	r0, .L3
+  28 0002 C07A     		ldrb	r0, [r0, #11]	@ zero_extendqisi2
+  29 0004 38B9     		cbnz	r0, .L4
+  30 0006 431C     		adds	r3, r0, #1
+  31 0008 054A     		ldr	r2, .L6
+  32 000a 52F82330 		ldr	r3, [r2, r3, lsl #2]
+  33 000e 23B9     		cbnz	r3, .L5
+  34 0010 7047     		bx	lr
+  35              	.L3:
+  36 0012 0020     		movs	r0, #0
+  37 0014 7047     		bx	lr
+  38              	.L4:
+  39 0016 0020     		movs	r0, #0
+  40 0018 7047     		bx	lr
+  41              	.L5:
+  42 001a 0120     		movs	r0, #1
+  43 001c 7047     		bx	lr
+  44              	.L7:
+  45 001e 00BF     		.align	2
+  46              	.L6:
+  47 0020 00000000 		.word	.LANCHOR0
+  49              		.section	.text.dns_create_txid,"ax",%progbits
+  50              		.align	1
+  51              		.syntax unified
+  52              		.thumb
+  53              		.thumb_func
+  54              		.fpu fpv4-sp-d16
+  56              	dns_create_txid:
+  57              		@ args = 0, pretend = 0, frame = 0
+  58              		@ frame_needed = 0, uses_anonymous_args = 0
+  59 0000 08B5     		push	{r3, lr}
+  60              	.L9:
+ARM GAS  /tmp/ccnudN2P.s 			page 2
+
+
+  61 0002 FFF7FEFF 		bl	rand
+  62 0006 80B2     		uxth	r0, r0
+  63 0008 0023     		movs	r3, #0
+  64 000a 01E0     		b	.L10
+  65              	.L11:
+  66 000c 0133     		adds	r3, r3, #1
+  67 000e DBB2     		uxtb	r3, r3
+  68              	.L10:
+  69 0010 032B     		cmp	r3, #3
+  70 0012 0DD8     		bhi	.L14
+  71 0014 03EB0312 		add	r2, r3, r3, lsl #4
+  72 0018 1101     		lsls	r1, r2, #4
+  73 001a 064A     		ldr	r2, .L15
+  74 001c 0A44     		add	r2, r2, r1
+  75 001e 927A     		ldrb	r2, [r2, #10]	@ zero_extendqisi2
+  76 0020 022A     		cmp	r2, #2
+  77 0022 F3D1     		bne	.L11
+  78 0024 034A     		ldr	r2, .L15
+  79 0026 0A44     		add	r2, r2, r1
+  80 0028 1289     		ldrh	r2, [r2, #8]
+  81 002a 8242     		cmp	r2, r0
+  82 002c EED1     		bne	.L11
+  83 002e E8E7     		b	.L9
+  84              	.L14:
+  85 0030 08BD     		pop	{r3, pc}
+  86              	.L16:
+  87 0032 00BF     		.align	2
+  88              	.L15:
+  89 0034 00000000 		.word	.LANCHOR1
+  91              		.section	.text.dns_call_found,"ax",%progbits
+  92              		.align	1
+  93              		.syntax unified
+  94              		.thumb
+  95              		.thumb_func
+  96              		.fpu fpv4-sp-d16
+  98              	dns_call_found:
+  99              		@ args = 0, pretend = 0, frame = 0
+ 100              		@ frame_needed = 0, uses_anonymous_args = 0
+ 101 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 102 0004 0546     		mov	r5, r0
+ 103 0006 8846     		mov	r8, r1
+ 104 0008 0024     		movs	r4, #0
+ 105 000a 01E0     		b	.L18
+ 106              	.L19:
+ 107 000c 0134     		adds	r4, r4, #1
+ 108 000e E4B2     		uxtb	r4, r4
+ 109              	.L18:
+ 110 0010 032C     		cmp	r4, #3
+ 111 0012 26D8     		bhi	.L27
+ 112 0014 2646     		mov	r6, r4
+ 113 0016 04EB4402 		add	r2, r4, r4, lsl #1
+ 114 001a 9300     		lsls	r3, r2, #2
+ 115 001c 2F4A     		ldr	r2, .L29
+ 116 001e D758     		ldr	r7, [r2, r3]
+ 117 0020 002F     		cmp	r7, #0
+ 118 0022 F3D0     		beq	.L19
+ 119 0024 04EB4403 		add	r3, r4, r4, lsl #1
+ARM GAS  /tmp/ccnudN2P.s 			page 3
+
+
+ 120 0028 9A00     		lsls	r2, r3, #2
+ 121 002a 2C4B     		ldr	r3, .L29
+ 122 002c 1344     		add	r3, r3, r2
+ 123 002e 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 124 0030 AB42     		cmp	r3, r5
+ 125 0032 EBD1     		bne	.L19
+ 126 0034 05EB0513 		add	r3, r5, r5, lsl #4
+ 127 0038 1801     		lsls	r0, r3, #4
+ 128 003a 1030     		adds	r0, r0, #16
+ 129 003c DFF89CA0 		ldr	r10, .L29
+ 130 0040 4FEA4409 		lsl	r9, r4, #1
+ 131 0044 09EB0402 		add	r2, r9, r4
+ 132 0048 9300     		lsls	r3, r2, #2
+ 133 004a 5344     		add	r3, r3, r10
+ 134 004c 5A68     		ldr	r2, [r3, #4]
+ 135 004e 4146     		mov	r1, r8
+ 136 0050 234B     		ldr	r3, .L29+4
+ 137 0052 1844     		add	r0, r0, r3
+ 138 0054 B847     		blx	r7
+ 139 0056 4E44     		add	r6, r6, r9
+ 140 0058 B300     		lsls	r3, r6, #2
+ 141 005a 0022     		movs	r2, #0
+ 142 005c 4AF80320 		str	r2, [r10, r3]
+ 143 0060 D4E7     		b	.L19
+ 144              	.L27:
+ 145 0062 0023     		movs	r3, #0
+ 146 0064 01E0     		b	.L21
+ 147              	.L22:
+ 148 0066 0133     		adds	r3, r3, #1
+ 149 0068 DBB2     		uxtb	r3, r3
+ 150              	.L21:
+ 151 006a 032B     		cmp	r3, #3
+ 152 006c 17D8     		bhi	.L23
+ 153 006e AB42     		cmp	r3, r5
+ 154 0070 F9D0     		beq	.L22
+ 155 0072 03EB0312 		add	r2, r3, r3, lsl #4
+ 156 0076 1101     		lsls	r1, r2, #4
+ 157 0078 194A     		ldr	r2, .L29+4
+ 158 007a 0A44     		add	r2, r2, r1
+ 159 007c 927A     		ldrb	r2, [r2, #10]	@ zero_extendqisi2
+ 160 007e 022A     		cmp	r2, #2
+ 161 0080 F1D1     		bne	.L22
+ 162 0082 174A     		ldr	r2, .L29+4
+ 163 0084 1144     		add	r1, r1, r2
+ 164 0086 CC7B     		ldrb	r4, [r1, #15]	@ zero_extendqisi2
+ 165 0088 05EB0510 		add	r0, r5, r5, lsl #4
+ 166 008c 0101     		lsls	r1, r0, #4
+ 167 008e 0A44     		add	r2, r2, r1
+ 168 0090 D27B     		ldrb	r2, [r2, #15]	@ zero_extendqisi2
+ 169 0092 9442     		cmp	r4, r2
+ 170 0094 E7D1     		bne	.L22
+ 171 0096 124B     		ldr	r3, .L29+4
+ 172 0098 0B44     		add	r3, r3, r1
+ 173 009a 0422     		movs	r2, #4
+ 174 009c DA73     		strb	r2, [r3, #15]
+ 175              	.L23:
+ 176 009e 05EB0513 		add	r3, r5, r5, lsl #4
+ARM GAS  /tmp/ccnudN2P.s 			page 4
+
+
+ 177 00a2 1A01     		lsls	r2, r3, #4
+ 178 00a4 0E4B     		ldr	r3, .L29+4
+ 179 00a6 1344     		add	r3, r3, r2
+ 180 00a8 DB7B     		ldrb	r3, [r3, #15]	@ zero_extendqisi2
+ 181 00aa 032B     		cmp	r3, #3
+ 182 00ac 01D9     		bls	.L28
+ 183              	.L17:
+ 184 00ae BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 185              	.L28:
+ 186 00b2 0C4C     		ldr	r4, .L29+8
+ 187 00b4 54F82300 		ldr	r0, [r4, r3, lsl #2]
+ 188 00b8 FFF7FEFF 		bl	udp_remove
+ 189 00bc 084A     		ldr	r2, .L29+4
+ 190 00be 2B01     		lsls	r3, r5, #4
+ 191 00c0 5819     		adds	r0, r3, r5
+ 192 00c2 0101     		lsls	r1, r0, #4
+ 193 00c4 1144     		add	r1, r1, r2
+ 194 00c6 C97B     		ldrb	r1, [r1, #15]	@ zero_extendqisi2
+ 195 00c8 0020     		movs	r0, #0
+ 196 00ca 44F82100 		str	r0, [r4, r1, lsl #2]
+ 197 00ce 1D44     		add	r5, r5, r3
+ 198 00d0 2B01     		lsls	r3, r5, #4
+ 199 00d2 1A44     		add	r2, r2, r3
+ 200 00d4 0423     		movs	r3, #4
+ 201 00d6 D373     		strb	r3, [r2, #15]
+ 202 00d8 E9E7     		b	.L17
+ 203              	.L30:
+ 204 00da 00BF     		.align	2
+ 205              	.L29:
+ 206 00dc 00000000 		.word	.LANCHOR2
+ 207 00e0 00000000 		.word	.LANCHOR1
+ 208 00e4 00000000 		.word	.LANCHOR3
+ 210              		.section	.text.dns_correct_response,"ax",%progbits
+ 211              		.align	1
+ 212              		.syntax unified
+ 213              		.thumb
+ 214              		.thumb_func
+ 215              		.fpu fpv4-sp-d16
+ 217              	dns_correct_response:
+ 218              		@ args = 0, pretend = 0, frame = 0
+ 219              		@ frame_needed = 0, uses_anonymous_args = 0
+ 220 0000 70B5     		push	{r4, r5, r6, lr}
+ 221 0002 0446     		mov	r4, r0
+ 222 0004 1248     		ldr	r0, .L36
+ 223 0006 2301     		lsls	r3, r4, #4
+ 224 0008 2344     		add	r3, r3, r4
+ 225 000a 1A01     		lsls	r2, r3, #4
+ 226 000c 8318     		adds	r3, r0, r2
+ 227 000e 0325     		movs	r5, #3
+ 228 0010 9D72     		strb	r5, [r3, #10]
+ 229 0012 8150     		str	r1, [r0, r2]
+ 230 0014 0F4B     		ldr	r3, .L36+4
+ 231 0016 9942     		cmp	r1, r3
+ 232 0018 04D9     		bls	.L32
+ 233 001a 04EB0412 		add	r2, r4, r4, lsl #4
+ 234 001e 1301     		lsls	r3, r2, #4
+ 235 0020 0C49     		ldr	r1, .L36+4
+ARM GAS  /tmp/ccnudN2P.s 			page 5
+
+
+ 236 0022 C150     		str	r1, [r0, r3]
+ 237              	.L32:
+ 238 0024 0A4E     		ldr	r6, .L36
+ 239 0026 2301     		lsls	r3, r4, #4
+ 240 0028 2344     		add	r3, r3, r4
+ 241 002a 1D01     		lsls	r5, r3, #4
+ 242 002c 7119     		adds	r1, r6, r5
+ 243 002e 0431     		adds	r1, r1, #4
+ 244 0030 2046     		mov	r0, r4
+ 245 0032 FFF7FEFF 		bl	dns_call_found
+ 246 0036 7359     		ldr	r3, [r6, r5]
+ 247 0038 23B9     		cbnz	r3, .L31
+ 248 003a 3346     		mov	r3, r6
+ 249 003c 2B44     		add	r3, r3, r5
+ 250 003e 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 251 0040 032B     		cmp	r3, #3
+ 252 0042 00D0     		beq	.L35
+ 253              	.L31:
+ 254 0044 70BD     		pop	{r4, r5, r6, pc}
+ 255              	.L35:
+ 256 0046 3346     		mov	r3, r6
+ 257 0048 2B44     		add	r3, r3, r5
+ 258 004a 0022     		movs	r2, #0
+ 259 004c 9A72     		strb	r2, [r3, #10]
+ 260 004e F9E7     		b	.L31
+ 261              	.L37:
+ 262              		.align	2
+ 263              	.L36:
+ 264 0050 00000000 		.word	.LANCHOR1
+ 265 0054 803A0900 		.word	604800
+ 267              		.section	.text.dns_send,"ax",%progbits
+ 268              		.align	1
+ 269              		.syntax unified
+ 270              		.thumb
+ 271              		.thumb_func
+ 272              		.fpu fpv4-sp-d16
+ 274              	dns_send:
+ 275              		@ args = 0, pretend = 0, frame = 16
+ 276              		@ frame_needed = 0, uses_anonymous_args = 0
+ 277 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 278 0004 84B0     		sub	sp, sp, #16
+ 279 0006 0646     		mov	r6, r0
+ 280 0008 00EB0013 		add	r3, r0, r0, lsl #4
+ 281 000c 1A01     		lsls	r2, r3, #4
+ 282 000e 5B4B     		ldr	r3, .L53
+ 283 0010 1344     		add	r3, r3, r2
+ 284 0012 DB7A     		ldrb	r3, [r3, #11]	@ zero_extendqisi2
+ 285 0014 012B     		cmp	r3, #1
+ 286 0016 3DD8     		bhi	.L49
+ 287              	.L39:
+ 288 0018 06EB0613 		add	r3, r6, r6, lsl #4
+ 289 001c 1A01     		lsls	r2, r3, #4
+ 290 001e 574B     		ldr	r3, .L53
+ 291 0020 1344     		add	r3, r3, r2
+ 292 0022 DA7A     		ldrb	r2, [r3, #11]	@ zero_extendqisi2
+ 293 0024 564B     		ldr	r3, .L53+4
+ 294 0026 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ARM GAS  /tmp/ccnudN2P.s 			page 6
+
+
+ 295 002a 002B     		cmp	r3, #0
+ 296 002c 3AD0     		beq	.L50
+ 297 002e 06EB0612 		add	r2, r6, r6, lsl #4
+ 298 0032 1301     		lsls	r3, r2, #4
+ 299 0034 1033     		adds	r3, r3, #16
+ 300 0036 514F     		ldr	r7, .L53
+ 301 0038 1F44     		add	r7, r7, r3
+ 302 003a 3846     		mov	r0, r7
+ 303 003c FFF7FEFF 		bl	strlen
+ 304 0040 00F11201 		add	r1, r0, #18
+ 305 0044 4FF42072 		mov	r2, #640
+ 306 0048 89B2     		uxth	r1, r1
+ 307 004a 3620     		movs	r0, #54
+ 308 004c FFF7FEFF 		bl	pbuf_alloc
+ 309 0050 0546     		mov	r5, r0
+ 310 0052 0028     		cmp	r0, #0
+ 311 0054 00F08E80 		beq	.L47
+ 312 0058 0023     		movs	r3, #0
+ 313 005a 0193     		str	r3, [sp, #4]
+ 314 005c 0293     		str	r3, [sp, #8]
+ 315 005e 0393     		str	r3, [sp, #12]
+ 316 0060 06EB0613 		add	r3, r6, r6, lsl #4
+ 317 0064 1A01     		lsls	r2, r3, #4
+ 318 0066 454B     		ldr	r3, .L53
+ 319 0068 1344     		add	r3, r3, r2
+ 320 006a 1889     		ldrh	r0, [r3, #8]
+ 321 006c FFF7FEFF 		bl	lwip_htons
+ 322 0070 ADF80400 		strh	r0, [sp, #4]	@ movhi
+ 323 0074 0123     		movs	r3, #1
+ 324 0076 8DF80630 		strb	r3, [sp, #6]
+ 325 007a 4FF48073 		mov	r3, #256
+ 326 007e ADF80830 		strh	r3, [sp, #8]	@ movhi
+ 327 0082 0C22     		movs	r2, #12
+ 328 0084 01A9     		add	r1, sp, #4
+ 329 0086 2846     		mov	r0, r5
+ 330 0088 FFF7FEFF 		bl	pbuf_take
+ 331 008c 013F     		subs	r7, r7, #1
+ 332 008e 4FF00C08 		mov	r8, #12
+ 333 0092 35E0     		b	.L46
+ 334              	.L49:
+ 335 0094 3B4B     		ldr	r3, .L53+8
+ 336 0096 40F2FA22 		movw	r2, #762
+ 337 009a 3B49     		ldr	r1, .L53+12
+ 338 009c 3B48     		ldr	r0, .L53+16
+ 339 009e FFF7FEFF 		bl	printf
+ 340 00a2 B9E7     		b	.L39
+ 341              	.L50:
+ 342 00a4 0021     		movs	r1, #0
+ 343 00a6 3046     		mov	r0, r6
+ 344 00a8 FFF7FEFF 		bl	dns_call_found
+ 345 00ac 06EB0616 		add	r6, r6, r6, lsl #4
+ 346 00b0 3201     		lsls	r2, r6, #4
+ 347 00b2 324B     		ldr	r3, .L53
+ 348 00b4 1344     		add	r3, r3, r2
+ 349 00b6 0024     		movs	r4, #0
+ 350 00b8 9C72     		strb	r4, [r3, #10]
+ 351              	.L41:
+ARM GAS  /tmp/ccnudN2P.s 			page 7
+
+
+ 352 00ba 2046     		mov	r0, r4
+ 353 00bc 04B0     		add	sp, sp, #16
+ 354              		@ sp needed
+ 355 00be BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 356              	.L43:
+ 357 00c2 A7EB090A 		sub	r10, r7, r9
+ 358 00c6 1FFA8AFA 		uxth	r10, r10
+ 359 00ca 08EB0402 		add	r2, r8, r4
+ 360 00ce 4FF6FE73 		movw	r3, #65534
+ 361 00d2 9A42     		cmp	r2, r3
+ 362 00d4 20DC     		bgt	.L51
+ 363 00d6 2246     		mov	r2, r4
+ 364 00d8 4146     		mov	r1, r8
+ 365 00da 2846     		mov	r0, r5
+ 366 00dc FFF7FEFF 		bl	pbuf_put_at
+ 367 00e0 08F10103 		add	r3, r8, #1
+ 368 00e4 9BB2     		uxth	r3, r3
+ 369 00e6 5246     		mov	r2, r10
+ 370 00e8 4946     		mov	r1, r9
+ 371 00ea 2846     		mov	r0, r5
+ 372 00ec FFF7FEFF 		bl	pbuf_take_at
+ 373 00f0 4444     		add	r4, r4, r8
+ 374 00f2 A4B2     		uxth	r4, r4
+ 375 00f4 04F10108 		add	r8, r4, #1
+ 376 00f8 1FFA88F8 		uxth	r8, r8
+ 377 00fc 3B78     		ldrb	r3, [r7]	@ zero_extendqisi2
+ 378 00fe 8BB1     		cbz	r3, .L52
+ 379              	.L46:
+ 380 0100 0137     		adds	r7, r7, #1
+ 381 0102 B946     		mov	r9, r7
+ 382 0104 0024     		movs	r4, #0
+ 383              	.L42:
+ 384 0106 3B78     		ldrb	r3, [r7]	@ zero_extendqisi2
+ 385 0108 2E2B     		cmp	r3, #46
+ 386 010a DAD0     		beq	.L43
+ 387 010c 002B     		cmp	r3, #0
+ 388 010e D8D0     		beq	.L43
+ 389 0110 0134     		adds	r4, r4, #1
+ 390 0112 E4B2     		uxtb	r4, r4
+ 391 0114 0137     		adds	r7, r7, #1
+ 392 0116 F6E7     		b	.L42
+ 393              	.L51:
+ 394 0118 2846     		mov	r0, r5
+ 395 011a FFF7FEFF 		bl	pbuf_free
+ 396 011e 6FF00504 		mvn	r4, #5
+ 397 0122 CAE7     		b	.L41
+ 398              	.L52:
+ 399 0124 0022     		movs	r2, #0
+ 400 0126 4146     		mov	r1, r8
+ 401 0128 2846     		mov	r0, r5
+ 402 012a FFF7FEFF 		bl	pbuf_put_at
+ 403 012e A31C     		adds	r3, r4, #2
+ 404 0130 4FF48072 		mov	r2, #256
+ 405 0134 ADF80020 		strh	r2, [sp]	@ movhi
+ 406 0138 ADF80220 		strh	r2, [sp, #2]	@ movhi
+ 407 013c 9BB2     		uxth	r3, r3
+ 408 013e 0422     		movs	r2, #4
+ARM GAS  /tmp/ccnudN2P.s 			page 8
+
+
+ 409 0140 6946     		mov	r1, sp
+ 410 0142 2846     		mov	r0, r5
+ 411 0144 FFF7FEFF 		bl	pbuf_take_at
+ 412 0148 0C4A     		ldr	r2, .L53
+ 413 014a 3301     		lsls	r3, r6, #4
+ 414 014c 9819     		adds	r0, r3, r6
+ 415 014e 0101     		lsls	r1, r0, #4
+ 416 0150 1144     		add	r1, r1, r2
+ 417 0152 CC7B     		ldrb	r4, [r1, #15]	@ zero_extendqisi2
+ 418 0154 C97A     		ldrb	r1, [r1, #11]	@ zero_extendqisi2
+ 419 0156 3523     		movs	r3, #53
+ 420 0158 094A     		ldr	r2, .L53+4
+ 421 015a 02EB8102 		add	r2, r2, r1, lsl #2
+ 422 015e 2946     		mov	r1, r5
+ 423 0160 0B48     		ldr	r0, .L53+20
+ 424 0162 50F82400 		ldr	r0, [r0, r4, lsl #2]
+ 425 0166 FFF7FEFF 		bl	udp_sendto
+ 426 016a 0446     		mov	r4, r0
+ 427 016c 2846     		mov	r0, r5
+ 428 016e FFF7FEFF 		bl	pbuf_free
+ 429 0172 A2E7     		b	.L41
+ 430              	.L47:
+ 431 0174 4FF0FF34 		mov	r4, #-1
+ 432 0178 9FE7     		b	.L41
+ 433              	.L54:
+ 434 017a 00BF     		.align	2
+ 435              	.L53:
+ 436 017c 00000000 		.word	.LANCHOR1
+ 437 0180 00000000 		.word	.LANCHOR0
+ 438 0184 00000000 		.word	.LC0
+ 439 0188 2C000000 		.word	.LC1
+ 440 018c 44000000 		.word	.LC2
+ 441 0190 00000000 		.word	.LANCHOR3
+ 443              		.section	.text.dns_check_entry,"ax",%progbits
+ 444              		.align	1
+ 445              		.syntax unified
+ 446              		.thumb
+ 447              		.thumb_func
+ 448              		.fpu fpv4-sp-d16
+ 450              	dns_check_entry:
+ 451              		@ args = 0, pretend = 0, frame = 0
+ 452              		@ frame_needed = 0, uses_anonymous_args = 0
+ 453 0000 38B5     		push	{r3, r4, r5, lr}
+ 454 0002 0446     		mov	r4, r0
+ 455 0004 00EB0012 		add	r2, r0, r0, lsl #4
+ 456 0008 1301     		lsls	r3, r2, #4
+ 457 000a 444D     		ldr	r5, .L70
+ 458 000c 1D44     		add	r5, r5, r3
+ 459 000e 0328     		cmp	r0, #3
+ 460 0010 0BD8     		bhi	.L68
+ 461              	.L56:
+ 462 0012 04EB0413 		add	r3, r4, r4, lsl #4
+ 463 0016 1A01     		lsls	r2, r3, #4
+ 464 0018 404B     		ldr	r3, .L70
+ 465 001a 1344     		add	r3, r3, r2
+ 466 001c 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 467 001e 032B     		cmp	r3, #3
+ARM GAS  /tmp/ccnudN2P.s 			page 9
+
+
+ 468 0020 74D8     		bhi	.L57
+ 469 0022 DFE803F0 		tbb	[pc, r3]
+ 470              	.L59:
+ 471 0026 1F       		.byte	(.L55-.L59)/2
+ 472 0027 0A       		.byte	(.L61-.L59)/2
+ 473 0028 20       		.byte	(.L60-.L59)/2
+ 474 0029 5D       		.byte	(.L58-.L59)/2
+ 475              		.p2align 1
+ 476              	.L68:
+ 477 002a 3D4B     		ldr	r3, .L70+4
+ 478 002c 40F21C42 		movw	r2, #1052
+ 479 0030 3C49     		ldr	r1, .L70+8
+ 480 0032 3D48     		ldr	r0, .L70+12
+ 481 0034 FFF7FEFF 		bl	printf
+ 482 0038 EBE7     		b	.L56
+ 483              	.L61:
+ 484 003a FFF7FEFF 		bl	dns_create_txid
+ 485 003e 3749     		ldr	r1, .L70
+ 486 0040 2201     		lsls	r2, r4, #4
+ 487 0042 1519     		adds	r5, r2, r4
+ 488 0044 2B01     		lsls	r3, r5, #4
+ 489 0046 0B44     		add	r3, r3, r1
+ 490 0048 1881     		strh	r0, [r3, #8]	@ movhi
+ 491 004a 0220     		movs	r0, #2
+ 492 004c 9872     		strb	r0, [r3, #10]
+ 493 004e 0020     		movs	r0, #0
+ 494 0050 D872     		strb	r0, [r3, #11]
+ 495 0052 0125     		movs	r5, #1
+ 496 0054 1D73     		strb	r5, [r3, #12]
+ 497 0056 2244     		add	r2, r2, r4
+ 498 0058 1301     		lsls	r3, r2, #4
+ 499 005a 1944     		add	r1, r1, r3
+ 500 005c 4873     		strb	r0, [r1, #13]
+ 501 005e 2046     		mov	r0, r4
+ 502 0060 FFF7FEFF 		bl	dns_send
+ 503              	.L55:
+ 504 0064 38BD     		pop	{r3, r4, r5, pc}
+ 505              	.L60:
+ 506 0066 2301     		lsls	r3, r4, #4
+ 507 0068 2344     		add	r3, r3, r4
+ 508 006a 1901     		lsls	r1, r3, #4
+ 509 006c 2B4A     		ldr	r2, .L70
+ 510 006e 0A44     		add	r2, r2, r1
+ 511 0070 137B     		ldrb	r3, [r2, #12]	@ zero_extendqisi2
+ 512 0072 013B     		subs	r3, r3, #1
+ 513 0074 DBB2     		uxtb	r3, r3
+ 514 0076 1373     		strb	r3, [r2, #12]
+ 515 0078 002B     		cmp	r3, #0
+ 516 007a F3D1     		bne	.L55
+ 517 007c 274A     		ldr	r2, .L70
+ 518 007e 0A44     		add	r2, r2, r1
+ 519 0080 537B     		ldrb	r3, [r2, #13]	@ zero_extendqisi2
+ 520 0082 0133     		adds	r3, r3, #1
+ 521 0084 DBB2     		uxtb	r3, r3
+ 522 0086 5373     		strb	r3, [r2, #13]
+ 523 0088 042B     		cmp	r3, #4
+ 524 008a 09D0     		beq	.L69
+ARM GAS  /tmp/ccnudN2P.s 			page 10
+
+
+ 525 008c 04EB0412 		add	r2, r4, r4, lsl #4
+ 526 0090 1101     		lsls	r1, r2, #4
+ 527 0092 224A     		ldr	r2, .L70
+ 528 0094 0A44     		add	r2, r2, r1
+ 529 0096 1373     		strb	r3, [r2, #12]
+ 530              	.L65:
+ 531 0098 2046     		mov	r0, r4
+ 532 009a FFF7FEFF 		bl	dns_send
+ 533 009e E1E7     		b	.L55
+ 534              	.L69:
+ 535 00a0 2846     		mov	r0, r5
+ 536 00a2 FFF7FEFF 		bl	dns_backupserver_available
+ 537 00a6 78B1     		cbz	r0, .L64
+ 538 00a8 1C49     		ldr	r1, .L70
+ 539 00aa 2201     		lsls	r2, r4, #4
+ 540 00ac 1019     		adds	r0, r2, r4
+ 541 00ae 0301     		lsls	r3, r0, #4
+ 542 00b0 0B44     		add	r3, r3, r1
+ 543 00b2 D87A     		ldrb	r0, [r3, #11]	@ zero_extendqisi2
+ 544 00b4 0130     		adds	r0, r0, #1
+ 545 00b6 D872     		strb	r0, [r3, #11]
+ 546 00b8 0120     		movs	r0, #1
+ 547 00ba 1873     		strb	r0, [r3, #12]
+ 548 00bc 1319     		adds	r3, r2, r4
+ 549 00be 1A01     		lsls	r2, r3, #4
+ 550 00c0 1144     		add	r1, r1, r2
+ 551 00c2 0023     		movs	r3, #0
+ 552 00c4 4B73     		strb	r3, [r1, #13]
+ 553 00c6 E7E7     		b	.L65
+ 554              	.L64:
+ 555 00c8 0021     		movs	r1, #0
+ 556 00ca 2046     		mov	r0, r4
+ 557 00cc FFF7FEFF 		bl	dns_call_found
+ 558 00d0 04EB0414 		add	r4, r4, r4, lsl #4
+ 559 00d4 2201     		lsls	r2, r4, #4
+ 560 00d6 114B     		ldr	r3, .L70
+ 561 00d8 1344     		add	r3, r3, r2
+ 562 00da 0022     		movs	r2, #0
+ 563 00dc 9A72     		strb	r2, [r3, #10]
+ 564 00de C1E7     		b	.L55
+ 565              	.L58:
+ 566 00e0 04EB0412 		add	r2, r4, r4, lsl #4
+ 567 00e4 1301     		lsls	r3, r2, #4
+ 568 00e6 0D4A     		ldr	r2, .L70
+ 569 00e8 D358     		ldr	r3, [r2, r3]
+ 570 00ea 3BB1     		cbz	r3, .L66
+ 571 00ec 013B     		subs	r3, r3, #1
+ 572 00ee 04EB0411 		add	r1, r4, r4, lsl #4
+ 573 00f2 0A01     		lsls	r2, r1, #4
+ 574 00f4 0949     		ldr	r1, .L70
+ 575 00f6 8B50     		str	r3, [r1, r2]
+ 576 00f8 002B     		cmp	r3, #0
+ 577 00fa B3D1     		bne	.L55
+ 578              	.L66:
+ 579 00fc 04EB0414 		add	r4, r4, r4, lsl #4
+ 580 0100 2201     		lsls	r2, r4, #4
+ 581 0102 064B     		ldr	r3, .L70
+ARM GAS  /tmp/ccnudN2P.s 			page 11
+
+
+ 582 0104 1344     		add	r3, r3, r2
+ 583 0106 0022     		movs	r2, #0
+ 584 0108 9A72     		strb	r2, [r3, #10]
+ 585 010a ABE7     		b	.L55
+ 586              	.L57:
+ 587 010c 044B     		ldr	r3, .L70+4
+ 588 010e 40F25B42 		movw	r2, #1115
+ 589 0112 0649     		ldr	r1, .L70+16
+ 590 0114 0448     		ldr	r0, .L70+12
+ 591 0116 FFF7FEFF 		bl	printf
+ 592 011a A3E7     		b	.L55
+ 593              	.L71:
+ 594              		.align	2
+ 595              	.L70:
+ 596 011c 00000000 		.word	.LANCHOR1
+ 597 0120 00000000 		.word	.LC0
+ 598 0124 00000000 		.word	.LC3
+ 599 0128 44000000 		.word	.LC2
+ 600 012c 1C000000 		.word	.LC4
+ 602              		.section	.text.dns_check_entries,"ax",%progbits
+ 603              		.align	1
+ 604              		.syntax unified
+ 605              		.thumb
+ 606              		.thumb_func
+ 607              		.fpu fpv4-sp-d16
+ 609              	dns_check_entries:
+ 610              		@ args = 0, pretend = 0, frame = 0
+ 611              		@ frame_needed = 0, uses_anonymous_args = 0
+ 612 0000 10B5     		push	{r4, lr}
+ 613 0002 0024     		movs	r4, #0
+ 614 0004 04E0     		b	.L73
+ 615              	.L74:
+ 616 0006 2046     		mov	r0, r4
+ 617 0008 FFF7FEFF 		bl	dns_check_entry
+ 618 000c 0134     		adds	r4, r4, #1
+ 619 000e E4B2     		uxtb	r4, r4
+ 620              	.L73:
+ 621 0010 032C     		cmp	r4, #3
+ 622 0012 F8D9     		bls	.L74
+ 623 0014 10BD     		pop	{r4, pc}
+ 625              		.section	.text.dns_lookup,"ax",%progbits
+ 626              		.align	1
+ 627              		.syntax unified
+ 628              		.thumb
+ 629              		.thumb_func
+ 630              		.fpu fpv4-sp-d16
+ 632              	dns_lookup:
+ 633              		@ args = 0, pretend = 0, frame = 0
+ 634              		@ frame_needed = 0, uses_anonymous_args = 0
+ 635 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 636 0002 0646     		mov	r6, r0
+ 637 0004 0F46     		mov	r7, r1
+ 638 0006 0024     		movs	r4, #0
+ 639 0008 01E0     		b	.L77
+ 640              	.L78:
+ 641 000a 0134     		adds	r4, r4, #1
+ 642 000c E4B2     		uxtb	r4, r4
+ARM GAS  /tmp/ccnudN2P.s 			page 12
+
+
+ 643              	.L77:
+ 644 000e 032C     		cmp	r4, #3
+ 645 0010 1CD8     		bhi	.L83
+ 646 0012 04EB0413 		add	r3, r4, r4, lsl #4
+ 647 0016 1A01     		lsls	r2, r3, #4
+ 648 0018 0E4B     		ldr	r3, .L84
+ 649 001a 1344     		add	r3, r3, r2
+ 650 001c 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 651 001e 032B     		cmp	r3, #3
+ 652 0020 F3D1     		bne	.L78
+ 653 0022 1146     		mov	r1, r2
+ 654 0024 1031     		adds	r1, r1, #16
+ 655 0026 4FF48072 		mov	r2, #256
+ 656 002a 0A4B     		ldr	r3, .L84
+ 657 002c 1944     		add	r1, r1, r3
+ 658 002e 3046     		mov	r0, r6
+ 659 0030 FFF7FEFF 		bl	lwip_strnicmp
+ 660 0034 0028     		cmp	r0, #0
+ 661 0036 E8D1     		bne	.L78
+ 662 0038 37B1     		cbz	r7, .L79
+ 663 003a 04EB0415 		add	r5, r4, r4, lsl #4
+ 664 003e 2A01     		lsls	r2, r5, #4
+ 665 0040 044B     		ldr	r3, .L84
+ 666 0042 1344     		add	r3, r3, r2
+ 667 0044 5B68     		ldr	r3, [r3, #4]
+ 668 0046 3B60     		str	r3, [r7]
+ 669              	.L79:
+ 670 0048 0020     		movs	r0, #0
+ 671 004a 01E0     		b	.L80
+ 672              	.L83:
+ 673 004c 6FF00F00 		mvn	r0, #15
+ 674              	.L80:
+ 675 0050 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 676              	.L85:
+ 677 0052 00BF     		.align	2
+ 678              	.L84:
+ 679 0054 00000000 		.word	.LANCHOR1
+ 681              		.section	.text.dns_alloc_random_port,"ax",%progbits
+ 682              		.align	1
+ 683              		.syntax unified
+ 684              		.thumb
+ 685              		.thumb_func
+ 686              		.fpu fpv4-sp-d16
+ 688              	dns_alloc_random_port:
+ 689              		@ args = 0, pretend = 0, frame = 0
+ 690              		@ frame_needed = 0, uses_anonymous_args = 0
+ 691 0000 10B5     		push	{r4, lr}
+ 692 0002 2E20     		movs	r0, #46
+ 693 0004 FFF7FEFF 		bl	udp_new_ip_type
+ 694 0008 0446     		mov	r4, r0
+ 695 000a 90B1     		cbz	r0, .L86
+ 696              	.L88:
+ 697 000c FFF7FEFF 		bl	rand
+ 698 0010 82B2     		uxth	r2, r0
+ 699 0012 B2F5806F 		cmp	r2, #1024
+ 700 0016 F9D3     		bcc	.L88
+ 701 0018 0949     		ldr	r1, .L93
+ARM GAS  /tmp/ccnudN2P.s 			page 13
+
+
+ 702 001a 2046     		mov	r0, r4
+ 703 001c FFF7FEFF 		bl	udp_bind
+ 704 0020 10F1080F 		cmn	r0, #8
+ 705 0024 F2D0     		beq	.L88
+ 706 0026 30B9     		cbnz	r0, .L92
+ 707 0028 0022     		movs	r2, #0
+ 708 002a 0649     		ldr	r1, .L93+4
+ 709 002c 2046     		mov	r0, r4
+ 710 002e FFF7FEFF 		bl	udp_recv
+ 711              	.L86:
+ 712 0032 2046     		mov	r0, r4
+ 713 0034 10BD     		pop	{r4, pc}
+ 714              	.L92:
+ 715 0036 2046     		mov	r0, r4
+ 716 0038 FFF7FEFF 		bl	udp_remove
+ 717 003c 0024     		movs	r4, #0
+ 718 003e F8E7     		b	.L86
+ 719              	.L94:
+ 720              		.align	2
+ 721              	.L93:
+ 722 0040 00000000 		.word	ip_addr_any
+ 723 0044 00000000 		.word	dns_recv
+ 725              		.section	.text.dns_alloc_pcb,"ax",%progbits
+ 726              		.align	1
+ 727              		.syntax unified
+ 728              		.thumb
+ 729              		.thumb_func
+ 730              		.fpu fpv4-sp-d16
+ 732              	dns_alloc_pcb:
+ 733              		@ args = 0, pretend = 0, frame = 0
+ 734              		@ frame_needed = 0, uses_anonymous_args = 0
+ 735 0000 10B5     		push	{r4, lr}
+ 736 0002 0024     		movs	r4, #0
+ 737              	.L96:
+ 738 0004 032C     		cmp	r4, #3
+ 739 0006 06D8     		bhi	.L97
+ 740 0008 164B     		ldr	r3, .L110
+ 741 000a 53F82430 		ldr	r3, [r3, r4, lsl #2]
+ 742 000e 13B1     		cbz	r3, .L97
+ 743 0010 0134     		adds	r4, r4, #1
+ 744 0012 E4B2     		uxtb	r4, r4
+ 745 0014 F6E7     		b	.L96
+ 746              	.L97:
+ 747 0016 032C     		cmp	r4, #3
+ 748 0018 05D9     		bls	.L107
+ 749              	.L99:
+ 750 001a 134B     		ldr	r3, .L110+4
+ 751 001c 1C78     		ldrb	r4, [r3]	@ zero_extendqisi2
+ 752 001e 0134     		adds	r4, r4, #1
+ 753 0020 E4B2     		uxtb	r4, r4
+ 754 0022 0023     		movs	r3, #0
+ 755 0024 11E0     		b	.L101
+ 756              	.L107:
+ 757 0026 FFF7FEFF 		bl	dns_alloc_random_port
+ 758 002a 0E4B     		ldr	r3, .L110
+ 759 002c 43F82400 		str	r0, [r3, r4, lsl #2]
+ 760 0030 0028     		cmp	r0, #0
+ARM GAS  /tmp/ccnudN2P.s 			page 14
+
+
+ 761 0032 F2D0     		beq	.L99
+ 762 0034 0C4B     		ldr	r3, .L110+4
+ 763 0036 1C70     		strb	r4, [r3]
+ 764 0038 11E0     		b	.L100
+ 765              	.L102:
+ 766 003a 0A4A     		ldr	r2, .L110
+ 767 003c 52F82420 		ldr	r2, [r2, r4, lsl #2]
+ 768 0040 4AB9     		cbnz	r2, .L108
+ 769 0042 0133     		adds	r3, r3, #1
+ 770 0044 DBB2     		uxtb	r3, r3
+ 771 0046 0134     		adds	r4, r4, #1
+ 772 0048 E4B2     		uxtb	r4, r4
+ 773              	.L101:
+ 774 004a 032B     		cmp	r3, #3
+ 775 004c 06D8     		bhi	.L109
+ 776 004e 032C     		cmp	r4, #3
+ 777 0050 F3D9     		bls	.L102
+ 778 0052 0024     		movs	r4, #0
+ 779 0054 F1E7     		b	.L102
+ 780              	.L108:
+ 781 0056 044B     		ldr	r3, .L110+4
+ 782 0058 1C70     		strb	r4, [r3]
+ 783 005a 00E0     		b	.L100
+ 784              	.L109:
+ 785 005c 0424     		movs	r4, #4
+ 786              	.L100:
+ 787 005e 2046     		mov	r0, r4
+ 788 0060 10BD     		pop	{r4, pc}
+ 789              	.L111:
+ 790 0062 00BF     		.align	2
+ 791              	.L110:
+ 792 0064 00000000 		.word	.LANCHOR3
+ 793 0068 00000000 		.word	.LANCHOR4
+ 795              		.section	.text.dns_enqueue,"ax",%progbits
+ 796              		.align	1
+ 797              		.syntax unified
+ 798              		.thumb
+ 799              		.thumb_func
+ 800              		.fpu fpv4-sp-d16
+ 802              	dns_enqueue:
+ 803              		@ args = 0, pretend = 0, frame = 0
+ 804              		@ frame_needed = 0, uses_anonymous_args = 0
+ 805 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 806 0004 0646     		mov	r6, r0
+ 807 0006 0D46     		mov	r5, r1
+ 808 0008 9046     		mov	r8, r2
+ 809 000a 1F46     		mov	r7, r3
+ 810 000c 0024     		movs	r4, #0
+ 811 000e 0DE0     		b	.L113
+ 812              	.L137:
+ 813 0010 0B46     		mov	r3, r1
+ 814 0012 4200     		lsls	r2, r0, #1
+ 815 0014 1518     		adds	r5, r2, r0
+ 816 0016 A900     		lsls	r1, r5, #2
+ 817 0018 5D18     		adds	r5, r3, r1
+ 818 001a 43F80180 		str	r8, [r3, r1]
+ 819 001e 6F60     		str	r7, [r5, #4]
+ARM GAS  /tmp/ccnudN2P.s 			page 15
+
+
+ 820 0020 2C72     		strb	r4, [r5, #8]
+ 821 0022 6FF00400 		mvn	r0, #4
+ 822 0026 96E0     		b	.L117
+ 823              	.L114:
+ 824 0028 0134     		adds	r4, r4, #1
+ 825 002a E4B2     		uxtb	r4, r4
+ 826              	.L113:
+ 827 002c 032C     		cmp	r4, #3
+ 828 002e 20D8     		bhi	.L136
+ 829 0030 04EB0413 		add	r3, r4, r4, lsl #4
+ 830 0034 1A01     		lsls	r2, r3, #4
+ 831 0036 524B     		ldr	r3, .L141
+ 832 0038 1344     		add	r3, r3, r2
+ 833 003a 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 834 003c 022B     		cmp	r3, #2
+ 835 003e F3D1     		bne	.L114
+ 836 0040 1146     		mov	r1, r2
+ 837 0042 1031     		adds	r1, r1, #16
+ 838 0044 4FF48072 		mov	r2, #256
+ 839 0048 4D4B     		ldr	r3, .L141
+ 840 004a 1944     		add	r1, r1, r3
+ 841 004c 3046     		mov	r0, r6
+ 842 004e FFF7FEFF 		bl	lwip_strnicmp
+ 843 0052 0028     		cmp	r0, #0
+ 844 0054 E8D1     		bne	.L114
+ 845 0056 0023     		movs	r3, #0
+ 846              	.L115:
+ 847 0058 032B     		cmp	r3, #3
+ 848 005a E5D8     		bhi	.L114
+ 849 005c 1846     		mov	r0, r3
+ 850 005e 03EB4301 		add	r1, r3, r3, lsl #1
+ 851 0062 8A00     		lsls	r2, r1, #2
+ 852 0064 4749     		ldr	r1, .L141+4
+ 853 0066 8A58     		ldr	r2, [r1, r2]
+ 854 0068 002A     		cmp	r2, #0
+ 855 006a D1D0     		beq	.L137
+ 856 006c 0133     		adds	r3, r3, #1
+ 857 006e DBB2     		uxtb	r3, r3
+ 858 0070 F2E7     		b	.L115
+ 859              	.L136:
+ 860 0072 4FF00009 		mov	r9, #0
+ 861 0076 0420     		movs	r0, #4
+ 862 0078 CC46     		mov	ip, r9
+ 863 007a 4C46     		mov	r4, r9
+ 864 007c 01E0     		b	.L120
+ 865              	.L122:
+ 866 007e 0134     		adds	r4, r4, #1
+ 867 0080 E4B2     		uxtb	r4, r4
+ 868              	.L120:
+ 869 0082 032C     		cmp	r4, #3
+ 870 0084 16D8     		bhi	.L121
+ 871 0086 2301     		lsls	r3, r4, #4
+ 872 0088 2344     		add	r3, r3, r4
+ 873 008a 1A01     		lsls	r2, r3, #4
+ 874 008c 3C4B     		ldr	r3, .L141
+ 875 008e 03EB0209 		add	r9, r3, r2
+ 876 0092 99F80A30 		ldrb	r3, [r9, #10]	@ zero_extendqisi2
+ARM GAS  /tmp/ccnudN2P.s 			page 16
+
+
+ 877 0096 6BB1     		cbz	r3, .L121
+ 878 0098 032B     		cmp	r3, #3
+ 879 009a F0D1     		bne	.L122
+ 880 009c 3A4B     		ldr	r3, .L141+8
+ 881 009e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 882 00a0 9646     		mov	lr, r2
+ 883 00a2 99F80E20 		ldrb	r2, [r9, #14]	@ zero_extendqisi2
+ 884 00a6 9B1A     		subs	r3, r3, r2
+ 885 00a8 DBB2     		uxtb	r3, r3
+ 886 00aa 9C45     		cmp	ip, r3
+ 887 00ac E7D2     		bcs	.L122
+ 888 00ae 2046     		mov	r0, r4
+ 889 00b0 9C46     		mov	ip, r3
+ 890 00b2 E4E7     		b	.L122
+ 891              	.L121:
+ 892 00b4 042C     		cmp	r4, #4
+ 893 00b6 0BD0     		beq	.L138
+ 894              	.L124:
+ 895 00b8 0023     		movs	r3, #0
+ 896              	.L125:
+ 897 00ba 032B     		cmp	r3, #3
+ 898 00bc 20D8     		bhi	.L139
+ 899 00be 03EB4301 		add	r1, r3, r3, lsl #1
+ 900 00c2 8A00     		lsls	r2, r1, #2
+ 901 00c4 2F49     		ldr	r1, .L141+4
+ 902 00c6 8A58     		ldr	r2, [r1, r2]
+ 903 00c8 A2B1     		cbz	r2, .L140
+ 904 00ca 0133     		adds	r3, r3, #1
+ 905 00cc DBB2     		uxtb	r3, r3
+ 906 00ce F4E7     		b	.L125
+ 907              	.L138:
+ 908 00d0 0328     		cmp	r0, #3
+ 909 00d2 4CD8     		bhi	.L132
+ 910 00d4 00EB0013 		add	r3, r0, r0, lsl #4
+ 911 00d8 1A01     		lsls	r2, r3, #4
+ 912 00da 294B     		ldr	r3, .L141
+ 913 00dc 1344     		add	r3, r3, r2
+ 914 00de 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 915 00e0 032B     		cmp	r3, #3
+ 916 00e2 47D1     		bne	.L133
+ 917 00e4 00EB0012 		add	r2, r0, r0, lsl #4
+ 918 00e8 1301     		lsls	r3, r2, #4
+ 919 00ea 254A     		ldr	r2, .L141
+ 920 00ec 02EB0309 		add	r9, r2, r3
+ 921 00f0 0446     		mov	r4, r0
+ 922 00f2 E1E7     		b	.L124
+ 923              	.L140:
+ 924 00f4 03EB4300 		add	r0, r3, r3, lsl #1
+ 925 00f8 8300     		lsls	r3, r0, #2
+ 926 00fa 01EB030A 		add	r10, r1, r3
+ 927 00fe 01E0     		b	.L127
+ 928              	.L139:
+ 929 0100 4FF0000A 		mov	r10, #0
+ 930              	.L127:
+ 931 0104 BAF1000F 		cmp	r10, #0
+ 932 0108 37D0     		beq	.L134
+ 933 010a 8AF80840 		strb	r4, [r10, #8]
+ARM GAS  /tmp/ccnudN2P.s 			page 17
+
+
+ 934 010e 0123     		movs	r3, #1
+ 935 0110 89F80A30 		strb	r3, [r9, #10]
+ 936 0114 1C4B     		ldr	r3, .L141+8
+ 937 0116 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 938 0118 89F80E30 		strb	r3, [r9, #14]
+ 939 011c CAF80080 		str	r8, [r10]
+ 940 0120 CAF80470 		str	r7, [r10, #4]
+ 941 0124 FF2D     		cmp	r5, #255
+ 942 0126 28BF     		it	cs
+ 943 0128 FF25     		movcs	r5, #255
+ 944 012a 2A46     		mov	r2, r5
+ 945 012c 3146     		mov	r1, r6
+ 946 012e 09F11000 		add	r0, r9, #16
+ 947 0132 FFF7FEFF 		bl	memcpy
+ 948 0136 4D44     		add	r5, r5, r9
+ 949 0138 0023     		movs	r3, #0
+ 950 013a 2B74     		strb	r3, [r5, #16]
+ 951 013c FFF7FEFF 		bl	dns_alloc_pcb
+ 952 0140 89F80F00 		strb	r0, [r9, #15]
+ 953 0144 0328     		cmp	r0, #3
+ 954 0146 08D9     		bls	.L129
+ 955 0148 0023     		movs	r3, #0
+ 956 014a 89F80A30 		strb	r3, [r9, #10]
+ 957 014e CAF80030 		str	r3, [r10]
+ 958 0152 4FF0FF30 		mov	r0, #-1
+ 959              	.L117:
+ 960 0156 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 961              	.L129:
+ 962 015a 0B4A     		ldr	r2, .L141+8
+ 963 015c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 964 015e 0133     		adds	r3, r3, #1
+ 965 0160 1370     		strb	r3, [r2]
+ 966 0162 2046     		mov	r0, r4
+ 967 0164 FFF7FEFF 		bl	dns_check_entry
+ 968 0168 6FF00400 		mvn	r0, #4
+ 969 016c F3E7     		b	.L117
+ 970              	.L132:
+ 971 016e 4FF0FF30 		mov	r0, #-1
+ 972 0172 F0E7     		b	.L117
+ 973              	.L133:
+ 974 0174 4FF0FF30 		mov	r0, #-1
+ 975 0178 EDE7     		b	.L117
+ 976              	.L134:
+ 977 017a 4FF0FF30 		mov	r0, #-1
+ 978 017e EAE7     		b	.L117
+ 979              	.L142:
+ 980              		.align	2
+ 981              	.L141:
+ 982 0180 00000000 		.word	.LANCHOR1
+ 983 0184 00000000 		.word	.LANCHOR2
+ 984 0188 00000000 		.word	.LANCHOR5
+ 986              		.section	.text.dns_compare_name,"ax",%progbits
+ 987              		.align	1
+ 988              		.syntax unified
+ 989              		.thumb
+ 990              		.thumb_func
+ 991              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccnudN2P.s 			page 18
+
+
+ 993              	dns_compare_name:
+ 994              		@ args = 0, pretend = 0, frame = 0
+ 995              		@ frame_needed = 0, uses_anonymous_args = 0
+ 996 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 997 0002 0646     		mov	r6, r0
+ 998 0004 0F46     		mov	r7, r1
+ 999 0006 1446     		mov	r4, r2
+ 1000              	.L150:
+ 1001 0008 2146     		mov	r1, r4
+ 1002 000a 3846     		mov	r0, r7
+ 1003 000c FFF7FEFF 		bl	pbuf_try_get_at
+ 1004 0010 051E     		subs	r5, r0, #0
+ 1005 0012 40DB     		blt	.L151
+ 1006 0014 4FF6FF73 		movw	r3, #65535
+ 1007 0018 9C42     		cmp	r4, r3
+ 1008 001a 3FD0     		beq	.L152
+ 1009 001c 0134     		adds	r4, r4, #1
+ 1010 001e A4B2     		uxth	r4, r4
+ 1011 0020 05F0C003 		and	r3, r5, #192
+ 1012 0024 C02B     		cmp	r3, #192
+ 1013 0026 0ED1     		bne	.L145
+ 1014 0028 4FF6FF70 		movw	r0, #65535
+ 1015 002c 3AE0     		b	.L144
+ 1016              	.L161:
+ 1017 002e 2033     		adds	r3, r3, #32
+ 1018 0030 18E0     		b	.L147
+ 1019              	.L148:
+ 1020 0032 8342     		cmp	r3, r0
+ 1021 0034 37D1     		bne	.L155
+ 1022 0036 4FF6FF73 		movw	r3, #65535
+ 1023 003a 9C42     		cmp	r4, r3
+ 1024 003c 36D0     		beq	.L156
+ 1025 003e 0134     		adds	r4, r4, #1
+ 1026 0040 A4B2     		uxth	r4, r4
+ 1027 0042 0136     		adds	r6, r6, #1
+ 1028 0044 013D     		subs	r5, r5, #1
+ 1029              	.L145:
+ 1030 0046 002D     		cmp	r5, #0
+ 1031 0048 15DD     		ble	.L160
+ 1032 004a 2146     		mov	r1, r4
+ 1033 004c 3846     		mov	r0, r7
+ 1034 004e FFF7FEFF 		bl	pbuf_try_get_at
+ 1035 0052 0028     		cmp	r0, #0
+ 1036 0054 24DB     		blt	.L154
+ 1037 0056 3378     		ldrb	r3, [r6]	@ zero_extendqisi2
+ 1038 0058 184A     		ldr	r2, .L162
+ 1039 005a 9A5C     		ldrb	r2, [r3, r2]	@ zero_extendqisi2
+ 1040 005c 02F00302 		and	r2, r2, #3
+ 1041 0060 012A     		cmp	r2, #1
+ 1042 0062 E4D0     		beq	.L161
+ 1043              	.L147:
+ 1044 0064 C0B2     		uxtb	r0, r0
+ 1045 0066 154A     		ldr	r2, .L162
+ 1046 0068 825C     		ldrb	r2, [r0, r2]	@ zero_extendqisi2
+ 1047 006a 02F00302 		and	r2, r2, #3
+ 1048 006e 012A     		cmp	r2, #1
+ 1049 0070 DFD1     		bne	.L148
+ARM GAS  /tmp/ccnudN2P.s 			page 19
+
+
+ 1050 0072 2030     		adds	r0, r0, #32
+ 1051 0074 DDE7     		b	.L148
+ 1052              	.L160:
+ 1053 0076 0136     		adds	r6, r6, #1
+ 1054 0078 2146     		mov	r1, r4
+ 1055 007a 3846     		mov	r0, r7
+ 1056 007c FFF7FEFF 		bl	pbuf_try_get_at
+ 1057 0080 0028     		cmp	r0, #0
+ 1058 0082 15DB     		blt	.L157
+ 1059 0084 0028     		cmp	r0, #0
+ 1060 0086 BFD1     		bne	.L150
+ 1061 0088 4FF6FF73 		movw	r3, #65535
+ 1062 008c 9C42     		cmp	r4, r3
+ 1063 008e 12D0     		beq	.L158
+ 1064 0090 0134     		adds	r4, r4, #1
+ 1065 0092 A0B2     		uxth	r0, r4
+ 1066 0094 06E0     		b	.L144
+ 1067              	.L151:
+ 1068 0096 4FF6FF70 		movw	r0, #65535
+ 1069 009a 03E0     		b	.L144
+ 1070              	.L152:
+ 1071 009c 2046     		mov	r0, r4
+ 1072 009e 01E0     		b	.L144
+ 1073              	.L154:
+ 1074 00a0 4FF6FF70 		movw	r0, #65535
+ 1075              	.L144:
+ 1076 00a4 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1077              	.L155:
+ 1078 00a6 4FF6FF70 		movw	r0, #65535
+ 1079 00aa FBE7     		b	.L144
+ 1080              	.L156:
+ 1081 00ac 2046     		mov	r0, r4
+ 1082 00ae F9E7     		b	.L144
+ 1083              	.L157:
+ 1084 00b0 4FF6FF70 		movw	r0, #65535
+ 1085 00b4 F6E7     		b	.L144
+ 1086              	.L158:
+ 1087 00b6 2046     		mov	r0, r4
+ 1088 00b8 F4E7     		b	.L144
+ 1089              	.L163:
+ 1090 00ba 00BF     		.align	2
+ 1091              	.L162:
+ 1092 00bc 01000000 		.word	_ctype_+1
+ 1094              		.section	.text.dns_skip_name,"ax",%progbits
+ 1095              		.align	1
+ 1096              		.syntax unified
+ 1097              		.thumb
+ 1098              		.thumb_func
+ 1099              		.fpu fpv4-sp-d16
+ 1101              	dns_skip_name:
+ 1102              		@ args = 0, pretend = 0, frame = 0
+ 1103              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1104 0000 70B5     		push	{r4, r5, r6, lr}
+ 1105 0002 0646     		mov	r6, r0
+ 1106 0004 0C46     		mov	r4, r1
+ 1107              	.L167:
+ 1108 0006 601C     		adds	r0, r4, #1
+ARM GAS  /tmp/ccnudN2P.s 			page 20
+
+
+ 1109 0008 85B2     		uxth	r5, r0
+ 1110 000a 2146     		mov	r1, r4
+ 1111 000c 3046     		mov	r0, r6
+ 1112 000e FFF7FEFF 		bl	pbuf_try_get_at
+ 1113 0012 0028     		cmp	r0, #0
+ 1114 0014 1CDB     		blt	.L168
+ 1115 0016 F5B1     		cbz	r5, .L169
+ 1116 0018 00F0C003 		and	r3, r0, #192
+ 1117 001c C02B     		cmp	r3, #192
+ 1118 001e 0FD0     		beq	.L166
+ 1119 0020 2B18     		adds	r3, r5, r0
+ 1120 0022 3289     		ldrh	r2, [r6, #8]
+ 1121 0024 9342     		cmp	r3, r2
+ 1122 0026 19DA     		bge	.L170
+ 1123 0028 15FA80F0 		uxtah	r0, r5, r0
+ 1124 002c 84B2     		uxth	r4, r0
+ 1125 002e 2146     		mov	r1, r4
+ 1126 0030 3046     		mov	r0, r6
+ 1127 0032 FFF7FEFF 		bl	pbuf_try_get_at
+ 1128 0036 0028     		cmp	r0, #0
+ 1129 0038 13DB     		blt	.L171
+ 1130 003a 0028     		cmp	r0, #0
+ 1131 003c E3D1     		bne	.L167
+ 1132 003e 2546     		mov	r5, r4
+ 1133              	.L166:
+ 1134 0040 4FF6FF73 		movw	r3, #65535
+ 1135 0044 9D42     		cmp	r5, r3
+ 1136 0046 01D0     		beq	.L165
+ 1137 0048 681C     		adds	r0, r5, #1
+ 1138 004a 85B2     		uxth	r5, r0
+ 1139              	.L165:
+ 1140 004c 2846     		mov	r0, r5
+ 1141 004e 70BD     		pop	{r4, r5, r6, pc}
+ 1142              	.L168:
+ 1143 0050 4FF6FF75 		movw	r5, #65535
+ 1144 0054 FAE7     		b	.L165
+ 1145              	.L169:
+ 1146 0056 4FF6FF75 		movw	r5, #65535
+ 1147 005a F7E7     		b	.L165
+ 1148              	.L170:
+ 1149 005c 4FF6FF75 		movw	r5, #65535
+ 1150 0060 F4E7     		b	.L165
+ 1151              	.L171:
+ 1152 0062 4FF6FF75 		movw	r5, #65535
+ 1153 0066 F1E7     		b	.L165
+ 1155              		.section	.text.dns_recv,"ax",%progbits
+ 1156              		.align	1
+ 1157              		.syntax unified
+ 1158              		.thumb
+ 1159              		.thumb_func
+ 1160              		.fpu fpv4-sp-d16
+ 1162              	dns_recv:
+ 1163              		@ args = 4, pretend = 0, frame = 32
+ 1164              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1165 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 1166 0004 88B0     		sub	sp, sp, #32
+ 1167 0006 1446     		mov	r4, r2
+ARM GAS  /tmp/ccnudN2P.s 			page 21
+
+
+ 1168 0008 1F46     		mov	r7, r3
+ 1169 000a 1389     		ldrh	r3, [r2, #8]
+ 1170 000c 0F2B     		cmp	r3, #15
+ 1171 000e 05D8     		bhi	.L185
+ 1172              	.L174:
+ 1173 0010 2046     		mov	r0, r4
+ 1174 0012 FFF7FEFF 		bl	pbuf_free
+ 1175              	.L173:
+ 1176 0016 08B0     		add	sp, sp, #32
+ 1177              		@ sp needed
+ 1178 0018 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 1179              	.L185:
+ 1180 001c 0023     		movs	r3, #0
+ 1181 001e 0C22     		movs	r2, #12
+ 1182 0020 05A9     		add	r1, sp, #20
+ 1183 0022 2046     		mov	r0, r4
+ 1184 0024 FFF7FEFF 		bl	pbuf_copy_partial
+ 1185 0028 0C28     		cmp	r0, #12
+ 1186 002a F1D1     		bne	.L174
+ 1187 002c BDF81400 		ldrh	r0, [sp, #20]
+ 1188 0030 FFF7FEFF 		bl	lwip_htons
+ 1189 0034 0025     		movs	r5, #0
+ 1190 0036 6AE0     		b	.L175
+ 1191              	.L186:
+ 1192 0038 6F4A     		ldr	r2, .L187
+ 1193 003a 4FF48873 		mov	r3, #272
+ 1194 003e 03FB0528 		mla	r8, r3, r5, r2
+ 1195 0042 0323     		movs	r3, #3
+ 1196 0044 88F80D30 		strb	r3, [r8, #13]
+ 1197 0048 0123     		movs	r3, #1
+ 1198 004a 88F80C30 		strb	r3, [r8, #12]
+ 1199 004e 2846     		mov	r0, r5
+ 1200 0050 FFF7FEFF 		bl	dns_check_entry
+ 1201 0054 DCE7     		b	.L174
+ 1202              	.L179:
+ 1203 0056 BDF81000 		ldrh	r0, [sp, #16]
+ 1204 005a FFF7FEFF 		bl	lwip_htons
+ 1205 005e 3044     		add	r0, r0, r6
+ 1206 0060 B0F5803F 		cmp	r0, #65536
+ 1207 0064 D4DA     		bge	.L174
+ 1208 0066 BDF81000 		ldrh	r0, [sp, #16]
+ 1209 006a FFF7FEFF 		bl	lwip_htons
+ 1210 006e 8119     		adds	r1, r0, r6
+ 1211 0070 89B2     		uxth	r1, r1
+ 1212 0072 09F1FF39 		add	r9, r9, #-1
+ 1213 0076 1FFA89F9 		uxth	r9, r9
+ 1214              	.L177:
+ 1215 007a B9F1000F 		cmp	r9, #0
+ 1216 007e 00F0AA80 		beq	.L178
+ 1217 0082 2389     		ldrh	r3, [r4, #8]
+ 1218 0084 8B42     		cmp	r3, r1
+ 1219 0086 40F2A680 		bls	.L178
+ 1220 008a 2046     		mov	r0, r4
+ 1221 008c FFF7FEFF 		bl	dns_skip_name
+ 1222 0090 0646     		mov	r6, r0
+ 1223 0092 4FF6FF73 		movw	r3, #65535
+ 1224 0096 9842     		cmp	r0, r3
+ARM GAS  /tmp/ccnudN2P.s 			page 22
+
+
+ 1225 0098 BAD0     		beq	.L174
+ 1226 009a 0346     		mov	r3, r0
+ 1227 009c 0A22     		movs	r2, #10
+ 1228 009e 02A9     		add	r1, sp, #8
+ 1229 00a0 2046     		mov	r0, r4
+ 1230 00a2 FFF7FEFF 		bl	pbuf_copy_partial
+ 1231 00a6 0A28     		cmp	r0, #10
+ 1232 00a8 B2D1     		bne	.L174
+ 1233 00aa 4FF6F573 		movw	r3, #65525
+ 1234 00ae 9E42     		cmp	r6, r3
+ 1235 00b0 AED8     		bhi	.L174
+ 1236 00b2 0A36     		adds	r6, r6, #10
+ 1237 00b4 B6B2     		uxth	r6, r6
+ 1238 00b6 BDF80A30 		ldrh	r3, [sp, #10]
+ 1239 00ba B3F5807F 		cmp	r3, #256
+ 1240 00be CAD1     		bne	.L179
+ 1241 00c0 BDF80830 		ldrh	r3, [sp, #8]
+ 1242 00c4 B3F5807F 		cmp	r3, #256
+ 1243 00c8 C5D1     		bne	.L179
+ 1244 00ca BDF81030 		ldrh	r3, [sp, #16]
+ 1245 00ce B3F5806F 		cmp	r3, #1024
+ 1246 00d2 C0D1     		bne	.L179
+ 1247 00d4 3346     		mov	r3, r6
+ 1248 00d6 0422     		movs	r2, #4
+ 1249 00d8 6946     		mov	r1, sp
+ 1250 00da 2046     		mov	r0, r4
+ 1251 00dc FFF7FEFF 		bl	pbuf_copy_partial
+ 1252 00e0 0428     		cmp	r0, #4
+ 1253 00e2 95D1     		bne	.L174
+ 1254 00e4 444A     		ldr	r2, .L187
+ 1255 00e6 4FF48873 		mov	r3, #272
+ 1256 00ea 03FB0828 		mla	r8, r3, r8, r2
+ 1257 00ee 009B     		ldr	r3, [sp]
+ 1258 00f0 C8F80430 		str	r3, [r8, #4]
+ 1259 00f4 2046     		mov	r0, r4
+ 1260 00f6 FFF7FEFF 		bl	pbuf_free
+ 1261 00fa 0398     		ldr	r0, [sp, #12]
+ 1262 00fc FFF7FEFF 		bl	lwip_htonl
+ 1263 0100 0146     		mov	r1, r0
+ 1264 0102 2846     		mov	r0, r5
+ 1265 0104 FFF7FEFF 		bl	dns_correct_response
+ 1266 0108 85E7     		b	.L173
+ 1267              	.L176:
+ 1268 010a 0135     		adds	r5, r5, #1
+ 1269 010c EDB2     		uxtb	r5, r5
+ 1270              	.L175:
+ 1271 010e 032D     		cmp	r5, #3
+ 1272 0110 3FF67EAF 		bhi	.L174
+ 1273 0114 A846     		mov	r8, r5
+ 1274 0116 2B01     		lsls	r3, r5, #4
+ 1275 0118 2B44     		add	r3, r3, r5
+ 1276 011a 1A01     		lsls	r2, r3, #4
+ 1277 011c 364E     		ldr	r6, .L187
+ 1278 011e 1644     		add	r6, r6, r2
+ 1279 0120 B37A     		ldrb	r3, [r6, #10]	@ zero_extendqisi2
+ 1280 0122 022B     		cmp	r3, #2
+ 1281 0124 F1D1     		bne	.L176
+ARM GAS  /tmp/ccnudN2P.s 			page 23
+
+
+ 1282 0126 3389     		ldrh	r3, [r6, #8]
+ 1283 0128 8342     		cmp	r3, r0
+ 1284 012a EED1     		bne	.L176
+ 1285 012c BDF81800 		ldrh	r0, [sp, #24]
+ 1286 0130 FFF7FEFF 		bl	lwip_htons
+ 1287 0134 8246     		mov	r10, r0
+ 1288 0136 BDF81A00 		ldrh	r0, [sp, #26]
+ 1289 013a FFF7FEFF 		bl	lwip_htons
+ 1290 013e 8146     		mov	r9, r0
+ 1291 0140 9DF91630 		ldrsb	r3, [sp, #22]
+ 1292 0144 002B     		cmp	r3, #0
+ 1293 0146 BFF663AF 		bge	.L174
+ 1294 014a BAF1010F 		cmp	r10, #1
+ 1295 014e 7FF45FAF 		bne	.L174
+ 1296 0152 3968     		ldr	r1, [r7]
+ 1297 0154 F27A     		ldrb	r2, [r6, #11]	@ zero_extendqisi2
+ 1298 0156 294B     		ldr	r3, .L187+4
+ 1299 0158 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 1300 015c 9942     		cmp	r1, r3
+ 1301 015e 7FF457AF 		bne	.L174
+ 1302 0162 4FF48873 		mov	r3, #272
+ 1303 0166 03FB05F3 		mul	r3, r3, r5
+ 1304 016a 1033     		adds	r3, r3, #16
+ 1305 016c 0C22     		movs	r2, #12
+ 1306 016e 2146     		mov	r1, r4
+ 1307 0170 2148     		ldr	r0, .L187
+ 1308 0172 1844     		add	r0, r0, r3
+ 1309 0174 FFF7FEFF 		bl	dns_compare_name
+ 1310 0178 0746     		mov	r7, r0
+ 1311 017a 4FF6FF73 		movw	r3, #65535
+ 1312 017e 9842     		cmp	r0, r3
+ 1313 0180 3FF446AF 		beq	.L174
+ 1314 0184 0346     		mov	r3, r0
+ 1315 0186 0422     		movs	r2, #4
+ 1316 0188 0DEB0201 		add	r1, sp, r2
+ 1317 018c 2046     		mov	r0, r4
+ 1318 018e FFF7FEFF 		bl	pbuf_copy_partial
+ 1319 0192 0428     		cmp	r0, #4
+ 1320 0194 7FF43CAF 		bne	.L174
+ 1321 0198 BDF80630 		ldrh	r3, [sp, #6]
+ 1322 019c B3F5807F 		cmp	r3, #256
+ 1323 01a0 7FF436AF 		bne	.L174
+ 1324 01a4 BDF80430 		ldrh	r3, [sp, #4]
+ 1325 01a8 B3F5807F 		cmp	r3, #256
+ 1326 01ac 7FF430AF 		bne	.L174
+ 1327 01b0 4FF6FB73 		movw	r3, #65531
+ 1328 01b4 9F42     		cmp	r7, r3
+ 1329 01b6 3FF62BAF 		bhi	.L174
+ 1330 01ba 391D     		adds	r1, r7, #4
+ 1331 01bc 89B2     		uxth	r1, r1
+ 1332 01be 9DF81730 		ldrb	r3, [sp, #23]	@ zero_extendqisi2
+ 1333 01c2 13F00F0F 		tst	r3, #15
+ 1334 01c6 3FF458AF 		beq	.L177
+ 1335 01ca 3046     		mov	r0, r6
+ 1336 01cc FFF7FEFF 		bl	dns_backupserver_available
+ 1337 01d0 0028     		cmp	r0, #0
+ 1338 01d2 7FF431AF 		bne	.L186
+ARM GAS  /tmp/ccnudN2P.s 			page 24
+
+
+ 1339              	.L178:
+ 1340 01d6 2046     		mov	r0, r4
+ 1341 01d8 FFF7FEFF 		bl	pbuf_free
+ 1342 01dc 0021     		movs	r1, #0
+ 1343 01de 2846     		mov	r0, r5
+ 1344 01e0 FFF7FEFF 		bl	dns_call_found
+ 1345 01e4 044B     		ldr	r3, .L187
+ 1346 01e6 4FF48872 		mov	r2, #272
+ 1347 01ea 02FB0838 		mla	r8, r2, r8, r3
+ 1348 01ee 0023     		movs	r3, #0
+ 1349 01f0 88F80A30 		strb	r3, [r8, #10]
+ 1350 01f4 0FE7     		b	.L173
+ 1351              	.L188:
+ 1352 01f6 00BF     		.align	2
+ 1353              	.L187:
+ 1354 01f8 00000000 		.word	.LANCHOR1
+ 1355 01fc 00000000 		.word	.LANCHOR0
+ 1357              		.section	.text.dns_init,"ax",%progbits
+ 1358              		.align	1
+ 1359              		.global	dns_init
+ 1360              		.syntax unified
+ 1361              		.thumb
+ 1362              		.thumb_func
+ 1363              		.fpu fpv4-sp-d16
+ 1365              	dns_init:
+ 1366              		@ args = 0, pretend = 0, frame = 0
+ 1367              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1368              		@ link register save eliminated.
+ 1369 0000 7047     		bx	lr
+ 1371              		.section	.text.dns_setserver,"ax",%progbits
+ 1372              		.align	1
+ 1373              		.global	dns_setserver
+ 1374              		.syntax unified
+ 1375              		.thumb
+ 1376              		.thumb_func
+ 1377              		.fpu fpv4-sp-d16
+ 1379              	dns_setserver:
+ 1380              		@ args = 0, pretend = 0, frame = 0
+ 1381              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1382              		@ link register save eliminated.
+ 1383 0000 0128     		cmp	r0, #1
+ 1384 0002 00D9     		bls	.L193
+ 1385              	.L190:
+ 1386 0004 7047     		bx	lr
+ 1387              	.L193:
+ 1388 0006 21B1     		cbz	r1, .L192
+ 1389 0008 0A68     		ldr	r2, [r1]
+ 1390 000a 054B     		ldr	r3, .L194
+ 1391 000c 43F82020 		str	r2, [r3, r0, lsl #2]
+ 1392 0010 7047     		bx	lr
+ 1393              	.L192:
+ 1394 0012 044B     		ldr	r3, .L194+4
+ 1395 0014 1A68     		ldr	r2, [r3]
+ 1396 0016 024B     		ldr	r3, .L194
+ 1397 0018 43F82020 		str	r2, [r3, r0, lsl #2]
+ 1398 001c F2E7     		b	.L190
+ 1399              	.L195:
+ARM GAS  /tmp/ccnudN2P.s 			page 25
+
+
+ 1400 001e 00BF     		.align	2
+ 1401              	.L194:
+ 1402 0020 00000000 		.word	.LANCHOR0
+ 1403 0024 00000000 		.word	ip_addr_any
+ 1405              		.section	.text.dns_getserver,"ax",%progbits
+ 1406              		.align	1
+ 1407              		.global	dns_getserver
+ 1408              		.syntax unified
+ 1409              		.thumb
+ 1410              		.thumb_func
+ 1411              		.fpu fpv4-sp-d16
+ 1413              	dns_getserver:
+ 1414              		@ args = 0, pretend = 0, frame = 0
+ 1415              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1416              		@ link register save eliminated.
+ 1417 0000 0128     		cmp	r0, #1
+ 1418 0002 01D9     		bls	.L199
+ 1419 0004 0248     		ldr	r0, .L200
+ 1420 0006 7047     		bx	lr
+ 1421              	.L199:
+ 1422 0008 024B     		ldr	r3, .L200+4
+ 1423 000a 03EB8000 		add	r0, r3, r0, lsl #2
+ 1424 000e 7047     		bx	lr
+ 1425              	.L201:
+ 1426              		.align	2
+ 1427              	.L200:
+ 1428 0010 00000000 		.word	ip_addr_any
+ 1429 0014 00000000 		.word	.LANCHOR0
+ 1431              		.section	.text.dns_tmr,"ax",%progbits
+ 1432              		.align	1
+ 1433              		.global	dns_tmr
+ 1434              		.syntax unified
+ 1435              		.thumb
+ 1436              		.thumb_func
+ 1437              		.fpu fpv4-sp-d16
+ 1439              	dns_tmr:
+ 1440              		@ args = 0, pretend = 0, frame = 0
+ 1441              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1442 0000 08B5     		push	{r3, lr}
+ 1443 0002 FFF7FEFF 		bl	dns_check_entries
+ 1444 0006 08BD     		pop	{r3, pc}
+ 1446              		.section	.text.dns_gethostbyname_addrtype,"ax",%progbits
+ 1447              		.align	1
+ 1448              		.global	dns_gethostbyname_addrtype
+ 1449              		.syntax unified
+ 1450              		.thumb
+ 1451              		.thumb_func
+ 1452              		.fpu fpv4-sp-d16
+ 1454              	dns_gethostbyname_addrtype:
+ 1455              		@ args = 4, pretend = 0, frame = 0
+ 1456              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1457 0000 41B3     		cbz	r1, .L206
+ 1458 0002 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1459 0006 0D46     		mov	r5, r1
+ 1460 0008 40B3     		cbz	r0, .L207
+ 1461 000a 0178     		ldrb	r1, [r0]	@ zero_extendqisi2
+ 1462 000c 49B3     		cbz	r1, .L208
+ARM GAS  /tmp/ccnudN2P.s 			page 26
+
+
+ 1463 000e 9846     		mov	r8, r3
+ 1464 0010 1746     		mov	r7, r2
+ 1465 0012 0446     		mov	r4, r0
+ 1466 0014 FFF7FEFF 		bl	strlen
+ 1467 0018 0646     		mov	r6, r0
+ 1468 001a FF28     		cmp	r0, #255
+ 1469 001c 24D8     		bhi	.L209
+ 1470 001e 2946     		mov	r1, r5
+ 1471 0020 2046     		mov	r0, r4
+ 1472 0022 FFF7FEFF 		bl	ip4addr_aton
+ 1473 0026 18B1     		cbz	r0, .L216
+ 1474 0028 0021     		movs	r1, #0
+ 1475              	.L205:
+ 1476 002a 0846     		mov	r0, r1
+ 1477 002c BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1478              	.L216:
+ 1479 0030 2946     		mov	r1, r5
+ 1480 0032 2046     		mov	r0, r4
+ 1481 0034 FFF7FEFF 		bl	dns_lookup
+ 1482 0038 0146     		mov	r1, r0
+ 1483 003a 0028     		cmp	r0, #0
+ 1484 003c F5D0     		beq	.L205
+ 1485 003e 0D4B     		ldr	r3, .L217
+ 1486 0040 1B68     		ldr	r3, [r3]
+ 1487 0042 A3B1     		cbz	r3, .L211
+ 1488 0044 4346     		mov	r3, r8
+ 1489 0046 3A46     		mov	r2, r7
+ 1490 0048 3146     		mov	r1, r6
+ 1491 004a 2046     		mov	r0, r4
+ 1492 004c FFF7FEFF 		bl	dns_enqueue
+ 1493 0050 0146     		mov	r1, r0
+ 1494 0052 EAE7     		b	.L205
+ 1495              	.L206:
+ 1496 0054 6FF00F01 		mvn	r1, #15
+ 1497 0058 0846     		mov	r0, r1
+ 1498 005a 7047     		bx	lr
+ 1499              	.L207:
+ 1500 005c 6FF00F01 		mvn	r1, #15
+ 1501 0060 E3E7     		b	.L205
+ 1502              	.L208:
+ 1503 0062 6FF00F01 		mvn	r1, #15
+ 1504 0066 E0E7     		b	.L205
+ 1505              	.L209:
+ 1506 0068 6FF00F01 		mvn	r1, #15
+ 1507 006c DDE7     		b	.L205
+ 1508              	.L211:
+ 1509 006e 6FF00501 		mvn	r1, #5
+ 1510 0072 DAE7     		b	.L205
+ 1511              	.L218:
+ 1512              		.align	2
+ 1513              	.L217:
+ 1514 0074 00000000 		.word	.LANCHOR0
+ 1516              		.section	.text.dns_gethostbyname,"ax",%progbits
+ 1517              		.align	1
+ 1518              		.global	dns_gethostbyname
+ 1519              		.syntax unified
+ 1520              		.thumb
+ARM GAS  /tmp/ccnudN2P.s 			page 27
+
+
+ 1521              		.thumb_func
+ 1522              		.fpu fpv4-sp-d16
+ 1524              	dns_gethostbyname:
+ 1525              		@ args = 0, pretend = 0, frame = 0
+ 1526              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1527 0000 10B5     		push	{r4, lr}
+ 1528 0002 82B0     		sub	sp, sp, #8
+ 1529 0004 0024     		movs	r4, #0
+ 1530 0006 0094     		str	r4, [sp]
+ 1531 0008 FFF7FEFF 		bl	dns_gethostbyname_addrtype
+ 1532 000c 02B0     		add	sp, sp, #8
+ 1533              		@ sp needed
+ 1534 000e 10BD     		pop	{r4, pc}
+ 1536              		.global	dns_mquery_v4group
+ 1537              		.section	.bss.dns_last_pcb_idx,"aw",%nobits
+ 1538              		.set	.LANCHOR4,. + 0
+ 1541              	dns_last_pcb_idx:
+ 1542 0000 00       		.space	1
+ 1543              		.section	.bss.dns_pcbs,"aw",%nobits
+ 1544              		.align	2
+ 1545              		.set	.LANCHOR3,. + 0
+ 1548              	dns_pcbs:
+ 1549 0000 00000000 		.space	16
+ 1549      00000000 
+ 1549      00000000 
+ 1549      00000000 
+ 1550              		.section	.bss.dns_requests,"aw",%nobits
+ 1551              		.align	2
+ 1552              		.set	.LANCHOR2,. + 0
+ 1555              	dns_requests:
+ 1556 0000 00000000 		.space	48
+ 1556      00000000 
+ 1556      00000000 
+ 1556      00000000 
+ 1556      00000000 
+ 1557              		.section	.bss.dns_seqno,"aw",%nobits
+ 1558              		.set	.LANCHOR5,. + 0
+ 1561              	dns_seqno:
+ 1562 0000 00       		.space	1
+ 1563              		.section	.bss.dns_servers,"aw",%nobits
+ 1564              		.align	2
+ 1565              		.set	.LANCHOR0,. + 0
+ 1568              	dns_servers:
+ 1569 0000 00000000 		.space	8
+ 1569      00000000 
+ 1570              		.section	.bss.dns_table,"aw",%nobits
+ 1571              		.align	2
+ 1572              		.set	.LANCHOR1,. + 0
+ 1575              	dns_table:
+ 1576 0000 00000000 		.space	1088
+ 1576      00000000 
+ 1576      00000000 
+ 1576      00000000 
+ 1576      00000000 
+ 1577              		.section	.rodata.dns_check_entry.str1.4,"aMS",%progbits,1
+ 1578              		.align	2
+ 1579              	.LC3:
+ARM GAS  /tmp/ccnudN2P.s 			page 28
+
+
+ 1580 0000 61727261 		.ascii	"array index out of bounds\000"
+ 1580      7920696E 
+ 1580      64657820 
+ 1580      6F757420 
+ 1580      6F662062 
+ 1581 001a 0000     		.space	2
+ 1582              	.LC4:
+ 1583 001c 756E6B6E 		.ascii	"unknown dns_table entry state:\000"
+ 1583      6F776E20 
+ 1583      646E735F 
+ 1583      7461626C 
+ 1583      6520656E 
+ 1584              		.section	.rodata.dns_mquery_v4group,"a"
+ 1585              		.align	2
+ 1588              	dns_mquery_v4group:
+ 1589 0000 E00000FB 		.word	-83885856
+ 1590              		.section	.rodata.dns_send.str1.4,"aMS",%progbits,1
+ 1591              		.align	2
+ 1592              	.LC0:
+ 1593 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/core/dns.c\000"
+ 1593      6C657761 
+ 1593      7265732F 
+ 1593      54686972 
+ 1593      645F5061 
+ 1594              	.LC1:
+ 1595 002c 646E7320 		.ascii	"dns server out of array\000"
+ 1595      73657276 
+ 1595      6572206F 
+ 1595      7574206F 
+ 1595      66206172 
+ 1596              	.LC2:
+ 1597 0044 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ 1597      7274696F 
+ 1597      6E202225 
+ 1597      73222066 
+ 1597      61696C65 
+ 1598              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccnudN2P.s 			page 29
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 dns.c
+     /tmp/ccnudN2P.s:16     .text.dns_backupserver_available:0000000000000000 $t
+     /tmp/ccnudN2P.s:23     .text.dns_backupserver_available:0000000000000000 dns_backupserver_available
+     /tmp/ccnudN2P.s:47     .text.dns_backupserver_available:0000000000000020 $d
+     /tmp/ccnudN2P.s:50     .text.dns_create_txid:0000000000000000 $t
+     /tmp/ccnudN2P.s:56     .text.dns_create_txid:0000000000000000 dns_create_txid
+     /tmp/ccnudN2P.s:89     .text.dns_create_txid:0000000000000034 $d
+     /tmp/ccnudN2P.s:92     .text.dns_call_found:0000000000000000 $t
+     /tmp/ccnudN2P.s:98     .text.dns_call_found:0000000000000000 dns_call_found
+     /tmp/ccnudN2P.s:206    .text.dns_call_found:00000000000000dc $d
+     /tmp/ccnudN2P.s:211    .text.dns_correct_response:0000000000000000 $t
+     /tmp/ccnudN2P.s:217    .text.dns_correct_response:0000000000000000 dns_correct_response
+     /tmp/ccnudN2P.s:264    .text.dns_correct_response:0000000000000050 $d
+     /tmp/ccnudN2P.s:268    .text.dns_send:0000000000000000 $t
+     /tmp/ccnudN2P.s:274    .text.dns_send:0000000000000000 dns_send
+     /tmp/ccnudN2P.s:436    .text.dns_send:000000000000017c $d
+     /tmp/ccnudN2P.s:444    .text.dns_check_entry:0000000000000000 $t
+     /tmp/ccnudN2P.s:450    .text.dns_check_entry:0000000000000000 dns_check_entry
+     /tmp/ccnudN2P.s:471    .text.dns_check_entry:0000000000000026 $d
+     /tmp/ccnudN2P.s:475    .text.dns_check_entry:000000000000002a $t
+     /tmp/ccnudN2P.s:596    .text.dns_check_entry:000000000000011c $d
+     /tmp/ccnudN2P.s:603    .text.dns_check_entries:0000000000000000 $t
+     /tmp/ccnudN2P.s:609    .text.dns_check_entries:0000000000000000 dns_check_entries
+     /tmp/ccnudN2P.s:626    .text.dns_lookup:0000000000000000 $t
+     /tmp/ccnudN2P.s:632    .text.dns_lookup:0000000000000000 dns_lookup
+     /tmp/ccnudN2P.s:679    .text.dns_lookup:0000000000000054 $d
+     /tmp/ccnudN2P.s:682    .text.dns_alloc_random_port:0000000000000000 $t
+     /tmp/ccnudN2P.s:688    .text.dns_alloc_random_port:0000000000000000 dns_alloc_random_port
+     /tmp/ccnudN2P.s:722    .text.dns_alloc_random_port:0000000000000040 $d
+     /tmp/ccnudN2P.s:1162   .text.dns_recv:0000000000000000 dns_recv
+     /tmp/ccnudN2P.s:726    .text.dns_alloc_pcb:0000000000000000 $t
+     /tmp/ccnudN2P.s:732    .text.dns_alloc_pcb:0000000000000000 dns_alloc_pcb
+     /tmp/ccnudN2P.s:792    .text.dns_alloc_pcb:0000000000000064 $d
+     /tmp/ccnudN2P.s:796    .text.dns_enqueue:0000000000000000 $t
+     /tmp/ccnudN2P.s:802    .text.dns_enqueue:0000000000000000 dns_enqueue
+     /tmp/ccnudN2P.s:982    .text.dns_enqueue:0000000000000180 $d
+     /tmp/ccnudN2P.s:987    .text.dns_compare_name:0000000000000000 $t
+     /tmp/ccnudN2P.s:993    .text.dns_compare_name:0000000000000000 dns_compare_name
+     /tmp/ccnudN2P.s:1092   .text.dns_compare_name:00000000000000bc $d
+     /tmp/ccnudN2P.s:1095   .text.dns_skip_name:0000000000000000 $t
+     /tmp/ccnudN2P.s:1101   .text.dns_skip_name:0000000000000000 dns_skip_name
+     /tmp/ccnudN2P.s:1156   .text.dns_recv:0000000000000000 $t
+     /tmp/ccnudN2P.s:1354   .text.dns_recv:00000000000001f8 $d
+     /tmp/ccnudN2P.s:1358   .text.dns_init:0000000000000000 $t
+     /tmp/ccnudN2P.s:1365   .text.dns_init:0000000000000000 dns_init
+     /tmp/ccnudN2P.s:1372   .text.dns_setserver:0000000000000000 $t
+     /tmp/ccnudN2P.s:1379   .text.dns_setserver:0000000000000000 dns_setserver
+     /tmp/ccnudN2P.s:1402   .text.dns_setserver:0000000000000020 $d
+     /tmp/ccnudN2P.s:1406   .text.dns_getserver:0000000000000000 $t
+     /tmp/ccnudN2P.s:1413   .text.dns_getserver:0000000000000000 dns_getserver
+     /tmp/ccnudN2P.s:1428   .text.dns_getserver:0000000000000010 $d
+     /tmp/ccnudN2P.s:1432   .text.dns_tmr:0000000000000000 $t
+     /tmp/ccnudN2P.s:1439   .text.dns_tmr:0000000000000000 dns_tmr
+     /tmp/ccnudN2P.s:1447   .text.dns_gethostbyname_addrtype:0000000000000000 $t
+     /tmp/ccnudN2P.s:1454   .text.dns_gethostbyname_addrtype:0000000000000000 dns_gethostbyname_addrtype
+     /tmp/ccnudN2P.s:1514   .text.dns_gethostbyname_addrtype:0000000000000074 $d
+ARM GAS  /tmp/ccnudN2P.s 			page 30
+
+
+     /tmp/ccnudN2P.s:1517   .text.dns_gethostbyname:0000000000000000 $t
+     /tmp/ccnudN2P.s:1524   .text.dns_gethostbyname:0000000000000000 dns_gethostbyname
+     /tmp/ccnudN2P.s:1588   .rodata.dns_mquery_v4group:0000000000000000 dns_mquery_v4group
+     /tmp/ccnudN2P.s:1541   .bss.dns_last_pcb_idx:0000000000000000 dns_last_pcb_idx
+     /tmp/ccnudN2P.s:1542   .bss.dns_last_pcb_idx:0000000000000000 $d
+     /tmp/ccnudN2P.s:1544   .bss.dns_pcbs:0000000000000000 $d
+     /tmp/ccnudN2P.s:1548   .bss.dns_pcbs:0000000000000000 dns_pcbs
+     /tmp/ccnudN2P.s:1551   .bss.dns_requests:0000000000000000 $d
+     /tmp/ccnudN2P.s:1555   .bss.dns_requests:0000000000000000 dns_requests
+     /tmp/ccnudN2P.s:1561   .bss.dns_seqno:0000000000000000 dns_seqno
+     /tmp/ccnudN2P.s:1562   .bss.dns_seqno:0000000000000000 $d
+     /tmp/ccnudN2P.s:1564   .bss.dns_servers:0000000000000000 $d
+     /tmp/ccnudN2P.s:1568   .bss.dns_servers:0000000000000000 dns_servers
+     /tmp/ccnudN2P.s:1571   .bss.dns_table:0000000000000000 $d
+     /tmp/ccnudN2P.s:1575   .bss.dns_table:0000000000000000 dns_table
+     /tmp/ccnudN2P.s:1578   .rodata.dns_check_entry.str1.4:0000000000000000 $d
+     /tmp/ccnudN2P.s:1585   .rodata.dns_mquery_v4group:0000000000000000 $d
+     /tmp/ccnudN2P.s:1591   .rodata.dns_send.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+rand
+udp_remove
+strlen
+pbuf_alloc
+lwip_htons
+pbuf_take
+printf
+pbuf_put_at
+pbuf_take_at
+pbuf_free
+udp_sendto
+lwip_strnicmp
+udp_new_ip_type
+udp_bind
+udp_recv
+ip_addr_any
+memcpy
+pbuf_try_get_at
+_ctype_
+pbuf_copy_partial
+lwip_htonl
+ip4addr_aton

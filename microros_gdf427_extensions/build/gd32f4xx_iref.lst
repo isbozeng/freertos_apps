@@ -1,0 +1,202 @@
+ARM GAS  /tmp/ccPD2EbR.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_iref.c"
+  14              		.text
+  15              		.section	.text.iref_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	iref_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	iref_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 43F61F00 		movw	r0, #14367
+  29 0006 FFF7FEFF 		bl	rcu_periph_reset_enable
+  30 000a 43F61F00 		movw	r0, #14367
+  31 000e FFF7FEFF 		bl	rcu_periph_reset_disable
+  32 0012 08BD     		pop	{r3, pc}
+  34              		.section	.text.iref_enable,"ax",%progbits
+  35              		.align	1
+  36              		.global	iref_enable
+  37              		.syntax unified
+  38              		.thumb
+  39              		.thumb_func
+  40              		.fpu fpv4-sp-d16
+  42              	iref_enable:
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 0, uses_anonymous_args = 0
+  45              		@ link register save eliminated.
+  46 0000 024A     		ldr	r2, .L4
+  47 0002 1368     		ldr	r3, [r2]
+  48 0004 43F40043 		orr	r3, r3, #32768
+  49 0008 1360     		str	r3, [r2]
+  50 000a 7047     		bx	lr
+  51              	.L5:
+  52              		.align	2
+  53              	.L4:
+  54 000c 00C70040 		.word	1073792768
+  56              		.section	.text.iref_disable,"ax",%progbits
+  57              		.align	1
+  58              		.global	iref_disable
+  59              		.syntax unified
+  60              		.thumb
+  61              		.thumb_func
+ARM GAS  /tmp/ccPD2EbR.s 			page 2
+
+
+  62              		.fpu fpv4-sp-d16
+  64              	iref_disable:
+  65              		@ args = 0, pretend = 0, frame = 0
+  66              		@ frame_needed = 0, uses_anonymous_args = 0
+  67              		@ link register save eliminated.
+  68 0000 024A     		ldr	r2, .L7
+  69 0002 1368     		ldr	r3, [r2]
+  70 0004 23F40043 		bic	r3, r3, #32768
+  71 0008 1360     		str	r3, [r2]
+  72 000a 7047     		bx	lr
+  73              	.L8:
+  74              		.align	2
+  75              	.L7:
+  76 000c 00C70040 		.word	1073792768
+  78              		.section	.text.iref_mode_set,"ax",%progbits
+  79              		.align	1
+  80              		.global	iref_mode_set
+  81              		.syntax unified
+  82              		.thumb
+  83              		.thumb_func
+  84              		.fpu fpv4-sp-d16
+  86              	iref_mode_set:
+  87              		@ args = 0, pretend = 0, frame = 0
+  88              		@ frame_needed = 0, uses_anonymous_args = 0
+  89              		@ link register save eliminated.
+  90 0000 044B     		ldr	r3, .L10
+  91 0002 1A68     		ldr	r2, [r3]
+  92 0004 22F48042 		bic	r2, r2, #16384
+  93 0008 1A60     		str	r2, [r3]
+  94 000a 1A68     		ldr	r2, [r3]
+  95 000c 1043     		orrs	r0, r0, r2
+  96 000e 1860     		str	r0, [r3]
+  97 0010 7047     		bx	lr
+  98              	.L11:
+  99 0012 00BF     		.align	2
+ 100              	.L10:
+ 101 0014 00C70040 		.word	1073792768
+ 103              		.section	.text.iref_precision_trim_value_set,"ax",%progbits
+ 104              		.align	1
+ 105              		.global	iref_precision_trim_value_set
+ 106              		.syntax unified
+ 107              		.thumb
+ 108              		.thumb_func
+ 109              		.fpu fpv4-sp-d16
+ 111              	iref_precision_trim_value_set:
+ 112              		@ args = 0, pretend = 0, frame = 0
+ 113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 114              		@ link register save eliminated.
+ 115 0000 044B     		ldr	r3, .L13
+ 116 0002 1A68     		ldr	r2, [r3]
+ 117 0004 22F4F852 		bic	r2, r2, #7936
+ 118 0008 1A60     		str	r2, [r3]
+ 119 000a 1A68     		ldr	r2, [r3]
+ 120 000c 1043     		orrs	r0, r0, r2
+ 121 000e 1860     		str	r0, [r3]
+ 122 0010 7047     		bx	lr
+ 123              	.L14:
+ARM GAS  /tmp/ccPD2EbR.s 			page 3
+
+
+ 124 0012 00BF     		.align	2
+ 125              	.L13:
+ 126 0014 00C70040 		.word	1073792768
+ 128              		.section	.text.iref_sink_set,"ax",%progbits
+ 129              		.align	1
+ 130              		.global	iref_sink_set
+ 131              		.syntax unified
+ 132              		.thumb
+ 133              		.thumb_func
+ 134              		.fpu fpv4-sp-d16
+ 136              	iref_sink_set:
+ 137              		@ args = 0, pretend = 0, frame = 0
+ 138              		@ frame_needed = 0, uses_anonymous_args = 0
+ 139              		@ link register save eliminated.
+ 140 0000 044B     		ldr	r3, .L16
+ 141 0002 1A68     		ldr	r2, [r3]
+ 142 0004 22F08002 		bic	r2, r2, #128
+ 143 0008 1A60     		str	r2, [r3]
+ 144 000a 1A68     		ldr	r2, [r3]
+ 145 000c 1043     		orrs	r0, r0, r2
+ 146 000e 1860     		str	r0, [r3]
+ 147 0010 7047     		bx	lr
+ 148              	.L17:
+ 149 0012 00BF     		.align	2
+ 150              	.L16:
+ 151 0014 00C70040 		.word	1073792768
+ 153              		.section	.text.iref_step_data_config,"ax",%progbits
+ 154              		.align	1
+ 155              		.global	iref_step_data_config
+ 156              		.syntax unified
+ 157              		.thumb
+ 158              		.thumb_func
+ 159              		.fpu fpv4-sp-d16
+ 161              	iref_step_data_config:
+ 162              		@ args = 0, pretend = 0, frame = 0
+ 163              		@ frame_needed = 0, uses_anonymous_args = 0
+ 164              		@ link register save eliminated.
+ 165 0000 044B     		ldr	r3, .L19
+ 166 0002 1A68     		ldr	r2, [r3]
+ 167 0004 22F03F02 		bic	r2, r2, #63
+ 168 0008 1A60     		str	r2, [r3]
+ 169 000a 1A68     		ldr	r2, [r3]
+ 170 000c 1043     		orrs	r0, r0, r2
+ 171 000e 1860     		str	r0, [r3]
+ 172 0010 7047     		bx	lr
+ 173              	.L20:
+ 174 0012 00BF     		.align	2
+ 175              	.L19:
+ 176 0014 00C70040 		.word	1073792768
+ 178              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccPD2EbR.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_iref.c
+     /tmp/ccPD2EbR.s:16     .text.iref_deinit:0000000000000000 $t
+     /tmp/ccPD2EbR.s:24     .text.iref_deinit:0000000000000000 iref_deinit
+     /tmp/ccPD2EbR.s:35     .text.iref_enable:0000000000000000 $t
+     /tmp/ccPD2EbR.s:42     .text.iref_enable:0000000000000000 iref_enable
+     /tmp/ccPD2EbR.s:54     .text.iref_enable:000000000000000c $d
+     /tmp/ccPD2EbR.s:57     .text.iref_disable:0000000000000000 $t
+     /tmp/ccPD2EbR.s:64     .text.iref_disable:0000000000000000 iref_disable
+     /tmp/ccPD2EbR.s:76     .text.iref_disable:000000000000000c $d
+     /tmp/ccPD2EbR.s:79     .text.iref_mode_set:0000000000000000 $t
+     /tmp/ccPD2EbR.s:86     .text.iref_mode_set:0000000000000000 iref_mode_set
+     /tmp/ccPD2EbR.s:101    .text.iref_mode_set:0000000000000014 $d
+     /tmp/ccPD2EbR.s:104    .text.iref_precision_trim_value_set:0000000000000000 $t
+     /tmp/ccPD2EbR.s:111    .text.iref_precision_trim_value_set:0000000000000000 iref_precision_trim_value_set
+     /tmp/ccPD2EbR.s:126    .text.iref_precision_trim_value_set:0000000000000014 $d
+     /tmp/ccPD2EbR.s:129    .text.iref_sink_set:0000000000000000 $t
+     /tmp/ccPD2EbR.s:136    .text.iref_sink_set:0000000000000000 iref_sink_set
+     /tmp/ccPD2EbR.s:151    .text.iref_sink_set:0000000000000014 $d
+     /tmp/ccPD2EbR.s:154    .text.iref_step_data_config:0000000000000000 $t
+     /tmp/ccPD2EbR.s:161    .text.iref_step_data_config:0000000000000000 iref_step_data_config
+     /tmp/ccPD2EbR.s:176    .text.iref_step_data_config:0000000000000014 $d
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable

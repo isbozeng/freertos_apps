@@ -1,0 +1,664 @@
+ARM GAS  /tmp/cceM4Rn2.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"main.c"
+  14              		.text
+  15              		.section	.text.MX_GPIO_Init,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	MX_GPIO_Init:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26 0000 38B5     		push	{r3, r4, r5, lr}
+  27 0002 4FF44060 		mov	r0, #3072
+  28 0006 FFF7FEFF 		bl	rcu_periph_clock_enable
+  29 000a 40F60440 		movw	r0, #3076
+  30 000e FFF7FEFF 		bl	rcu_periph_clock_enable
+  31 0012 134D     		ldr	r5, .L3
+  32 0014 4FF40043 		mov	r3, #32768
+  33 0018 0022     		movs	r2, #0
+  34 001a 0121     		movs	r1, #1
+  35 001c 2846     		mov	r0, r5
+  36 001e FFF7FEFF 		bl	gpio_mode_set
+  37 0022 4FF40043 		mov	r3, #32768
+  38 0026 0222     		movs	r2, #2
+  39 0028 0021     		movs	r1, #0
+  40 002a 2846     		mov	r0, r5
+  41 002c FFF7FEFF 		bl	gpio_output_options_set
+  42 0030 0C4C     		ldr	r4, .L3+4
+  43 0032 3823     		movs	r3, #56
+  44 0034 0022     		movs	r2, #0
+  45 0036 0121     		movs	r1, #1
+  46 0038 2046     		mov	r0, r4
+  47 003a FFF7FEFF 		bl	gpio_mode_set
+  48 003e 3823     		movs	r3, #56
+  49 0040 0222     		movs	r2, #2
+  50 0042 0021     		movs	r1, #0
+  51 0044 2046     		mov	r0, r4
+  52 0046 FFF7FEFF 		bl	gpio_output_options_set
+  53 004a 4FF40041 		mov	r1, #32768
+  54 004e 2846     		mov	r0, r5
+  55 0050 FFF7FEFF 		bl	gpio_bit_reset
+  56 0054 3821     		movs	r1, #56
+  57 0056 2046     		mov	r0, r4
+  58 0058 FFF7FEFF 		bl	gpio_bit_reset
+ARM GAS  /tmp/cceM4Rn2.s 			page 2
+
+
+  59 005c 38BD     		pop	{r3, r4, r5, pc}
+  60              	.L4:
+  61 005e 00BF     		.align	2
+  62              	.L3:
+  63 0060 00000240 		.word	1073872896
+  64 0064 00100240 		.word	1073876992
+  66              		.section	.text.MX_DMA_Init,"ax",%progbits
+  67              		.align	1
+  68              		.syntax unified
+  69              		.thumb
+  70              		.thumb_func
+  71              		.fpu fpv4-sp-d16
+  73              	MX_DMA_Init:
+  74              		@ args = 0, pretend = 0, frame = 0
+  75              		@ frame_needed = 0, uses_anonymous_args = 0
+  76 0000 10B5     		push	{r4, lr}
+  77 0002 40F61640 		movw	r0, #3094
+  78 0006 FFF7FEFF 		bl	rcu_periph_clock_enable
+  79 000a 054C     		ldr	r4, .L7
+  80 000c 0221     		movs	r1, #2
+  81 000e 2046     		mov	r0, r4
+  82 0010 FFF7FEFF 		bl	dma_deinit
+  83 0014 0721     		movs	r1, #7
+  84 0016 2046     		mov	r0, r4
+  85 0018 FFF7FEFF 		bl	dma_deinit
+  86 001c 10BD     		pop	{r4, pc}
+  87              	.L8:
+  88 001e 00BF     		.align	2
+  89              	.L7:
+  90 0020 00640240 		.word	1073898496
+  92              		.section	.text.MX_USART0_UART_Init,"ax",%progbits
+  93              		.align	1
+  94              		.syntax unified
+  95              		.thumb
+  96              		.thumb_func
+  97              		.fpu fpv4-sp-d16
+  99              	MX_USART0_UART_Init:
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 0, uses_anonymous_args = 0
+ 102 0000 10B5     		push	{r4, lr}
+ 103 0002 41F20410 		movw	r0, #4356
+ 104 0006 FFF7FEFF 		bl	rcu_periph_clock_enable
+ 105 000a 264C     		ldr	r4, .L11
+ 106 000c 4FF4C062 		mov	r2, #1536
+ 107 0010 0721     		movs	r1, #7
+ 108 0012 2046     		mov	r0, r4
+ 109 0014 FFF7FEFF 		bl	gpio_af_set
+ 110 0018 4FF40073 		mov	r3, #512
+ 111 001c 0122     		movs	r2, #1
+ 112 001e 0221     		movs	r1, #2
+ 113 0020 2046     		mov	r0, r4
+ 114 0022 FFF7FEFF 		bl	gpio_mode_set
+ 115 0026 4FF40073 		mov	r3, #512
+ 116 002a 0222     		movs	r2, #2
+ 117 002c 0021     		movs	r1, #0
+ 118 002e 2046     		mov	r0, r4
+ 119 0030 FFF7FEFF 		bl	gpio_output_options_set
+ARM GAS  /tmp/cceM4Rn2.s 			page 3
+
+
+ 120 0034 4FF48063 		mov	r3, #1024
+ 121 0038 0022     		movs	r2, #0
+ 122 003a 1146     		mov	r1, r2
+ 123 003c 2046     		mov	r0, r4
+ 124 003e FFF7FEFF 		bl	gpio_mode_set
+ 125 0042 4FF48063 		mov	r3, #1024
+ 126 0046 0222     		movs	r2, #2
+ 127 0048 0321     		movs	r1, #3
+ 128 004a 2046     		mov	r0, r4
+ 129 004c FFF7FEFF 		bl	gpio_output_options_set
+ 130 0050 A4F57044 		sub	r4, r4, #61440
+ 131 0054 2046     		mov	r0, r4
+ 132 0056 FFF7FEFF 		bl	usart_deinit
+ 133 005a 0021     		movs	r1, #0
+ 134 005c 2046     		mov	r0, r4
+ 135 005e FFF7FEFF 		bl	usart_word_length_set
+ 136 0062 0021     		movs	r1, #0
+ 137 0064 2046     		mov	r0, r4
+ 138 0066 FFF7FEFF 		bl	usart_stop_bit_set
+ 139 006a 0021     		movs	r1, #0
+ 140 006c 2046     		mov	r0, r4
+ 141 006e FFF7FEFF 		bl	usart_parity_config
+ 142 0072 4FF4E131 		mov	r1, #115200
+ 143 0076 2046     		mov	r0, r4
+ 144 0078 FFF7FEFF 		bl	usart_baudrate_set
+ 145 007c 0421     		movs	r1, #4
+ 146 007e 2046     		mov	r0, r4
+ 147 0080 FFF7FEFF 		bl	usart_receive_config
+ 148 0084 0821     		movs	r1, #8
+ 149 0086 2046     		mov	r0, r4
+ 150 0088 FFF7FEFF 		bl	usart_transmit_config
+ 151 008c 0021     		movs	r1, #0
+ 152 008e 2046     		mov	r0, r4
+ 153 0090 FFF7FEFF 		bl	usart_hardware_flow_rts_config
+ 154 0094 0021     		movs	r1, #0
+ 155 0096 2046     		mov	r0, r4
+ 156 0098 FFF7FEFF 		bl	usart_hardware_flow_cts_config
+ 157 009c 2046     		mov	r0, r4
+ 158 009e FFF7FEFF 		bl	usart_enable
+ 159 00a2 10BD     		pop	{r4, pc}
+ 160              	.L12:
+ 161              		.align	2
+ 162              	.L11:
+ 163 00a4 00000240 		.word	1073872896
+ 165              		.section	.text.MX_USART1_UART_Init,"ax",%progbits
+ 166              		.align	1
+ 167              		.syntax unified
+ 168              		.thumb
+ 169              		.thumb_func
+ 170              		.fpu fpv4-sp-d16
+ 172              	MX_USART1_UART_Init:
+ 173              		@ args = 0, pretend = 0, frame = 0
+ 174              		@ frame_needed = 0, uses_anonymous_args = 0
+ 175 0000 10B5     		push	{r4, lr}
+ 176 0002 41F21100 		movw	r0, #4113
+ 177 0006 FFF7FEFF 		bl	rcu_periph_clock_enable
+ 178 000a 244C     		ldr	r4, .L15
+ARM GAS  /tmp/cceM4Rn2.s 			page 4
+
+
+ 179 000c 0C22     		movs	r2, #12
+ 180 000e 0721     		movs	r1, #7
+ 181 0010 2046     		mov	r0, r4
+ 182 0012 FFF7FEFF 		bl	gpio_af_set
+ 183 0016 0423     		movs	r3, #4
+ 184 0018 0122     		movs	r2, #1
+ 185 001a 0221     		movs	r1, #2
+ 186 001c 2046     		mov	r0, r4
+ 187 001e FFF7FEFF 		bl	gpio_mode_set
+ 188 0022 0423     		movs	r3, #4
+ 189 0024 0222     		movs	r2, #2
+ 190 0026 0021     		movs	r1, #0
+ 191 0028 2046     		mov	r0, r4
+ 192 002a FFF7FEFF 		bl	gpio_output_options_set
+ 193 002e 0823     		movs	r3, #8
+ 194 0030 0022     		movs	r2, #0
+ 195 0032 1146     		mov	r1, r2
+ 196 0034 2046     		mov	r0, r4
+ 197 0036 FFF7FEFF 		bl	gpio_mode_set
+ 198 003a 0823     		movs	r3, #8
+ 199 003c 0222     		movs	r2, #2
+ 200 003e 0321     		movs	r1, #3
+ 201 0040 2046     		mov	r0, r4
+ 202 0042 FFF7FEFF 		bl	gpio_output_options_set
+ 203 0046 A4F5DE34 		sub	r4, r4, #113664
+ 204 004a 2046     		mov	r0, r4
+ 205 004c FFF7FEFF 		bl	usart_deinit
+ 206 0050 0021     		movs	r1, #0
+ 207 0052 2046     		mov	r0, r4
+ 208 0054 FFF7FEFF 		bl	usart_word_length_set
+ 209 0058 0021     		movs	r1, #0
+ 210 005a 2046     		mov	r0, r4
+ 211 005c FFF7FEFF 		bl	usart_stop_bit_set
+ 212 0060 0021     		movs	r1, #0
+ 213 0062 2046     		mov	r0, r4
+ 214 0064 FFF7FEFF 		bl	usart_parity_config
+ 215 0068 4FF4E131 		mov	r1, #115200
+ 216 006c 2046     		mov	r0, r4
+ 217 006e FFF7FEFF 		bl	usart_baudrate_set
+ 218 0072 0421     		movs	r1, #4
+ 219 0074 2046     		mov	r0, r4
+ 220 0076 FFF7FEFF 		bl	usart_receive_config
+ 221 007a 0821     		movs	r1, #8
+ 222 007c 2046     		mov	r0, r4
+ 223 007e FFF7FEFF 		bl	usart_transmit_config
+ 224 0082 0021     		movs	r1, #0
+ 225 0084 2046     		mov	r0, r4
+ 226 0086 FFF7FEFF 		bl	usart_hardware_flow_rts_config
+ 227 008a 0021     		movs	r1, #0
+ 228 008c 2046     		mov	r0, r4
+ 229 008e FFF7FEFF 		bl	usart_hardware_flow_cts_config
+ 230 0092 2046     		mov	r0, r4
+ 231 0094 FFF7FEFF 		bl	usart_enable
+ 232 0098 10BD     		pop	{r4, pc}
+ 233              	.L16:
+ 234 009a 00BF     		.align	2
+ 235              	.L15:
+ARM GAS  /tmp/cceM4Rn2.s 			page 5
+
+
+ 236 009c 00000240 		.word	1073872896
+ 238              		.section	.text.initTaskFunction,"ax",%progbits
+ 239              		.align	1
+ 240              		.global	initTaskFunction
+ 241              		.syntax unified
+ 242              		.thumb
+ 243              		.thumb_func
+ 244              		.fpu fpv4-sp-d16
+ 246              	initTaskFunction:
+ 247              		@ args = 0, pretend = 0, frame = 560
+ 248              		@ frame_needed = 0, uses_anonymous_args = 0
+ 249 0000 30B5     		push	{r4, r5, lr}
+ 250 0002 ADF50F7D 		sub	sp, sp, #572
+ 251 0006 414B     		ldr	r3, .L24
+ 252 0008 0193     		str	r3, [sp, #4]
+ 253 000a 414B     		ldr	r3, .L24+4
+ 254 000c 0093     		str	r3, [sp]
+ 255 000e 414B     		ldr	r3, .L24+8
+ 256 0010 414A     		ldr	r2, .L24+12
+ 257 0012 0021     		movs	r1, #0
+ 258 0014 0120     		movs	r0, #1
+ 259 0016 FFF7FEFF 		bl	rmw_uros_set_custom_transport
+ 260 001a 89A8     		add	r0, sp, #548
+ 261 001c FFF7FEFF 		bl	rcutils_get_zero_initialized_allocator
+ 262 0020 3E4B     		ldr	r3, .L24+16
+ 263 0022 8993     		str	r3, [sp, #548]
+ 264 0024 3E4B     		ldr	r3, .L24+20
+ 265 0026 8A93     		str	r3, [sp, #552]
+ 266 0028 3E4B     		ldr	r3, .L24+24
+ 267 002a 8B93     		str	r3, [sp, #556]
+ 268 002c 3E4B     		ldr	r3, .L24+28
+ 269 002e 8C93     		str	r3, [sp, #560]
+ 270 0030 89A8     		add	r0, sp, #548
+ 271 0032 FFF7FEFF 		bl	rcutils_set_default_allocator
+ 272 0036 60B3     		cbz	r0, .L23
+ 273              	.L18:
+ 274 0038 2022     		movs	r2, #32
+ 275 003a 0021     		movs	r1, #0
+ 276 003c 81A8     		add	r0, sp, #516
+ 277 003e FFF7FEFF 		bl	memset
+ 278 0042 3A4D     		ldr	r5, .L24+32
+ 279 0044 8095     		str	r5, [sp, #512]
+ 280 0046 45F6C053 		movw	r3, #24000
+ 281 004a 8593     		str	r3, [sp, #532]
+ 282 004c 1823     		movs	r3, #24
+ 283 004e 8693     		str	r3, [sp, #536]
+ 284 0050 80AA     		add	r2, sp, #512
+ 285 0052 0021     		movs	r1, #0
+ 286 0054 3648     		ldr	r0, .L24+36
+ 287 0056 FFF7FEFF 		bl	osThreadNew
+ 288 005a 4FF4FA70 		mov	r0, #500
+ 289 005e FFF7FEFF 		bl	osDelay
+ 290 0062 03A8     		add	r0, sp, #12
+ 291 0064 FFF7FEFF 		bl	vTaskList
+ 292 0068 324C     		ldr	r4, .L24+40
+ 293 006a 2046     		mov	r0, r4
+ 294 006c FFF7FEFF 		bl	puts
+ARM GAS  /tmp/cceM4Rn2.s 			page 6
+
+
+ 295 0070 3148     		ldr	r0, .L24+44
+ 296 0072 FFF7FEFF 		bl	puts
+ 297 0076 2046     		mov	r0, r4
+ 298 0078 FFF7FEFF 		bl	puts
+ 299 007c 03A8     		add	r0, sp, #12
+ 300 007e FFF7FEFF 		bl	printf
+ 301 0082 2046     		mov	r0, r4
+ 302 0084 FFF7FEFF 		bl	puts
+ 303 0088 2846     		mov	r0, r5
+ 304 008a FFF7FEFF 		bl	xTaskGetHandle
+ 305 008e 0546     		mov	r5, r0
+ 306 0090 18E0     		b	.L19
+ 307              	.L23:
+ 308 0092 4FF4A471 		mov	r1, #328
+ 309 0096 2948     		ldr	r0, .L24+48
+ 310 0098 FFF7FEFF 		bl	printf
+ 311 009c CCE7     		b	.L18
+ 312              	.L20:
+ 313 009e 284C     		ldr	r4, .L24+52
+ 314 00a0 4FF40041 		mov	r1, #32768
+ 315 00a4 2046     		mov	r0, r4
+ 316 00a6 FFF7FEFF 		bl	gpio_bit_set
+ 317 00aa 4FF47A70 		mov	r0, #1000
+ 318 00ae FFF7FEFF 		bl	osDelay
+ 319 00b2 4FF40041 		mov	r1, #32768
+ 320 00b6 2046     		mov	r0, r4
+ 321 00b8 FFF7FEFF 		bl	gpio_bit_reset
+ 322 00bc 4FF47A70 		mov	r0, #1000
+ 323 00c0 FFF7FEFF 		bl	osDelay
+ 324              	.L19:
+ 325 00c4 2846     		mov	r0, r5
+ 326 00c6 FFF7FEFF 		bl	eTaskGetState
+ 327 00ca 0328     		cmp	r0, #3
+ 328 00cc E7D0     		beq	.L20
+ 329 00ce 1D4C     		ldr	r4, .L24+56
+ 330 00d0 3821     		movs	r1, #56
+ 331 00d2 2046     		mov	r0, r4
+ 332 00d4 FFF7FEFF 		bl	gpio_bit_reset
+ 333 00d8 6420     		movs	r0, #100
+ 334 00da FFF7FEFF 		bl	osDelay
+ 335 00de 3821     		movs	r1, #56
+ 336 00e0 2046     		mov	r0, r4
+ 337 00e2 FFF7FEFF 		bl	gpio_bit_set
+ 338 00e6 6420     		movs	r0, #100
+ 339 00e8 FFF7FEFF 		bl	osDelay
+ 340 00ec 3821     		movs	r1, #56
+ 341 00ee 2046     		mov	r0, r4
+ 342 00f0 FFF7FEFF 		bl	gpio_bit_reset
+ 343 00f4 9620     		movs	r0, #150
+ 344 00f6 FFF7FEFF 		bl	osDelay
+ 345 00fa 3821     		movs	r1, #56
+ 346 00fc 2046     		mov	r0, r4
+ 347 00fe FFF7FEFF 		bl	gpio_bit_set
+ 348 0102 4FF4FA70 		mov	r0, #500
+ 349 0106 FFF7FEFF 		bl	osDelay
+ 350 010a DBE7     		b	.L19
+ 351              	.L25:
+ARM GAS  /tmp/cceM4Rn2.s 			page 7
+
+
+ 352              		.align	2
+ 353              	.L24:
+ 354 010c 00000000 		.word	freertos_serial_read
+ 355 0110 00000000 		.word	freertos_serial_write
+ 356 0114 00000000 		.word	freertos_serial_close
+ 357 0118 00000000 		.word	freertos_serial_open
+ 358 011c 00000000 		.word	__freertos_allocate
+ 359 0120 00000000 		.word	__freertos_deallocate
+ 360 0124 00000000 		.word	__freertos_reallocate
+ 361 0128 00000000 		.word	__freertos_zero_allocate
+ 362 012c 28000000 		.word	.LC1
+ 363 0130 00000000 		.word	appMain
+ 364 0134 38000000 		.word	.LC2
+ 365 0138 5C000000 		.word	.LC3
+ 366 013c 00000000 		.word	.LC0
+ 367 0140 00000240 		.word	1073872896
+ 368 0144 00100240 		.word	1073876992
+ 370              		.section	.text.__io_putchar,"ax",%progbits
+ 371              		.align	1
+ 372              		.global	__io_putchar
+ 373              		.syntax unified
+ 374              		.thumb
+ 375              		.thumb_func
+ 376              		.fpu fpv4-sp-d16
+ 378              	__io_putchar:
+ 379              		@ args = 0, pretend = 0, frame = 0
+ 380              		@ frame_needed = 0, uses_anonymous_args = 0
+ 381 0000 10B5     		push	{r4, lr}
+ 382 0002 0446     		mov	r4, r0
+ 383 0004 C1B2     		uxtb	r1, r0
+ 384 0006 0548     		ldr	r0, .L29
+ 385 0008 FFF7FEFF 		bl	usart_data_transmit
+ 386              	.L27:
+ 387 000c 0721     		movs	r1, #7
+ 388 000e 0348     		ldr	r0, .L29
+ 389 0010 FFF7FEFF 		bl	usart_flag_get
+ 390 0014 0028     		cmp	r0, #0
+ 391 0016 F9D0     		beq	.L27
+ 392 0018 2046     		mov	r0, r4
+ 393 001a 10BD     		pop	{r4, pc}
+ 394              	.L30:
+ 395              		.align	2
+ 396              	.L29:
+ 397 001c 00440040 		.word	1073759232
+ 399              		.section	.text._write,"ax",%progbits
+ 400              		.align	1
+ 401              		.global	_write
+ 402              		.syntax unified
+ 403              		.thumb
+ 404              		.thumb_func
+ 405              		.fpu fpv4-sp-d16
+ 407              	_write:
+ 408              		@ args = 0, pretend = 0, frame = 0
+ 409              		@ frame_needed = 0, uses_anonymous_args = 0
+ 410 0000 70B5     		push	{r4, r5, r6, lr}
+ 411 0002 0C46     		mov	r4, r1
+ 412 0004 1646     		mov	r6, r2
+ARM GAS  /tmp/cceM4Rn2.s 			page 8
+
+
+ 413 0006 0025     		movs	r5, #0
+ 414              	.L32:
+ 415 0008 B542     		cmp	r5, r6
+ 416 000a 05DA     		bge	.L35
+ 417 000c 14F8010B 		ldrb	r0, [r4], #1	@ zero_extendqisi2
+ 418 0010 FFF7FEFF 		bl	__io_putchar
+ 419 0014 0135     		adds	r5, r5, #1
+ 420 0016 F7E7     		b	.L32
+ 421              	.L35:
+ 422 0018 3046     		mov	r0, r6
+ 423 001a 70BD     		pop	{r4, r5, r6, pc}
+ 425              		.section	.text.main,"ax",%progbits
+ 426              		.align	1
+ 427              		.global	main
+ 428              		.syntax unified
+ 429              		.thumb
+ 430              		.thumb_func
+ 431              		.fpu fpv4-sp-d16
+ 433              	main:
+ 434              		@ Volatile: function does not return.
+ 435              		@ args = 0, pretend = 0, frame = 0
+ 436              		@ frame_needed = 0, uses_anonymous_args = 0
+ 437 0000 08B5     		push	{r3, lr}
+ 438 0002 4FF44070 		mov	r0, #768
+ 439 0006 FFF7FEFF 		bl	nvic_priority_group_set
+ 440 000a 214B     		ldr	r3, .L42
+ 441 000c DB68     		ldr	r3, [r3, #12]
+ 442 000e C3F30223 		ubfx	r3, r3, #8, #3
+ 443 0012 C3F10701 		rsb	r1, r3, #7
+ 444 0016 0429     		cmp	r1, #4
+ 445 0018 28BF     		it	cs
+ 446 001a 0421     		movcs	r1, #4
+ 447 001c 1A1D     		adds	r2, r3, #4
+ 448 001e 062A     		cmp	r2, #6
+ 449 0020 34D9     		bls	.L40
+ 450 0022 DA1E     		subs	r2, r3, #3
+ 451              	.L37:
+ 452 0024 4FF0FF33 		mov	r3, #-1
+ 453 0028 8B40     		lsls	r3, r3, r1
+ 454 002a DB43     		mvns	r3, r3
+ 455 002c 03F00F03 		and	r3, r3, #15
+ 456 0030 9340     		lsls	r3, r3, r2
+ 457 0032 1B01     		lsls	r3, r3, #4
+ 458 0034 DBB2     		uxtb	r3, r3
+ 459 0036 164A     		ldr	r2, .L42
+ 460 0038 82F82230 		strb	r3, [r2, #34]
+ 461 003c 154B     		ldr	r3, .L42+4
+ 462 003e 1B68     		ldr	r3, [r3]
+ 463 0040 154A     		ldr	r2, .L42+8
+ 464 0042 A2FB0323 		umull	r2, r3, r2, r3
+ 465 0046 9B09     		lsrs	r3, r3, #6
+ 466 0048 013B     		subs	r3, r3, #1
+ 467 004a B3F1807F 		cmp	r3, #16777216
+ 468 004e 09D2     		bcs	.L38
+ 469 0050 124A     		ldr	r2, .L42+12
+ 470 0052 5360     		str	r3, [r2, #4]
+ 471 0054 0E4B     		ldr	r3, .L42
+ARM GAS  /tmp/cceM4Rn2.s 			page 9
+
+
+ 472 0056 F021     		movs	r1, #240
+ 473 0058 83F82310 		strb	r1, [r3, #35]
+ 474 005c 0023     		movs	r3, #0
+ 475 005e 9360     		str	r3, [r2, #8]
+ 476 0060 0723     		movs	r3, #7
+ 477 0062 1360     		str	r3, [r2]
+ 478              	.L38:
+ 479 0064 FFF7FEFF 		bl	MX_GPIO_Init
+ 480 0068 FFF7FEFF 		bl	MX_DMA_Init
+ 481 006c FFF7FEFF 		bl	MX_USART0_UART_Init
+ 482 0070 FFF7FEFF 		bl	MX_USART1_UART_Init
+ 483 0074 FFF7FEFF 		bl	osKernelInitialize
+ 484 0078 094A     		ldr	r2, .L42+16
+ 485 007a 0021     		movs	r1, #0
+ 486 007c 0948     		ldr	r0, .L42+20
+ 487 007e FFF7FEFF 		bl	osThreadNew
+ 488 0082 094B     		ldr	r3, .L42+24
+ 489 0084 1860     		str	r0, [r3]
+ 490 0086 FFF7FEFF 		bl	osKernelStart
+ 491              	.L39:
+ 492 008a FEE7     		b	.L39
+ 493              	.L40:
+ 494 008c 0022     		movs	r2, #0
+ 495 008e C9E7     		b	.L37
+ 496              	.L43:
+ 497              		.align	2
+ 498              	.L42:
+ 499 0090 00ED00E0 		.word	-536810240
+ 500 0094 00000000 		.word	SystemCoreClock
+ 501 0098 D34D6210 		.word	274877907
+ 502 009c 10E000E0 		.word	-536813552
+ 503 00a0 00000000 		.word	.LANCHOR0
+ 504 00a4 00000000 		.word	initTaskFunction
+ 505 00a8 00000000 		.word	initTaskHandle
+ 507              		.section	.text.Error_Handler,"ax",%progbits
+ 508              		.align	1
+ 509              		.global	Error_Handler
+ 510              		.syntax unified
+ 511              		.thumb
+ 512              		.thumb_func
+ 513              		.fpu fpv4-sp-d16
+ 515              	Error_Handler:
+ 516              		@ args = 0, pretend = 0, frame = 0
+ 517              		@ frame_needed = 0, uses_anonymous_args = 0
+ 518              		@ link register save eliminated.
+ 519 0000 7047     		bx	lr
+ 521              		.global	initTask_attributes
+ 522              		.comm	initTaskHandle,4,4
+ 523              		.section	.rodata.initTaskFunction.str1.4,"aMS",%progbits,1
+ 524              		.align	2
+ 525              	.LC0:
+ 526 0000 4572726F 		.ascii	"Error on default allocators (line %d)\012\000"
+ 526      72206F6E 
+ 526      20646566 
+ 526      61756C74 
+ 526      20616C6C 
+ 527 0027 00       		.space	1
+ARM GAS  /tmp/cceM4Rn2.s 			page 10
+
+
+ 528              	.LC1:
+ 529 0028 6D696372 		.ascii	"microROS_app\000"
+ 529      6F524F53 
+ 529      5F617070 
+ 529      00
+ 530 0035 000000   		.space	3
+ 531              	.LC2:
+ 532 0038 2A2A2A2A 		.ascii	"**********************************\015\000"
+ 532      2A2A2A2A 
+ 532      2A2A2A2A 
+ 532      2A2A2A2A 
+ 532      2A2A2A2A 
+ 533              	.LC3:
+ 534 005c 5461736B 		.ascii	"Task  State   Prio    Stack    Num\015\000"
+ 534      20205374 
+ 534      61746520 
+ 534      20205072 
+ 534      696F2020 
+ 535              		.section	.rodata.initTask_attributes,"a"
+ 536              		.align	2
+ 537              		.set	.LANCHOR0,. + 0
+ 540              	initTask_attributes:
+ 541 0000 00000000 		.word	.LC4
+ 542 0004 00000000 		.space	16
+ 542      00000000 
+ 542      00000000 
+ 542      00000000 
+ 543 0014 70170000 		.word	6000
+ 544 0018 17000000 		.word	23
+ 545 001c 00000000 		.space	8
+ 545      00000000 
+ 546              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 547              		.align	2
+ 548              	.LC4:
+ 549 0000 696E6974 		.ascii	"initTask\000"
+ 549      5461736B 
+ 549      00
+ 550              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/cceM4Rn2.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/cceM4Rn2.s:16     .text.MX_GPIO_Init:0000000000000000 $t
+     /tmp/cceM4Rn2.s:23     .text.MX_GPIO_Init:0000000000000000 MX_GPIO_Init
+     /tmp/cceM4Rn2.s:63     .text.MX_GPIO_Init:0000000000000060 $d
+     /tmp/cceM4Rn2.s:67     .text.MX_DMA_Init:0000000000000000 $t
+     /tmp/cceM4Rn2.s:73     .text.MX_DMA_Init:0000000000000000 MX_DMA_Init
+     /tmp/cceM4Rn2.s:90     .text.MX_DMA_Init:0000000000000020 $d
+     /tmp/cceM4Rn2.s:93     .text.MX_USART0_UART_Init:0000000000000000 $t
+     /tmp/cceM4Rn2.s:99     .text.MX_USART0_UART_Init:0000000000000000 MX_USART0_UART_Init
+     /tmp/cceM4Rn2.s:163    .text.MX_USART0_UART_Init:00000000000000a4 $d
+     /tmp/cceM4Rn2.s:166    .text.MX_USART1_UART_Init:0000000000000000 $t
+     /tmp/cceM4Rn2.s:172    .text.MX_USART1_UART_Init:0000000000000000 MX_USART1_UART_Init
+     /tmp/cceM4Rn2.s:236    .text.MX_USART1_UART_Init:000000000000009c $d
+     /tmp/cceM4Rn2.s:239    .text.initTaskFunction:0000000000000000 $t
+     /tmp/cceM4Rn2.s:246    .text.initTaskFunction:0000000000000000 initTaskFunction
+     /tmp/cceM4Rn2.s:354    .text.initTaskFunction:000000000000010c $d
+     /tmp/cceM4Rn2.s:371    .text.__io_putchar:0000000000000000 $t
+     /tmp/cceM4Rn2.s:378    .text.__io_putchar:0000000000000000 __io_putchar
+     /tmp/cceM4Rn2.s:397    .text.__io_putchar:000000000000001c $d
+     /tmp/cceM4Rn2.s:400    .text._write:0000000000000000 $t
+     /tmp/cceM4Rn2.s:407    .text._write:0000000000000000 _write
+     /tmp/cceM4Rn2.s:426    .text.main:0000000000000000 $t
+     /tmp/cceM4Rn2.s:433    .text.main:0000000000000000 main
+     /tmp/cceM4Rn2.s:499    .text.main:0000000000000090 $d
+                            *COM*:0000000000000004 initTaskHandle
+     /tmp/cceM4Rn2.s:508    .text.Error_Handler:0000000000000000 $t
+     /tmp/cceM4Rn2.s:515    .text.Error_Handler:0000000000000000 Error_Handler
+     /tmp/cceM4Rn2.s:540    .rodata.initTask_attributes:0000000000000000 initTask_attributes
+     /tmp/cceM4Rn2.s:524    .rodata.initTaskFunction.str1.4:0000000000000000 $d
+     /tmp/cceM4Rn2.s:536    .rodata.initTask_attributes:0000000000000000 $d
+     /tmp/cceM4Rn2.s:547    .rodata.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+rcu_periph_clock_enable
+gpio_mode_set
+gpio_output_options_set
+gpio_bit_reset
+dma_deinit
+gpio_af_set
+usart_deinit
+usart_word_length_set
+usart_stop_bit_set
+usart_parity_config
+usart_baudrate_set
+usart_receive_config
+usart_transmit_config
+usart_hardware_flow_rts_config
+usart_hardware_flow_cts_config
+usart_enable
+rmw_uros_set_custom_transport
+rcutils_get_zero_initialized_allocator
+rcutils_set_default_allocator
+memset
+osThreadNew
+osDelay
+vTaskList
+ARM GAS  /tmp/cceM4Rn2.s 			page 12
+
+
+puts
+printf
+xTaskGetHandle
+gpio_bit_set
+eTaskGetState
+freertos_serial_read
+freertos_serial_write
+freertos_serial_close
+freertos_serial_open
+__freertos_allocate
+__freertos_deallocate
+__freertos_reallocate
+__freertos_zero_allocate
+appMain
+usart_data_transmit
+usart_flag_get
+nvic_priority_group_set
+osKernelInitialize
+osKernelStart
+SystemCoreClock

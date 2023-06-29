@@ -1,0 +1,239 @@
+ARM GAS  /tmp/ccbn5kOP.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"ethernet.c"
+  14              		.text
+  15              		.section	.text.ethernet_input,"ax",%progbits
+  16              		.align	1
+  17              		.global	ethernet_input
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	ethernet_input:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 70B5     		push	{r4, r5, r6, lr}
+  28 0002 0446     		mov	r4, r0
+  29 0004 4389     		ldrh	r3, [r0, #10]
+  30 0006 0E2B     		cmp	r3, #14
+  31 0008 1CD9     		bls	.L2
+  32 000a 0E46     		mov	r6, r1
+  33 000c C37B     		ldrb	r3, [r0, #15]	@ zero_extendqisi2
+  34 000e 1BB9     		cbnz	r3, .L3
+  35 0010 91F83430 		ldrb	r3, [r1, #52]	@ zero_extendqisi2
+  36 0014 0133     		adds	r3, r3, #1
+  37 0016 C373     		strb	r3, [r0, #15]
+  38              	.L3:
+  39 0018 6068     		ldr	r0, [r4, #4]
+  40 001a 8589     		ldrh	r5, [r0, #12]	@ unaligned
+  41 001c 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+  42 001e 13F0010F 		tst	r3, #1
+  43 0022 0AD0     		beq	.L4
+  44 0024 012B     		cmp	r3, #1
+  45 0026 12D0     		beq	.L10
+  46 0028 0622     		movs	r2, #6
+  47 002a 1E49     		ldr	r1, .L11
+  48 002c FFF7FEFF 		bl	memcmp
+  49 0030 18B9     		cbnz	r0, .L4
+  50 0032 637B     		ldrb	r3, [r4, #13]	@ zero_extendqisi2
+  51 0034 43F00803 		orr	r3, r3, #8
+  52 0038 6373     		strb	r3, [r4, #13]
+  53              	.L4:
+  54 003a 082D     		cmp	r5, #8
+  55 003c 12D0     		beq	.L6
+  56 003e B5F5C16F 		cmp	r5, #1544
+  57 0042 1FD0     		beq	.L7
+  58              	.L2:
+ARM GAS  /tmp/ccbn5kOP.s 			page 2
+
+
+  59 0044 2046     		mov	r0, r4
+  60 0046 FFF7FEFF 		bl	pbuf_free
+  61              	.L8:
+  62 004a 0020     		movs	r0, #0
+  63 004c 70BD     		pop	{r4, r5, r6, pc}
+  64              	.L10:
+  65 004e 4378     		ldrb	r3, [r0, #1]	@ zero_extendqisi2
+  66 0050 002B     		cmp	r3, #0
+  67 0052 F2D1     		bne	.L4
+  68 0054 8378     		ldrb	r3, [r0, #2]	@ zero_extendqisi2
+  69 0056 5E2B     		cmp	r3, #94
+  70 0058 EFD1     		bne	.L4
+  71 005a 637B     		ldrb	r3, [r4, #13]	@ zero_extendqisi2
+  72 005c 43F01003 		orr	r3, r3, #16
+  73 0060 6373     		strb	r3, [r4, #13]
+  74 0062 EAE7     		b	.L4
+  75              	.L6:
+  76 0064 96F83130 		ldrb	r3, [r6, #49]	@ zero_extendqisi2
+  77 0068 13F0080F 		tst	r3, #8
+  78 006c EAD0     		beq	.L2
+  79 006e 0E21     		movs	r1, #14
+  80 0070 2046     		mov	r0, r4
+  81 0072 FFF7FEFF 		bl	pbuf_remove_header
+  82 0076 0028     		cmp	r0, #0
+  83 0078 E4D1     		bne	.L2
+  84 007a 3146     		mov	r1, r6
+  85 007c 2046     		mov	r0, r4
+  86 007e FFF7FEFF 		bl	ip4_input
+  87 0082 E2E7     		b	.L8
+  88              	.L7:
+  89 0084 96F83130 		ldrb	r3, [r6, #49]	@ zero_extendqisi2
+  90 0088 13F0080F 		tst	r3, #8
+  91 008c DAD0     		beq	.L2
+  92 008e 0E21     		movs	r1, #14
+  93 0090 2046     		mov	r0, r4
+  94 0092 FFF7FEFF 		bl	pbuf_remove_header
+  95 0096 0028     		cmp	r0, #0
+  96 0098 D4D1     		bne	.L2
+  97 009a 3146     		mov	r1, r6
+  98 009c 2046     		mov	r0, r4
+  99 009e FFF7FEFF 		bl	etharp_input
+ 100 00a2 D2E7     		b	.L8
+ 101              	.L12:
+ 102              		.align	2
+ 103              	.L11:
+ 104 00a4 00000000 		.word	.LANCHOR0
+ 106              		.section	.text.ethernet_output,"ax",%progbits
+ 107              		.align	1
+ 108              		.global	ethernet_output
+ 109              		.syntax unified
+ 110              		.thumb
+ 111              		.thumb_func
+ 112              		.fpu fpv4-sp-d16
+ 114              	ethernet_output:
+ 115              		@ args = 4, pretend = 0, frame = 0
+ 116              		@ frame_needed = 0, uses_anonymous_args = 0
+ 117 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ARM GAS  /tmp/ccbn5kOP.s 			page 3
+
+
+ 118 0004 0546     		mov	r5, r0
+ 119 0006 0C46     		mov	r4, r1
+ 120 0008 1646     		mov	r6, r2
+ 121 000a 1F46     		mov	r7, r3
+ 122 000c BDF81800 		ldrh	r0, [sp, #24]
+ 123 0010 FFF7FEFF 		bl	lwip_htons
+ 124 0014 8046     		mov	r8, r0
+ 125 0016 0E21     		movs	r1, #14
+ 126 0018 2046     		mov	r0, r4
+ 127 001a FFF7FEFF 		bl	pbuf_add_header
+ 128 001e E8B9     		cbnz	r0, .L16
+ 129 0020 6368     		ldr	r3, [r4, #4]
+ 130 0022 A3F80C80 		strh	r8, [r3, #12]	@ unaligned
+ 131 0026 3A68     		ldr	r2, [r7]	@ unaligned
+ 132 0028 1A60     		str	r2, [r3]	@ unaligned
+ 133 002a BA88     		ldrh	r2, [r7, #4]	@ unaligned
+ 134 002c 9A80     		strh	r2, [r3, #4]	@ unaligned
+ 135 002e 3268     		ldr	r2, [r6]	@ unaligned
+ 136 0030 C3F80620 		str	r2, [r3, #6]	@ unaligned
+ 137 0034 B288     		ldrh	r2, [r6, #4]	@ unaligned
+ 138 0036 5A81     		strh	r2, [r3, #10]	@ unaligned
+ 139 0038 95F83030 		ldrb	r3, [r5, #48]	@ zero_extendqisi2
+ 140 003c 062B     		cmp	r3, #6
+ 141 003e 05D1     		bne	.L18
+ 142              	.L15:
+ 143 0040 AB69     		ldr	r3, [r5, #24]
+ 144 0042 2146     		mov	r1, r4
+ 145 0044 2846     		mov	r0, r5
+ 146 0046 9847     		blx	r3
+ 147              	.L14:
+ 148 0048 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 149              	.L18:
+ 150 004c 054B     		ldr	r3, .L19
+ 151 004e 40F23312 		movw	r2, #307
+ 152 0052 0549     		ldr	r1, .L19+4
+ 153 0054 0548     		ldr	r0, .L19+8
+ 154 0056 FFF7FEFF 		bl	printf
+ 155 005a F1E7     		b	.L15
+ 156              	.L16:
+ 157 005c 6FF00100 		mvn	r0, #1
+ 158 0060 F2E7     		b	.L14
+ 159              	.L20:
+ 160 0062 00BF     		.align	2
+ 161              	.L19:
+ 162 0064 00000000 		.word	.LC0
+ 163 0068 34000000 		.word	.LC1
+ 164 006c 68000000 		.word	.LC2
+ 166              		.global	ethzero
+ 167              		.global	ethbroadcast
+ 168              		.section	.rodata.ethbroadcast,"a"
+ 169              		.align	2
+ 170              		.set	.LANCHOR0,. + 0
+ 173              	ethbroadcast:
+ 174 0000 FF       		.byte	-1
+ 175 0001 FF       		.byte	-1
+ 176 0002 FF       		.byte	-1
+ 177 0003 FF       		.byte	-1
+ARM GAS  /tmp/ccbn5kOP.s 			page 4
+
+
+ 178 0004 FF       		.byte	-1
+ 179 0005 FF       		.byte	-1
+ 180              		.section	.rodata.ethernet_output.str1.4,"aMS",%progbits,1
+ 181              		.align	2
+ 182              	.LC0:
+ 183 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/netif/ethernet.c\000"
+ 183      6C657761 
+ 183      7265732F 
+ 183      54686972 
+ 183      645F5061 
+ 184 0032 0000     		.space	2
+ 185              	.LC1:
+ 186 0034 6E657469 		.ascii	"netif->hwaddr_len must be 6 for ethernet_output!\000"
+ 186      662D3E68 
+ 186      77616464 
+ 186      725F6C65 
+ 186      6E206D75 
+ 187 0065 000000   		.space	3
+ 188              	.LC2:
+ 189 0068 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ 189      7274696F 
+ 189      6E202225 
+ 189      73222066 
+ 189      61696C65 
+ 190              		.section	.rodata.ethzero,"a"
+ 191              		.align	2
+ 194              	ethzero:
+ 195 0000 00000000 		.space	6
+ 195      0000
+ 196              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccbn5kOP.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ethernet.c
+     /tmp/ccbn5kOP.s:16     .text.ethernet_input:0000000000000000 $t
+     /tmp/ccbn5kOP.s:24     .text.ethernet_input:0000000000000000 ethernet_input
+     /tmp/ccbn5kOP.s:104    .text.ethernet_input:00000000000000a4 $d
+     /tmp/ccbn5kOP.s:107    .text.ethernet_output:0000000000000000 $t
+     /tmp/ccbn5kOP.s:114    .text.ethernet_output:0000000000000000 ethernet_output
+     /tmp/ccbn5kOP.s:162    .text.ethernet_output:0000000000000064 $d
+     /tmp/ccbn5kOP.s:194    .rodata.ethzero:0000000000000000 ethzero
+     /tmp/ccbn5kOP.s:173    .rodata.ethbroadcast:0000000000000000 ethbroadcast
+     /tmp/ccbn5kOP.s:169    .rodata.ethbroadcast:0000000000000000 $d
+     /tmp/ccbn5kOP.s:181    .rodata.ethernet_output.str1.4:0000000000000000 $d
+     /tmp/ccbn5kOP.s:191    .rodata.ethzero:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+memcmp
+pbuf_free
+pbuf_remove_header
+ip4_input
+etharp_input
+lwip_htons
+pbuf_add_header
+printf

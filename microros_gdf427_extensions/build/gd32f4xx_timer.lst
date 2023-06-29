@@ -1,0 +1,2683 @@
+ARM GAS  /tmp/ccZHBOeV.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_timer.c"
+  14              		.text
+  15              		.section	.text.timer_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	timer_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	timer_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 5C4B     		ldr	r3, .L25
+  29 0004 9842     		cmp	r0, r3
+  30 0006 00F0A380 		beq	.L2
+  31 000a 1AD9     		bls	.L21
+  32 000c 5A4B     		ldr	r3, .L25+4
+  33 000e 9842     		cmp	r0, r3
+  34 0010 00F08380 		beq	.L12
+  35 0014 36D9     		bls	.L22
+  36 0016 594B     		ldr	r3, .L25+8
+  37 0018 9842     		cmp	r0, r3
+  38 001a 00F08780 		beq	.L17
+  39 001e 03F58063 		add	r3, r3, #1024
+  40 0022 9842     		cmp	r0, r3
+  41 0024 00F08B80 		beq	.L18
+  42 0028 A3F50063 		sub	r3, r3, #2048
+  43 002c 9842     		cmp	r0, r3
+  44 002e 18D1     		bne	.L1
+  45 0030 4FF41160 		mov	r0, #2320
+  46 0034 FFF7FEFF 		bl	rcu_periph_reset_enable
+  47 0038 4FF41160 		mov	r0, #2320
+  48 003c FFF7FEFF 		bl	rcu_periph_reset_disable
+  49 0040 0FE0     		b	.L1
+  50              	.L21:
+  51 0042 A3F58053 		sub	r3, r3, #4096
+  52 0046 9842     		cmp	r0, r3
+  53 0048 43D0     		beq	.L4
+  54 004a 0BD9     		bls	.L23
+  55 004c 4C4B     		ldr	r3, .L25+12
+  56 004e 9842     		cmp	r0, r3
+  57 0050 51D0     		beq	.L9
+  58 0052 03F58063 		add	r3, r3, #1024
+ARM GAS  /tmp/ccZHBOeV.s 			page 2
+
+
+  59 0056 9842     		cmp	r0, r3
+  60 0058 56D0     		beq	.L10
+  61 005a A3F50063 		sub	r3, r3, #2048
+  62 005e 9842     		cmp	r0, r3
+  63 0060 40D0     		beq	.L24
+  64              	.L1:
+  65 0062 08BD     		pop	{r3, pc}
+  66              	.L23:
+  67 0064 B0F1804F 		cmp	r0, #1073741824
+  68 0068 2AD0     		beq	.L6
+  69 006a A3F58063 		sub	r3, r3, #1024
+  70 006e 9842     		cmp	r0, r3
+  71 0070 F7D1     		bne	.L1
+  72 0072 40F60100 		movw	r0, #2049
+  73 0076 FFF7FEFF 		bl	rcu_periph_reset_enable
+  74 007a 40F60100 		movw	r0, #2049
+  75 007e FFF7FEFF 		bl	rcu_periph_reset_disable
+  76 0082 EEE7     		b	.L1
+  77              	.L22:
+  78 0084 A3F56443 		sub	r3, r3, #58368
+  79 0088 9842     		cmp	r0, r3
+  80 008a 6AD0     		beq	.L14
+  81 008c 03F56043 		add	r3, r3, #57344
+  82 0090 9842     		cmp	r0, r3
+  83 0092 0CD0     		beq	.L15
+  84 0094 A3F56443 		sub	r3, r3, #58368
+  85 0098 9842     		cmp	r0, r3
+  86 009a E2D1     		bne	.L1
+  87 009c 40F60700 		movw	r0, #2055
+  88 00a0 FFF7FEFF 		bl	rcu_periph_reset_enable
+  89 00a4 40F60700 		movw	r0, #2055
+  90 00a8 FFF7FEFF 		bl	rcu_periph_reset_disable
+  91 00ac D9E7     		b	.L1
+  92              	.L15:
+  93 00ae 4FF41060 		mov	r0, #2304
+  94 00b2 FFF7FEFF 		bl	rcu_periph_reset_enable
+  95 00b6 4FF41060 		mov	r0, #2304
+  96 00ba FFF7FEFF 		bl	rcu_periph_reset_disable
+  97 00be D0E7     		b	.L1
+  98              	.L6:
+  99 00c0 4FF40060 		mov	r0, #2048
+ 100 00c4 FFF7FEFF 		bl	rcu_periph_reset_enable
+ 101 00c8 4FF40060 		mov	r0, #2048
+ 102 00cc FFF7FEFF 		bl	rcu_periph_reset_disable
+ 103 00d0 C7E7     		b	.L1
+ 104              	.L4:
+ 105 00d2 40F60200 		movw	r0, #2050
+ 106 00d6 FFF7FEFF 		bl	rcu_periph_reset_enable
+ 107 00da 40F60200 		movw	r0, #2050
+ 108 00de FFF7FEFF 		bl	rcu_periph_reset_disable
+ 109 00e2 BEE7     		b	.L1
+ 110              	.L24:
+ 111 00e4 40F60300 		movw	r0, #2051
+ 112 00e8 FFF7FEFF 		bl	rcu_periph_reset_enable
+ 113 00ec 40F60300 		movw	r0, #2051
+ 114 00f0 FFF7FEFF 		bl	rcu_periph_reset_disable
+ 115 00f4 B5E7     		b	.L1
+ARM GAS  /tmp/ccZHBOeV.s 			page 3
+
+
+ 116              	.L9:
+ 117 00f6 40F60400 		movw	r0, #2052
+ 118 00fa FFF7FEFF 		bl	rcu_periph_reset_enable
+ 119 00fe 40F60400 		movw	r0, #2052
+ 120 0102 FFF7FEFF 		bl	rcu_periph_reset_disable
+ 121 0106 ACE7     		b	.L1
+ 122              	.L10:
+ 123 0108 40F60500 		movw	r0, #2053
+ 124 010c FFF7FEFF 		bl	rcu_periph_reset_enable
+ 125 0110 40F60500 		movw	r0, #2053
+ 126 0114 FFF7FEFF 		bl	rcu_periph_reset_disable
+ 127 0118 A3E7     		b	.L1
+ 128              	.L12:
+ 129 011a 40F60110 		movw	r0, #2305
+ 130 011e FFF7FEFF 		bl	rcu_periph_reset_enable
+ 131 0122 40F60110 		movw	r0, #2305
+ 132 0126 FFF7FEFF 		bl	rcu_periph_reset_disable
+ 133 012a 9AE7     		b	.L1
+ 134              	.L17:
+ 135 012c 40F61110 		movw	r0, #2321
+ 136 0130 FFF7FEFF 		bl	rcu_periph_reset_enable
+ 137 0134 40F61110 		movw	r0, #2321
+ 138 0138 FFF7FEFF 		bl	rcu_periph_reset_disable
+ 139 013c 91E7     		b	.L1
+ 140              	.L18:
+ 141 013e 40F61210 		movw	r0, #2322
+ 142 0142 FFF7FEFF 		bl	rcu_periph_reset_enable
+ 143 0146 40F61210 		movw	r0, #2322
+ 144 014a FFF7FEFF 		bl	rcu_periph_reset_disable
+ 145 014e 88E7     		b	.L1
+ 146              	.L2:
+ 147 0150 40F60600 		movw	r0, #2054
+ 148 0154 FFF7FEFF 		bl	rcu_periph_reset_enable
+ 149 0158 40F60600 		movw	r0, #2054
+ 150 015c FFF7FEFF 		bl	rcu_periph_reset_disable
+ 151 0160 7FE7     		b	.L1
+ 152              	.L14:
+ 153 0162 40F60800 		movw	r0, #2056
+ 154 0166 FFF7FEFF 		bl	rcu_periph_reset_enable
+ 155 016a 40F60800 		movw	r0, #2056
+ 156 016e FFF7FEFF 		bl	rcu_periph_reset_disable
+ 157 0172 76E7     		b	.L1
+ 158              	.L26:
+ 159              		.align	2
+ 160              	.L25:
+ 161 0174 00180040 		.word	1073747968
+ 162 0178 00040140 		.word	1073808384
+ 163 017c 00440140 		.word	1073824768
+ 164 0180 00100040 		.word	1073745920
+ 166              		.section	.text.timer_struct_para_init,"ax",%progbits
+ 167              		.align	1
+ 168              		.global	timer_struct_para_init
+ 169              		.syntax unified
+ 170              		.thumb
+ 171              		.thumb_func
+ 172              		.fpu fpv4-sp-d16
+ 174              	timer_struct_para_init:
+ARM GAS  /tmp/ccZHBOeV.s 			page 4
+
+
+ 175              		@ args = 0, pretend = 0, frame = 0
+ 176              		@ frame_needed = 0, uses_anonymous_args = 0
+ 177              		@ link register save eliminated.
+ 178 0000 0023     		movs	r3, #0
+ 179 0002 0380     		strh	r3, [r0]	@ movhi
+ 180 0004 4380     		strh	r3, [r0, #2]	@ movhi
+ 181 0006 8380     		strh	r3, [r0, #4]	@ movhi
+ 182 0008 4FF6FF72 		movw	r2, #65535
+ 183 000c 8260     		str	r2, [r0, #8]
+ 184 000e C380     		strh	r3, [r0, #6]	@ movhi
+ 185 0010 0373     		strb	r3, [r0, #12]
+ 186 0012 7047     		bx	lr
+ 188              		.section	.text.timer_init,"ax",%progbits
+ 189              		.align	1
+ 190              		.global	timer_init
+ 191              		.syntax unified
+ 192              		.thumb
+ 193              		.thumb_func
+ 194              		.fpu fpv4-sp-d16
+ 196              	timer_init:
+ 197              		@ args = 0, pretend = 0, frame = 0
+ 198              		@ frame_needed = 0, uses_anonymous_args = 0
+ 199              		@ link register save eliminated.
+ 200 0000 0B88     		ldrh	r3, [r1]
+ 201 0002 8362     		str	r3, [r0, #40]
+ 202 0004 204B     		ldr	r3, .L34
+ 203 0006 9842     		cmp	r0, r3
+ 204 0008 12D0     		beq	.L29
+ 205 000a B0F1804F 		cmp	r0, #1073741824
+ 206 000e 0FD0     		beq	.L29
+ 207 0010 A3F57C43 		sub	r3, r3, #64512
+ 208 0014 9842     		cmp	r0, r3
+ 209 0016 0BD0     		beq	.L29
+ 210 0018 03F58063 		add	r3, r3, #1024
+ 211 001c 9842     		cmp	r0, r3
+ 212 001e 07D0     		beq	.L29
+ 213 0020 03F58063 		add	r3, r3, #1024
+ 214 0024 9842     		cmp	r0, r3
+ 215 0026 03D0     		beq	.L29
+ 216 0028 03F57843 		add	r3, r3, #63488
+ 217 002c 9842     		cmp	r0, r3
+ 218 002e 0BD1     		bne	.L30
+ 219              	.L29:
+ 220 0030 0368     		ldr	r3, [r0]
+ 221 0032 23F07003 		bic	r3, r3, #112
+ 222 0036 0360     		str	r3, [r0]
+ 223 0038 0368     		ldr	r3, [r0]
+ 224 003a 4A88     		ldrh	r2, [r1, #2]
+ 225 003c 1343     		orrs	r3, r3, r2
+ 226 003e 0360     		str	r3, [r0]
+ 227 0040 0368     		ldr	r3, [r0]
+ 228 0042 8A88     		ldrh	r2, [r1, #4]
+ 229 0044 1343     		orrs	r3, r3, r2
+ 230 0046 0360     		str	r3, [r0]
+ 231              	.L30:
+ 232 0048 8B68     		ldr	r3, [r1, #8]
+ 233 004a C362     		str	r3, [r0, #44]
+ARM GAS  /tmp/ccZHBOeV.s 			page 5
+
+
+ 234 004c 0F4B     		ldr	r3, .L34+4
+ 235 004e 9842     		cmp	r0, r3
+ 236 0050 0BD0     		beq	.L31
+ 237 0052 03F58063 		add	r3, r3, #1024
+ 238 0056 9842     		cmp	r0, r3
+ 239 0058 07D0     		beq	.L31
+ 240 005a 0368     		ldr	r3, [r0]
+ 241 005c 23F44073 		bic	r3, r3, #768
+ 242 0060 0360     		str	r3, [r0]
+ 243 0062 0368     		ldr	r3, [r0]
+ 244 0064 CA88     		ldrh	r2, [r1, #6]
+ 245 0066 1343     		orrs	r3, r3, r2
+ 246 0068 0360     		str	r3, [r0]
+ 247              	.L31:
+ 248 006a 074B     		ldr	r3, .L34
+ 249 006c 9842     		cmp	r0, r3
+ 250 006e 03D0     		beq	.L32
+ 251 0070 03F58063 		add	r3, r3, #1024
+ 252 0074 9842     		cmp	r0, r3
+ 253 0076 01D1     		bne	.L33
+ 254              	.L32:
+ 255 0078 0B7B     		ldrb	r3, [r1, #12]	@ zero_extendqisi2
+ 256 007a 0363     		str	r3, [r0, #48]
+ 257              	.L33:
+ 258 007c 4369     		ldr	r3, [r0, #20]
+ 259 007e 43F00103 		orr	r3, r3, #1
+ 260 0082 4361     		str	r3, [r0, #20]
+ 261 0084 7047     		bx	lr
+ 262              	.L35:
+ 263 0086 00BF     		.align	2
+ 264              	.L34:
+ 265 0088 00000140 		.word	1073807360
+ 266 008c 00100040 		.word	1073745920
+ 268              		.section	.text.timer_enable,"ax",%progbits
+ 269              		.align	1
+ 270              		.global	timer_enable
+ 271              		.syntax unified
+ 272              		.thumb
+ 273              		.thumb_func
+ 274              		.fpu fpv4-sp-d16
+ 276              	timer_enable:
+ 277              		@ args = 0, pretend = 0, frame = 0
+ 278              		@ frame_needed = 0, uses_anonymous_args = 0
+ 279              		@ link register save eliminated.
+ 280 0000 0368     		ldr	r3, [r0]
+ 281 0002 43F00103 		orr	r3, r3, #1
+ 282 0006 0360     		str	r3, [r0]
+ 283 0008 7047     		bx	lr
+ 285              		.section	.text.timer_disable,"ax",%progbits
+ 286              		.align	1
+ 287              		.global	timer_disable
+ 288              		.syntax unified
+ 289              		.thumb
+ 290              		.thumb_func
+ 291              		.fpu fpv4-sp-d16
+ 293              	timer_disable:
+ 294              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/ccZHBOeV.s 			page 6
+
+
+ 295              		@ frame_needed = 0, uses_anonymous_args = 0
+ 296              		@ link register save eliminated.
+ 297 0000 0368     		ldr	r3, [r0]
+ 298 0002 23F00103 		bic	r3, r3, #1
+ 299 0006 0360     		str	r3, [r0]
+ 300 0008 7047     		bx	lr
+ 302              		.section	.text.timer_auto_reload_shadow_enable,"ax",%progbits
+ 303              		.align	1
+ 304              		.global	timer_auto_reload_shadow_enable
+ 305              		.syntax unified
+ 306              		.thumb
+ 307              		.thumb_func
+ 308              		.fpu fpv4-sp-d16
+ 310              	timer_auto_reload_shadow_enable:
+ 311              		@ args = 0, pretend = 0, frame = 0
+ 312              		@ frame_needed = 0, uses_anonymous_args = 0
+ 313              		@ link register save eliminated.
+ 314 0000 0368     		ldr	r3, [r0]
+ 315 0002 43F08003 		orr	r3, r3, #128
+ 316 0006 0360     		str	r3, [r0]
+ 317 0008 7047     		bx	lr
+ 319              		.section	.text.timer_auto_reload_shadow_disable,"ax",%progbits
+ 320              		.align	1
+ 321              		.global	timer_auto_reload_shadow_disable
+ 322              		.syntax unified
+ 323              		.thumb
+ 324              		.thumb_func
+ 325              		.fpu fpv4-sp-d16
+ 327              	timer_auto_reload_shadow_disable:
+ 328              		@ args = 0, pretend = 0, frame = 0
+ 329              		@ frame_needed = 0, uses_anonymous_args = 0
+ 330              		@ link register save eliminated.
+ 331 0000 0368     		ldr	r3, [r0]
+ 332 0002 23F08003 		bic	r3, r3, #128
+ 333 0006 0360     		str	r3, [r0]
+ 334 0008 7047     		bx	lr
+ 336              		.section	.text.timer_update_event_enable,"ax",%progbits
+ 337              		.align	1
+ 338              		.global	timer_update_event_enable
+ 339              		.syntax unified
+ 340              		.thumb
+ 341              		.thumb_func
+ 342              		.fpu fpv4-sp-d16
+ 344              	timer_update_event_enable:
+ 345              		@ args = 0, pretend = 0, frame = 0
+ 346              		@ frame_needed = 0, uses_anonymous_args = 0
+ 347              		@ link register save eliminated.
+ 348 0000 0368     		ldr	r3, [r0]
+ 349 0002 23F00203 		bic	r3, r3, #2
+ 350 0006 0360     		str	r3, [r0]
+ 351 0008 7047     		bx	lr
+ 353              		.section	.text.timer_update_event_disable,"ax",%progbits
+ 354              		.align	1
+ 355              		.global	timer_update_event_disable
+ 356              		.syntax unified
+ 357              		.thumb
+ 358              		.thumb_func
+ARM GAS  /tmp/ccZHBOeV.s 			page 7
+
+
+ 359              		.fpu fpv4-sp-d16
+ 361              	timer_update_event_disable:
+ 362              		@ args = 0, pretend = 0, frame = 0
+ 363              		@ frame_needed = 0, uses_anonymous_args = 0
+ 364              		@ link register save eliminated.
+ 365 0000 0368     		ldr	r3, [r0]
+ 366 0002 43F00203 		orr	r3, r3, #2
+ 367 0006 0360     		str	r3, [r0]
+ 368 0008 7047     		bx	lr
+ 370              		.section	.text.timer_counter_alignment,"ax",%progbits
+ 371              		.align	1
+ 372              		.global	timer_counter_alignment
+ 373              		.syntax unified
+ 374              		.thumb
+ 375              		.thumb_func
+ 376              		.fpu fpv4-sp-d16
+ 378              	timer_counter_alignment:
+ 379              		@ args = 0, pretend = 0, frame = 0
+ 380              		@ frame_needed = 0, uses_anonymous_args = 0
+ 381              		@ link register save eliminated.
+ 382 0000 0368     		ldr	r3, [r0]
+ 383 0002 23F06003 		bic	r3, r3, #96
+ 384 0006 0360     		str	r3, [r0]
+ 385 0008 0368     		ldr	r3, [r0]
+ 386 000a 1943     		orrs	r1, r1, r3
+ 387 000c 0160     		str	r1, [r0]
+ 388 000e 7047     		bx	lr
+ 390              		.section	.text.timer_counter_up_direction,"ax",%progbits
+ 391              		.align	1
+ 392              		.global	timer_counter_up_direction
+ 393              		.syntax unified
+ 394              		.thumb
+ 395              		.thumb_func
+ 396              		.fpu fpv4-sp-d16
+ 398              	timer_counter_up_direction:
+ 399              		@ args = 0, pretend = 0, frame = 0
+ 400              		@ frame_needed = 0, uses_anonymous_args = 0
+ 401              		@ link register save eliminated.
+ 402 0000 0368     		ldr	r3, [r0]
+ 403 0002 23F01003 		bic	r3, r3, #16
+ 404 0006 0360     		str	r3, [r0]
+ 405 0008 7047     		bx	lr
+ 407              		.section	.text.timer_counter_down_direction,"ax",%progbits
+ 408              		.align	1
+ 409              		.global	timer_counter_down_direction
+ 410              		.syntax unified
+ 411              		.thumb
+ 412              		.thumb_func
+ 413              		.fpu fpv4-sp-d16
+ 415              	timer_counter_down_direction:
+ 416              		@ args = 0, pretend = 0, frame = 0
+ 417              		@ frame_needed = 0, uses_anonymous_args = 0
+ 418              		@ link register save eliminated.
+ 419 0000 0368     		ldr	r3, [r0]
+ 420 0002 43F01003 		orr	r3, r3, #16
+ 421 0006 0360     		str	r3, [r0]
+ 422 0008 7047     		bx	lr
+ARM GAS  /tmp/ccZHBOeV.s 			page 8
+
+
+ 424              		.section	.text.timer_prescaler_config,"ax",%progbits
+ 425              		.align	1
+ 426              		.global	timer_prescaler_config
+ 427              		.syntax unified
+ 428              		.thumb
+ 429              		.thumb_func
+ 430              		.fpu fpv4-sp-d16
+ 432              	timer_prescaler_config:
+ 433              		@ args = 0, pretend = 0, frame = 0
+ 434              		@ frame_needed = 0, uses_anonymous_args = 0
+ 435              		@ link register save eliminated.
+ 436 0000 8162     		str	r1, [r0, #40]
+ 437 0002 1AB9     		cbnz	r2, .L45
+ 438 0004 4369     		ldr	r3, [r0, #20]
+ 439 0006 43F00103 		orr	r3, r3, #1
+ 440 000a 4361     		str	r3, [r0, #20]
+ 441              	.L45:
+ 442 000c 7047     		bx	lr
+ 444              		.section	.text.timer_repetition_value_config,"ax",%progbits
+ 445              		.align	1
+ 446              		.global	timer_repetition_value_config
+ 447              		.syntax unified
+ 448              		.thumb
+ 449              		.thumb_func
+ 450              		.fpu fpv4-sp-d16
+ 452              	timer_repetition_value_config:
+ 453              		@ args = 0, pretend = 0, frame = 0
+ 454              		@ frame_needed = 0, uses_anonymous_args = 0
+ 455              		@ link register save eliminated.
+ 456 0000 0163     		str	r1, [r0, #48]
+ 457 0002 7047     		bx	lr
+ 459              		.section	.text.timer_autoreload_value_config,"ax",%progbits
+ 460              		.align	1
+ 461              		.global	timer_autoreload_value_config
+ 462              		.syntax unified
+ 463              		.thumb
+ 464              		.thumb_func
+ 465              		.fpu fpv4-sp-d16
+ 467              	timer_autoreload_value_config:
+ 468              		@ args = 0, pretend = 0, frame = 0
+ 469              		@ frame_needed = 0, uses_anonymous_args = 0
+ 470              		@ link register save eliminated.
+ 471 0000 C162     		str	r1, [r0, #44]
+ 472 0002 7047     		bx	lr
+ 474              		.section	.text.timer_counter_value_config,"ax",%progbits
+ 475              		.align	1
+ 476              		.global	timer_counter_value_config
+ 477              		.syntax unified
+ 478              		.thumb
+ 479              		.thumb_func
+ 480              		.fpu fpv4-sp-d16
+ 482              	timer_counter_value_config:
+ 483              		@ args = 0, pretend = 0, frame = 0
+ 484              		@ frame_needed = 0, uses_anonymous_args = 0
+ 485              		@ link register save eliminated.
+ 486 0000 4162     		str	r1, [r0, #36]
+ 487 0002 7047     		bx	lr
+ARM GAS  /tmp/ccZHBOeV.s 			page 9
+
+
+ 489              		.section	.text.timer_counter_read,"ax",%progbits
+ 490              		.align	1
+ 491              		.global	timer_counter_read
+ 492              		.syntax unified
+ 493              		.thumb
+ 494              		.thumb_func
+ 495              		.fpu fpv4-sp-d16
+ 497              	timer_counter_read:
+ 498              		@ args = 0, pretend = 0, frame = 0
+ 499              		@ frame_needed = 0, uses_anonymous_args = 0
+ 500              		@ link register save eliminated.
+ 501 0000 406A     		ldr	r0, [r0, #36]
+ 502 0002 7047     		bx	lr
+ 504              		.section	.text.timer_prescaler_read,"ax",%progbits
+ 505              		.align	1
+ 506              		.global	timer_prescaler_read
+ 507              		.syntax unified
+ 508              		.thumb
+ 509              		.thumb_func
+ 510              		.fpu fpv4-sp-d16
+ 512              	timer_prescaler_read:
+ 513              		@ args = 0, pretend = 0, frame = 0
+ 514              		@ frame_needed = 0, uses_anonymous_args = 0
+ 515              		@ link register save eliminated.
+ 516 0000 806A     		ldr	r0, [r0, #40]
+ 517 0002 80B2     		uxth	r0, r0
+ 518 0004 7047     		bx	lr
+ 520              		.section	.text.timer_single_pulse_mode_config,"ax",%progbits
+ 521              		.align	1
+ 522              		.global	timer_single_pulse_mode_config
+ 523              		.syntax unified
+ 524              		.thumb
+ 525              		.thumb_func
+ 526              		.fpu fpv4-sp-d16
+ 528              	timer_single_pulse_mode_config:
+ 529              		@ args = 0, pretend = 0, frame = 0
+ 530              		@ frame_needed = 0, uses_anonymous_args = 0
+ 531              		@ link register save eliminated.
+ 532 0000 21B9     		cbnz	r1, .L53
+ 533 0002 0368     		ldr	r3, [r0]
+ 534 0004 43F00803 		orr	r3, r3, #8
+ 535 0008 0360     		str	r3, [r0]
+ 536 000a 7047     		bx	lr
+ 537              	.L53:
+ 538 000c 0129     		cmp	r1, #1
+ 539 000e 00D0     		beq	.L55
+ 540              	.L52:
+ 541 0010 7047     		bx	lr
+ 542              	.L55:
+ 543 0012 0368     		ldr	r3, [r0]
+ 544 0014 23F00803 		bic	r3, r3, #8
+ 545 0018 0360     		str	r3, [r0]
+ 546 001a F9E7     		b	.L52
+ 548              		.section	.text.timer_update_source_config,"ax",%progbits
+ 549              		.align	1
+ 550              		.global	timer_update_source_config
+ 551              		.syntax unified
+ARM GAS  /tmp/ccZHBOeV.s 			page 10
+
+
+ 552              		.thumb
+ 553              		.thumb_func
+ 554              		.fpu fpv4-sp-d16
+ 556              	timer_update_source_config:
+ 557              		@ args = 0, pretend = 0, frame = 0
+ 558              		@ frame_needed = 0, uses_anonymous_args = 0
+ 559              		@ link register save eliminated.
+ 560 0000 21B9     		cbnz	r1, .L57
+ 561 0002 0368     		ldr	r3, [r0]
+ 562 0004 43F00403 		orr	r3, r3, #4
+ 563 0008 0360     		str	r3, [r0]
+ 564 000a 7047     		bx	lr
+ 565              	.L57:
+ 566 000c 0129     		cmp	r1, #1
+ 567 000e 00D0     		beq	.L59
+ 568              	.L56:
+ 569 0010 7047     		bx	lr
+ 570              	.L59:
+ 571 0012 0368     		ldr	r3, [r0]
+ 572 0014 23F00403 		bic	r3, r3, #4
+ 573 0018 0360     		str	r3, [r0]
+ 574 001a F9E7     		b	.L56
+ 576              		.section	.text.timer_interrupt_enable,"ax",%progbits
+ 577              		.align	1
+ 578              		.global	timer_interrupt_enable
+ 579              		.syntax unified
+ 580              		.thumb
+ 581              		.thumb_func
+ 582              		.fpu fpv4-sp-d16
+ 584              	timer_interrupt_enable:
+ 585              		@ args = 0, pretend = 0, frame = 0
+ 586              		@ frame_needed = 0, uses_anonymous_args = 0
+ 587              		@ link register save eliminated.
+ 588 0000 C368     		ldr	r3, [r0, #12]
+ 589 0002 1943     		orrs	r1, r1, r3
+ 590 0004 C160     		str	r1, [r0, #12]
+ 591 0006 7047     		bx	lr
+ 593              		.section	.text.timer_interrupt_disable,"ax",%progbits
+ 594              		.align	1
+ 595              		.global	timer_interrupt_disable
+ 596              		.syntax unified
+ 597              		.thumb
+ 598              		.thumb_func
+ 599              		.fpu fpv4-sp-d16
+ 601              	timer_interrupt_disable:
+ 602              		@ args = 0, pretend = 0, frame = 0
+ 603              		@ frame_needed = 0, uses_anonymous_args = 0
+ 604              		@ link register save eliminated.
+ 605 0000 C368     		ldr	r3, [r0, #12]
+ 606 0002 23EA0101 		bic	r1, r3, r1
+ 607 0006 C160     		str	r1, [r0, #12]
+ 608 0008 7047     		bx	lr
+ 610              		.section	.text.timer_interrupt_flag_get,"ax",%progbits
+ 611              		.align	1
+ 612              		.global	timer_interrupt_flag_get
+ 613              		.syntax unified
+ 614              		.thumb
+ARM GAS  /tmp/ccZHBOeV.s 			page 11
+
+
+ 615              		.thumb_func
+ 616              		.fpu fpv4-sp-d16
+ 618              	timer_interrupt_flag_get:
+ 619              		@ args = 0, pretend = 0, frame = 0
+ 620              		@ frame_needed = 0, uses_anonymous_args = 0
+ 621              		@ link register save eliminated.
+ 622 0000 C368     		ldr	r3, [r0, #12]
+ 623 0002 0B40     		ands	r3, r3, r1
+ 624 0004 0269     		ldr	r2, [r0, #16]
+ 625 0006 0A42     		tst	r2, r1
+ 626 0008 02D0     		beq	.L64
+ 627 000a 1BB9     		cbnz	r3, .L65
+ 628 000c 0020     		movs	r0, #0
+ 629 000e 7047     		bx	lr
+ 630              	.L64:
+ 631 0010 0020     		movs	r0, #0
+ 632 0012 7047     		bx	lr
+ 633              	.L65:
+ 634 0014 0120     		movs	r0, #1
+ 635 0016 7047     		bx	lr
+ 637              		.section	.text.timer_interrupt_flag_clear,"ax",%progbits
+ 638              		.align	1
+ 639              		.global	timer_interrupt_flag_clear
+ 640              		.syntax unified
+ 641              		.thumb
+ 642              		.thumb_func
+ 643              		.fpu fpv4-sp-d16
+ 645              	timer_interrupt_flag_clear:
+ 646              		@ args = 0, pretend = 0, frame = 0
+ 647              		@ frame_needed = 0, uses_anonymous_args = 0
+ 648              		@ link register save eliminated.
+ 649 0000 C943     		mvns	r1, r1
+ 650 0002 0161     		str	r1, [r0, #16]
+ 651 0004 7047     		bx	lr
+ 653              		.section	.text.timer_flag_get,"ax",%progbits
+ 654              		.align	1
+ 655              		.global	timer_flag_get
+ 656              		.syntax unified
+ 657              		.thumb
+ 658              		.thumb_func
+ 659              		.fpu fpv4-sp-d16
+ 661              	timer_flag_get:
+ 662              		@ args = 0, pretend = 0, frame = 0
+ 663              		@ frame_needed = 0, uses_anonymous_args = 0
+ 664              		@ link register save eliminated.
+ 665 0000 0369     		ldr	r3, [r0, #16]
+ 666 0002 0B42     		tst	r3, r1
+ 667 0004 01D0     		beq	.L69
+ 668 0006 0120     		movs	r0, #1
+ 669 0008 7047     		bx	lr
+ 670              	.L69:
+ 671 000a 0020     		movs	r0, #0
+ 672 000c 7047     		bx	lr
+ 674              		.section	.text.timer_flag_clear,"ax",%progbits
+ 675              		.align	1
+ 676              		.global	timer_flag_clear
+ 677              		.syntax unified
+ARM GAS  /tmp/ccZHBOeV.s 			page 12
+
+
+ 678              		.thumb
+ 679              		.thumb_func
+ 680              		.fpu fpv4-sp-d16
+ 682              	timer_flag_clear:
+ 683              		@ args = 0, pretend = 0, frame = 0
+ 684              		@ frame_needed = 0, uses_anonymous_args = 0
+ 685              		@ link register save eliminated.
+ 686 0000 C943     		mvns	r1, r1
+ 687 0002 0161     		str	r1, [r0, #16]
+ 688 0004 7047     		bx	lr
+ 690              		.section	.text.timer_dma_enable,"ax",%progbits
+ 691              		.align	1
+ 692              		.global	timer_dma_enable
+ 693              		.syntax unified
+ 694              		.thumb
+ 695              		.thumb_func
+ 696              		.fpu fpv4-sp-d16
+ 698              	timer_dma_enable:
+ 699              		@ args = 0, pretend = 0, frame = 0
+ 700              		@ frame_needed = 0, uses_anonymous_args = 0
+ 701              		@ link register save eliminated.
+ 702 0000 C368     		ldr	r3, [r0, #12]
+ 703 0002 1943     		orrs	r1, r1, r3
+ 704 0004 C160     		str	r1, [r0, #12]
+ 705 0006 7047     		bx	lr
+ 707              		.section	.text.timer_dma_disable,"ax",%progbits
+ 708              		.align	1
+ 709              		.global	timer_dma_disable
+ 710              		.syntax unified
+ 711              		.thumb
+ 712              		.thumb_func
+ 713              		.fpu fpv4-sp-d16
+ 715              	timer_dma_disable:
+ 716              		@ args = 0, pretend = 0, frame = 0
+ 717              		@ frame_needed = 0, uses_anonymous_args = 0
+ 718              		@ link register save eliminated.
+ 719 0000 C368     		ldr	r3, [r0, #12]
+ 720 0002 23EA0101 		bic	r1, r3, r1
+ 721 0006 C160     		str	r1, [r0, #12]
+ 722 0008 7047     		bx	lr
+ 724              		.section	.text.timer_channel_dma_request_source_select,"ax",%progbits
+ 725              		.align	1
+ 726              		.global	timer_channel_dma_request_source_select
+ 727              		.syntax unified
+ 728              		.thumb
+ 729              		.thumb_func
+ 730              		.fpu fpv4-sp-d16
+ 732              	timer_channel_dma_request_source_select:
+ 733              		@ args = 0, pretend = 0, frame = 0
+ 734              		@ frame_needed = 0, uses_anonymous_args = 0
+ 735              		@ link register save eliminated.
+ 736 0000 21B9     		cbnz	r1, .L74
+ 737 0002 4368     		ldr	r3, [r0, #4]
+ 738 0004 43F00803 		orr	r3, r3, #8
+ 739 0008 4360     		str	r3, [r0, #4]
+ 740 000a 7047     		bx	lr
+ 741              	.L74:
+ARM GAS  /tmp/ccZHBOeV.s 			page 13
+
+
+ 742 000c 0129     		cmp	r1, #1
+ 743 000e 00D0     		beq	.L76
+ 744              	.L73:
+ 745 0010 7047     		bx	lr
+ 746              	.L76:
+ 747 0012 4368     		ldr	r3, [r0, #4]
+ 748 0014 23F00803 		bic	r3, r3, #8
+ 749 0018 4360     		str	r3, [r0, #4]
+ 750 001a F9E7     		b	.L73
+ 752              		.section	.text.timer_dma_transfer_config,"ax",%progbits
+ 753              		.align	1
+ 754              		.global	timer_dma_transfer_config
+ 755              		.syntax unified
+ 756              		.thumb
+ 757              		.thumb_func
+ 758              		.fpu fpv4-sp-d16
+ 760              	timer_dma_transfer_config:
+ 761              		@ args = 0, pretend = 0, frame = 0
+ 762              		@ frame_needed = 0, uses_anonymous_args = 0
+ 763              		@ link register save eliminated.
+ 764 0000 836C     		ldr	r3, [r0, #72]
+ 765 0002 23F4F853 		bic	r3, r3, #7936
+ 766 0006 23F01F03 		bic	r3, r3, #31
+ 767 000a 8364     		str	r3, [r0, #72]
+ 768 000c 836C     		ldr	r3, [r0, #72]
+ 769 000e 0A43     		orrs	r2, r2, r1
+ 770 0010 1343     		orrs	r3, r3, r2
+ 771 0012 8364     		str	r3, [r0, #72]
+ 772 0014 7047     		bx	lr
+ 774              		.section	.text.timer_event_software_generate,"ax",%progbits
+ 775              		.align	1
+ 776              		.global	timer_event_software_generate
+ 777              		.syntax unified
+ 778              		.thumb
+ 779              		.thumb_func
+ 780              		.fpu fpv4-sp-d16
+ 782              	timer_event_software_generate:
+ 783              		@ args = 0, pretend = 0, frame = 0
+ 784              		@ frame_needed = 0, uses_anonymous_args = 0
+ 785              		@ link register save eliminated.
+ 786 0000 4369     		ldr	r3, [r0, #20]
+ 787 0002 1943     		orrs	r1, r1, r3
+ 788 0004 4161     		str	r1, [r0, #20]
+ 789 0006 7047     		bx	lr
+ 791              		.section	.text.timer_break_struct_para_init,"ax",%progbits
+ 792              		.align	1
+ 793              		.global	timer_break_struct_para_init
+ 794              		.syntax unified
+ 795              		.thumb
+ 796              		.thumb_func
+ 797              		.fpu fpv4-sp-d16
+ 799              	timer_break_struct_para_init:
+ 800              		@ args = 0, pretend = 0, frame = 0
+ 801              		@ frame_needed = 0, uses_anonymous_args = 0
+ 802              		@ link register save eliminated.
+ 803 0000 0023     		movs	r3, #0
+ 804 0002 0380     		strh	r3, [r0]	@ movhi
+ARM GAS  /tmp/ccZHBOeV.s 			page 14
+
+
+ 805 0004 4380     		strh	r3, [r0, #2]	@ movhi
+ 806 0006 8380     		strh	r3, [r0, #4]	@ movhi
+ 807 0008 C380     		strh	r3, [r0, #6]	@ movhi
+ 808 000a 0381     		strh	r3, [r0, #8]	@ movhi
+ 809 000c 4381     		strh	r3, [r0, #10]	@ movhi
+ 810 000e 8381     		strh	r3, [r0, #12]	@ movhi
+ 811 0010 7047     		bx	lr
+ 813              		.section	.text.timer_break_config,"ax",%progbits
+ 814              		.align	1
+ 815              		.global	timer_break_config
+ 816              		.syntax unified
+ 817              		.thumb
+ 818              		.thumb_func
+ 819              		.fpu fpv4-sp-d16
+ 821              	timer_break_config:
+ 822              		@ args = 0, pretend = 0, frame = 0
+ 823              		@ frame_needed = 0, uses_anonymous_args = 0
+ 824              		@ link register save eliminated.
+ 825 0000 F0B4     		push	{r4, r5, r6, r7}
+ 826 0002 0F88     		ldrh	r7, [r1]
+ 827 0004 B1F802C0 		ldrh	ip, [r1, #2]
+ 828 0008 8E88     		ldrh	r6, [r1, #4]
+ 829 000a CD88     		ldrh	r5, [r1, #6]
+ 830 000c 0C89     		ldrh	r4, [r1, #8]
+ 831 000e 4A89     		ldrh	r2, [r1, #10]
+ 832 0010 8B89     		ldrh	r3, [r1, #12]
+ 833 0012 47EA0C07 		orr	r7, r7, ip
+ 834 0016 3E43     		orrs	r6, r6, r7
+ 835 0018 3543     		orrs	r5, r5, r6
+ 836 001a 2C43     		orrs	r4, r4, r5
+ 837 001c 2243     		orrs	r2, r2, r4
+ 838 001e 1343     		orrs	r3, r3, r2
+ 839 0020 4364     		str	r3, [r0, #68]
+ 840 0022 F0BC     		pop	{r4, r5, r6, r7}
+ 841 0024 7047     		bx	lr
+ 843              		.section	.text.timer_break_enable,"ax",%progbits
+ 844              		.align	1
+ 845              		.global	timer_break_enable
+ 846              		.syntax unified
+ 847              		.thumb
+ 848              		.thumb_func
+ 849              		.fpu fpv4-sp-d16
+ 851              	timer_break_enable:
+ 852              		@ args = 0, pretend = 0, frame = 0
+ 853              		@ frame_needed = 0, uses_anonymous_args = 0
+ 854              		@ link register save eliminated.
+ 855 0000 436C     		ldr	r3, [r0, #68]
+ 856 0002 43F48053 		orr	r3, r3, #4096
+ 857 0006 4364     		str	r3, [r0, #68]
+ 858 0008 7047     		bx	lr
+ 860              		.section	.text.timer_break_disable,"ax",%progbits
+ 861              		.align	1
+ 862              		.global	timer_break_disable
+ 863              		.syntax unified
+ 864              		.thumb
+ 865              		.thumb_func
+ 866              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccZHBOeV.s 			page 15
+
+
+ 868              	timer_break_disable:
+ 869              		@ args = 0, pretend = 0, frame = 0
+ 870              		@ frame_needed = 0, uses_anonymous_args = 0
+ 871              		@ link register save eliminated.
+ 872 0000 436C     		ldr	r3, [r0, #68]
+ 873 0002 23F48053 		bic	r3, r3, #4096
+ 874 0006 4364     		str	r3, [r0, #68]
+ 875 0008 7047     		bx	lr
+ 877              		.section	.text.timer_automatic_output_enable,"ax",%progbits
+ 878              		.align	1
+ 879              		.global	timer_automatic_output_enable
+ 880              		.syntax unified
+ 881              		.thumb
+ 882              		.thumb_func
+ 883              		.fpu fpv4-sp-d16
+ 885              	timer_automatic_output_enable:
+ 886              		@ args = 0, pretend = 0, frame = 0
+ 887              		@ frame_needed = 0, uses_anonymous_args = 0
+ 888              		@ link register save eliminated.
+ 889 0000 436C     		ldr	r3, [r0, #68]
+ 890 0002 43F48043 		orr	r3, r3, #16384
+ 891 0006 4364     		str	r3, [r0, #68]
+ 892 0008 7047     		bx	lr
+ 894              		.section	.text.timer_automatic_output_disable,"ax",%progbits
+ 895              		.align	1
+ 896              		.global	timer_automatic_output_disable
+ 897              		.syntax unified
+ 898              		.thumb
+ 899              		.thumb_func
+ 900              		.fpu fpv4-sp-d16
+ 902              	timer_automatic_output_disable:
+ 903              		@ args = 0, pretend = 0, frame = 0
+ 904              		@ frame_needed = 0, uses_anonymous_args = 0
+ 905              		@ link register save eliminated.
+ 906 0000 436C     		ldr	r3, [r0, #68]
+ 907 0002 23F48043 		bic	r3, r3, #16384
+ 908 0006 4364     		str	r3, [r0, #68]
+ 909 0008 7047     		bx	lr
+ 911              		.section	.text.timer_primary_output_config,"ax",%progbits
+ 912              		.align	1
+ 913              		.global	timer_primary_output_config
+ 914              		.syntax unified
+ 915              		.thumb
+ 916              		.thumb_func
+ 917              		.fpu fpv4-sp-d16
+ 919              	timer_primary_output_config:
+ 920              		@ args = 0, pretend = 0, frame = 0
+ 921              		@ frame_needed = 0, uses_anonymous_args = 0
+ 922              		@ link register save eliminated.
+ 923 0000 0129     		cmp	r1, #1
+ 924 0002 04D0     		beq	.L89
+ 925 0004 436C     		ldr	r3, [r0, #68]
+ 926 0006 23F40043 		bic	r3, r3, #32768
+ 927 000a 4364     		str	r3, [r0, #68]
+ 928 000c 7047     		bx	lr
+ 929              	.L89:
+ 930 000e 436C     		ldr	r3, [r0, #68]
+ARM GAS  /tmp/ccZHBOeV.s 			page 16
+
+
+ 931 0010 43F40043 		orr	r3, r3, #32768
+ 932 0014 4364     		str	r3, [r0, #68]
+ 933 0016 7047     		bx	lr
+ 935              		.section	.text.timer_channel_control_shadow_config,"ax",%progbits
+ 936              		.align	1
+ 937              		.global	timer_channel_control_shadow_config
+ 938              		.syntax unified
+ 939              		.thumb
+ 940              		.thumb_func
+ 941              		.fpu fpv4-sp-d16
+ 943              	timer_channel_control_shadow_config:
+ 944              		@ args = 0, pretend = 0, frame = 0
+ 945              		@ frame_needed = 0, uses_anonymous_args = 0
+ 946              		@ link register save eliminated.
+ 947 0000 0129     		cmp	r1, #1
+ 948 0002 04D0     		beq	.L93
+ 949 0004 4368     		ldr	r3, [r0, #4]
+ 950 0006 23F00103 		bic	r3, r3, #1
+ 951 000a 4360     		str	r3, [r0, #4]
+ 952 000c 7047     		bx	lr
+ 953              	.L93:
+ 954 000e 4368     		ldr	r3, [r0, #4]
+ 955 0010 43F00103 		orr	r3, r3, #1
+ 956 0014 4360     		str	r3, [r0, #4]
+ 957 0016 7047     		bx	lr
+ 959              		.section	.text.timer_channel_control_shadow_update_config,"ax",%progbits
+ 960              		.align	1
+ 961              		.global	timer_channel_control_shadow_update_config
+ 962              		.syntax unified
+ 963              		.thumb
+ 964              		.thumb_func
+ 965              		.fpu fpv4-sp-d16
+ 967              	timer_channel_control_shadow_update_config:
+ 968              		@ args = 0, pretend = 0, frame = 0
+ 969              		@ frame_needed = 0, uses_anonymous_args = 0
+ 970              		@ link register save eliminated.
+ 971 0000 21B9     		cbnz	r1, .L95
+ 972 0002 4368     		ldr	r3, [r0, #4]
+ 973 0004 23F00403 		bic	r3, r3, #4
+ 974 0008 4360     		str	r3, [r0, #4]
+ 975 000a 7047     		bx	lr
+ 976              	.L95:
+ 977 000c 0129     		cmp	r1, #1
+ 978 000e 00D0     		beq	.L97
+ 979              	.L94:
+ 980 0010 7047     		bx	lr
+ 981              	.L97:
+ 982 0012 4368     		ldr	r3, [r0, #4]
+ 983 0014 43F00403 		orr	r3, r3, #4
+ 984 0018 4360     		str	r3, [r0, #4]
+ 985 001a F9E7     		b	.L94
+ 987              		.section	.text.timer_channel_output_struct_para_init,"ax",%progbits
+ 988              		.align	1
+ 989              		.global	timer_channel_output_struct_para_init
+ 990              		.syntax unified
+ 991              		.thumb
+ 992              		.thumb_func
+ARM GAS  /tmp/ccZHBOeV.s 			page 17
+
+
+ 993              		.fpu fpv4-sp-d16
+ 995              	timer_channel_output_struct_para_init:
+ 996              		@ args = 0, pretend = 0, frame = 0
+ 997              		@ frame_needed = 0, uses_anonymous_args = 0
+ 998              		@ link register save eliminated.
+ 999 0000 0023     		movs	r3, #0
+ 1000 0002 0380     		strh	r3, [r0]	@ movhi
+ 1001 0004 4380     		strh	r3, [r0, #2]	@ movhi
+ 1002 0006 8380     		strh	r3, [r0, #4]	@ movhi
+ 1003 0008 C380     		strh	r3, [r0, #6]	@ movhi
+ 1004 000a 0381     		strh	r3, [r0, #8]	@ movhi
+ 1005 000c 4381     		strh	r3, [r0, #10]	@ movhi
+ 1006 000e 7047     		bx	lr
+ 1008              		.section	.text.timer_channel_output_config,"ax",%progbits
+ 1009              		.align	1
+ 1010              		.global	timer_channel_output_config
+ 1011              		.syntax unified
+ 1012              		.thumb
+ 1013              		.thumb_func
+ 1014              		.fpu fpv4-sp-d16
+ 1016              	timer_channel_output_config:
+ 1017              		@ args = 0, pretend = 0, frame = 0
+ 1018              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1019              		@ link register save eliminated.
+ 1020 0000 0329     		cmp	r1, #3
+ 1021 0002 00F2EE80 		bhi	.L99
+ 1022 0006 DFE811F0 		tbh	[pc, r1, lsl #1]
+ 1023              	.L102:
+ 1024 000a 0400     		.2byte	(.L105-.L102)/2
+ 1025 000c 4100     		.2byte	(.L104-.L102)/2
+ 1026 000e 8400     		.2byte	(.L103-.L102)/2
+ 1027 0010 C600     		.2byte	(.L101-.L102)/2
+ 1028              		.p2align 1
+ 1029              	.L105:
+ 1030 0012 036A     		ldr	r3, [r0, #32]
+ 1031 0014 23F00103 		bic	r3, r3, #1
+ 1032 0018 0362     		str	r3, [r0, #32]
+ 1033 001a 8369     		ldr	r3, [r0, #24]
+ 1034 001c 23F00303 		bic	r3, r3, #3
+ 1035 0020 8361     		str	r3, [r0, #24]
+ 1036 0022 036A     		ldr	r3, [r0, #32]
+ 1037 0024 1188     		ldrh	r1, [r2]
+ 1038 0026 0B43     		orrs	r3, r3, r1
+ 1039 0028 0362     		str	r3, [r0, #32]
+ 1040 002a 036A     		ldr	r3, [r0, #32]
+ 1041 002c 23F00203 		bic	r3, r3, #2
+ 1042 0030 0362     		str	r3, [r0, #32]
+ 1043 0032 036A     		ldr	r3, [r0, #32]
+ 1044 0034 9188     		ldrh	r1, [r2, #4]
+ 1045 0036 0B43     		orrs	r3, r3, r1
+ 1046 0038 0362     		str	r3, [r0, #32]
+ 1047 003a 6A4B     		ldr	r3, .L110
+ 1048 003c 9842     		cmp	r0, r3
+ 1049 003e 04D0     		beq	.L106
+ 1050 0040 03F58063 		add	r3, r3, #1024
+ 1051 0044 9842     		cmp	r0, r3
+ 1052 0046 40F0CC80 		bne	.L99
+ARM GAS  /tmp/ccZHBOeV.s 			page 18
+
+
+ 1053              	.L106:
+ 1054 004a 036A     		ldr	r3, [r0, #32]
+ 1055 004c 23F00403 		bic	r3, r3, #4
+ 1056 0050 0362     		str	r3, [r0, #32]
+ 1057 0052 036A     		ldr	r3, [r0, #32]
+ 1058 0054 5188     		ldrh	r1, [r2, #2]
+ 1059 0056 0B43     		orrs	r3, r3, r1
+ 1060 0058 0362     		str	r3, [r0, #32]
+ 1061 005a 036A     		ldr	r3, [r0, #32]
+ 1062 005c 23F00803 		bic	r3, r3, #8
+ 1063 0060 0362     		str	r3, [r0, #32]
+ 1064 0062 036A     		ldr	r3, [r0, #32]
+ 1065 0064 D188     		ldrh	r1, [r2, #6]
+ 1066 0066 0B43     		orrs	r3, r3, r1
+ 1067 0068 0362     		str	r3, [r0, #32]
+ 1068 006a 4368     		ldr	r3, [r0, #4]
+ 1069 006c 23F48073 		bic	r3, r3, #256
+ 1070 0070 4360     		str	r3, [r0, #4]
+ 1071 0072 4368     		ldr	r3, [r0, #4]
+ 1072 0074 1189     		ldrh	r1, [r2, #8]
+ 1073 0076 0B43     		orrs	r3, r3, r1
+ 1074 0078 4360     		str	r3, [r0, #4]
+ 1075 007a 4368     		ldr	r3, [r0, #4]
+ 1076 007c 23F40073 		bic	r3, r3, #512
+ 1077 0080 4360     		str	r3, [r0, #4]
+ 1078 0082 4368     		ldr	r3, [r0, #4]
+ 1079 0084 5289     		ldrh	r2, [r2, #10]
+ 1080 0086 1343     		orrs	r3, r3, r2
+ 1081 0088 4360     		str	r3, [r0, #4]
+ 1082 008a 7047     		bx	lr
+ 1083              	.L104:
+ 1084 008c 036A     		ldr	r3, [r0, #32]
+ 1085 008e 23F01003 		bic	r3, r3, #16
+ 1086 0092 0362     		str	r3, [r0, #32]
+ 1087 0094 8369     		ldr	r3, [r0, #24]
+ 1088 0096 23F44073 		bic	r3, r3, #768
+ 1089 009a 8361     		str	r3, [r0, #24]
+ 1090 009c 036A     		ldr	r3, [r0, #32]
+ 1091 009e 1188     		ldrh	r1, [r2]
+ 1092 00a0 43EA0113 		orr	r3, r3, r1, lsl #4
+ 1093 00a4 0362     		str	r3, [r0, #32]
+ 1094 00a6 036A     		ldr	r3, [r0, #32]
+ 1095 00a8 23F02003 		bic	r3, r3, #32
+ 1096 00ac 0362     		str	r3, [r0, #32]
+ 1097 00ae 036A     		ldr	r3, [r0, #32]
+ 1098 00b0 9188     		ldrh	r1, [r2, #4]
+ 1099 00b2 43EA0113 		orr	r3, r3, r1, lsl #4
+ 1100 00b6 0362     		str	r3, [r0, #32]
+ 1101 00b8 4A4B     		ldr	r3, .L110
+ 1102 00ba 9842     		cmp	r0, r3
+ 1103 00bc 04D0     		beq	.L107
+ 1104 00be 03F58063 		add	r3, r3, #1024
+ 1105 00c2 9842     		cmp	r0, r3
+ 1106 00c4 40F08D80 		bne	.L99
+ 1107              	.L107:
+ 1108 00c8 036A     		ldr	r3, [r0, #32]
+ 1109 00ca 23F04003 		bic	r3, r3, #64
+ARM GAS  /tmp/ccZHBOeV.s 			page 19
+
+
+ 1110 00ce 0362     		str	r3, [r0, #32]
+ 1111 00d0 036A     		ldr	r3, [r0, #32]
+ 1112 00d2 5188     		ldrh	r1, [r2, #2]
+ 1113 00d4 43EA0113 		orr	r3, r3, r1, lsl #4
+ 1114 00d8 0362     		str	r3, [r0, #32]
+ 1115 00da 036A     		ldr	r3, [r0, #32]
+ 1116 00dc 23F08003 		bic	r3, r3, #128
+ 1117 00e0 0362     		str	r3, [r0, #32]
+ 1118 00e2 036A     		ldr	r3, [r0, #32]
+ 1119 00e4 D188     		ldrh	r1, [r2, #6]
+ 1120 00e6 43EA0113 		orr	r3, r3, r1, lsl #4
+ 1121 00ea 0362     		str	r3, [r0, #32]
+ 1122 00ec 4368     		ldr	r3, [r0, #4]
+ 1123 00ee 23F48063 		bic	r3, r3, #1024
+ 1124 00f2 4360     		str	r3, [r0, #4]
+ 1125 00f4 4368     		ldr	r3, [r0, #4]
+ 1126 00f6 1189     		ldrh	r1, [r2, #8]
+ 1127 00f8 43EA8103 		orr	r3, r3, r1, lsl #2
+ 1128 00fc 4360     		str	r3, [r0, #4]
+ 1129 00fe 4368     		ldr	r3, [r0, #4]
+ 1130 0100 23F40063 		bic	r3, r3, #2048
+ 1131 0104 4360     		str	r3, [r0, #4]
+ 1132 0106 4368     		ldr	r3, [r0, #4]
+ 1133 0108 5289     		ldrh	r2, [r2, #10]
+ 1134 010a 43EA8203 		orr	r3, r3, r2, lsl #2
+ 1135 010e 4360     		str	r3, [r0, #4]
+ 1136 0110 7047     		bx	lr
+ 1137              	.L103:
+ 1138 0112 036A     		ldr	r3, [r0, #32]
+ 1139 0114 23F48073 		bic	r3, r3, #256
+ 1140 0118 0362     		str	r3, [r0, #32]
+ 1141 011a C369     		ldr	r3, [r0, #28]
+ 1142 011c 23F00303 		bic	r3, r3, #3
+ 1143 0120 C361     		str	r3, [r0, #28]
+ 1144 0122 036A     		ldr	r3, [r0, #32]
+ 1145 0124 1188     		ldrh	r1, [r2]
+ 1146 0126 43EA0123 		orr	r3, r3, r1, lsl #8
+ 1147 012a 0362     		str	r3, [r0, #32]
+ 1148 012c 036A     		ldr	r3, [r0, #32]
+ 1149 012e 23F40073 		bic	r3, r3, #512
+ 1150 0132 0362     		str	r3, [r0, #32]
+ 1151 0134 036A     		ldr	r3, [r0, #32]
+ 1152 0136 9188     		ldrh	r1, [r2, #4]
+ 1153 0138 43EA0123 		orr	r3, r3, r1, lsl #8
+ 1154 013c 0362     		str	r3, [r0, #32]
+ 1155 013e 294B     		ldr	r3, .L110
+ 1156 0140 9842     		cmp	r0, r3
+ 1157 0142 03D0     		beq	.L108
+ 1158 0144 03F58063 		add	r3, r3, #1024
+ 1159 0148 9842     		cmp	r0, r3
+ 1160 014a 4AD1     		bne	.L99
+ 1161              	.L108:
+ 1162 014c 036A     		ldr	r3, [r0, #32]
+ 1163 014e 23F48063 		bic	r3, r3, #1024
+ 1164 0152 0362     		str	r3, [r0, #32]
+ 1165 0154 036A     		ldr	r3, [r0, #32]
+ 1166 0156 5188     		ldrh	r1, [r2, #2]
+ARM GAS  /tmp/ccZHBOeV.s 			page 20
+
+
+ 1167 0158 43EA0123 		orr	r3, r3, r1, lsl #8
+ 1168 015c 0362     		str	r3, [r0, #32]
+ 1169 015e 036A     		ldr	r3, [r0, #32]
+ 1170 0160 23F40063 		bic	r3, r3, #2048
+ 1171 0164 0362     		str	r3, [r0, #32]
+ 1172 0166 036A     		ldr	r3, [r0, #32]
+ 1173 0168 D188     		ldrh	r1, [r2, #6]
+ 1174 016a 43EA0123 		orr	r3, r3, r1, lsl #8
+ 1175 016e 0362     		str	r3, [r0, #32]
+ 1176 0170 4368     		ldr	r3, [r0, #4]
+ 1177 0172 23F48053 		bic	r3, r3, #4096
+ 1178 0176 4360     		str	r3, [r0, #4]
+ 1179 0178 4368     		ldr	r3, [r0, #4]
+ 1180 017a 1189     		ldrh	r1, [r2, #8]
+ 1181 017c 43EA0113 		orr	r3, r3, r1, lsl #4
+ 1182 0180 4360     		str	r3, [r0, #4]
+ 1183 0182 4368     		ldr	r3, [r0, #4]
+ 1184 0184 23F40053 		bic	r3, r3, #8192
+ 1185 0188 4360     		str	r3, [r0, #4]
+ 1186 018a 4368     		ldr	r3, [r0, #4]
+ 1187 018c 5289     		ldrh	r2, [r2, #10]
+ 1188 018e 43EA0213 		orr	r3, r3, r2, lsl #4
+ 1189 0192 4360     		str	r3, [r0, #4]
+ 1190 0194 7047     		bx	lr
+ 1191              	.L101:
+ 1192 0196 036A     		ldr	r3, [r0, #32]
+ 1193 0198 23F48053 		bic	r3, r3, #4096
+ 1194 019c 0362     		str	r3, [r0, #32]
+ 1195 019e C369     		ldr	r3, [r0, #28]
+ 1196 01a0 23F44073 		bic	r3, r3, #768
+ 1197 01a4 C361     		str	r3, [r0, #28]
+ 1198 01a6 036A     		ldr	r3, [r0, #32]
+ 1199 01a8 1188     		ldrh	r1, [r2]
+ 1200 01aa 43EA0133 		orr	r3, r3, r1, lsl #12
+ 1201 01ae 0362     		str	r3, [r0, #32]
+ 1202 01b0 036A     		ldr	r3, [r0, #32]
+ 1203 01b2 23F40053 		bic	r3, r3, #8192
+ 1204 01b6 0362     		str	r3, [r0, #32]
+ 1205 01b8 036A     		ldr	r3, [r0, #32]
+ 1206 01ba 9188     		ldrh	r1, [r2, #4]
+ 1207 01bc 43EA0133 		orr	r3, r3, r1, lsl #12
+ 1208 01c0 0362     		str	r3, [r0, #32]
+ 1209 01c2 084B     		ldr	r3, .L110
+ 1210 01c4 9842     		cmp	r0, r3
+ 1211 01c6 03D0     		beq	.L109
+ 1212 01c8 03F58063 		add	r3, r3, #1024
+ 1213 01cc 9842     		cmp	r0, r3
+ 1214 01ce 08D1     		bne	.L99
+ 1215              	.L109:
+ 1216 01d0 4368     		ldr	r3, [r0, #4]
+ 1217 01d2 23F48043 		bic	r3, r3, #16384
+ 1218 01d6 4360     		str	r3, [r0, #4]
+ 1219 01d8 4368     		ldr	r3, [r0, #4]
+ 1220 01da 1289     		ldrh	r2, [r2, #8]
+ 1221 01dc 43EA8213 		orr	r3, r3, r2, lsl #6
+ 1222 01e0 4360     		str	r3, [r0, #4]
+ 1223              	.L99:
+ARM GAS  /tmp/ccZHBOeV.s 			page 21
+
+
+ 1224 01e2 7047     		bx	lr
+ 1225              	.L111:
+ 1226              		.align	2
+ 1227              	.L110:
+ 1228 01e4 00000140 		.word	1073807360
+ 1230              		.section	.text.timer_channel_output_mode_config,"ax",%progbits
+ 1231              		.align	1
+ 1232              		.global	timer_channel_output_mode_config
+ 1233              		.syntax unified
+ 1234              		.thumb
+ 1235              		.thumb_func
+ 1236              		.fpu fpv4-sp-d16
+ 1238              	timer_channel_output_mode_config:
+ 1239              		@ args = 0, pretend = 0, frame = 0
+ 1240              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1241              		@ link register save eliminated.
+ 1242 0000 0329     		cmp	r1, #3
+ 1243 0002 24D8     		bhi	.L112
+ 1244 0004 DFE801F0 		tbb	[pc, r1]
+ 1245              	.L115:
+ 1246 0008 02       		.byte	(.L118-.L115)/2
+ 1247 0009 0A       		.byte	(.L117-.L115)/2
+ 1248 000a 13       		.byte	(.L116-.L115)/2
+ 1249 000b 1B       		.byte	(.L114-.L115)/2
+ 1250              		.p2align 1
+ 1251              	.L118:
+ 1252 000c 8369     		ldr	r3, [r0, #24]
+ 1253 000e 23F07003 		bic	r3, r3, #112
+ 1254 0012 8361     		str	r3, [r0, #24]
+ 1255 0014 8369     		ldr	r3, [r0, #24]
+ 1256 0016 1A43     		orrs	r2, r2, r3
+ 1257 0018 8261     		str	r2, [r0, #24]
+ 1258 001a 7047     		bx	lr
+ 1259              	.L117:
+ 1260 001c 8369     		ldr	r3, [r0, #24]
+ 1261 001e 23F4E043 		bic	r3, r3, #28672
+ 1262 0022 8361     		str	r3, [r0, #24]
+ 1263 0024 8369     		ldr	r3, [r0, #24]
+ 1264 0026 43EA0222 		orr	r2, r3, r2, lsl #8
+ 1265 002a 8261     		str	r2, [r0, #24]
+ 1266 002c 7047     		bx	lr
+ 1267              	.L116:
+ 1268 002e C369     		ldr	r3, [r0, #28]
+ 1269 0030 23F07003 		bic	r3, r3, #112
+ 1270 0034 C361     		str	r3, [r0, #28]
+ 1271 0036 C369     		ldr	r3, [r0, #28]
+ 1272 0038 1A43     		orrs	r2, r2, r3
+ 1273 003a C261     		str	r2, [r0, #28]
+ 1274 003c 7047     		bx	lr
+ 1275              	.L114:
+ 1276 003e C369     		ldr	r3, [r0, #28]
+ 1277 0040 23F4E043 		bic	r3, r3, #28672
+ 1278 0044 C361     		str	r3, [r0, #28]
+ 1279 0046 C369     		ldr	r3, [r0, #28]
+ 1280 0048 43EA0222 		orr	r2, r3, r2, lsl #8
+ 1281 004c C261     		str	r2, [r0, #28]
+ 1282              	.L112:
+ARM GAS  /tmp/ccZHBOeV.s 			page 22
+
+
+ 1283 004e 7047     		bx	lr
+ 1285              		.section	.text.timer_channel_output_pulse_value_config,"ax",%progbits
+ 1286              		.align	1
+ 1287              		.global	timer_channel_output_pulse_value_config
+ 1288              		.syntax unified
+ 1289              		.thumb
+ 1290              		.thumb_func
+ 1291              		.fpu fpv4-sp-d16
+ 1293              	timer_channel_output_pulse_value_config:
+ 1294              		@ args = 0, pretend = 0, frame = 0
+ 1295              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1296              		@ link register save eliminated.
+ 1297 0000 0329     		cmp	r1, #3
+ 1298 0002 0AD8     		bhi	.L119
+ 1299 0004 DFE801F0 		tbb	[pc, r1]
+ 1300              	.L122:
+ 1301 0008 02       		.byte	(.L125-.L122)/2
+ 1302 0009 04       		.byte	(.L124-.L122)/2
+ 1303 000a 06       		.byte	(.L123-.L122)/2
+ 1304 000b 08       		.byte	(.L121-.L122)/2
+ 1305              		.p2align 1
+ 1306              	.L125:
+ 1307 000c 4263     		str	r2, [r0, #52]
+ 1308 000e 7047     		bx	lr
+ 1309              	.L124:
+ 1310 0010 8263     		str	r2, [r0, #56]
+ 1311 0012 7047     		bx	lr
+ 1312              	.L123:
+ 1313 0014 C263     		str	r2, [r0, #60]
+ 1314 0016 7047     		bx	lr
+ 1315              	.L121:
+ 1316 0018 0264     		str	r2, [r0, #64]
+ 1317              	.L119:
+ 1318 001a 7047     		bx	lr
+ 1320              		.section	.text.timer_channel_output_shadow_config,"ax",%progbits
+ 1321              		.align	1
+ 1322              		.global	timer_channel_output_shadow_config
+ 1323              		.syntax unified
+ 1324              		.thumb
+ 1325              		.thumb_func
+ 1326              		.fpu fpv4-sp-d16
+ 1328              	timer_channel_output_shadow_config:
+ 1329              		@ args = 0, pretend = 0, frame = 0
+ 1330              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1331              		@ link register save eliminated.
+ 1332 0000 0329     		cmp	r1, #3
+ 1333 0002 24D8     		bhi	.L126
+ 1334 0004 DFE801F0 		tbb	[pc, r1]
+ 1335              	.L129:
+ 1336 0008 02       		.byte	(.L132-.L129)/2
+ 1337 0009 0A       		.byte	(.L131-.L129)/2
+ 1338 000a 13       		.byte	(.L130-.L129)/2
+ 1339 000b 1B       		.byte	(.L128-.L129)/2
+ 1340              		.p2align 1
+ 1341              	.L132:
+ 1342 000c 8369     		ldr	r3, [r0, #24]
+ 1343 000e 23F00803 		bic	r3, r3, #8
+ARM GAS  /tmp/ccZHBOeV.s 			page 23
+
+
+ 1344 0012 8361     		str	r3, [r0, #24]
+ 1345 0014 8369     		ldr	r3, [r0, #24]
+ 1346 0016 1A43     		orrs	r2, r2, r3
+ 1347 0018 8261     		str	r2, [r0, #24]
+ 1348 001a 7047     		bx	lr
+ 1349              	.L131:
+ 1350 001c 8369     		ldr	r3, [r0, #24]
+ 1351 001e 23F40063 		bic	r3, r3, #2048
+ 1352 0022 8361     		str	r3, [r0, #24]
+ 1353 0024 8369     		ldr	r3, [r0, #24]
+ 1354 0026 43EA0222 		orr	r2, r3, r2, lsl #8
+ 1355 002a 8261     		str	r2, [r0, #24]
+ 1356 002c 7047     		bx	lr
+ 1357              	.L130:
+ 1358 002e C369     		ldr	r3, [r0, #28]
+ 1359 0030 23F00803 		bic	r3, r3, #8
+ 1360 0034 C361     		str	r3, [r0, #28]
+ 1361 0036 C369     		ldr	r3, [r0, #28]
+ 1362 0038 1A43     		orrs	r2, r2, r3
+ 1363 003a C261     		str	r2, [r0, #28]
+ 1364 003c 7047     		bx	lr
+ 1365              	.L128:
+ 1366 003e C369     		ldr	r3, [r0, #28]
+ 1367 0040 23F40063 		bic	r3, r3, #2048
+ 1368 0044 C361     		str	r3, [r0, #28]
+ 1369 0046 C369     		ldr	r3, [r0, #28]
+ 1370 0048 43EA0222 		orr	r2, r3, r2, lsl #8
+ 1371 004c C261     		str	r2, [r0, #28]
+ 1372              	.L126:
+ 1373 004e 7047     		bx	lr
+ 1375              		.section	.text.timer_channel_output_fast_config,"ax",%progbits
+ 1376              		.align	1
+ 1377              		.global	timer_channel_output_fast_config
+ 1378              		.syntax unified
+ 1379              		.thumb
+ 1380              		.thumb_func
+ 1381              		.fpu fpv4-sp-d16
+ 1383              	timer_channel_output_fast_config:
+ 1384              		@ args = 0, pretend = 0, frame = 0
+ 1385              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1386              		@ link register save eliminated.
+ 1387 0000 0329     		cmp	r1, #3
+ 1388 0002 24D8     		bhi	.L133
+ 1389 0004 DFE801F0 		tbb	[pc, r1]
+ 1390              	.L136:
+ 1391 0008 02       		.byte	(.L139-.L136)/2
+ 1392 0009 0A       		.byte	(.L138-.L136)/2
+ 1393 000a 13       		.byte	(.L137-.L136)/2
+ 1394 000b 1B       		.byte	(.L135-.L136)/2
+ 1395              		.p2align 1
+ 1396              	.L139:
+ 1397 000c 8369     		ldr	r3, [r0, #24]
+ 1398 000e 23F00403 		bic	r3, r3, #4
+ 1399 0012 8361     		str	r3, [r0, #24]
+ 1400 0014 8369     		ldr	r3, [r0, #24]
+ 1401 0016 1A43     		orrs	r2, r2, r3
+ 1402 0018 8261     		str	r2, [r0, #24]
+ARM GAS  /tmp/ccZHBOeV.s 			page 24
+
+
+ 1403 001a 7047     		bx	lr
+ 1404              	.L138:
+ 1405 001c 8369     		ldr	r3, [r0, #24]
+ 1406 001e 23F48063 		bic	r3, r3, #1024
+ 1407 0022 8361     		str	r3, [r0, #24]
+ 1408 0024 8369     		ldr	r3, [r0, #24]
+ 1409 0026 43EA0222 		orr	r2, r3, r2, lsl #8
+ 1410 002a 8261     		str	r2, [r0, #24]
+ 1411 002c 7047     		bx	lr
+ 1412              	.L137:
+ 1413 002e C369     		ldr	r3, [r0, #28]
+ 1414 0030 23F00403 		bic	r3, r3, #4
+ 1415 0034 C361     		str	r3, [r0, #28]
+ 1416 0036 C369     		ldr	r3, [r0, #28]
+ 1417 0038 1A43     		orrs	r2, r2, r3
+ 1418 003a C261     		str	r2, [r0, #28]
+ 1419 003c 7047     		bx	lr
+ 1420              	.L135:
+ 1421 003e C369     		ldr	r3, [r0, #28]
+ 1422 0040 23F48063 		bic	r3, r3, #1024
+ 1423 0044 C361     		str	r3, [r0, #28]
+ 1424 0046 C369     		ldr	r3, [r0, #28]
+ 1425 0048 43EA0222 		orr	r2, r3, r2, lsl #8
+ 1426 004c C261     		str	r2, [r0, #28]
+ 1427              	.L133:
+ 1428 004e 7047     		bx	lr
+ 1430              		.section	.text.timer_channel_output_clear_config,"ax",%progbits
+ 1431              		.align	1
+ 1432              		.global	timer_channel_output_clear_config
+ 1433              		.syntax unified
+ 1434              		.thumb
+ 1435              		.thumb_func
+ 1436              		.fpu fpv4-sp-d16
+ 1438              	timer_channel_output_clear_config:
+ 1439              		@ args = 0, pretend = 0, frame = 0
+ 1440              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1441              		@ link register save eliminated.
+ 1442 0000 0329     		cmp	r1, #3
+ 1443 0002 24D8     		bhi	.L140
+ 1444 0004 DFE801F0 		tbb	[pc, r1]
+ 1445              	.L143:
+ 1446 0008 02       		.byte	(.L146-.L143)/2
+ 1447 0009 0A       		.byte	(.L145-.L143)/2
+ 1448 000a 13       		.byte	(.L144-.L143)/2
+ 1449 000b 1B       		.byte	(.L142-.L143)/2
+ 1450              		.p2align 1
+ 1451              	.L146:
+ 1452 000c 8369     		ldr	r3, [r0, #24]
+ 1453 000e 23F08003 		bic	r3, r3, #128
+ 1454 0012 8361     		str	r3, [r0, #24]
+ 1455 0014 8369     		ldr	r3, [r0, #24]
+ 1456 0016 1A43     		orrs	r2, r2, r3
+ 1457 0018 8261     		str	r2, [r0, #24]
+ 1458 001a 7047     		bx	lr
+ 1459              	.L145:
+ 1460 001c 8369     		ldr	r3, [r0, #24]
+ 1461 001e 23F40043 		bic	r3, r3, #32768
+ARM GAS  /tmp/ccZHBOeV.s 			page 25
+
+
+ 1462 0022 8361     		str	r3, [r0, #24]
+ 1463 0024 8369     		ldr	r3, [r0, #24]
+ 1464 0026 43EA0222 		orr	r2, r3, r2, lsl #8
+ 1465 002a 8261     		str	r2, [r0, #24]
+ 1466 002c 7047     		bx	lr
+ 1467              	.L144:
+ 1468 002e C369     		ldr	r3, [r0, #28]
+ 1469 0030 23F08003 		bic	r3, r3, #128
+ 1470 0034 C361     		str	r3, [r0, #28]
+ 1471 0036 C369     		ldr	r3, [r0, #28]
+ 1472 0038 1A43     		orrs	r2, r2, r3
+ 1473 003a C261     		str	r2, [r0, #28]
+ 1474 003c 7047     		bx	lr
+ 1475              	.L142:
+ 1476 003e C369     		ldr	r3, [r0, #28]
+ 1477 0040 23F40043 		bic	r3, r3, #32768
+ 1478 0044 C361     		str	r3, [r0, #28]
+ 1479 0046 C369     		ldr	r3, [r0, #28]
+ 1480 0048 43EA0222 		orr	r2, r3, r2, lsl #8
+ 1481 004c C261     		str	r2, [r0, #28]
+ 1482              	.L140:
+ 1483 004e 7047     		bx	lr
+ 1485              		.section	.text.timer_channel_output_polarity_config,"ax",%progbits
+ 1486              		.align	1
+ 1487              		.global	timer_channel_output_polarity_config
+ 1488              		.syntax unified
+ 1489              		.thumb
+ 1490              		.thumb_func
+ 1491              		.fpu fpv4-sp-d16
+ 1493              	timer_channel_output_polarity_config:
+ 1494              		@ args = 0, pretend = 0, frame = 0
+ 1495              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1496              		@ link register save eliminated.
+ 1497 0000 0329     		cmp	r1, #3
+ 1498 0002 25D8     		bhi	.L147
+ 1499 0004 DFE801F0 		tbb	[pc, r1]
+ 1500              	.L150:
+ 1501 0008 02       		.byte	(.L153-.L150)/2
+ 1502 0009 0A       		.byte	(.L152-.L150)/2
+ 1503 000a 13       		.byte	(.L151-.L150)/2
+ 1504 000b 1C       		.byte	(.L149-.L150)/2
+ 1505              		.p2align 1
+ 1506              	.L153:
+ 1507 000c 036A     		ldr	r3, [r0, #32]
+ 1508 000e 23F00203 		bic	r3, r3, #2
+ 1509 0012 0362     		str	r3, [r0, #32]
+ 1510 0014 036A     		ldr	r3, [r0, #32]
+ 1511 0016 1A43     		orrs	r2, r2, r3
+ 1512 0018 0262     		str	r2, [r0, #32]
+ 1513 001a 7047     		bx	lr
+ 1514              	.L152:
+ 1515 001c 036A     		ldr	r3, [r0, #32]
+ 1516 001e 23F02003 		bic	r3, r3, #32
+ 1517 0022 0362     		str	r3, [r0, #32]
+ 1518 0024 036A     		ldr	r3, [r0, #32]
+ 1519 0026 43EA0212 		orr	r2, r3, r2, lsl #4
+ 1520 002a 0262     		str	r2, [r0, #32]
+ARM GAS  /tmp/ccZHBOeV.s 			page 26
+
+
+ 1521 002c 7047     		bx	lr
+ 1522              	.L151:
+ 1523 002e 036A     		ldr	r3, [r0, #32]
+ 1524 0030 23F40073 		bic	r3, r3, #512
+ 1525 0034 0362     		str	r3, [r0, #32]
+ 1526 0036 036A     		ldr	r3, [r0, #32]
+ 1527 0038 43EA0222 		orr	r2, r3, r2, lsl #8
+ 1528 003c 0262     		str	r2, [r0, #32]
+ 1529 003e 7047     		bx	lr
+ 1530              	.L149:
+ 1531 0040 036A     		ldr	r3, [r0, #32]
+ 1532 0042 23F40053 		bic	r3, r3, #8192
+ 1533 0046 0362     		str	r3, [r0, #32]
+ 1534 0048 036A     		ldr	r3, [r0, #32]
+ 1535 004a 43EA0232 		orr	r2, r3, r2, lsl #12
+ 1536 004e 0262     		str	r2, [r0, #32]
+ 1537              	.L147:
+ 1538 0050 7047     		bx	lr
+ 1540              		.section	.text.timer_channel_complementary_output_polarity_config,"ax",%progbits
+ 1541              		.align	1
+ 1542              		.global	timer_channel_complementary_output_polarity_config
+ 1543              		.syntax unified
+ 1544              		.thumb
+ 1545              		.thumb_func
+ 1546              		.fpu fpv4-sp-d16
+ 1548              	timer_channel_complementary_output_polarity_config:
+ 1549              		@ args = 0, pretend = 0, frame = 0
+ 1550              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1551              		@ link register save eliminated.
+ 1552 0000 0129     		cmp	r1, #1
+ 1553 0002 0CD0     		beq	.L155
+ 1554 0004 0BB2     		sxth	r3, r1
+ 1555 0006 13B1     		cbz	r3, .L156
+ 1556 0008 0229     		cmp	r1, #2
+ 1557 000a 11D0     		beq	.L157
+ 1558 000c 7047     		bx	lr
+ 1559              	.L156:
+ 1560 000e 036A     		ldr	r3, [r0, #32]
+ 1561 0010 23F00803 		bic	r3, r3, #8
+ 1562 0014 0362     		str	r3, [r0, #32]
+ 1563 0016 036A     		ldr	r3, [r0, #32]
+ 1564 0018 1A43     		orrs	r2, r2, r3
+ 1565 001a 0262     		str	r2, [r0, #32]
+ 1566 001c 7047     		bx	lr
+ 1567              	.L155:
+ 1568 001e 036A     		ldr	r3, [r0, #32]
+ 1569 0020 23F08003 		bic	r3, r3, #128
+ 1570 0024 0362     		str	r3, [r0, #32]
+ 1571 0026 036A     		ldr	r3, [r0, #32]
+ 1572 0028 43EA0212 		orr	r2, r3, r2, lsl #4
+ 1573 002c 0262     		str	r2, [r0, #32]
+ 1574 002e 7047     		bx	lr
+ 1575              	.L157:
+ 1576 0030 036A     		ldr	r3, [r0, #32]
+ 1577 0032 23F40063 		bic	r3, r3, #2048
+ 1578 0036 0362     		str	r3, [r0, #32]
+ 1579 0038 036A     		ldr	r3, [r0, #32]
+ARM GAS  /tmp/ccZHBOeV.s 			page 27
+
+
+ 1580 003a 43EA0222 		orr	r2, r3, r2, lsl #8
+ 1581 003e 0262     		str	r2, [r0, #32]
+ 1582 0040 7047     		bx	lr
+ 1584              		.section	.text.timer_channel_output_state_config,"ax",%progbits
+ 1585              		.align	1
+ 1586              		.global	timer_channel_output_state_config
+ 1587              		.syntax unified
+ 1588              		.thumb
+ 1589              		.thumb_func
+ 1590              		.fpu fpv4-sp-d16
+ 1592              	timer_channel_output_state_config:
+ 1593              		@ args = 0, pretend = 0, frame = 0
+ 1594              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1595              		@ link register save eliminated.
+ 1596 0000 0329     		cmp	r1, #3
+ 1597 0002 25D8     		bhi	.L159
+ 1598 0004 DFE801F0 		tbb	[pc, r1]
+ 1599              	.L162:
+ 1600 0008 02       		.byte	(.L165-.L162)/2
+ 1601 0009 0A       		.byte	(.L164-.L162)/2
+ 1602 000a 13       		.byte	(.L163-.L162)/2
+ 1603 000b 1C       		.byte	(.L161-.L162)/2
+ 1604              		.p2align 1
+ 1605              	.L165:
+ 1606 000c 036A     		ldr	r3, [r0, #32]
+ 1607 000e 23F00103 		bic	r3, r3, #1
+ 1608 0012 0362     		str	r3, [r0, #32]
+ 1609 0014 036A     		ldr	r3, [r0, #32]
+ 1610 0016 1A43     		orrs	r2, r2, r3
+ 1611 0018 0262     		str	r2, [r0, #32]
+ 1612 001a 7047     		bx	lr
+ 1613              	.L164:
+ 1614 001c 036A     		ldr	r3, [r0, #32]
+ 1615 001e 23F01003 		bic	r3, r3, #16
+ 1616 0022 0362     		str	r3, [r0, #32]
+ 1617 0024 036A     		ldr	r3, [r0, #32]
+ 1618 0026 43EA0212 		orr	r2, r3, r2, lsl #4
+ 1619 002a 0262     		str	r2, [r0, #32]
+ 1620 002c 7047     		bx	lr
+ 1621              	.L163:
+ 1622 002e 036A     		ldr	r3, [r0, #32]
+ 1623 0030 23F48073 		bic	r3, r3, #256
+ 1624 0034 0362     		str	r3, [r0, #32]
+ 1625 0036 036A     		ldr	r3, [r0, #32]
+ 1626 0038 43EA0222 		orr	r2, r3, r2, lsl #8
+ 1627 003c 0262     		str	r2, [r0, #32]
+ 1628 003e 7047     		bx	lr
+ 1629              	.L161:
+ 1630 0040 036A     		ldr	r3, [r0, #32]
+ 1631 0042 23F48053 		bic	r3, r3, #4096
+ 1632 0046 0362     		str	r3, [r0, #32]
+ 1633 0048 036A     		ldr	r3, [r0, #32]
+ 1634 004a 43EA0232 		orr	r2, r3, r2, lsl #12
+ 1635 004e 0262     		str	r2, [r0, #32]
+ 1636              	.L159:
+ 1637 0050 7047     		bx	lr
+ 1639              		.section	.text.timer_channel_complementary_output_state_config,"ax",%progbits
+ARM GAS  /tmp/ccZHBOeV.s 			page 28
+
+
+ 1640              		.align	1
+ 1641              		.global	timer_channel_complementary_output_state_config
+ 1642              		.syntax unified
+ 1643              		.thumb
+ 1644              		.thumb_func
+ 1645              		.fpu fpv4-sp-d16
+ 1647              	timer_channel_complementary_output_state_config:
+ 1648              		@ args = 0, pretend = 0, frame = 0
+ 1649              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1650              		@ link register save eliminated.
+ 1651 0000 0129     		cmp	r1, #1
+ 1652 0002 0CD0     		beq	.L167
+ 1653 0004 0BB2     		sxth	r3, r1
+ 1654 0006 13B1     		cbz	r3, .L168
+ 1655 0008 0229     		cmp	r1, #2
+ 1656 000a 11D0     		beq	.L169
+ 1657 000c 7047     		bx	lr
+ 1658              	.L168:
+ 1659 000e 036A     		ldr	r3, [r0, #32]
+ 1660 0010 23F00403 		bic	r3, r3, #4
+ 1661 0014 0362     		str	r3, [r0, #32]
+ 1662 0016 036A     		ldr	r3, [r0, #32]
+ 1663 0018 1A43     		orrs	r2, r2, r3
+ 1664 001a 0262     		str	r2, [r0, #32]
+ 1665 001c 7047     		bx	lr
+ 1666              	.L167:
+ 1667 001e 036A     		ldr	r3, [r0, #32]
+ 1668 0020 23F04003 		bic	r3, r3, #64
+ 1669 0024 0362     		str	r3, [r0, #32]
+ 1670 0026 036A     		ldr	r3, [r0, #32]
+ 1671 0028 43EA0212 		orr	r2, r3, r2, lsl #4
+ 1672 002c 0262     		str	r2, [r0, #32]
+ 1673 002e 7047     		bx	lr
+ 1674              	.L169:
+ 1675 0030 036A     		ldr	r3, [r0, #32]
+ 1676 0032 23F48063 		bic	r3, r3, #1024
+ 1677 0036 0362     		str	r3, [r0, #32]
+ 1678 0038 036A     		ldr	r3, [r0, #32]
+ 1679 003a 43EA0222 		orr	r2, r3, r2, lsl #8
+ 1680 003e 0262     		str	r2, [r0, #32]
+ 1681 0040 7047     		bx	lr
+ 1683              		.section	.text.timer_channel_input_struct_para_init,"ax",%progbits
+ 1684              		.align	1
+ 1685              		.global	timer_channel_input_struct_para_init
+ 1686              		.syntax unified
+ 1687              		.thumb
+ 1688              		.thumb_func
+ 1689              		.fpu fpv4-sp-d16
+ 1691              	timer_channel_input_struct_para_init:
+ 1692              		@ args = 0, pretend = 0, frame = 0
+ 1693              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1694              		@ link register save eliminated.
+ 1695 0000 0023     		movs	r3, #0
+ 1696 0002 0380     		strh	r3, [r0]	@ movhi
+ 1697 0004 0122     		movs	r2, #1
+ 1698 0006 4280     		strh	r2, [r0, #2]	@ movhi
+ 1699 0008 8380     		strh	r3, [r0, #4]	@ movhi
+ARM GAS  /tmp/ccZHBOeV.s 			page 29
+
+
+ 1700 000a C380     		strh	r3, [r0, #6]	@ movhi
+ 1701 000c 7047     		bx	lr
+ 1703              		.section	.text.timer_channel_input_capture_prescaler_config,"ax",%progbits
+ 1704              		.align	1
+ 1705              		.global	timer_channel_input_capture_prescaler_config
+ 1706              		.syntax unified
+ 1707              		.thumb
+ 1708              		.thumb_func
+ 1709              		.fpu fpv4-sp-d16
+ 1711              	timer_channel_input_capture_prescaler_config:
+ 1712              		@ args = 0, pretend = 0, frame = 0
+ 1713              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1714              		@ link register save eliminated.
+ 1715 0000 0329     		cmp	r1, #3
+ 1716 0002 24D8     		bhi	.L172
+ 1717 0004 DFE801F0 		tbb	[pc, r1]
+ 1718              	.L175:
+ 1719 0008 02       		.byte	(.L178-.L175)/2
+ 1720 0009 0A       		.byte	(.L177-.L175)/2
+ 1721 000a 13       		.byte	(.L176-.L175)/2
+ 1722 000b 1B       		.byte	(.L174-.L175)/2
+ 1723              		.p2align 1
+ 1724              	.L178:
+ 1725 000c 8369     		ldr	r3, [r0, #24]
+ 1726 000e 23F00C03 		bic	r3, r3, #12
+ 1727 0012 8361     		str	r3, [r0, #24]
+ 1728 0014 8369     		ldr	r3, [r0, #24]
+ 1729 0016 1A43     		orrs	r2, r2, r3
+ 1730 0018 8261     		str	r2, [r0, #24]
+ 1731 001a 7047     		bx	lr
+ 1732              	.L177:
+ 1733 001c 8369     		ldr	r3, [r0, #24]
+ 1734 001e 23F44063 		bic	r3, r3, #3072
+ 1735 0022 8361     		str	r3, [r0, #24]
+ 1736 0024 8369     		ldr	r3, [r0, #24]
+ 1737 0026 43EA0222 		orr	r2, r3, r2, lsl #8
+ 1738 002a 8261     		str	r2, [r0, #24]
+ 1739 002c 7047     		bx	lr
+ 1740              	.L176:
+ 1741 002e C369     		ldr	r3, [r0, #28]
+ 1742 0030 23F00C03 		bic	r3, r3, #12
+ 1743 0034 C361     		str	r3, [r0, #28]
+ 1744 0036 C369     		ldr	r3, [r0, #28]
+ 1745 0038 1A43     		orrs	r2, r2, r3
+ 1746 003a C261     		str	r2, [r0, #28]
+ 1747 003c 7047     		bx	lr
+ 1748              	.L174:
+ 1749 003e C369     		ldr	r3, [r0, #28]
+ 1750 0040 23F44063 		bic	r3, r3, #3072
+ 1751 0044 C361     		str	r3, [r0, #28]
+ 1752 0046 C369     		ldr	r3, [r0, #28]
+ 1753 0048 43EA0222 		orr	r2, r3, r2, lsl #8
+ 1754 004c C261     		str	r2, [r0, #28]
+ 1755              	.L172:
+ 1756 004e 7047     		bx	lr
+ 1758              		.section	.text.timer_input_capture_config,"ax",%progbits
+ 1759              		.align	1
+ARM GAS  /tmp/ccZHBOeV.s 			page 30
+
+
+ 1760              		.global	timer_input_capture_config
+ 1761              		.syntax unified
+ 1762              		.thumb
+ 1763              		.thumb_func
+ 1764              		.fpu fpv4-sp-d16
+ 1766              	timer_input_capture_config:
+ 1767              		@ args = 0, pretend = 0, frame = 0
+ 1768              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1769 0000 10B5     		push	{r4, lr}
+ 1770 0002 0329     		cmp	r1, #3
+ 1771 0004 24D8     		bhi	.L180
+ 1772 0006 DFE801F0 		tbb	[pc, r1]
+ 1773              	.L182:
+ 1774 000a 02       		.byte	(.L185-.L182)/2
+ 1775 000b 27       		.byte	(.L184-.L182)/2
+ 1776 000c 4B       		.byte	(.L183-.L182)/2
+ 1777 000d 6E       		.byte	(.L181-.L182)/2
+ 1778              		.p2align 1
+ 1779              	.L185:
+ 1780 000e 036A     		ldr	r3, [r0, #32]
+ 1781 0010 23F00103 		bic	r3, r3, #1
+ 1782 0014 0362     		str	r3, [r0, #32]
+ 1783 0016 036A     		ldr	r3, [r0, #32]
+ 1784 0018 23F00A03 		bic	r3, r3, #10
+ 1785 001c 0362     		str	r3, [r0, #32]
+ 1786 001e 036A     		ldr	r3, [r0, #32]
+ 1787 0020 1488     		ldrh	r4, [r2]
+ 1788 0022 2343     		orrs	r3, r3, r4
+ 1789 0024 0362     		str	r3, [r0, #32]
+ 1790 0026 8369     		ldr	r3, [r0, #24]
+ 1791 0028 23F00303 		bic	r3, r3, #3
+ 1792 002c 8361     		str	r3, [r0, #24]
+ 1793 002e 8369     		ldr	r3, [r0, #24]
+ 1794 0030 5488     		ldrh	r4, [r2, #2]
+ 1795 0032 2343     		orrs	r3, r3, r4
+ 1796 0034 8361     		str	r3, [r0, #24]
+ 1797 0036 8369     		ldr	r3, [r0, #24]
+ 1798 0038 23F0F003 		bic	r3, r3, #240
+ 1799 003c 8361     		str	r3, [r0, #24]
+ 1800 003e 8369     		ldr	r3, [r0, #24]
+ 1801 0040 D488     		ldrh	r4, [r2, #6]
+ 1802 0042 43EA0413 		orr	r3, r3, r4, lsl #4
+ 1803 0046 8361     		str	r3, [r0, #24]
+ 1804 0048 036A     		ldr	r3, [r0, #32]
+ 1805 004a 43F00103 		orr	r3, r3, #1
+ 1806 004e 0362     		str	r3, [r0, #32]
+ 1807              	.L180:
+ 1808 0050 9288     		ldrh	r2, [r2, #4]
+ 1809 0052 FFF7FEFF 		bl	timer_channel_input_capture_prescaler_config
+ 1810 0056 10BD     		pop	{r4, pc}
+ 1811              	.L184:
+ 1812 0058 036A     		ldr	r3, [r0, #32]
+ 1813 005a 23F01003 		bic	r3, r3, #16
+ 1814 005e 0362     		str	r3, [r0, #32]
+ 1815 0060 036A     		ldr	r3, [r0, #32]
+ 1816 0062 23F0A003 		bic	r3, r3, #160
+ 1817 0066 0362     		str	r3, [r0, #32]
+ARM GAS  /tmp/ccZHBOeV.s 			page 31
+
+
+ 1818 0068 036A     		ldr	r3, [r0, #32]
+ 1819 006a 1488     		ldrh	r4, [r2]
+ 1820 006c 43EA0413 		orr	r3, r3, r4, lsl #4
+ 1821 0070 0362     		str	r3, [r0, #32]
+ 1822 0072 8369     		ldr	r3, [r0, #24]
+ 1823 0074 23F44073 		bic	r3, r3, #768
+ 1824 0078 8361     		str	r3, [r0, #24]
+ 1825 007a 8369     		ldr	r3, [r0, #24]
+ 1826 007c 5488     		ldrh	r4, [r2, #2]
+ 1827 007e 43EA0423 		orr	r3, r3, r4, lsl #8
+ 1828 0082 8361     		str	r3, [r0, #24]
+ 1829 0084 8369     		ldr	r3, [r0, #24]
+ 1830 0086 23F47043 		bic	r3, r3, #61440
+ 1831 008a 8361     		str	r3, [r0, #24]
+ 1832 008c 8369     		ldr	r3, [r0, #24]
+ 1833 008e D488     		ldrh	r4, [r2, #6]
+ 1834 0090 43EA0433 		orr	r3, r3, r4, lsl #12
+ 1835 0094 8361     		str	r3, [r0, #24]
+ 1836 0096 036A     		ldr	r3, [r0, #32]
+ 1837 0098 43F01003 		orr	r3, r3, #16
+ 1838 009c 0362     		str	r3, [r0, #32]
+ 1839 009e D7E7     		b	.L180
+ 1840              	.L183:
+ 1841 00a0 036A     		ldr	r3, [r0, #32]
+ 1842 00a2 23F48073 		bic	r3, r3, #256
+ 1843 00a6 0362     		str	r3, [r0, #32]
+ 1844 00a8 036A     		ldr	r3, [r0, #32]
+ 1845 00aa 23F42063 		bic	r3, r3, #2560
+ 1846 00ae 0362     		str	r3, [r0, #32]
+ 1847 00b0 036A     		ldr	r3, [r0, #32]
+ 1848 00b2 1488     		ldrh	r4, [r2]
+ 1849 00b4 43EA0423 		orr	r3, r3, r4, lsl #8
+ 1850 00b8 0362     		str	r3, [r0, #32]
+ 1851 00ba C369     		ldr	r3, [r0, #28]
+ 1852 00bc 23F00303 		bic	r3, r3, #3
+ 1853 00c0 C361     		str	r3, [r0, #28]
+ 1854 00c2 C369     		ldr	r3, [r0, #28]
+ 1855 00c4 5488     		ldrh	r4, [r2, #2]
+ 1856 00c6 2343     		orrs	r3, r3, r4
+ 1857 00c8 C361     		str	r3, [r0, #28]
+ 1858 00ca C369     		ldr	r3, [r0, #28]
+ 1859 00cc 23F0F003 		bic	r3, r3, #240
+ 1860 00d0 C361     		str	r3, [r0, #28]
+ 1861 00d2 C369     		ldr	r3, [r0, #28]
+ 1862 00d4 D488     		ldrh	r4, [r2, #6]
+ 1863 00d6 43EA0413 		orr	r3, r3, r4, lsl #4
+ 1864 00da C361     		str	r3, [r0, #28]
+ 1865 00dc 036A     		ldr	r3, [r0, #32]
+ 1866 00de 43F48073 		orr	r3, r3, #256
+ 1867 00e2 0362     		str	r3, [r0, #32]
+ 1868 00e4 B4E7     		b	.L180
+ 1869              	.L181:
+ 1870 00e6 036A     		ldr	r3, [r0, #32]
+ 1871 00e8 23F48053 		bic	r3, r3, #4096
+ 1872 00ec 0362     		str	r3, [r0, #32]
+ 1873 00ee 036A     		ldr	r3, [r0, #32]
+ 1874 00f0 23F40053 		bic	r3, r3, #8192
+ARM GAS  /tmp/ccZHBOeV.s 			page 32
+
+
+ 1875 00f4 0362     		str	r3, [r0, #32]
+ 1876 00f6 036A     		ldr	r3, [r0, #32]
+ 1877 00f8 1488     		ldrh	r4, [r2]
+ 1878 00fa 43EA0433 		orr	r3, r3, r4, lsl #12
+ 1879 00fe 0362     		str	r3, [r0, #32]
+ 1880 0100 C369     		ldr	r3, [r0, #28]
+ 1881 0102 23F44073 		bic	r3, r3, #768
+ 1882 0106 C361     		str	r3, [r0, #28]
+ 1883 0108 C369     		ldr	r3, [r0, #28]
+ 1884 010a 5488     		ldrh	r4, [r2, #2]
+ 1885 010c 43EA0423 		orr	r3, r3, r4, lsl #8
+ 1886 0110 C361     		str	r3, [r0, #28]
+ 1887 0112 C369     		ldr	r3, [r0, #28]
+ 1888 0114 23F47043 		bic	r3, r3, #61440
+ 1889 0118 C361     		str	r3, [r0, #28]
+ 1890 011a C369     		ldr	r3, [r0, #28]
+ 1891 011c D488     		ldrh	r4, [r2, #6]
+ 1892 011e 43EA0433 		orr	r3, r3, r4, lsl #12
+ 1893 0122 C361     		str	r3, [r0, #28]
+ 1894 0124 036A     		ldr	r3, [r0, #32]
+ 1895 0126 43F48053 		orr	r3, r3, #4096
+ 1896 012a 0362     		str	r3, [r0, #32]
+ 1897 012c 90E7     		b	.L180
+ 1899              		.section	.text.timer_channel_capture_value_register_read,"ax",%progbits
+ 1900              		.align	1
+ 1901              		.global	timer_channel_capture_value_register_read
+ 1902              		.syntax unified
+ 1903              		.thumb
+ 1904              		.thumb_func
+ 1905              		.fpu fpv4-sp-d16
+ 1907              	timer_channel_capture_value_register_read:
+ 1908              		@ args = 0, pretend = 0, frame = 0
+ 1909              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1910              		@ link register save eliminated.
+ 1911 0000 0329     		cmp	r1, #3
+ 1912 0002 0BD8     		bhi	.L194
+ 1913 0004 DFE801F0 		tbb	[pc, r1]
+ 1914              	.L190:
+ 1915 0008 02       		.byte	(.L193-.L190)/2
+ 1916 0009 04       		.byte	(.L192-.L190)/2
+ 1917 000a 06       		.byte	(.L191-.L190)/2
+ 1918 000b 08       		.byte	(.L189-.L190)/2
+ 1919              		.p2align 1
+ 1920              	.L193:
+ 1921 000c 406B     		ldr	r0, [r0, #52]
+ 1922 000e 7047     		bx	lr
+ 1923              	.L192:
+ 1924 0010 806B     		ldr	r0, [r0, #56]
+ 1925 0012 7047     		bx	lr
+ 1926              	.L191:
+ 1927 0014 C06B     		ldr	r0, [r0, #60]
+ 1928 0016 7047     		bx	lr
+ 1929              	.L189:
+ 1930 0018 006C     		ldr	r0, [r0, #64]
+ 1931 001a 7047     		bx	lr
+ 1932              	.L194:
+ 1933 001c 0020     		movs	r0, #0
+ARM GAS  /tmp/ccZHBOeV.s 			page 33
+
+
+ 1934 001e 7047     		bx	lr
+ 1936              		.section	.text.timer_input_pwm_capture_config,"ax",%progbits
+ 1937              		.align	1
+ 1938              		.global	timer_input_pwm_capture_config
+ 1939              		.syntax unified
+ 1940              		.thumb
+ 1941              		.thumb_func
+ 1942              		.fpu fpv4-sp-d16
+ 1944              	timer_input_pwm_capture_config:
+ 1945              		@ args = 0, pretend = 0, frame = 0
+ 1946              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1947 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1948 0002 0446     		mov	r4, r0
+ 1949 0004 1546     		mov	r5, r2
+ 1950 0006 1388     		ldrh	r3, [r2]
+ 1951 0008 002B     		cmp	r3, #0
+ 1952 000a 52D1     		bne	.L200
+ 1953 000c 0227     		movs	r7, #2
+ 1954              	.L196:
+ 1955 000e 6B88     		ldrh	r3, [r5, #2]
+ 1956 0010 012B     		cmp	r3, #1
+ 1957 0012 50D0     		beq	.L203
+ 1958 0014 0126     		movs	r6, #1
+ 1959              	.L197:
+ 1960 0016 0029     		cmp	r1, #0
+ 1961 0018 4FD1     		bne	.L198
+ 1962 001a 236A     		ldr	r3, [r4, #32]
+ 1963 001c 23F00103 		bic	r3, r3, #1
+ 1964 0020 2362     		str	r3, [r4, #32]
+ 1965 0022 236A     		ldr	r3, [r4, #32]
+ 1966 0024 23F00A03 		bic	r3, r3, #10
+ 1967 0028 2362     		str	r3, [r4, #32]
+ 1968 002a 236A     		ldr	r3, [r4, #32]
+ 1969 002c 2A88     		ldrh	r2, [r5]
+ 1970 002e 1343     		orrs	r3, r3, r2
+ 1971 0030 2362     		str	r3, [r4, #32]
+ 1972 0032 A369     		ldr	r3, [r4, #24]
+ 1973 0034 23F00303 		bic	r3, r3, #3
+ 1974 0038 A361     		str	r3, [r4, #24]
+ 1975 003a A369     		ldr	r3, [r4, #24]
+ 1976 003c 6A88     		ldrh	r2, [r5, #2]
+ 1977 003e 1343     		orrs	r3, r3, r2
+ 1978 0040 A361     		str	r3, [r4, #24]
+ 1979 0042 A369     		ldr	r3, [r4, #24]
+ 1980 0044 23F0F003 		bic	r3, r3, #240
+ 1981 0048 A361     		str	r3, [r4, #24]
+ 1982 004a A369     		ldr	r3, [r4, #24]
+ 1983 004c EA88     		ldrh	r2, [r5, #6]
+ 1984 004e 43EA0213 		orr	r3, r3, r2, lsl #4
+ 1985 0052 A361     		str	r3, [r4, #24]
+ 1986 0054 236A     		ldr	r3, [r4, #32]
+ 1987 0056 43F00103 		orr	r3, r3, #1
+ 1988 005a 2362     		str	r3, [r4, #32]
+ 1989 005c AA88     		ldrh	r2, [r5, #4]
+ 1990 005e 2046     		mov	r0, r4
+ 1991 0060 FFF7FEFF 		bl	timer_channel_input_capture_prescaler_config
+ 1992 0064 236A     		ldr	r3, [r4, #32]
+ARM GAS  /tmp/ccZHBOeV.s 			page 34
+
+
+ 1993 0066 23F01003 		bic	r3, r3, #16
+ 1994 006a 2362     		str	r3, [r4, #32]
+ 1995 006c 236A     		ldr	r3, [r4, #32]
+ 1996 006e 23F0A003 		bic	r3, r3, #160
+ 1997 0072 2362     		str	r3, [r4, #32]
+ 1998 0074 236A     		ldr	r3, [r4, #32]
+ 1999 0076 43EA0713 		orr	r3, r3, r7, lsl #4
+ 2000 007a 2362     		str	r3, [r4, #32]
+ 2001 007c A369     		ldr	r3, [r4, #24]
+ 2002 007e 23F44073 		bic	r3, r3, #768
+ 2003 0082 A361     		str	r3, [r4, #24]
+ 2004 0084 A369     		ldr	r3, [r4, #24]
+ 2005 0086 43EA0623 		orr	r3, r3, r6, lsl #8
+ 2006 008a A361     		str	r3, [r4, #24]
+ 2007 008c A369     		ldr	r3, [r4, #24]
+ 2008 008e 23F47043 		bic	r3, r3, #61440
+ 2009 0092 A361     		str	r3, [r4, #24]
+ 2010 0094 A369     		ldr	r3, [r4, #24]
+ 2011 0096 EA88     		ldrh	r2, [r5, #6]
+ 2012 0098 43EA0233 		orr	r3, r3, r2, lsl #12
+ 2013 009c A361     		str	r3, [r4, #24]
+ 2014 009e 236A     		ldr	r3, [r4, #32]
+ 2015 00a0 43F01003 		orr	r3, r3, #16
+ 2016 00a4 2362     		str	r3, [r4, #32]
+ 2017 00a6 AA88     		ldrh	r2, [r5, #4]
+ 2018 00a8 0121     		movs	r1, #1
+ 2019 00aa 2046     		mov	r0, r4
+ 2020 00ac FFF7FEFF 		bl	timer_channel_input_capture_prescaler_config
+ 2021              	.L195:
+ 2022 00b0 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 2023              	.L200:
+ 2024 00b2 0027     		movs	r7, #0
+ 2025 00b4 ABE7     		b	.L196
+ 2026              	.L203:
+ 2027 00b6 0226     		movs	r6, #2
+ 2028 00b8 ADE7     		b	.L197
+ 2029              	.L198:
+ 2030 00ba 236A     		ldr	r3, [r4, #32]
+ 2031 00bc 23F01003 		bic	r3, r3, #16
+ 2032 00c0 2362     		str	r3, [r4, #32]
+ 2033 00c2 236A     		ldr	r3, [r4, #32]
+ 2034 00c4 23F0A003 		bic	r3, r3, #160
+ 2035 00c8 2362     		str	r3, [r4, #32]
+ 2036 00ca 236A     		ldr	r3, [r4, #32]
+ 2037 00cc 2A88     		ldrh	r2, [r5]
+ 2038 00ce 43EA0213 		orr	r3, r3, r2, lsl #4
+ 2039 00d2 2362     		str	r3, [r4, #32]
+ 2040 00d4 A369     		ldr	r3, [r4, #24]
+ 2041 00d6 23F44073 		bic	r3, r3, #768
+ 2042 00da A361     		str	r3, [r4, #24]
+ 2043 00dc A369     		ldr	r3, [r4, #24]
+ 2044 00de 6A88     		ldrh	r2, [r5, #2]
+ 2045 00e0 43EA0223 		orr	r3, r3, r2, lsl #8
+ 2046 00e4 A361     		str	r3, [r4, #24]
+ 2047 00e6 A369     		ldr	r3, [r4, #24]
+ 2048 00e8 23F47043 		bic	r3, r3, #61440
+ 2049 00ec A361     		str	r3, [r4, #24]
+ARM GAS  /tmp/ccZHBOeV.s 			page 35
+
+
+ 2050 00ee A369     		ldr	r3, [r4, #24]
+ 2051 00f0 EA88     		ldrh	r2, [r5, #6]
+ 2052 00f2 43EA0233 		orr	r3, r3, r2, lsl #12
+ 2053 00f6 A361     		str	r3, [r4, #24]
+ 2054 00f8 236A     		ldr	r3, [r4, #32]
+ 2055 00fa 43F01003 		orr	r3, r3, #16
+ 2056 00fe 2362     		str	r3, [r4, #32]
+ 2057 0100 AA88     		ldrh	r2, [r5, #4]
+ 2058 0102 0121     		movs	r1, #1
+ 2059 0104 2046     		mov	r0, r4
+ 2060 0106 FFF7FEFF 		bl	timer_channel_input_capture_prescaler_config
+ 2061 010a 236A     		ldr	r3, [r4, #32]
+ 2062 010c 23F00103 		bic	r3, r3, #1
+ 2063 0110 2362     		str	r3, [r4, #32]
+ 2064 0112 236A     		ldr	r3, [r4, #32]
+ 2065 0114 23F00A03 		bic	r3, r3, #10
+ 2066 0118 2362     		str	r3, [r4, #32]
+ 2067 011a 236A     		ldr	r3, [r4, #32]
+ 2068 011c 3B43     		orrs	r3, r3, r7
+ 2069 011e 2362     		str	r3, [r4, #32]
+ 2070 0120 A369     		ldr	r3, [r4, #24]
+ 2071 0122 23F00303 		bic	r3, r3, #3
+ 2072 0126 A361     		str	r3, [r4, #24]
+ 2073 0128 A369     		ldr	r3, [r4, #24]
+ 2074 012a 3343     		orrs	r3, r3, r6
+ 2075 012c A361     		str	r3, [r4, #24]
+ 2076 012e A369     		ldr	r3, [r4, #24]
+ 2077 0130 23F0F003 		bic	r3, r3, #240
+ 2078 0134 A361     		str	r3, [r4, #24]
+ 2079 0136 A369     		ldr	r3, [r4, #24]
+ 2080 0138 EA88     		ldrh	r2, [r5, #6]
+ 2081 013a 43EA0213 		orr	r3, r3, r2, lsl #4
+ 2082 013e A361     		str	r3, [r4, #24]
+ 2083 0140 236A     		ldr	r3, [r4, #32]
+ 2084 0142 43F00103 		orr	r3, r3, #1
+ 2085 0146 2362     		str	r3, [r4, #32]
+ 2086 0148 AA88     		ldrh	r2, [r5, #4]
+ 2087 014a 0021     		movs	r1, #0
+ 2088 014c 2046     		mov	r0, r4
+ 2089 014e FFF7FEFF 		bl	timer_channel_input_capture_prescaler_config
+ 2090 0152 ADE7     		b	.L195
+ 2092              		.section	.text.timer_hall_mode_config,"ax",%progbits
+ 2093              		.align	1
+ 2094              		.global	timer_hall_mode_config
+ 2095              		.syntax unified
+ 2096              		.thumb
+ 2097              		.thumb_func
+ 2098              		.fpu fpv4-sp-d16
+ 2100              	timer_hall_mode_config:
+ 2101              		@ args = 0, pretend = 0, frame = 0
+ 2102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2103              		@ link register save eliminated.
+ 2104 0000 21B9     		cbnz	r1, .L205
+ 2105 0002 4368     		ldr	r3, [r0, #4]
+ 2106 0004 43F08003 		orr	r3, r3, #128
+ 2107 0008 4360     		str	r3, [r0, #4]
+ 2108 000a 7047     		bx	lr
+ARM GAS  /tmp/ccZHBOeV.s 			page 36
+
+
+ 2109              	.L205:
+ 2110 000c 0129     		cmp	r1, #1
+ 2111 000e 00D0     		beq	.L207
+ 2112              	.L204:
+ 2113 0010 7047     		bx	lr
+ 2114              	.L207:
+ 2115 0012 4368     		ldr	r3, [r0, #4]
+ 2116 0014 23F08003 		bic	r3, r3, #128
+ 2117 0018 4360     		str	r3, [r0, #4]
+ 2118 001a F9E7     		b	.L204
+ 2120              		.section	.text.timer_input_trigger_source_select,"ax",%progbits
+ 2121              		.align	1
+ 2122              		.global	timer_input_trigger_source_select
+ 2123              		.syntax unified
+ 2124              		.thumb
+ 2125              		.thumb_func
+ 2126              		.fpu fpv4-sp-d16
+ 2128              	timer_input_trigger_source_select:
+ 2129              		@ args = 0, pretend = 0, frame = 0
+ 2130              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2131              		@ link register save eliminated.
+ 2132 0000 8368     		ldr	r3, [r0, #8]
+ 2133 0002 23F07003 		bic	r3, r3, #112
+ 2134 0006 8360     		str	r3, [r0, #8]
+ 2135 0008 8368     		ldr	r3, [r0, #8]
+ 2136 000a 1943     		orrs	r1, r1, r3
+ 2137 000c 8160     		str	r1, [r0, #8]
+ 2138 000e 7047     		bx	lr
+ 2140              		.section	.text.timer_master_output_trigger_source_select,"ax",%progbits
+ 2141              		.align	1
+ 2142              		.global	timer_master_output_trigger_source_select
+ 2143              		.syntax unified
+ 2144              		.thumb
+ 2145              		.thumb_func
+ 2146              		.fpu fpv4-sp-d16
+ 2148              	timer_master_output_trigger_source_select:
+ 2149              		@ args = 0, pretend = 0, frame = 0
+ 2150              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2151              		@ link register save eliminated.
+ 2152 0000 4368     		ldr	r3, [r0, #4]
+ 2153 0002 23F07003 		bic	r3, r3, #112
+ 2154 0006 4360     		str	r3, [r0, #4]
+ 2155 0008 4368     		ldr	r3, [r0, #4]
+ 2156 000a 1943     		orrs	r1, r1, r3
+ 2157 000c 4160     		str	r1, [r0, #4]
+ 2158 000e 7047     		bx	lr
+ 2160              		.section	.text.timer_slave_mode_select,"ax",%progbits
+ 2161              		.align	1
+ 2162              		.global	timer_slave_mode_select
+ 2163              		.syntax unified
+ 2164              		.thumb
+ 2165              		.thumb_func
+ 2166              		.fpu fpv4-sp-d16
+ 2168              	timer_slave_mode_select:
+ 2169              		@ args = 0, pretend = 0, frame = 0
+ 2170              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2171              		@ link register save eliminated.
+ARM GAS  /tmp/ccZHBOeV.s 			page 37
+
+
+ 2172 0000 8368     		ldr	r3, [r0, #8]
+ 2173 0002 23F00703 		bic	r3, r3, #7
+ 2174 0006 8360     		str	r3, [r0, #8]
+ 2175 0008 8368     		ldr	r3, [r0, #8]
+ 2176 000a 1943     		orrs	r1, r1, r3
+ 2177 000c 8160     		str	r1, [r0, #8]
+ 2178 000e 7047     		bx	lr
+ 2180              		.section	.text.timer_master_slave_mode_config,"ax",%progbits
+ 2181              		.align	1
+ 2182              		.global	timer_master_slave_mode_config
+ 2183              		.syntax unified
+ 2184              		.thumb
+ 2185              		.thumb_func
+ 2186              		.fpu fpv4-sp-d16
+ 2188              	timer_master_slave_mode_config:
+ 2189              		@ args = 0, pretend = 0, frame = 0
+ 2190              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2191              		@ link register save eliminated.
+ 2192 0000 21B9     		cbnz	r1, .L212
+ 2193 0002 8368     		ldr	r3, [r0, #8]
+ 2194 0004 43F08003 		orr	r3, r3, #128
+ 2195 0008 8360     		str	r3, [r0, #8]
+ 2196 000a 7047     		bx	lr
+ 2197              	.L212:
+ 2198 000c 0129     		cmp	r1, #1
+ 2199 000e 00D0     		beq	.L214
+ 2200              	.L211:
+ 2201 0010 7047     		bx	lr
+ 2202              	.L214:
+ 2203 0012 8368     		ldr	r3, [r0, #8]
+ 2204 0014 23F08003 		bic	r3, r3, #128
+ 2205 0018 8360     		str	r3, [r0, #8]
+ 2206 001a F9E7     		b	.L211
+ 2208              		.section	.text.timer_external_trigger_config,"ax",%progbits
+ 2209              		.align	1
+ 2210              		.global	timer_external_trigger_config
+ 2211              		.syntax unified
+ 2212              		.thumb
+ 2213              		.thumb_func
+ 2214              		.fpu fpv4-sp-d16
+ 2216              	timer_external_trigger_config:
+ 2217              		@ args = 0, pretend = 0, frame = 0
+ 2218              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2219              		@ link register save eliminated.
+ 2220 0000 10B4     		push	{r4}
+ 2221 0002 8468     		ldr	r4, [r0, #8]
+ 2222 0004 24F43F44 		bic	r4, r4, #48896
+ 2223 0008 8460     		str	r4, [r0, #8]
+ 2224 000a 8468     		ldr	r4, [r0, #8]
+ 2225 000c 0A43     		orrs	r2, r2, r1
+ 2226 000e 1443     		orrs	r4, r4, r2
+ 2227 0010 8460     		str	r4, [r0, #8]
+ 2228 0012 8268     		ldr	r2, [r0, #8]
+ 2229 0014 42EA0323 		orr	r3, r2, r3, lsl #8
+ 2230 0018 8360     		str	r3, [r0, #8]
+ 2231 001a 5DF8044B 		ldr	r4, [sp], #4
+ 2232 001e 7047     		bx	lr
+ARM GAS  /tmp/ccZHBOeV.s 			page 38
+
+
+ 2234              		.section	.text.timer_quadrature_decoder_mode_config,"ax",%progbits
+ 2235              		.align	1
+ 2236              		.global	timer_quadrature_decoder_mode_config
+ 2237              		.syntax unified
+ 2238              		.thumb
+ 2239              		.thumb_func
+ 2240              		.fpu fpv4-sp-d16
+ 2242              	timer_quadrature_decoder_mode_config:
+ 2243              		@ args = 0, pretend = 0, frame = 0
+ 2244              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2245              		@ link register save eliminated.
+ 2246 0000 10B4     		push	{r4}
+ 2247 0002 8468     		ldr	r4, [r0, #8]
+ 2248 0004 24F00704 		bic	r4, r4, #7
+ 2249 0008 8460     		str	r4, [r0, #8]
+ 2250 000a 8468     		ldr	r4, [r0, #8]
+ 2251 000c 2143     		orrs	r1, r1, r4
+ 2252 000e 8160     		str	r1, [r0, #8]
+ 2253 0010 8169     		ldr	r1, [r0, #24]
+ 2254 0012 21F44071 		bic	r1, r1, #768
+ 2255 0016 21F00301 		bic	r1, r1, #3
+ 2256 001a 8161     		str	r1, [r0, #24]
+ 2257 001c 8169     		ldr	r1, [r0, #24]
+ 2258 001e 41F48071 		orr	r1, r1, #256
+ 2259 0022 41F00101 		orr	r1, r1, #1
+ 2260 0026 8161     		str	r1, [r0, #24]
+ 2261 0028 016A     		ldr	r1, [r0, #32]
+ 2262 002a 21F00A01 		bic	r1, r1, #10
+ 2263 002e 0162     		str	r1, [r0, #32]
+ 2264 0030 016A     		ldr	r1, [r0, #32]
+ 2265 0032 21F0A001 		bic	r1, r1, #160
+ 2266 0036 0162     		str	r1, [r0, #32]
+ 2267 0038 016A     		ldr	r1, [r0, #32]
+ 2268 003a 42EA0313 		orr	r3, r2, r3, lsl #4
+ 2269 003e 1943     		orrs	r1, r1, r3
+ 2270 0040 0162     		str	r1, [r0, #32]
+ 2271 0042 5DF8044B 		ldr	r4, [sp], #4
+ 2272 0046 7047     		bx	lr
+ 2274              		.section	.text.timer_internal_clock_config,"ax",%progbits
+ 2275              		.align	1
+ 2276              		.global	timer_internal_clock_config
+ 2277              		.syntax unified
+ 2278              		.thumb
+ 2279              		.thumb_func
+ 2280              		.fpu fpv4-sp-d16
+ 2282              	timer_internal_clock_config:
+ 2283              		@ args = 0, pretend = 0, frame = 0
+ 2284              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2285              		@ link register save eliminated.
+ 2286 0000 8368     		ldr	r3, [r0, #8]
+ 2287 0002 23F00703 		bic	r3, r3, #7
+ 2288 0006 8360     		str	r3, [r0, #8]
+ 2289 0008 7047     		bx	lr
+ 2291              		.section	.text.timer_internal_trigger_as_external_clock_config,"ax",%progbits
+ 2292              		.align	1
+ 2293              		.global	timer_internal_trigger_as_external_clock_config
+ 2294              		.syntax unified
+ARM GAS  /tmp/ccZHBOeV.s 			page 39
+
+
+ 2295              		.thumb
+ 2296              		.thumb_func
+ 2297              		.fpu fpv4-sp-d16
+ 2299              	timer_internal_trigger_as_external_clock_config:
+ 2300              		@ args = 0, pretend = 0, frame = 0
+ 2301              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2302 0000 10B5     		push	{r4, lr}
+ 2303 0002 0446     		mov	r4, r0
+ 2304 0004 FFF7FEFF 		bl	timer_input_trigger_source_select
+ 2305 0008 A368     		ldr	r3, [r4, #8]
+ 2306 000a 23F00703 		bic	r3, r3, #7
+ 2307 000e A360     		str	r3, [r4, #8]
+ 2308 0010 A368     		ldr	r3, [r4, #8]
+ 2309 0012 43F00703 		orr	r3, r3, #7
+ 2310 0016 A360     		str	r3, [r4, #8]
+ 2311 0018 10BD     		pop	{r4, pc}
+ 2313              		.section	.text.timer_external_trigger_as_external_clock_config,"ax",%progbits
+ 2314              		.align	1
+ 2315              		.global	timer_external_trigger_as_external_clock_config
+ 2316              		.syntax unified
+ 2317              		.thumb
+ 2318              		.thumb_func
+ 2319              		.fpu fpv4-sp-d16
+ 2321              	timer_external_trigger_as_external_clock_config:
+ 2322              		@ args = 0, pretend = 0, frame = 0
+ 2323              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2324 0000 38B5     		push	{r3, r4, r5, lr}
+ 2325 0002 0446     		mov	r4, r0
+ 2326 0004 6029     		cmp	r1, #96
+ 2327 0006 2AD0     		beq	.L226
+ 2328 0008 056A     		ldr	r5, [r0, #32]
+ 2329 000a 25F00105 		bic	r5, r5, #1
+ 2330 000e 0562     		str	r5, [r0, #32]
+ 2331 0010 056A     		ldr	r5, [r0, #32]
+ 2332 0012 25F00A05 		bic	r5, r5, #10
+ 2333 0016 0562     		str	r5, [r0, #32]
+ 2334 0018 006A     		ldr	r0, [r0, #32]
+ 2335 001a 1043     		orrs	r0, r0, r2
+ 2336 001c 2062     		str	r0, [r4, #32]
+ 2337 001e A069     		ldr	r0, [r4, #24]
+ 2338 0020 20F00300 		bic	r0, r0, #3
+ 2339 0024 A061     		str	r0, [r4, #24]
+ 2340 0026 A069     		ldr	r0, [r4, #24]
+ 2341 0028 40F00100 		orr	r0, r0, #1
+ 2342 002c A061     		str	r0, [r4, #24]
+ 2343 002e A069     		ldr	r0, [r4, #24]
+ 2344 0030 20F0F000 		bic	r0, r0, #240
+ 2345 0034 A061     		str	r0, [r4, #24]
+ 2346 0036 A269     		ldr	r2, [r4, #24]
+ 2347 0038 42EA0312 		orr	r2, r2, r3, lsl #4
+ 2348 003c A261     		str	r2, [r4, #24]
+ 2349 003e 236A     		ldr	r3, [r4, #32]
+ 2350 0040 43F00103 		orr	r3, r3, #1
+ 2351 0044 2362     		str	r3, [r4, #32]
+ 2352              	.L224:
+ 2353 0046 2046     		mov	r0, r4
+ 2354 0048 FFF7FEFF 		bl	timer_input_trigger_source_select
+ARM GAS  /tmp/ccZHBOeV.s 			page 40
+
+
+ 2355 004c A368     		ldr	r3, [r4, #8]
+ 2356 004e 23F00703 		bic	r3, r3, #7
+ 2357 0052 A360     		str	r3, [r4, #8]
+ 2358 0054 A368     		ldr	r3, [r4, #8]
+ 2359 0056 43F00703 		orr	r3, r3, #7
+ 2360 005a A360     		str	r3, [r4, #8]
+ 2361 005c 38BD     		pop	{r3, r4, r5, pc}
+ 2362              	.L226:
+ 2363 005e 006A     		ldr	r0, [r0, #32]
+ 2364 0060 20F01000 		bic	r0, r0, #16
+ 2365 0064 2062     		str	r0, [r4, #32]
+ 2366 0066 206A     		ldr	r0, [r4, #32]
+ 2367 0068 20F0A000 		bic	r0, r0, #160
+ 2368 006c 2062     		str	r0, [r4, #32]
+ 2369 006e 206A     		ldr	r0, [r4, #32]
+ 2370 0070 40EA0210 		orr	r0, r0, r2, lsl #4
+ 2371 0074 2062     		str	r0, [r4, #32]
+ 2372 0076 A269     		ldr	r2, [r4, #24]
+ 2373 0078 22F44072 		bic	r2, r2, #768
+ 2374 007c A261     		str	r2, [r4, #24]
+ 2375 007e A269     		ldr	r2, [r4, #24]
+ 2376 0080 42F48072 		orr	r2, r2, #256
+ 2377 0084 A261     		str	r2, [r4, #24]
+ 2378 0086 A269     		ldr	r2, [r4, #24]
+ 2379 0088 22F47042 		bic	r2, r2, #61440
+ 2380 008c A261     		str	r2, [r4, #24]
+ 2381 008e A269     		ldr	r2, [r4, #24]
+ 2382 0090 42EA0332 		orr	r2, r2, r3, lsl #12
+ 2383 0094 A261     		str	r2, [r4, #24]
+ 2384 0096 236A     		ldr	r3, [r4, #32]
+ 2385 0098 43F01003 		orr	r3, r3, #16
+ 2386 009c 2362     		str	r3, [r4, #32]
+ 2387 009e D2E7     		b	.L224
+ 2389              		.section	.text.timer_external_clock_mode0_config,"ax",%progbits
+ 2390              		.align	1
+ 2391              		.global	timer_external_clock_mode0_config
+ 2392              		.syntax unified
+ 2393              		.thumb
+ 2394              		.thumb_func
+ 2395              		.fpu fpv4-sp-d16
+ 2397              	timer_external_clock_mode0_config:
+ 2398              		@ args = 0, pretend = 0, frame = 0
+ 2399              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2400 0000 10B5     		push	{r4, lr}
+ 2401 0002 0446     		mov	r4, r0
+ 2402 0004 FFF7FEFF 		bl	timer_external_trigger_config
+ 2403 0008 A368     		ldr	r3, [r4, #8]
+ 2404 000a 23F07703 		bic	r3, r3, #119
+ 2405 000e A360     		str	r3, [r4, #8]
+ 2406 0010 A368     		ldr	r3, [r4, #8]
+ 2407 0012 43F07703 		orr	r3, r3, #119
+ 2408 0016 A360     		str	r3, [r4, #8]
+ 2409 0018 10BD     		pop	{r4, pc}
+ 2411              		.section	.text.timer_external_clock_mode1_config,"ax",%progbits
+ 2412              		.align	1
+ 2413              		.global	timer_external_clock_mode1_config
+ 2414              		.syntax unified
+ARM GAS  /tmp/ccZHBOeV.s 			page 41
+
+
+ 2415              		.thumb
+ 2416              		.thumb_func
+ 2417              		.fpu fpv4-sp-d16
+ 2419              	timer_external_clock_mode1_config:
+ 2420              		@ args = 0, pretend = 0, frame = 0
+ 2421              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2422 0000 10B5     		push	{r4, lr}
+ 2423 0002 0446     		mov	r4, r0
+ 2424 0004 FFF7FEFF 		bl	timer_external_trigger_config
+ 2425 0008 A368     		ldr	r3, [r4, #8]
+ 2426 000a 43F48043 		orr	r3, r3, #16384
+ 2427 000e A360     		str	r3, [r4, #8]
+ 2428 0010 10BD     		pop	{r4, pc}
+ 2430              		.section	.text.timer_external_clock_mode1_disable,"ax",%progbits
+ 2431              		.align	1
+ 2432              		.global	timer_external_clock_mode1_disable
+ 2433              		.syntax unified
+ 2434              		.thumb
+ 2435              		.thumb_func
+ 2436              		.fpu fpv4-sp-d16
+ 2438              	timer_external_clock_mode1_disable:
+ 2439              		@ args = 0, pretend = 0, frame = 0
+ 2440              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2441              		@ link register save eliminated.
+ 2442 0000 8368     		ldr	r3, [r0, #8]
+ 2443 0002 23F48043 		bic	r3, r3, #16384
+ 2444 0006 8360     		str	r3, [r0, #8]
+ 2445 0008 7047     		bx	lr
+ 2447              		.section	.text.timer_channel_remap_config,"ax",%progbits
+ 2448              		.align	1
+ 2449              		.global	timer_channel_remap_config
+ 2450              		.syntax unified
+ 2451              		.thumb
+ 2452              		.thumb_func
+ 2453              		.fpu fpv4-sp-d16
+ 2455              	timer_channel_remap_config:
+ 2456              		@ args = 0, pretend = 0, frame = 0
+ 2457              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2458              		@ link register save eliminated.
+ 2459 0000 0165     		str	r1, [r0, #80]
+ 2460 0002 7047     		bx	lr
+ 2462              		.section	.text.timer_write_chxval_register_config,"ax",%progbits
+ 2463              		.align	1
+ 2464              		.global	timer_write_chxval_register_config
+ 2465              		.syntax unified
+ 2466              		.thumb
+ 2467              		.thumb_func
+ 2468              		.fpu fpv4-sp-d16
+ 2470              	timer_write_chxval_register_config:
+ 2471              		@ args = 0, pretend = 0, frame = 0
+ 2472              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2473              		@ link register save eliminated.
+ 2474 0000 0229     		cmp	r1, #2
+ 2475 0002 07D0     		beq	.L236
+ 2476 0004 29B9     		cbnz	r1, .L233
+ 2477 0006 D0F8FC30 		ldr	r3, [r0, #252]
+ 2478 000a 23F00203 		bic	r3, r3, #2
+ARM GAS  /tmp/ccZHBOeV.s 			page 42
+
+
+ 2479 000e C0F8FC30 		str	r3, [r0, #252]
+ 2480              	.L233:
+ 2481 0012 7047     		bx	lr
+ 2482              	.L236:
+ 2483 0014 D0F8FC30 		ldr	r3, [r0, #252]
+ 2484 0018 43F00203 		orr	r3, r3, #2
+ 2485 001c C0F8FC30 		str	r3, [r0, #252]
+ 2486 0020 7047     		bx	lr
+ 2488              		.section	.text.timer_output_value_selection_config,"ax",%progbits
+ 2489              		.align	1
+ 2490              		.global	timer_output_value_selection_config
+ 2491              		.syntax unified
+ 2492              		.thumb
+ 2493              		.thumb_func
+ 2494              		.fpu fpv4-sp-d16
+ 2496              	timer_output_value_selection_config:
+ 2497              		@ args = 0, pretend = 0, frame = 0
+ 2498              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2499              		@ link register save eliminated.
+ 2500 0000 0129     		cmp	r1, #1
+ 2501 0002 07D0     		beq	.L240
+ 2502 0004 29B9     		cbnz	r1, .L237
+ 2503 0006 D0F8FC30 		ldr	r3, [r0, #252]
+ 2504 000a 23F00103 		bic	r3, r3, #1
+ 2505 000e C0F8FC30 		str	r3, [r0, #252]
+ 2506              	.L237:
+ 2507 0012 7047     		bx	lr
+ 2508              	.L240:
+ 2509 0014 D0F8FC30 		ldr	r3, [r0, #252]
+ 2510 0018 43F00103 		orr	r3, r3, #1
+ 2511 001c C0F8FC30 		str	r3, [r0, #252]
+ 2512 0020 7047     		bx	lr
+ 2514              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccZHBOeV.s 			page 43
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_timer.c
+     /tmp/ccZHBOeV.s:16     .text.timer_deinit:0000000000000000 $t
+     /tmp/ccZHBOeV.s:24     .text.timer_deinit:0000000000000000 timer_deinit
+     /tmp/ccZHBOeV.s:161    .text.timer_deinit:0000000000000174 $d
+     /tmp/ccZHBOeV.s:167    .text.timer_struct_para_init:0000000000000000 $t
+     /tmp/ccZHBOeV.s:174    .text.timer_struct_para_init:0000000000000000 timer_struct_para_init
+     /tmp/ccZHBOeV.s:189    .text.timer_init:0000000000000000 $t
+     /tmp/ccZHBOeV.s:196    .text.timer_init:0000000000000000 timer_init
+     /tmp/ccZHBOeV.s:265    .text.timer_init:0000000000000088 $d
+     /tmp/ccZHBOeV.s:269    .text.timer_enable:0000000000000000 $t
+     /tmp/ccZHBOeV.s:276    .text.timer_enable:0000000000000000 timer_enable
+     /tmp/ccZHBOeV.s:286    .text.timer_disable:0000000000000000 $t
+     /tmp/ccZHBOeV.s:293    .text.timer_disable:0000000000000000 timer_disable
+     /tmp/ccZHBOeV.s:303    .text.timer_auto_reload_shadow_enable:0000000000000000 $t
+     /tmp/ccZHBOeV.s:310    .text.timer_auto_reload_shadow_enable:0000000000000000 timer_auto_reload_shadow_enable
+     /tmp/ccZHBOeV.s:320    .text.timer_auto_reload_shadow_disable:0000000000000000 $t
+     /tmp/ccZHBOeV.s:327    .text.timer_auto_reload_shadow_disable:0000000000000000 timer_auto_reload_shadow_disable
+     /tmp/ccZHBOeV.s:337    .text.timer_update_event_enable:0000000000000000 $t
+     /tmp/ccZHBOeV.s:344    .text.timer_update_event_enable:0000000000000000 timer_update_event_enable
+     /tmp/ccZHBOeV.s:354    .text.timer_update_event_disable:0000000000000000 $t
+     /tmp/ccZHBOeV.s:361    .text.timer_update_event_disable:0000000000000000 timer_update_event_disable
+     /tmp/ccZHBOeV.s:371    .text.timer_counter_alignment:0000000000000000 $t
+     /tmp/ccZHBOeV.s:378    .text.timer_counter_alignment:0000000000000000 timer_counter_alignment
+     /tmp/ccZHBOeV.s:391    .text.timer_counter_up_direction:0000000000000000 $t
+     /tmp/ccZHBOeV.s:398    .text.timer_counter_up_direction:0000000000000000 timer_counter_up_direction
+     /tmp/ccZHBOeV.s:408    .text.timer_counter_down_direction:0000000000000000 $t
+     /tmp/ccZHBOeV.s:415    .text.timer_counter_down_direction:0000000000000000 timer_counter_down_direction
+     /tmp/ccZHBOeV.s:425    .text.timer_prescaler_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:432    .text.timer_prescaler_config:0000000000000000 timer_prescaler_config
+     /tmp/ccZHBOeV.s:445    .text.timer_repetition_value_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:452    .text.timer_repetition_value_config:0000000000000000 timer_repetition_value_config
+     /tmp/ccZHBOeV.s:460    .text.timer_autoreload_value_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:467    .text.timer_autoreload_value_config:0000000000000000 timer_autoreload_value_config
+     /tmp/ccZHBOeV.s:475    .text.timer_counter_value_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:482    .text.timer_counter_value_config:0000000000000000 timer_counter_value_config
+     /tmp/ccZHBOeV.s:490    .text.timer_counter_read:0000000000000000 $t
+     /tmp/ccZHBOeV.s:497    .text.timer_counter_read:0000000000000000 timer_counter_read
+     /tmp/ccZHBOeV.s:505    .text.timer_prescaler_read:0000000000000000 $t
+     /tmp/ccZHBOeV.s:512    .text.timer_prescaler_read:0000000000000000 timer_prescaler_read
+     /tmp/ccZHBOeV.s:521    .text.timer_single_pulse_mode_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:528    .text.timer_single_pulse_mode_config:0000000000000000 timer_single_pulse_mode_config
+     /tmp/ccZHBOeV.s:549    .text.timer_update_source_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:556    .text.timer_update_source_config:0000000000000000 timer_update_source_config
+     /tmp/ccZHBOeV.s:577    .text.timer_interrupt_enable:0000000000000000 $t
+     /tmp/ccZHBOeV.s:584    .text.timer_interrupt_enable:0000000000000000 timer_interrupt_enable
+     /tmp/ccZHBOeV.s:594    .text.timer_interrupt_disable:0000000000000000 $t
+     /tmp/ccZHBOeV.s:601    .text.timer_interrupt_disable:0000000000000000 timer_interrupt_disable
+     /tmp/ccZHBOeV.s:611    .text.timer_interrupt_flag_get:0000000000000000 $t
+     /tmp/ccZHBOeV.s:618    .text.timer_interrupt_flag_get:0000000000000000 timer_interrupt_flag_get
+     /tmp/ccZHBOeV.s:638    .text.timer_interrupt_flag_clear:0000000000000000 $t
+     /tmp/ccZHBOeV.s:645    .text.timer_interrupt_flag_clear:0000000000000000 timer_interrupt_flag_clear
+     /tmp/ccZHBOeV.s:654    .text.timer_flag_get:0000000000000000 $t
+     /tmp/ccZHBOeV.s:661    .text.timer_flag_get:0000000000000000 timer_flag_get
+     /tmp/ccZHBOeV.s:675    .text.timer_flag_clear:0000000000000000 $t
+     /tmp/ccZHBOeV.s:682    .text.timer_flag_clear:0000000000000000 timer_flag_clear
+     /tmp/ccZHBOeV.s:691    .text.timer_dma_enable:0000000000000000 $t
+ARM GAS  /tmp/ccZHBOeV.s 			page 44
+
+
+     /tmp/ccZHBOeV.s:698    .text.timer_dma_enable:0000000000000000 timer_dma_enable
+     /tmp/ccZHBOeV.s:708    .text.timer_dma_disable:0000000000000000 $t
+     /tmp/ccZHBOeV.s:715    .text.timer_dma_disable:0000000000000000 timer_dma_disable
+     /tmp/ccZHBOeV.s:725    .text.timer_channel_dma_request_source_select:0000000000000000 $t
+     /tmp/ccZHBOeV.s:732    .text.timer_channel_dma_request_source_select:0000000000000000 timer_channel_dma_request_source_select
+     /tmp/ccZHBOeV.s:753    .text.timer_dma_transfer_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:760    .text.timer_dma_transfer_config:0000000000000000 timer_dma_transfer_config
+     /tmp/ccZHBOeV.s:775    .text.timer_event_software_generate:0000000000000000 $t
+     /tmp/ccZHBOeV.s:782    .text.timer_event_software_generate:0000000000000000 timer_event_software_generate
+     /tmp/ccZHBOeV.s:792    .text.timer_break_struct_para_init:0000000000000000 $t
+     /tmp/ccZHBOeV.s:799    .text.timer_break_struct_para_init:0000000000000000 timer_break_struct_para_init
+     /tmp/ccZHBOeV.s:814    .text.timer_break_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:821    .text.timer_break_config:0000000000000000 timer_break_config
+     /tmp/ccZHBOeV.s:844    .text.timer_break_enable:0000000000000000 $t
+     /tmp/ccZHBOeV.s:851    .text.timer_break_enable:0000000000000000 timer_break_enable
+     /tmp/ccZHBOeV.s:861    .text.timer_break_disable:0000000000000000 $t
+     /tmp/ccZHBOeV.s:868    .text.timer_break_disable:0000000000000000 timer_break_disable
+     /tmp/ccZHBOeV.s:878    .text.timer_automatic_output_enable:0000000000000000 $t
+     /tmp/ccZHBOeV.s:885    .text.timer_automatic_output_enable:0000000000000000 timer_automatic_output_enable
+     /tmp/ccZHBOeV.s:895    .text.timer_automatic_output_disable:0000000000000000 $t
+     /tmp/ccZHBOeV.s:902    .text.timer_automatic_output_disable:0000000000000000 timer_automatic_output_disable
+     /tmp/ccZHBOeV.s:912    .text.timer_primary_output_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:919    .text.timer_primary_output_config:0000000000000000 timer_primary_output_config
+     /tmp/ccZHBOeV.s:936    .text.timer_channel_control_shadow_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:943    .text.timer_channel_control_shadow_config:0000000000000000 timer_channel_control_shadow_config
+     /tmp/ccZHBOeV.s:960    .text.timer_channel_control_shadow_update_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:967    .text.timer_channel_control_shadow_update_config:0000000000000000 timer_channel_control_shadow_update_config
+     /tmp/ccZHBOeV.s:988    .text.timer_channel_output_struct_para_init:0000000000000000 $t
+     /tmp/ccZHBOeV.s:995    .text.timer_channel_output_struct_para_init:0000000000000000 timer_channel_output_struct_para_init
+     /tmp/ccZHBOeV.s:1009   .text.timer_channel_output_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1016   .text.timer_channel_output_config:0000000000000000 timer_channel_output_config
+     /tmp/ccZHBOeV.s:1024   .text.timer_channel_output_config:000000000000000a $d
+     /tmp/ccZHBOeV.s:1028   .text.timer_channel_output_config:0000000000000012 $t
+     /tmp/ccZHBOeV.s:1228   .text.timer_channel_output_config:00000000000001e4 $d
+     /tmp/ccZHBOeV.s:1231   .text.timer_channel_output_mode_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1238   .text.timer_channel_output_mode_config:0000000000000000 timer_channel_output_mode_config
+     /tmp/ccZHBOeV.s:1246   .text.timer_channel_output_mode_config:0000000000000008 $d
+     /tmp/ccZHBOeV.s:1250   .text.timer_channel_output_mode_config:000000000000000c $t
+     /tmp/ccZHBOeV.s:1286   .text.timer_channel_output_pulse_value_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1293   .text.timer_channel_output_pulse_value_config:0000000000000000 timer_channel_output_pulse_value_config
+     /tmp/ccZHBOeV.s:1301   .text.timer_channel_output_pulse_value_config:0000000000000008 $d
+     /tmp/ccZHBOeV.s:1305   .text.timer_channel_output_pulse_value_config:000000000000000c $t
+     /tmp/ccZHBOeV.s:1321   .text.timer_channel_output_shadow_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1328   .text.timer_channel_output_shadow_config:0000000000000000 timer_channel_output_shadow_config
+     /tmp/ccZHBOeV.s:1336   .text.timer_channel_output_shadow_config:0000000000000008 $d
+     /tmp/ccZHBOeV.s:1340   .text.timer_channel_output_shadow_config:000000000000000c $t
+     /tmp/ccZHBOeV.s:1376   .text.timer_channel_output_fast_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1383   .text.timer_channel_output_fast_config:0000000000000000 timer_channel_output_fast_config
+     /tmp/ccZHBOeV.s:1391   .text.timer_channel_output_fast_config:0000000000000008 $d
+     /tmp/ccZHBOeV.s:1395   .text.timer_channel_output_fast_config:000000000000000c $t
+     /tmp/ccZHBOeV.s:1431   .text.timer_channel_output_clear_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1438   .text.timer_channel_output_clear_config:0000000000000000 timer_channel_output_clear_config
+     /tmp/ccZHBOeV.s:1446   .text.timer_channel_output_clear_config:0000000000000008 $d
+     /tmp/ccZHBOeV.s:1450   .text.timer_channel_output_clear_config:000000000000000c $t
+     /tmp/ccZHBOeV.s:1486   .text.timer_channel_output_polarity_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1493   .text.timer_channel_output_polarity_config:0000000000000000 timer_channel_output_polarity_config
+     /tmp/ccZHBOeV.s:1501   .text.timer_channel_output_polarity_config:0000000000000008 $d
+ARM GAS  /tmp/ccZHBOeV.s 			page 45
+
+
+     /tmp/ccZHBOeV.s:1505   .text.timer_channel_output_polarity_config:000000000000000c $t
+     /tmp/ccZHBOeV.s:1541   .text.timer_channel_complementary_output_polarity_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1548   .text.timer_channel_complementary_output_polarity_config:0000000000000000 timer_channel_complementary_output_polarity_config
+     /tmp/ccZHBOeV.s:1585   .text.timer_channel_output_state_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1592   .text.timer_channel_output_state_config:0000000000000000 timer_channel_output_state_config
+     /tmp/ccZHBOeV.s:1600   .text.timer_channel_output_state_config:0000000000000008 $d
+     /tmp/ccZHBOeV.s:1604   .text.timer_channel_output_state_config:000000000000000c $t
+     /tmp/ccZHBOeV.s:1640   .text.timer_channel_complementary_output_state_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1647   .text.timer_channel_complementary_output_state_config:0000000000000000 timer_channel_complementary_output_state_config
+     /tmp/ccZHBOeV.s:1684   .text.timer_channel_input_struct_para_init:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1691   .text.timer_channel_input_struct_para_init:0000000000000000 timer_channel_input_struct_para_init
+     /tmp/ccZHBOeV.s:1704   .text.timer_channel_input_capture_prescaler_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1711   .text.timer_channel_input_capture_prescaler_config:0000000000000000 timer_channel_input_capture_prescaler_config
+     /tmp/ccZHBOeV.s:1719   .text.timer_channel_input_capture_prescaler_config:0000000000000008 $d
+     /tmp/ccZHBOeV.s:1723   .text.timer_channel_input_capture_prescaler_config:000000000000000c $t
+     /tmp/ccZHBOeV.s:1759   .text.timer_input_capture_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1766   .text.timer_input_capture_config:0000000000000000 timer_input_capture_config
+     /tmp/ccZHBOeV.s:1774   .text.timer_input_capture_config:000000000000000a $d
+     /tmp/ccZHBOeV.s:1778   .text.timer_input_capture_config:000000000000000e $t
+     /tmp/ccZHBOeV.s:1900   .text.timer_channel_capture_value_register_read:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1907   .text.timer_channel_capture_value_register_read:0000000000000000 timer_channel_capture_value_register_read
+     /tmp/ccZHBOeV.s:1915   .text.timer_channel_capture_value_register_read:0000000000000008 $d
+     /tmp/ccZHBOeV.s:1919   .text.timer_channel_capture_value_register_read:000000000000000c $t
+     /tmp/ccZHBOeV.s:1937   .text.timer_input_pwm_capture_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:1944   .text.timer_input_pwm_capture_config:0000000000000000 timer_input_pwm_capture_config
+     /tmp/ccZHBOeV.s:2093   .text.timer_hall_mode_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2100   .text.timer_hall_mode_config:0000000000000000 timer_hall_mode_config
+     /tmp/ccZHBOeV.s:2121   .text.timer_input_trigger_source_select:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2128   .text.timer_input_trigger_source_select:0000000000000000 timer_input_trigger_source_select
+     /tmp/ccZHBOeV.s:2141   .text.timer_master_output_trigger_source_select:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2148   .text.timer_master_output_trigger_source_select:0000000000000000 timer_master_output_trigger_source_select
+     /tmp/ccZHBOeV.s:2161   .text.timer_slave_mode_select:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2168   .text.timer_slave_mode_select:0000000000000000 timer_slave_mode_select
+     /tmp/ccZHBOeV.s:2181   .text.timer_master_slave_mode_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2188   .text.timer_master_slave_mode_config:0000000000000000 timer_master_slave_mode_config
+     /tmp/ccZHBOeV.s:2209   .text.timer_external_trigger_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2216   .text.timer_external_trigger_config:0000000000000000 timer_external_trigger_config
+     /tmp/ccZHBOeV.s:2235   .text.timer_quadrature_decoder_mode_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2242   .text.timer_quadrature_decoder_mode_config:0000000000000000 timer_quadrature_decoder_mode_config
+     /tmp/ccZHBOeV.s:2275   .text.timer_internal_clock_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2282   .text.timer_internal_clock_config:0000000000000000 timer_internal_clock_config
+     /tmp/ccZHBOeV.s:2292   .text.timer_internal_trigger_as_external_clock_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2299   .text.timer_internal_trigger_as_external_clock_config:0000000000000000 timer_internal_trigger_as_external_clock_config
+     /tmp/ccZHBOeV.s:2314   .text.timer_external_trigger_as_external_clock_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2321   .text.timer_external_trigger_as_external_clock_config:0000000000000000 timer_external_trigger_as_external_clock_config
+     /tmp/ccZHBOeV.s:2390   .text.timer_external_clock_mode0_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2397   .text.timer_external_clock_mode0_config:0000000000000000 timer_external_clock_mode0_config
+     /tmp/ccZHBOeV.s:2412   .text.timer_external_clock_mode1_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2419   .text.timer_external_clock_mode1_config:0000000000000000 timer_external_clock_mode1_config
+     /tmp/ccZHBOeV.s:2431   .text.timer_external_clock_mode1_disable:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2438   .text.timer_external_clock_mode1_disable:0000000000000000 timer_external_clock_mode1_disable
+     /tmp/ccZHBOeV.s:2448   .text.timer_channel_remap_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2455   .text.timer_channel_remap_config:0000000000000000 timer_channel_remap_config
+     /tmp/ccZHBOeV.s:2463   .text.timer_write_chxval_register_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2470   .text.timer_write_chxval_register_config:0000000000000000 timer_write_chxval_register_config
+     /tmp/ccZHBOeV.s:2489   .text.timer_output_value_selection_config:0000000000000000 $t
+     /tmp/ccZHBOeV.s:2496   .text.timer_output_value_selection_config:0000000000000000 timer_output_value_selection_config
+ARM GAS  /tmp/ccZHBOeV.s 			page 46
+
+
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable

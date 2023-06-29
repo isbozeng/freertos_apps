@@ -1,0 +1,531 @@
+ARM GAS  /tmp/ccD996Z1.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"app.c"
+  14              		.text
+  15              		.section	.text.ping_timer_callback,"ax",%progbits
+  16              		.align	1
+  17              		.global	ping_timer_callback
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	ping_timer_callback:
+  25              		@ args = 0, pretend = 0, frame = 16
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 30B3     		cbz	r0, .L4
+  28 0002 10B5     		push	{r4, lr}
+  29 0004 84B0     		sub	sp, sp, #16
+  30 0006 FFF7FEFF 		bl	rand
+  31 000a 0246     		mov	r2, r0
+  32 000c 114B     		ldr	r3, .L7
+  33 000e 1860     		str	r0, [r3]
+  34 0010 114C     		ldr	r4, .L7+4
+  35 0012 124B     		ldr	r3, .L7+8
+  36 0014 1B68     		ldr	r3, [r3]
+  37 0016 1249     		ldr	r1, .L7+12
+  38 0018 A068     		ldr	r0, [r4, #8]
+  39 001a FFF7FEFF 		bl	sprintf
+  40 001e A068     		ldr	r0, [r4, #8]
+  41 0020 FFF7FEFF 		bl	strlen
+  42 0024 E060     		str	r0, [r4, #12]
+  43 0026 6946     		mov	r1, sp
+  44 0028 0020     		movs	r0, #0
+  45 002a FFF7FEFF 		bl	clock_gettime
+  46 002e 009B     		ldr	r3, [sp]
+  47 0030 2360     		str	r3, [r4]
+  48 0032 029B     		ldr	r3, [sp, #8]
+  49 0034 6360     		str	r3, [r4, #4]
+  50 0036 0022     		movs	r2, #0
+  51 0038 0A4B     		ldr	r3, .L7+16
+  52 003a 1A60     		str	r2, [r3]
+  53 003c 2146     		mov	r1, r4
+  54 003e 0A48     		ldr	r0, .L7+20
+  55 0040 FFF7FEFF 		bl	rcl_publish
+  56 0044 A168     		ldr	r1, [r4, #8]
+  57 0046 0948     		ldr	r0, .L7+24
+  58 0048 FFF7FEFF 		bl	printf
+ARM GAS  /tmp/ccD996Z1.s 			page 2
+
+
+  59 004c 04B0     		add	sp, sp, #16
+  60              		@ sp needed
+  61 004e 10BD     		pop	{r4, pc}
+  62              	.L4:
+  63 0050 7047     		bx	lr
+  64              	.L8:
+  65 0052 00BF     		.align	2
+  66              	.L7:
+  67 0054 00000000 		.word	seq_no
+  68 0058 00000000 		.word	outcoming_ping
+  69 005c 00000000 		.word	device_id
+  70 0060 00000000 		.word	.LC0
+  71 0064 00000000 		.word	pong_count
+  72 0068 00000000 		.word	ping_publisher
+  73 006c 08000000 		.word	.LC1
+  75              		.section	.text.ping_subscription_callback,"ax",%progbits
+  76              		.align	1
+  77              		.global	ping_subscription_callback
+  78              		.syntax unified
+  79              		.thumb
+  80              		.thumb_func
+  81              		.fpu fpv4-sp-d16
+  83              	ping_subscription_callback:
+  84              		@ args = 0, pretend = 0, frame = 0
+  85              		@ frame_needed = 0, uses_anonymous_args = 0
+  86 0000 38B5     		push	{r3, r4, r5, lr}
+  87 0002 0446     		mov	r4, r0
+  88 0004 8568     		ldr	r5, [r0, #8]
+  89 0006 2946     		mov	r1, r5
+  90 0008 074B     		ldr	r3, .L13
+  91 000a 9868     		ldr	r0, [r3, #8]
+  92 000c FFF7FEFF 		bl	strcmp
+  93 0010 00B9     		cbnz	r0, .L12
+  94              	.L9:
+  95 0012 38BD     		pop	{r3, r4, r5, pc}
+  96              	.L12:
+  97 0014 2946     		mov	r1, r5
+  98 0016 0548     		ldr	r0, .L13+4
+  99 0018 FFF7FEFF 		bl	printf
+ 100 001c 0022     		movs	r2, #0
+ 101 001e 2146     		mov	r1, r4
+ 102 0020 0348     		ldr	r0, .L13+8
+ 103 0022 FFF7FEFF 		bl	rcl_publish
+ 104 0026 F4E7     		b	.L9
+ 105              	.L14:
+ 106              		.align	2
+ 107              	.L13:
+ 108 0028 00000000 		.word	outcoming_ping
+ 109 002c 00000000 		.word	.LC2
+ 110 0030 00000000 		.word	pong_publisher
+ 112              		.section	.text.pong_subscription_callback,"ax",%progbits
+ 113              		.align	1
+ 114              		.global	pong_subscription_callback
+ 115              		.syntax unified
+ 116              		.thumb
+ 117              		.thumb_func
+ 118              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccD996Z1.s 			page 3
+
+
+ 120              	pong_subscription_callback:
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123 0000 10B5     		push	{r4, lr}
+ 124 0002 8468     		ldr	r4, [r0, #8]
+ 125 0004 2146     		mov	r1, r4
+ 126 0006 074B     		ldr	r3, .L19
+ 127 0008 9868     		ldr	r0, [r3, #8]
+ 128 000a FFF7FEFF 		bl	strcmp
+ 129 000e 00B1     		cbz	r0, .L18
+ 130              	.L15:
+ 131 0010 10BD     		pop	{r4, pc}
+ 132              	.L18:
+ 133 0012 054B     		ldr	r3, .L19+4
+ 134 0014 1A68     		ldr	r2, [r3]
+ 135 0016 0132     		adds	r2, r2, #1
+ 136 0018 1A60     		str	r2, [r3]
+ 137 001a 2146     		mov	r1, r4
+ 138 001c 0348     		ldr	r0, .L19+8
+ 139 001e FFF7FEFF 		bl	printf
+ 140 0022 F5E7     		b	.L15
+ 141              	.L20:
+ 142              		.align	2
+ 143              	.L19:
+ 144 0024 00000000 		.word	outcoming_ping
+ 145 0028 00000000 		.word	pong_count
+ 146 002c 00000000 		.word	.LC3
+ 148              		.section	.text.appMain,"ax",%progbits
+ 149              		.align	1
+ 150              		.global	appMain
+ 151              		.syntax unified
+ 152              		.thumb
+ 153              		.thumb_func
+ 154              		.fpu fpv4-sp-d16
+ 156              	appMain:
+ 157              		@ args = 0, pretend = 0, frame = 376
+ 158              		@ frame_needed = 0, uses_anonymous_args = 0
+ 159 0000 00B5     		push	{lr}
+ 160 0002 E1B0     		sub	sp, sp, #388
+ 161 0004 5BA8     		add	r0, sp, #364
+ 162 0006 FFF7FEFF 		bl	rcutils_get_default_allocator
+ 163 000a 5BAB     		add	r3, sp, #364
+ 164 000c 0022     		movs	r2, #0
+ 165 000e 1146     		mov	r1, r2
+ 166 0010 4DA8     		add	r0, sp, #308
+ 167 0012 FFF7FEFF 		bl	rclc_support_init
+ 168 0016 0028     		cmp	r0, #0
+ 169 0018 40F08380 		bne	.L35
+ 170              	.L22:
+ 171 001c 4DAB     		add	r3, sp, #308
+ 172 001e 704A     		ldr	r2, .L46+8
+ 173 0020 7049     		ldr	r1, .L46+12
+ 174 0022 4BA8     		add	r0, sp, #300
+ 175 0024 FFF7FEFF 		bl	rclc_node_init_default
+ 176 0028 0246     		mov	r2, r0
+ 177 002a 0028     		cmp	r0, #0
+ 178 002c 40F08280 		bne	.L36
+ARM GAS  /tmp/ccD996Z1.s 			page 4
+
+
+ 179              	.L23:
+ 180 0030 FFF7FEFF 		bl	rosidl_typesupport_c__get_message_type_support_handle__std_msgs__msg__Header
+ 181 0034 6C4B     		ldr	r3, .L46+16
+ 182 0036 0246     		mov	r2, r0
+ 183 0038 4BA9     		add	r1, sp, #300
+ 184 003a 6C48     		ldr	r0, .L46+20
+ 185 003c FFF7FEFF 		bl	rclc_publisher_init_default
+ 186 0040 0246     		mov	r2, r0
+ 187 0042 0028     		cmp	r0, #0
+ 188 0044 7ED1     		bne	.L37
+ 189              	.L24:
+ 190 0046 FFF7FEFF 		bl	rosidl_typesupport_c__get_message_type_support_handle__std_msgs__msg__Header
+ 191 004a 694B     		ldr	r3, .L46+24
+ 192 004c 0246     		mov	r2, r0
+ 193 004e 4BA9     		add	r1, sp, #300
+ 194 0050 6848     		ldr	r0, .L46+28
+ 195 0052 FFF7FEFF 		bl	rclc_publisher_init_best_effort
+ 196 0056 0246     		mov	r2, r0
+ 197 0058 0028     		cmp	r0, #0
+ 198 005a 7BD1     		bne	.L38
+ 199              	.L25:
+ 200 005c FFF7FEFF 		bl	rosidl_typesupport_c__get_message_type_support_handle__std_msgs__msg__Header
+ 201 0060 614B     		ldr	r3, .L46+16
+ 202 0062 0246     		mov	r2, r0
+ 203 0064 4BA9     		add	r1, sp, #300
+ 204 0066 6448     		ldr	r0, .L46+32
+ 205 0068 FFF7FEFF 		bl	rclc_subscription_init_best_effort
+ 206 006c 0246     		mov	r2, r0
+ 207 006e 0028     		cmp	r0, #0
+ 208 0070 78D1     		bne	.L39
+ 209              	.L26:
+ 210 0072 FFF7FEFF 		bl	rosidl_typesupport_c__get_message_type_support_handle__std_msgs__msg__Header
+ 211 0076 5E4B     		ldr	r3, .L46+24
+ 212 0078 0246     		mov	r2, r0
+ 213 007a 4BA9     		add	r1, sp, #300
+ 214 007c 5F48     		ldr	r0, .L46+36
+ 215 007e FFF7FEFF 		bl	rclc_subscription_init_best_effort
+ 216 0082 0246     		mov	r2, r0
+ 217 0084 0028     		cmp	r0, #0
+ 218 0086 75D1     		bne	.L40
+ 219              	.L27:
+ 220 0088 5D4B     		ldr	r3, .L46+40
+ 221 008a 0093     		str	r3, [sp]
+ 222 008c 52A3     		adr	r3, .L46
+ 223 008e D3E90023 		ldrd	r2, [r3]
+ 224 0092 4DA9     		add	r1, sp, #308
+ 225 0094 4AA8     		add	r0, sp, #296
+ 226 0096 FFF7FEFF 		bl	rclc_timer_init_default
+ 227 009a 0246     		mov	r2, r0
+ 228 009c 0028     		cmp	r0, #0
+ 229 009e 71D1     		bne	.L41
+ 230              	.L28:
+ 231 00a0 5BAB     		add	r3, sp, #364
+ 232 00a2 0322     		movs	r2, #3
+ 233 00a4 4EA9     		add	r1, sp, #312
+ 234 00a6 2AA8     		add	r0, sp, #168
+ 235 00a8 FFF7FEFF 		bl	rclc_executor_init
+ARM GAS  /tmp/ccD996Z1.s 			page 5
+
+
+ 236 00ac 0246     		mov	r2, r0
+ 237 00ae 0028     		cmp	r0, #0
+ 238 00b0 70D1     		bne	.L42
+ 239              	.L29:
+ 240 00b2 4AA9     		add	r1, sp, #296
+ 241 00b4 2AA8     		add	r0, sp, #168
+ 242 00b6 FFF7FEFF 		bl	rclc_executor_add_timer
+ 243 00ba 0246     		mov	r2, r0
+ 244 00bc 0028     		cmp	r0, #0
+ 245 00be 71D1     		bne	.L43
+ 246              	.L30:
+ 247 00c0 0023     		movs	r3, #0
+ 248 00c2 0093     		str	r3, [sp]
+ 249 00c4 4F4B     		ldr	r3, .L46+44
+ 250 00c6 504A     		ldr	r2, .L46+48
+ 251 00c8 4B49     		ldr	r1, .L46+32
+ 252 00ca 2AA8     		add	r0, sp, #168
+ 253 00cc FFF7FEFF 		bl	rclc_executor_add_subscription
+ 254 00d0 0246     		mov	r2, r0
+ 255 00d2 0028     		cmp	r0, #0
+ 256 00d4 6ED1     		bne	.L44
+ 257              	.L31:
+ 258 00d6 0023     		movs	r3, #0
+ 259 00d8 0093     		str	r3, [sp]
+ 260 00da 4C4B     		ldr	r3, .L46+52
+ 261 00dc 4C4A     		ldr	r2, .L46+56
+ 262 00de 4749     		ldr	r1, .L46+36
+ 263 00e0 2AA8     		add	r0, sp, #168
+ 264 00e2 FFF7FEFF 		bl	rclc_executor_add_subscription
+ 265 00e6 0246     		mov	r2, r0
+ 266 00e8 0028     		cmp	r0, #0
+ 267 00ea 6BD1     		bne	.L45
+ 268              	.L32:
+ 269 00ec 494A     		ldr	r2, .L46+60
+ 270 00ee 1DAB     		add	r3, sp, #116
+ 271 00f0 9360     		str	r3, [r2, #8]
+ 272 00f2 3223     		movs	r3, #50
+ 273 00f4 1361     		str	r3, [r2, #16]
+ 274 00f6 444A     		ldr	r2, .L46+48
+ 275 00f8 10A9     		add	r1, sp, #64
+ 276 00fa 9160     		str	r1, [r2, #8]
+ 277 00fc 1361     		str	r3, [r2, #16]
+ 278 00fe 444A     		ldr	r2, .L46+56
+ 279 0100 03A9     		add	r1, sp, #12
+ 280 0102 9160     		str	r1, [r2, #8]
+ 281 0104 1361     		str	r3, [r2, #16]
+ 282 0106 FFF7FEFF 		bl	rand
+ 283 010a 434B     		ldr	r3, .L46+64
+ 284 010c 1860     		str	r0, [r3]
+ 285              	.L33:
+ 286 010e 434A     		ldr	r2, .L46+68
+ 287 0110 0023     		movs	r3, #0
+ 288 0112 2AA8     		add	r0, sp, #168
+ 289 0114 FFF7FEFF 		bl	rclc_executor_spin_some
+ 290 0118 4FF47A70 		mov	r0, #1000
+ 291 011c FFF7FEFF 		bl	usleep
+ 292 0120 F5E7     		b	.L33
+ARM GAS  /tmp/ccD996Z1.s 			page 6
+
+
+ 293              	.L35:
+ 294 0122 0246     		mov	r2, r0
+ 295 0124 5721     		movs	r1, #87
+ 296 0126 3E48     		ldr	r0, .L46+72
+ 297 0128 FFF7FEFF 		bl	printf
+ 298 012c 0020     		movs	r0, #0
+ 299 012e FFF7FEFF 		bl	vTaskDelete
+ 300 0132 73E7     		b	.L22
+ 301              	.L36:
+ 302 0134 5B21     		movs	r1, #91
+ 303 0136 3A48     		ldr	r0, .L46+72
+ 304 0138 FFF7FEFF 		bl	printf
+ 305 013c 0020     		movs	r0, #0
+ 306 013e FFF7FEFF 		bl	vTaskDelete
+ 307 0142 75E7     		b	.L23
+ 308              	.L37:
+ 309 0144 5F21     		movs	r1, #95
+ 310 0146 3648     		ldr	r0, .L46+72
+ 311 0148 FFF7FEFF 		bl	printf
+ 312 014c 0020     		movs	r0, #0
+ 313 014e FFF7FEFF 		bl	vTaskDelete
+ 314 0152 78E7     		b	.L24
+ 315              	.L38:
+ 316 0154 6321     		movs	r1, #99
+ 317 0156 3248     		ldr	r0, .L46+72
+ 318 0158 FFF7FEFF 		bl	printf
+ 319 015c 0020     		movs	r0, #0
+ 320 015e FFF7FEFF 		bl	vTaskDelete
+ 321 0162 7BE7     		b	.L25
+ 322              	.L39:
+ 323 0164 6721     		movs	r1, #103
+ 324 0166 2E48     		ldr	r0, .L46+72
+ 325 0168 FFF7FEFF 		bl	printf
+ 326 016c 0020     		movs	r0, #0
+ 327 016e FFF7FEFF 		bl	vTaskDelete
+ 328 0172 7EE7     		b	.L26
+ 329              	.L40:
+ 330 0174 6B21     		movs	r1, #107
+ 331 0176 2A48     		ldr	r0, .L46+72
+ 332 0178 FFF7FEFF 		bl	printf
+ 333 017c 0020     		movs	r0, #0
+ 334 017e FFF7FEFF 		bl	vTaskDelete
+ 335 0182 81E7     		b	.L27
+ 336              	.L41:
+ 337 0184 7021     		movs	r1, #112
+ 338 0186 2648     		ldr	r0, .L46+72
+ 339 0188 FFF7FEFF 		bl	printf
+ 340 018c 0020     		movs	r0, #0
+ 341 018e FFF7FEFF 		bl	vTaskDelete
+ 342 0192 85E7     		b	.L28
+ 343              	.L42:
+ 344 0194 7521     		movs	r1, #117
+ 345 0196 2248     		ldr	r0, .L46+72
+ 346 0198 FFF7FEFF 		bl	printf
+ 347 019c 0020     		movs	r0, #0
+ 348 019e FFF7FEFF 		bl	vTaskDelete
+ 349 01a2 86E7     		b	.L29
+ARM GAS  /tmp/ccD996Z1.s 			page 7
+
+
+ 350              	.L43:
+ 351 01a4 7621     		movs	r1, #118
+ 352 01a6 1E48     		ldr	r0, .L46+72
+ 353 01a8 FFF7FEFF 		bl	printf
+ 354 01ac 0020     		movs	r0, #0
+ 355 01ae FFF7FEFF 		bl	vTaskDelete
+ 356 01b2 85E7     		b	.L30
+ 357              	.L44:
+ 358 01b4 7821     		movs	r1, #120
+ 359 01b6 1A48     		ldr	r0, .L46+72
+ 360 01b8 FFF7FEFF 		bl	printf
+ 361 01bc 0020     		movs	r0, #0
+ 362 01be FFF7FEFF 		bl	vTaskDelete
+ 363 01c2 88E7     		b	.L31
+ 364              	.L45:
+ 365 01c4 7A21     		movs	r1, #122
+ 366 01c6 1648     		ldr	r0, .L46+72
+ 367 01c8 FFF7FEFF 		bl	printf
+ 368 01cc 0020     		movs	r0, #0
+ 369 01ce FFF7FEFF 		bl	vTaskDelete
+ 370 01d2 8BE7     		b	.L32
+ 371              	.L47:
+ 372 01d4 AFF30080 		.align	3
+ 373              	.L46:
+ 374 01d8 00943577 		.word	2000000000
+ 375 01dc 00000000 		.word	0
+ 376 01e0 2C000000 		.word	.LC5
+ 377 01e4 30000000 		.word	.LC6
+ 378 01e8 40000000 		.word	.LC7
+ 379 01ec 00000000 		.word	ping_publisher
+ 380 01f0 50000000 		.word	.LC8
+ 381 01f4 00000000 		.word	pong_publisher
+ 382 01f8 00000000 		.word	ping_subscriber
+ 383 01fc 00000000 		.word	pong_subscriber
+ 384 0200 00000000 		.word	ping_timer_callback
+ 385 0204 00000000 		.word	ping_subscription_callback
+ 386 0208 00000000 		.word	incoming_ping
+ 387 020c 00000000 		.word	pong_subscription_callback
+ 388 0210 00000000 		.word	incoming_pong
+ 389 0214 00000000 		.word	outcoming_ping
+ 390 0218 00000000 		.word	device_id
+ 391 021c 80969800 		.word	10000000
+ 392 0220 00000000 		.word	.LC4
+ 394              		.comm	pong_count,4,4
+ 395              		.comm	seq_no,4,4
+ 396              		.comm	device_id,4,4
+ 397              		.comm	incoming_pong,20,4
+ 398              		.comm	outcoming_ping,20,4
+ 399              		.comm	incoming_ping,20,4
+ 400              		.comm	pong_subscriber,4,4
+ 401              		.comm	ping_subscriber,4,4
+ 402              		.comm	pong_publisher,4,4
+ 403              		.comm	ping_publisher,4,4
+ 404              		.section	.rodata.appMain.str1.4,"aMS",%progbits,1
+ 405              		.align	2
+ 406              	.LC4:
+ 407 0000 4661696C 		.ascii	"Failed status on line %d: %d. Aborting.\012\000"
+ARM GAS  /tmp/ccD996Z1.s 			page 8
+
+
+ 407      65642073 
+ 407      74617475 
+ 407      73206F6E 
+ 407      206C696E 
+ 408 0029 000000   		.space	3
+ 409              	.LC5:
+ 410 002c 00       		.ascii	"\000"
+ 411 002d 000000   		.space	3
+ 412              	.LC6:
+ 413 0030 70696E67 		.ascii	"pingpong_node\000"
+ 413      706F6E67 
+ 413      5F6E6F64 
+ 413      6500
+ 414 003e 0000     		.space	2
+ 415              	.LC7:
+ 416 0040 2F6D6963 		.ascii	"/microROS/ping\000"
+ 416      726F524F 
+ 416      532F7069 
+ 416      6E6700
+ 417 004f 00       		.space	1
+ 418              	.LC8:
+ 419 0050 2F6D6963 		.ascii	"/microROS/pong\000"
+ 419      726F524F 
+ 419      532F706F 
+ 419      6E6700
+ 420              		.section	.rodata.ping_subscription_callback.str1.4,"aMS",%progbits,1
+ 421              		.align	2
+ 422              	.LC2:
+ 423 0000 50696E67 		.ascii	"Ping received with seq %s. Answering.\012\000"
+ 423      20726563 
+ 423      65697665 
+ 423      64207769 
+ 423      74682073 
+ 424              		.section	.rodata.ping_timer_callback.str1.4,"aMS",%progbits,1
+ 425              		.align	2
+ 426              	.LC0:
+ 427 0000 25645F25 		.ascii	"%d_%d\000"
+ 427      6400
+ 428 0006 0000     		.space	2
+ 429              	.LC1:
+ 430 0008 50696E67 		.ascii	"Ping send seq %s\012\000"
+ 430      2073656E 
+ 430      64207365 
+ 430      71202573 
+ 430      0A00
+ 431              		.section	.rodata.pong_subscription_callback.str1.4,"aMS",%progbits,1
+ 432              		.align	2
+ 433              	.LC3:
+ 434 0000 506F6E67 		.ascii	"Pong for seq %s (%d)\012\000"
+ 434      20666F72 
+ 434      20736571 
+ 434      20257320 
+ 434      28256429 
+ 435              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccD996Z1.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 app.c
+     /tmp/ccD996Z1.s:16     .text.ping_timer_callback:0000000000000000 $t
+     /tmp/ccD996Z1.s:24     .text.ping_timer_callback:0000000000000000 ping_timer_callback
+     /tmp/ccD996Z1.s:67     .text.ping_timer_callback:0000000000000054 $d
+                            *COM*:0000000000000004 seq_no
+                            *COM*:0000000000000014 outcoming_ping
+                            *COM*:0000000000000004 device_id
+                            *COM*:0000000000000004 pong_count
+                            *COM*:0000000000000004 ping_publisher
+     /tmp/ccD996Z1.s:76     .text.ping_subscription_callback:0000000000000000 $t
+     /tmp/ccD996Z1.s:83     .text.ping_subscription_callback:0000000000000000 ping_subscription_callback
+     /tmp/ccD996Z1.s:108    .text.ping_subscription_callback:0000000000000028 $d
+                            *COM*:0000000000000004 pong_publisher
+     /tmp/ccD996Z1.s:113    .text.pong_subscription_callback:0000000000000000 $t
+     /tmp/ccD996Z1.s:120    .text.pong_subscription_callback:0000000000000000 pong_subscription_callback
+     /tmp/ccD996Z1.s:144    .text.pong_subscription_callback:0000000000000024 $d
+     /tmp/ccD996Z1.s:149    .text.appMain:0000000000000000 $t
+     /tmp/ccD996Z1.s:156    .text.appMain:0000000000000000 appMain
+     /tmp/ccD996Z1.s:374    .text.appMain:00000000000001d8 $d
+                            *COM*:0000000000000004 ping_subscriber
+                            *COM*:0000000000000004 pong_subscriber
+                            *COM*:0000000000000014 incoming_ping
+                            *COM*:0000000000000014 incoming_pong
+     /tmp/ccD996Z1.s:405    .rodata.appMain.str1.4:0000000000000000 $d
+     /tmp/ccD996Z1.s:421    .rodata.ping_subscription_callback.str1.4:0000000000000000 $d
+     /tmp/ccD996Z1.s:425    .rodata.ping_timer_callback.str1.4:0000000000000000 $d
+     /tmp/ccD996Z1.s:432    .rodata.pong_subscription_callback.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+rand
+sprintf
+strlen
+clock_gettime
+rcl_publish
+printf
+strcmp
+rcutils_get_default_allocator
+rclc_support_init
+rclc_node_init_default
+rosidl_typesupport_c__get_message_type_support_handle__std_msgs__msg__Header
+rclc_publisher_init_default
+rclc_publisher_init_best_effort
+rclc_subscription_init_best_effort
+rclc_timer_init_default
+rclc_executor_init
+rclc_executor_add_timer
+rclc_executor_add_subscription
+rclc_executor_spin_some
+usleep
+vTaskDelete

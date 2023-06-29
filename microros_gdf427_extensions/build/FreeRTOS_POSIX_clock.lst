@@ -1,0 +1,306 @@
+ARM GAS  /tmp/ccByQtIN.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"FreeRTOS_POSIX_clock.c"
+  14              		.text
+  15              		.section	.text.clock,"ax",%progbits
+  16              		.align	1
+  17              		.global	clock
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	clock:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27              		@ link register save eliminated.
+  28 0000 4FF0FF30 		mov	r0, #-1
+  29 0004 7047     		bx	lr
+  31              		.section	.text.clock_getcpuclockid,"ax",%progbits
+  32              		.align	1
+  33              		.global	clock_getcpuclockid
+  34              		.syntax unified
+  35              		.thumb
+  36              		.thumb_func
+  37              		.fpu fpv4-sp-d16
+  39              	clock_getcpuclockid:
+  40              		@ args = 0, pretend = 0, frame = 0
+  41              		@ frame_needed = 0, uses_anonymous_args = 0
+  42              		@ link register save eliminated.
+  43 0000 0120     		movs	r0, #1
+  44 0002 7047     		bx	lr
+  46              		.section	.text.clock_getres,"ax",%progbits
+  47              		.align	1
+  48              		.global	clock_getres
+  49              		.syntax unified
+  50              		.thumb
+  51              		.thumb_func
+  52              		.fpu fpv4-sp-d16
+  54              	clock_getres:
+  55              		@ args = 0, pretend = 0, frame = 0
+  56              		@ frame_needed = 0, uses_anonymous_args = 0
+  57              		@ link register save eliminated.
+  58 0000 0B46     		mov	r3, r1
+  59 0002 29B1     		cbz	r1, .L4
+  60 0004 0020     		movs	r0, #0
+  61 0006 0021     		movs	r1, #0
+  62 0008 C3E90001 		strd	r0, [r3]
+ARM GAS  /tmp/ccByQtIN.s 			page 2
+
+
+  63 000c 014A     		ldr	r2, .L5
+  64 000e 9A60     		str	r2, [r3, #8]
+  65              	.L4:
+  66 0010 0020     		movs	r0, #0
+  67 0012 7047     		bx	lr
+  68              	.L6:
+  69              		.align	2
+  70              	.L5:
+  71 0014 40420F00 		.word	1000000
+  73              		.section	.text.clock_gettime,"ax",%progbits
+  74              		.align	1
+  75              		.global	clock_gettime
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  81              	clock_gettime:
+  82              		@ args = 0, pretend = 0, frame = 8
+  83              		@ frame_needed = 0, uses_anonymous_args = 0
+  84 0000 2DE9F048 		push	{r4, r5, r6, r7, fp, lr}
+  85 0004 82B0     		sub	sp, sp, #8
+  86 0006 0F46     		mov	r7, r1
+  87 0008 0026     		movs	r6, #0
+  88 000a 0096     		str	r6, [sp]
+  89 000c 0196     		str	r6, [sp, #4]
+  90 000e 6846     		mov	r0, sp
+  91 0010 FFF7FEFF 		bl	vTaskSetTimeOutState
+  92 0014 009D     		ldr	r5, [sp]
+  93 0016 019B     		ldr	r3, [sp, #4]
+  94 0018 16EB030B 		adds	fp, r6, r3
+  95 001c 45F1000C 		adc	ip, r5, #0
+  96 0020 4FEA4C13 		lsl	r3, ip, #5
+  97 0024 4FEA4B10 		lsl	r0, fp, #5
+  98 0028 43EADB61 		orr	r1, r3, fp, lsr #27
+  99 002c B0EB0B00 		subs	r0, r0, fp
+ 100 0030 61EB0C01 		sbc	r1, r1, ip
+ 101 0034 4B02     		lsls	r3, r1, #9
+ 102 0036 43EAD053 		orr	r3, r3, r0, lsr #23
+ 103 003a 4202     		lsls	r2, r0, #9
+ 104 003c 12EB0B00 		adds	r0, r2, fp
+ 105 0040 4CEB0301 		adc	r1, ip, r3
+ 106 0044 8A01     		lsls	r2, r1, #6
+ 107 0046 42EA9062 		orr	r2, r2, r0, lsr #26
+ 108 004a 8301     		lsls	r3, r0, #6
+ 109 004c 181A     		subs	r0, r3, r0
+ 110 004e 62EB0101 		sbc	r1, r2, r1
+ 111 0052 3A46     		mov	r2, r7
+ 112 0054 10EB0B00 		adds	r0, r0, fp
+ 113 0058 4CEB0101 		adc	r1, ip, r1
+ 114 005c FFF7FEFF 		bl	UTILS_NanosecondsToTimespec
+ 115 0060 3046     		mov	r0, r6
+ 116 0062 02B0     		add	sp, sp, #8
+ 117              		@ sp needed
+ 118 0064 BDE8F088 		pop	{r4, r5, r6, r7, fp, pc}
+ 120              		.section	.text.clock_nanosleep,"ax",%progbits
+ 121              		.align	1
+ 122              		.global	clock_nanosleep
+ARM GAS  /tmp/ccByQtIN.s 			page 3
+
+
+ 123              		.syntax unified
+ 124              		.thumb
+ 125              		.thumb_func
+ 126              		.fpu fpv4-sp-d16
+ 128              	clock_nanosleep:
+ 129              		@ args = 0, pretend = 0, frame = 32
+ 130              		@ frame_needed = 0, uses_anonymous_args = 0
+ 131 0000 70B5     		push	{r4, r5, r6, lr}
+ 132 0002 88B0     		sub	sp, sp, #32
+ 133 0004 0E46     		mov	r6, r1
+ 134 0006 1546     		mov	r5, r2
+ 135 0008 0023     		movs	r3, #0
+ 136 000a 0793     		str	r3, [sp, #28]
+ 137 000c 0293     		str	r3, [sp, #8]
+ 138 000e 0393     		str	r3, [sp, #12]
+ 139 0010 0493     		str	r3, [sp, #16]
+ 140 0012 0593     		str	r3, [sp, #20]
+ 141 0014 1046     		mov	r0, r2
+ 142 0016 FFF7FEFF 		bl	UTILS_ValidateTimespec
+ 143 001a 58B9     		cbnz	r0, .L17
+ 144 001c 1624     		movs	r4, #22
+ 145              	.L10:
+ 146 001e 2CBB     		cbnz	r4, .L9
+ 147 0020 16F0010F 		tst	r6, #1
+ 148 0024 1DD0     		beq	.L12
+ 149 0026 02A9     		add	r1, sp, #8
+ 150 0028 0020     		movs	r0, #0
+ 151 002a FFF7FEFF 		bl	clock_gettime
+ 152 002e 50B1     		cbz	r0, .L18
+ 153 0030 1624     		movs	r4, #22
+ 154 0032 1BE0     		b	.L9
+ 155              	.L17:
+ 156 0034 02A9     		add	r1, sp, #8
+ 157 0036 0020     		movs	r0, #0
+ 158 0038 FFF7FEFF 		bl	clock_gettime
+ 159 003c 0446     		mov	r4, r0
+ 160 003e 0028     		cmp	r0, #0
+ 161 0040 EDD0     		beq	.L10
+ 162 0042 1624     		movs	r4, #22
+ 163 0044 12E0     		b	.L9
+ 164              	.L18:
+ 165 0046 07AA     		add	r2, sp, #28
+ 166 0048 02A9     		add	r1, sp, #8
+ 167 004a 2846     		mov	r0, r5
+ 168 004c FFF7FEFF 		bl	UTILS_AbsoluteTimespecToDeltaTicks
+ 169 0050 60B9     		cbnz	r0, .L9
+ 170 0052 FFF7FEFF 		bl	xTaskGetTickCount
+ 171 0056 0190     		str	r0, [sp, #4]
+ 172 0058 0799     		ldr	r1, [sp, #28]
+ 173 005a 01A8     		add	r0, sp, #4
+ 174 005c FFF7FEFF 		bl	vTaskDelayUntil
+ 175 0060 04E0     		b	.L9
+ 176              	.L12:
+ 177 0062 07A9     		add	r1, sp, #28
+ 178 0064 2846     		mov	r0, r5
+ 179 0066 FFF7FEFF 		bl	UTILS_TimespecToTicks
+ 180 006a 10B1     		cbz	r0, .L19
+ARM GAS  /tmp/ccByQtIN.s 			page 4
+
+
+ 181              	.L9:
+ 182 006c 2046     		mov	r0, r4
+ 183 006e 08B0     		add	sp, sp, #32
+ 184              		@ sp needed
+ 185 0070 70BD     		pop	{r4, r5, r6, pc}
+ 186              	.L19:
+ 187 0072 0798     		ldr	r0, [sp, #28]
+ 188 0074 FFF7FEFF 		bl	vTaskDelay
+ 189 0078 F8E7     		b	.L9
+ 191              		.section	.text.clock_settime,"ax",%progbits
+ 192              		.align	1
+ 193              		.global	clock_settime
+ 194              		.syntax unified
+ 195              		.thumb
+ 196              		.thumb_func
+ 197              		.fpu fpv4-sp-d16
+ 199              	clock_settime:
+ 200              		@ args = 0, pretend = 0, frame = 0
+ 201              		@ frame_needed = 0, uses_anonymous_args = 0
+ 202              		@ link register save eliminated.
+ 203 0000 4FF0FF30 		mov	r0, #-1
+ 204 0004 7047     		bx	lr
+ 206              		.section	.text.nanosleep,"ax",%progbits
+ 207              		.align	1
+ 208              		.global	nanosleep
+ 209              		.syntax unified
+ 210              		.thumb
+ 211              		.thumb_func
+ 212              		.fpu fpv4-sp-d16
+ 214              	nanosleep:
+ 215              		@ args = 0, pretend = 0, frame = 8
+ 216              		@ frame_needed = 0, uses_anonymous_args = 0
+ 217 0000 10B5     		push	{r4, lr}
+ 218 0002 82B0     		sub	sp, sp, #8
+ 219 0004 0446     		mov	r4, r0
+ 220 0006 0023     		movs	r3, #0
+ 221 0008 0193     		str	r3, [sp, #4]
+ 222 000a FFF7FEFF 		bl	UTILS_ValidateTimespec
+ 223 000e 68B1     		cbz	r0, .L23
+ 224 0010 01A9     		add	r1, sp, #4
+ 225 0012 2046     		mov	r0, r4
+ 226 0014 FFF7FEFF 		bl	UTILS_TimespecToTicks
+ 227 0018 0446     		mov	r4, r0
+ 228 001a 18B1     		cbz	r0, .L26
+ 229 001c 0024     		movs	r4, #0
+ 230              	.L21:
+ 231 001e 2046     		mov	r0, r4
+ 232 0020 02B0     		add	sp, sp, #8
+ 233              		@ sp needed
+ 234 0022 10BD     		pop	{r4, pc}
+ 235              	.L26:
+ 236 0024 0198     		ldr	r0, [sp, #4]
+ 237 0026 FFF7FEFF 		bl	vTaskDelay
+ 238 002a F8E7     		b	.L21
+ 239              	.L23:
+ 240 002c 4FF0FF34 		mov	r4, #-1
+ 241 0030 F5E7     		b	.L21
+ARM GAS  /tmp/ccByQtIN.s 			page 5
+
+
+ 243              		.section	.text.time,"ax",%progbits
+ 244              		.align	1
+ 245              		.global	time
+ 246              		.syntax unified
+ 247              		.thumb
+ 248              		.thumb_func
+ 249              		.fpu fpv4-sp-d16
+ 251              	time:
+ 252              		@ args = 0, pretend = 0, frame = 16
+ 253              		@ frame_needed = 0, uses_anonymous_args = 0
+ 254 0000 10B5     		push	{r4, lr}
+ 255 0002 84B0     		sub	sp, sp, #16
+ 256 0004 0446     		mov	r4, r0
+ 257 0006 6946     		mov	r1, sp
+ 258 0008 0020     		movs	r0, #0
+ 259 000a FFF7FEFF 		bl	clock_gettime
+ 260 000e 18B1     		cbz	r0, .L32
+ 261 0010 0020     		movs	r0, #0
+ 262 0012 0021     		movs	r1, #0
+ 263              	.L27:
+ 264 0014 04B0     		add	sp, sp, #16
+ 265              		@ sp needed
+ 266 0016 10BD     		pop	{r4, pc}
+ 267              	.L32:
+ 268 0018 1CB1     		cbz	r4, .L29
+ 269 001a DDE90023 		ldrd	r2, [sp]
+ 270 001e C4E90023 		strd	r2, [r4]
+ 271              	.L29:
+ 272 0022 DDE90001 		ldrd	r0, [sp]
+ 273 0026 F5E7     		b	.L27
+ 275              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccByQtIN.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 FreeRTOS_POSIX_clock.c
+     /tmp/ccByQtIN.s:16     .text.clock:0000000000000000 $t
+     /tmp/ccByQtIN.s:24     .text.clock:0000000000000000 clock
+     /tmp/ccByQtIN.s:32     .text.clock_getcpuclockid:0000000000000000 $t
+     /tmp/ccByQtIN.s:39     .text.clock_getcpuclockid:0000000000000000 clock_getcpuclockid
+     /tmp/ccByQtIN.s:47     .text.clock_getres:0000000000000000 $t
+     /tmp/ccByQtIN.s:54     .text.clock_getres:0000000000000000 clock_getres
+     /tmp/ccByQtIN.s:71     .text.clock_getres:0000000000000014 $d
+     /tmp/ccByQtIN.s:74     .text.clock_gettime:0000000000000000 $t
+     /tmp/ccByQtIN.s:81     .text.clock_gettime:0000000000000000 clock_gettime
+     /tmp/ccByQtIN.s:121    .text.clock_nanosleep:0000000000000000 $t
+     /tmp/ccByQtIN.s:128    .text.clock_nanosleep:0000000000000000 clock_nanosleep
+     /tmp/ccByQtIN.s:192    .text.clock_settime:0000000000000000 $t
+     /tmp/ccByQtIN.s:199    .text.clock_settime:0000000000000000 clock_settime
+     /tmp/ccByQtIN.s:207    .text.nanosleep:0000000000000000 $t
+     /tmp/ccByQtIN.s:214    .text.nanosleep:0000000000000000 nanosleep
+     /tmp/ccByQtIN.s:244    .text.time:0000000000000000 $t
+     /tmp/ccByQtIN.s:251    .text.time:0000000000000000 time
+
+UNDEFINED SYMBOLS
+vTaskSetTimeOutState
+UTILS_NanosecondsToTimespec
+UTILS_ValidateTimespec
+UTILS_AbsoluteTimespecToDeltaTicks
+xTaskGetTickCount
+vTaskDelayUntil
+UTILS_TimespecToTicks
+vTaskDelay

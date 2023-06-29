@@ -1,0 +1,3424 @@
+ARM GAS  /tmp/cc2OsKqz.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"tcp_out.c"
+  14              		.text
+  15              		.section	.text.tcp_write_checks,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	tcp_write_checks:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26 0000 38B5     		push	{r3, r4, r5, lr}
+  27 0002 0D46     		mov	r5, r1
+  28 0004 0446     		mov	r4, r0
+  29 0006 B8B1     		cbz	r0, .L15
+  30              	.L2:
+  31 0008 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+  32 000a 042B     		cmp	r3, #4
+  33 000c 05D0     		beq	.L3
+  34 000e 072B     		cmp	r3, #7
+  35 0010 03D0     		beq	.L3
+  36 0012 022B     		cmp	r3, #2
+  37 0014 01D0     		beq	.L3
+  38 0016 032B     		cmp	r3, #3
+  39 0018 41D1     		bne	.L9
+  40              	.L3:
+  41 001a 002D     		cmp	r5, #0
+  42 001c 42D0     		beq	.L10
+  43 001e B4F86430 		ldrh	r3, [r4, #100]
+  44 0022 AB42     		cmp	r3, r5
+  45 0024 10D3     		bcc	.L16
+  46 0026 B4F86630 		ldrh	r3, [r4, #102]
+  47 002a 082B     		cmp	r3, #8
+  48 002c 13D8     		bhi	.L17
+  49 002e 33B3     		cbz	r3, .L7
+  50 0030 236F     		ldr	r3, [r4, #112]
+  51 0032 BBB1     		cbz	r3, .L18
+  52 0034 0020     		movs	r0, #0
+  53 0036 36E0     		b	.L4
+  54              	.L15:
+  55 0038 1B4B     		ldr	r3, .L21
+  56 003a 40F23312 		movw	r2, #307
+  57 003e 1B49     		ldr	r1, .L21+4
+  58 0040 1B48     		ldr	r0, .L21+8
+ARM GAS  /tmp/cc2OsKqz.s 			page 2
+
+
+  59 0042 FFF7FEFF 		bl	printf
+  60 0046 DFE7     		b	.L2
+  61              	.L16:
+  62 0048 638B     		ldrh	r3, [r4, #26]
+  63 004a 43F08003 		orr	r3, r3, #128
+  64 004e 6383     		strh	r3, [r4, #26]	@ movhi
+  65 0050 4FF0FF30 		mov	r0, #-1
+  66 0054 27E0     		b	.L4
+  67              	.L17:
+  68 0056 638B     		ldrh	r3, [r4, #26]
+  69 0058 43F08003 		orr	r3, r3, #128
+  70 005c 6383     		strh	r3, [r4, #26]	@ movhi
+  71 005e 4FF0FF30 		mov	r0, #-1
+  72 0062 20E0     		b	.L4
+  73              	.L18:
+  74 0064 E36E     		ldr	r3, [r4, #108]
+  75 0066 0BB1     		cbz	r3, .L19
+  76 0068 0020     		movs	r0, #0
+  77 006a 1CE0     		b	.L4
+  78              	.L19:
+  79 006c 0E4B     		ldr	r3, .L21
+  80 006e 4FF4AB72 		mov	r2, #342
+  81 0072 1049     		ldr	r1, .L21+12
+  82 0074 0E48     		ldr	r0, .L21+8
+  83 0076 FFF7FEFF 		bl	printf
+  84 007a 0020     		movs	r0, #0
+  85 007c 13E0     		b	.L4
+  86              	.L7:
+  87 007e 236F     		ldr	r3, [r4, #112]
+  88 0080 43B1     		cbz	r3, .L20
+  89              	.L8:
+  90 0082 094B     		ldr	r3, .L21
+  91 0084 40F25912 		movw	r2, #345
+  92 0088 0B49     		ldr	r1, .L21+16
+  93 008a 0948     		ldr	r0, .L21+8
+  94 008c FFF7FEFF 		bl	printf
+  95 0090 0020     		movs	r0, #0
+  96 0092 08E0     		b	.L4
+  97              	.L20:
+  98 0094 E36E     		ldr	r3, [r4, #108]
+  99 0096 002B     		cmp	r3, #0
+ 100 0098 F3D1     		bne	.L8
+ 101 009a 0020     		movs	r0, #0
+ 102 009c 03E0     		b	.L4
+ 103              	.L9:
+ 104 009e 6FF00A00 		mvn	r0, #10
+ 105 00a2 00E0     		b	.L4
+ 106              	.L10:
+ 107 00a4 0020     		movs	r0, #0
+ 108              	.L4:
+ 109 00a6 38BD     		pop	{r3, r4, r5, pc}
+ 110              	.L22:
+ 111              		.align	2
+ 112              	.L21:
+ 113 00a8 00000000 		.word	.LC0
+ 114 00ac 30000000 		.word	.LC1
+ 115 00b0 50000000 		.word	.LC2
+ARM GAS  /tmp/cc2OsKqz.s 			page 3
+
+
+ 116 00b4 78000000 		.word	.LC3
+ 117 00b8 B4000000 		.word	.LC4
+ 119              		.section	.text.tcp_output_segment_busy,"ax",%progbits
+ 120              		.align	1
+ 121              		.syntax unified
+ 122              		.thumb
+ 123              		.thumb_func
+ 124              		.fpu fpv4-sp-d16
+ 126              	tcp_output_segment_busy:
+ 127              		@ args = 0, pretend = 0, frame = 0
+ 128              		@ frame_needed = 0, uses_anonymous_args = 0
+ 129 0000 10B5     		push	{r4, lr}
+ 130 0002 0446     		mov	r4, r0
+ 131 0004 28B1     		cbz	r0, .L28
+ 132              	.L24:
+ 133 0006 6368     		ldr	r3, [r4, #4]
+ 134 0008 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 135 000a 012B     		cmp	r3, #1
+ 136 000c 09D1     		bne	.L26
+ 137 000e 0020     		movs	r0, #0
+ 138              	.L23:
+ 139 0010 10BD     		pop	{r4, pc}
+ 140              	.L28:
+ 141 0012 054B     		ldr	r3, .L29
+ 142 0014 40F29A52 		movw	r2, #1434
+ 143 0018 0449     		ldr	r1, .L29+4
+ 144 001a 0548     		ldr	r0, .L29+8
+ 145 001c FFF7FEFF 		bl	printf
+ 146 0020 F1E7     		b	.L24
+ 147              	.L26:
+ 148 0022 0120     		movs	r0, #1
+ 149 0024 F4E7     		b	.L23
+ 150              	.L30:
+ 151 0026 00BF     		.align	2
+ 152              	.L29:
+ 153 0028 00000000 		.word	.LC0
+ 154 002c 00000000 		.word	.LC5
+ 155 0030 50000000 		.word	.LC2
+ 157              		.section	.text.tcp_output_fill_options,"ax",%progbits
+ 158              		.align	1
+ 159              		.syntax unified
+ 160              		.thumb
+ 161              		.thumb_func
+ 162              		.fpu fpv4-sp-d16
+ 164              	tcp_output_fill_options:
+ 165              		@ args = 0, pretend = 0, frame = 0
+ 166              		@ frame_needed = 0, uses_anonymous_args = 0
+ 167 0000 38B5     		push	{r3, r4, r5, lr}
+ 168 0002 1446     		mov	r4, r2
+ 169 0004 0D46     		mov	r5, r1
+ 170 0006 89B1     		cbz	r1, .L35
+ 171              	.L32:
+ 172 0008 6B68     		ldr	r3, [r5, #4]
+ 173 000a 03F11402 		add	r2, r3, #20
+ 174 000e A400     		lsls	r4, r4, #2
+ 175 0010 04F00404 		and	r4, r4, #4
+ 176 0014 1434     		adds	r4, r4, #20
+ARM GAS  /tmp/cc2OsKqz.s 			page 4
+
+
+ 177 0016 1C44     		add	r4, r4, r3
+ 178 0018 9442     		cmp	r4, r2
+ 179 001a 06D0     		beq	.L31
+ 180 001c 074B     		ldr	r3, .L36
+ 181 001e 40F27572 		movw	r2, #1909
+ 182 0022 0749     		ldr	r1, .L36+4
+ 183 0024 0748     		ldr	r0, .L36+8
+ 184 0026 FFF7FEFF 		bl	printf
+ 185              	.L31:
+ 186 002a 38BD     		pop	{r3, r4, r5, pc}
+ 187              	.L35:
+ 188 002c 034B     		ldr	r3, .L36
+ 189 002e 40F25672 		movw	r2, #1878
+ 190 0032 0549     		ldr	r1, .L36+12
+ 191 0034 0348     		ldr	r0, .L36+8
+ 192 0036 FFF7FEFF 		bl	printf
+ 193 003a E5E7     		b	.L32
+ 194              	.L37:
+ 195              		.align	2
+ 196              	.L36:
+ 197 003c 00000000 		.word	.LC0
+ 198 0040 28000000 		.word	.LC7
+ 199 0044 50000000 		.word	.LC2
+ 200 0048 00000000 		.word	.LC6
+ 202              		.section	.text.tcp_pbuf_prealloc,"ax",%progbits
+ 203              		.align	1
+ 204              		.syntax unified
+ 205              		.thumb
+ 206              		.thumb_func
+ 207              		.fpu fpv4-sp-d16
+ 209              	tcp_pbuf_prealloc:
+ 210              		@ args = 12, pretend = 0, frame = 0
+ 211              		@ frame_needed = 0, uses_anonymous_args = 0
+ 212 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 213 0004 8046     		mov	r8, r0
+ 214 0006 0C46     		mov	r4, r1
+ 215 0008 1546     		mov	r5, r2
+ 216 000a 089F     		ldr	r7, [sp, #32]
+ 217 000c 9DF82890 		ldrb	r9, [sp, #40]	@ zero_extendqisi2
+ 218 0010 1E46     		mov	r6, r3
+ 219 0012 CBB1     		cbz	r3, .L49
+ 220              	.L39:
+ 221 0014 FFB1     		cbz	r7, .L50
+ 222              	.L40:
+ 223 0016 AC42     		cmp	r4, r5
+ 224 0018 29D2     		bcs	.L45
+ 225 001a 9DF82430 		ldrb	r3, [sp, #36]	@ zero_extendqisi2
+ 226 001e 13F0020F 		tst	r3, #2
+ 227 0022 08D1     		bne	.L42
+ 228 0024 7B8B     		ldrh	r3, [r7, #26]
+ 229 0026 13F0400F 		tst	r3, #64
+ 230 002a 39D1     		bne	.L46
+ 231 002c B9F1000F 		cmp	r9, #0
+ 232 0030 01D0     		beq	.L42
+ 233 0032 FB6E     		ldr	r3, [r7, #108]
+ 234 0034 B3B1     		cbz	r3, .L51
+ 235              	.L42:
+ARM GAS  /tmp/cc2OsKqz.s 			page 5
+
+
+ 236 0036 04F21B21 		addw	r1, r4, #539
+ 237 003a 21F00301 		bic	r1, r1, #3
+ 238 003e 8D42     		cmp	r5, r1
+ 239 0040 28BF     		it	cs
+ 240 0042 0D46     		movcs	r5, r1
+ 241 0044 A9B2     		uxth	r1, r5
+ 242 0046 13E0     		b	.L41
+ 243              	.L49:
+ 244 0048 164B     		ldr	r3, .L52
+ 245 004a E822     		movs	r2, #232
+ 246 004c 1649     		ldr	r1, .L52+4
+ 247 004e 1748     		ldr	r0, .L52+8
+ 248 0050 FFF7FEFF 		bl	printf
+ 249 0054 DEE7     		b	.L39
+ 250              	.L50:
+ 251 0056 134B     		ldr	r3, .L52
+ 252 0058 E922     		movs	r2, #233
+ 253 005a 1549     		ldr	r1, .L52+12
+ 254 005c 1348     		ldr	r0, .L52+8
+ 255 005e FFF7FEFF 		bl	printf
+ 256 0062 D8E7     		b	.L40
+ 257              	.L51:
+ 258 0064 3B6F     		ldr	r3, [r7, #112]
+ 259 0066 002B     		cmp	r3, #0
+ 260 0068 E5D1     		bne	.L42
+ 261 006a 2146     		mov	r1, r4
+ 262 006c 00E0     		b	.L41
+ 263              	.L45:
+ 264 006e 2146     		mov	r1, r4
+ 265              	.L41:
+ 266 0070 4FF42072 		mov	r2, #640
+ 267 0074 4046     		mov	r0, r8
+ 268 0076 FFF7FEFF 		bl	pbuf_alloc
+ 269 007a 0546     		mov	r5, r0
+ 270 007c 68B1     		cbz	r0, .L38
+ 271 007e 0368     		ldr	r3, [r0]
+ 272 0080 33B1     		cbz	r3, .L44
+ 273 0082 084B     		ldr	r3, .L52
+ 274 0084 40F20B12 		movw	r2, #267
+ 275 0088 0A49     		ldr	r1, .L52+16
+ 276 008a 0848     		ldr	r0, .L52+8
+ 277 008c FFF7FEFF 		bl	printf
+ 278              	.L44:
+ 279 0090 6B89     		ldrh	r3, [r5, #10]
+ 280 0092 1B1B     		subs	r3, r3, r4
+ 281 0094 3380     		strh	r3, [r6]	@ movhi
+ 282 0096 2C81     		strh	r4, [r5, #8]	@ movhi
+ 283 0098 6C81     		strh	r4, [r5, #10]	@ movhi
+ 284              	.L38:
+ 285 009a 2846     		mov	r0, r5
+ 286 009c BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 287              	.L46:
+ 288 00a0 2146     		mov	r1, r4
+ 289 00a2 E5E7     		b	.L41
+ 290              	.L53:
+ 291              		.align	2
+ 292              	.L52:
+ARM GAS  /tmp/cc2OsKqz.s 			page 6
+
+
+ 293 00a4 00000000 		.word	.LC0
+ 294 00a8 00000000 		.word	.LC8
+ 295 00ac 50000000 		.word	.LC2
+ 296 00b0 24000000 		.word	.LC9
+ 297 00b4 44000000 		.word	.LC10
+ 299              		.section	.text.tcp_create_segment,"ax",%progbits
+ 300              		.align	1
+ 301              		.syntax unified
+ 302              		.thumb
+ 303              		.thumb_func
+ 304              		.fpu fpv4-sp-d16
+ 306              	tcp_create_segment:
+ 307              		@ args = 4, pretend = 0, frame = 0
+ 308              		@ frame_needed = 0, uses_anonymous_args = 0
+ 309 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 310 0004 0E46     		mov	r6, r1
+ 311 0006 1746     		mov	r7, r2
+ 312 0008 9946     		mov	r9, r3
+ 313 000a 9DF820A0 		ldrb	r10, [sp, #32]	@ zero_extendqisi2
+ 314 000e 8046     		mov	r8, r0
+ 315 0010 0028     		cmp	r0, #0
+ 316 0012 41D0     		beq	.L62
+ 317              	.L55:
+ 318 0014 002E     		cmp	r6, #0
+ 319 0016 46D0     		beq	.L63
+ 320              	.L56:
+ 321 0018 4FEA8A05 		lsl	r5, r10, #2
+ 322 001c 05F00405 		and	r5, r5, #4
+ 323 0020 0320     		movs	r0, #3
+ 324 0022 FFF7FEFF 		bl	memp_malloc
+ 325 0026 0446     		mov	r4, r0
+ 326 0028 0028     		cmp	r0, #0
+ 327 002a 43D0     		beq	.L64
+ 328 002c 80F80AA0 		strb	r10, [r0, #10]
+ 329 0030 0023     		movs	r3, #0
+ 330 0032 0360     		str	r3, [r0]
+ 331 0034 4660     		str	r6, [r0, #4]
+ 332 0036 3389     		ldrh	r3, [r6, #8]
+ 333 0038 1FFA85FA 		uxth	r10, r5
+ 334 003c 5345     		cmp	r3, r10
+ 335 003e 3DD3     		bcc	.L65
+ 336              	.L59:
+ 337 0040 3389     		ldrh	r3, [r6, #8]
+ 338 0042 A3EB0A03 		sub	r3, r3, r10
+ 339 0046 2381     		strh	r3, [r4, #8]	@ movhi
+ 340 0048 1421     		movs	r1, #20
+ 341 004a 3046     		mov	r0, r6
+ 342 004c FFF7FEFF 		bl	pbuf_add_header
+ 343 0050 0028     		cmp	r0, #0
+ 344 0052 3AD1     		bne	.L66
+ 345 0054 6368     		ldr	r3, [r4, #4]
+ 346 0056 5E68     		ldr	r6, [r3, #4]
+ 347 0058 E660     		str	r6, [r4, #12]
+ 348 005a B8F81600 		ldrh	r0, [r8, #22]
+ 349 005e FFF7FEFF 		bl	lwip_htons
+ 350 0062 3080     		strh	r0, [r6]	@ unaligned
+ 351 0064 E668     		ldr	r6, [r4, #12]
+ARM GAS  /tmp/cc2OsKqz.s 			page 7
+
+
+ 352 0066 B8F81800 		ldrh	r0, [r8, #24]
+ 353 006a FFF7FEFF 		bl	lwip_htons
+ 354 006e 7080     		strh	r0, [r6, #2]	@ unaligned
+ 355 0070 E668     		ldr	r6, [r4, #12]
+ 356 0072 4846     		mov	r0, r9
+ 357 0074 FFF7FEFF 		bl	lwip_htonl
+ 358 0078 7060     		str	r0, [r6, #4]	@ unaligned
+ 359 007a A808     		lsrs	r0, r5, #2
+ 360 007c 0530     		adds	r0, r0, #5
+ 361 007e E568     		ldr	r5, [r4, #12]
+ 362 0080 47EA0030 		orr	r0, r7, r0, lsl #12
+ 363 0084 FFF7FEFF 		bl	lwip_htons
+ 364 0088 A881     		strh	r0, [r5, #12]	@ unaligned
+ 365 008a E368     		ldr	r3, [r4, #12]
+ 366 008c 0022     		movs	r2, #0
+ 367 008e 9A74     		strb	r2, [r3, #18]
+ 368 0090 DA74     		strb	r2, [r3, #19]
+ 369              	.L54:
+ 370 0092 2046     		mov	r0, r4
+ 371 0094 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 372              	.L62:
+ 373 0098 0E4B     		ldr	r3, .L67
+ 374 009a A322     		movs	r2, #163
+ 375 009c 0E49     		ldr	r1, .L67+4
+ 376 009e 0F48     		ldr	r0, .L67+8
+ 377 00a0 FFF7FEFF 		bl	printf
+ 378 00a4 B6E7     		b	.L55
+ 379              	.L63:
+ 380 00a6 0B4B     		ldr	r3, .L67
+ 381 00a8 A422     		movs	r2, #164
+ 382 00aa 0D49     		ldr	r1, .L67+12
+ 383 00ac 0B48     		ldr	r0, .L67+8
+ 384 00ae FFF7FEFF 		bl	printf
+ 385 00b2 B1E7     		b	.L56
+ 386              	.L64:
+ 387 00b4 3046     		mov	r0, r6
+ 388 00b6 FFF7FEFF 		bl	pbuf_free
+ 389 00ba EAE7     		b	.L54
+ 390              	.L65:
+ 391 00bc 054B     		ldr	r3, .L67
+ 392 00be B022     		movs	r2, #176
+ 393 00c0 0849     		ldr	r1, .L67+16
+ 394 00c2 0648     		ldr	r0, .L67+8
+ 395 00c4 FFF7FEFF 		bl	printf
+ 396 00c8 BAE7     		b	.L59
+ 397              	.L66:
+ 398 00ca 2046     		mov	r0, r4
+ 399 00cc FFF7FEFF 		bl	tcp_seg_free
+ 400 00d0 0024     		movs	r4, #0
+ 401 00d2 DEE7     		b	.L54
+ 402              	.L68:
+ 403              		.align	2
+ 404              	.L67:
+ 405 00d4 00000000 		.word	.LC0
+ 406 00d8 00000000 		.word	.LC11
+ 407 00dc 50000000 		.word	.LC2
+ 408 00e0 20000000 		.word	.LC12
+ARM GAS  /tmp/cc2OsKqz.s 			page 8
+
+
+ 409 00e4 44000000 		.word	.LC13
+ 411              		.section	.text.tcp_output_alloc_header_common,"ax",%progbits
+ 412              		.align	1
+ 413              		.syntax unified
+ 414              		.thumb
+ 415              		.thumb_func
+ 416              		.fpu fpv4-sp-d16
+ 418              	tcp_output_alloc_header_common:
+ 419              		@ args = 16, pretend = 0, frame = 0
+ 420              		@ frame_needed = 0, uses_anonymous_args = 0
+ 421 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 422 0004 0746     		mov	r7, r0
+ 423 0006 0C46     		mov	r4, r1
+ 424 0008 9846     		mov	r8, r3
+ 425 000a 1144     		add	r1, r1, r2
+ 426 000c 89B2     		uxth	r1, r1
+ 427 000e 1431     		adds	r1, r1, #20
+ 428 0010 4FF42072 		mov	r2, #640
+ 429 0014 89B2     		uxth	r1, r1
+ 430 0016 2220     		movs	r0, #34
+ 431 0018 FFF7FEFF 		bl	pbuf_alloc
+ 432 001c 0646     		mov	r6, r0
+ 433 001e 48B3     		cbz	r0, .L69
+ 434 0020 04F11303 		add	r3, r4, #19
+ 435 0024 4289     		ldrh	r2, [r0, #10]
+ 436 0026 9342     		cmp	r3, r2
+ 437 0028 27DA     		bge	.L73
+ 438              	.L71:
+ 439 002a 7568     		ldr	r5, [r6, #4]
+ 440 002c BDF81800 		ldrh	r0, [sp, #24]
+ 441 0030 FFF7FEFF 		bl	lwip_htons
+ 442 0034 2880     		strh	r0, [r5]	@ unaligned
+ 443 0036 BDF81C00 		ldrh	r0, [sp, #28]
+ 444 003a FFF7FEFF 		bl	lwip_htons
+ 445 003e 6880     		strh	r0, [r5, #2]	@ unaligned
+ 446 0040 C5F80480 		str	r8, [r5, #4]	@ unaligned
+ 447 0044 3846     		mov	r0, r7
+ 448 0046 FFF7FEFF 		bl	lwip_htonl
+ 449 004a A860     		str	r0, [r5, #8]	@ unaligned
+ 450 004c A408     		lsrs	r4, r4, #2
+ 451 004e 0534     		adds	r4, r4, #5
+ 452 0050 2403     		lsls	r4, r4, #12
+ 453 0052 A4B2     		uxth	r4, r4
+ 454 0054 9DF82000 		ldrb	r0, [sp, #32]	@ zero_extendqisi2
+ 455 0058 2043     		orrs	r0, r0, r4
+ 456 005a FFF7FEFF 		bl	lwip_htons
+ 457 005e A881     		strh	r0, [r5, #12]	@ unaligned
+ 458 0060 BDF82400 		ldrh	r0, [sp, #36]
+ 459 0064 FFF7FEFF 		bl	lwip_htons
+ 460 0068 E881     		strh	r0, [r5, #14]	@ unaligned
+ 461 006a 0023     		movs	r3, #0
+ 462 006c 2B74     		strb	r3, [r5, #16]
+ 463 006e 6B74     		strb	r3, [r5, #17]
+ 464 0070 AB74     		strb	r3, [r5, #18]
+ 465 0072 EB74     		strb	r3, [r5, #19]
+ 466              	.L69:
+ 467 0074 3046     		mov	r0, r6
+ARM GAS  /tmp/cc2OsKqz.s 			page 9
+
+
+ 468 0076 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 469              	.L73:
+ 470 007a 044B     		ldr	r3, .L74
+ 471 007c 40F22472 		movw	r2, #1828
+ 472 0080 0349     		ldr	r1, .L74+4
+ 473 0082 0448     		ldr	r0, .L74+8
+ 474 0084 FFF7FEFF 		bl	printf
+ 475 0088 CFE7     		b	.L71
+ 476              	.L75:
+ 477 008a 00BF     		.align	2
+ 478              	.L74:
+ 479 008c 00000000 		.word	.LC0
+ 480 0090 00000000 		.word	.LC14
+ 481 0094 50000000 		.word	.LC2
+ 483              		.section	.text.tcp_output_alloc_header,"ax",%progbits
+ 484              		.align	1
+ 485              		.syntax unified
+ 486              		.thumb
+ 487              		.thumb_func
+ 488              		.fpu fpv4-sp-d16
+ 490              	tcp_output_alloc_header:
+ 491              		@ args = 0, pretend = 0, frame = 0
+ 492              		@ frame_needed = 0, uses_anonymous_args = 0
+ 493 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 494 0002 85B0     		sub	sp, sp, #20
+ 495 0004 0D46     		mov	r5, r1
+ 496 0006 1646     		mov	r6, r2
+ 497 0008 1F46     		mov	r7, r3
+ 498 000a 0446     		mov	r4, r0
+ 499 000c B0B1     		cbz	r0, .L80
+ 500              	.L77:
+ 501 000e 638D     		ldrh	r3, [r4, #42]
+ 502 0010 0393     		str	r3, [sp, #12]
+ 503 0012 1023     		movs	r3, #16
+ 504 0014 0293     		str	r3, [sp, #8]
+ 505 0016 238B     		ldrh	r3, [r4, #24]
+ 506 0018 0193     		str	r3, [sp, #4]
+ 507 001a E38A     		ldrh	r3, [r4, #22]
+ 508 001c 0093     		str	r3, [sp]
+ 509 001e 3B46     		mov	r3, r7
+ 510 0020 3246     		mov	r2, r6
+ 511 0022 2946     		mov	r1, r5
+ 512 0024 606A     		ldr	r0, [r4, #36]
+ 513 0026 FFF7FEFF 		bl	tcp_output_alloc_header_common
+ 514 002a 0246     		mov	r2, r0
+ 515 002c 18B1     		cbz	r0, .L76
+ 516 002e 636A     		ldr	r3, [r4, #36]
+ 517 0030 618D     		ldrh	r1, [r4, #42]
+ 518 0032 0B44     		add	r3, r3, r1
+ 519 0034 E362     		str	r3, [r4, #44]
+ 520              	.L76:
+ 521 0036 1046     		mov	r0, r2
+ 522 0038 05B0     		add	sp, sp, #20
+ 523              		@ sp needed
+ 524 003a F0BD     		pop	{r4, r5, r6, r7, pc}
+ 525              	.L80:
+ 526 003c 034B     		ldr	r3, .L81
+ARM GAS  /tmp/cc2OsKqz.s 			page 10
+
+
+ 527 003e 40F24272 		movw	r2, #1858
+ 528 0042 0349     		ldr	r1, .L81+4
+ 529 0044 0348     		ldr	r0, .L81+8
+ 530 0046 FFF7FEFF 		bl	printf
+ 531 004a E0E7     		b	.L77
+ 532              	.L82:
+ 533              		.align	2
+ 534              	.L81:
+ 535 004c 00000000 		.word	.LC0
+ 536 0050 00000000 		.word	.LC15
+ 537 0054 50000000 		.word	.LC2
+ 539              		.section	.text.tcp_route,"ax",%progbits
+ 540              		.align	1
+ 541              		.syntax unified
+ 542              		.thumb
+ 543              		.thumb_func
+ 544              		.fpu fpv4-sp-d16
+ 546              	tcp_route:
+ 547              		@ args = 0, pretend = 0, frame = 0
+ 548              		@ frame_needed = 0, uses_anonymous_args = 0
+ 549 0000 08B5     		push	{r3, lr}
+ 550 0002 08B1     		cbz	r0, .L84
+ 551 0004 007A     		ldrb	r0, [r0, #8]	@ zero_extendqisi2
+ 552 0006 18B9     		cbnz	r0, .L87
+ 553              	.L84:
+ 554 0008 1046     		mov	r0, r2
+ 555 000a FFF7FEFF 		bl	ip4_route
+ 556              	.L83:
+ 557 000e 08BD     		pop	{r3, pc}
+ 558              	.L87:
+ 559 0010 FFF7FEFF 		bl	netif_get_by_index
+ 560 0014 FBE7     		b	.L83
+ 562              		.section	.text.tcp_output_segment,"ax",%progbits
+ 563              		.align	1
+ 564              		.syntax unified
+ 565              		.thumb
+ 566              		.thumb_func
+ 567              		.fpu fpv4-sp-d16
+ 569              	tcp_output_segment:
+ 570              		@ args = 0, pretend = 0, frame = 0
+ 571              		@ frame_needed = 0, uses_anonymous_args = 0
+ 572 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 573 0004 84B0     		sub	sp, sp, #16
+ 574 0006 0C46     		mov	r4, r1
+ 575 0008 1646     		mov	r6, r2
+ 576 000a 0546     		mov	r5, r0
+ 577 000c 48B1     		cbz	r0, .L99
+ 578              	.L89:
+ 579 000e 84B1     		cbz	r4, .L100
+ 580              	.L90:
+ 581 0010 BEB1     		cbz	r6, .L101
+ 582              	.L91:
+ 583 0012 2846     		mov	r0, r5
+ 584 0014 FFF7FEFF 		bl	tcp_output_segment_busy
+ 585 0018 D8B1     		cbz	r0, .L102
+ 586 001a 0020     		movs	r0, #0
+ 587              	.L92:
+ARM GAS  /tmp/cc2OsKqz.s 			page 11
+
+
+ 588 001c 04B0     		add	sp, sp, #16
+ 589              		@ sp needed
+ 590 001e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 591              	.L99:
+ 592 0022 3F4B     		ldr	r3, .L106
+ 593 0024 4FF4B762 		mov	r2, #1464
+ 594 0028 3E49     		ldr	r1, .L106+4
+ 595 002a 3F48     		ldr	r0, .L106+8
+ 596 002c FFF7FEFF 		bl	printf
+ 597 0030 EDE7     		b	.L89
+ 598              	.L100:
+ 599 0032 3B4B     		ldr	r3, .L106
+ 600 0034 40F2B952 		movw	r2, #1465
+ 601 0038 3C49     		ldr	r1, .L106+12
+ 602 003a 3B48     		ldr	r0, .L106+8
+ 603 003c FFF7FEFF 		bl	printf
+ 604 0040 E6E7     		b	.L90
+ 605              	.L101:
+ 606 0042 374B     		ldr	r3, .L106
+ 607 0044 40F2BA52 		movw	r2, #1466
+ 608 0048 3949     		ldr	r1, .L106+16
+ 609 004a 3748     		ldr	r0, .L106+8
+ 610 004c FFF7FEFF 		bl	printf
+ 611 0050 DFE7     		b	.L91
+ 612              	.L102:
+ 613 0052 EF68     		ldr	r7, [r5, #12]
+ 614 0054 606A     		ldr	r0, [r4, #36]
+ 615 0056 FFF7FEFF 		bl	lwip_htonl
+ 616 005a B860     		str	r0, [r7, #8]	@ unaligned
+ 617 005c EF68     		ldr	r7, [r5, #12]
+ 618 005e 608D     		ldrh	r0, [r4, #42]
+ 619 0060 FFF7FEFF 		bl	lwip_htons
+ 620 0064 F881     		strh	r0, [r7, #14]	@ unaligned
+ 621 0066 636A     		ldr	r3, [r4, #36]
+ 622 0068 628D     		ldrh	r2, [r4, #42]
+ 623 006a 1344     		add	r3, r3, r2
+ 624 006c E362     		str	r3, [r4, #44]
+ 625 006e D5F80C80 		ldr	r8, [r5, #12]
+ 626 0072 08F11407 		add	r7, r8, #20
+ 627 0076 AB7A     		ldrb	r3, [r5, #10]	@ zero_extendqisi2
+ 628 0078 13F0010F 		tst	r3, #1
+ 629 007c 34D1     		bne	.L103
+ 630              	.L93:
+ 631 007e B4F93030 		ldrsh	r3, [r4, #48]
+ 632 0082 002B     		cmp	r3, #0
+ 633 0084 3FDB     		blt	.L104
+ 634              	.L94:
+ 635 0086 636B     		ldr	r3, [r4, #52]
+ 636 0088 002B     		cmp	r3, #0
+ 637 008a 3FD0     		beq	.L105
+ 638              	.L95:
+ 639 008c EB68     		ldr	r3, [r5, #12]
+ 640 008e 6A68     		ldr	r2, [r5, #4]
+ 641 0090 5168     		ldr	r1, [r2, #4]
+ 642 0092 5B1A     		subs	r3, r3, r1
+ 643 0094 9BB2     		uxth	r3, r3
+ 644 0096 5189     		ldrh	r1, [r2, #10]
+ARM GAS  /tmp/cc2OsKqz.s 			page 12
+
+
+ 645 0098 C91A     		subs	r1, r1, r3
+ 646 009a 5181     		strh	r1, [r2, #10]	@ movhi
+ 647 009c 6968     		ldr	r1, [r5, #4]
+ 648 009e 0A89     		ldrh	r2, [r1, #8]
+ 649 00a0 D31A     		subs	r3, r2, r3
+ 650 00a2 0B81     		strh	r3, [r1, #8]	@ movhi
+ 651 00a4 6A68     		ldr	r2, [r5, #4]
+ 652 00a6 EB68     		ldr	r3, [r5, #12]
+ 653 00a8 5360     		str	r3, [r2, #4]
+ 654 00aa 0022     		movs	r2, #0
+ 655 00ac 1A74     		strb	r2, [r3, #16]
+ 656 00ae 5A74     		strb	r2, [r3, #17]
+ 657 00b0 EA68     		ldr	r2, [r5, #12]
+ 658 00b2 AB7A     		ldrb	r3, [r5, #10]	@ zero_extendqisi2
+ 659 00b4 9B00     		lsls	r3, r3, #2
+ 660 00b6 03F00403 		and	r3, r3, #4
+ 661 00ba 1433     		adds	r3, r3, #20
+ 662 00bc 1344     		add	r3, r3, r2
+ 663 00be BB42     		cmp	r3, r7
+ 664 00c0 06D0     		beq	.L96
+ 665 00c2 174B     		ldr	r3, .L106
+ 666 00c4 40F21C62 		movw	r2, #1564
+ 667 00c8 1A49     		ldr	r1, .L106+20
+ 668 00ca 1748     		ldr	r0, .L106+8
+ 669 00cc FFF7FEFF 		bl	printf
+ 670              	.L96:
+ 671 00d0 0296     		str	r6, [sp, #8]
+ 672 00d2 0623     		movs	r3, #6
+ 673 00d4 0193     		str	r3, [sp, #4]
+ 674 00d6 A37A     		ldrb	r3, [r4, #10]	@ zero_extendqisi2
+ 675 00d8 0093     		str	r3, [sp]
+ 676 00da E37A     		ldrb	r3, [r4, #11]	@ zero_extendqisi2
+ 677 00dc 221D     		adds	r2, r4, #4
+ 678 00de 2146     		mov	r1, r4
+ 679 00e0 6868     		ldr	r0, [r5, #4]
+ 680 00e2 FFF7FEFF 		bl	ip4_output_if
+ 681 00e6 99E7     		b	.L92
+ 682              	.L103:
+ 683 00e8 221D     		adds	r2, r4, #4
+ 684 00ea 3146     		mov	r1, r6
+ 685 00ec 4FF40670 		mov	r0, #536
+ 686 00f0 FFF7FEFF 		bl	tcp_eff_send_mss_netif
+ 687 00f4 40F00170 		orr	r0, r0, #33816576
+ 688 00f8 FFF7FEFF 		bl	lwip_htonl
+ 689 00fc C8F81400 		str	r0, [r8, #20]
+ 690 0100 08F11807 		add	r7, r8, #24
+ 691 0104 BBE7     		b	.L93
+ 692              	.L104:
+ 693 0106 0023     		movs	r3, #0
+ 694 0108 2386     		strh	r3, [r4, #48]	@ movhi
+ 695 010a BCE7     		b	.L94
+ 696              	.L105:
+ 697 010c 0A4B     		ldr	r3, .L106+24
+ 698 010e 1B68     		ldr	r3, [r3]
+ 699 0110 6363     		str	r3, [r4, #52]
+ 700 0112 EB68     		ldr	r3, [r5, #12]
+ 701 0114 5868     		ldr	r0, [r3, #4]	@ unaligned
+ARM GAS  /tmp/cc2OsKqz.s 			page 13
+
+
+ 702 0116 FFF7FEFF 		bl	lwip_htonl
+ 703 011a A063     		str	r0, [r4, #56]
+ 704 011c B6E7     		b	.L95
+ 705              	.L107:
+ 706 011e 00BF     		.align	2
+ 707              	.L106:
+ 708 0120 00000000 		.word	.LC0
+ 709 0124 00000000 		.word	.LC16
+ 710 0128 50000000 		.word	.LC2
+ 711 012c 20000000 		.word	.LC17
+ 712 0130 40000000 		.word	.LC18
+ 713 0134 28000000 		.word	.LC7
+ 714 0138 00000000 		.word	tcp_ticks
+ 716              		.section	.text.tcp_output_control_segment,"ax",%progbits
+ 717              		.align	1
+ 718              		.syntax unified
+ 719              		.thumb
+ 720              		.thumb_func
+ 721              		.fpu fpv4-sp-d16
+ 723              	tcp_output_control_segment:
+ 724              		@ args = 0, pretend = 0, frame = 0
+ 725              		@ frame_needed = 0, uses_anonymous_args = 0
+ 726 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 727 0002 85B0     		sub	sp, sp, #20
+ 728 0004 0446     		mov	r4, r0
+ 729 0006 1646     		mov	r6, r2
+ 730 0008 1F46     		mov	r7, r3
+ 731 000a 0D46     		mov	r5, r1
+ 732 000c C9B1     		cbz	r1, .L115
+ 733              	.L109:
+ 734 000e 3A46     		mov	r2, r7
+ 735 0010 3146     		mov	r1, r6
+ 736 0012 2046     		mov	r0, r4
+ 737 0014 FFF7FEFF 		bl	tcp_route
+ 738 0018 0246     		mov	r2, r0
+ 739 001a E8B1     		cbz	r0, .L112
+ 740 001c CCB1     		cbz	r4, .L113
+ 741 001e E37A     		ldrb	r3, [r4, #11]	@ zero_extendqisi2
+ 742 0020 A17A     		ldrb	r1, [r4, #10]	@ zero_extendqisi2
+ 743              	.L111:
+ 744 0022 0292     		str	r2, [sp, #8]
+ 745 0024 0622     		movs	r2, #6
+ 746 0026 0192     		str	r2, [sp, #4]
+ 747 0028 0091     		str	r1, [sp]
+ 748 002a 3A46     		mov	r2, r7
+ 749 002c 3146     		mov	r1, r6
+ 750 002e 2846     		mov	r0, r5
+ 751 0030 FFF7FEFF 		bl	ip4_output_if
+ 752 0034 0446     		mov	r4, r0
+ 753              	.L110:
+ 754 0036 2846     		mov	r0, r5
+ 755 0038 FFF7FEFF 		bl	pbuf_free
+ 756 003c 2046     		mov	r0, r4
+ 757 003e 05B0     		add	sp, sp, #20
+ 758              		@ sp needed
+ 759 0040 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 760              	.L115:
+ARM GAS  /tmp/cc2OsKqz.s 			page 14
+
+
+ 761 0042 074B     		ldr	r3, .L116
+ 762 0044 40F28772 		movw	r2, #1927
+ 763 0048 0649     		ldr	r1, .L116+4
+ 764 004a 0748     		ldr	r0, .L116+8
+ 765 004c FFF7FEFF 		bl	printf
+ 766 0050 DDE7     		b	.L109
+ 767              	.L113:
+ 768 0052 0021     		movs	r1, #0
+ 769 0054 FF23     		movs	r3, #255
+ 770 0056 E4E7     		b	.L111
+ 771              	.L112:
+ 772 0058 6FF00304 		mvn	r4, #3
+ 773 005c EBE7     		b	.L110
+ 774              	.L117:
+ 775 005e 00BF     		.align	2
+ 776              	.L116:
+ 777 0060 00000000 		.word	.LC0
+ 778 0064 00000000 		.word	.LC19
+ 779 0068 50000000 		.word	.LC2
+ 781              		.section	.text.tcp_write,"ax",%progbits
+ 782              		.align	1
+ 783              		.global	tcp_write
+ 784              		.syntax unified
+ 785              		.thumb
+ 786              		.thumb_func
+ 787              		.fpu fpv4-sp-d16
+ 789              	tcp_write:
+ 790              		@ args = 0, pretend = 0, frame = 48
+ 791              		@ frame_needed = 0, uses_anonymous_args = 0
+ 792 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 793 0004 91B0     		sub	sp, sp, #68
+ 794 0006 0891     		str	r1, [sp, #32]
+ 795 0008 9B46     		mov	fp, r3
+ 796 000a 0023     		movs	r3, #0
+ 797 000c ADF83E30 		strh	r3, [sp, #62]	@ movhi
+ 798 0010 F8B1     		cbz	r0, .L180
+ 799 0012 9146     		mov	r9, r2
+ 800 0014 8046     		mov	r8, r0
+ 801 0016 B0F86230 		ldrh	r3, [r0, #98]
+ 802 001a 5B08     		lsrs	r3, r3, #1
+ 803 001c B0F832A0 		ldrh	r10, [r0, #50]
+ 804 0020 5345     		cmp	r3, r10
+ 805 0022 28BF     		it	cs
+ 806 0024 5346     		movcs	r3, r10
+ 807 0026 03B1     		cbz	r3, .L121
+ 808 0028 9A46     		mov	r10, r3
+ 809              	.L121:
+ 810 002a 089B     		ldr	r3, [sp, #32]
+ 811 002c E3B1     		cbz	r3, .L181
+ 812 002e 4946     		mov	r1, r9
+ 813 0030 4046     		mov	r0, r8
+ 814 0032 FFF7FEFF 		bl	tcp_write_checks
+ 815 0036 0A90     		str	r0, [sp, #40]
+ 816 0038 0028     		cmp	r0, #0
+ 817 003a 40F0A681 		bne	.L120
+ 818 003e B8F86660 		ldrh	r6, [r8, #102]
+ 819 0042 D8F86C30 		ldr	r3, [r8, #108]
+ARM GAS  /tmp/cc2OsKqz.s 			page 15
+
+
+ 820 0046 0993     		str	r3, [sp, #36]
+ 821 0048 002B     		cmp	r3, #0
+ 822 004a 00F0D880 		beq	.L182
+ 823 004e 099A     		ldr	r2, [sp, #36]
+ 824 0050 16E0     		b	.L124
+ 825              	.L180:
+ 826 0052 894B     		ldr	r3, .L203
+ 827 0054 4FF4CF72 		mov	r2, #414
+ 828 0058 8849     		ldr	r1, .L203+4
+ 829 005a 8948     		ldr	r0, .L203+8
+ 830 005c FFF7FEFF 		bl	printf
+ 831 0060 6FF00F03 		mvn	r3, #15
+ 832 0064 0A93     		str	r3, [sp, #40]
+ 833 0066 90E1     		b	.L120
+ 834              	.L181:
+ 835 0068 834B     		ldr	r3, .L203
+ 836 006a 4FF4D772 		mov	r2, #430
+ 837 006e 8549     		ldr	r1, .L203+12
+ 838 0070 8348     		ldr	r0, .L203+8
+ 839 0072 FFF7FEFF 		bl	printf
+ 840 0076 6FF00F03 		mvn	r3, #15
+ 841 007a 0A93     		str	r3, [sp, #40]
+ 842 007c 85E1     		b	.L120
+ 843              	.L161:
+ 844 007e 1A46     		mov	r2, r3
+ 845              	.L124:
+ 846 0080 1368     		ldr	r3, [r2]
+ 847 0082 002B     		cmp	r3, #0
+ 848 0084 FBD1     		bne	.L161
+ 849 0086 0992     		str	r2, [sp, #36]
+ 850 0088 0D93     		str	r3, [sp, #52]
+ 851 008a 947A     		ldrb	r4, [r2, #10]	@ zero_extendqisi2
+ 852 008c A400     		lsls	r4, r4, #2
+ 853 008e 04F00404 		and	r4, r4, #4
+ 854 0092 1389     		ldrh	r3, [r2, #8]
+ 855 0094 2344     		add	r3, r3, r4
+ 856 0096 9A45     		cmp	r10, r3
+ 857 0098 42DB     		blt	.L183
+ 858              	.L125:
+ 859 009a 099B     		ldr	r3, [sp, #36]
+ 860 009c 1B89     		ldrh	r3, [r3, #8]
+ 861 009e 1C44     		add	r4, r4, r3
+ 862 00a0 A4B2     		uxth	r4, r4
+ 863 00a2 AAEB0404 		sub	r4, r10, r4
+ 864 00a6 A1B2     		uxth	r1, r4
+ 865 00a8 0C91     		str	r1, [sp, #48]
+ 866 00aa B8F86830 		ldrh	r3, [r8, #104]
+ 867 00ae 0B93     		str	r3, [sp, #44]
+ 868 00b0 ADF83E30 		strh	r3, [sp, #62]	@ movhi
+ 869 00b4 002B     		cmp	r3, #0
+ 870 00b6 43D0     		beq	.L162
+ 871 00b8 8B42     		cmp	r3, r1
+ 872 00ba 39D8     		bhi	.L184
+ 873              	.L127:
+ 874 00bc BDF83E30 		ldrh	r3, [sp, #62]
+ 875 00c0 1A46     		mov	r2, r3
+ 876 00c2 4B45     		cmp	r3, r9
+ARM GAS  /tmp/cc2OsKqz.s 			page 16
+
+
+ 877 00c4 28BF     		it	cs
+ 878 00c6 4A46     		movcs	r2, r9
+ 879 00c8 0C99     		ldr	r1, [sp, #48]
+ 880 00ca 8A42     		cmp	r2, r1
+ 881 00cc 28BF     		it	cs
+ 882 00ce 0A46     		movcs	r2, r1
+ 883 00d0 92B2     		uxth	r2, r2
+ 884 00d2 0B92     		str	r2, [sp, #44]
+ 885 00d4 9B1A     		subs	r3, r3, r2
+ 886 00d6 ADF83E30 		strh	r3, [sp, #62]	@ movhi
+ 887 00da 8B1A     		subs	r3, r1, r2
+ 888 00dc 9BB2     		uxth	r3, r3
+ 889 00de 0C93     		str	r3, [sp, #48]
+ 890 00e0 099F     		ldr	r7, [sp, #36]
+ 891              	.L126:
+ 892 00e2 BDF83E30 		ldrh	r3, [sp, #62]
+ 893 00e6 13B1     		cbz	r3, .L128
+ 894 00e8 0B9B     		ldr	r3, [sp, #44]
+ 895 00ea 4B45     		cmp	r3, r9
+ 896 00ec 2AD1     		bne	.L185
+ 897              	.L128:
+ 898 00ee 0B9A     		ldr	r2, [sp, #44]
+ 899 00f0 4A45     		cmp	r2, r9
+ 900 00f2 80F05881 		bcs	.L163
+ 901 00f6 0C99     		ldr	r1, [sp, #48]
+ 902 00f8 0029     		cmp	r1, #0
+ 903 00fa 00F05D81 		beq	.L164
+ 904 00fe 099B     		ldr	r3, [sp, #36]
+ 905 0100 1B89     		ldrh	r3, [r3, #8]
+ 906 0102 002B     		cmp	r3, #0
+ 907 0104 00F05A81 		beq	.L165
+ 908 0108 A9EB0204 		sub	r4, r9, r2
+ 909 010c 8C42     		cmp	r4, r1
+ 910 010e A8BF     		it	ge
+ 911 0110 0C46     		movge	r4, r1
+ 912 0112 A5B2     		uxth	r5, r4
+ 913 0114 1BF0010F 		tst	fp, #1
+ 914 0118 1CD1     		bne	.L186
+ 915 011a 099B     		ldr	r3, [sp, #36]
+ 916 011c 5B68     		ldr	r3, [r3, #4]
+ 917 011e 3BE0     		b	.L133
+ 918              	.L183:
+ 919 0120 554B     		ldr	r3, .L203
+ 920 0122 4FF4F372 		mov	r2, #486
+ 921 0126 5849     		ldr	r1, .L203+16
+ 922 0128 5548     		ldr	r0, .L203+8
+ 923 012a FFF7FEFF 		bl	printf
+ 924 012e B4E7     		b	.L125
+ 925              	.L184:
+ 926 0130 514B     		ldr	r3, .L203
+ 927 0132 4FF4FC72 		mov	r2, #504
+ 928 0136 5549     		ldr	r1, .L203+20
+ 929 0138 5148     		ldr	r0, .L203+8
+ 930 013a FFF7FEFF 		bl	printf
+ 931 013e BDE7     		b	.L127
+ 932              	.L162:
+ 933 0140 0D9F     		ldr	r7, [sp, #52]
+ARM GAS  /tmp/cc2OsKqz.s 			page 17
+
+
+ 934 0142 CEE7     		b	.L126
+ 935              	.L185:
+ 936 0144 4C4B     		ldr	r3, .L203
+ 937 0146 4FF40072 		mov	r2, #512
+ 938 014a 5149     		ldr	r1, .L203+24
+ 939 014c 4C48     		ldr	r0, .L203+8
+ 940 014e FFF7FEFF 		bl	printf
+ 941 0152 CCE7     		b	.L128
+ 942              	.L186:
+ 943 0154 0123     		movs	r3, #1
+ 944 0156 0293     		str	r3, [sp, #8]
+ 945 0158 CDF804B0 		str	fp, [sp, #4]
+ 946 015c CDF80080 		str	r8, [sp]
+ 947 0160 0DF13E03 		add	r3, sp, #62
+ 948 0164 0A46     		mov	r2, r1
+ 949 0166 2946     		mov	r1, r5
+ 950 0168 0020     		movs	r0, #0
+ 951 016a FFF7FEFF 		bl	tcp_pbuf_prealloc
+ 952 016e 0746     		mov	r7, r0
+ 953 0170 0D90     		str	r0, [sp, #52]
+ 954 0172 0028     		cmp	r0, #0
+ 955 0174 00F0BC81 		beq	.L166
+ 956 0178 2A46     		mov	r2, r5
+ 957 017a 089B     		ldr	r3, [sp, #32]
+ 958 017c 0B99     		ldr	r1, [sp, #44]
+ 959 017e 5918     		adds	r1, r3, r1
+ 960 0180 4068     		ldr	r0, [r0, #4]
+ 961 0182 FFF7FEFF 		bl	memcpy
+ 962 0186 3846     		mov	r0, r7
+ 963 0188 FFF7FEFF 		bl	pbuf_clen
+ 964 018c 0644     		add	r6, r6, r0
+ 965 018e B6B2     		uxth	r6, r6
+ 966 0190 0023     		movs	r3, #0
+ 967 0192 0C93     		str	r3, [sp, #48]
+ 968 0194 21E0     		b	.L132
+ 969              	.L167:
+ 970 0196 1346     		mov	r3, r2
+ 971              	.L133:
+ 972 0198 1A68     		ldr	r2, [r3]
+ 973 019a 002A     		cmp	r2, #0
+ 974 019c FBD1     		bne	.L167
+ 975 019e 0D92     		str	r2, [sp, #52]
+ 976 01a0 1A7B     		ldrb	r2, [r3, #12]	@ zero_extendqisi2
+ 977 01a2 12F0C00F 		tst	r2, #192
+ 978 01a6 05D1     		bne	.L134
+ 979 01a8 5A68     		ldr	r2, [r3, #4]
+ 980 01aa 5B89     		ldrh	r3, [r3, #10]
+ 981 01ac 1344     		add	r3, r3, r2
+ 982 01ae 089A     		ldr	r2, [sp, #32]
+ 983 01b0 9342     		cmp	r3, r2
+ 984 01b2 17D0     		beq	.L187
+ 985              	.L134:
+ 986 01b4 0122     		movs	r2, #1
+ 987 01b6 2946     		mov	r1, r5
+ 988 01b8 0020     		movs	r0, #0
+ 989 01ba FFF7FEFF 		bl	pbuf_alloc
+ 990 01be 0D90     		str	r0, [sp, #52]
+ARM GAS  /tmp/cc2OsKqz.s 			page 18
+
+
+ 991 01c0 0028     		cmp	r0, #0
+ 992 01c2 00F09881 		beq	.L169
+ 993 01c6 089B     		ldr	r3, [sp, #32]
+ 994 01c8 0B9A     		ldr	r2, [sp, #44]
+ 995 01ca 1344     		add	r3, r3, r2
+ 996 01cc 4360     		str	r3, [r0, #4]
+ 997 01ce FFF7FEFF 		bl	pbuf_clen
+ 998 01d2 0644     		add	r6, r6, r0
+ 999 01d4 B6B2     		uxth	r6, r6
+ 1000 01d6 0023     		movs	r3, #0
+ 1001 01d8 0C93     		str	r3, [sp, #48]
+ 1002              	.L132:
+ 1003 01da 0B9B     		ldr	r3, [sp, #44]
+ 1004 01dc 5C19     		adds	r4, r3, r5
+ 1005 01de A4B2     		uxth	r4, r4
+ 1006 01e0 099F     		ldr	r7, [sp, #36]
+ 1007 01e2 E3E0     		b	.L129
+ 1008              	.L187:
+ 1009 01e4 0B9B     		ldr	r3, [sp, #44]
+ 1010 01e6 0BB9     		cbnz	r3, .L188
+ 1011 01e8 0C95     		str	r5, [sp, #48]
+ 1012 01ea F6E7     		b	.L132
+ 1013              	.L188:
+ 1014 01ec 224B     		ldr	r3, .L203
+ 1015 01ee 40F23122 		movw	r2, #561
+ 1016 01f2 2849     		ldr	r1, .L203+28
+ 1017 01f4 2248     		ldr	r0, .L203+8
+ 1018 01f6 FFF7FEFF 		bl	printf
+ 1019 01fa 0C95     		str	r5, [sp, #48]
+ 1020 01fc EDE7     		b	.L132
+ 1021              	.L182:
+ 1022 01fe B8F86840 		ldrh	r4, [r8, #104]
+ 1023 0202 2CB9     		cbnz	r4, .L189
+ 1024 0204 0C94     		str	r4, [sp, #48]
+ 1025 0206 0B94     		str	r4, [sp, #44]
+ 1026 0208 099B     		ldr	r3, [sp, #36]
+ 1027 020a 1F46     		mov	r7, r3
+ 1028 020c 0D93     		str	r3, [sp, #52]
+ 1029 020e CDE0     		b	.L129
+ 1030              	.L189:
+ 1031 0210 194B     		ldr	r3, .L203
+ 1032 0212 40F24B22 		movw	r2, #587
+ 1033 0216 2049     		ldr	r1, .L203+32
+ 1034 0218 1948     		ldr	r0, .L203+8
+ 1035 021a FFF7FEFF 		bl	printf
+ 1036 021e 099B     		ldr	r3, [sp, #36]
+ 1037 0220 1F46     		mov	r7, r3
+ 1038 0222 0D93     		str	r3, [sp, #52]
+ 1039 0224 0024     		movs	r4, #0
+ 1040 0226 0C94     		str	r4, [sp, #48]
+ 1041 0228 0B94     		str	r4, [sp, #44]
+ 1042 022a BFE0     		b	.L129
+ 1043              	.L195:
+ 1044 022c 059B     		ldr	r3, [sp, #20]
+ 1045 022e B3FA83F3 		clz	r3, r3
+ 1046 0232 5B09     		lsrs	r3, r3, #5
+ 1047 0234 0293     		str	r3, [sp, #8]
+ARM GAS  /tmp/cc2OsKqz.s 			page 19
+
+
+ 1048 0236 CDF804B0 		str	fp, [sp, #4]
+ 1049 023a CDF80080 		str	r8, [sp]
+ 1050 023e 0DF13E03 		add	r3, sp, #62
+ 1051 0242 069A     		ldr	r2, [sp, #24]
+ 1052 0244 2946     		mov	r1, r5
+ 1053 0246 3620     		movs	r0, #54
+ 1054 0248 FFF7FEFF 		bl	tcp_pbuf_prealloc
+ 1055 024c 0746     		mov	r7, r0
+ 1056 024e 0028     		cmp	r0, #0
+ 1057 0250 79D0     		beq	.L131
+ 1058 0252 4389     		ldrh	r3, [r0, #10]
+ 1059 0254 AB42     		cmp	r3, r5
+ 1060 0256 06D3     		bcc	.L190
+ 1061              	.L136:
+ 1062 0258 2A46     		mov	r2, r5
+ 1063 025a 089B     		ldr	r3, [sp, #32]
+ 1064 025c 1919     		adds	r1, r3, r4
+ 1065 025e 7868     		ldr	r0, [r7, #4]
+ 1066 0260 FFF7FEFF 		bl	memcpy
+ 1067 0264 39E0     		b	.L137
+ 1068              	.L190:
+ 1069 0266 044B     		ldr	r3, .L203
+ 1070 0268 40F26722 		movw	r2, #615
+ 1071 026c 0B49     		ldr	r1, .L203+36
+ 1072 026e 0448     		ldr	r0, .L203+8
+ 1073 0270 FFF7FEFF 		bl	printf
+ 1074 0274 F0E7     		b	.L136
+ 1075              	.L204:
+ 1076 0276 00BF     		.align	2
+ 1077              	.L203:
+ 1078 0278 00000000 		.word	.LC0
+ 1079 027c 00000000 		.word	.LC20
+ 1080 0280 50000000 		.word	.LC2
+ 1081 0284 18000000 		.word	.LC21
+ 1082 0288 4C000000 		.word	.LC22
+ 1083 028c 64000000 		.word	.LC23
+ 1084 0290 84000000 		.word	.LC24
+ 1085 0294 A4000000 		.word	.LC25
+ 1086 0298 D0000000 		.word	.LC26
+ 1087 029c 00010000 		.word	.LC27
+ 1088              	.L196:
+ 1089 02a0 A04B     		ldr	r3, .L205
+ 1090 02a2 40F27122 		movw	r2, #625
+ 1091 02a6 A049     		ldr	r1, .L205+4
+ 1092 02a8 A048     		ldr	r0, .L205+8
+ 1093 02aa FFF7FEFF 		bl	printf
+ 1094              	.L138:
+ 1095 02ae 0122     		movs	r2, #1
+ 1096 02b0 2946     		mov	r1, r5
+ 1097 02b2 3620     		movs	r0, #54
+ 1098 02b4 FFF7FEFF 		bl	pbuf_alloc
+ 1099 02b8 0790     		str	r0, [sp, #28]
+ 1100 02ba 0028     		cmp	r0, #0
+ 1101 02bc 43D0     		beq	.L131
+ 1102 02be 089B     		ldr	r3, [sp, #32]
+ 1103 02c0 2344     		add	r3, r3, r4
+ 1104 02c2 4360     		str	r3, [r0, #4]
+ARM GAS  /tmp/cc2OsKqz.s 			page 20
+
+
+ 1105 02c4 4FF42072 		mov	r2, #640
+ 1106 02c8 0021     		movs	r1, #0
+ 1107 02ca 3620     		movs	r0, #54
+ 1108 02cc FFF7FEFF 		bl	pbuf_alloc
+ 1109 02d0 0746     		mov	r7, r0
+ 1110 02d2 88B3     		cbz	r0, .L191
+ 1111 02d4 0799     		ldr	r1, [sp, #28]
+ 1112 02d6 FFF7FEFF 		bl	pbuf_cat
+ 1113              	.L137:
+ 1114 02da 3846     		mov	r0, r7
+ 1115 02dc FFF7FEFF 		bl	pbuf_clen
+ 1116 02e0 0644     		add	r6, r6, r0
+ 1117 02e2 B6B2     		uxth	r6, r6
+ 1118 02e4 092E     		cmp	r6, #9
+ 1119 02e6 2BD8     		bhi	.L192
+ 1120 02e8 D8F85C30 		ldr	r3, [r8, #92]
+ 1121 02ec 0022     		movs	r2, #0
+ 1122 02ee 0092     		str	r2, [sp]
+ 1123 02f0 2344     		add	r3, r3, r4
+ 1124 02f2 3946     		mov	r1, r7
+ 1125 02f4 4046     		mov	r0, r8
+ 1126 02f6 FFF7FEFF 		bl	tcp_create_segment
+ 1127 02fa 0746     		mov	r7, r0
+ 1128 02fc 18B3     		cbz	r0, .L131
+ 1129 02fe 059B     		ldr	r3, [sp, #20]
+ 1130 0300 002B     		cmp	r3, #0
+ 1131 0302 4ED0     		beq	.L171
+ 1132 0304 BAF1000F 		cmp	r10, #0
+ 1133 0308 43D0     		beq	.L193
+ 1134              	.L142:
+ 1135 030a CAF80070 		str	r7, [r10]
+ 1136              	.L141:
+ 1137 030e 2C44     		add	r4, r4, r5
+ 1138 0310 A4B2     		uxth	r4, r4
+ 1139 0312 BA46     		mov	r10, r7
+ 1140              	.L143:
+ 1141 0314 4C45     		cmp	r4, r9
+ 1142 0316 54D2     		bcs	.L194
+ 1143 0318 A9EB0405 		sub	r5, r9, r4
+ 1144 031c ADB2     		uxth	r5, r5
+ 1145 031e 069B     		ldr	r3, [sp, #24]
+ 1146 0320 9D42     		cmp	r5, r3
+ 1147 0322 28BF     		it	cs
+ 1148 0324 1D46     		movcs	r5, r3
+ 1149 0326 1BF0010F 		tst	fp, #1
+ 1150 032a 7FF47FAF 		bne	.L195
+ 1151 032e BDF83E30 		ldrh	r3, [sp, #62]
+ 1152 0332 002B     		cmp	r3, #0
+ 1153 0334 BBD0     		beq	.L138
+ 1154 0336 B3E7     		b	.L196
+ 1155              	.L191:
+ 1156 0338 0798     		ldr	r0, [sp, #28]
+ 1157 033a FFF7FEFF 		bl	pbuf_free
+ 1158 033e 02E0     		b	.L131
+ 1159              	.L192:
+ 1160 0340 3846     		mov	r0, r7
+ 1161 0342 FFF7FEFF 		bl	pbuf_free
+ARM GAS  /tmp/cc2OsKqz.s 			page 21
+
+
+ 1162              	.L131:
+ 1163 0346 B8F81A30 		ldrh	r3, [r8, #26]
+ 1164 034a 43F08003 		orr	r3, r3, #128
+ 1165 034e A8F81A30 		strh	r3, [r8, #26]	@ movhi
+ 1166 0352 0D9B     		ldr	r3, [sp, #52]
+ 1167 0354 13B1     		cbz	r3, .L159
+ 1168 0356 1846     		mov	r0, r3
+ 1169 0358 FFF7FEFF 		bl	pbuf_free
+ 1170              	.L159:
+ 1171 035c 059B     		ldr	r3, [sp, #20]
+ 1172 035e 13B1     		cbz	r3, .L160
+ 1173 0360 1846     		mov	r0, r3
+ 1174 0362 FFF7FEFF 		bl	tcp_segs_free
+ 1175              	.L160:
+ 1176 0366 B8F86630 		ldrh	r3, [r8, #102]
+ 1177 036a 002B     		cmp	r3, #0
+ 1178 036c 00F0D180 		beq	.L172
+ 1179 0370 D8F87030 		ldr	r3, [r8, #112]
+ 1180 0374 002B     		cmp	r3, #0
+ 1181 0376 40F0D080 		bne	.L173
+ 1182 037a D8F86C30 		ldr	r3, [r8, #108]
+ 1183 037e 002B     		cmp	r3, #0
+ 1184 0380 00F0BC80 		beq	.L197
+ 1185 0384 4FF0FF33 		mov	r3, #-1
+ 1186 0388 0A93     		str	r3, [sp, #40]
+ 1187              	.L120:
+ 1188 038a 0A98     		ldr	r0, [sp, #40]
+ 1189 038c 11B0     		add	sp, sp, #68
+ 1190              		@ sp needed
+ 1191 038e BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1192              	.L193:
+ 1193 0392 644B     		ldr	r3, .L205
+ 1194 0394 40F2AB22 		movw	r2, #683
+ 1195 0398 6549     		ldr	r1, .L205+12
+ 1196 039a 6448     		ldr	r0, .L205+8
+ 1197 039c FFF7FEFF 		bl	printf
+ 1198 03a0 B3E7     		b	.L142
+ 1199              	.L171:
+ 1200 03a2 0590     		str	r0, [sp, #20]
+ 1201 03a4 B3E7     		b	.L141
+ 1202              	.L163:
+ 1203 03a6 0B9C     		ldr	r4, [sp, #44]
+ 1204 03a8 0023     		movs	r3, #0
+ 1205 03aa 0C93     		str	r3, [sp, #48]
+ 1206              	.L129:
+ 1207 03ac 0023     		movs	r3, #0
+ 1208 03ae 0593     		str	r3, [sp, #20]
+ 1209 03b0 CDF818A0 		str	r10, [sp, #24]
+ 1210 03b4 9A46     		mov	r10, r3
+ 1211 03b6 ADE7     		b	.L143
+ 1212              	.L164:
+ 1213 03b8 0B9C     		ldr	r4, [sp, #44]
+ 1214 03ba F7E7     		b	.L129
+ 1215              	.L165:
+ 1216 03bc 0C93     		str	r3, [sp, #48]
+ 1217 03be 0B9C     		ldr	r4, [sp, #44]
+ 1218 03c0 F4E7     		b	.L129
+ARM GAS  /tmp/cc2OsKqz.s 			page 22
+
+
+ 1219              	.L194:
+ 1220 03c2 0B9D     		ldr	r5, [sp, #44]
+ 1221 03c4 D5B1     		cbz	r5, .L145
+ 1222 03c6 099B     		ldr	r3, [sp, #36]
+ 1223 03c8 5C68     		ldr	r4, [r3, #4]
+ 1224 03ca 00E0     		b	.L146
+ 1225              	.L147:
+ 1226 03cc 2468     		ldr	r4, [r4]
+ 1227              	.L146:
+ 1228 03ce 84B1     		cbz	r4, .L198
+ 1229 03d0 2389     		ldrh	r3, [r4, #8]
+ 1230 03d2 2B44     		add	r3, r3, r5
+ 1231 03d4 2381     		strh	r3, [r4, #8]	@ movhi
+ 1232 03d6 2368     		ldr	r3, [r4]
+ 1233 03d8 002B     		cmp	r3, #0
+ 1234 03da F7D1     		bne	.L147
+ 1235 03dc 6068     		ldr	r0, [r4, #4]
+ 1236 03de 6389     		ldrh	r3, [r4, #10]
+ 1237 03e0 2A46     		mov	r2, r5
+ 1238 03e2 0899     		ldr	r1, [sp, #32]
+ 1239 03e4 1844     		add	r0, r0, r3
+ 1240 03e6 FFF7FEFF 		bl	memcpy
+ 1241 03ea 6389     		ldrh	r3, [r4, #10]
+ 1242 03ec 2B44     		add	r3, r3, r5
+ 1243 03ee 6381     		strh	r3, [r4, #10]	@ movhi
+ 1244 03f0 ECE7     		b	.L147
+ 1245              	.L198:
+ 1246 03f2 099A     		ldr	r2, [sp, #36]
+ 1247 03f4 1389     		ldrh	r3, [r2, #8]
+ 1248 03f6 0B99     		ldr	r1, [sp, #44]
+ 1249 03f8 1944     		add	r1, r1, r3
+ 1250 03fa 1181     		strh	r1, [r2, #8]	@ movhi
+ 1251              	.L145:
+ 1252 03fc BDF83E30 		ldrh	r3, [sp, #62]
+ 1253 0400 A8F86830 		strh	r3, [r8, #104]	@ movhi
+ 1254 0404 0D9B     		ldr	r3, [sp, #52]
+ 1255 0406 002B     		cmp	r3, #0
+ 1256 0408 3DD0     		beq	.L149
+ 1257 040a 099B     		ldr	r3, [sp, #36]
+ 1258 040c 002B     		cmp	r3, #0
+ 1259 040e 32D0     		beq	.L199
+ 1260              	.L150:
+ 1261 0410 0D9D     		ldr	r5, [sp, #52]
+ 1262 0412 2946     		mov	r1, r5
+ 1263 0414 099C     		ldr	r4, [sp, #36]
+ 1264 0416 6068     		ldr	r0, [r4, #4]
+ 1265 0418 FFF7FEFF 		bl	pbuf_cat
+ 1266 041c 2B89     		ldrh	r3, [r5, #8]
+ 1267 041e 2289     		ldrh	r2, [r4, #8]
+ 1268 0420 1344     		add	r3, r3, r2
+ 1269 0422 2381     		strh	r3, [r4, #8]	@ movhi
+ 1270              	.L151:
+ 1271 0424 099B     		ldr	r3, [sp, #36]
+ 1272 0426 002B     		cmp	r3, #0
+ 1273 0428 52D0     		beq	.L200
+ 1274 042a 099B     		ldr	r3, [sp, #36]
+ 1275 042c 1A46     		mov	r2, r3
+ARM GAS  /tmp/cc2OsKqz.s 			page 23
+
+
+ 1276 042e 059B     		ldr	r3, [sp, #20]
+ 1277 0430 1360     		str	r3, [r2]
+ 1278              	.L157:
+ 1279 0432 D8F85C30 		ldr	r3, [r8, #92]
+ 1280 0436 4B44     		add	r3, r3, r9
+ 1281 0438 C8F85C30 		str	r3, [r8, #92]
+ 1282 043c B8F86430 		ldrh	r3, [r8, #100]
+ 1283 0440 A3EB0909 		sub	r9, r3, r9
+ 1284 0444 A8F86490 		strh	r9, [r8, #100]	@ movhi
+ 1285 0448 A8F86660 		strh	r6, [r8, #102]	@ movhi
+ 1286 044c 1EB1     		cbz	r6, .L158
+ 1287 044e D8F87030 		ldr	r3, [r8, #112]
+ 1288 0452 002B     		cmp	r3, #0
+ 1289 0454 40D0     		beq	.L201
+ 1290              	.L158:
+ 1291 0456 002F     		cmp	r7, #0
+ 1292 0458 97D0     		beq	.L120
+ 1293 045a FB68     		ldr	r3, [r7, #12]
+ 1294 045c 002B     		cmp	r3, #0
+ 1295 045e 94D0     		beq	.L120
+ 1296 0460 1BF0020F 		tst	fp, #2
+ 1297 0464 91D1     		bne	.L120
+ 1298 0466 9C89     		ldrh	r4, [r3, #12]	@ unaligned
+ 1299 0468 0820     		movs	r0, #8
+ 1300 046a FFF7FEFF 		bl	lwip_htons
+ 1301 046e FB68     		ldr	r3, [r7, #12]
+ 1302 0470 2043     		orrs	r0, r0, r4
+ 1303 0472 9881     		strh	r0, [r3, #12]	@ unaligned
+ 1304 0474 89E7     		b	.L120
+ 1305              	.L199:
+ 1306 0476 2B4B     		ldr	r3, .L205
+ 1307 0478 40F2E122 		movw	r2, #737
+ 1308 047c 2D49     		ldr	r1, .L205+16
+ 1309 047e 2B48     		ldr	r0, .L205+8
+ 1310 0480 FFF7FEFF 		bl	printf
+ 1311 0484 C4E7     		b	.L150
+ 1312              	.L149:
+ 1313 0486 0C9B     		ldr	r3, [sp, #48]
+ 1314 0488 002B     		cmp	r3, #0
+ 1315 048a CBD0     		beq	.L151
+ 1316 048c 099B     		ldr	r3, [sp, #36]
+ 1317 048e 5BB1     		cbz	r3, .L152
+ 1318 0490 5B68     		ldr	r3, [r3, #4]
+ 1319 0492 4BB1     		cbz	r3, .L152
+ 1320              	.L153:
+ 1321 0494 099B     		ldr	r3, [sp, #36]
+ 1322 0496 5B68     		ldr	r3, [r3, #4]
+ 1323 0498 0C98     		ldr	r0, [sp, #48]
+ 1324              	.L154:
+ 1325 049a 1968     		ldr	r1, [r3]
+ 1326 049c 61B1     		cbz	r1, .L202
+ 1327 049e 1A89     		ldrh	r2, [r3, #8]
+ 1328 04a0 0244     		add	r2, r2, r0
+ 1329 04a2 1A81     		strh	r2, [r3, #8]	@ movhi
+ 1330 04a4 0B46     		mov	r3, r1
+ 1331 04a6 F8E7     		b	.L154
+ 1332              	.L152:
+ARM GAS  /tmp/cc2OsKqz.s 			page 24
+
+
+ 1333 04a8 1E4B     		ldr	r3, .L205
+ 1334 04aa 40F2E722 		movw	r2, #743
+ 1335 04ae 2249     		ldr	r1, .L205+20
+ 1336 04b0 1E48     		ldr	r0, .L205+8
+ 1337 04b2 FFF7FEFF 		bl	printf
+ 1338 04b6 EDE7     		b	.L153
+ 1339              	.L202:
+ 1340 04b8 1A89     		ldrh	r2, [r3, #8]
+ 1341 04ba 0C99     		ldr	r1, [sp, #48]
+ 1342 04bc 0A44     		add	r2, r2, r1
+ 1343 04be 1A81     		strh	r2, [r3, #8]	@ movhi
+ 1344 04c0 5A89     		ldrh	r2, [r3, #10]
+ 1345 04c2 0A44     		add	r2, r2, r1
+ 1346 04c4 5A81     		strh	r2, [r3, #10]	@ movhi
+ 1347 04c6 099A     		ldr	r2, [sp, #36]
+ 1348 04c8 1389     		ldrh	r3, [r2, #8]
+ 1349 04ca 0B44     		add	r3, r3, r1
+ 1350 04cc 1381     		strh	r3, [r2, #8]	@ movhi
+ 1351 04ce A9E7     		b	.L151
+ 1352              	.L200:
+ 1353 04d0 059B     		ldr	r3, [sp, #20]
+ 1354 04d2 C8F86C30 		str	r3, [r8, #108]
+ 1355 04d6 ACE7     		b	.L157
+ 1356              	.L201:
+ 1357 04d8 D8F86C30 		ldr	r3, [r8, #108]
+ 1358 04dc 002B     		cmp	r3, #0
+ 1359 04de BAD1     		bne	.L158
+ 1360 04e0 104B     		ldr	r3, .L205
+ 1361 04e2 40F21332 		movw	r2, #787
+ 1362 04e6 1549     		ldr	r1, .L205+24
+ 1363 04e8 1048     		ldr	r0, .L205+8
+ 1364 04ea FFF7FEFF 		bl	printf
+ 1365 04ee B2E7     		b	.L158
+ 1366              	.L166:
+ 1367 04f0 0D9B     		ldr	r3, [sp, #52]
+ 1368 04f2 0593     		str	r3, [sp, #20]
+ 1369 04f4 27E7     		b	.L131
+ 1370              	.L169:
+ 1371 04f6 0D9B     		ldr	r3, [sp, #52]
+ 1372 04f8 0593     		str	r3, [sp, #20]
+ 1373 04fa 24E7     		b	.L131
+ 1374              	.L197:
+ 1375 04fc 094B     		ldr	r3, .L205
+ 1376 04fe 4FF44A72 		mov	r2, #808
+ 1377 0502 0E49     		ldr	r1, .L205+24
+ 1378 0504 0948     		ldr	r0, .L205+8
+ 1379 0506 FFF7FEFF 		bl	printf
+ 1380 050a 4FF0FF33 		mov	r3, #-1
+ 1381 050e 0A93     		str	r3, [sp, #40]
+ 1382 0510 3BE7     		b	.L120
+ 1383              	.L172:
+ 1384 0512 4FF0FF33 		mov	r3, #-1
+ 1385 0516 0A93     		str	r3, [sp, #40]
+ 1386 0518 37E7     		b	.L120
+ 1387              	.L173:
+ 1388 051a 4FF0FF33 		mov	r3, #-1
+ 1389 051e 0A93     		str	r3, [sp, #40]
+ARM GAS  /tmp/cc2OsKqz.s 			page 25
+
+
+ 1390 0520 33E7     		b	.L120
+ 1391              	.L206:
+ 1392 0522 00BF     		.align	2
+ 1393              	.L205:
+ 1394 0524 00000000 		.word	.LC0
+ 1395 0528 40010000 		.word	.LC28
+ 1396 052c 50000000 		.word	.LC2
+ 1397 0530 50010000 		.word	.LC29
+ 1398 0534 64010000 		.word	.LC30
+ 1399 0538 9C010000 		.word	.LC31
+ 1400 053c D4010000 		.word	.LC32
+ 1402              		.section	.text.tcp_split_unsent_seg,"ax",%progbits
+ 1403              		.align	1
+ 1404              		.global	tcp_split_unsent_seg
+ 1405              		.syntax unified
+ 1406              		.thumb
+ 1407              		.thumb_func
+ 1408              		.fpu fpv4-sp-d16
+ 1410              	tcp_split_unsent_seg:
+ 1411              		@ args = 0, pretend = 0, frame = 0
+ 1412              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1413 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 1414 0004 83B0     		sub	sp, sp, #12
+ 1415 0006 0D46     		mov	r5, r1
+ 1416 0008 0746     		mov	r7, r0
+ 1417 000a 0028     		cmp	r0, #0
+ 1418 000c 3DD0     		beq	.L221
+ 1419              	.L208:
+ 1420 000e FC6E     		ldr	r4, [r7, #108]
+ 1421 0010 002C     		cmp	r4, #0
+ 1422 0012 00F0BB80 		beq	.L216
+ 1423 0016 002D     		cmp	r5, #0
+ 1424 0018 3FD0     		beq	.L222
+ 1425 001a 2389     		ldrh	r3, [r4, #8]
+ 1426 001c AB42     		cmp	r3, r5
+ 1427 001e 40F2B880 		bls	.L217
+ 1428 0022 7B8E     		ldrh	r3, [r7, #50]
+ 1429 0024 AB42     		cmp	r3, r5
+ 1430 0026 42D3     		bcc	.L223
+ 1431              	.L211:
+ 1432 0028 2389     		ldrh	r3, [r4, #8]
+ 1433 002a 002B     		cmp	r3, #0
+ 1434 002c 47D0     		beq	.L224
+ 1435              	.L212:
+ 1436 002e 94F80A90 		ldrb	r9, [r4, #10]	@ zero_extendqisi2
+ 1437 0032 4FEA890B 		lsl	fp, r9, #2
+ 1438 0036 0BF0040B 		and	fp, fp, #4
+ 1439 003a B4F808A0 		ldrh	r10, [r4, #8]
+ 1440 003e AAEB0506 		sub	r6, r10, r5
+ 1441 0042 B6B2     		uxth	r6, r6
+ 1442 0044 06EB0B01 		add	r1, r6, fp
+ 1443 0048 4FF42072 		mov	r2, #640
+ 1444 004c 89B2     		uxth	r1, r1
+ 1445 004e 3620     		movs	r0, #54
+ 1446 0050 FFF7FEFF 		bl	pbuf_alloc
+ 1447 0054 8046     		mov	r8, r0
+ 1448 0056 70B1     		cbz	r0, .L213
+ARM GAS  /tmp/cc2OsKqz.s 			page 26
+
+
+ 1449 0058 6068     		ldr	r0, [r4, #4]
+ 1450 005a 0389     		ldrh	r3, [r0, #8]
+ 1451 005c 2289     		ldrh	r2, [r4, #8]
+ 1452 005e 9B1A     		subs	r3, r3, r2
+ 1453 0060 15FA83F3 		uxtah	r3, r5, r3
+ 1454 0064 D8F80410 		ldr	r1, [r8, #4]
+ 1455 0068 9BB2     		uxth	r3, r3
+ 1456 006a 3246     		mov	r2, r6
+ 1457 006c 5944     		add	r1, r1, fp
+ 1458 006e FFF7FEFF 		bl	pbuf_copy_partial
+ 1459 0072 B042     		cmp	r0, r6
+ 1460 0074 2BD0     		beq	.L225
+ 1461              	.L213:
+ 1462 0076 B8F1000F 		cmp	r8, #0
+ 1463 007a 00F08E80 		beq	.L219
+ 1464 007e 4046     		mov	r0, r8
+ 1465 0080 FFF7FEFF 		bl	pbuf_free
+ 1466 0084 4FF0FF30 		mov	r0, #-1
+ 1467 0088 84E0     		b	.L209
+ 1468              	.L221:
+ 1469 008a 454B     		ldr	r3, .L227
+ 1470 008c 40F24B32 		movw	r2, #843
+ 1471 0090 4449     		ldr	r1, .L227+4
+ 1472 0092 4548     		ldr	r0, .L227+8
+ 1473 0094 FFF7FEFF 		bl	printf
+ 1474 0098 B9E7     		b	.L208
+ 1475              	.L222:
+ 1476 009a 414B     		ldr	r3, .L227
+ 1477 009c 40F25332 		movw	r2, #851
+ 1478 00a0 4249     		ldr	r1, .L227+12
+ 1479 00a2 4148     		ldr	r0, .L227+8
+ 1480 00a4 FFF7FEFF 		bl	printf
+ 1481 00a8 6FF00500 		mvn	r0, #5
+ 1482 00ac 72E0     		b	.L209
+ 1483              	.L223:
+ 1484 00ae 3C4B     		ldr	r3, .L227
+ 1485 00b0 40F25B32 		movw	r2, #859
+ 1486 00b4 3E49     		ldr	r1, .L227+16
+ 1487 00b6 3C48     		ldr	r0, .L227+8
+ 1488 00b8 FFF7FEFF 		bl	printf
+ 1489 00bc B4E7     		b	.L211
+ 1490              	.L224:
+ 1491 00be 384B     		ldr	r3, .L227
+ 1492 00c0 4FF45772 		mov	r2, #860
+ 1493 00c4 3B49     		ldr	r1, .L227+20
+ 1494 00c6 3848     		ldr	r0, .L227+8
+ 1495 00c8 FFF7FEFF 		bl	printf
+ 1496 00cc AFE7     		b	.L212
+ 1497              	.L225:
+ 1498 00ce E368     		ldr	r3, [r4, #12]
+ 1499 00d0 9889     		ldrh	r0, [r3, #12]	@ unaligned
+ 1500 00d2 FFF7FEFF 		bl	lwip_htons
+ 1501 00d6 C0B2     		uxtb	r0, r0
+ 1502 00d8 00F03F06 		and	r6, r0, #63
+ 1503 00dc 10F0080B 		ands	fp, r0, #8
+ 1504 00e0 03D0     		beq	.L214
+ 1505 00e2 00F03706 		and	r6, r0, #55
+ARM GAS  /tmp/cc2OsKqz.s 			page 27
+
+
+ 1506 00e6 4FF0080B 		mov	fp, #8
+ 1507              	.L214:
+ 1508 00ea 16F0010F 		tst	r6, #1
+ 1509 00ee 03D0     		beq	.L215
+ 1510 00f0 06F0FE06 		and	r6, r6, #254
+ 1511 00f4 4BF0010B 		orr	fp, fp, #1
+ 1512              	.L215:
+ 1513 00f8 E368     		ldr	r3, [r4, #12]
+ 1514 00fa 5868     		ldr	r0, [r3, #4]	@ unaligned
+ 1515 00fc FFF7FEFF 		bl	lwip_htonl
+ 1516 0100 CDF80090 		str	r9, [sp]
+ 1517 0104 2B18     		adds	r3, r5, r0
+ 1518 0106 5A46     		mov	r2, fp
+ 1519 0108 4146     		mov	r1, r8
+ 1520 010a 3846     		mov	r0, r7
+ 1521 010c FFF7FEFF 		bl	tcp_create_segment
+ 1522 0110 8146     		mov	r9, r0
+ 1523 0112 0028     		cmp	r0, #0
+ 1524 0114 AFD0     		beq	.L213
+ 1525 0116 6068     		ldr	r0, [r4, #4]
+ 1526 0118 FFF7FEFF 		bl	pbuf_clen
+ 1527 011c B7F86630 		ldrh	r3, [r7, #102]
+ 1528 0120 181A     		subs	r0, r3, r0
+ 1529 0122 A7F86600 		strh	r0, [r7, #102]	@ movhi
+ 1530 0126 6068     		ldr	r0, [r4, #4]
+ 1531 0128 0189     		ldrh	r1, [r0, #8]
+ 1532 012a A5EB0A05 		sub	r5, r5, r10
+ 1533 012e ADB2     		uxth	r5, r5
+ 1534 0130 2944     		add	r1, r1, r5
+ 1535 0132 89B2     		uxth	r1, r1
+ 1536 0134 FFF7FEFF 		bl	pbuf_realloc
+ 1537 0138 2389     		ldrh	r3, [r4, #8]
+ 1538 013a 1D44     		add	r5, r5, r3
+ 1539 013c 2581     		strh	r5, [r4, #8]	@ movhi
+ 1540 013e E368     		ldr	r3, [r4, #12]
+ 1541 0140 9D89     		ldrh	r5, [r3, #12]	@ unaligned
+ 1542 0142 3046     		mov	r0, r6
+ 1543 0144 FFF7FEFF 		bl	lwip_htons
+ 1544 0148 E368     		ldr	r3, [r4, #12]
+ 1545 014a 2843     		orrs	r0, r0, r5
+ 1546 014c 9881     		strh	r0, [r3, #12]	@ unaligned
+ 1547 014e 6068     		ldr	r0, [r4, #4]
+ 1548 0150 FFF7FEFF 		bl	pbuf_clen
+ 1549 0154 B7F86630 		ldrh	r3, [r7, #102]
+ 1550 0158 1844     		add	r0, r0, r3
+ 1551 015a A7F86600 		strh	r0, [r7, #102]	@ movhi
+ 1552 015e D9F80400 		ldr	r0, [r9, #4]
+ 1553 0162 FFF7FEFF 		bl	pbuf_clen
+ 1554 0166 B7F86630 		ldrh	r3, [r7, #102]
+ 1555 016a 1844     		add	r0, r0, r3
+ 1556 016c A7F86600 		strh	r0, [r7, #102]	@ movhi
+ 1557 0170 2368     		ldr	r3, [r4]
+ 1558 0172 C9F80030 		str	r3, [r9]
+ 1559 0176 C4F80090 		str	r9, [r4]
+ 1560 017a D9F80030 		ldr	r3, [r9]
+ 1561 017e 0BB1     		cbz	r3, .L226
+ 1562 0180 0020     		movs	r0, #0
+ARM GAS  /tmp/cc2OsKqz.s 			page 28
+
+
+ 1563 0182 07E0     		b	.L209
+ 1564              	.L226:
+ 1565 0184 0020     		movs	r0, #0
+ 1566 0186 A7F86800 		strh	r0, [r7, #104]	@ movhi
+ 1567 018a 03E0     		b	.L209
+ 1568              	.L216:
+ 1569 018c 4FF0FF30 		mov	r0, #-1
+ 1570 0190 00E0     		b	.L209
+ 1571              	.L217:
+ 1572 0192 0020     		movs	r0, #0
+ 1573              	.L209:
+ 1574 0194 03B0     		add	sp, sp, #12
+ 1575              		@ sp needed
+ 1576 0196 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1577              	.L219:
+ 1578 019a 4FF0FF30 		mov	r0, #-1
+ 1579 019e F9E7     		b	.L209
+ 1580              	.L228:
+ 1581              		.align	2
+ 1582              	.L227:
+ 1583 01a0 00000000 		.word	.LC0
+ 1584 01a4 00000000 		.word	.LC33
+ 1585 01a8 50000000 		.word	.LC2
+ 1586 01ac 24000000 		.word	.LC34
+ 1587 01b0 48000000 		.word	.LC35
+ 1588 01b4 58000000 		.word	.LC36
+ 1590              		.section	.text.tcp_enqueue_flags,"ax",%progbits
+ 1591              		.align	1
+ 1592              		.global	tcp_enqueue_flags
+ 1593              		.syntax unified
+ 1594              		.thumb
+ 1595              		.thumb_func
+ 1596              		.fpu fpv4-sp-d16
+ 1598              	tcp_enqueue_flags:
+ 1599              		@ args = 0, pretend = 0, frame = 0
+ 1600              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1601 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 1602 0004 83B0     		sub	sp, sp, #12
+ 1603 0006 0446     		mov	r4, r0
+ 1604 0008 0D46     		mov	r5, r1
+ 1605 000a 11F00307 		ands	r7, r1, #3
+ 1606 000e 2AD0     		beq	.L249
+ 1607              	.L230:
+ 1608 0010 8CB3     		cbz	r4, .L250
+ 1609              	.L231:
+ 1610 0012 15F00208 		ands	r8, r5, #2
+ 1611 0016 01D0     		beq	.L232
+ 1612 0018 4FF00108 		mov	r8, #1
+ 1613              	.L232:
+ 1614 001c 4FEA8806 		lsl	r6, r8, #2
+ 1615 0020 06F00406 		and	r6, r6, #4
+ 1616 0024 4FF42072 		mov	r2, #640
+ 1617 0028 3146     		mov	r1, r6
+ 1618 002a 3620     		movs	r0, #54
+ 1619 002c FFF7FEFF 		bl	pbuf_alloc
+ 1620 0030 8146     		mov	r9, r0
+ 1621 0032 40B3     		cbz	r0, .L251
+ARM GAS  /tmp/cc2OsKqz.s 			page 29
+
+
+ 1622 0034 4389     		ldrh	r3, [r0, #10]
+ 1623 0036 9E42     		cmp	r6, r3
+ 1624 0038 2CD8     		bhi	.L252
+ 1625              	.L235:
+ 1626 003a CDF80080 		str	r8, [sp]
+ 1627 003e E36D     		ldr	r3, [r4, #92]
+ 1628 0040 2A46     		mov	r2, r5
+ 1629 0042 4946     		mov	r1, r9
+ 1630 0044 2046     		mov	r0, r4
+ 1631 0046 FFF7FEFF 		bl	tcp_create_segment
+ 1632 004a 0646     		mov	r6, r0
+ 1633 004c 50B3     		cbz	r0, .L253
+ 1634 004e C368     		ldr	r3, [r0, #12]
+ 1635 0050 13F0030F 		tst	r3, #3
+ 1636 0054 2DD1     		bne	.L254
+ 1637              	.L237:
+ 1638 0056 3389     		ldrh	r3, [r6, #8]
+ 1639 0058 002B     		cmp	r3, #0
+ 1640 005a 32D1     		bne	.L255
+ 1641              	.L238:
+ 1642 005c E26E     		ldr	r2, [r4, #108]
+ 1643 005e 002A     		cmp	r2, #0
+ 1644 0060 38D1     		bne	.L239
+ 1645 0062 E666     		str	r6, [r4, #108]
+ 1646 0064 3AE0     		b	.L240
+ 1647              	.L249:
+ 1648 0066 344B     		ldr	r3, .L258
+ 1649 0068 40F21242 		movw	r2, #1042
+ 1650 006c 3349     		ldr	r1, .L258+4
+ 1651 006e 3448     		ldr	r0, .L258+8
+ 1652 0070 FFF7FEFF 		bl	printf
+ 1653 0074 CCE7     		b	.L230
+ 1654              	.L250:
+ 1655 0076 304B     		ldr	r3, .L258
+ 1656 0078 40F21342 		movw	r2, #1043
+ 1657 007c 3149     		ldr	r1, .L258+12
+ 1658 007e 3048     		ldr	r0, .L258+8
+ 1659 0080 FFF7FEFF 		bl	printf
+ 1660 0084 C5E7     		b	.L231
+ 1661              	.L251:
+ 1662 0086 638B     		ldrh	r3, [r4, #26]
+ 1663 0088 43F08003 		orr	r3, r3, #128
+ 1664 008c 6383     		strh	r3, [r4, #26]	@ movhi
+ 1665 008e 4FF0FF30 		mov	r0, #-1
+ 1666 0092 4DE0     		b	.L234
+ 1667              	.L252:
+ 1668 0094 284B     		ldr	r3, .L258
+ 1669 0096 40F23A42 		movw	r2, #1082
+ 1670 009a 2B49     		ldr	r1, .L258+16
+ 1671 009c 2848     		ldr	r0, .L258+8
+ 1672 009e FFF7FEFF 		bl	printf
+ 1673 00a2 CAE7     		b	.L235
+ 1674              	.L253:
+ 1675 00a4 638B     		ldrh	r3, [r4, #26]
+ 1676 00a6 43F08003 		orr	r3, r3, #128
+ 1677 00aa 6383     		strh	r3, [r4, #26]	@ movhi
+ 1678 00ac 4FF0FF30 		mov	r0, #-1
+ARM GAS  /tmp/cc2OsKqz.s 			page 30
+
+
+ 1679 00b0 3EE0     		b	.L234
+ 1680              	.L254:
+ 1681 00b2 214B     		ldr	r3, .L258
+ 1682 00b4 40F24242 		movw	r2, #1090
+ 1683 00b8 2449     		ldr	r1, .L258+20
+ 1684 00ba 2148     		ldr	r0, .L258+8
+ 1685 00bc FFF7FEFF 		bl	printf
+ 1686 00c0 C9E7     		b	.L237
+ 1687              	.L255:
+ 1688 00c2 1D4B     		ldr	r3, .L258
+ 1689 00c4 40F24342 		movw	r2, #1091
+ 1690 00c8 2149     		ldr	r1, .L258+24
+ 1691 00ca 1D48     		ldr	r0, .L258+8
+ 1692 00cc FFF7FEFF 		bl	printf
+ 1693 00d0 C4E7     		b	.L238
+ 1694              	.L244:
+ 1695 00d2 1A46     		mov	r2, r3
+ 1696              	.L239:
+ 1697 00d4 1368     		ldr	r3, [r2]
+ 1698 00d6 002B     		cmp	r3, #0
+ 1699 00d8 FBD1     		bne	.L244
+ 1700 00da 1660     		str	r6, [r2]
+ 1701              	.L240:
+ 1702 00dc 0023     		movs	r3, #0
+ 1703 00de A4F86830 		strh	r3, [r4, #104]	@ movhi
+ 1704 00e2 17B1     		cbz	r7, .L241
+ 1705 00e4 E36D     		ldr	r3, [r4, #92]
+ 1706 00e6 0133     		adds	r3, r3, #1
+ 1707 00e8 E365     		str	r3, [r4, #92]
+ 1708              	.L241:
+ 1709 00ea 15F0010F 		tst	r5, #1
+ 1710 00ee 03D0     		beq	.L242
+ 1711 00f0 638B     		ldrh	r3, [r4, #26]
+ 1712 00f2 43F02003 		orr	r3, r3, #32
+ 1713 00f6 6383     		strh	r3, [r4, #26]	@ movhi
+ 1714              	.L242:
+ 1715 00f8 7068     		ldr	r0, [r6, #4]
+ 1716 00fa FFF7FEFF 		bl	pbuf_clen
+ 1717 00fe B4F86630 		ldrh	r3, [r4, #102]
+ 1718 0102 1844     		add	r0, r0, r3
+ 1719 0104 80B2     		uxth	r0, r0
+ 1720 0106 A4F86600 		strh	r0, [r4, #102]	@ movhi
+ 1721 010a 80B1     		cbz	r0, .L245
+ 1722 010c 236F     		ldr	r3, [r4, #112]
+ 1723 010e 0BB1     		cbz	r3, .L256
+ 1724 0110 0020     		movs	r0, #0
+ 1725 0112 0DE0     		b	.L234
+ 1726              	.L256:
+ 1727 0114 E36E     		ldr	r3, [r4, #108]
+ 1728 0116 0BB1     		cbz	r3, .L257
+ 1729 0118 0020     		movs	r0, #0
+ 1730 011a 09E0     		b	.L234
+ 1731              	.L257:
+ 1732 011c 064B     		ldr	r3, .L258
+ 1733 011e 40F26642 		movw	r2, #1126
+ 1734 0122 0C49     		ldr	r1, .L258+28
+ 1735 0124 0648     		ldr	r0, .L258+8
+ARM GAS  /tmp/cc2OsKqz.s 			page 31
+
+
+ 1736 0126 FFF7FEFF 		bl	printf
+ 1737 012a 0020     		movs	r0, #0
+ 1738 012c 00E0     		b	.L234
+ 1739              	.L245:
+ 1740 012e 0020     		movs	r0, #0
+ 1741              	.L234:
+ 1742 0130 03B0     		add	sp, sp, #12
+ 1743              		@ sp needed
+ 1744 0132 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 1745              	.L259:
+ 1746 0136 00BF     		.align	2
+ 1747              	.L258:
+ 1748 0138 00000000 		.word	.LC0
+ 1749 013c 00000000 		.word	.LC37
+ 1750 0140 50000000 		.word	.LC2
+ 1751 0144 58000000 		.word	.LC38
+ 1752 0148 78000000 		.word	.LC39
+ 1753 014c B4000000 		.word	.LC40
+ 1754 0150 CC000000 		.word	.LC41
+ 1755 0154 F8000000 		.word	.LC42
+ 1757              		.section	.text.tcp_send_fin,"ax",%progbits
+ 1758              		.align	1
+ 1759              		.global	tcp_send_fin
+ 1760              		.syntax unified
+ 1761              		.thumb
+ 1762              		.thumb_func
+ 1763              		.fpu fpv4-sp-d16
+ 1765              	tcp_send_fin:
+ 1766              		@ args = 0, pretend = 0, frame = 0
+ 1767              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1768 0000 70B5     		push	{r4, r5, r6, lr}
+ 1769 0002 0546     		mov	r5, r0
+ 1770 0004 10B1     		cbz	r0, .L267
+ 1771              	.L261:
+ 1772 0006 EC6E     		ldr	r4, [r5, #108]
+ 1773 0008 4CB9     		cbnz	r4, .L263
+ 1774 000a 12E0     		b	.L262
+ 1775              	.L267:
+ 1776 000c 124B     		ldr	r3, .L269
+ 1777 000e 40F2EB32 		movw	r2, #1003
+ 1778 0012 1249     		ldr	r1, .L269+4
+ 1779 0014 1248     		ldr	r0, .L269+8
+ 1780 0016 FFF7FEFF 		bl	printf
+ 1781 001a F4E7     		b	.L261
+ 1782              	.L265:
+ 1783 001c 1C46     		mov	r4, r3
+ 1784              	.L263:
+ 1785 001e 2368     		ldr	r3, [r4]
+ 1786 0020 002B     		cmp	r3, #0
+ 1787 0022 FBD1     		bne	.L265
+ 1788 0024 E368     		ldr	r3, [r4, #12]
+ 1789 0026 9889     		ldrh	r0, [r3, #12]	@ unaligned
+ 1790 0028 FFF7FEFF 		bl	lwip_htons
+ 1791 002c 10F0070F 		tst	r0, #7
+ 1792 0030 04D0     		beq	.L268
+ 1793              	.L262:
+ 1794 0032 0121     		movs	r1, #1
+ARM GAS  /tmp/cc2OsKqz.s 			page 32
+
+
+ 1795 0034 2846     		mov	r0, r5
+ 1796 0036 FFF7FEFF 		bl	tcp_enqueue_flags
+ 1797              	.L264:
+ 1798 003a 70BD     		pop	{r4, r5, r6, pc}
+ 1799              	.L268:
+ 1800 003c E368     		ldr	r3, [r4, #12]
+ 1801 003e 9E89     		ldrh	r6, [r3, #12]	@ unaligned
+ 1802 0040 0120     		movs	r0, #1
+ 1803 0042 FFF7FEFF 		bl	lwip_htons
+ 1804 0046 E368     		ldr	r3, [r4, #12]
+ 1805 0048 3043     		orrs	r0, r0, r6
+ 1806 004a 9881     		strh	r0, [r3, #12]	@ unaligned
+ 1807 004c 6B8B     		ldrh	r3, [r5, #26]
+ 1808 004e 43F02003 		orr	r3, r3, #32
+ 1809 0052 6B83     		strh	r3, [r5, #26]	@ movhi
+ 1810 0054 0020     		movs	r0, #0
+ 1811 0056 F0E7     		b	.L264
+ 1812              	.L270:
+ 1813              		.align	2
+ 1814              	.L269:
+ 1815 0058 00000000 		.word	.LC0
+ 1816 005c 00000000 		.word	.LC43
+ 1817 0060 50000000 		.word	.LC2
+ 1819              		.section	.text.tcp_rexmit_rto_prepare,"ax",%progbits
+ 1820              		.align	1
+ 1821              		.global	tcp_rexmit_rto_prepare
+ 1822              		.syntax unified
+ 1823              		.thumb
+ 1824              		.thumb_func
+ 1825              		.fpu fpv4-sp-d16
+ 1827              	tcp_rexmit_rto_prepare:
+ 1828              		@ args = 0, pretend = 0, frame = 0
+ 1829              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1830 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1831 0002 0546     		mov	r5, r0
+ 1832 0004 58B1     		cbz	r0, .L282
+ 1833              	.L272:
+ 1834 0006 2C6F     		ldr	r4, [r5, #112]
+ 1835 0008 002C     		cmp	r4, #0
+ 1836 000a 34D0     		beq	.L283
+ 1837              	.L274:
+ 1838 000c 2368     		ldr	r3, [r4]
+ 1839 000e 73B1     		cbz	r3, .L284
+ 1840 0010 2046     		mov	r0, r4
+ 1841 0012 FFF7FEFF 		bl	tcp_output_segment_busy
+ 1842 0016 0028     		cmp	r0, #0
+ 1843 0018 30D1     		bne	.L278
+ 1844 001a 2468     		ldr	r4, [r4]
+ 1845 001c F6E7     		b	.L274
+ 1846              	.L282:
+ 1847 001e 1A4B     		ldr	r3, .L285
+ 1848 0020 40F26362 		movw	r2, #1635
+ 1849 0024 1949     		ldr	r1, .L285+4
+ 1850 0026 1A48     		ldr	r0, .L285+8
+ 1851 0028 FFF7FEFF 		bl	printf
+ 1852 002c EBE7     		b	.L272
+ 1853              	.L284:
+ARM GAS  /tmp/cc2OsKqz.s 			page 33
+
+
+ 1854 002e 2046     		mov	r0, r4
+ 1855 0030 FFF7FEFF 		bl	tcp_output_segment_busy
+ 1856 0034 28BB     		cbnz	r0, .L279
+ 1857 0036 EB6E     		ldr	r3, [r5, #108]
+ 1858 0038 2360     		str	r3, [r4]
+ 1859 003a 2B6F     		ldr	r3, [r5, #112]
+ 1860 003c EB66     		str	r3, [r5, #108]
+ 1861 003e 0023     		movs	r3, #0
+ 1862 0040 2B67     		str	r3, [r5, #112]
+ 1863 0042 6B8B     		ldrh	r3, [r5, #26]
+ 1864 0044 43F40063 		orr	r3, r3, #2048
+ 1865 0048 6B83     		strh	r3, [r5, #26]	@ movhi
+ 1866 004a E368     		ldr	r3, [r4, #12]
+ 1867 004c 5868     		ldr	r0, [r3, #4]	@ unaligned
+ 1868 004e FFF7FEFF 		bl	lwip_htonl
+ 1869 0052 0646     		mov	r6, r0
+ 1870 0054 2789     		ldrh	r7, [r4, #8]
+ 1871 0056 E368     		ldr	r3, [r4, #12]
+ 1872 0058 9889     		ldrh	r0, [r3, #12]	@ unaligned
+ 1873 005a FFF7FEFF 		bl	lwip_htons
+ 1874 005e 10F0030F 		tst	r0, #3
+ 1875 0062 06D0     		beq	.L280
+ 1876 0064 0123     		movs	r3, #1
+ 1877              	.L276:
+ 1878 0066 1F44     		add	r7, r7, r3
+ 1879 0068 3E44     		add	r6, r6, r7
+ 1880 006a EE64     		str	r6, [r5, #76]
+ 1881 006c 0020     		movs	r0, #0
+ 1882 006e 6863     		str	r0, [r5, #52]
+ 1883              	.L273:
+ 1884 0070 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1885              	.L280:
+ 1886 0072 0023     		movs	r3, #0
+ 1887 0074 F7E7     		b	.L276
+ 1888              	.L283:
+ 1889 0076 6FF00500 		mvn	r0, #5
+ 1890 007a F9E7     		b	.L273
+ 1891              	.L278:
+ 1892 007c 6FF00500 		mvn	r0, #5
+ 1893 0080 F6E7     		b	.L273
+ 1894              	.L279:
+ 1895 0082 6FF00500 		mvn	r0, #5
+ 1896 0086 F3E7     		b	.L273
+ 1897              	.L286:
+ 1898              		.align	2
+ 1899              	.L285:
+ 1900 0088 00000000 		.word	.LC0
+ 1901 008c 00000000 		.word	.LC44
+ 1902 0090 50000000 		.word	.LC2
+ 1904              		.section	.text.tcp_rexmit,"ax",%progbits
+ 1905              		.align	1
+ 1906              		.global	tcp_rexmit
+ 1907              		.syntax unified
+ 1908              		.thumb
+ 1909              		.thumb_func
+ 1910              		.fpu fpv4-sp-d16
+ 1912              	tcp_rexmit:
+ARM GAS  /tmp/cc2OsKqz.s 			page 34
+
+
+ 1913              		@ args = 0, pretend = 0, frame = 0
+ 1914              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1915 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1916 0002 0746     		mov	r7, r0
+ 1917 0004 C8B1     		cbz	r0, .L298
+ 1918              	.L288:
+ 1919 0006 3E6F     		ldr	r6, [r7, #112]
+ 1920 0008 8EB3     		cbz	r6, .L295
+ 1921 000a 3046     		mov	r0, r6
+ 1922 000c FFF7FEFF 		bl	tcp_output_segment_busy
+ 1923 0010 80BB     		cbnz	r0, .L296
+ 1924 0012 3368     		ldr	r3, [r6]
+ 1925 0014 3B67     		str	r3, [r7, #112]
+ 1926 0016 07F16C05 		add	r5, r7, #108
+ 1927              	.L290:
+ 1928 001a 2B68     		ldr	r3, [r5]
+ 1929 001c ABB1     		cbz	r3, .L291
+ 1930 001e DB68     		ldr	r3, [r3, #12]
+ 1931 0020 5868     		ldr	r0, [r3, #4]	@ unaligned
+ 1932 0022 FFF7FEFF 		bl	lwip_htonl
+ 1933 0026 0446     		mov	r4, r0
+ 1934 0028 F368     		ldr	r3, [r6, #12]
+ 1935 002a 5868     		ldr	r0, [r3, #4]	@ unaligned
+ 1936 002c FFF7FEFF 		bl	lwip_htonl
+ 1937 0030 201A     		subs	r0, r4, r0
+ 1938 0032 0028     		cmp	r0, #0
+ 1939 0034 09DA     		bge	.L291
+ 1940 0036 2D68     		ldr	r5, [r5]
+ 1941 0038 EFE7     		b	.L290
+ 1942              	.L298:
+ 1943 003a 104B     		ldr	r3, .L300
+ 1944 003c 40F2C162 		movw	r2, #1729
+ 1945 0040 0F49     		ldr	r1, .L300+4
+ 1946 0042 1048     		ldr	r0, .L300+8
+ 1947 0044 FFF7FEFF 		bl	printf
+ 1948 0048 DDE7     		b	.L288
+ 1949              	.L291:
+ 1950 004a 2B68     		ldr	r3, [r5]
+ 1951 004c 3360     		str	r3, [r6]
+ 1952 004e 2E60     		str	r6, [r5]
+ 1953 0050 3368     		ldr	r3, [r6]
+ 1954 0052 4BB1     		cbz	r3, .L299
+ 1955              	.L293:
+ 1956 0054 97F84230 		ldrb	r3, [r7, #66]	@ zero_extendqisi2
+ 1957 0058 FF2B     		cmp	r3, #255
+ 1958 005a 02D0     		beq	.L294
+ 1959 005c 0133     		adds	r3, r3, #1
+ 1960 005e 87F84230 		strb	r3, [r7, #66]
+ 1961              	.L294:
+ 1962 0062 0020     		movs	r0, #0
+ 1963 0064 7863     		str	r0, [r7, #52]
+ 1964              	.L289:
+ 1965 0066 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1966              	.L299:
+ 1967 0068 A7F86830 		strh	r3, [r7, #104]	@ movhi
+ 1968 006c F2E7     		b	.L293
+ 1969              	.L295:
+ARM GAS  /tmp/cc2OsKqz.s 			page 35
+
+
+ 1970 006e 6FF00500 		mvn	r0, #5
+ 1971 0072 F8E7     		b	.L289
+ 1972              	.L296:
+ 1973 0074 6FF00500 		mvn	r0, #5
+ 1974 0078 F5E7     		b	.L289
+ 1975              	.L301:
+ 1976 007a 00BF     		.align	2
+ 1977              	.L300:
+ 1978 007c 00000000 		.word	.LC0
+ 1979 0080 00000000 		.word	.LC45
+ 1980 0084 50000000 		.word	.LC2
+ 1982              		.section	.text.tcp_rexmit_fast,"ax",%progbits
+ 1983              		.align	1
+ 1984              		.global	tcp_rexmit_fast
+ 1985              		.syntax unified
+ 1986              		.thumb
+ 1987              		.thumb_func
+ 1988              		.fpu fpv4-sp-d16
+ 1990              	tcp_rexmit_fast:
+ 1991              		@ args = 0, pretend = 0, frame = 0
+ 1992              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1993 0000 10B5     		push	{r4, lr}
+ 1994 0002 0446     		mov	r4, r0
+ 1995 0004 30B1     		cbz	r0, .L307
+ 1996              	.L303:
+ 1997 0006 236F     		ldr	r3, [r4, #112]
+ 1998 0008 1BB1     		cbz	r3, .L302
+ 1999 000a 638B     		ldrh	r3, [r4, #26]
+ 2000 000c 13F0040F 		tst	r3, #4
+ 2001 0010 08D0     		beq	.L308
+ 2002              	.L302:
+ 2003 0012 10BD     		pop	{r4, pc}
+ 2004              	.L307:
+ 2005 0014 154B     		ldr	r3, .L309
+ 2006 0016 40F2F962 		movw	r2, #1785
+ 2007 001a 1549     		ldr	r1, .L309+4
+ 2008 001c 1548     		ldr	r0, .L309+8
+ 2009 001e FFF7FEFF 		bl	printf
+ 2010 0022 F0E7     		b	.L303
+ 2011              	.L308:
+ 2012 0024 2046     		mov	r0, r4
+ 2013 0026 FFF7FEFF 		bl	tcp_rexmit
+ 2014 002a 0028     		cmp	r0, #0
+ 2015 002c F1D1     		bne	.L302
+ 2016 002e B4F86030 		ldrh	r3, [r4, #96]
+ 2017 0032 B4F84820 		ldrh	r2, [r4, #72]
+ 2018 0036 9342     		cmp	r3, r2
+ 2019 0038 28BF     		it	cs
+ 2020 003a 1346     		movcs	r3, r2
+ 2021 003c 5B08     		lsrs	r3, r3, #1
+ 2022 003e A4F84A30 		strh	r3, [r4, #74]	@ movhi
+ 2023 0042 628E     		ldrh	r2, [r4, #50]
+ 2024 0044 B3EB420F 		cmp	r3, r2, lsl #1
+ 2025 0048 02D2     		bcs	.L305
+ 2026 004a 5300     		lsls	r3, r2, #1
+ 2027 004c A4F84A30 		strh	r3, [r4, #74]	@ movhi
+ 2028              	.L305:
+ARM GAS  /tmp/cc2OsKqz.s 			page 36
+
+
+ 2029 0050 B4F84A30 		ldrh	r3, [r4, #74]
+ 2030 0054 02EB4202 		add	r2, r2, r2, lsl #1
+ 2031 0058 1A44     		add	r2, r2, r3
+ 2032 005a A4F84820 		strh	r2, [r4, #72]	@ movhi
+ 2033 005e 638B     		ldrh	r3, [r4, #26]
+ 2034 0060 43F00403 		orr	r3, r3, #4
+ 2035 0064 6383     		strh	r3, [r4, #26]	@ movhi
+ 2036 0066 0023     		movs	r3, #0
+ 2037 0068 2386     		strh	r3, [r4, #48]	@ movhi
+ 2038 006a D2E7     		b	.L302
+ 2039              	.L310:
+ 2040              		.align	2
+ 2041              	.L309:
+ 2042 006c 00000000 		.word	.LC0
+ 2043 0070 00000000 		.word	.LC46
+ 2044 0074 50000000 		.word	.LC2
+ 2046              		.section	.text.tcp_rst,"ax",%progbits
+ 2047              		.align	1
+ 2048              		.global	tcp_rst
+ 2049              		.syntax unified
+ 2050              		.thumb
+ 2051              		.thumb_func
+ 2052              		.fpu fpv4-sp-d16
+ 2054              	tcp_rst:
+ 2055              		@ args = 12, pretend = 0, frame = 0
+ 2056              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2057 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 2058 0004 84B0     		sub	sp, sp, #16
+ 2059 0006 0546     		mov	r5, r0
+ 2060 0008 8846     		mov	r8, r1
+ 2061 000a 1646     		mov	r6, r2
+ 2062 000c 0A9C     		ldr	r4, [sp, #40]
+ 2063 000e 1F46     		mov	r7, r3
+ 2064 0010 2BB3     		cbz	r3, .L316
+ 2065              	.L312:
+ 2066 0012 64B3     		cbz	r4, .L317
+ 2067              	.L313:
+ 2068 0014 4046     		mov	r0, r8
+ 2069 0016 FFF7FEFF 		bl	lwip_htonl
+ 2070 001a 46F20803 		movw	r3, #24584
+ 2071 001e 0393     		str	r3, [sp, #12]
+ 2072 0020 1423     		movs	r3, #20
+ 2073 0022 0293     		str	r3, [sp, #8]
+ 2074 0024 BDF83030 		ldrh	r3, [sp, #48]
+ 2075 0028 0193     		str	r3, [sp, #4]
+ 2076 002a BDF82C30 		ldrh	r3, [sp, #44]
+ 2077 002e 0093     		str	r3, [sp]
+ 2078 0030 0346     		mov	r3, r0
+ 2079 0032 0022     		movs	r2, #0
+ 2080 0034 1146     		mov	r1, r2
+ 2081 0036 3046     		mov	r0, r6
+ 2082 0038 FFF7FEFF 		bl	tcp_output_alloc_header_common
+ 2083 003c 0646     		mov	r6, r0
+ 2084 003e 58B1     		cbz	r0, .L311
+ 2085 0040 0023     		movs	r3, #0
+ 2086 0042 1A46     		mov	r2, r3
+ 2087 0044 0146     		mov	r1, r0
+ARM GAS  /tmp/cc2OsKqz.s 			page 37
+
+
+ 2088 0046 2846     		mov	r0, r5
+ 2089 0048 FFF7FEFF 		bl	tcp_output_fill_options
+ 2090 004c 2346     		mov	r3, r4
+ 2091 004e 3A46     		mov	r2, r7
+ 2092 0050 3146     		mov	r1, r6
+ 2093 0052 2846     		mov	r0, r5
+ 2094 0054 FFF7FEFF 		bl	tcp_output_control_segment
+ 2095              	.L311:
+ 2096 0058 04B0     		add	sp, sp, #16
+ 2097              		@ sp needed
+ 2098 005a BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 2099              	.L316:
+ 2100 005e 084B     		ldr	r3, .L318
+ 2101 0060 40F2C472 		movw	r2, #1988
+ 2102 0064 0749     		ldr	r1, .L318+4
+ 2103 0066 0848     		ldr	r0, .L318+8
+ 2104 0068 FFF7FEFF 		bl	printf
+ 2105 006c D1E7     		b	.L312
+ 2106              	.L317:
+ 2107 006e 044B     		ldr	r3, .L318
+ 2108 0070 40F2C572 		movw	r2, #1989
+ 2109 0074 0549     		ldr	r1, .L318+12
+ 2110 0076 0448     		ldr	r0, .L318+8
+ 2111 0078 FFF7FEFF 		bl	printf
+ 2112 007c CAE7     		b	.L313
+ 2113              	.L319:
+ 2114 007e 00BF     		.align	2
+ 2115              	.L318:
+ 2116 0080 00000000 		.word	.LC0
+ 2117 0084 00000000 		.word	.LC47
+ 2118 0088 50000000 		.word	.LC2
+ 2119 008c 1C000000 		.word	.LC48
+ 2121              		.section	.text.tcp_send_empty_ack,"ax",%progbits
+ 2122              		.align	1
+ 2123              		.global	tcp_send_empty_ack
+ 2124              		.syntax unified
+ 2125              		.thumb
+ 2126              		.thumb_func
+ 2127              		.fpu fpv4-sp-d16
+ 2129              	tcp_send_empty_ack:
+ 2130              		@ args = 0, pretend = 0, frame = 0
+ 2131              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2132 0000 38B5     		push	{r3, r4, r5, lr}
+ 2133 0002 0446     		mov	r4, r0
+ 2134 0004 F0B1     		cbz	r0, .L326
+ 2135              	.L321:
+ 2136 0006 206D     		ldr	r0, [r4, #80]
+ 2137 0008 FFF7FEFF 		bl	lwip_htonl
+ 2138 000c 0346     		mov	r3, r0
+ 2139 000e 0022     		movs	r2, #0
+ 2140 0010 1146     		mov	r1, r2
+ 2141 0012 2046     		mov	r0, r4
+ 2142 0014 FFF7FEFF 		bl	tcp_output_alloc_header
+ 2143 0018 0546     		mov	r5, r0
+ 2144 001a D8B1     		cbz	r0, .L327
+ 2145 001c 0023     		movs	r3, #0
+ 2146 001e 1A46     		mov	r2, r3
+ARM GAS  /tmp/cc2OsKqz.s 			page 38
+
+
+ 2147 0020 0146     		mov	r1, r0
+ 2148 0022 2046     		mov	r0, r4
+ 2149 0024 FFF7FEFF 		bl	tcp_output_fill_options
+ 2150 0028 231D     		adds	r3, r4, #4
+ 2151 002a 2246     		mov	r2, r4
+ 2152 002c 2946     		mov	r1, r5
+ 2153 002e 2046     		mov	r0, r4
+ 2154 0030 FFF7FEFF 		bl	tcp_output_control_segment
+ 2155 0034 0346     		mov	r3, r0
+ 2156 0036 A0B1     		cbz	r0, .L324
+ 2157 0038 628B     		ldrh	r2, [r4, #26]
+ 2158 003a 42F00302 		orr	r2, r2, #3
+ 2159 003e 6283     		strh	r2, [r4, #26]	@ movhi
+ 2160              	.L323:
+ 2161 0040 1846     		mov	r0, r3
+ 2162 0042 38BD     		pop	{r3, r4, r5, pc}
+ 2163              	.L326:
+ 2164 0044 094B     		ldr	r3, .L328
+ 2165 0046 40F2EA72 		movw	r2, #2026
+ 2166 004a 0949     		ldr	r1, .L328+4
+ 2167 004c 0948     		ldr	r0, .L328+8
+ 2168 004e FFF7FEFF 		bl	printf
+ 2169 0052 D8E7     		b	.L321
+ 2170              	.L327:
+ 2171 0054 638B     		ldrh	r3, [r4, #26]
+ 2172 0056 43F00303 		orr	r3, r3, #3
+ 2173 005a 6383     		strh	r3, [r4, #26]	@ movhi
+ 2174 005c 6FF00103 		mvn	r3, #1
+ 2175 0060 EEE7     		b	.L323
+ 2176              	.L324:
+ 2177 0062 628B     		ldrh	r2, [r4, #26]
+ 2178 0064 22F00302 		bic	r2, r2, #3
+ 2179 0068 6283     		strh	r2, [r4, #26]	@ movhi
+ 2180 006a E9E7     		b	.L323
+ 2181              	.L329:
+ 2182              		.align	2
+ 2183              	.L328:
+ 2184 006c 00000000 		.word	.LC0
+ 2185 0070 00000000 		.word	.LC49
+ 2186 0074 50000000 		.word	.LC2
+ 2188              		.section	.text.tcp_output,"ax",%progbits
+ 2189              		.align	1
+ 2190              		.global	tcp_output
+ 2191              		.syntax unified
+ 2192              		.thumb
+ 2193              		.thumb_func
+ 2194              		.fpu fpv4-sp-d16
+ 2196              	tcp_output:
+ 2197              		@ args = 0, pretend = 0, frame = 0
+ 2198              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2199 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 2200 0004 0546     		mov	r5, r0
+ 2201 0006 0028     		cmp	r0, #0
+ 2202 0008 3BD0     		beq	.L368
+ 2203              	.L331:
+ 2204 000a 2B7D     		ldrb	r3, [r5, #20]	@ zero_extendqisi2
+ 2205 000c 012B     		cmp	r3, #1
+ARM GAS  /tmp/cc2OsKqz.s 			page 39
+
+
+ 2206 000e 40D0     		beq	.L369
+ 2207              	.L332:
+ 2208 0010 9D4B     		ldr	r3, .L380
+ 2209 0012 1B68     		ldr	r3, [r3]
+ 2210 0014 AB42     		cmp	r3, r5
+ 2211 0016 00F02F81 		beq	.L361
+ 2212 001a B5F84860 		ldrh	r6, [r5, #72]
+ 2213 001e B5F86030 		ldrh	r3, [r5, #96]
+ 2214 0022 9E42     		cmp	r6, r3
+ 2215 0024 28BF     		it	cs
+ 2216 0026 1E46     		movcs	r6, r3
+ 2217 0028 B046     		mov	r8, r6
+ 2218 002a EC6E     		ldr	r4, [r5, #108]
+ 2219 002c 002C     		cmp	r4, #0
+ 2220 002e 38D0     		beq	.L370
+ 2221 0030 2A1D     		adds	r2, r5, #4
+ 2222 0032 2946     		mov	r1, r5
+ 2223 0034 2846     		mov	r0, r5
+ 2224 0036 FFF7FEFF 		bl	tcp_route
+ 2225 003a 0746     		mov	r7, r0
+ 2226 003c 0028     		cmp	r0, #0
+ 2227 003e 00F01D81 		beq	.L362
+ 2228 0042 0DB1     		cbz	r5, .L336
+ 2229 0044 2B68     		ldr	r3, [r5]
+ 2230 0046 2BB9     		cbnz	r3, .L337
+ 2231              	.L336:
+ 2232 0048 17F1040F 		cmn	r7, #4
+ 2233 004c 00F01981 		beq	.L363
+ 2234 0050 7B68     		ldr	r3, [r7, #4]
+ 2235 0052 2B60     		str	r3, [r5]
+ 2236              	.L337:
+ 2237 0054 E368     		ldr	r3, [r4, #12]
+ 2238 0056 5868     		ldr	r0, [r3, #4]	@ unaligned
+ 2239 0058 FFF7FEFF 		bl	lwip_htonl
+ 2240 005c 6B6C     		ldr	r3, [r5, #68]
+ 2241 005e C01A     		subs	r0, r0, r3
+ 2242 0060 2389     		ldrh	r3, [r4, #8]
+ 2243 0062 1844     		add	r0, r0, r3
+ 2244 0064 B042     		cmp	r0, r6
+ 2245 0066 3CD9     		bls	.L338
+ 2246 0068 B5F86030 		ldrh	r3, [r5, #96]
+ 2247 006c 9E42     		cmp	r6, r3
+ 2248 006e 29D0     		beq	.L371
+ 2249              	.L339:
+ 2250 0070 6B8B     		ldrh	r3, [r5, #26]
+ 2251 0072 13F0020F 		tst	r3, #2
+ 2252 0076 18D0     		beq	.L335
+ 2253 0078 2846     		mov	r0, r5
+ 2254 007a FFF7FEFF 		bl	tcp_send_empty_ack
+ 2255 007e 0346     		mov	r3, r0
+ 2256 0080 18E0     		b	.L333
+ 2257              	.L368:
+ 2258 0082 824B     		ldr	r3, .L380+4
+ 2259 0084 40F2E142 		movw	r2, #1249
+ 2260 0088 8149     		ldr	r1, .L380+8
+ 2261 008a 8248     		ldr	r0, .L380+12
+ 2262 008c FFF7FEFF 		bl	printf
+ARM GAS  /tmp/cc2OsKqz.s 			page 40
+
+
+ 2263 0090 BBE7     		b	.L331
+ 2264              	.L369:
+ 2265 0092 7E4B     		ldr	r3, .L380+4
+ 2266 0094 40F2E442 		movw	r2, #1252
+ 2267 0098 7F49     		ldr	r1, .L380+16
+ 2268 009a 7E48     		ldr	r0, .L380+12
+ 2269 009c FFF7FEFF 		bl	printf
+ 2270 00a0 B6E7     		b	.L332
+ 2271              	.L370:
+ 2272 00a2 6B8B     		ldrh	r3, [r5, #26]
+ 2273 00a4 13F0020F 		tst	r3, #2
+ 2274 00a8 07D1     		bne	.L372
+ 2275              	.L335:
+ 2276 00aa 6B8B     		ldrh	r3, [r5, #26]
+ 2277 00ac 23F08003 		bic	r3, r3, #128
+ 2278 00b0 6B83     		strh	r3, [r5, #26]	@ movhi
+ 2279 00b2 0023     		movs	r3, #0
+ 2280              	.L333:
+ 2281 00b4 1846     		mov	r0, r3
+ 2282 00b6 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 2283              	.L372:
+ 2284 00ba 2846     		mov	r0, r5
+ 2285 00bc FFF7FEFF 		bl	tcp_send_empty_ack
+ 2286 00c0 0346     		mov	r3, r0
+ 2287 00c2 F7E7     		b	.L333
+ 2288              	.L371:
+ 2289 00c4 2B6F     		ldr	r3, [r5, #112]
+ 2290 00c6 002B     		cmp	r3, #0
+ 2291 00c8 D2D1     		bne	.L339
+ 2292 00ca 95F89930 		ldrb	r3, [r5, #153]	@ zero_extendqisi2
+ 2293 00ce 002B     		cmp	r3, #0
+ 2294 00d0 CED1     		bne	.L339
+ 2295 00d2 85F89830 		strb	r3, [r5, #152]
+ 2296 00d6 0122     		movs	r2, #1
+ 2297 00d8 85F89920 		strb	r2, [r5, #153]
+ 2298 00dc 85F89A30 		strb	r3, [r5, #154]
+ 2299 00e0 C6E7     		b	.L339
+ 2300              	.L338:
+ 2301 00e2 0023     		movs	r3, #0
+ 2302 00e4 85F89930 		strb	r3, [r5, #153]
+ 2303 00e8 2E6F     		ldr	r6, [r5, #112]
+ 2304 00ea 0EB9     		cbnz	r6, .L341
+ 2305 00ec 59E0     		b	.L359
+ 2306              	.L364:
+ 2307 00ee 1E46     		mov	r6, r3
+ 2308              	.L341:
+ 2309 00f0 3368     		ldr	r3, [r6]
+ 2310 00f2 002B     		cmp	r3, #0
+ 2311 00f4 FBD1     		bne	.L364
+ 2312 00f6 54E0     		b	.L359
+ 2313              	.L373:
+ 2314 00f8 644B     		ldr	r3, .L380+4
+ 2315 00fa 40F23752 		movw	r2, #1335
+ 2316 00fe 6749     		ldr	r1, .L380+20
+ 2317 0100 6448     		ldr	r0, .L380+12
+ 2318 0102 FFF7FEFF 		bl	printf
+ 2319 0106 5FE0     		b	.L342
+ARM GAS  /tmp/cc2OsKqz.s 			page 41
+
+
+ 2320              	.L374:
+ 2321 0108 1189     		ldrh	r1, [r2, #8]
+ 2322 010a 6A8E     		ldrh	r2, [r5, #50]
+ 2323 010c 9142     		cmp	r1, r2
+ 2324 010e 67D2     		bcs	.L343
+ 2325              	.L344:
+ 2326 0110 B5F86420 		ldrh	r2, [r5, #100]
+ 2327 0114 002A     		cmp	r2, #0
+ 2328 0116 63D0     		beq	.L343
+ 2329 0118 B5F86620 		ldrh	r2, [r5, #102]
+ 2330 011c 082A     		cmp	r2, #8
+ 2331 011e 5FD8     		bhi	.L343
+ 2332 0120 13F0A00F 		tst	r3, #160
+ 2333 0124 5CD1     		bne	.L343
+ 2334              	.L345:
+ 2335 0126 EB6E     		ldr	r3, [r5, #108]
+ 2336 0128 002B     		cmp	r3, #0
+ 2337 012a BED1     		bne	.L335
+ 2338 012c A5F86830 		strh	r3, [r5, #104]	@ movhi
+ 2339 0130 BBE7     		b	.L335
+ 2340              	.L375:
+ 2341 0132 E368     		ldr	r3, [r4, #12]
+ 2342 0134 B3F80C90 		ldrh	r9, [r3, #12]	@ unaligned
+ 2343 0138 1020     		movs	r0, #16
+ 2344 013a FFF7FEFF 		bl	lwip_htons
+ 2345 013e E368     		ldr	r3, [r4, #12]
+ 2346 0140 49EA0000 		orr	r0, r9, r0
+ 2347 0144 9881     		strh	r0, [r3, #12]	@ unaligned
+ 2348 0146 4EE0     		b	.L346
+ 2349              	.L376:
+ 2350 0148 6A8B     		ldrh	r2, [r5, #26]
+ 2351 014a 42F08002 		orr	r2, r2, #128
+ 2352 014e 6A83     		strh	r2, [r5, #26]	@ movhi
+ 2353 0150 B0E7     		b	.L333
+ 2354              	.L365:
+ 2355 0152 0020     		movs	r0, #0
+ 2356 0154 67E0     		b	.L349
+ 2357              	.L377:
+ 2358 0156 2865     		str	r0, [r5, #80]
+ 2359 0158 6BE0     		b	.L350
+ 2360              	.L366:
+ 2361 015a 0023     		movs	r3, #0
+ 2362 015c 73E0     		b	.L351
+ 2363              	.L378:
+ 2364 015e 2C67     		str	r4, [r5, #112]
+ 2365 0160 2646     		mov	r6, r4
+ 2366 0162 1DE0     		b	.L354
+ 2367              	.L379:
+ 2368 0164 05F1700A 		add	r10, r5, #112
+ 2369 0168 01E0     		b	.L356
+ 2370              	.L358:
+ 2371 016a DAF800A0 		ldr	r10, [r10]
+ 2372              	.L356:
+ 2373 016e DAF80030 		ldr	r3, [r10]
+ 2374 0172 63B1     		cbz	r3, .L357
+ 2375 0174 DB68     		ldr	r3, [r3, #12]
+ 2376 0176 5868     		ldr	r0, [r3, #4]	@ unaligned
+ARM GAS  /tmp/cc2OsKqz.s 			page 42
+
+
+ 2377 0178 FFF7FEFF 		bl	lwip_htonl
+ 2378 017c 8146     		mov	r9, r0
+ 2379 017e E368     		ldr	r3, [r4, #12]
+ 2380 0180 5868     		ldr	r0, [r3, #4]	@ unaligned
+ 2381 0182 FFF7FEFF 		bl	lwip_htonl
+ 2382 0186 A9EB0000 		sub	r0, r9, r0
+ 2383 018a 0028     		cmp	r0, #0
+ 2384 018c EDDB     		blt	.L358
+ 2385              	.L357:
+ 2386 018e DAF80030 		ldr	r3, [r10]
+ 2387 0192 2360     		str	r3, [r4]
+ 2388 0194 CAF80040 		str	r4, [r10]
+ 2389 0198 02E0     		b	.L354
+ 2390              	.L352:
+ 2391 019a 2046     		mov	r0, r4
+ 2392 019c FFF7FEFF 		bl	tcp_seg_free
+ 2393              	.L354:
+ 2394 01a0 EC6E     		ldr	r4, [r5, #108]
+ 2395              	.L359:
+ 2396 01a2 002C     		cmp	r4, #0
+ 2397 01a4 BFD0     		beq	.L345
+ 2398 01a6 E368     		ldr	r3, [r4, #12]
+ 2399 01a8 5868     		ldr	r0, [r3, #4]	@ unaligned
+ 2400 01aa FFF7FEFF 		bl	lwip_htonl
+ 2401 01ae 6B6C     		ldr	r3, [r5, #68]
+ 2402 01b0 C01A     		subs	r0, r0, r3
+ 2403 01b2 2389     		ldrh	r3, [r4, #8]
+ 2404 01b4 1844     		add	r0, r0, r3
+ 2405 01b6 4045     		cmp	r0, r8
+ 2406 01b8 B5D8     		bhi	.L345
+ 2407 01ba E368     		ldr	r3, [r4, #12]
+ 2408 01bc 9889     		ldrh	r0, [r3, #12]	@ unaligned
+ 2409 01be FFF7FEFF 		bl	lwip_htons
+ 2410 01c2 10F0040F 		tst	r0, #4
+ 2411 01c6 97D1     		bne	.L373
+ 2412              	.L342:
+ 2413 01c8 2B6F     		ldr	r3, [r5, #112]
+ 2414 01ca 4BB1     		cbz	r3, .L343
+ 2415 01cc 6B8B     		ldrh	r3, [r5, #26]
+ 2416 01ce 13F0440F 		tst	r3, #68
+ 2417 01d2 05D1     		bne	.L343
+ 2418 01d4 EA6E     		ldr	r2, [r5, #108]
+ 2419 01d6 002A     		cmp	r2, #0
+ 2420 01d8 9AD0     		beq	.L344
+ 2421 01da 1168     		ldr	r1, [r2]
+ 2422 01dc 0029     		cmp	r1, #0
+ 2423 01de 93D0     		beq	.L374
+ 2424              	.L343:
+ 2425 01e0 2B7D     		ldrb	r3, [r5, #20]	@ zero_extendqisi2
+ 2426 01e2 022B     		cmp	r3, #2
+ 2427 01e4 A5D1     		bne	.L375
+ 2428              	.L346:
+ 2429 01e6 3A46     		mov	r2, r7
+ 2430 01e8 2946     		mov	r1, r5
+ 2431 01ea 2046     		mov	r0, r4
+ 2432 01ec FFF7FEFF 		bl	tcp_output_segment
+ 2433 01f0 0346     		mov	r3, r0
+ARM GAS  /tmp/cc2OsKqz.s 			page 43
+
+
+ 2434 01f2 0028     		cmp	r0, #0
+ 2435 01f4 A8D1     		bne	.L376
+ 2436 01f6 2368     		ldr	r3, [r4]
+ 2437 01f8 EB66     		str	r3, [r5, #108]
+ 2438 01fa 2B7D     		ldrb	r3, [r5, #20]	@ zero_extendqisi2
+ 2439 01fc 022B     		cmp	r3, #2
+ 2440 01fe 03D0     		beq	.L348
+ 2441 0200 6B8B     		ldrh	r3, [r5, #26]
+ 2442 0202 23F00303 		bic	r3, r3, #3
+ 2443 0206 6B83     		strh	r3, [r5, #26]	@ movhi
+ 2444              	.L348:
+ 2445 0208 E368     		ldr	r3, [r4, #12]
+ 2446 020a 5868     		ldr	r0, [r3, #4]	@ unaligned
+ 2447 020c FFF7FEFF 		bl	lwip_htonl
+ 2448 0210 8146     		mov	r9, r0
+ 2449 0212 B4F808A0 		ldrh	r10, [r4, #8]
+ 2450 0216 E368     		ldr	r3, [r4, #12]
+ 2451 0218 9889     		ldrh	r0, [r3, #12]	@ unaligned
+ 2452 021a FFF7FEFF 		bl	lwip_htons
+ 2453 021e 10F0030F 		tst	r0, #3
+ 2454 0222 96D0     		beq	.L365
+ 2455 0224 0120     		movs	r0, #1
+ 2456              	.L349:
+ 2457 0226 5044     		add	r0, r0, r10
+ 2458 0228 4844     		add	r0, r0, r9
+ 2459 022a 2B6D     		ldr	r3, [r5, #80]
+ 2460 022c 1B1A     		subs	r3, r3, r0
+ 2461 022e 002B     		cmp	r3, #0
+ 2462 0230 91DB     		blt	.L377
+ 2463              	.L350:
+ 2464 0232 B4F80890 		ldrh	r9, [r4, #8]
+ 2465 0236 E368     		ldr	r3, [r4, #12]
+ 2466 0238 9889     		ldrh	r0, [r3, #12]	@ unaligned
+ 2467 023a FFF7FEFF 		bl	lwip_htons
+ 2468 023e 10F0030F 		tst	r0, #3
+ 2469 0242 8AD0     		beq	.L366
+ 2470 0244 0123     		movs	r3, #1
+ 2471              	.L351:
+ 2472 0246 19EB030F 		cmn	r9, r3
+ 2473 024a A6D0     		beq	.L352
+ 2474 024c 0023     		movs	r3, #0
+ 2475 024e 2360     		str	r3, [r4]
+ 2476 0250 2B6F     		ldr	r3, [r5, #112]
+ 2477 0252 002B     		cmp	r3, #0
+ 2478 0254 83D0     		beq	.L378
+ 2479 0256 E368     		ldr	r3, [r4, #12]
+ 2480 0258 5868     		ldr	r0, [r3, #4]	@ unaligned
+ 2481 025a FFF7FEFF 		bl	lwip_htonl
+ 2482 025e 8146     		mov	r9, r0
+ 2483 0260 F368     		ldr	r3, [r6, #12]
+ 2484 0262 5868     		ldr	r0, [r3, #4]	@ unaligned
+ 2485 0264 FFF7FEFF 		bl	lwip_htonl
+ 2486 0268 A9EB0000 		sub	r0, r9, r0
+ 2487 026c 0028     		cmp	r0, #0
+ 2488 026e FFF679AF 		blt	.L379
+ 2489 0272 3460     		str	r4, [r6]
+ 2490 0274 2646     		mov	r6, r4
+ARM GAS  /tmp/cc2OsKqz.s 			page 44
+
+
+ 2491 0276 93E7     		b	.L354
+ 2492              	.L361:
+ 2493 0278 0023     		movs	r3, #0
+ 2494 027a 1BE7     		b	.L333
+ 2495              	.L362:
+ 2496 027c 6FF00303 		mvn	r3, #3
+ 2497 0280 18E7     		b	.L333
+ 2498              	.L363:
+ 2499 0282 6FF00303 		mvn	r3, #3
+ 2500 0286 15E7     		b	.L333
+ 2501              	.L381:
+ 2502              		.align	2
+ 2503              	.L380:
+ 2504 0288 00000000 		.word	tcp_input_pcb
+ 2505 028c 00000000 		.word	.LC0
+ 2506 0290 00000000 		.word	.LC50
+ 2507 0294 50000000 		.word	.LC2
+ 2508 0298 18000000 		.word	.LC51
+ 2509 029c 40000000 		.word	.LC52
+ 2511              		.section	.text.tcp_rexmit_rto_commit,"ax",%progbits
+ 2512              		.align	1
+ 2513              		.global	tcp_rexmit_rto_commit
+ 2514              		.syntax unified
+ 2515              		.thumb
+ 2516              		.thumb_func
+ 2517              		.fpu fpv4-sp-d16
+ 2519              	tcp_rexmit_rto_commit:
+ 2520              		@ args = 0, pretend = 0, frame = 0
+ 2521              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2522 0000 10B5     		push	{r4, lr}
+ 2523 0002 0446     		mov	r4, r0
+ 2524 0004 50B1     		cbz	r0, .L386
+ 2525              	.L383:
+ 2526 0006 94F84230 		ldrb	r3, [r4, #66]	@ zero_extendqisi2
+ 2527 000a FF2B     		cmp	r3, #255
+ 2528 000c 02D0     		beq	.L384
+ 2529 000e 0133     		adds	r3, r3, #1
+ 2530 0010 84F84230 		strb	r3, [r4, #66]
+ 2531              	.L384:
+ 2532 0014 2046     		mov	r0, r4
+ 2533 0016 FFF7FEFF 		bl	tcp_output
+ 2534 001a 10BD     		pop	{r4, pc}
+ 2535              	.L386:
+ 2536 001c 034B     		ldr	r3, .L387
+ 2537 001e 4FF4D362 		mov	r2, #1688
+ 2538 0022 0349     		ldr	r1, .L387+4
+ 2539 0024 0348     		ldr	r0, .L387+8
+ 2540 0026 FFF7FEFF 		bl	printf
+ 2541 002a ECE7     		b	.L383
+ 2542              	.L388:
+ 2543              		.align	2
+ 2544              	.L387:
+ 2545 002c 00000000 		.word	.LC0
+ 2546 0030 00000000 		.word	.LC53
+ 2547 0034 50000000 		.word	.LC2
+ 2549              		.section	.text.tcp_rexmit_rto,"ax",%progbits
+ 2550              		.align	1
+ARM GAS  /tmp/cc2OsKqz.s 			page 45
+
+
+ 2551              		.global	tcp_rexmit_rto
+ 2552              		.syntax unified
+ 2553              		.thumb
+ 2554              		.thumb_func
+ 2555              		.fpu fpv4-sp-d16
+ 2557              	tcp_rexmit_rto:
+ 2558              		@ args = 0, pretend = 0, frame = 0
+ 2559              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2560 0000 10B5     		push	{r4, lr}
+ 2561 0002 0446     		mov	r4, r0
+ 2562 0004 20B1     		cbz	r0, .L393
+ 2563              	.L390:
+ 2564 0006 2046     		mov	r0, r4
+ 2565 0008 FFF7FEFF 		bl	tcp_rexmit_rto_prepare
+ 2566 000c 40B1     		cbz	r0, .L394
+ 2567              	.L389:
+ 2568 000e 10BD     		pop	{r4, pc}
+ 2569              	.L393:
+ 2570 0010 054B     		ldr	r3, .L395
+ 2571 0012 40F2AD62 		movw	r2, #1709
+ 2572 0016 0549     		ldr	r1, .L395+4
+ 2573 0018 0548     		ldr	r0, .L395+8
+ 2574 001a FFF7FEFF 		bl	printf
+ 2575 001e F2E7     		b	.L390
+ 2576              	.L394:
+ 2577 0020 2046     		mov	r0, r4
+ 2578 0022 FFF7FEFF 		bl	tcp_rexmit_rto_commit
+ 2579 0026 F2E7     		b	.L389
+ 2580              	.L396:
+ 2581              		.align	2
+ 2582              	.L395:
+ 2583 0028 00000000 		.word	.LC0
+ 2584 002c 00000000 		.word	.LC54
+ 2585 0030 50000000 		.word	.LC2
+ 2587              		.section	.text.tcp_keepalive,"ax",%progbits
+ 2588              		.align	1
+ 2589              		.global	tcp_keepalive
+ 2590              		.syntax unified
+ 2591              		.thumb
+ 2592              		.thumb_func
+ 2593              		.fpu fpv4-sp-d16
+ 2595              	tcp_keepalive:
+ 2596              		@ args = 0, pretend = 0, frame = 0
+ 2597              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2598 0000 38B5     		push	{r3, r4, r5, lr}
+ 2599 0002 0446     		mov	r4, r0
+ 2600 0004 C0B1     		cbz	r0, .L402
+ 2601              	.L398:
+ 2602 0006 206D     		ldr	r0, [r4, #80]
+ 2603 0008 0138     		subs	r0, r0, #1
+ 2604 000a FFF7FEFF 		bl	lwip_htonl
+ 2605 000e 0346     		mov	r3, r0
+ 2606 0010 0022     		movs	r2, #0
+ 2607 0012 1146     		mov	r1, r2
+ 2608 0014 2046     		mov	r0, r4
+ 2609 0016 FFF7FEFF 		bl	tcp_output_alloc_header
+ 2610 001a 0546     		mov	r5, r0
+ARM GAS  /tmp/cc2OsKqz.s 			page 46
+
+
+ 2611 001c A0B1     		cbz	r0, .L400
+ 2612 001e 0023     		movs	r3, #0
+ 2613 0020 1A46     		mov	r2, r3
+ 2614 0022 0146     		mov	r1, r0
+ 2615 0024 2046     		mov	r0, r4
+ 2616 0026 FFF7FEFF 		bl	tcp_output_fill_options
+ 2617 002a 231D     		adds	r3, r4, #4
+ 2618 002c 2246     		mov	r2, r4
+ 2619 002e 2946     		mov	r1, r5
+ 2620 0030 2046     		mov	r0, r4
+ 2621 0032 FFF7FEFF 		bl	tcp_output_control_segment
+ 2622              	.L399:
+ 2623 0036 38BD     		pop	{r3, r4, r5, pc}
+ 2624              	.L402:
+ 2625 0038 054B     		ldr	r3, .L403
+ 2626 003a 40F62402 		movw	r2, #2084
+ 2627 003e 0549     		ldr	r1, .L403+4
+ 2628 0040 0548     		ldr	r0, .L403+8
+ 2629 0042 FFF7FEFF 		bl	printf
+ 2630 0046 DEE7     		b	.L398
+ 2631              	.L400:
+ 2632 0048 4FF0FF30 		mov	r0, #-1
+ 2633 004c F3E7     		b	.L399
+ 2634              	.L404:
+ 2635 004e 00BF     		.align	2
+ 2636              	.L403:
+ 2637 0050 00000000 		.word	.LC0
+ 2638 0054 00000000 		.word	.LC55
+ 2639 0058 50000000 		.word	.LC2
+ 2641              		.section	.text.tcp_zero_window_probe,"ax",%progbits
+ 2642              		.align	1
+ 2643              		.global	tcp_zero_window_probe
+ 2644              		.syntax unified
+ 2645              		.thumb
+ 2646              		.thumb_func
+ 2647              		.fpu fpv4-sp-d16
+ 2649              	tcp_zero_window_probe:
+ 2650              		@ args = 0, pretend = 0, frame = 0
+ 2651              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2652 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 2653 0004 0446     		mov	r4, r0
+ 2654 0006 A8B1     		cbz	r0, .L418
+ 2655              	.L406:
+ 2656 0008 E56E     		ldr	r5, [r4, #108]
+ 2657 000a 002D     		cmp	r5, #0
+ 2658 000c 5BD0     		beq	.L413
+ 2659 000e 94F89A30 		ldrb	r3, [r4, #154]	@ zero_extendqisi2
+ 2660 0012 FF2B     		cmp	r3, #255
+ 2661 0014 02D0     		beq	.L408
+ 2662 0016 0133     		adds	r3, r3, #1
+ 2663 0018 84F89A30 		strb	r3, [r4, #154]
+ 2664              	.L408:
+ 2665 001c EB68     		ldr	r3, [r5, #12]
+ 2666 001e 9889     		ldrh	r0, [r3, #12]	@ unaligned
+ 2667 0020 FFF7FEFF 		bl	lwip_htons
+ 2668 0024 10F0010F 		tst	r0, #1
+ 2669 0028 0CD0     		beq	.L414
+ARM GAS  /tmp/cc2OsKqz.s 			page 47
+
+
+ 2670 002a 2B89     		ldrh	r3, [r5, #8]
+ 2671 002c 002B     		cmp	r3, #0
+ 2672 002e 3BD0     		beq	.L415
+ 2673 0030 0022     		movs	r2, #0
+ 2674 0032 08E0     		b	.L409
+ 2675              	.L418:
+ 2676 0034 264B     		ldr	r3, .L420
+ 2677 0036 40F64F02 		movw	r2, #2127
+ 2678 003a 2649     		ldr	r1, .L420+4
+ 2679 003c 2648     		ldr	r0, .L420+8
+ 2680 003e FFF7FEFF 		bl	printf
+ 2681 0042 E1E7     		b	.L406
+ 2682              	.L414:
+ 2683 0044 0022     		movs	r2, #0
+ 2684              	.L409:
+ 2685 0046 02F0FF07 		and	r7, r2, #255
+ 2686 004a EB68     		ldr	r3, [r5, #12]
+ 2687 004c 5B68     		ldr	r3, [r3, #4]	@ unaligned
+ 2688 004e 82F00102 		eor	r2, r2, #1
+ 2689 0052 0021     		movs	r1, #0
+ 2690 0054 2046     		mov	r0, r4
+ 2691 0056 FFF7FEFF 		bl	tcp_output_alloc_header
+ 2692 005a 0646     		mov	r6, r0
+ 2693 005c A8B3     		cbz	r0, .L416
+ 2694 005e D0F80480 		ldr	r8, [r0, #4]
+ 2695 0062 1FB3     		cbz	r7, .L410
+ 2696 0064 B8F90C70 		ldrsh	r7, [r8, #12]	@ unaligned
+ 2697 0068 27F47C57 		bic	r7, r7, #16128
+ 2698 006c 1120     		movs	r0, #17
+ 2699 006e FFF7FEFF 		bl	lwip_htons
+ 2700 0072 00B2     		sxth	r0, r0
+ 2701 0074 0743     		orrs	r7, r7, r0
+ 2702 0076 A8F80C70 		strh	r7, [r8, #12]	@ unaligned
+ 2703              	.L411:
+ 2704 007a EB68     		ldr	r3, [r5, #12]
+ 2705 007c 5868     		ldr	r0, [r3, #4]	@ unaligned
+ 2706 007e FFF7FEFF 		bl	lwip_htonl
+ 2707 0082 0130     		adds	r0, r0, #1
+ 2708 0084 236D     		ldr	r3, [r4, #80]
+ 2709 0086 1B1A     		subs	r3, r3, r0
+ 2710 0088 002B     		cmp	r3, #0
+ 2711 008a 1ADB     		blt	.L419
+ 2712              	.L412:
+ 2713 008c 0023     		movs	r3, #0
+ 2714 008e 1A46     		mov	r2, r3
+ 2715 0090 3146     		mov	r1, r6
+ 2716 0092 2046     		mov	r0, r4
+ 2717 0094 FFF7FEFF 		bl	tcp_output_fill_options
+ 2718 0098 231D     		adds	r3, r4, #4
+ 2719 009a 2246     		mov	r2, r4
+ 2720 009c 3146     		mov	r1, r6
+ 2721 009e 2046     		mov	r0, r4
+ 2722 00a0 FFF7FEFF 		bl	tcp_output_control_segment
+ 2723              	.L407:
+ 2724 00a4 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 2725              	.L415:
+ 2726 00a8 0122     		movs	r2, #1
+ARM GAS  /tmp/cc2OsKqz.s 			page 48
+
+
+ 2727 00aa CCE7     		b	.L409
+ 2728              	.L410:
+ 2729 00ac 6868     		ldr	r0, [r5, #4]
+ 2730 00ae 0389     		ldrh	r3, [r0, #8]
+ 2731 00b0 2A89     		ldrh	r2, [r5, #8]
+ 2732 00b2 9B1A     		subs	r3, r3, r2
+ 2733 00b4 9BB2     		uxth	r3, r3
+ 2734 00b6 0122     		movs	r2, #1
+ 2735 00b8 08F11401 		add	r1, r8, #20
+ 2736 00bc FFF7FEFF 		bl	pbuf_copy_partial
+ 2737 00c0 DBE7     		b	.L411
+ 2738              	.L419:
+ 2739 00c2 2065     		str	r0, [r4, #80]
+ 2740 00c4 E2E7     		b	.L412
+ 2741              	.L413:
+ 2742 00c6 0020     		movs	r0, #0
+ 2743 00c8 ECE7     		b	.L407
+ 2744              	.L416:
+ 2745 00ca 4FF0FF30 		mov	r0, #-1
+ 2746 00ce E9E7     		b	.L407
+ 2747              	.L421:
+ 2748              		.align	2
+ 2749              	.L420:
+ 2750 00d0 00000000 		.word	.LC0
+ 2751 00d4 00000000 		.word	.LC56
+ 2752 00d8 50000000 		.word	.LC2
+ 2754              		.section	.rodata.tcp_create_segment.str1.4,"aMS",%progbits,1
+ 2755              		.align	2
+ 2756              	.LC11:
+ 2757 0000 7463705F 		.ascii	"tcp_create_segment: invalid pcb\000"
+ 2757      63726561 
+ 2757      74655F73 
+ 2757      65676D65 
+ 2757      6E743A20 
+ 2758              	.LC12:
+ 2759 0020 7463705F 		.ascii	"tcp_create_segment: invalid pbuf\000"
+ 2759      63726561 
+ 2759      74655F73 
+ 2759      65676D65 
+ 2759      6E743A20 
+ 2760 0041 000000   		.space	3
+ 2761              	.LC13:
+ 2762 0044 702D3E74 		.ascii	"p->tot_len >= optlen\000"
+ 2762      6F745F6C 
+ 2762      656E203E 
+ 2762      3D206F70 
+ 2762      746C656E 
+ 2763              		.section	.rodata.tcp_enqueue_flags.str1.4,"aMS",%progbits,1
+ 2764              		.align	2
+ 2765              	.LC37:
+ 2766 0000 7463705F 		.ascii	"tcp_enqueue_flags: need either TCP_SYN or TCP_FIN i"
+ 2766      656E7175 
+ 2766      6575655F 
+ 2766      666C6167 
+ 2766      733A206E 
+ 2767 0033 6E20666C 		.ascii	"n flags (programmer violates API)\000"
+ 2767      61677320 
+ARM GAS  /tmp/cc2OsKqz.s 			page 49
+
+
+ 2767      2870726F 
+ 2767      6772616D 
+ 2767      6D657220 
+ 2768 0055 000000   		.space	3
+ 2769              	.LC38:
+ 2770 0058 7463705F 		.ascii	"tcp_enqueue_flags: invalid pcb\000"
+ 2770      656E7175 
+ 2770      6575655F 
+ 2770      666C6167 
+ 2770      733A2069 
+ 2771 0077 00       		.space	1
+ 2772              	.LC39:
+ 2773 0078 7463705F 		.ascii	"tcp_enqueue_flags: check that first pbuf can hold o"
+ 2773      656E7175 
+ 2773      6575655F 
+ 2773      666C6167 
+ 2773      733A2063 
+ 2774 00ab 70746C65 		.ascii	"ptlen\000"
+ 2774      6E00
+ 2775 00b1 000000   		.space	3
+ 2776              	.LC40:
+ 2777 00b4 7365672D 		.ascii	"seg->tcphdr not aligned\000"
+ 2777      3E746370 
+ 2777      68647220 
+ 2777      6E6F7420 
+ 2777      616C6967 
+ 2778              	.LC41:
+ 2779 00cc 7463705F 		.ascii	"tcp_enqueue_flags: invalid segment length\000"
+ 2779      656E7175 
+ 2779      6575655F 
+ 2779      666C6167 
+ 2779      733A2069 
+ 2780 00f6 0000     		.space	2
+ 2781              	.LC42:
+ 2782 00f8 7463705F 		.ascii	"tcp_enqueue_flags: invalid queue length\000"
+ 2782      656E7175 
+ 2782      6575655F 
+ 2782      666C6167 
+ 2782      733A2069 
+ 2783              		.section	.rodata.tcp_keepalive.str1.4,"aMS",%progbits,1
+ 2784              		.align	2
+ 2785              	.LC55:
+ 2786 0000 7463705F 		.ascii	"tcp_keepalive: invalid pcb\000"
+ 2786      6B656570 
+ 2786      616C6976 
+ 2786      653A2069 
+ 2786      6E76616C 
+ 2787              		.section	.rodata.tcp_output.str1.4,"aMS",%progbits,1
+ 2788              		.align	2
+ 2789              	.LC50:
+ 2790 0000 7463705F 		.ascii	"tcp_output: invalid pcb\000"
+ 2790      6F757470 
+ 2790      75743A20 
+ 2790      696E7661 
+ 2790      6C696420 
+ 2791              	.LC51:
+ 2792 0018 646F6E27 		.ascii	"don't call tcp_output for listen-pcbs\000"
+ARM GAS  /tmp/cc2OsKqz.s 			page 50
+
+
+ 2792      74206361 
+ 2792      6C6C2074 
+ 2792      63705F6F 
+ 2792      75747075 
+ 2793 003e 0000     		.space	2
+ 2794              	.LC52:
+ 2795 0040 52535420 		.ascii	"RST not expected here!\000"
+ 2795      6E6F7420 
+ 2795      65787065 
+ 2795      63746564 
+ 2795      20686572 
+ 2796              		.section	.rodata.tcp_output_alloc_header.str1.4,"aMS",%progbits,1
+ 2797              		.align	2
+ 2798              	.LC15:
+ 2799 0000 7463705F 		.ascii	"tcp_output_alloc_header: invalid pcb\000"
+ 2799      6F757470 
+ 2799      75745F61 
+ 2799      6C6C6F63 
+ 2799      5F686561 
+ 2800              		.section	.rodata.tcp_output_alloc_header_common.str1.4,"aMS",%progbits,1
+ 2801              		.align	2
+ 2802              	.LC14:
+ 2803 0000 63686563 		.ascii	"check that first pbuf can hold struct tcp_hdr\000"
+ 2803      6B207468 
+ 2803      61742066 
+ 2803      69727374 
+ 2803      20706275 
+ 2804              		.section	.rodata.tcp_output_control_segment.str1.4,"aMS",%progbits,1
+ 2805              		.align	2
+ 2806              	.LC19:
+ 2807 0000 7463705F 		.ascii	"tcp_output_control_segment: invalid pbuf\000"
+ 2807      6F757470 
+ 2807      75745F63 
+ 2807      6F6E7472 
+ 2807      6F6C5F73 
+ 2808              		.section	.rodata.tcp_output_fill_options.str1.4,"aMS",%progbits,1
+ 2809              		.align	2
+ 2810              	.LC6:
+ 2811 0000 7463705F 		.ascii	"tcp_output_fill_options: invalid pbuf\000"
+ 2811      6F757470 
+ 2811      75745F66 
+ 2811      696C6C5F 
+ 2811      6F707469 
+ 2812 0026 0000     		.space	2
+ 2813              	.LC7:
+ 2814 0028 6F707469 		.ascii	"options not filled\000"
+ 2814      6F6E7320 
+ 2814      6E6F7420 
+ 2814      66696C6C 
+ 2814      656400
+ 2815              		.section	.rodata.tcp_output_segment.str1.4,"aMS",%progbits,1
+ 2816              		.align	2
+ 2817              	.LC16:
+ 2818 0000 7463705F 		.ascii	"tcp_output_segment: invalid seg\000"
+ 2818      6F757470 
+ 2818      75745F73 
+ 2818      65676D65 
+ARM GAS  /tmp/cc2OsKqz.s 			page 51
+
+
+ 2818      6E743A20 
+ 2819              	.LC17:
+ 2820 0020 7463705F 		.ascii	"tcp_output_segment: invalid pcb\000"
+ 2820      6F757470 
+ 2820      75745F73 
+ 2820      65676D65 
+ 2820      6E743A20 
+ 2821              	.LC18:
+ 2822 0040 7463705F 		.ascii	"tcp_output_segment: invalid netif\000"
+ 2822      6F757470 
+ 2822      75745F73 
+ 2822      65676D65 
+ 2822      6E743A20 
+ 2823              		.section	.rodata.tcp_output_segment_busy.str1.4,"aMS",%progbits,1
+ 2824              		.align	2
+ 2825              	.LC5:
+ 2826 0000 7463705F 		.ascii	"tcp_output_segment_busy: invalid seg\000"
+ 2826      6F757470 
+ 2826      75745F73 
+ 2826      65676D65 
+ 2826      6E745F62 
+ 2827              		.section	.rodata.tcp_pbuf_prealloc.str1.4,"aMS",%progbits,1
+ 2828              		.align	2
+ 2829              	.LC8:
+ 2830 0000 7463705F 		.ascii	"tcp_pbuf_prealloc: invalid oversize\000"
+ 2830      70627566 
+ 2830      5F707265 
+ 2830      616C6C6F 
+ 2830      633A2069 
+ 2831              	.LC9:
+ 2832 0024 7463705F 		.ascii	"tcp_pbuf_prealloc: invalid pcb\000"
+ 2832      70627566 
+ 2832      5F707265 
+ 2832      616C6C6F 
+ 2832      633A2069 
+ 2833 0043 00       		.space	1
+ 2834              	.LC10:
+ 2835 0044 6E656564 		.ascii	"need unchained pbuf\000"
+ 2835      20756E63 
+ 2835      6861696E 
+ 2835      65642070 
+ 2835      62756600 
+ 2836              		.section	.rodata.tcp_rexmit.str1.4,"aMS",%progbits,1
+ 2837              		.align	2
+ 2838              	.LC45:
+ 2839 0000 7463705F 		.ascii	"tcp_rexmit: invalid pcb\000"
+ 2839      7265786D 
+ 2839      69743A20 
+ 2839      696E7661 
+ 2839      6C696420 
+ 2840              		.section	.rodata.tcp_rexmit_fast.str1.4,"aMS",%progbits,1
+ 2841              		.align	2
+ 2842              	.LC46:
+ 2843 0000 7463705F 		.ascii	"tcp_rexmit_fast: invalid pcb\000"
+ 2843      7265786D 
+ 2843      69745F66 
+ 2843      6173743A 
+ARM GAS  /tmp/cc2OsKqz.s 			page 52
+
+
+ 2843      20696E76 
+ 2844              		.section	.rodata.tcp_rexmit_rto.str1.4,"aMS",%progbits,1
+ 2845              		.align	2
+ 2846              	.LC54:
+ 2847 0000 7463705F 		.ascii	"tcp_rexmit_rto: invalid pcb\000"
+ 2847      7265786D 
+ 2847      69745F72 
+ 2847      746F3A20 
+ 2847      696E7661 
+ 2848              		.section	.rodata.tcp_rexmit_rto_commit.str1.4,"aMS",%progbits,1
+ 2849              		.align	2
+ 2850              	.LC53:
+ 2851 0000 7463705F 		.ascii	"tcp_rexmit_rto_commit: invalid pcb\000"
+ 2851      7265786D 
+ 2851      69745F72 
+ 2851      746F5F63 
+ 2851      6F6D6D69 
+ 2852              		.section	.rodata.tcp_rexmit_rto_prepare.str1.4,"aMS",%progbits,1
+ 2853              		.align	2
+ 2854              	.LC44:
+ 2855 0000 7463705F 		.ascii	"tcp_rexmit_rto_prepare: invalid pcb\000"
+ 2855      7265786D 
+ 2855      69745F72 
+ 2855      746F5F70 
+ 2855      72657061 
+ 2856              		.section	.rodata.tcp_rst.str1.4,"aMS",%progbits,1
+ 2857              		.align	2
+ 2858              	.LC47:
+ 2859 0000 7463705F 		.ascii	"tcp_rst: invalid local_ip\000"
+ 2859      7273743A 
+ 2859      20696E76 
+ 2859      616C6964 
+ 2859      206C6F63 
+ 2860 001a 0000     		.space	2
+ 2861              	.LC48:
+ 2862 001c 7463705F 		.ascii	"tcp_rst: invalid remote_ip\000"
+ 2862      7273743A 
+ 2862      20696E76 
+ 2862      616C6964 
+ 2862      2072656D 
+ 2863              		.section	.rodata.tcp_send_empty_ack.str1.4,"aMS",%progbits,1
+ 2864              		.align	2
+ 2865              	.LC49:
+ 2866 0000 7463705F 		.ascii	"tcp_send_empty_ack: invalid pcb\000"
+ 2866      73656E64 
+ 2866      5F656D70 
+ 2866      74795F61 
+ 2866      636B3A20 
+ 2867              		.section	.rodata.tcp_send_fin.str1.4,"aMS",%progbits,1
+ 2868              		.align	2
+ 2869              	.LC43:
+ 2870 0000 7463705F 		.ascii	"tcp_send_fin: invalid pcb\000"
+ 2870      73656E64 
+ 2870      5F66696E 
+ 2870      3A20696E 
+ 2870      76616C69 
+ 2871              		.section	.rodata.tcp_split_unsent_seg.str1.4,"aMS",%progbits,1
+ARM GAS  /tmp/cc2OsKqz.s 			page 53
+
+
+ 2872              		.align	2
+ 2873              	.LC33:
+ 2874 0000 7463705F 		.ascii	"tcp_split_unsent_seg: invalid pcb\000"
+ 2874      73706C69 
+ 2874      745F756E 
+ 2874      73656E74 
+ 2874      5F736567 
+ 2875 0022 0000     		.space	2
+ 2876              	.LC34:
+ 2877 0024 43616E27 		.ascii	"Can't split segment into length 0\000"
+ 2877      74207370 
+ 2877      6C697420 
+ 2877      7365676D 
+ 2877      656E7420 
+ 2878 0046 0000     		.space	2
+ 2879              	.LC35:
+ 2880 0048 73706C69 		.ascii	"split <= mss\000"
+ 2880      74203C3D 
+ 2880      206D7373 
+ 2880      00
+ 2881 0055 000000   		.space	3
+ 2882              	.LC36:
+ 2883 0058 75736567 		.ascii	"useg->len > 0\000"
+ 2883      2D3E6C65 
+ 2883      6E203E20 
+ 2883      3000
+ 2884              		.section	.rodata.tcp_write.str1.4,"aMS",%progbits,1
+ 2885              		.align	2
+ 2886              	.LC20:
+ 2887 0000 7463705F 		.ascii	"tcp_write: invalid pcb\000"
+ 2887      77726974 
+ 2887      653A2069 
+ 2887      6E76616C 
+ 2887      69642070 
+ 2888 0017 00       		.space	1
+ 2889              	.LC21:
+ 2890 0018 7463705F 		.ascii	"tcp_write: arg == NULL (programmer violates API)\000"
+ 2890      77726974 
+ 2890      653A2061 
+ 2890      7267203D 
+ 2890      3D204E55 
+ 2891 0049 000000   		.space	3
+ 2892              	.LC22:
+ 2893 004c 6D73735F 		.ascii	"mss_local is too small\000"
+ 2893      6C6F6361 
+ 2893      6C206973 
+ 2893      20746F6F 
+ 2893      20736D61 
+ 2894 0063 00       		.space	1
+ 2895              	.LC23:
+ 2896 0064 696E636F 		.ascii	"inconsistent oversize vs. space\000"
+ 2896      6E736973 
+ 2896      74656E74 
+ 2896      206F7665 
+ 2896      7273697A 
+ 2897              	.LC24:
+ 2898 0084 696E636F 		.ascii	"inconsistent oversize vs. len\000"
+ARM GAS  /tmp/cc2OsKqz.s 			page 54
+
+
+ 2898      6E736973 
+ 2898      74656E74 
+ 2898      206F7665 
+ 2898      7273697A 
+ 2899 00a2 0000     		.space	2
+ 2900              	.LC25:
+ 2901 00a4 7463705F 		.ascii	"tcp_write: ROM pbufs cannot be oversized\000"
+ 2901      77726974 
+ 2901      653A2052 
+ 2901      4F4D2070 
+ 2901      62756673 
+ 2902 00cd 000000   		.space	3
+ 2903              	.LC26:
+ 2904 00d0 756E7365 		.ascii	"unsent_oversize mismatch (pcb->unsent is NULL)\000"
+ 2904      6E745F6F 
+ 2904      76657273 
+ 2904      697A6520 
+ 2904      6D69736D 
+ 2905 00ff 00       		.space	1
+ 2906              	.LC27:
+ 2907 0100 7463705F 		.ascii	"tcp_write: check that first pbuf can hold the compl"
+ 2907      77726974 
+ 2907      653A2063 
+ 2907      6865636B 
+ 2907      20746861 
+ 2908 0133 65746520 		.ascii	"ete seglen\000"
+ 2908      7365676C 
+ 2908      656E00
+ 2909 013e 0000     		.space	2
+ 2910              	.LC28:
+ 2911 0140 6F766572 		.ascii	"oversize == 0\000"
+ 2911      73697A65 
+ 2911      203D3D20 
+ 2911      3000
+ 2912 014e 0000     		.space	2
+ 2913              	.LC29:
+ 2914 0150 70726576 		.ascii	"prev_seg != NULL\000"
+ 2914      5F736567 
+ 2914      20213D20 
+ 2914      4E554C4C 
+ 2914      00
+ 2915 0161 000000   		.space	3
+ 2916              	.LC30:
+ 2917 0164 7463705F 		.ascii	"tcp_write: cannot concatenate when pcb->unsent is e"
+ 2917      77726974 
+ 2917      653A2063 
+ 2917      616E6E6F 
+ 2917      7420636F 
+ 2918 0197 6D707479 		.ascii	"mpty\000"
+ 2918      00
+ 2919              	.LC31:
+ 2920 019c 7463705F 		.ascii	"tcp_write: extension of reference requires referenc"
+ 2920      77726974 
+ 2920      653A2065 
+ 2920      7874656E 
+ 2920      73696F6E 
+ 2921 01cf 6500     		.ascii	"e\000"
+ARM GAS  /tmp/cc2OsKqz.s 			page 55
+
+
+ 2922 01d1 000000   		.space	3
+ 2923              	.LC32:
+ 2924 01d4 7463705F 		.ascii	"tcp_write: valid queue length\000"
+ 2924      77726974 
+ 2924      653A2076 
+ 2924      616C6964 
+ 2924      20717565 
+ 2925              		.section	.rodata.tcp_write_checks.str1.4,"aMS",%progbits,1
+ 2926              		.align	2
+ 2927              	.LC0:
+ 2928 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/core/tcp_out.c\000"
+ 2928      6C657761 
+ 2928      7265732F 
+ 2928      54686972 
+ 2928      645F5061 
+ 2929              	.LC1:
+ 2930 0030 7463705F 		.ascii	"tcp_write_checks: invalid pcb\000"
+ 2930      77726974 
+ 2930      655F6368 
+ 2930      65636B73 
+ 2930      3A20696E 
+ 2931 004e 0000     		.space	2
+ 2932              	.LC2:
+ 2933 0050 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ 2933      7274696F 
+ 2933      6E202225 
+ 2933      73222066 
+ 2933      61696C65 
+ 2934              	.LC3:
+ 2935 0078 7463705F 		.ascii	"tcp_write: pbufs on queue => at least one queue non"
+ 2935      77726974 
+ 2935      653A2070 
+ 2935      62756673 
+ 2935      206F6E20 
+ 2936 00ab 2D656D70 		.ascii	"-empty\000"
+ 2936      747900
+ 2937 00b2 0000     		.space	2
+ 2938              	.LC4:
+ 2939 00b4 7463705F 		.ascii	"tcp_write: no pbufs on queue => both queues empty\000"
+ 2939      77726974 
+ 2939      653A206E 
+ 2939      6F207062 
+ 2939      75667320 
+ 2940              		.section	.rodata.tcp_zero_window_probe.str1.4,"aMS",%progbits,1
+ 2941              		.align	2
+ 2942              	.LC56:
+ 2943 0000 7463705F 		.ascii	"tcp_zero_window_probe: invalid pcb\000"
+ 2943      7A65726F 
+ 2943      5F77696E 
+ 2943      646F775F 
+ 2943      70726F62 
+ 2944              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/cc2OsKqz.s 			page 56
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 tcp_out.c
+     /tmp/cc2OsKqz.s:16     .text.tcp_write_checks:0000000000000000 $t
+     /tmp/cc2OsKqz.s:23     .text.tcp_write_checks:0000000000000000 tcp_write_checks
+     /tmp/cc2OsKqz.s:113    .text.tcp_write_checks:00000000000000a8 $d
+     /tmp/cc2OsKqz.s:120    .text.tcp_output_segment_busy:0000000000000000 $t
+     /tmp/cc2OsKqz.s:126    .text.tcp_output_segment_busy:0000000000000000 tcp_output_segment_busy
+     /tmp/cc2OsKqz.s:153    .text.tcp_output_segment_busy:0000000000000028 $d
+     /tmp/cc2OsKqz.s:158    .text.tcp_output_fill_options:0000000000000000 $t
+     /tmp/cc2OsKqz.s:164    .text.tcp_output_fill_options:0000000000000000 tcp_output_fill_options
+     /tmp/cc2OsKqz.s:197    .text.tcp_output_fill_options:000000000000003c $d
+     /tmp/cc2OsKqz.s:203    .text.tcp_pbuf_prealloc:0000000000000000 $t
+     /tmp/cc2OsKqz.s:209    .text.tcp_pbuf_prealloc:0000000000000000 tcp_pbuf_prealloc
+     /tmp/cc2OsKqz.s:293    .text.tcp_pbuf_prealloc:00000000000000a4 $d
+     /tmp/cc2OsKqz.s:300    .text.tcp_create_segment:0000000000000000 $t
+     /tmp/cc2OsKqz.s:306    .text.tcp_create_segment:0000000000000000 tcp_create_segment
+     /tmp/cc2OsKqz.s:405    .text.tcp_create_segment:00000000000000d4 $d
+     /tmp/cc2OsKqz.s:412    .text.tcp_output_alloc_header_common:0000000000000000 $t
+     /tmp/cc2OsKqz.s:418    .text.tcp_output_alloc_header_common:0000000000000000 tcp_output_alloc_header_common
+     /tmp/cc2OsKqz.s:479    .text.tcp_output_alloc_header_common:000000000000008c $d
+     /tmp/cc2OsKqz.s:484    .text.tcp_output_alloc_header:0000000000000000 $t
+     /tmp/cc2OsKqz.s:490    .text.tcp_output_alloc_header:0000000000000000 tcp_output_alloc_header
+     /tmp/cc2OsKqz.s:535    .text.tcp_output_alloc_header:000000000000004c $d
+     /tmp/cc2OsKqz.s:540    .text.tcp_route:0000000000000000 $t
+     /tmp/cc2OsKqz.s:546    .text.tcp_route:0000000000000000 tcp_route
+     /tmp/cc2OsKqz.s:563    .text.tcp_output_segment:0000000000000000 $t
+     /tmp/cc2OsKqz.s:569    .text.tcp_output_segment:0000000000000000 tcp_output_segment
+     /tmp/cc2OsKqz.s:708    .text.tcp_output_segment:0000000000000120 $d
+     /tmp/cc2OsKqz.s:717    .text.tcp_output_control_segment:0000000000000000 $t
+     /tmp/cc2OsKqz.s:723    .text.tcp_output_control_segment:0000000000000000 tcp_output_control_segment
+     /tmp/cc2OsKqz.s:777    .text.tcp_output_control_segment:0000000000000060 $d
+     /tmp/cc2OsKqz.s:782    .text.tcp_write:0000000000000000 $t
+     /tmp/cc2OsKqz.s:789    .text.tcp_write:0000000000000000 tcp_write
+     /tmp/cc2OsKqz.s:1078   .text.tcp_write:0000000000000278 $d
+     /tmp/cc2OsKqz.s:1089   .text.tcp_write:00000000000002a0 $t
+     /tmp/cc2OsKqz.s:1394   .text.tcp_write:0000000000000524 $d
+     /tmp/cc2OsKqz.s:1403   .text.tcp_split_unsent_seg:0000000000000000 $t
+     /tmp/cc2OsKqz.s:1410   .text.tcp_split_unsent_seg:0000000000000000 tcp_split_unsent_seg
+     /tmp/cc2OsKqz.s:1583   .text.tcp_split_unsent_seg:00000000000001a0 $d
+     /tmp/cc2OsKqz.s:1591   .text.tcp_enqueue_flags:0000000000000000 $t
+     /tmp/cc2OsKqz.s:1598   .text.tcp_enqueue_flags:0000000000000000 tcp_enqueue_flags
+     /tmp/cc2OsKqz.s:1748   .text.tcp_enqueue_flags:0000000000000138 $d
+     /tmp/cc2OsKqz.s:1758   .text.tcp_send_fin:0000000000000000 $t
+     /tmp/cc2OsKqz.s:1765   .text.tcp_send_fin:0000000000000000 tcp_send_fin
+     /tmp/cc2OsKqz.s:1815   .text.tcp_send_fin:0000000000000058 $d
+     /tmp/cc2OsKqz.s:1820   .text.tcp_rexmit_rto_prepare:0000000000000000 $t
+     /tmp/cc2OsKqz.s:1827   .text.tcp_rexmit_rto_prepare:0000000000000000 tcp_rexmit_rto_prepare
+     /tmp/cc2OsKqz.s:1900   .text.tcp_rexmit_rto_prepare:0000000000000088 $d
+     /tmp/cc2OsKqz.s:1905   .text.tcp_rexmit:0000000000000000 $t
+     /tmp/cc2OsKqz.s:1912   .text.tcp_rexmit:0000000000000000 tcp_rexmit
+     /tmp/cc2OsKqz.s:1978   .text.tcp_rexmit:000000000000007c $d
+     /tmp/cc2OsKqz.s:1983   .text.tcp_rexmit_fast:0000000000000000 $t
+     /tmp/cc2OsKqz.s:1990   .text.tcp_rexmit_fast:0000000000000000 tcp_rexmit_fast
+     /tmp/cc2OsKqz.s:2042   .text.tcp_rexmit_fast:000000000000006c $d
+     /tmp/cc2OsKqz.s:2047   .text.tcp_rst:0000000000000000 $t
+     /tmp/cc2OsKqz.s:2054   .text.tcp_rst:0000000000000000 tcp_rst
+     /tmp/cc2OsKqz.s:2116   .text.tcp_rst:0000000000000080 $d
+ARM GAS  /tmp/cc2OsKqz.s 			page 57
+
+
+     /tmp/cc2OsKqz.s:2122   .text.tcp_send_empty_ack:0000000000000000 $t
+     /tmp/cc2OsKqz.s:2129   .text.tcp_send_empty_ack:0000000000000000 tcp_send_empty_ack
+     /tmp/cc2OsKqz.s:2184   .text.tcp_send_empty_ack:000000000000006c $d
+     /tmp/cc2OsKqz.s:2189   .text.tcp_output:0000000000000000 $t
+     /tmp/cc2OsKqz.s:2196   .text.tcp_output:0000000000000000 tcp_output
+     /tmp/cc2OsKqz.s:2504   .text.tcp_output:0000000000000288 $d
+     /tmp/cc2OsKqz.s:2512   .text.tcp_rexmit_rto_commit:0000000000000000 $t
+     /tmp/cc2OsKqz.s:2519   .text.tcp_rexmit_rto_commit:0000000000000000 tcp_rexmit_rto_commit
+     /tmp/cc2OsKqz.s:2545   .text.tcp_rexmit_rto_commit:000000000000002c $d
+     /tmp/cc2OsKqz.s:2550   .text.tcp_rexmit_rto:0000000000000000 $t
+     /tmp/cc2OsKqz.s:2557   .text.tcp_rexmit_rto:0000000000000000 tcp_rexmit_rto
+     /tmp/cc2OsKqz.s:2583   .text.tcp_rexmit_rto:0000000000000028 $d
+     /tmp/cc2OsKqz.s:2588   .text.tcp_keepalive:0000000000000000 $t
+     /tmp/cc2OsKqz.s:2595   .text.tcp_keepalive:0000000000000000 tcp_keepalive
+     /tmp/cc2OsKqz.s:2637   .text.tcp_keepalive:0000000000000050 $d
+     /tmp/cc2OsKqz.s:2642   .text.tcp_zero_window_probe:0000000000000000 $t
+     /tmp/cc2OsKqz.s:2649   .text.tcp_zero_window_probe:0000000000000000 tcp_zero_window_probe
+     /tmp/cc2OsKqz.s:2750   .text.tcp_zero_window_probe:00000000000000d0 $d
+     /tmp/cc2OsKqz.s:2755   .rodata.tcp_create_segment.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2764   .rodata.tcp_enqueue_flags.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2784   .rodata.tcp_keepalive.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2788   .rodata.tcp_output.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2797   .rodata.tcp_output_alloc_header.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2801   .rodata.tcp_output_alloc_header_common.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2805   .rodata.tcp_output_control_segment.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2809   .rodata.tcp_output_fill_options.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2816   .rodata.tcp_output_segment.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2824   .rodata.tcp_output_segment_busy.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2828   .rodata.tcp_pbuf_prealloc.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2837   .rodata.tcp_rexmit.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2841   .rodata.tcp_rexmit_fast.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2845   .rodata.tcp_rexmit_rto.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2849   .rodata.tcp_rexmit_rto_commit.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2853   .rodata.tcp_rexmit_rto_prepare.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2857   .rodata.tcp_rst.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2864   .rodata.tcp_send_empty_ack.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2868   .rodata.tcp_send_fin.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2872   .rodata.tcp_split_unsent_seg.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2885   .rodata.tcp_write.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2926   .rodata.tcp_write_checks.str1.4:0000000000000000 $d
+     /tmp/cc2OsKqz.s:2941   .rodata.tcp_zero_window_probe.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+printf
+pbuf_alloc
+memp_malloc
+pbuf_add_header
+lwip_htons
+lwip_htonl
+pbuf_free
+tcp_seg_free
+ip4_route
+netif_get_by_index
+ip4_output_if
+tcp_eff_send_mss_netif
+tcp_ticks
+memcpy
+ARM GAS  /tmp/cc2OsKqz.s 			page 58
+
+
+pbuf_clen
+pbuf_cat
+tcp_segs_free
+pbuf_copy_partial
+pbuf_realloc
+tcp_input_pcb

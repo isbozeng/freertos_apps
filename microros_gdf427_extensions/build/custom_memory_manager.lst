@@ -1,0 +1,543 @@
+ARM GAS  /tmp/cc7KHFfy.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"custom_memory_manager.c"
+  14              		.text
+  15              		.section	.text.prvHeapInit,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	prvHeapInit:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26              		@ link register save eliminated.
+  27 0000 134A     		ldr	r2, .L4
+  28 0002 12F0070F 		tst	r2, #7
+  29 0006 08D0     		beq	.L3
+  30 0008 D11D     		adds	r1, r2, #7
+  31 000a 21F00701 		bic	r1, r1, #7
+  32 000e C1F54343 		rsb	r3, r1, #49920
+  33 0012 5033     		adds	r3, r3, #80
+  34 0014 1344     		add	r3, r3, r2
+  35 0016 0A46     		mov	r2, r1
+  36 0018 01E0     		b	.L2
+  37              	.L3:
+  38 001a 4CF25033 		movw	r3, #50000
+  39              	.L2:
+  40 001e 0D48     		ldr	r0, .L4+4
+  41 0020 0260     		str	r2, [r0]
+  42 0022 0021     		movs	r1, #0
+  43 0024 4160     		str	r1, [r0, #4]
+  44 0026 1344     		add	r3, r3, r2
+  45 0028 083B     		subs	r3, r3, #8
+  46 002a 23F00703 		bic	r3, r3, #7
+  47 002e 0A48     		ldr	r0, .L4+8
+  48 0030 0360     		str	r3, [r0]
+  49 0032 5960     		str	r1, [r3, #4]
+  50 0034 1960     		str	r1, [r3]
+  51 0036 991A     		subs	r1, r3, r2
+  52 0038 5160     		str	r1, [r2, #4]
+  53 003a 1360     		str	r3, [r2]
+  54 003c 074B     		ldr	r3, .L4+12
+  55 003e 1960     		str	r1, [r3]
+  56 0040 074B     		ldr	r3, .L4+16
+  57 0042 1960     		str	r1, [r3]
+  58 0044 074B     		ldr	r3, .L4+20
+ARM GAS  /tmp/cc7KHFfy.s 			page 2
+
+
+  59 0046 4FF00042 		mov	r2, #-2147483648
+  60 004a 1A60     		str	r2, [r3]
+  61 004c 7047     		bx	lr
+  62              	.L5:
+  63 004e 00BF     		.align	2
+  64              	.L4:
+  65 0050 00000000 		.word	ucHeap
+  66 0054 00000000 		.word	.LANCHOR0
+  67 0058 00000000 		.word	.LANCHOR1
+  68 005c 00000000 		.word	.LANCHOR2
+  69 0060 00000000 		.word	.LANCHOR3
+  70 0064 00000000 		.word	.LANCHOR4
+  72              		.section	.text.prvInsertBlockIntoFreeList,"ax",%progbits
+  73              		.align	1
+  74              		.syntax unified
+  75              		.thumb
+  76              		.thumb_func
+  77              		.fpu fpv4-sp-d16
+  79              	prvInsertBlockIntoFreeList:
+  80              		@ args = 0, pretend = 0, frame = 0
+  81              		@ frame_needed = 0, uses_anonymous_args = 0
+  82              		@ link register save eliminated.
+  83 0000 10B4     		push	{r4}
+  84 0002 134A     		ldr	r2, .L17
+  85 0004 00E0     		b	.L7
+  86              	.L13:
+  87 0006 1A46     		mov	r2, r3
+  88              	.L7:
+  89 0008 1368     		ldr	r3, [r2]
+  90 000a 8342     		cmp	r3, r0
+  91 000c FBD3     		bcc	.L13
+  92 000e 5168     		ldr	r1, [r2, #4]
+  93 0010 5418     		adds	r4, r2, r1
+  94 0012 8442     		cmp	r4, r0
+  95 0014 0AD0     		beq	.L15
+  96              	.L8:
+  97 0016 4168     		ldr	r1, [r0, #4]
+  98 0018 4418     		adds	r4, r0, r1
+  99 001a A342     		cmp	r3, r4
+ 100 001c 0BD0     		beq	.L16
+ 101 001e 0360     		str	r3, [r0]
+ 102              	.L11:
+ 103 0020 9042     		cmp	r0, r2
+ 104 0022 00D0     		beq	.L6
+ 105 0024 1060     		str	r0, [r2]
+ 106              	.L6:
+ 107 0026 5DF8044B 		ldr	r4, [sp], #4
+ 108 002a 7047     		bx	lr
+ 109              	.L15:
+ 110 002c 4068     		ldr	r0, [r0, #4]
+ 111 002e 0144     		add	r1, r1, r0
+ 112 0030 5160     		str	r1, [r2, #4]
+ 113 0032 1046     		mov	r0, r2
+ 114 0034 EFE7     		b	.L8
+ 115              	.L16:
+ 116 0036 074C     		ldr	r4, .L17+4
+ 117 0038 2468     		ldr	r4, [r4]
+ARM GAS  /tmp/cc7KHFfy.s 			page 3
+
+
+ 118 003a A342     		cmp	r3, r4
+ 119 003c 06D0     		beq	.L10
+ 120 003e 5B68     		ldr	r3, [r3, #4]
+ 121 0040 1944     		add	r1, r1, r3
+ 122 0042 4160     		str	r1, [r0, #4]
+ 123 0044 1368     		ldr	r3, [r2]
+ 124 0046 1B68     		ldr	r3, [r3]
+ 125 0048 0360     		str	r3, [r0]
+ 126 004a E9E7     		b	.L11
+ 127              	.L10:
+ 128 004c 0460     		str	r4, [r0]
+ 129 004e E7E7     		b	.L11
+ 130              	.L18:
+ 131              		.align	2
+ 132              	.L17:
+ 133 0050 00000000 		.word	.LANCHOR0
+ 134 0054 00000000 		.word	.LANCHOR1
+ 136              		.section	.text.pvPortMalloc,"ax",%progbits
+ 137              		.align	1
+ 138              		.global	pvPortMalloc
+ 139              		.syntax unified
+ 140              		.thumb
+ 141              		.thumb_func
+ 142              		.fpu fpv4-sp-d16
+ 144              	pvPortMalloc:
+ 145              		@ args = 0, pretend = 0, frame = 0
+ 146              		@ frame_needed = 0, uses_anonymous_args = 0
+ 147 0000 70B5     		push	{r4, r5, r6, lr}
+ 148 0002 0546     		mov	r5, r0
+ 149 0004 FFF7FEFF 		bl	vTaskSuspendAll
+ 150 0008 284B     		ldr	r3, .L35
+ 151 000a 1B68     		ldr	r3, [r3]
+ 152 000c A3B1     		cbz	r3, .L33
+ 153              	.L20:
+ 154 000e 284B     		ldr	r3, .L35+4
+ 155 0010 1B68     		ldr	r3, [r3]
+ 156 0012 1D42     		tst	r5, r3
+ 157 0014 42D1     		bne	.L27
+ 158 0016 35B1     		cbz	r5, .L22
+ 159 0018 0835     		adds	r5, r5, #8
+ 160 001a 15F0070F 		tst	r5, #7
+ 161 001e 02D0     		beq	.L22
+ 162 0020 25F00705 		bic	r5, r5, #7
+ 163 0024 0835     		adds	r5, r5, #8
+ 164              	.L22:
+ 165 0026 002D     		cmp	r5, #0
+ 166 0028 3AD0     		beq	.L28
+ 167 002a 224B     		ldr	r3, .L35+8
+ 168 002c 1B68     		ldr	r3, [r3]
+ 169 002e AB42     		cmp	r3, r5
+ 170 0030 38D3     		bcc	.L29
+ 171 0032 214A     		ldr	r2, .L35+12
+ 172 0034 1468     		ldr	r4, [r2]
+ 173 0036 04E0     		b	.L24
+ 174              	.L33:
+ 175 0038 FFF7FEFF 		bl	prvHeapInit
+ 176 003c E7E7     		b	.L20
+ARM GAS  /tmp/cc7KHFfy.s 			page 4
+
+
+ 177              	.L30:
+ 178 003e 2246     		mov	r2, r4
+ 179 0040 1C46     		mov	r4, r3
+ 180              	.L24:
+ 181 0042 6368     		ldr	r3, [r4, #4]
+ 182 0044 AB42     		cmp	r3, r5
+ 183 0046 02D2     		bcs	.L23
+ 184 0048 2368     		ldr	r3, [r4]
+ 185 004a 002B     		cmp	r3, #0
+ 186 004c F7D1     		bne	.L30
+ 187              	.L23:
+ 188 004e 174B     		ldr	r3, .L35
+ 189 0050 1B68     		ldr	r3, [r3]
+ 190 0052 A342     		cmp	r3, r4
+ 191 0054 28D0     		beq	.L31
+ 192 0056 1668     		ldr	r6, [r2]
+ 193 0058 0836     		adds	r6, r6, #8
+ 194 005a 2368     		ldr	r3, [r4]
+ 195 005c 1360     		str	r3, [r2]
+ 196 005e 6368     		ldr	r3, [r4, #4]
+ 197 0060 5B1B     		subs	r3, r3, r5
+ 198 0062 102B     		cmp	r3, #16
+ 199 0064 14D8     		bhi	.L34
+ 200              	.L25:
+ 201 0066 6268     		ldr	r2, [r4, #4]
+ 202 0068 1249     		ldr	r1, .L35+8
+ 203 006a 0B68     		ldr	r3, [r1]
+ 204 006c 9B1A     		subs	r3, r3, r2
+ 205 006e 0B60     		str	r3, [r1]
+ 206 0070 1249     		ldr	r1, .L35+16
+ 207 0072 0968     		ldr	r1, [r1]
+ 208 0074 8B42     		cmp	r3, r1
+ 209 0076 01D2     		bcs	.L26
+ 210 0078 1049     		ldr	r1, .L35+16
+ 211 007a 0B60     		str	r3, [r1]
+ 212              	.L26:
+ 213 007c 0C4B     		ldr	r3, .L35+4
+ 214 007e 1B68     		ldr	r3, [r3]
+ 215 0080 1343     		orrs	r3, r3, r2
+ 216 0082 6360     		str	r3, [r4, #4]
+ 217 0084 0023     		movs	r3, #0
+ 218 0086 2360     		str	r3, [r4]
+ 219              	.L21:
+ 220 0088 FFF7FEFF 		bl	xTaskResumeAll
+ 221 008c 3046     		mov	r0, r6
+ 222 008e 70BD     		pop	{r4, r5, r6, pc}
+ 223              	.L34:
+ 224 0090 6019     		adds	r0, r4, r5
+ 225 0092 4360     		str	r3, [r0, #4]
+ 226 0094 6560     		str	r5, [r4, #4]
+ 227 0096 FFF7FEFF 		bl	prvInsertBlockIntoFreeList
+ 228 009a E4E7     		b	.L25
+ 229              	.L27:
+ 230 009c 0026     		movs	r6, #0
+ 231 009e F3E7     		b	.L21
+ 232              	.L28:
+ 233 00a0 0026     		movs	r6, #0
+ARM GAS  /tmp/cc7KHFfy.s 			page 5
+
+
+ 234 00a2 F1E7     		b	.L21
+ 235              	.L29:
+ 236 00a4 0026     		movs	r6, #0
+ 237 00a6 EFE7     		b	.L21
+ 238              	.L31:
+ 239 00a8 0026     		movs	r6, #0
+ 240 00aa EDE7     		b	.L21
+ 241              	.L36:
+ 242              		.align	2
+ 243              	.L35:
+ 244 00ac 00000000 		.word	.LANCHOR1
+ 245 00b0 00000000 		.word	.LANCHOR4
+ 246 00b4 00000000 		.word	.LANCHOR3
+ 247 00b8 00000000 		.word	.LANCHOR0
+ 248 00bc 00000000 		.word	.LANCHOR2
+ 250              		.section	.text.vPortFree,"ax",%progbits
+ 251              		.align	1
+ 252              		.global	vPortFree
+ 253              		.syntax unified
+ 254              		.thumb
+ 255              		.thumb_func
+ 256              		.fpu fpv4-sp-d16
+ 258              	vPortFree:
+ 259              		@ args = 0, pretend = 0, frame = 0
+ 260              		@ frame_needed = 0, uses_anonymous_args = 0
+ 261 0000 F8B1     		cbz	r0, .L40
+ 262 0002 38B5     		push	{r3, r4, r5, lr}
+ 263 0004 0446     		mov	r4, r0
+ 264 0006 A0F10805 		sub	r5, r0, #8
+ 265 000a 50F8042C 		ldr	r2, [r0, #-4]
+ 266 000e 0D49     		ldr	r1, .L44
+ 267 0010 0968     		ldr	r1, [r1]
+ 268 0012 0A42     		tst	r2, r1
+ 269 0014 02D0     		beq	.L37
+ 270 0016 50F8080C 		ldr	r0, [r0, #-8]
+ 271 001a 00B1     		cbz	r0, .L43
+ 272              	.L37:
+ 273 001c 38BD     		pop	{r3, r4, r5, pc}
+ 274              	.L43:
+ 275 001e 22EA0102 		bic	r2, r2, r1
+ 276 0022 44F8042C 		str	r2, [r4, #-4]
+ 277 0026 FFF7FEFF 		bl	vTaskSuspendAll
+ 278 002a 54F8041C 		ldr	r1, [r4, #-4]
+ 279 002e 064A     		ldr	r2, .L44+4
+ 280 0030 1368     		ldr	r3, [r2]
+ 281 0032 0B44     		add	r3, r3, r1
+ 282 0034 1360     		str	r3, [r2]
+ 283 0036 2846     		mov	r0, r5
+ 284 0038 FFF7FEFF 		bl	prvInsertBlockIntoFreeList
+ 285 003c FFF7FEFF 		bl	xTaskResumeAll
+ 286 0040 ECE7     		b	.L37
+ 287              	.L40:
+ 288 0042 7047     		bx	lr
+ 289              	.L45:
+ 290              		.align	2
+ 291              	.L44:
+ 292 0044 00000000 		.word	.LANCHOR4
+ARM GAS  /tmp/cc7KHFfy.s 			page 6
+
+
+ 293 0048 00000000 		.word	.LANCHOR3
+ 295              		.section	.text.getBlockSize,"ax",%progbits
+ 296              		.align	1
+ 297              		.global	getBlockSize
+ 298              		.syntax unified
+ 299              		.thumb
+ 300              		.thumb_func
+ 301              		.fpu fpv4-sp-d16
+ 303              	getBlockSize:
+ 304              		@ args = 0, pretend = 0, frame = 0
+ 305              		@ frame_needed = 0, uses_anonymous_args = 0
+ 306              		@ link register save eliminated.
+ 307 0000 50F8043C 		ldr	r3, [r0, #-4]
+ 308 0004 024A     		ldr	r2, .L47
+ 309 0006 1068     		ldr	r0, [r2]
+ 310 0008 23EA0000 		bic	r0, r3, r0
+ 311 000c 7047     		bx	lr
+ 312              	.L48:
+ 313 000e 00BF     		.align	2
+ 314              	.L47:
+ 315 0010 00000000 		.word	.LANCHOR4
+ 317              		.section	.text.pvPortRealloc,"ax",%progbits
+ 318              		.align	1
+ 319              		.global	pvPortRealloc
+ 320              		.syntax unified
+ 321              		.thumb
+ 322              		.thumb_func
+ 323              		.fpu fpv4-sp-d16
+ 325              	pvPortRealloc:
+ 326              		@ args = 0, pretend = 0, frame = 0
+ 327              		@ frame_needed = 0, uses_anonymous_args = 0
+ 328 0000 70B5     		push	{r4, r5, r6, lr}
+ 329 0002 0546     		mov	r5, r0
+ 330 0004 0C46     		mov	r4, r1
+ 331 0006 FFF7FEFF 		bl	vTaskSuspendAll
+ 332 000a 2046     		mov	r0, r4
+ 333 000c FFF7FEFF 		bl	pvPortMalloc
+ 334 0010 0646     		mov	r6, r0
+ 335 0012 B8B1     		cbz	r0, .L50
+ 336 0014 B5B1     		cbz	r5, .L50
+ 337 0016 55F8043C 		ldr	r3, [r5, #-4]
+ 338 001a 0C4A     		ldr	r2, .L56
+ 339 001c 1268     		ldr	r2, [r2]
+ 340 001e 23EA0203 		bic	r3, r3, r2
+ 341 0022 083B     		subs	r3, r3, #8
+ 342 0024 9C42     		cmp	r4, r3
+ 343 0026 00D3     		bcc	.L51
+ 344 0028 1C46     		mov	r4, r3
+ 345              	.L51:
+ 346 002a 3246     		mov	r2, r6
+ 347 002c 2B46     		mov	r3, r5
+ 348              	.L52:
+ 349 002e 611E     		subs	r1, r4, #1
+ 350 0030 2CB1     		cbz	r4, .L55
+ 351 0032 13F8010B 		ldrb	r0, [r3], #1	@ zero_extendqisi2
+ 352 0036 02F8010B 		strb	r0, [r2], #1
+ 353 003a 0C46     		mov	r4, r1
+ARM GAS  /tmp/cc7KHFfy.s 			page 7
+
+
+ 354 003c F7E7     		b	.L52
+ 355              	.L55:
+ 356 003e 2846     		mov	r0, r5
+ 357 0040 FFF7FEFF 		bl	vPortFree
+ 358              	.L50:
+ 359 0044 FFF7FEFF 		bl	xTaskResumeAll
+ 360 0048 3046     		mov	r0, r6
+ 361 004a 70BD     		pop	{r4, r5, r6, pc}
+ 362              	.L57:
+ 363              		.align	2
+ 364              	.L56:
+ 365 004c 00000000 		.word	.LANCHOR4
+ 367              		.section	.text.pvPortCalloc,"ax",%progbits
+ 368              		.align	1
+ 369              		.global	pvPortCalloc
+ 370              		.syntax unified
+ 371              		.thumb
+ 372              		.thumb_func
+ 373              		.fpu fpv4-sp-d16
+ 375              	pvPortCalloc:
+ 376              		@ args = 0, pretend = 0, frame = 0
+ 377              		@ frame_needed = 0, uses_anonymous_args = 0
+ 378 0000 38B5     		push	{r3, r4, r5, lr}
+ 379 0002 0446     		mov	r4, r0
+ 380 0004 0D46     		mov	r5, r1
+ 381 0006 FFF7FEFF 		bl	vTaskSuspendAll
+ 382 000a 04FB05F4 		mul	r4, r4, r5
+ 383 000e 2046     		mov	r0, r4
+ 384 0010 FFF7FEFF 		bl	pvPortMalloc
+ 385 0014 0546     		mov	r5, r0
+ 386 0016 0346     		mov	r3, r0
+ 387              	.L59:
+ 388 0018 621E     		subs	r2, r4, #1
+ 389 001a 24B1     		cbz	r4, .L62
+ 390 001c 0021     		movs	r1, #0
+ 391 001e 03F8011B 		strb	r1, [r3], #1
+ 392 0022 1446     		mov	r4, r2
+ 393 0024 F8E7     		b	.L59
+ 394              	.L62:
+ 395 0026 FFF7FEFF 		bl	xTaskResumeAll
+ 396 002a 2846     		mov	r0, r5
+ 397 002c 38BD     		pop	{r3, r4, r5, pc}
+ 399              		.section	.text.xPortGetFreeHeapSize,"ax",%progbits
+ 400              		.align	1
+ 401              		.global	xPortGetFreeHeapSize
+ 402              		.syntax unified
+ 403              		.thumb
+ 404              		.thumb_func
+ 405              		.fpu fpv4-sp-d16
+ 407              	xPortGetFreeHeapSize:
+ 408              		@ args = 0, pretend = 0, frame = 0
+ 409              		@ frame_needed = 0, uses_anonymous_args = 0
+ 410              		@ link register save eliminated.
+ 411 0000 014B     		ldr	r3, .L64
+ 412 0002 1868     		ldr	r0, [r3]
+ 413 0004 7047     		bx	lr
+ 414              	.L65:
+ARM GAS  /tmp/cc7KHFfy.s 			page 8
+
+
+ 415 0006 00BF     		.align	2
+ 416              	.L64:
+ 417 0008 00000000 		.word	.LANCHOR3
+ 419              		.section	.text.xPortGetMinimumEverFreeHeapSize,"ax",%progbits
+ 420              		.align	1
+ 421              		.global	xPortGetMinimumEverFreeHeapSize
+ 422              		.syntax unified
+ 423              		.thumb
+ 424              		.thumb_func
+ 425              		.fpu fpv4-sp-d16
+ 427              	xPortGetMinimumEverFreeHeapSize:
+ 428              		@ args = 0, pretend = 0, frame = 0
+ 429              		@ frame_needed = 0, uses_anonymous_args = 0
+ 430              		@ link register save eliminated.
+ 431 0000 014B     		ldr	r3, .L67
+ 432 0002 1868     		ldr	r0, [r3]
+ 433 0004 7047     		bx	lr
+ 434              	.L68:
+ 435 0006 00BF     		.align	2
+ 436              	.L67:
+ 437 0008 00000000 		.word	.LANCHOR2
+ 439              		.section	.text.vPortInitialiseBlocks,"ax",%progbits
+ 440              		.align	1
+ 441              		.global	vPortInitialiseBlocks
+ 442              		.syntax unified
+ 443              		.thumb
+ 444              		.thumb_func
+ 445              		.fpu fpv4-sp-d16
+ 447              	vPortInitialiseBlocks:
+ 448              		@ args = 0, pretend = 0, frame = 0
+ 449              		@ frame_needed = 0, uses_anonymous_args = 0
+ 450              		@ link register save eliminated.
+ 451 0000 7047     		bx	lr
+ 453              		.section	.bss.pxEnd,"aw",%nobits
+ 454              		.align	2
+ 455              		.set	.LANCHOR1,. + 0
+ 458              	pxEnd:
+ 459 0000 00000000 		.space	4
+ 460              		.section	.bss.ucHeap,"aw",%nobits
+ 461              		.align	2
+ 464              	ucHeap:
+ 465 0000 00000000 		.space	50000
+ 465      00000000 
+ 465      00000000 
+ 465      00000000 
+ 465      00000000 
+ 466              		.section	.bss.xBlockAllocatedBit,"aw",%nobits
+ 467              		.align	2
+ 468              		.set	.LANCHOR4,. + 0
+ 471              	xBlockAllocatedBit:
+ 472 0000 00000000 		.space	4
+ 473              		.section	.bss.xFreeBytesRemaining,"aw",%nobits
+ 474              		.align	2
+ 475              		.set	.LANCHOR3,. + 0
+ 478              	xFreeBytesRemaining:
+ 479 0000 00000000 		.space	4
+ 480              		.section	.bss.xMinimumEverFreeBytesRemaining,"aw",%nobits
+ARM GAS  /tmp/cc7KHFfy.s 			page 9
+
+
+ 481              		.align	2
+ 482              		.set	.LANCHOR2,. + 0
+ 485              	xMinimumEverFreeBytesRemaining:
+ 486 0000 00000000 		.space	4
+ 487              		.section	.bss.xStart,"aw",%nobits
+ 488              		.align	2
+ 489              		.set	.LANCHOR0,. + 0
+ 492              	xStart:
+ 493 0000 00000000 		.space	8
+ 493      00000000 
+ 494              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/cc7KHFfy.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 custom_memory_manager.c
+     /tmp/cc7KHFfy.s:16     .text.prvHeapInit:0000000000000000 $t
+     /tmp/cc7KHFfy.s:23     .text.prvHeapInit:0000000000000000 prvHeapInit
+     /tmp/cc7KHFfy.s:65     .text.prvHeapInit:0000000000000050 $d
+     /tmp/cc7KHFfy.s:464    .bss.ucHeap:0000000000000000 ucHeap
+     /tmp/cc7KHFfy.s:73     .text.prvInsertBlockIntoFreeList:0000000000000000 $t
+     /tmp/cc7KHFfy.s:79     .text.prvInsertBlockIntoFreeList:0000000000000000 prvInsertBlockIntoFreeList
+     /tmp/cc7KHFfy.s:133    .text.prvInsertBlockIntoFreeList:0000000000000050 $d
+     /tmp/cc7KHFfy.s:137    .text.pvPortMalloc:0000000000000000 $t
+     /tmp/cc7KHFfy.s:144    .text.pvPortMalloc:0000000000000000 pvPortMalloc
+     /tmp/cc7KHFfy.s:244    .text.pvPortMalloc:00000000000000ac $d
+     /tmp/cc7KHFfy.s:251    .text.vPortFree:0000000000000000 $t
+     /tmp/cc7KHFfy.s:258    .text.vPortFree:0000000000000000 vPortFree
+     /tmp/cc7KHFfy.s:292    .text.vPortFree:0000000000000044 $d
+     /tmp/cc7KHFfy.s:296    .text.getBlockSize:0000000000000000 $t
+     /tmp/cc7KHFfy.s:303    .text.getBlockSize:0000000000000000 getBlockSize
+     /tmp/cc7KHFfy.s:315    .text.getBlockSize:0000000000000010 $d
+     /tmp/cc7KHFfy.s:318    .text.pvPortRealloc:0000000000000000 $t
+     /tmp/cc7KHFfy.s:325    .text.pvPortRealloc:0000000000000000 pvPortRealloc
+     /tmp/cc7KHFfy.s:365    .text.pvPortRealloc:000000000000004c $d
+     /tmp/cc7KHFfy.s:368    .text.pvPortCalloc:0000000000000000 $t
+     /tmp/cc7KHFfy.s:375    .text.pvPortCalloc:0000000000000000 pvPortCalloc
+     /tmp/cc7KHFfy.s:400    .text.xPortGetFreeHeapSize:0000000000000000 $t
+     /tmp/cc7KHFfy.s:407    .text.xPortGetFreeHeapSize:0000000000000000 xPortGetFreeHeapSize
+     /tmp/cc7KHFfy.s:417    .text.xPortGetFreeHeapSize:0000000000000008 $d
+     /tmp/cc7KHFfy.s:420    .text.xPortGetMinimumEverFreeHeapSize:0000000000000000 $t
+     /tmp/cc7KHFfy.s:427    .text.xPortGetMinimumEverFreeHeapSize:0000000000000000 xPortGetMinimumEverFreeHeapSize
+     /tmp/cc7KHFfy.s:437    .text.xPortGetMinimumEverFreeHeapSize:0000000000000008 $d
+     /tmp/cc7KHFfy.s:440    .text.vPortInitialiseBlocks:0000000000000000 $t
+     /tmp/cc7KHFfy.s:447    .text.vPortInitialiseBlocks:0000000000000000 vPortInitialiseBlocks
+     /tmp/cc7KHFfy.s:454    .bss.pxEnd:0000000000000000 $d
+     /tmp/cc7KHFfy.s:458    .bss.pxEnd:0000000000000000 pxEnd
+     /tmp/cc7KHFfy.s:461    .bss.ucHeap:0000000000000000 $d
+     /tmp/cc7KHFfy.s:467    .bss.xBlockAllocatedBit:0000000000000000 $d
+     /tmp/cc7KHFfy.s:471    .bss.xBlockAllocatedBit:0000000000000000 xBlockAllocatedBit
+     /tmp/cc7KHFfy.s:474    .bss.xFreeBytesRemaining:0000000000000000 $d
+     /tmp/cc7KHFfy.s:478    .bss.xFreeBytesRemaining:0000000000000000 xFreeBytesRemaining
+     /tmp/cc7KHFfy.s:481    .bss.xMinimumEverFreeBytesRemaining:0000000000000000 $d
+     /tmp/cc7KHFfy.s:485    .bss.xMinimumEverFreeBytesRemaining:0000000000000000 xMinimumEverFreeBytesRemaining
+     /tmp/cc7KHFfy.s:488    .bss.xStart:0000000000000000 $d
+     /tmp/cc7KHFfy.s:492    .bss.xStart:0000000000000000 xStart
+
+UNDEFINED SYMBOLS
+vTaskSuspendAll
+xTaskResumeAll

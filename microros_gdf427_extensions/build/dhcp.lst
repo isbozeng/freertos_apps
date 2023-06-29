@@ -1,0 +1,3460 @@
+ARM GAS  /tmp/ccBmURlm.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"dhcp.c"
+  14              		.text
+  15              		.section	.text.dhcp_set_state,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	dhcp_set_state:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26              		@ link register save eliminated.
+  27 0000 4379     		ldrb	r3, [r0, #5]	@ zero_extendqisi2
+  28 0002 8B42     		cmp	r3, r1
+  29 0004 03D0     		beq	.L1
+  30 0006 4171     		strb	r1, [r0, #5]
+  31 0008 0023     		movs	r3, #0
+  32 000a 8371     		strb	r3, [r0, #6]
+  33 000c 0381     		strh	r3, [r0, #8]	@ movhi
+  34              	.L1:
+  35 000e 7047     		bx	lr
+  37              		.section	.text.dhcp_option_short,"ax",%progbits
+  38              		.align	1
+  39              		.syntax unified
+  40              		.thumb
+  41              		.thumb_func
+  42              		.fpu fpv4-sp-d16
+  44              	dhcp_option_short:
+  45              		@ args = 0, pretend = 0, frame = 0
+  46              		@ frame_needed = 0, uses_anonymous_args = 0
+  47 0000 70B5     		push	{r4, r5, r6, lr}
+  48 0002 0446     		mov	r4, r0
+  49 0004 0D46     		mov	r5, r1
+  50 0006 1646     		mov	r6, r2
+  51 0008 831C     		adds	r3, r0, #2
+  52 000a 442B     		cmp	r3, #68
+  53 000c 07D8     		bhi	.L6
+  54              	.L4:
+  55 000e 631C     		adds	r3, r4, #1
+  56 0010 9BB2     		uxth	r3, r3
+  57 0012 320A     		lsrs	r2, r6, #8
+  58 0014 2A55     		strb	r2, [r5, r4]
+  59 0016 A01C     		adds	r0, r4, #2
+  60 0018 EE54     		strb	r6, [r5, r3]
+ARM GAS  /tmp/ccBmURlm.s 			page 2
+
+
+  61 001a 80B2     		uxth	r0, r0
+  62 001c 70BD     		pop	{r4, r5, r6, pc}
+  63              	.L6:
+  64 001e 044B     		ldr	r3, .L7
+  65 0020 40F2AE52 		movw	r2, #1454
+  66 0024 0349     		ldr	r1, .L7+4
+  67 0026 0448     		ldr	r0, .L7+8
+  68 0028 FFF7FEFF 		bl	printf
+  69 002c EFE7     		b	.L4
+  70              	.L8:
+  71 002e 00BF     		.align	2
+  72              	.L7:
+  73 0030 00000000 		.word	.LC0
+  74 0034 34000000 		.word	.LC1
+  75 0038 70000000 		.word	.LC2
+  77              		.section	.text.dhcp_option,"ax",%progbits
+  78              		.align	1
+  79              		.syntax unified
+  80              		.thumb
+  81              		.thumb_func
+  82              		.fpu fpv4-sp-d16
+  84              	dhcp_option:
+  85              		@ args = 0, pretend = 0, frame = 0
+  86              		@ frame_needed = 0, uses_anonymous_args = 0
+  87 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  88 0002 0446     		mov	r4, r0
+  89 0004 0D46     		mov	r5, r1
+  90 0006 1746     		mov	r7, r2
+  91 0008 1E46     		mov	r6, r3
+  92 000a 0344     		add	r3, r3, r0
+  93 000c 0233     		adds	r3, r3, #2
+  94 000e 442B     		cmp	r3, #68
+  95 0010 06D8     		bhi	.L12
+  96              	.L10:
+  97 0012 631C     		adds	r3, r4, #1
+  98 0014 9BB2     		uxth	r3, r3
+  99 0016 2F55     		strb	r7, [r5, r4]
+ 100 0018 A01C     		adds	r0, r4, #2
+ 101 001a EE54     		strb	r6, [r5, r3]
+ 102 001c 80B2     		uxth	r0, r0
+ 103 001e F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 104              	.L12:
+ 105 0020 034B     		ldr	r3, .L13
+ 106 0022 40F29A52 		movw	r2, #1434
+ 107 0026 0349     		ldr	r1, .L13+4
+ 108 0028 0348     		ldr	r0, .L13+8
+ 109 002a FFF7FEFF 		bl	printf
+ 110 002e F0E7     		b	.L10
+ 111              	.L14:
+ 112              		.align	2
+ 113              	.L13:
+ 114 0030 00000000 		.word	.LC0
+ 115 0034 00000000 		.word	.LC3
+ 116 0038 70000000 		.word	.LC2
+ 118              		.section	.text.dhcp_option_byte,"ax",%progbits
+ 119              		.align	1
+ 120              		.syntax unified
+ARM GAS  /tmp/ccBmURlm.s 			page 3
+
+
+ 121              		.thumb
+ 122              		.thumb_func
+ 123              		.fpu fpv4-sp-d16
+ 125              	dhcp_option_byte:
+ 126              		@ args = 0, pretend = 0, frame = 0
+ 127              		@ frame_needed = 0, uses_anonymous_args = 0
+ 128 0000 70B5     		push	{r4, r5, r6, lr}
+ 129 0002 0446     		mov	r4, r0
+ 130 0004 0D46     		mov	r5, r1
+ 131 0006 1646     		mov	r6, r2
+ 132 0008 4328     		cmp	r0, #67
+ 133 000a 03D8     		bhi	.L18
+ 134              	.L16:
+ 135 000c 601C     		adds	r0, r4, #1
+ 136 000e 2E55     		strb	r6, [r5, r4]
+ 137 0010 80B2     		uxth	r0, r0
+ 138 0012 70BD     		pop	{r4, r5, r6, pc}
+ 139              	.L18:
+ 140 0014 034B     		ldr	r3, .L19
+ 141 0016 40F2A652 		movw	r2, #1446
+ 142 001a 0349     		ldr	r1, .L19+4
+ 143 001c 0348     		ldr	r0, .L19+8
+ 144 001e FFF7FEFF 		bl	printf
+ 145 0022 F3E7     		b	.L16
+ 146              	.L20:
+ 147              		.align	2
+ 148              	.L19:
+ 149 0024 00000000 		.word	.LC0
+ 150 0028 00000000 		.word	.LC4
+ 151 002c 70000000 		.word	.LC2
+ 153              		.section	.text.dhcp_option_long,"ax",%progbits
+ 154              		.align	1
+ 155              		.syntax unified
+ 156              		.thumb
+ 157              		.thumb_func
+ 158              		.fpu fpv4-sp-d16
+ 160              	dhcp_option_long:
+ 161              		@ args = 0, pretend = 0, frame = 0
+ 162              		@ frame_needed = 0, uses_anonymous_args = 0
+ 163 0000 70B5     		push	{r4, r5, r6, lr}
+ 164 0002 0446     		mov	r4, r0
+ 165 0004 0D46     		mov	r5, r1
+ 166 0006 1646     		mov	r6, r2
+ 167 0008 031D     		adds	r3, r0, #4
+ 168 000a 442B     		cmp	r3, #68
+ 169 000c 11D8     		bhi	.L24
+ 170              	.L22:
+ 171 000e 631C     		adds	r3, r4, #1
+ 172 0010 9BB2     		uxth	r3, r3
+ 173 0012 320E     		lsrs	r2, r6, #24
+ 174 0014 2A55     		strb	r2, [r5, r4]
+ 175 0016 A21C     		adds	r2, r4, #2
+ 176 0018 92B2     		uxth	r2, r2
+ 177 001a C6F30741 		ubfx	r1, r6, #16, #8
+ 178 001e E954     		strb	r1, [r5, r3]
+ 179 0020 E31C     		adds	r3, r4, #3
+ 180 0022 9BB2     		uxth	r3, r3
+ARM GAS  /tmp/ccBmURlm.s 			page 4
+
+
+ 181 0024 C6F30721 		ubfx	r1, r6, #8, #8
+ 182 0028 A954     		strb	r1, [r5, r2]
+ 183 002a 201D     		adds	r0, r4, #4
+ 184 002c EE54     		strb	r6, [r5, r3]
+ 185 002e 80B2     		uxth	r0, r0
+ 186 0030 70BD     		pop	{r4, r5, r6, pc}
+ 187              	.L24:
+ 188 0032 044B     		ldr	r3, .L25
+ 189 0034 40F2B752 		movw	r2, #1463
+ 190 0038 0349     		ldr	r1, .L25+4
+ 191 003a 0448     		ldr	r0, .L25+8
+ 192 003c FFF7FEFF 		bl	printf
+ 193 0040 E5E7     		b	.L22
+ 194              	.L26:
+ 195 0042 00BF     		.align	2
+ 196              	.L25:
+ 197 0044 00000000 		.word	.LC0
+ 198 0048 00000000 		.word	.LC5
+ 199 004c 70000000 		.word	.LC2
+ 201              		.section	.text.dhcp_create_msg,"ax",%progbits
+ 202              		.align	1
+ 203              		.syntax unified
+ 204              		.thumb
+ 205              		.thumb_func
+ 206              		.fpu fpv4-sp-d16
+ 208              	dhcp_create_msg:
+ 209              		@ args = 0, pretend = 0, frame = 0
+ 210              		@ frame_needed = 0, uses_anonymous_args = 0
+ 211 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 212 0004 8046     		mov	r8, r0
+ 213 0006 0028     		cmp	r0, #0
+ 214 0008 4BD0     		beq	.L40
+ 215 000a 8946     		mov	r9, r1
+ 216 000c 1546     		mov	r5, r2
+ 217 000e 1F46     		mov	r7, r3
+ 218 0010 0029     		cmp	r1, #0
+ 219 0012 4FD0     		beq	.L41
+ 220 0014 4FF42072 		mov	r2, #640
+ 221 0018 4FF49A71 		mov	r1, #308
+ 222 001c 3620     		movs	r0, #54
+ 223 001e FFF7FEFF 		bl	pbuf_alloc
+ 224 0022 0646     		mov	r6, r0
+ 225 0024 0028     		cmp	r0, #0
+ 226 0026 79D0     		beq	.L27
+ 227 0028 4389     		ldrh	r3, [r0, #10]
+ 228 002a B3F59A7F 		cmp	r3, #308
+ 229 002e 4AD3     		bcc	.L42
+ 230              	.L31:
+ 231 0030 032D     		cmp	r5, #3
+ 232 0032 50D0     		beq	.L43
+ 233              	.L32:
+ 234 0034 99F80630 		ldrb	r3, [r9, #6]	@ zero_extendqisi2
+ 235 0038 002B     		cmp	r3, #0
+ 236 003a 51D0     		beq	.L44
+ 237              	.L34:
+ 238 003c 394B     		ldr	r3, .L46
+ 239 003e 1B68     		ldr	r3, [r3]
+ARM GAS  /tmp/ccBmURlm.s 			page 5
+
+
+ 240 0040 C9F80030 		str	r3, [r9]
+ 241              	.L33:
+ 242 0044 7468     		ldr	r4, [r6, #4]
+ 243 0046 4FF49A72 		mov	r2, #308
+ 244 004a 0021     		movs	r1, #0
+ 245 004c 2046     		mov	r0, r4
+ 246 004e FFF7FEFF 		bl	memset
+ 247 0052 0123     		movs	r3, #1
+ 248 0054 2370     		strb	r3, [r4]
+ 249 0056 6370     		strb	r3, [r4, #1]
+ 250 0058 98F83030 		ldrb	r3, [r8, #48]	@ zero_extendqisi2
+ 251 005c A370     		strb	r3, [r4, #2]
+ 252 005e D9F80000 		ldr	r0, [r9]
+ 253 0062 FFF7FEFF 		bl	lwip_htonl
+ 254 0066 6060     		str	r0, [r4, #4]	@ unaligned
+ 255 0068 082D     		cmp	r5, #8
+ 256 006a 0BD0     		beq	.L35
+ 257 006c 042D     		cmp	r5, #4
+ 258 006e 09D0     		beq	.L35
+ 259 0070 072D     		cmp	r5, #7
+ 260 0072 07D0     		beq	.L35
+ 261 0074 032D     		cmp	r5, #3
+ 262 0076 08D1     		bne	.L36
+ 263 0078 99F80530 		ldrb	r3, [r9, #5]	@ zero_extendqisi2
+ 264 007c 043B     		subs	r3, r3, #4
+ 265 007e DBB2     		uxtb	r3, r3
+ 266 0080 012B     		cmp	r3, #1
+ 267 0082 02D8     		bhi	.L36
+ 268              	.L35:
+ 269 0084 D8F80430 		ldr	r3, [r8, #4]
+ 270 0088 E360     		str	r3, [r4, #12]	@ unaligned
+ 271              	.L36:
+ 272 008a 0023     		movs	r3, #0
+ 273              	.L37:
+ 274 008c 052B     		cmp	r3, #5
+ 275 008e 2CD8     		bhi	.L45
+ 276 0090 08EB0302 		add	r2, r8, r3
+ 277 0094 92F82A10 		ldrb	r1, [r2, #42]	@ zero_extendqisi2
+ 278 0098 E218     		adds	r2, r4, r3
+ 279 009a 1177     		strb	r1, [r2, #28]
+ 280 009c 0133     		adds	r3, r3, #1
+ 281 009e 9BB2     		uxth	r3, r3
+ 282 00a0 F4E7     		b	.L37
+ 283              	.L40:
+ 284 00a2 214B     		ldr	r3, .L46+4
+ 285 00a4 40F26972 		movw	r2, #1897
+ 286 00a8 2049     		ldr	r1, .L46+8
+ 287 00aa 2148     		ldr	r0, .L46+12
+ 288 00ac FFF7FEFF 		bl	printf
+ 289 00b0 4646     		mov	r6, r8
+ 290 00b2 33E0     		b	.L27
+ 291              	.L41:
+ 292 00b4 1C4B     		ldr	r3, .L46+4
+ 293 00b6 40F26A72 		movw	r2, #1898
+ 294 00ba 1E49     		ldr	r1, .L46+16
+ 295 00bc 1C48     		ldr	r0, .L46+12
+ 296 00be FFF7FEFF 		bl	printf
+ARM GAS  /tmp/ccBmURlm.s 			page 6
+
+
+ 297 00c2 4E46     		mov	r6, r9
+ 298 00c4 2AE0     		b	.L27
+ 299              	.L42:
+ 300 00c6 184B     		ldr	r3, .L46+4
+ 301 00c8 40F27272 		movw	r2, #1906
+ 302 00cc 1A49     		ldr	r1, .L46+20
+ 303 00ce 1848     		ldr	r0, .L46+12
+ 304 00d0 FFF7FEFF 		bl	printf
+ 305 00d4 ACE7     		b	.L31
+ 306              	.L43:
+ 307 00d6 99F80530 		ldrb	r3, [r9, #5]	@ zero_extendqisi2
+ 308 00da 032B     		cmp	r3, #3
+ 309 00dc B2D1     		bne	.L33
+ 310 00de A9E7     		b	.L32
+ 311              	.L44:
+ 312 00e0 FFF7FEFF 		bl	rand
+ 313 00e4 0F4B     		ldr	r3, .L46
+ 314 00e6 1860     		str	r0, [r3]
+ 315 00e8 A8E7     		b	.L34
+ 316              	.L45:
+ 317 00ea 6323     		movs	r3, #99
+ 318 00ec 84F8EC30 		strb	r3, [r4, #236]
+ 319 00f0 6FF07D02 		mvn	r2, #125
+ 320 00f4 84F8ED20 		strb	r2, [r4, #237]
+ 321 00f8 5322     		movs	r2, #83
+ 322 00fa 84F8EE20 		strb	r2, [r4, #238]
+ 323 00fe 84F8EF30 		strb	r3, [r4, #239]
+ 324 0102 F034     		adds	r4, r4, #240
+ 325 0104 0123     		movs	r3, #1
+ 326 0106 3522     		movs	r2, #53
+ 327 0108 2146     		mov	r1, r4
+ 328 010a 0020     		movs	r0, #0
+ 329 010c FFF7FEFF 		bl	dhcp_option
+ 330 0110 2A46     		mov	r2, r5
+ 331 0112 2146     		mov	r1, r4
+ 332 0114 FFF7FEFF 		bl	dhcp_option_byte
+ 333 0118 07B1     		cbz	r7, .L27
+ 334 011a 3880     		strh	r0, [r7]	@ movhi
+ 335              	.L27:
+ 336 011c 3046     		mov	r0, r6
+ 337 011e BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 338              	.L47:
+ 339 0122 00BF     		.align	2
+ 340              	.L46:
+ 341 0124 00000000 		.word	.LANCHOR0
+ 342 0128 00000000 		.word	.LC0
+ 343 012c 00000000 		.word	.LC6
+ 344 0130 70000000 		.word	.LC2
+ 345 0134 20000000 		.word	.LC7
+ 346 0138 40000000 		.word	.LC8
+ 348              		.section	.text.dhcp_option_trailer,"ax",%progbits
+ 349              		.align	1
+ 350              		.syntax unified
+ 351              		.thumb
+ 352              		.thumb_func
+ 353              		.fpu fpv4-sp-d16
+ 355              	dhcp_option_trailer:
+ARM GAS  /tmp/ccBmURlm.s 			page 7
+
+
+ 356              		@ args = 0, pretend = 0, frame = 0
+ 357              		@ frame_needed = 0, uses_anonymous_args = 0
+ 358 0000 38B5     		push	{r3, r4, r5, lr}
+ 359 0002 431C     		adds	r3, r0, #1
+ 360 0004 9BB2     		uxth	r3, r3
+ 361 0006 FF24     		movs	r4, #255
+ 362 0008 0C54     		strb	r4, [r1, r0]
+ 363 000a 05E0     		b	.L49
+ 364              	.L50:
+ 365 000c 432B     		cmp	r3, #67
+ 366 000e 08D8     		bhi	.L51
+ 367 0010 5C1C     		adds	r4, r3, #1
+ 368 0012 0025     		movs	r5, #0
+ 369 0014 CD54     		strb	r5, [r1, r3]
+ 370 0016 A3B2     		uxth	r3, r4
+ 371              	.L49:
+ 372 0018 432B     		cmp	r3, #67
+ 373 001a F7D9     		bls	.L50
+ 374 001c 13F0030F 		tst	r3, #3
+ 375 0020 F4D1     		bne	.L50
+ 376              	.L51:
+ 377 0022 03F1F001 		add	r1, r3, #240
+ 378 0026 89B2     		uxth	r1, r1
+ 379 0028 1046     		mov	r0, r2
+ 380 002a FFF7FEFF 		bl	pbuf_realloc
+ 381 002e 38BD     		pop	{r3, r4, r5, pc}
+ 383              		.section	.text.dhcp_rebind,"ax",%progbits
+ 384              		.align	1
+ 385              		.syntax unified
+ 386              		.thumb
+ 387              		.thumb_func
+ 388              		.fpu fpv4-sp-d16
+ 390              	dhcp_rebind:
+ 391              		@ args = 0, pretend = 0, frame = 8
+ 392              		@ frame_needed = 0, uses_anonymous_args = 0
+ 393 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 394 0004 84B0     		sub	sp, sp, #16
+ 395 0006 8046     		mov	r8, r0
+ 396 0008 466A     		ldr	r6, [r0, #36]
+ 397 000a 0421     		movs	r1, #4
+ 398 000c 3046     		mov	r0, r6
+ 399 000e FFF7FEFF 		bl	dhcp_set_state
+ 400 0012 0DF10E03 		add	r3, sp, #14
+ 401 0016 0322     		movs	r2, #3
+ 402 0018 3146     		mov	r1, r6
+ 403 001a 4046     		mov	r0, r8
+ 404 001c FFF7FEFF 		bl	dhcp_create_msg
+ 405 0020 0028     		cmp	r0, #0
+ 406 0022 4AD0     		beq	.L60
+ 407 0024 0746     		mov	r7, r0
+ 408 0026 4568     		ldr	r5, [r0, #4]
+ 409 0028 F035     		adds	r5, r5, #240
+ 410 002a 0223     		movs	r3, #2
+ 411 002c 3922     		movs	r2, #57
+ 412 002e 2946     		mov	r1, r5
+ 413 0030 BDF80E00 		ldrh	r0, [sp, #14]
+ 414 0034 FFF7FEFF 		bl	dhcp_option
+ARM GAS  /tmp/ccBmURlm.s 			page 8
+
+
+ 415 0038 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 416 003c B8F82820 		ldrh	r2, [r8, #40]
+ 417 0040 2946     		mov	r1, r5
+ 418 0042 FFF7FEFF 		bl	dhcp_option_short
+ 419 0046 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 420 004a 0423     		movs	r3, #4
+ 421 004c 3722     		movs	r2, #55
+ 422 004e 2946     		mov	r1, r5
+ 423 0050 FFF7FEFF 		bl	dhcp_option
+ 424 0054 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 425 0058 0024     		movs	r4, #0
+ 426 005a 0AE0     		b	.L56
+ 427              	.L57:
+ 428 005c 204B     		ldr	r3, .L63
+ 429 005e 1A5D     		ldrb	r2, [r3, r4]	@ zero_extendqisi2
+ 430 0060 2946     		mov	r1, r5
+ 431 0062 BDF80E00 		ldrh	r0, [sp, #14]
+ 432 0066 FFF7FEFF 		bl	dhcp_option_byte
+ 433 006a ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 434 006e 0134     		adds	r4, r4, #1
+ 435 0070 E4B2     		uxtb	r4, r4
+ 436              	.L56:
+ 437 0072 032C     		cmp	r4, #3
+ 438 0074 F2D9     		bls	.L57
+ 439 0076 3A46     		mov	r2, r7
+ 440 0078 2946     		mov	r1, r5
+ 441 007a BDF80E00 		ldrh	r0, [sp, #14]
+ 442 007e FFF7FEFF 		bl	dhcp_option_trailer
+ 443 0082 CDF80080 		str	r8, [sp]
+ 444 0086 4323     		movs	r3, #67
+ 445 0088 164A     		ldr	r2, .L63+4
+ 446 008a 3946     		mov	r1, r7
+ 447 008c 1648     		ldr	r0, .L63+8
+ 448 008e 0068     		ldr	r0, [r0]
+ 449 0090 FFF7FEFF 		bl	udp_sendto_if
+ 450 0094 0446     		mov	r4, r0
+ 451 0096 3846     		mov	r0, r7
+ 452 0098 FFF7FEFF 		bl	pbuf_free
+ 453              	.L55:
+ 454 009c B379     		ldrb	r3, [r6, #6]	@ zero_extendqisi2
+ 455 009e FF2B     		cmp	r3, #255
+ 456 00a0 01D0     		beq	.L58
+ 457 00a2 0133     		adds	r3, r3, #1
+ 458 00a4 B371     		strb	r3, [r6, #6]
+ 459              	.L58:
+ 460 00a6 B379     		ldrb	r3, [r6, #6]	@ zero_extendqisi2
+ 461 00a8 092B     		cmp	r3, #9
+ 462 00aa 09D8     		bhi	.L61
+ 463 00ac C3EB4312 		rsb	r2, r3, r3, lsl #5
+ 464 00b0 03EB8202 		add	r2, r3, r2, lsl #2
+ 465 00b4 D300     		lsls	r3, r2, #3
+ 466 00b6 9BB2     		uxth	r3, r3
+ 467 00b8 04E0     		b	.L59
+ 468              	.L60:
+ 469 00ba 4FF0FF34 		mov	r4, #-1
+ 470 00be EDE7     		b	.L55
+ 471              	.L61:
+ARM GAS  /tmp/ccBmURlm.s 			page 9
+
+
+ 472 00c0 42F21073 		movw	r3, #10000
+ 473              	.L59:
+ 474 00c4 03F2F313 		addw	r3, r3, #499
+ 475 00c8 084A     		ldr	r2, .L63+12
+ 476 00ca 82FB0312 		smull	r1, r2, r2, r3
+ 477 00ce DB17     		asrs	r3, r3, #31
+ 478 00d0 C3EB6213 		rsb	r3, r3, r2, asr #5
+ 479 00d4 3381     		strh	r3, [r6, #8]	@ movhi
+ 480 00d6 2046     		mov	r0, r4
+ 481 00d8 04B0     		add	sp, sp, #16
+ 482              		@ sp needed
+ 483 00da BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 484              	.L64:
+ 485 00de 00BF     		.align	2
+ 486              	.L63:
+ 487 00e0 00000000 		.word	.LANCHOR1
+ 488 00e4 00000000 		.word	ip_addr_broadcast
+ 489 00e8 00000000 		.word	.LANCHOR2
+ 490 00ec D34D6210 		.word	274877907
+ 492              		.section	.text.dhcp_t2_timeout,"ax",%progbits
+ 493              		.align	1
+ 494              		.syntax unified
+ 495              		.thumb
+ 496              		.thumb_func
+ 497              		.fpu fpv4-sp-d16
+ 499              	dhcp_t2_timeout:
+ 500              		@ args = 0, pretend = 0, frame = 0
+ 501              		@ frame_needed = 0, uses_anonymous_args = 0
+ 502 0000 10B5     		push	{r4, lr}
+ 503 0002 446A     		ldr	r4, [r0, #36]
+ 504 0004 6379     		ldrb	r3, [r4, #5]	@ zero_extendqisi2
+ 505 0006 012B     		cmp	r3, #1
+ 506 0008 05D0     		beq	.L66
+ 507 000a 0A2B     		cmp	r3, #10
+ 508 000c 03D0     		beq	.L66
+ 509 000e 052B     		cmp	r3, #5
+ 510 0010 01D0     		beq	.L66
+ 511 0012 042B     		cmp	r3, #4
+ 512 0014 0BD1     		bne	.L65
+ 513              	.L66:
+ 514 0016 FFF7FEFF 		bl	dhcp_rebind
+ 515 001a A38A     		ldrh	r3, [r4, #20]
+ 516 001c 628A     		ldrh	r2, [r4, #18]
+ 517 001e 9B1A     		subs	r3, r3, r2
+ 518 0020 012B     		cmp	r3, #1
+ 519 0022 04DD     		ble	.L65
+ 520 0024 03EBD373 		add	r3, r3, r3, lsr #31
+ 521 0028 C3F34F03 		ubfx	r3, r3, #1, #16
+ 522 002c 2382     		strh	r3, [r4, #16]	@ movhi
+ 523              	.L65:
+ 524 002e 10BD     		pop	{r4, pc}
+ 526              		.section	.text.dhcp_reboot,"ax",%progbits
+ 527              		.align	1
+ 528              		.syntax unified
+ 529              		.thumb
+ 530              		.thumb_func
+ 531              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccBmURlm.s 			page 10
+
+
+ 533              	dhcp_reboot:
+ 534              		@ args = 0, pretend = 0, frame = 8
+ 535              		@ frame_needed = 0, uses_anonymous_args = 0
+ 536 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 537 0004 84B0     		sub	sp, sp, #16
+ 538 0006 8046     		mov	r8, r0
+ 539 0008 466A     		ldr	r6, [r0, #36]
+ 540 000a 0321     		movs	r1, #3
+ 541 000c 3046     		mov	r0, r6
+ 542 000e FFF7FEFF 		bl	dhcp_set_state
+ 543 0012 0DF10E03 		add	r3, sp, #14
+ 544 0016 0322     		movs	r2, #3
+ 545 0018 3146     		mov	r1, r6
+ 546 001a 4046     		mov	r0, r8
+ 547 001c FFF7FEFF 		bl	dhcp_create_msg
+ 548 0020 0028     		cmp	r0, #0
+ 549 0022 5CD0     		beq	.L75
+ 550 0024 0746     		mov	r7, r0
+ 551 0026 4568     		ldr	r5, [r0, #4]
+ 552 0028 F035     		adds	r5, r5, #240
+ 553 002a 0223     		movs	r3, #2
+ 554 002c 3922     		movs	r2, #57
+ 555 002e 2946     		mov	r1, r5
+ 556 0030 BDF80E00 		ldrh	r0, [sp, #14]
+ 557 0034 FFF7FEFF 		bl	dhcp_option
+ 558 0038 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 559 003c 4FF41072 		mov	r2, #576
+ 560 0040 2946     		mov	r1, r5
+ 561 0042 FFF7FEFF 		bl	dhcp_option_short
+ 562 0046 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 563 004a 0423     		movs	r3, #4
+ 564 004c 3222     		movs	r2, #50
+ 565 004e 2946     		mov	r1, r5
+ 566 0050 FFF7FEFF 		bl	dhcp_option
+ 567 0054 0446     		mov	r4, r0
+ 568 0056 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 569 005a F069     		ldr	r0, [r6, #28]
+ 570 005c FFF7FEFF 		bl	lwip_htonl
+ 571 0060 0246     		mov	r2, r0
+ 572 0062 2946     		mov	r1, r5
+ 573 0064 2046     		mov	r0, r4
+ 574 0066 FFF7FEFF 		bl	dhcp_option_long
+ 575 006a ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 576 006e 0423     		movs	r3, #4
+ 577 0070 3722     		movs	r2, #55
+ 578 0072 2946     		mov	r1, r5
+ 579 0074 FFF7FEFF 		bl	dhcp_option
+ 580 0078 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 581 007c 0024     		movs	r4, #0
+ 582 007e 0AE0     		b	.L71
+ 583              	.L72:
+ 584 0080 204B     		ldr	r3, .L78
+ 585 0082 1A5D     		ldrb	r2, [r3, r4]	@ zero_extendqisi2
+ 586 0084 2946     		mov	r1, r5
+ 587 0086 BDF80E00 		ldrh	r0, [sp, #14]
+ 588 008a FFF7FEFF 		bl	dhcp_option_byte
+ 589 008e ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ARM GAS  /tmp/ccBmURlm.s 			page 11
+
+
+ 590 0092 0134     		adds	r4, r4, #1
+ 591 0094 E4B2     		uxtb	r4, r4
+ 592              	.L71:
+ 593 0096 032C     		cmp	r4, #3
+ 594 0098 F2D9     		bls	.L72
+ 595 009a 3A46     		mov	r2, r7
+ 596 009c 2946     		mov	r1, r5
+ 597 009e BDF80E00 		ldrh	r0, [sp, #14]
+ 598 00a2 FFF7FEFF 		bl	dhcp_option_trailer
+ 599 00a6 CDF80080 		str	r8, [sp]
+ 600 00aa 4323     		movs	r3, #67
+ 601 00ac 164A     		ldr	r2, .L78+4
+ 602 00ae 3946     		mov	r1, r7
+ 603 00b0 1648     		ldr	r0, .L78+8
+ 604 00b2 0068     		ldr	r0, [r0]
+ 605 00b4 FFF7FEFF 		bl	udp_sendto_if
+ 606 00b8 0446     		mov	r4, r0
+ 607 00ba 3846     		mov	r0, r7
+ 608 00bc FFF7FEFF 		bl	pbuf_free
+ 609              	.L70:
+ 610 00c0 B379     		ldrb	r3, [r6, #6]	@ zero_extendqisi2
+ 611 00c2 FF2B     		cmp	r3, #255
+ 612 00c4 01D0     		beq	.L73
+ 613 00c6 0133     		adds	r3, r3, #1
+ 614 00c8 B371     		strb	r3, [r6, #6]
+ 615              	.L73:
+ 616 00ca B379     		ldrb	r3, [r6, #6]	@ zero_extendqisi2
+ 617 00cc 092B     		cmp	r3, #9
+ 618 00ce 09D8     		bhi	.L76
+ 619 00d0 C3EB4312 		rsb	r2, r3, r3, lsl #5
+ 620 00d4 03EB8202 		add	r2, r3, r2, lsl #2
+ 621 00d8 D300     		lsls	r3, r2, #3
+ 622 00da 9BB2     		uxth	r3, r3
+ 623 00dc 04E0     		b	.L74
+ 624              	.L75:
+ 625 00de 4FF0FF34 		mov	r4, #-1
+ 626 00e2 EDE7     		b	.L70
+ 627              	.L76:
+ 628 00e4 42F21073 		movw	r3, #10000
+ 629              	.L74:
+ 630 00e8 03F2F313 		addw	r3, r3, #499
+ 631 00ec 084A     		ldr	r2, .L78+12
+ 632 00ee 82FB0312 		smull	r1, r2, r2, r3
+ 633 00f2 DB17     		asrs	r3, r3, #31
+ 634 00f4 C3EB6213 		rsb	r3, r3, r2, asr #5
+ 635 00f8 3381     		strh	r3, [r6, #8]	@ movhi
+ 636 00fa 2046     		mov	r0, r4
+ 637 00fc 04B0     		add	sp, sp, #16
+ 638              		@ sp needed
+ 639 00fe BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 640              	.L79:
+ 641 0102 00BF     		.align	2
+ 642              	.L78:
+ 643 0104 00000000 		.word	.LANCHOR1
+ 644 0108 00000000 		.word	ip_addr_broadcast
+ 645 010c 00000000 		.word	.LANCHOR2
+ 646 0110 D34D6210 		.word	274877907
+ARM GAS  /tmp/ccBmURlm.s 			page 12
+
+
+ 648              		.section	.text.dhcp_select,"ax",%progbits
+ 649              		.align	1
+ 650              		.syntax unified
+ 651              		.thumb
+ 652              		.thumb_func
+ 653              		.fpu fpv4-sp-d16
+ 655              	dhcp_select:
+ 656              		@ args = 0, pretend = 0, frame = 8
+ 657              		@ frame_needed = 0, uses_anonymous_args = 0
+ 658 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 659 0004 84B0     		sub	sp, sp, #16
+ 660 0006 0028     		cmp	r0, #0
+ 661 0008 50D0     		beq	.L92
+ 662 000a 0746     		mov	r7, r0
+ 663 000c 456A     		ldr	r5, [r0, #36]
+ 664 000e 002D     		cmp	r5, #0
+ 665 0010 56D0     		beq	.L93
+ 666 0012 0121     		movs	r1, #1
+ 667 0014 2846     		mov	r0, r5
+ 668 0016 FFF7FEFF 		bl	dhcp_set_state
+ 669 001a 0DF10E03 		add	r3, sp, #14
+ 670 001e 0322     		movs	r2, #3
+ 671 0020 2946     		mov	r1, r5
+ 672 0022 3846     		mov	r0, r7
+ 673 0024 FFF7FEFF 		bl	dhcp_create_msg
+ 674 0028 8046     		mov	r8, r0
+ 675 002a 0028     		cmp	r0, #0
+ 676 002c 00F08480 		beq	.L89
+ 677 0030 4668     		ldr	r6, [r0, #4]
+ 678 0032 F036     		adds	r6, r6, #240
+ 679 0034 0223     		movs	r3, #2
+ 680 0036 3922     		movs	r2, #57
+ 681 0038 3146     		mov	r1, r6
+ 682 003a BDF80E00 		ldrh	r0, [sp, #14]
+ 683 003e FFF7FEFF 		bl	dhcp_option
+ 684 0042 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 685 0046 3A8D     		ldrh	r2, [r7, #40]
+ 686 0048 3146     		mov	r1, r6
+ 687 004a FFF7FEFF 		bl	dhcp_option_short
+ 688 004e ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 689 0052 0423     		movs	r3, #4
+ 690 0054 3222     		movs	r2, #50
+ 691 0056 3146     		mov	r1, r6
+ 692 0058 FFF7FEFF 		bl	dhcp_option
+ 693 005c 0446     		mov	r4, r0
+ 694 005e ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 695 0062 E869     		ldr	r0, [r5, #28]
+ 696 0064 FFF7FEFF 		bl	lwip_htonl
+ 697 0068 0246     		mov	r2, r0
+ 698 006a 3146     		mov	r1, r6
+ 699 006c 2046     		mov	r0, r4
+ 700 006e FFF7FEFF 		bl	dhcp_option_long
+ 701 0072 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 702 0076 0423     		movs	r3, #4
+ 703 0078 3622     		movs	r2, #54
+ 704 007a 3146     		mov	r1, r6
+ 705 007c FFF7FEFF 		bl	dhcp_option
+ARM GAS  /tmp/ccBmURlm.s 			page 13
+
+
+ 706 0080 0446     		mov	r4, r0
+ 707 0082 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 708 0086 A869     		ldr	r0, [r5, #24]
+ 709 0088 FFF7FEFF 		bl	lwip_htonl
+ 710 008c 0246     		mov	r2, r0
+ 711 008e 3146     		mov	r1, r6
+ 712 0090 2046     		mov	r0, r4
+ 713 0092 FFF7FEFF 		bl	dhcp_option_long
+ 714 0096 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 715 009a 0423     		movs	r3, #4
+ 716 009c 3722     		movs	r2, #55
+ 717 009e 3146     		mov	r1, r6
+ 718 00a0 FFF7FEFF 		bl	dhcp_option
+ 719 00a4 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 720 00a8 0024     		movs	r4, #0
+ 721 00aa 1EE0     		b	.L85
+ 722              	.L92:
+ 723 00ac 2B4B     		ldr	r3, .L94
+ 724 00ae 40F27712 		movw	r2, #375
+ 725 00b2 2B49     		ldr	r1, .L94+4
+ 726 00b4 2B48     		ldr	r0, .L94+8
+ 727 00b6 FFF7FEFF 		bl	printf
+ 728 00ba 6FF00F04 		mvn	r4, #15
+ 729 00be 49E0     		b	.L82
+ 730              	.L93:
+ 731 00c0 264B     		ldr	r3, .L94
+ 732 00c2 40F27912 		movw	r2, #377
+ 733 00c6 2849     		ldr	r1, .L94+12
+ 734 00c8 2648     		ldr	r0, .L94+8
+ 735 00ca FFF7FEFF 		bl	printf
+ 736 00ce 6FF00504 		mvn	r4, #5
+ 737 00d2 3FE0     		b	.L82
+ 738              	.L86:
+ 739 00d4 254B     		ldr	r3, .L94+16
+ 740 00d6 1A5D     		ldrb	r2, [r3, r4]	@ zero_extendqisi2
+ 741 00d8 3146     		mov	r1, r6
+ 742 00da BDF80E00 		ldrh	r0, [sp, #14]
+ 743 00de FFF7FEFF 		bl	dhcp_option_byte
+ 744 00e2 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 745 00e6 0134     		adds	r4, r4, #1
+ 746 00e8 E4B2     		uxtb	r4, r4
+ 747              	.L85:
+ 748 00ea 032C     		cmp	r4, #3
+ 749 00ec F2D9     		bls	.L86
+ 750 00ee 4246     		mov	r2, r8
+ 751 00f0 3146     		mov	r1, r6
+ 752 00f2 BDF80E00 		ldrh	r0, [sp, #14]
+ 753 00f6 FFF7FEFF 		bl	dhcp_option_trailer
+ 754 00fa 1D4B     		ldr	r3, .L94+20
+ 755 00fc 0193     		str	r3, [sp, #4]
+ 756 00fe 0097     		str	r7, [sp]
+ 757 0100 4323     		movs	r3, #67
+ 758 0102 1C4A     		ldr	r2, .L94+24
+ 759 0104 4146     		mov	r1, r8
+ 760 0106 1C48     		ldr	r0, .L94+28
+ 761 0108 0068     		ldr	r0, [r0]
+ 762 010a FFF7FEFF 		bl	udp_sendto_if_src
+ARM GAS  /tmp/ccBmURlm.s 			page 14
+
+
+ 763 010e 0446     		mov	r4, r0
+ 764 0110 4046     		mov	r0, r8
+ 765 0112 FFF7FEFF 		bl	pbuf_free
+ 766              	.L84:
+ 767 0116 AB79     		ldrb	r3, [r5, #6]	@ zero_extendqisi2
+ 768 0118 FF2B     		cmp	r3, #255
+ 769 011a 01D0     		beq	.L87
+ 770 011c 0133     		adds	r3, r3, #1
+ 771 011e AB71     		strb	r3, [r5, #6]
+ 772              	.L87:
+ 773 0120 AA79     		ldrb	r2, [r5, #6]	@ zero_extendqisi2
+ 774 0122 052A     		cmp	r2, #5
+ 775 0124 0BD8     		bhi	.L90
+ 776 0126 0123     		movs	r3, #1
+ 777 0128 9340     		lsls	r3, r3, r2
+ 778 012a C3EB4312 		rsb	r2, r3, r3, lsl #5
+ 779 012e 03EB8202 		add	r2, r3, r2, lsl #2
+ 780 0132 D300     		lsls	r3, r2, #3
+ 781 0134 9BB2     		uxth	r3, r3
+ 782 0136 04E0     		b	.L88
+ 783              	.L89:
+ 784 0138 4FF0FF34 		mov	r4, #-1
+ 785 013c EBE7     		b	.L84
+ 786              	.L90:
+ 787 013e 4EF66023 		movw	r3, #60000
+ 788              	.L88:
+ 789 0142 03F2F313 		addw	r3, r3, #499
+ 790 0146 0D4A     		ldr	r2, .L94+32
+ 791 0148 82FB0312 		smull	r1, r2, r2, r3
+ 792 014c DB17     		asrs	r3, r3, #31
+ 793 014e C3EB6213 		rsb	r3, r3, r2, asr #5
+ 794 0152 2B81     		strh	r3, [r5, #8]	@ movhi
+ 795              	.L82:
+ 796 0154 2046     		mov	r0, r4
+ 797 0156 04B0     		add	sp, sp, #16
+ 798              		@ sp needed
+ 799 0158 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 800              	.L95:
+ 801              		.align	2
+ 802              	.L94:
+ 803 015c 00000000 		.word	.LC0
+ 804 0160 00000000 		.word	.LC9
+ 805 0164 70000000 		.word	.LC2
+ 806 0168 1C000000 		.word	.LC10
+ 807 016c 00000000 		.word	.LANCHOR1
+ 808 0170 00000000 		.word	ip_addr_any
+ 809 0174 00000000 		.word	ip_addr_broadcast
+ 810 0178 00000000 		.word	.LANCHOR2
+ 811 017c D34D6210 		.word	274877907
+ 813              		.section	.text.dhcp_handle_offer,"ax",%progbits
+ 814              		.align	1
+ 815              		.syntax unified
+ 816              		.thumb
+ 817              		.thumb_func
+ 818              		.fpu fpv4-sp-d16
+ 820              	dhcp_handle_offer:
+ 821              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/ccBmURlm.s 			page 15
+
+
+ 822              		@ frame_needed = 0, uses_anonymous_args = 0
+ 823 0000 70B5     		push	{r4, r5, r6, lr}
+ 824 0002 456A     		ldr	r5, [r0, #36]
+ 825 0004 094B     		ldr	r3, .L100
+ 826 0006 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 827 0008 03B9     		cbnz	r3, .L99
+ 828              	.L96:
+ 829 000a 70BD     		pop	{r4, r5, r6, pc}
+ 830              	.L99:
+ 831 000c 0E46     		mov	r6, r1
+ 832 000e 0446     		mov	r4, r0
+ 833 0010 0023     		movs	r3, #0
+ 834 0012 2B81     		strh	r3, [r5, #8]	@ movhi
+ 835 0014 064B     		ldr	r3, .L100+4
+ 836 0016 9868     		ldr	r0, [r3, #8]
+ 837 0018 FFF7FEFF 		bl	lwip_htonl
+ 838 001c A861     		str	r0, [r5, #24]
+ 839 001e 3369     		ldr	r3, [r6, #16]	@ unaligned
+ 840 0020 EB61     		str	r3, [r5, #28]
+ 841 0022 2046     		mov	r0, r4
+ 842 0024 FFF7FEFF 		bl	dhcp_select
+ 843 0028 EFE7     		b	.L96
+ 844              	.L101:
+ 845 002a 00BF     		.align	2
+ 846              	.L100:
+ 847 002c 00000000 		.word	dhcp_rx_options_given
+ 848 0030 00000000 		.word	dhcp_rx_options_val
+ 850              		.section	.text.dhcp_discover,"ax",%progbits
+ 851              		.align	1
+ 852              		.syntax unified
+ 853              		.thumb
+ 854              		.thumb_func
+ 855              		.fpu fpv4-sp-d16
+ 857              	dhcp_discover:
+ 858              		@ args = 0, pretend = 0, frame = 8
+ 859              		@ frame_needed = 0, uses_anonymous_args = 0
+ 860 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 861 0004 84B0     		sub	sp, sp, #16
+ 862 0006 0746     		mov	r7, r0
+ 863 0008 456A     		ldr	r5, [r0, #36]
+ 864 000a 0023     		movs	r3, #0
+ 865 000c EB61     		str	r3, [r5, #28]
+ 866 000e 0621     		movs	r1, #6
+ 867 0010 2846     		mov	r0, r5
+ 868 0012 FFF7FEFF 		bl	dhcp_set_state
+ 869 0016 0DF10E03 		add	r3, sp, #14
+ 870 001a 0122     		movs	r2, #1
+ 871 001c 2946     		mov	r1, r5
+ 872 001e 3846     		mov	r0, r7
+ 873 0020 FFF7FEFF 		bl	dhcp_create_msg
+ 874 0024 0028     		cmp	r0, #0
+ 875 0026 3AD0     		beq	.L103
+ 876 0028 8046     		mov	r8, r0
+ 877 002a 4668     		ldr	r6, [r0, #4]
+ 878 002c F036     		adds	r6, r6, #240
+ 879 002e 0223     		movs	r3, #2
+ 880 0030 3922     		movs	r2, #57
+ARM GAS  /tmp/ccBmURlm.s 			page 16
+
+
+ 881 0032 3146     		mov	r1, r6
+ 882 0034 BDF80E00 		ldrh	r0, [sp, #14]
+ 883 0038 FFF7FEFF 		bl	dhcp_option
+ 884 003c ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 885 0040 3A8D     		ldrh	r2, [r7, #40]
+ 886 0042 3146     		mov	r1, r6
+ 887 0044 FFF7FEFF 		bl	dhcp_option_short
+ 888 0048 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 889 004c 0423     		movs	r3, #4
+ 890 004e 3722     		movs	r2, #55
+ 891 0050 3146     		mov	r1, r6
+ 892 0052 FFF7FEFF 		bl	dhcp_option
+ 893 0056 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 894 005a 0024     		movs	r4, #0
+ 895 005c 0AE0     		b	.L104
+ 896              	.L105:
+ 897 005e 204B     		ldr	r3, .L110
+ 898 0060 1A5D     		ldrb	r2, [r3, r4]	@ zero_extendqisi2
+ 899 0062 3146     		mov	r1, r6
+ 900 0064 BDF80E00 		ldrh	r0, [sp, #14]
+ 901 0068 FFF7FEFF 		bl	dhcp_option_byte
+ 902 006c ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 903 0070 0134     		adds	r4, r4, #1
+ 904 0072 E4B2     		uxtb	r4, r4
+ 905              	.L104:
+ 906 0074 032C     		cmp	r4, #3
+ 907 0076 F2D9     		bls	.L105
+ 908 0078 4246     		mov	r2, r8
+ 909 007a 3146     		mov	r1, r6
+ 910 007c BDF80E00 		ldrh	r0, [sp, #14]
+ 911 0080 FFF7FEFF 		bl	dhcp_option_trailer
+ 912 0084 174B     		ldr	r3, .L110+4
+ 913 0086 0193     		str	r3, [sp, #4]
+ 914 0088 0097     		str	r7, [sp]
+ 915 008a 4323     		movs	r3, #67
+ 916 008c 164A     		ldr	r2, .L110+8
+ 917 008e 4146     		mov	r1, r8
+ 918 0090 1648     		ldr	r0, .L110+12
+ 919 0092 0068     		ldr	r0, [r0]
+ 920 0094 FFF7FEFF 		bl	udp_sendto_if_src
+ 921 0098 4046     		mov	r0, r8
+ 922 009a FFF7FEFF 		bl	pbuf_free
+ 923              	.L103:
+ 924 009e AB79     		ldrb	r3, [r5, #6]	@ zero_extendqisi2
+ 925 00a0 FF2B     		cmp	r3, #255
+ 926 00a2 01D0     		beq	.L106
+ 927 00a4 0133     		adds	r3, r3, #1
+ 928 00a6 AB71     		strb	r3, [r5, #6]
+ 929              	.L106:
+ 930 00a8 AA79     		ldrb	r2, [r5, #6]	@ zero_extendqisi2
+ 931 00aa 052A     		cmp	r2, #5
+ 932 00ac 14D8     		bhi	.L108
+ 933 00ae 0123     		movs	r3, #1
+ 934 00b0 9340     		lsls	r3, r3, r2
+ 935 00b2 C3EB4312 		rsb	r2, r3, r3, lsl #5
+ 936 00b6 03EB8202 		add	r2, r3, r2, lsl #2
+ 937 00ba D300     		lsls	r3, r2, #3
+ARM GAS  /tmp/ccBmURlm.s 			page 17
+
+
+ 938 00bc 9BB2     		uxth	r3, r3
+ 939              	.L107:
+ 940 00be 03F2F313 		addw	r3, r3, #499
+ 941 00c2 0B4A     		ldr	r2, .L110+16
+ 942 00c4 82FB0312 		smull	r1, r2, r2, r3
+ 943 00c8 DB17     		asrs	r3, r3, #31
+ 944 00ca C3EB6213 		rsb	r3, r3, r2, asr #5
+ 945 00ce 2B81     		strh	r3, [r5, #8]	@ movhi
+ 946 00d0 0020     		movs	r0, #0
+ 947 00d2 04B0     		add	sp, sp, #16
+ 948              		@ sp needed
+ 949 00d4 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 950              	.L108:
+ 951 00d8 4EF66023 		movw	r3, #60000
+ 952 00dc EFE7     		b	.L107
+ 953              	.L111:
+ 954 00de 00BF     		.align	2
+ 955              	.L110:
+ 956 00e0 00000000 		.word	.LANCHOR1
+ 957 00e4 00000000 		.word	ip_addr_any
+ 958 00e8 00000000 		.word	ip_addr_broadcast
+ 959 00ec 00000000 		.word	.LANCHOR2
+ 960 00f0 D34D6210 		.word	274877907
+ 962              		.section	.text.dhcp_decline,"ax",%progbits
+ 963              		.align	1
+ 964              		.syntax unified
+ 965              		.thumb
+ 966              		.thumb_func
+ 967              		.fpu fpv4-sp-d16
+ 969              	dhcp_decline:
+ 970              		@ args = 0, pretend = 0, frame = 8
+ 971              		@ frame_needed = 0, uses_anonymous_args = 0
+ 972 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 973 0004 84B0     		sub	sp, sp, #16
+ 974 0006 0746     		mov	r7, r0
+ 975 0008 446A     		ldr	r4, [r0, #36]
+ 976 000a 0C21     		movs	r1, #12
+ 977 000c 2046     		mov	r0, r4
+ 978 000e FFF7FEFF 		bl	dhcp_set_state
+ 979 0012 0DF10E03 		add	r3, sp, #14
+ 980 0016 0422     		movs	r2, #4
+ 981 0018 2146     		mov	r1, r4
+ 982 001a 3846     		mov	r0, r7
+ 983 001c FFF7FEFF 		bl	dhcp_create_msg
+ 984 0020 98B3     		cbz	r0, .L115
+ 985 0022 0646     		mov	r6, r0
+ 986 0024 4568     		ldr	r5, [r0, #4]
+ 987 0026 F035     		adds	r5, r5, #240
+ 988 0028 0423     		movs	r3, #4
+ 989 002a 3222     		movs	r2, #50
+ 990 002c 2946     		mov	r1, r5
+ 991 002e BDF80E00 		ldrh	r0, [sp, #14]
+ 992 0032 FFF7FEFF 		bl	dhcp_option
+ 993 0036 8046     		mov	r8, r0
+ 994 0038 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 995 003c E069     		ldr	r0, [r4, #28]
+ 996 003e FFF7FEFF 		bl	lwip_htonl
+ARM GAS  /tmp/ccBmURlm.s 			page 18
+
+
+ 997 0042 0246     		mov	r2, r0
+ 998 0044 2946     		mov	r1, r5
+ 999 0046 4046     		mov	r0, r8
+ 1000 0048 FFF7FEFF 		bl	dhcp_option_long
+ 1001 004c ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 1002 0050 3246     		mov	r2, r6
+ 1003 0052 2946     		mov	r1, r5
+ 1004 0054 FFF7FEFF 		bl	dhcp_option_trailer
+ 1005 0058 0D4B     		ldr	r3, .L117
+ 1006 005a 0193     		str	r3, [sp, #4]
+ 1007 005c 0097     		str	r7, [sp]
+ 1008 005e 4323     		movs	r3, #67
+ 1009 0060 0C4A     		ldr	r2, .L117+4
+ 1010 0062 3146     		mov	r1, r6
+ 1011 0064 0C48     		ldr	r0, .L117+8
+ 1012 0066 0068     		ldr	r0, [r0]
+ 1013 0068 FFF7FEFF 		bl	udp_sendto_if_src
+ 1014 006c 0546     		mov	r5, r0
+ 1015 006e 3046     		mov	r0, r6
+ 1016 0070 FFF7FEFF 		bl	pbuf_free
+ 1017              	.L113:
+ 1018 0074 A379     		ldrb	r3, [r4, #6]	@ zero_extendqisi2
+ 1019 0076 FF2B     		cmp	r3, #255
+ 1020 0078 01D0     		beq	.L114
+ 1021 007a 0133     		adds	r3, r3, #1
+ 1022 007c A371     		strb	r3, [r4, #6]
+ 1023              	.L114:
+ 1024 007e 1423     		movs	r3, #20
+ 1025 0080 2381     		strh	r3, [r4, #8]	@ movhi
+ 1026 0082 2846     		mov	r0, r5
+ 1027 0084 04B0     		add	sp, sp, #16
+ 1028              		@ sp needed
+ 1029 0086 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1030              	.L115:
+ 1031 008a 4FF0FF35 		mov	r5, #-1
+ 1032 008e F1E7     		b	.L113
+ 1033              	.L118:
+ 1034              		.align	2
+ 1035              	.L117:
+ 1036 0090 00000000 		.word	ip_addr_any
+ 1037 0094 00000000 		.word	ip_addr_broadcast
+ 1038 0098 00000000 		.word	.LANCHOR2
+ 1040              		.section	.text.dhcp_check,"ax",%progbits
+ 1041              		.align	1
+ 1042              		.syntax unified
+ 1043              		.thumb
+ 1044              		.thumb_func
+ 1045              		.fpu fpv4-sp-d16
+ 1047              	dhcp_check:
+ 1048              		@ args = 0, pretend = 0, frame = 0
+ 1049              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1050 0000 38B5     		push	{r3, r4, r5, lr}
+ 1051 0002 0546     		mov	r5, r0
+ 1052 0004 446A     		ldr	r4, [r0, #36]
+ 1053 0006 0821     		movs	r1, #8
+ 1054 0008 2046     		mov	r0, r4
+ 1055 000a FFF7FEFF 		bl	dhcp_set_state
+ARM GAS  /tmp/ccBmURlm.s 			page 19
+
+
+ 1056 000e 0022     		movs	r2, #0
+ 1057 0010 04F11C01 		add	r1, r4, #28
+ 1058 0014 2846     		mov	r0, r5
+ 1059 0016 FFF7FEFF 		bl	etharp_query
+ 1060 001a A379     		ldrb	r3, [r4, #6]	@ zero_extendqisi2
+ 1061 001c FF2B     		cmp	r3, #255
+ 1062 001e 01D0     		beq	.L120
+ 1063 0020 0133     		adds	r3, r3, #1
+ 1064 0022 A371     		strb	r3, [r4, #6]
+ 1065              	.L120:
+ 1066 0024 0123     		movs	r3, #1
+ 1067 0026 2381     		strh	r3, [r4, #8]	@ movhi
+ 1068 0028 38BD     		pop	{r3, r4, r5, pc}
+ 1070              		.section	.text.dhcp_bind,"ax",%progbits
+ 1071              		.align	1
+ 1072              		.syntax unified
+ 1073              		.thumb
+ 1074              		.thumb_func
+ 1075              		.fpu fpv4-sp-d16
+ 1077              	dhcp_bind:
+ 1078              		@ args = 0, pretend = 0, frame = 8
+ 1079              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1080 0000 30B5     		push	{r4, r5, lr}
+ 1081 0002 83B0     		sub	sp, sp, #12
+ 1082 0004 0028     		cmp	r0, #0
+ 1083 0006 64D0     		beq	.L145
+ 1084 0008 0546     		mov	r5, r0
+ 1085 000a 446A     		ldr	r4, [r0, #36]
+ 1086 000c 002C     		cmp	r4, #0
+ 1087 000e 68D0     		beq	.L146
+ 1088 0010 0023     		movs	r3, #0
+ 1089 0012 6382     		strh	r3, [r4, #18]	@ movhi
+ 1090 0014 A26A     		ldr	r2, [r4, #40]
+ 1091 0016 B2F1FF3F 		cmp	r2, #-1
+ 1092 001a 0FD0     		beq	.L126
+ 1093 001c 1E32     		adds	r2, r2, #30
+ 1094 001e A3F17733 		sub	r3, r3, #2004318071
+ 1095 0022 A3FB0213 		umull	r1, r3, r3, r2
+ 1096 0026 5B09     		lsrs	r3, r3, #5
+ 1097 0028 B2F5701F 		cmp	r2, #3932160
+ 1098 002c 01D3     		bcc	.L127
+ 1099 002e 4FF6FF73 		movw	r3, #65535
+ 1100              	.L127:
+ 1101 0032 9BB2     		uxth	r3, r3
+ 1102 0034 A382     		strh	r3, [r4, #20]	@ movhi
+ 1103 0036 0BB9     		cbnz	r3, .L126
+ 1104 0038 0123     		movs	r3, #1
+ 1105 003a A382     		strh	r3, [r4, #20]	@ movhi
+ 1106              	.L126:
+ 1107 003c E26A     		ldr	r2, [r4, #44]
+ 1108 003e B2F1FF3F 		cmp	r2, #-1
+ 1109 0042 10D0     		beq	.L128
+ 1110 0044 1E32     		adds	r2, r2, #30
+ 1111 0046 334B     		ldr	r3, .L147
+ 1112 0048 A3FB0213 		umull	r1, r3, r3, r2
+ 1113 004c 5B09     		lsrs	r3, r3, #5
+ 1114 004e B2F5701F 		cmp	r2, #3932160
+ARM GAS  /tmp/ccBmURlm.s 			page 20
+
+
+ 1115 0052 01D3     		bcc	.L129
+ 1116 0054 4FF6FF73 		movw	r3, #65535
+ 1117              	.L129:
+ 1118 0058 9BB2     		uxth	r3, r3
+ 1119 005a 6381     		strh	r3, [r4, #10]	@ movhi
+ 1120 005c 0BB9     		cbnz	r3, .L130
+ 1121 005e 0123     		movs	r3, #1
+ 1122 0060 6381     		strh	r3, [r4, #10]	@ movhi
+ 1123              	.L130:
+ 1124 0062 6389     		ldrh	r3, [r4, #10]
+ 1125 0064 E381     		strh	r3, [r4, #14]	@ movhi
+ 1126              	.L128:
+ 1127 0066 226B     		ldr	r2, [r4, #48]
+ 1128 0068 B2F1FF3F 		cmp	r2, #-1
+ 1129 006c 10D0     		beq	.L131
+ 1130 006e 1E32     		adds	r2, r2, #30
+ 1131 0070 284B     		ldr	r3, .L147
+ 1132 0072 A3FB0213 		umull	r1, r3, r3, r2
+ 1133 0076 5B09     		lsrs	r3, r3, #5
+ 1134 0078 B2F5701F 		cmp	r2, #3932160
+ 1135 007c 01D3     		bcc	.L132
+ 1136 007e 4FF6FF73 		movw	r3, #65535
+ 1137              	.L132:
+ 1138 0082 9BB2     		uxth	r3, r3
+ 1139 0084 A381     		strh	r3, [r4, #12]	@ movhi
+ 1140 0086 0BB9     		cbnz	r3, .L133
+ 1141 0088 0123     		movs	r3, #1
+ 1142 008a A381     		strh	r3, [r4, #12]	@ movhi
+ 1143              	.L133:
+ 1144 008c A389     		ldrh	r3, [r4, #12]
+ 1145 008e 2382     		strh	r3, [r4, #16]	@ movhi
+ 1146              	.L131:
+ 1147 0090 6289     		ldrh	r2, [r4, #10]
+ 1148 0092 A389     		ldrh	r3, [r4, #12]
+ 1149 0094 9A42     		cmp	r2, r3
+ 1150 0096 02D3     		bcc	.L134
+ 1151 0098 0BB1     		cbz	r3, .L134
+ 1152 009a 0023     		movs	r3, #0
+ 1153 009c 6381     		strh	r3, [r4, #10]	@ movhi
+ 1154              	.L134:
+ 1155 009e E379     		ldrb	r3, [r4, #7]	@ zero_extendqisi2
+ 1156 00a0 3BB3     		cbz	r3, .L135
+ 1157 00a2 236A     		ldr	r3, [r4, #32]
+ 1158 00a4 0193     		str	r3, [sp, #4]
+ 1159              	.L136:
+ 1160 00a6 636A     		ldr	r3, [r4, #36]
+ 1161 00a8 0093     		str	r3, [sp]
+ 1162 00aa 2BB9     		cbnz	r3, .L139
+ 1163 00ac E369     		ldr	r3, [r4, #28]
+ 1164 00ae 019A     		ldr	r2, [sp, #4]
+ 1165 00b0 1340     		ands	r3, r3, r2
+ 1166 00b2 43F08073 		orr	r3, r3, #16777216
+ 1167 00b6 0093     		str	r3, [sp]
+ 1168              	.L139:
+ 1169 00b8 0A21     		movs	r1, #10
+ 1170 00ba 2046     		mov	r0, r4
+ 1171 00bc FFF7FEFF 		bl	dhcp_set_state
+ARM GAS  /tmp/ccBmURlm.s 			page 21
+
+
+ 1172 00c0 6B46     		mov	r3, sp
+ 1173 00c2 01AA     		add	r2, sp, #4
+ 1174 00c4 04F11C01 		add	r1, r4, #28
+ 1175 00c8 2846     		mov	r0, r5
+ 1176 00ca FFF7FEFF 		bl	netif_set_addr
+ 1177              	.L122:
+ 1178 00ce 03B0     		add	sp, sp, #12
+ 1179              		@ sp needed
+ 1180 00d0 30BD     		pop	{r4, r5, pc}
+ 1181              	.L145:
+ 1182 00d2 114B     		ldr	r3, .L147+4
+ 1183 00d4 40F21542 		movw	r2, #1045
+ 1184 00d8 1049     		ldr	r1, .L147+8
+ 1185 00da 1148     		ldr	r0, .L147+12
+ 1186 00dc FFF7FEFF 		bl	printf
+ 1187 00e0 F5E7     		b	.L122
+ 1188              	.L146:
+ 1189 00e2 0D4B     		ldr	r3, .L147+4
+ 1190 00e4 40F21742 		movw	r2, #1047
+ 1191 00e8 0E49     		ldr	r1, .L147+16
+ 1192 00ea 0D48     		ldr	r0, .L147+12
+ 1193 00ec FFF7FEFF 		bl	printf
+ 1194 00f0 EDE7     		b	.L122
+ 1195              	.L135:
+ 1196 00f2 237F     		ldrb	r3, [r4, #28]	@ zero_extendqisi2
+ 1197 00f4 13F0800F 		tst	r3, #128
+ 1198 00f8 02D1     		bne	.L137
+ 1199 00fa FF23     		movs	r3, #255
+ 1200 00fc 0193     		str	r3, [sp, #4]
+ 1201 00fe D2E7     		b	.L136
+ 1202              	.L137:
+ 1203 0100 BF2B     		cmp	r3, #191
+ 1204 0102 03D9     		bls	.L138
+ 1205 0104 6FF07F43 		mvn	r3, #-16777216
+ 1206 0108 0193     		str	r3, [sp, #4]
+ 1207 010a CCE7     		b	.L136
+ 1208              	.L138:
+ 1209 010c 4FF6FF73 		movw	r3, #65535
+ 1210 0110 0193     		str	r3, [sp, #4]
+ 1211 0112 C8E7     		b	.L136
+ 1212              	.L148:
+ 1213              		.align	2
+ 1214              	.L147:
+ 1215 0114 89888888 		.word	-2004318071
+ 1216 0118 00000000 		.word	.LC0
+ 1217 011c 00000000 		.word	.LC11
+ 1218 0120 70000000 		.word	.LC2
+ 1219 0124 1C000000 		.word	.LC12
+ 1221              		.section	.text.dhcp_handle_nak,"ax",%progbits
+ 1222              		.align	1
+ 1223              		.syntax unified
+ 1224              		.thumb
+ 1225              		.thumb_func
+ 1226              		.fpu fpv4-sp-d16
+ 1228              	dhcp_handle_nak:
+ 1229              		@ args = 0, pretend = 0, frame = 0
+ 1230              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccBmURlm.s 			page 22
+
+
+ 1231 0000 10B5     		push	{r4, lr}
+ 1232 0002 0446     		mov	r4, r0
+ 1233 0004 0C21     		movs	r1, #12
+ 1234 0006 406A     		ldr	r0, [r0, #36]
+ 1235 0008 FFF7FEFF 		bl	dhcp_set_state
+ 1236 000c 0449     		ldr	r1, .L151
+ 1237 000e 0B46     		mov	r3, r1
+ 1238 0010 0A46     		mov	r2, r1
+ 1239 0012 2046     		mov	r0, r4
+ 1240 0014 FFF7FEFF 		bl	netif_set_addr
+ 1241 0018 2046     		mov	r0, r4
+ 1242 001a FFF7FEFF 		bl	dhcp_discover
+ 1243 001e 10BD     		pop	{r4, pc}
+ 1244              	.L152:
+ 1245              		.align	2
+ 1246              	.L151:
+ 1247 0020 00000000 		.word	ip_addr_any
+ 1249              		.section	.text.dhcp_dec_pcb_refcount,"ax",%progbits
+ 1250              		.align	1
+ 1251              		.syntax unified
+ 1252              		.thumb
+ 1253              		.thumb_func
+ 1254              		.fpu fpv4-sp-d16
+ 1256              	dhcp_dec_pcb_refcount:
+ 1257              		@ args = 0, pretend = 0, frame = 0
+ 1258              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1259 0000 10B5     		push	{r4, lr}
+ 1260 0002 0C4B     		ldr	r3, .L159
+ 1261 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1262 0006 33B1     		cbz	r3, .L157
+ 1263              	.L154:
+ 1264 0008 0A4A     		ldr	r2, .L159
+ 1265 000a 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 1266 000c 013B     		subs	r3, r3, #1
+ 1267 000e DBB2     		uxtb	r3, r3
+ 1268 0010 1370     		strb	r3, [r2]
+ 1269 0012 3BB1     		cbz	r3, .L158
+ 1270              	.L153:
+ 1271 0014 10BD     		pop	{r4, pc}
+ 1272              	.L157:
+ 1273 0016 084B     		ldr	r3, .L159+4
+ 1274 0018 FF22     		movs	r2, #255
+ 1275 001a 0849     		ldr	r1, .L159+8
+ 1276 001c 0848     		ldr	r0, .L159+12
+ 1277 001e FFF7FEFF 		bl	printf
+ 1278 0022 F1E7     		b	.L154
+ 1279              	.L158:
+ 1280 0024 074C     		ldr	r4, .L159+16
+ 1281 0026 2068     		ldr	r0, [r4]
+ 1282 0028 FFF7FEFF 		bl	udp_remove
+ 1283 002c 0023     		movs	r3, #0
+ 1284 002e 2360     		str	r3, [r4]
+ 1285 0030 F0E7     		b	.L153
+ 1286              	.L160:
+ 1287 0032 00BF     		.align	2
+ 1288              	.L159:
+ 1289 0034 00000000 		.word	.LANCHOR3
+ARM GAS  /tmp/ccBmURlm.s 			page 23
+
+
+ 1290 0038 00000000 		.word	.LC0
+ 1291 003c 00000000 		.word	.LC13
+ 1292 0040 70000000 		.word	.LC2
+ 1293 0044 00000000 		.word	.LANCHOR2
+ 1295              		.section	.text.dhcp_inc_pcb_refcount,"ax",%progbits
+ 1296              		.align	1
+ 1297              		.syntax unified
+ 1298              		.thumb
+ 1299              		.thumb_func
+ 1300              		.fpu fpv4-sp-d16
+ 1302              	dhcp_inc_pcb_refcount:
+ 1303              		@ args = 0, pretend = 0, frame = 0
+ 1304              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1305 0000 38B5     		push	{r3, r4, r5, lr}
+ 1306 0002 174B     		ldr	r3, .L167
+ 1307 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1308 0006 0BBB     		cbnz	r3, .L162
+ 1309 0008 164B     		ldr	r3, .L167+4
+ 1310 000a 1B68     		ldr	r3, [r3]
+ 1311 000c 2BB1     		cbz	r3, .L163
+ 1312 000e 164B     		ldr	r3, .L167+8
+ 1313 0010 E522     		movs	r2, #229
+ 1314 0012 1649     		ldr	r1, .L167+12
+ 1315 0014 1648     		ldr	r0, .L167+16
+ 1316 0016 FFF7FEFF 		bl	printf
+ 1317              	.L163:
+ 1318 001a FFF7FEFF 		bl	udp_new
+ 1319 001e 114B     		ldr	r3, .L167+4
+ 1320 0020 1860     		str	r0, [r3]
+ 1321 0022 C8B1     		cbz	r0, .L165
+ 1322 0024 437A     		ldrb	r3, [r0, #9]	@ zero_extendqisi2
+ 1323 0026 43F02003 		orr	r3, r3, #32
+ 1324 002a 4372     		strb	r3, [r0, #9]
+ 1325 002c 114D     		ldr	r5, .L167+20
+ 1326 002e 4422     		movs	r2, #68
+ 1327 0030 2946     		mov	r1, r5
+ 1328 0032 FFF7FEFF 		bl	udp_bind
+ 1329 0036 0B4C     		ldr	r4, .L167+4
+ 1330 0038 4322     		movs	r2, #67
+ 1331 003a 2946     		mov	r1, r5
+ 1332 003c 2068     		ldr	r0, [r4]
+ 1333 003e FFF7FEFF 		bl	udp_connect
+ 1334 0042 0022     		movs	r2, #0
+ 1335 0044 0C49     		ldr	r1, .L167+24
+ 1336 0046 2068     		ldr	r0, [r4]
+ 1337 0048 FFF7FEFF 		bl	udp_recv
+ 1338              	.L162:
+ 1339 004c 044A     		ldr	r2, .L167
+ 1340 004e 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 1341 0050 0133     		adds	r3, r3, #1
+ 1342 0052 1370     		strb	r3, [r2]
+ 1343 0054 0020     		movs	r0, #0
+ 1344              	.L164:
+ 1345 0056 38BD     		pop	{r3, r4, r5, pc}
+ 1346              	.L165:
+ 1347 0058 4FF0FF30 		mov	r0, #-1
+ 1348 005c FBE7     		b	.L164
+ARM GAS  /tmp/ccBmURlm.s 			page 24
+
+
+ 1349              	.L168:
+ 1350 005e 00BF     		.align	2
+ 1351              	.L167:
+ 1352 0060 00000000 		.word	.LANCHOR3
+ 1353 0064 00000000 		.word	.LANCHOR2
+ 1354 0068 00000000 		.word	.LC0
+ 1355 006c 00000000 		.word	.LC14
+ 1356 0070 70000000 		.word	.LC2
+ 1357 0074 00000000 		.word	ip_addr_any
+ 1358 0078 00000000 		.word	dhcp_recv
+ 1360              		.section	.text.dhcp_parse_reply,"ax",%progbits
+ 1361              		.align	1
+ 1362              		.syntax unified
+ 1363              		.thumb
+ 1364              		.thumb_func
+ 1365              		.fpu fpv4-sp-d16
+ 1367              	dhcp_parse_reply:
+ 1368              		@ args = 0, pretend = 0, frame = 24
+ 1369              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1370 0000 C04B     		ldr	r3, .L254
+ 1371 0002 0022     		movs	r2, #0
+ 1372 0004 1A60     		str	r2, [r3]	@ unaligned
+ 1373 0006 5A60     		str	r2, [r3, #4]	@ unaligned
+ 1374 0008 1A81     		strh	r2, [r3, #8]	@ unaligned
+ 1375 000a 4389     		ldrh	r3, [r0, #10]
+ 1376 000c 2B2B     		cmp	r3, #43
+ 1377 000e 40F23C82 		bls	.L210
+ 1378 0012 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 1379 0016 87B0     		sub	sp, sp, #28
+ 1380 0018 0290     		str	r0, [sp, #8]
+ 1381 001a 0489     		ldrh	r4, [r0, #8]
+ 1382 001c 0392     		str	r2, [sp, #12]
+ 1383 001e 4FF0F00B 		mov	fp, #240
+ 1384              	.L171:
+ 1385 0022 029E     		ldr	r6, [sp, #8]
+ 1386              	.L173:
+ 1387 0024 56B1     		cbz	r6, .L174
+ 1388 0026 7389     		ldrh	r3, [r6, #10]
+ 1389 0028 5B45     		cmp	r3, fp
+ 1390 002a 07D8     		bhi	.L174
+ 1391 002c ABEB030B 		sub	fp, fp, r3
+ 1392 0030 1FFA8BFB 		uxth	fp, fp
+ 1393 0034 E41A     		subs	r4, r4, r3
+ 1394 0036 A4B2     		uxth	r4, r4
+ 1395 0038 3668     		ldr	r6, [r6]
+ 1396 003a F3E7     		b	.L173
+ 1397              	.L174:
+ 1398 003c 002E     		cmp	r6, #0
+ 1399 003e 00F02782 		beq	.L211
+ 1400 0042 7368     		ldr	r3, [r6, #4]
+ 1401 0044 0193     		str	r3, [sp, #4]
+ 1402 0046 5D46     		mov	r5, fp
+ 1403 0048 1FE0     		b	.L176
+ 1404              	.L177:
+ 1405 004a 3368     		ldr	r3, [r6]
+ 1406 004c 13B1     		cbz	r3, .L213
+ 1407 004e 5B68     		ldr	r3, [r3, #4]
+ARM GAS  /tmp/ccBmURlm.s 			page 25
+
+
+ 1408 0050 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1409 0052 35E0     		b	.L178
+ 1410              	.L213:
+ 1411 0054 0023     		movs	r3, #0
+ 1412 0056 33E0     		b	.L178
+ 1413              	.L190:
+ 1414 0058 1746     		mov	r7, r2
+ 1415 005a 1346     		mov	r3, r2
+ 1416 005c 4FF0FF39 		mov	r9, #-1
+ 1417              	.L179:
+ 1418 0060 002A     		cmp	r2, #0
+ 1419 0062 40F06D81 		bne	.L193
+ 1420 0066 0135     		adds	r5, r5, #1
+ 1421 0068 ADB2     		uxth	r5, r5
+ 1422              	.L194:
+ 1423 006a 7389     		ldrh	r3, [r6, #10]
+ 1424 006c AB42     		cmp	r3, r5
+ 1425 006e 0CD8     		bhi	.L176
+ 1426 0070 ED1A     		subs	r5, r5, r3
+ 1427 0072 ADB2     		uxth	r5, r5
+ 1428 0074 E41A     		subs	r4, r4, r3
+ 1429 0076 A4B2     		uxth	r4, r4
+ 1430 0078 A542     		cmp	r5, r4
+ 1431 007a 80F01282 		bcs	.L227
+ 1432 007e 3668     		ldr	r6, [r6]
+ 1433 0080 002E     		cmp	r6, #0
+ 1434 0082 00F0D781 		beq	.L236
+ 1435 0086 7368     		ldr	r3, [r6, #4]
+ 1436 0088 0193     		str	r3, [sp, #4]
+ 1437              	.L176:
+ 1438 008a 002E     		cmp	r6, #0
+ 1439 008c 00F0DC81 		beq	.L206
+ 1440 0090 A542     		cmp	r5, r4
+ 1441 0092 80F0D981 		bcs	.L206
+ 1442 0096 2946     		mov	r1, r5
+ 1443 0098 019B     		ldr	r3, [sp, #4]
+ 1444 009a 5A5D     		ldrb	r2, [r3, r5]	@ zero_extendqisi2
+ 1445 009c FF2A     		cmp	r2, #255
+ 1446 009e 00F0D381 		beq	.L206
+ 1447 00a2 05F10208 		add	r8, r5, #2
+ 1448 00a6 1FFA88F8 		uxth	r8, r8
+ 1449 00aa 4545     		cmp	r5, r8
+ 1450 00ac 00F2F381 		bhi	.L212
+ 1451 00b0 2846     		mov	r0, r5
+ 1452 00b2 6B1C     		adds	r3, r5, #1
+ 1453 00b4 7789     		ldrh	r7, [r6, #10]
+ 1454 00b6 BB42     		cmp	r3, r7
+ 1455 00b8 C7DA     		bge	.L177
+ 1456 00ba 0131     		adds	r1, r1, #1
+ 1457 00bc 019B     		ldr	r3, [sp, #4]
+ 1458 00be 5B5C     		ldrb	r3, [r3, r1]	@ zero_extendqisi2
+ 1459              	.L178:
+ 1460 00c0 3B2A     		cmp	r2, #59
+ 1461 00c2 00F23981 		bhi	.L214
+ 1462 00c6 01A1     		adr	r1, .L181
+ 1463 00c8 51F822F0 		ldr	pc, [r1, r2, lsl #2]
+ 1464              		.p2align 2
+ARM GAS  /tmp/ccBmURlm.s 			page 26
+
+
+ 1465              	.L181:
+ 1466 00cc 59000000 		.word	.L190+1
+ 1467 00d0 BD010000 		.word	.L189+1
+ 1468 00d4 39030000 		.word	.L214+1
+ 1469 00d8 DD010000 		.word	.L188+1
+ 1470 00dc 39030000 		.word	.L214+1
+ 1471 00e0 39030000 		.word	.L214+1
+ 1472 00e4 FD010000 		.word	.L187+1
+ 1473 00e8 39030000 		.word	.L214+1
+ 1474 00ec 39030000 		.word	.L214+1
+ 1475 00f0 39030000 		.word	.L214+1
+ 1476 00f4 39030000 		.word	.L214+1
+ 1477 00f8 39030000 		.word	.L214+1
+ 1478 00fc 39030000 		.word	.L214+1
+ 1479 0100 39030000 		.word	.L214+1
+ 1480 0104 39030000 		.word	.L214+1
+ 1481 0108 39030000 		.word	.L214+1
+ 1482 010c 39030000 		.word	.L214+1
+ 1483 0110 39030000 		.word	.L214+1
+ 1484 0114 39030000 		.word	.L214+1
+ 1485 0118 39030000 		.word	.L214+1
+ 1486 011c 39030000 		.word	.L214+1
+ 1487 0120 39030000 		.word	.L214+1
+ 1488 0124 39030000 		.word	.L214+1
+ 1489 0128 39030000 		.word	.L214+1
+ 1490 012c 39030000 		.word	.L214+1
+ 1491 0130 39030000 		.word	.L214+1
+ 1492 0134 39030000 		.word	.L214+1
+ 1493 0138 39030000 		.word	.L214+1
+ 1494 013c 39030000 		.word	.L214+1
+ 1495 0140 39030000 		.word	.L214+1
+ 1496 0144 39030000 		.word	.L214+1
+ 1497 0148 39030000 		.word	.L214+1
+ 1498 014c 39030000 		.word	.L214+1
+ 1499 0150 39030000 		.word	.L214+1
+ 1500 0154 39030000 		.word	.L214+1
+ 1501 0158 39030000 		.word	.L214+1
+ 1502 015c 39030000 		.word	.L214+1
+ 1503 0160 39030000 		.word	.L214+1
+ 1504 0164 39030000 		.word	.L214+1
+ 1505 0168 39030000 		.word	.L214+1
+ 1506 016c 39030000 		.word	.L214+1
+ 1507 0170 39030000 		.word	.L214+1
+ 1508 0174 39030000 		.word	.L214+1
+ 1509 0178 39030000 		.word	.L214+1
+ 1510 017c 39030000 		.word	.L214+1
+ 1511 0180 39030000 		.word	.L214+1
+ 1512 0184 39030000 		.word	.L214+1
+ 1513 0188 39030000 		.word	.L214+1
+ 1514 018c 39030000 		.word	.L214+1
+ 1515 0190 39030000 		.word	.L214+1
+ 1516 0194 39030000 		.word	.L214+1
+ 1517 0198 3F020000 		.word	.L186+1
+ 1518 019c 5F020000 		.word	.L185+1
+ 1519 01a0 99020000 		.word	.L184+1
+ 1520 01a4 B9020000 		.word	.L183+1
+ 1521 01a8 39030000 		.word	.L214+1
+ARM GAS  /tmp/ccBmURlm.s 			page 27
+
+
+ 1522 01ac 39030000 		.word	.L214+1
+ 1523 01b0 39030000 		.word	.L214+1
+ 1524 01b4 D9020000 		.word	.L182+1
+ 1525 01b8 F9020000 		.word	.L180+1
+ 1526              		.p2align 1
+ 1527              	.L189:
+ 1528 01bc 042B     		cmp	r3, #4
+ 1529 01be 03D1     		bne	.L237
+ 1530 01c0 1F46     		mov	r7, r3
+ 1531 01c2 4FF00609 		mov	r9, #6
+ 1532 01c6 4BE7     		b	.L179
+ 1533              	.L237:
+ 1534 01c8 4F4B     		ldr	r3, .L254+4
+ 1535 01ca 40F22E62 		movw	r2, #1582
+ 1536 01ce 4F49     		ldr	r1, .L254+8
+ 1537 01d0 4F48     		ldr	r0, .L254+12
+ 1538 01d2 FFF7FEFF 		bl	printf
+ 1539 01d6 6FF00500 		mvn	r0, #5
+ 1540 01da 25E1     		b	.L170
+ 1541              	.L188:
+ 1542 01dc 032B     		cmp	r3, #3
+ 1543 01de 03D9     		bls	.L238
+ 1544 01e0 4FF00709 		mov	r9, #7
+ 1545 01e4 0427     		movs	r7, #4
+ 1546 01e6 3BE7     		b	.L179
+ 1547              	.L238:
+ 1548 01e8 474B     		ldr	r3, .L254+4
+ 1549 01ea 40F23362 		movw	r2, #1587
+ 1550 01ee 4949     		ldr	r1, .L254+16
+ 1551 01f0 4748     		ldr	r0, .L254+12
+ 1552 01f2 FFF7FEFF 		bl	printf
+ 1553 01f6 6FF00500 		mvn	r0, #5
+ 1554 01fa 15E1     		b	.L170
+ 1555              	.L187:
+ 1556 01fc 13F0030F 		tst	r3, #3
+ 1557 0200 09D1     		bne	.L239
+ 1558 0202 1F46     		mov	r7, r3
+ 1559 0204 082B     		cmp	r3, #8
+ 1560 0206 28BF     		it	cs
+ 1561 0208 0827     		movcs	r7, #8
+ 1562 020a FFB2     		uxtb	r7, r7
+ 1563 020c BB42     		cmp	r3, r7
+ 1564 020e 0CD3     		bcc	.L240
+ 1565 0210 4FF00809 		mov	r9, #8
+ 1566 0214 24E7     		b	.L179
+ 1567              	.L239:
+ 1568 0216 3C4B     		ldr	r3, .L254+4
+ 1569 0218 40F23962 		movw	r2, #1593
+ 1570 021c 3E49     		ldr	r1, .L254+20
+ 1571 021e 3C48     		ldr	r0, .L254+12
+ 1572 0220 FFF7FEFF 		bl	printf
+ 1573 0224 6FF00500 		mvn	r0, #5
+ 1574 0228 FEE0     		b	.L170
+ 1575              	.L240:
+ 1576 022a 374B     		ldr	r3, .L254+4
+ 1577 022c 40F23C62 		movw	r2, #1596
+ 1578 0230 3849     		ldr	r1, .L254+16
+ARM GAS  /tmp/ccBmURlm.s 			page 28
+
+
+ 1579 0232 3748     		ldr	r0, .L254+12
+ 1580 0234 FFF7FEFF 		bl	printf
+ 1581 0238 6FF00500 		mvn	r0, #5
+ 1582 023c F4E0     		b	.L170
+ 1583              	.L186:
+ 1584 023e 042B     		cmp	r3, #4
+ 1585 0240 03D1     		bne	.L241
+ 1586 0242 1F46     		mov	r7, r3
+ 1587 0244 4FF00309 		mov	r9, #3
+ 1588 0248 0AE7     		b	.L179
+ 1589              	.L241:
+ 1590 024a 2F4B     		ldr	r3, .L254+4
+ 1591 024c 40F24162 		movw	r2, #1601
+ 1592 0250 2E49     		ldr	r1, .L254+8
+ 1593 0252 2F48     		ldr	r0, .L254+12
+ 1594 0254 FFF7FEFF 		bl	printf
+ 1595 0258 6FF00500 		mvn	r0, #5
+ 1596 025c E4E0     		b	.L170
+ 1597              	.L185:
+ 1598 025e 012B     		cmp	r3, #1
+ 1599 0260 06D1     		bne	.L242
+ 1600 0262 BBF1F00F 		cmp	fp, #240
+ 1601 0266 0DD1     		bne	.L243
+ 1602 0268 1F46     		mov	r7, r3
+ 1603 026a 4FF00009 		mov	r9, #0
+ 1604 026e F7E6     		b	.L179
+ 1605              	.L242:
+ 1606 0270 254B     		ldr	r3, .L254+4
+ 1607 0272 40F24F62 		movw	r2, #1615
+ 1608 0276 2949     		ldr	r1, .L254+24
+ 1609 0278 2548     		ldr	r0, .L254+12
+ 1610 027a FFF7FEFF 		bl	printf
+ 1611 027e 6FF00500 		mvn	r0, #5
+ 1612 0282 D1E0     		b	.L170
+ 1613              	.L243:
+ 1614 0284 204B     		ldr	r3, .L254+4
+ 1615 0286 40F25162 		movw	r2, #1617
+ 1616 028a 2549     		ldr	r1, .L254+28
+ 1617 028c 2048     		ldr	r0, .L254+12
+ 1618 028e FFF7FEFF 		bl	printf
+ 1619 0292 6FF00500 		mvn	r0, #5
+ 1620 0296 C7E0     		b	.L170
+ 1621              	.L184:
+ 1622 0298 012B     		cmp	r3, #1
+ 1623 029a 03D1     		bne	.L244
+ 1624 029c 1F46     		mov	r7, r3
+ 1625 029e 4FF00109 		mov	r9, #1
+ 1626 02a2 DDE6     		b	.L179
+ 1627              	.L244:
+ 1628 02a4 184B     		ldr	r3, .L254+4
+ 1629 02a6 40F25562 		movw	r2, #1621
+ 1630 02aa 1C49     		ldr	r1, .L254+24
+ 1631 02ac 1848     		ldr	r0, .L254+12
+ 1632 02ae FFF7FEFF 		bl	printf
+ 1633 02b2 6FF00500 		mvn	r0, #5
+ 1634 02b6 B7E0     		b	.L170
+ 1635              	.L183:
+ARM GAS  /tmp/ccBmURlm.s 			page 29
+
+
+ 1636 02b8 042B     		cmp	r3, #4
+ 1637 02ba 03D1     		bne	.L245
+ 1638 02bc 1F46     		mov	r7, r3
+ 1639 02be 4FF00209 		mov	r9, #2
+ 1640 02c2 CDE6     		b	.L179
+ 1641              	.L245:
+ 1642 02c4 104B     		ldr	r3, .L254+4
+ 1643 02c6 40F25962 		movw	r2, #1625
+ 1644 02ca 1049     		ldr	r1, .L254+8
+ 1645 02cc 1048     		ldr	r0, .L254+12
+ 1646 02ce FFF7FEFF 		bl	printf
+ 1647 02d2 6FF00500 		mvn	r0, #5
+ 1648 02d6 A7E0     		b	.L170
+ 1649              	.L182:
+ 1650 02d8 042B     		cmp	r3, #4
+ 1651 02da 03D1     		bne	.L246
+ 1652 02dc 1F46     		mov	r7, r3
+ 1653 02de 4FF00409 		mov	r9, #4
+ 1654 02e2 BDE6     		b	.L179
+ 1655              	.L246:
+ 1656 02e4 084B     		ldr	r3, .L254+4
+ 1657 02e6 40F25D62 		movw	r2, #1629
+ 1658 02ea 0849     		ldr	r1, .L254+8
+ 1659 02ec 0848     		ldr	r0, .L254+12
+ 1660 02ee FFF7FEFF 		bl	printf
+ 1661 02f2 6FF00500 		mvn	r0, #5
+ 1662 02f6 97E0     		b	.L170
+ 1663              	.L180:
+ 1664 02f8 042B     		cmp	r3, #4
+ 1665 02fa 13D1     		bne	.L247
+ 1666 02fc 1F46     		mov	r7, r3
+ 1667 02fe 4FF00509 		mov	r9, #5
+ 1668 0302 ADE6     		b	.L179
+ 1669              	.L255:
+ 1670              		.align	2
+ 1671              	.L254:
+ 1672 0304 00000000 		.word	dhcp_rx_options_given
+ 1673 0308 00000000 		.word	.LC0
+ 1674 030c 00000000 		.word	.LC15
+ 1675 0310 70000000 		.word	.LC2
+ 1676 0314 0C000000 		.word	.LC16
+ 1677 0318 20000000 		.word	.LC17
+ 1678 031c 30000000 		.word	.LC18
+ 1679 0320 3C000000 		.word	.LC19
+ 1680              	.L247:
+ 1681 0324 604B     		ldr	r3, .L256
+ 1682 0326 40F26162 		movw	r2, #1633
+ 1683 032a 6049     		ldr	r1, .L256+4
+ 1684 032c 6048     		ldr	r0, .L256+8
+ 1685 032e FFF7FEFF 		bl	printf
+ 1686 0332 6FF00500 		mvn	r0, #5
+ 1687 0336 77E0     		b	.L170
+ 1688              	.L214:
+ 1689 0338 4FF0FF39 		mov	r9, #-1
+ 1690 033c 0027     		movs	r7, #0
+ 1691 033e 8FE6     		b	.L179
+ 1692              	.L193:
+ARM GAS  /tmp/ccBmURlm.s 			page 30
+
+
+ 1693 0340 1844     		add	r0, r0, r3
+ 1694 0342 4FF6FD72 		movw	r2, #65533
+ 1695 0346 9042     		cmp	r0, r2
+ 1696 0348 00F3A880 		bgt	.L224
+ 1697 034c 1D44     		add	r5, r5, r3
+ 1698 034e ADB2     		uxth	r5, r5
+ 1699 0350 0235     		adds	r5, r5, #2
+ 1700 0352 ADB2     		uxth	r5, r5
+ 1701 0354 002F     		cmp	r7, #0
+ 1702 0356 3FF488AE 		beq	.L194
+ 1703 035a 0023     		movs	r3, #0
+ 1704 035c 0593     		str	r3, [sp, #20]
+ 1705 035e 34E0     		b	.L195
+ 1706              	.L249:
+ 1707 0360 514B     		ldr	r3, .L256
+ 1708 0362 4FF4CF62 		mov	r2, #1656
+ 1709 0366 5349     		ldr	r1, .L256+12
+ 1710 0368 5148     		ldr	r0, .L256+8
+ 1711 036a FFF7FEFF 		bl	printf
+ 1712              	.L196:
+ 1713 036e 524B     		ldr	r3, .L256+16
+ 1714 0370 13F80930 		ldrb	r3, [r3, r9]	@ zero_extendqisi2
+ 1715 0374 002B     		cmp	r3, #0
+ 1716 0376 7FF478AE 		bne	.L194
+ 1717 037a BA46     		mov	r10, r7
+ 1718 037c 042F     		cmp	r7, #4
+ 1719 037e 28BF     		it	cs
+ 1720 0380 4FF0040A 		movcs	r10, #4
+ 1721 0384 5FFA8AFA 		uxtb	r10, r10
+ 1722 0388 4346     		mov	r3, r8
+ 1723 038a 5246     		mov	r2, r10
+ 1724 038c 05A9     		add	r1, sp, #20
+ 1725 038e 3046     		mov	r0, r6
+ 1726 0390 FFF7FEFF 		bl	pbuf_copy_partial
+ 1727 0394 5045     		cmp	r0, r10
+ 1728 0396 45D1     		bne	.L225
+ 1729 0398 042F     		cmp	r7, #4
+ 1730 039a 24D9     		bls	.L199
+ 1731 039c 17F0030F 		tst	r7, #3
+ 1732 03a0 17D1     		bne	.L248
+ 1733 03a2 454B     		ldr	r3, .L256+16
+ 1734 03a4 0122     		movs	r2, #1
+ 1735 03a6 03F80920 		strb	r2, [r3, r9]
+ 1736 03aa 0598     		ldr	r0, [sp, #20]
+ 1737 03ac FFF7FEFF 		bl	lwip_htonl
+ 1738 03b0 424B     		ldr	r3, .L256+20
+ 1739 03b2 43F82900 		str	r0, [r3, r9, lsl #2]
+ 1740 03b6 043F     		subs	r7, r7, #4
+ 1741 03b8 FFB2     		uxtb	r7, r7
+ 1742 03ba 08F10403 		add	r3, r8, #4
+ 1743 03be 9BB2     		uxth	r3, r3
+ 1744 03c0 9845     		cmp	r8, r3
+ 1745 03c2 34D8     		bhi	.L226
+ 1746 03c4 09F10109 		add	r9, r9, #1
+ 1747 03c8 9846     		mov	r8, r3
+ 1748              	.L195:
+ 1749 03ca B9F1090F 		cmp	r9, #9
+ARM GAS  /tmp/ccBmURlm.s 			page 31
+
+
+ 1750 03ce CED9     		bls	.L196
+ 1751 03d0 C6E7     		b	.L249
+ 1752              	.L248:
+ 1753 03d2 354B     		ldr	r3, .L256
+ 1754 03d4 40F28162 		movw	r2, #1665
+ 1755 03d8 3949     		ldr	r1, .L256+24
+ 1756 03da 3548     		ldr	r0, .L256+8
+ 1757 03dc FFF7FEFF 		bl	printf
+ 1758 03e0 6FF00500 		mvn	r0, #5
+ 1759 03e4 20E0     		b	.L170
+ 1760              	.L199:
+ 1761 03e6 042F     		cmp	r7, #4
+ 1762 03e8 0DD0     		beq	.L250
+ 1763 03ea 012F     		cmp	r7, #1
+ 1764 03ec 10D1     		bne	.L251
+ 1765 03ee 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 1766 03f2 0593     		str	r3, [sp, #20]
+ 1767              	.L202:
+ 1768 03f4 304B     		ldr	r3, .L256+16
+ 1769 03f6 0122     		movs	r2, #1
+ 1770 03f8 03F80920 		strb	r2, [r3, r9]
+ 1771 03fc 2F4B     		ldr	r3, .L256+20
+ 1772 03fe 059A     		ldr	r2, [sp, #20]
+ 1773 0400 43F82920 		str	r2, [r3, r9, lsl #2]
+ 1774 0404 31E6     		b	.L194
+ 1775              	.L250:
+ 1776 0406 0598     		ldr	r0, [sp, #20]
+ 1777 0408 FFF7FEFF 		bl	lwip_htonl
+ 1778 040c 0590     		str	r0, [sp, #20]
+ 1779 040e F1E7     		b	.L202
+ 1780              	.L251:
+ 1781 0410 254B     		ldr	r3, .L256
+ 1782 0412 4FF4D262 		mov	r2, #1680
+ 1783 0416 2B49     		ldr	r1, .L256+28
+ 1784 0418 2548     		ldr	r0, .L256+8
+ 1785 041a FFF7FEFF 		bl	printf
+ 1786 041e 6FF00500 		mvn	r0, #5
+ 1787 0422 01E0     		b	.L170
+ 1788              	.L225:
+ 1789 0424 6FF00100 		mvn	r0, #1
+ 1790              	.L170:
+ 1791 0428 07B0     		add	sp, sp, #28
+ 1792              		@ sp needed
+ 1793 042a BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1794              	.L226:
+ 1795 042e 6FF00100 		mvn	r0, #1
+ 1796 0432 F9E7     		b	.L170
+ 1797              	.L236:
+ 1798 0434 1C4B     		ldr	r3, .L256
+ 1799 0436 40F29D62 		movw	r2, #1693
+ 1800 043a 2349     		ldr	r1, .L256+32
+ 1801 043c 1C48     		ldr	r0, .L256+8
+ 1802 043e FFF7FEFF 		bl	printf
+ 1803 0442 6FF00500 		mvn	r0, #5
+ 1804 0446 EFE7     		b	.L170
+ 1805              	.L206:
+ 1806 0448 1B4B     		ldr	r3, .L256+16
+ARM GAS  /tmp/ccBmURlm.s 			page 32
+
+
+ 1807 044a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1808 044c 53B1     		cbz	r3, .L208
+ 1809 044e 1B4B     		ldr	r3, .L256+20
+ 1810 0450 1B68     		ldr	r3, [r3]
+ 1811 0452 194A     		ldr	r2, .L256+16
+ 1812 0454 0021     		movs	r1, #0
+ 1813 0456 1170     		strb	r1, [r2]
+ 1814 0458 012B     		cmp	r3, #1
+ 1815 045a 12D0     		beq	.L209
+ 1816 045c 022B     		cmp	r3, #2
+ 1817 045e 09D0     		beq	.L228
+ 1818 0460 032B     		cmp	r3, #3
+ 1819 0462 0CD0     		beq	.L252
+ 1820              	.L208:
+ 1821 0464 039B     		ldr	r3, [sp, #12]
+ 1822 0466 43B1     		cbz	r3, .L253
+ 1823 0468 0023     		movs	r3, #0
+ 1824 046a 0393     		str	r3, [sp, #12]
+ 1825 046c 6C24     		movs	r4, #108
+ 1826 046e 4FF02C0B 		mov	fp, #44
+ 1827 0472 D6E5     		b	.L171
+ 1828              	.L228:
+ 1829 0474 0123     		movs	r3, #1
+ 1830 0476 0393     		str	r3, [sp, #12]
+ 1831 0478 F4E7     		b	.L208
+ 1832              	.L253:
+ 1833 047a 0020     		movs	r0, #0
+ 1834 047c D4E7     		b	.L170
+ 1835              	.L252:
+ 1836 047e 0123     		movs	r3, #1
+ 1837 0480 0393     		str	r3, [sp, #12]
+ 1838              	.L209:
+ 1839 0482 EC24     		movs	r4, #236
+ 1840 0484 4FF06C0B 		mov	fp, #108
+ 1841              	.L172:
+ 1842 0488 CBE5     		b	.L171
+ 1843              	.L210:
+ 1844 048a 6FF00100 		mvn	r0, #1
+ 1845 048e 7047     		bx	lr
+ 1846              	.L211:
+ 1847 0490 6FF00100 		mvn	r0, #1
+ 1848 0494 C8E7     		b	.L170
+ 1849              	.L212:
+ 1850 0496 6FF00100 		mvn	r0, #1
+ 1851 049a C5E7     		b	.L170
+ 1852              	.L224:
+ 1853 049c 6FF00100 		mvn	r0, #1
+ 1854 04a0 C2E7     		b	.L170
+ 1855              	.L227:
+ 1856 04a2 6FF00100 		mvn	r0, #1
+ 1857 04a6 BFE7     		b	.L170
+ 1858              	.L257:
+ 1859              		.align	2
+ 1860              	.L256:
+ 1861 04a8 00000000 		.word	.LC0
+ 1862 04ac 00000000 		.word	.LC15
+ 1863 04b0 70000000 		.word	.LC2
+ARM GAS  /tmp/ccBmURlm.s 			page 33
+
+
+ 1864 04b4 54000000 		.word	.LC20
+ 1865 04b8 00000000 		.word	dhcp_rx_options_given
+ 1866 04bc 00000000 		.word	dhcp_rx_options_val
+ 1867 04c0 68000000 		.word	.LC21
+ 1868 04c4 80000000 		.word	.LC22
+ 1869 04c8 94000000 		.word	.LC23
+ 1871              		.section	.text.dhcp_handle_ack,"ax",%progbits
+ 1872              		.align	1
+ 1873              		.syntax unified
+ 1874              		.thumb
+ 1875              		.thumb_func
+ 1876              		.fpu fpv4-sp-d16
+ 1878              	dhcp_handle_ack:
+ 1879              		@ args = 0, pretend = 0, frame = 8
+ 1880              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1881 0000 10B5     		push	{r4, lr}
+ 1882 0002 82B0     		sub	sp, sp, #8
+ 1883 0004 446A     		ldr	r4, [r0, #36]
+ 1884 0006 0023     		movs	r3, #0
+ 1885 0008 2362     		str	r3, [r4, #32]
+ 1886 000a 6362     		str	r3, [r4, #36]
+ 1887 000c 254B     		ldr	r3, .L273
+ 1888 000e DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 1889 0010 13B1     		cbz	r3, .L259
+ 1890 0012 254B     		ldr	r3, .L273+4
+ 1891 0014 DB68     		ldr	r3, [r3, #12]
+ 1892 0016 A362     		str	r3, [r4, #40]
+ 1893              	.L259:
+ 1894 0018 224B     		ldr	r3, .L273
+ 1895 001a 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 1896 001c A3B1     		cbz	r3, .L260
+ 1897 001e 224B     		ldr	r3, .L273+4
+ 1898 0020 1B69     		ldr	r3, [r3, #16]
+ 1899 0022 E362     		str	r3, [r4, #44]
+ 1900              	.L261:
+ 1901 0024 1F4B     		ldr	r3, .L273
+ 1902 0026 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 1903 0028 93B1     		cbz	r3, .L262
+ 1904 002a 1F4B     		ldr	r3, .L273+4
+ 1905 002c 5B69     		ldr	r3, [r3, #20]
+ 1906 002e 2363     		str	r3, [r4, #48]
+ 1907              	.L263:
+ 1908 0030 0B69     		ldr	r3, [r1, #16]	@ unaligned
+ 1909 0032 E361     		str	r3, [r4, #28]
+ 1910 0034 1B4B     		ldr	r3, .L273
+ 1911 0036 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 1912 0038 83B9     		cbnz	r3, .L271
+ 1913 003a 0023     		movs	r3, #0
+ 1914 003c E371     		strb	r3, [r4, #7]
+ 1915              	.L265:
+ 1916 003e 194B     		ldr	r3, .L273
+ 1917 0040 DB79     		ldrb	r3, [r3, #7]	@ zero_extendqisi2
+ 1918 0042 9BB9     		cbnz	r3, .L272
+ 1919              	.L266:
+ 1920 0044 0024     		movs	r4, #0
+ 1921 0046 23E0     		b	.L267
+ 1922              	.L260:
+ARM GAS  /tmp/ccBmURlm.s 			page 34
+
+
+ 1923 0048 A36A     		ldr	r3, [r4, #40]
+ 1924 004a 5B08     		lsrs	r3, r3, #1
+ 1925 004c E362     		str	r3, [r4, #44]
+ 1926 004e E9E7     		b	.L261
+ 1927              	.L262:
+ 1928 0050 A36A     		ldr	r3, [r4, #40]
+ 1929 0052 C3EBC303 		rsb	r3, r3, r3, lsl #3
+ 1930 0056 DB08     		lsrs	r3, r3, #3
+ 1931 0058 2363     		str	r3, [r4, #48]
+ 1932 005a E9E7     		b	.L263
+ 1933              	.L271:
+ 1934 005c 124B     		ldr	r3, .L273+4
+ 1935 005e 9869     		ldr	r0, [r3, #24]
+ 1936 0060 FFF7FEFF 		bl	lwip_htonl
+ 1937 0064 2062     		str	r0, [r4, #32]
+ 1938 0066 0123     		movs	r3, #1
+ 1939 0068 E371     		strb	r3, [r4, #7]
+ 1940 006a E8E7     		b	.L265
+ 1941              	.L272:
+ 1942 006c 0E4B     		ldr	r3, .L273+4
+ 1943 006e D869     		ldr	r0, [r3, #28]
+ 1944 0070 FFF7FEFF 		bl	lwip_htonl
+ 1945 0074 6062     		str	r0, [r4, #36]
+ 1946 0076 E5E7     		b	.L266
+ 1947              	.L269:
+ 1948 0078 0B4A     		ldr	r2, .L273+4
+ 1949 007a 52F82300 		ldr	r0, [r2, r3, lsl #2]
+ 1950 007e FFF7FEFF 		bl	lwip_htonl
+ 1951 0082 0190     		str	r0, [sp, #4]
+ 1952 0084 01A9     		add	r1, sp, #4
+ 1953 0086 2046     		mov	r0, r4
+ 1954 0088 FFF7FEFF 		bl	dns_setserver
+ 1955 008c 0134     		adds	r4, r4, #1
+ 1956 008e E4B2     		uxtb	r4, r4
+ 1957              	.L267:
+ 1958 0090 012C     		cmp	r4, #1
+ 1959 0092 05D8     		bhi	.L258
+ 1960 0094 04F10803 		add	r3, r4, #8
+ 1961 0098 024A     		ldr	r2, .L273
+ 1962 009a D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 1963 009c 002A     		cmp	r2, #0
+ 1964 009e EBD1     		bne	.L269
+ 1965              	.L258:
+ 1966 00a0 02B0     		add	sp, sp, #8
+ 1967              		@ sp needed
+ 1968 00a2 10BD     		pop	{r4, pc}
+ 1969              	.L274:
+ 1970              		.align	2
+ 1971              	.L273:
+ 1972 00a4 00000000 		.word	dhcp_rx_options_given
+ 1973 00a8 00000000 		.word	dhcp_rx_options_val
+ 1975              		.section	.text.dhcp_recv,"ax",%progbits
+ 1976              		.align	1
+ 1977              		.syntax unified
+ 1978              		.thumb
+ 1979              		.thumb_func
+ 1980              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccBmURlm.s 			page 35
+
+
+ 1982              	dhcp_recv:
+ 1983              		@ args = 4, pretend = 0, frame = 0
+ 1984              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1985 0000 70B5     		push	{r4, r5, r6, lr}
+ 1986 0002 1446     		mov	r4, r2
+ 1987 0004 364B     		ldr	r3, .L291
+ 1988 0006 5D68     		ldr	r5, [r3, #4]
+ 1989 0008 6E6A     		ldr	r6, [r5, #36]
+ 1990 000a 5268     		ldr	r2, [r2, #4]
+ 1991 000c FEB1     		cbz	r6, .L276
+ 1992 000e 3379     		ldrb	r3, [r6, #4]	@ zero_extendqisi2
+ 1993 0010 EBB1     		cbz	r3, .L276
+ 1994 0012 6389     		ldrh	r3, [r4, #10]
+ 1995 0014 2B2B     		cmp	r3, #43
+ 1996 0016 1AD9     		bls	.L276
+ 1997 0018 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 1998 001a 022B     		cmp	r3, #2
+ 1999 001c 17D1     		bne	.L276
+ 2000 001e 0023     		movs	r3, #0
+ 2001 0020 01E0     		b	.L277
+ 2002              	.L286:
+ 2003 0022 0133     		adds	r3, r3, #1
+ 2004 0024 DBB2     		uxtb	r3, r3
+ 2005              	.L277:
+ 2006 0026 95F83010 		ldrb	r1, [r5, #48]	@ zero_extendqisi2
+ 2007 002a 9942     		cmp	r1, r3
+ 2008 002c 09D9     		bls	.L278
+ 2009 002e 052B     		cmp	r3, #5
+ 2010 0030 07D8     		bhi	.L278
+ 2011 0032 E918     		adds	r1, r5, r3
+ 2012 0034 91F82A00 		ldrb	r0, [r1, #42]	@ zero_extendqisi2
+ 2013 0038 D118     		adds	r1, r2, r3
+ 2014 003a 097F     		ldrb	r1, [r1, #28]	@ zero_extendqisi2
+ 2015 003c 8842     		cmp	r0, r1
+ 2016 003e F0D0     		beq	.L286
+ 2017 0040 05E0     		b	.L276
+ 2018              	.L278:
+ 2019 0042 5068     		ldr	r0, [r2, #4]	@ unaligned
+ 2020 0044 FFF7FEFF 		bl	lwip_htonl
+ 2021 0048 3368     		ldr	r3, [r6]
+ 2022 004a 9842     		cmp	r0, r3
+ 2023 004c 03D0     		beq	.L287
+ 2024              	.L276:
+ 2025 004e 2046     		mov	r0, r4
+ 2026 0050 FFF7FEFF 		bl	pbuf_free
+ 2027 0054 70BD     		pop	{r4, r5, r6, pc}
+ 2028              	.L287:
+ 2029 0056 3146     		mov	r1, r6
+ 2030 0058 2046     		mov	r0, r4
+ 2031 005a FFF7FEFF 		bl	dhcp_parse_reply
+ 2032 005e 0028     		cmp	r0, #0
+ 2033 0060 F5D1     		bne	.L276
+ 2034 0062 204B     		ldr	r3, .L291+4
+ 2035 0064 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 2036 0066 002B     		cmp	r3, #0
+ 2037 0068 F1D0     		beq	.L276
+ 2038 006a 6168     		ldr	r1, [r4, #4]
+ARM GAS  /tmp/ccBmURlm.s 			page 36
+
+
+ 2039 006c 1E4B     		ldr	r3, .L291+8
+ 2040 006e 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 2041 0070 052B     		cmp	r3, #5
+ 2042 0072 0AD0     		beq	.L288
+ 2043 0074 062B     		cmp	r3, #6
+ 2044 0076 26D0     		beq	.L289
+ 2045              	.L283:
+ 2046 0078 022B     		cmp	r3, #2
+ 2047 007a E8D1     		bne	.L276
+ 2048 007c 7379     		ldrb	r3, [r6, #5]	@ zero_extendqisi2
+ 2049 007e 062B     		cmp	r3, #6
+ 2050 0080 E5D1     		bne	.L276
+ 2051 0082 2846     		mov	r0, r5
+ 2052 0084 FFF7FEFF 		bl	dhcp_handle_offer
+ 2053 0088 E1E7     		b	.L276
+ 2054              	.L288:
+ 2055 008a 7379     		ldrb	r3, [r6, #5]	@ zero_extendqisi2
+ 2056 008c 012B     		cmp	r3, #1
+ 2057 008e 0AD0     		beq	.L290
+ 2058 0090 033B     		subs	r3, r3, #3
+ 2059 0092 DBB2     		uxtb	r3, r3
+ 2060 0094 022B     		cmp	r3, #2
+ 2061 0096 DAD8     		bhi	.L276
+ 2062 0098 2846     		mov	r0, r5
+ 2063 009a FFF7FEFF 		bl	dhcp_handle_ack
+ 2064 009e 2846     		mov	r0, r5
+ 2065 00a0 FFF7FEFF 		bl	dhcp_bind
+ 2066 00a4 D3E7     		b	.L276
+ 2067              	.L290:
+ 2068 00a6 2846     		mov	r0, r5
+ 2069 00a8 FFF7FEFF 		bl	dhcp_handle_ack
+ 2070 00ac 95F83130 		ldrb	r3, [r5, #49]	@ zero_extendqisi2
+ 2071 00b0 13F0080F 		tst	r3, #8
+ 2072 00b4 03D0     		beq	.L282
+ 2073 00b6 2846     		mov	r0, r5
+ 2074 00b8 FFF7FEFF 		bl	dhcp_check
+ 2075 00bc C7E7     		b	.L276
+ 2076              	.L282:
+ 2077 00be 2846     		mov	r0, r5
+ 2078 00c0 FFF7FEFF 		bl	dhcp_bind
+ 2079 00c4 C3E7     		b	.L276
+ 2080              	.L289:
+ 2081 00c6 7279     		ldrb	r2, [r6, #5]	@ zero_extendqisi2
+ 2082 00c8 032A     		cmp	r2, #3
+ 2083 00ca 05D0     		beq	.L284
+ 2084 00cc 012A     		cmp	r2, #1
+ 2085 00ce 03D0     		beq	.L284
+ 2086 00d0 042A     		cmp	r2, #4
+ 2087 00d2 01D0     		beq	.L284
+ 2088 00d4 052A     		cmp	r2, #5
+ 2089 00d6 CFD1     		bne	.L283
+ 2090              	.L284:
+ 2091 00d8 2846     		mov	r0, r5
+ 2092 00da FFF7FEFF 		bl	dhcp_handle_nak
+ 2093 00de B6E7     		b	.L276
+ 2094              	.L292:
+ 2095              		.align	2
+ARM GAS  /tmp/ccBmURlm.s 			page 37
+
+
+ 2096              	.L291:
+ 2097 00e0 00000000 		.word	ip_data
+ 2098 00e4 00000000 		.word	dhcp_rx_options_given
+ 2099 00e8 00000000 		.word	dhcp_rx_options_val
+ 2101              		.section	.text.dhcp_set_struct,"ax",%progbits
+ 2102              		.align	1
+ 2103              		.global	dhcp_set_struct
+ 2104              		.syntax unified
+ 2105              		.thumb
+ 2106              		.thumb_func
+ 2107              		.fpu fpv4-sp-d16
+ 2109              	dhcp_set_struct:
+ 2110              		@ args = 0, pretend = 0, frame = 0
+ 2111              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2112 0000 38B5     		push	{r3, r4, r5, lr}
+ 2113 0002 0C46     		mov	r4, r1
+ 2114 0004 0546     		mov	r5, r0
+ 2115 0006 80B1     		cbz	r0, .L298
+ 2116              	.L294:
+ 2117 0008 BCB1     		cbz	r4, .L299
+ 2118              	.L295:
+ 2119 000a 6B6A     		ldr	r3, [r5, #36]
+ 2120 000c 33B1     		cbz	r3, .L296
+ 2121 000e 0F4B     		ldr	r3, .L300
+ 2122 0010 40F2B722 		movw	r2, #695
+ 2123 0014 0E49     		ldr	r1, .L300+4
+ 2124 0016 0F48     		ldr	r0, .L300+8
+ 2125 0018 FFF7FEFF 		bl	printf
+ 2126              	.L296:
+ 2127 001c 3422     		movs	r2, #52
+ 2128 001e 0021     		movs	r1, #0
+ 2129 0020 2046     		mov	r0, r4
+ 2130 0022 FFF7FEFF 		bl	memset
+ 2131 0026 6C62     		str	r4, [r5, #36]
+ 2132 0028 38BD     		pop	{r3, r4, r5, pc}
+ 2133              	.L298:
+ 2134 002a 084B     		ldr	r3, .L300
+ 2135 002c 40F2B522 		movw	r2, #693
+ 2136 0030 0949     		ldr	r1, .L300+12
+ 2137 0032 0848     		ldr	r0, .L300+8
+ 2138 0034 FFF7FEFF 		bl	printf
+ 2139 0038 E6E7     		b	.L294
+ 2140              	.L299:
+ 2141 003a 044B     		ldr	r3, .L300
+ 2142 003c 40F2B622 		movw	r2, #694
+ 2143 0040 0649     		ldr	r1, .L300+16
+ 2144 0042 0448     		ldr	r0, .L300+8
+ 2145 0044 FFF7FEFF 		bl	printf
+ 2146 0048 DFE7     		b	.L295
+ 2147              	.L301:
+ 2148 004a 00BF     		.align	2
+ 2149              	.L300:
+ 2150 004c 00000000 		.word	.LC0
+ 2151 0050 20000000 		.word	.LC26
+ 2152 0054 70000000 		.word	.LC2
+ 2153 0058 00000000 		.word	.LC24
+ 2154 005c 10000000 		.word	.LC25
+ARM GAS  /tmp/ccBmURlm.s 			page 38
+
+
+ 2156              		.section	.text.dhcp_cleanup,"ax",%progbits
+ 2157              		.align	1
+ 2158              		.global	dhcp_cleanup
+ 2159              		.syntax unified
+ 2160              		.thumb
+ 2161              		.thumb_func
+ 2162              		.fpu fpv4-sp-d16
+ 2164              	dhcp_cleanup:
+ 2165              		@ args = 0, pretend = 0, frame = 0
+ 2166              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2167 0000 10B5     		push	{r4, lr}
+ 2168 0002 0446     		mov	r4, r0
+ 2169 0004 30B1     		cbz	r0, .L306
+ 2170              	.L303:
+ 2171 0006 606A     		ldr	r0, [r4, #36]
+ 2172 0008 18B1     		cbz	r0, .L302
+ 2173 000a FFF7FEFF 		bl	mem_free
+ 2174 000e 0023     		movs	r3, #0
+ 2175 0010 6362     		str	r3, [r4, #36]
+ 2176              	.L302:
+ 2177 0012 10BD     		pop	{r4, pc}
+ 2178              	.L306:
+ 2179 0014 034B     		ldr	r3, .L307
+ 2180 0016 40F2CB22 		movw	r2, #715
+ 2181 001a 0349     		ldr	r1, .L307+4
+ 2182 001c 0348     		ldr	r0, .L307+8
+ 2183 001e FFF7FEFF 		bl	printf
+ 2184 0022 F0E7     		b	.L303
+ 2185              	.L308:
+ 2186              		.align	2
+ 2187              	.L307:
+ 2188 0024 00000000 		.word	.LC0
+ 2189 0028 00000000 		.word	.LC24
+ 2190 002c 70000000 		.word	.LC2
+ 2192              		.section	.text.dhcp_inform,"ax",%progbits
+ 2193              		.align	1
+ 2194              		.global	dhcp_inform
+ 2195              		.syntax unified
+ 2196              		.thumb
+ 2197              		.thumb_func
+ 2198              		.fpu fpv4-sp-d16
+ 2200              	dhcp_inform:
+ 2201              		@ args = 0, pretend = 0, frame = 56
+ 2202              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2203 0000 70B5     		push	{r4, r5, r6, lr}
+ 2204 0002 90B0     		sub	sp, sp, #64
+ 2205 0004 28B1     		cbz	r0, .L315
+ 2206 0006 0446     		mov	r4, r0
+ 2207 0008 FFF7FEFF 		bl	dhcp_inc_pcb_refcount
+ 2208 000c 48B1     		cbz	r0, .L316
+ 2209              	.L309:
+ 2210 000e 10B0     		add	sp, sp, #64
+ 2211              		@ sp needed
+ 2212 0010 70BD     		pop	{r4, r5, r6, pc}
+ 2213              	.L315:
+ 2214 0012 1E4B     		ldr	r3, .L317
+ 2215 0014 40F23532 		movw	r2, #821
+ARM GAS  /tmp/ccBmURlm.s 			page 39
+
+
+ 2216 0018 1D49     		ldr	r1, .L317+4
+ 2217 001a 1E48     		ldr	r0, .L317+8
+ 2218 001c FFF7FEFF 		bl	printf
+ 2219 0020 F5E7     		b	.L309
+ 2220              	.L316:
+ 2221 0022 3422     		movs	r2, #52
+ 2222 0024 0021     		movs	r1, #0
+ 2223 0026 03A8     		add	r0, sp, #12
+ 2224 0028 FFF7FEFF 		bl	memset
+ 2225 002c 0721     		movs	r1, #7
+ 2226 002e 03A8     		add	r0, sp, #12
+ 2227 0030 FFF7FEFF 		bl	dhcp_set_state
+ 2228 0034 0DF10A03 		add	r3, sp, #10
+ 2229 0038 0822     		movs	r2, #8
+ 2230 003a 03A9     		add	r1, sp, #12
+ 2231 003c 2046     		mov	r0, r4
+ 2232 003e FFF7FEFF 		bl	dhcp_create_msg
+ 2233 0042 0646     		mov	r6, r0
+ 2234 0044 F8B1     		cbz	r0, .L312
+ 2235 0046 4568     		ldr	r5, [r0, #4]
+ 2236 0048 F035     		adds	r5, r5, #240
+ 2237 004a 0223     		movs	r3, #2
+ 2238 004c 3922     		movs	r2, #57
+ 2239 004e 2946     		mov	r1, r5
+ 2240 0050 BDF80A00 		ldrh	r0, [sp, #10]
+ 2241 0054 FFF7FEFF 		bl	dhcp_option
+ 2242 0058 ADF80A00 		strh	r0, [sp, #10]	@ movhi
+ 2243 005c 228D     		ldrh	r2, [r4, #40]
+ 2244 005e 2946     		mov	r1, r5
+ 2245 0060 FFF7FEFF 		bl	dhcp_option_short
+ 2246 0064 ADF80A00 		strh	r0, [sp, #10]	@ movhi
+ 2247 0068 3246     		mov	r2, r6
+ 2248 006a 2946     		mov	r1, r5
+ 2249 006c FFF7FEFF 		bl	dhcp_option_trailer
+ 2250 0070 0094     		str	r4, [sp]
+ 2251 0072 4323     		movs	r3, #67
+ 2252 0074 084A     		ldr	r2, .L317+12
+ 2253 0076 3146     		mov	r1, r6
+ 2254 0078 0848     		ldr	r0, .L317+16
+ 2255 007a 0068     		ldr	r0, [r0]
+ 2256 007c FFF7FEFF 		bl	udp_sendto_if
+ 2257 0080 3046     		mov	r0, r6
+ 2258 0082 FFF7FEFF 		bl	pbuf_free
+ 2259              	.L312:
+ 2260 0086 FFF7FEFF 		bl	dhcp_dec_pcb_refcount
+ 2261 008a C0E7     		b	.L309
+ 2262              	.L318:
+ 2263              		.align	2
+ 2264              	.L317:
+ 2265 008c 00000000 		.word	.LC0
+ 2266 0090 00000000 		.word	.LC24
+ 2267 0094 70000000 		.word	.LC2
+ 2268 0098 00000000 		.word	ip_addr_broadcast
+ 2269 009c 00000000 		.word	.LANCHOR2
+ 2271              		.section	.text.dhcp_network_changed,"ax",%progbits
+ 2272              		.align	1
+ 2273              		.global	dhcp_network_changed
+ARM GAS  /tmp/ccBmURlm.s 			page 40
+
+
+ 2274              		.syntax unified
+ 2275              		.thumb
+ 2276              		.thumb_func
+ 2277              		.fpu fpv4-sp-d16
+ 2279              	dhcp_network_changed:
+ 2280              		@ args = 0, pretend = 0, frame = 0
+ 2281              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2282 0000 38B5     		push	{r3, r4, r5, lr}
+ 2283 0002 456A     		ldr	r5, [r0, #36]
+ 2284 0004 7DB1     		cbz	r5, .L319
+ 2285 0006 0446     		mov	r4, r0
+ 2286 0008 6B79     		ldrb	r3, [r5, #5]	@ zero_extendqisi2
+ 2287 000a 0A2B     		cmp	r3, #10
+ 2288 000c 0CD8     		bhi	.L321
+ 2289 000e DFE803F0 		tbb	[pc, r3]
+ 2290              	.L323:
+ 2291 0012 0A       		.byte	(.L319-.L323)/2
+ 2292 0013 0B       		.byte	(.L321-.L323)/2
+ 2293 0014 0B       		.byte	(.L321-.L323)/2
+ 2294 0015 06       		.byte	(.L322-.L323)/2
+ 2295 0016 06       		.byte	(.L322-.L323)/2
+ 2296 0017 06       		.byte	(.L322-.L323)/2
+ 2297 0018 0B       		.byte	(.L321-.L323)/2
+ 2298 0019 0B       		.byte	(.L321-.L323)/2
+ 2299 001a 0B       		.byte	(.L321-.L323)/2
+ 2300 001b 0B       		.byte	(.L321-.L323)/2
+ 2301 001c 06       		.byte	(.L322-.L323)/2
+ 2302 001d 00       		.p2align 1
+ 2303              	.L322:
+ 2304 001e 0023     		movs	r3, #0
+ 2305 0020 AB71     		strb	r3, [r5, #6]
+ 2306 0022 FFF7FEFF 		bl	dhcp_reboot
+ 2307              	.L319:
+ 2308 0026 38BD     		pop	{r3, r4, r5, pc}
+ 2309              	.L321:
+ 2310 0028 0C2B     		cmp	r3, #12
+ 2311 002a 05D8     		bhi	.L326
+ 2312              	.L324:
+ 2313 002c 0023     		movs	r3, #0
+ 2314 002e AB71     		strb	r3, [r5, #6]
+ 2315 0030 2046     		mov	r0, r4
+ 2316 0032 FFF7FEFF 		bl	dhcp_discover
+ 2317 0036 F6E7     		b	.L319
+ 2318              	.L326:
+ 2319 0038 034B     		ldr	r3, .L327
+ 2320 003a 40F26D32 		movw	r2, #877
+ 2321 003e 0349     		ldr	r1, .L327+4
+ 2322 0040 0348     		ldr	r0, .L327+8
+ 2323 0042 FFF7FEFF 		bl	printf
+ 2324 0046 F1E7     		b	.L324
+ 2325              	.L328:
+ 2326              		.align	2
+ 2327              	.L327:
+ 2328 0048 00000000 		.word	.LC0
+ 2329 004c 00000000 		.word	.LC27
+ 2330 0050 70000000 		.word	.LC2
+ 2332              		.section	.text.dhcp_arp_reply,"ax",%progbits
+ARM GAS  /tmp/ccBmURlm.s 			page 41
+
+
+ 2333              		.align	1
+ 2334              		.global	dhcp_arp_reply
+ 2335              		.syntax unified
+ 2336              		.thumb
+ 2337              		.thumb_func
+ 2338              		.fpu fpv4-sp-d16
+ 2340              	dhcp_arp_reply:
+ 2341              		@ args = 0, pretend = 0, frame = 0
+ 2342              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2343 0000 08B5     		push	{r3, lr}
+ 2344 0002 30B1     		cbz	r0, .L333
+ 2345 0004 0246     		mov	r2, r0
+ 2346 0006 436A     		ldr	r3, [r0, #36]
+ 2347 0008 13B1     		cbz	r3, .L329
+ 2348 000a 5879     		ldrb	r0, [r3, #5]	@ zero_extendqisi2
+ 2349 000c 0828     		cmp	r0, #8
+ 2350 000e 08D0     		beq	.L334
+ 2351              	.L329:
+ 2352 0010 08BD     		pop	{r3, pc}
+ 2353              	.L333:
+ 2354 0012 084B     		ldr	r3, .L335
+ 2355 0014 40F28B32 		movw	r2, #907
+ 2356 0018 0749     		ldr	r1, .L335+4
+ 2357 001a 0848     		ldr	r0, .L335+8
+ 2358 001c FFF7FEFF 		bl	printf
+ 2359 0020 F6E7     		b	.L329
+ 2360              	.L334:
+ 2361 0022 0968     		ldr	r1, [r1]
+ 2362 0024 DB69     		ldr	r3, [r3, #28]
+ 2363 0026 9942     		cmp	r1, r3
+ 2364 0028 F2D1     		bne	.L329
+ 2365 002a 1046     		mov	r0, r2
+ 2366 002c FFF7FEFF 		bl	dhcp_decline
+ 2367 0030 EEE7     		b	.L329
+ 2368              	.L336:
+ 2369 0032 00BF     		.align	2
+ 2370              	.L335:
+ 2371 0034 00000000 		.word	.LC0
+ 2372 0038 00000000 		.word	.LC24
+ 2373 003c 70000000 		.word	.LC2
+ 2375              		.section	.text.dhcp_renew,"ax",%progbits
+ 2376              		.align	1
+ 2377              		.global	dhcp_renew
+ 2378              		.syntax unified
+ 2379              		.thumb
+ 2380              		.thumb_func
+ 2381              		.fpu fpv4-sp-d16
+ 2383              	dhcp_renew:
+ 2384              		@ args = 0, pretend = 0, frame = 8
+ 2385              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2386 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 2387 0004 84B0     		sub	sp, sp, #16
+ 2388 0006 8046     		mov	r8, r0
+ 2389 0008 466A     		ldr	r6, [r0, #36]
+ 2390 000a 0521     		movs	r1, #5
+ 2391 000c 3046     		mov	r0, r6
+ 2392 000e FFF7FEFF 		bl	dhcp_set_state
+ARM GAS  /tmp/ccBmURlm.s 			page 42
+
+
+ 2393 0012 0DF10E03 		add	r3, sp, #14
+ 2394 0016 0322     		movs	r2, #3
+ 2395 0018 3146     		mov	r1, r6
+ 2396 001a 4046     		mov	r0, r8
+ 2397 001c FFF7FEFF 		bl	dhcp_create_msg
+ 2398 0020 0028     		cmp	r0, #0
+ 2399 0022 4BD0     		beq	.L343
+ 2400 0024 0746     		mov	r7, r0
+ 2401 0026 4568     		ldr	r5, [r0, #4]
+ 2402 0028 F035     		adds	r5, r5, #240
+ 2403 002a 0223     		movs	r3, #2
+ 2404 002c 3922     		movs	r2, #57
+ 2405 002e 2946     		mov	r1, r5
+ 2406 0030 BDF80E00 		ldrh	r0, [sp, #14]
+ 2407 0034 FFF7FEFF 		bl	dhcp_option
+ 2408 0038 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 2409 003c B8F82820 		ldrh	r2, [r8, #40]
+ 2410 0040 2946     		mov	r1, r5
+ 2411 0042 FFF7FEFF 		bl	dhcp_option_short
+ 2412 0046 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 2413 004a 0423     		movs	r3, #4
+ 2414 004c 3722     		movs	r2, #55
+ 2415 004e 2946     		mov	r1, r5
+ 2416 0050 FFF7FEFF 		bl	dhcp_option
+ 2417 0054 ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 2418 0058 0024     		movs	r4, #0
+ 2419 005a 0AE0     		b	.L339
+ 2420              	.L340:
+ 2421 005c 204B     		ldr	r3, .L346
+ 2422 005e 1A5D     		ldrb	r2, [r3, r4]	@ zero_extendqisi2
+ 2423 0060 2946     		mov	r1, r5
+ 2424 0062 BDF80E00 		ldrh	r0, [sp, #14]
+ 2425 0066 FFF7FEFF 		bl	dhcp_option_byte
+ 2426 006a ADF80E00 		strh	r0, [sp, #14]	@ movhi
+ 2427 006e 0134     		adds	r4, r4, #1
+ 2428 0070 E4B2     		uxtb	r4, r4
+ 2429              	.L339:
+ 2430 0072 032C     		cmp	r4, #3
+ 2431 0074 F2D9     		bls	.L340
+ 2432 0076 3A46     		mov	r2, r7
+ 2433 0078 2946     		mov	r1, r5
+ 2434 007a BDF80E00 		ldrh	r0, [sp, #14]
+ 2435 007e FFF7FEFF 		bl	dhcp_option_trailer
+ 2436 0082 CDF80080 		str	r8, [sp]
+ 2437 0086 4323     		movs	r3, #67
+ 2438 0088 06F11802 		add	r2, r6, #24
+ 2439 008c 3946     		mov	r1, r7
+ 2440 008e 1548     		ldr	r0, .L346+4
+ 2441 0090 0068     		ldr	r0, [r0]
+ 2442 0092 FFF7FEFF 		bl	udp_sendto_if
+ 2443 0096 0446     		mov	r4, r0
+ 2444 0098 3846     		mov	r0, r7
+ 2445 009a FFF7FEFF 		bl	pbuf_free
+ 2446              	.L338:
+ 2447 009e B379     		ldrb	r3, [r6, #6]	@ zero_extendqisi2
+ 2448 00a0 FF2B     		cmp	r3, #255
+ 2449 00a2 01D0     		beq	.L341
+ARM GAS  /tmp/ccBmURlm.s 			page 43
+
+
+ 2450 00a4 0133     		adds	r3, r3, #1
+ 2451 00a6 B371     		strb	r3, [r6, #6]
+ 2452              	.L341:
+ 2453 00a8 B379     		ldrb	r3, [r6, #6]	@ zero_extendqisi2
+ 2454 00aa 092B     		cmp	r3, #9
+ 2455 00ac 09D8     		bhi	.L344
+ 2456 00ae C3EB4312 		rsb	r2, r3, r3, lsl #5
+ 2457 00b2 03EB8202 		add	r2, r3, r2, lsl #2
+ 2458 00b6 1301     		lsls	r3, r2, #4
+ 2459 00b8 9BB2     		uxth	r3, r3
+ 2460 00ba 04E0     		b	.L342
+ 2461              	.L343:
+ 2462 00bc 4FF0FF34 		mov	r4, #-1
+ 2463 00c0 EDE7     		b	.L338
+ 2464              	.L344:
+ 2465 00c2 44F62063 		movw	r3, #20000
+ 2466              	.L342:
+ 2467 00c6 03F2F313 		addw	r3, r3, #499
+ 2468 00ca 074A     		ldr	r2, .L346+8
+ 2469 00cc 82FB0312 		smull	r1, r2, r2, r3
+ 2470 00d0 DB17     		asrs	r3, r3, #31
+ 2471 00d2 C3EB6213 		rsb	r3, r3, r2, asr #5
+ 2472 00d6 3381     		strh	r3, [r6, #8]	@ movhi
+ 2473 00d8 2046     		mov	r0, r4
+ 2474 00da 04B0     		add	sp, sp, #16
+ 2475              		@ sp needed
+ 2476 00dc BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 2477              	.L347:
+ 2478              		.align	2
+ 2479              	.L346:
+ 2480 00e0 00000000 		.word	.LANCHOR1
+ 2481 00e4 00000000 		.word	.LANCHOR2
+ 2482 00e8 D34D6210 		.word	274877907
+ 2484              		.section	.text.dhcp_t1_timeout,"ax",%progbits
+ 2485              		.align	1
+ 2486              		.syntax unified
+ 2487              		.thumb
+ 2488              		.thumb_func
+ 2489              		.fpu fpv4-sp-d16
+ 2491              	dhcp_t1_timeout:
+ 2492              		@ args = 0, pretend = 0, frame = 0
+ 2493              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2494 0000 10B5     		push	{r4, lr}
+ 2495 0002 446A     		ldr	r4, [r0, #36]
+ 2496 0004 6379     		ldrb	r3, [r4, #5]	@ zero_extendqisi2
+ 2497 0006 012B     		cmp	r3, #1
+ 2498 0008 03D0     		beq	.L349
+ 2499 000a 0A2B     		cmp	r3, #10
+ 2500 000c 01D0     		beq	.L349
+ 2501 000e 052B     		cmp	r3, #5
+ 2502 0010 0BD1     		bne	.L348
+ 2503              	.L349:
+ 2504 0012 FFF7FEFF 		bl	dhcp_renew
+ 2505 0016 A389     		ldrh	r3, [r4, #12]
+ 2506 0018 628A     		ldrh	r2, [r4, #18]
+ 2507 001a 9B1A     		subs	r3, r3, r2
+ 2508 001c 012B     		cmp	r3, #1
+ARM GAS  /tmp/ccBmURlm.s 			page 44
+
+
+ 2509 001e 04DD     		ble	.L348
+ 2510 0020 03EBD373 		add	r3, r3, r3, lsr #31
+ 2511 0024 C3F34F03 		ubfx	r3, r3, #1, #16
+ 2512 0028 E381     		strh	r3, [r4, #14]	@ movhi
+ 2513              	.L348:
+ 2514 002a 10BD     		pop	{r4, pc}
+ 2516              		.section	.text.dhcp_supplied_address,"ax",%progbits
+ 2517              		.align	1
+ 2518              		.global	dhcp_supplied_address
+ 2519              		.syntax unified
+ 2520              		.thumb
+ 2521              		.thumb_func
+ 2522              		.fpu fpv4-sp-d16
+ 2524              	dhcp_supplied_address:
+ 2525              		@ args = 0, pretend = 0, frame = 0
+ 2526              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2527              		@ link register save eliminated.
+ 2528 0000 88B1     		cbz	r0, .L355
+ 2529 0002 436A     		ldr	r3, [r0, #36]
+ 2530 0004 8BB1     		cbz	r3, .L356
+ 2531 0006 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 2532 0008 0A2B     		cmp	r3, #10
+ 2533 000a 07D0     		beq	.L357
+ 2534 000c 052B     		cmp	r3, #5
+ 2535 000e 08D0     		beq	.L358
+ 2536 0010 042B     		cmp	r3, #4
+ 2537 0012 01D0     		beq	.L360
+ 2538 0014 0020     		movs	r0, #0
+ 2539 0016 02E0     		b	.L354
+ 2540              	.L360:
+ 2541 0018 0120     		movs	r0, #1
+ 2542 001a 00E0     		b	.L354
+ 2543              	.L357:
+ 2544 001c 0120     		movs	r0, #1
+ 2545              	.L354:
+ 2546 001e C0B2     		uxtb	r0, r0
+ 2547 0020 7047     		bx	lr
+ 2548              	.L358:
+ 2549 0022 0120     		movs	r0, #1
+ 2550 0024 FBE7     		b	.L354
+ 2551              	.L355:
+ 2552 0026 0020     		movs	r0, #0
+ 2553 0028 7047     		bx	lr
+ 2554              	.L356:
+ 2555 002a 0020     		movs	r0, #0
+ 2556 002c 7047     		bx	lr
+ 2558              		.section	.text.dhcp_release_and_stop,"ax",%progbits
+ 2559              		.align	1
+ 2560              		.global	dhcp_release_and_stop
+ 2561              		.syntax unified
+ 2562              		.thumb
+ 2563              		.thumb_func
+ 2564              		.fpu fpv4-sp-d16
+ 2566              	dhcp_release_and_stop:
+ 2567              		@ args = 0, pretend = 0, frame = 8
+ 2568              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2569 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ARM GAS  /tmp/ccBmURlm.s 			page 45
+
+
+ 2570 0004 84B0     		sub	sp, sp, #16
+ 2571 0006 446A     		ldr	r4, [r0, #36]
+ 2572 0008 FCB1     		cbz	r4, .L361
+ 2573 000a 6379     		ldrb	r3, [r4, #5]	@ zero_extendqisi2
+ 2574 000c EBB1     		cbz	r3, .L361
+ 2575 000e 0546     		mov	r5, r0
+ 2576 0010 A369     		ldr	r3, [r4, #24]
+ 2577 0012 0393     		str	r3, [sp, #12]
+ 2578 0014 0023     		movs	r3, #0
+ 2579 0016 A361     		str	r3, [r4, #24]
+ 2580 0018 E361     		str	r3, [r4, #28]
+ 2581 001a 2362     		str	r3, [r4, #32]
+ 2582 001c 6362     		str	r3, [r4, #36]
+ 2583 001e 2363     		str	r3, [r4, #48]
+ 2584 0020 E362     		str	r3, [r4, #44]
+ 2585 0022 A362     		str	r3, [r4, #40]
+ 2586 0024 A382     		strh	r3, [r4, #20]	@ movhi
+ 2587 0026 6382     		strh	r3, [r4, #18]	@ movhi
+ 2588 0028 2382     		strh	r3, [r4, #16]	@ movhi
+ 2589 002a E381     		strh	r3, [r4, #14]	@ movhi
+ 2590 002c FFF7FEFF 		bl	dhcp_supplied_address
+ 2591 0030 70B9     		cbnz	r0, .L368
+ 2592              	.L363:
+ 2593 0032 2249     		ldr	r1, .L370
+ 2594 0034 0B46     		mov	r3, r1
+ 2595 0036 0A46     		mov	r2, r1
+ 2596 0038 2846     		mov	r0, r5
+ 2597 003a FFF7FEFF 		bl	netif_set_addr
+ 2598 003e 0021     		movs	r1, #0
+ 2599 0040 2046     		mov	r0, r4
+ 2600 0042 FFF7FEFF 		bl	dhcp_set_state
+ 2601 0046 2379     		ldrb	r3, [r4, #4]	@ zero_extendqisi2
+ 2602 0048 93BB     		cbnz	r3, .L369
+ 2603              	.L361:
+ 2604 004a 04B0     		add	sp, sp, #16
+ 2605              		@ sp needed
+ 2606 004c BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 2607              	.L368:
+ 2608 0050 0DF10A03 		add	r3, sp, #10
+ 2609 0054 0722     		movs	r2, #7
+ 2610 0056 2146     		mov	r1, r4
+ 2611 0058 2846     		mov	r0, r5
+ 2612 005a FFF7FEFF 		bl	dhcp_create_msg
+ 2613 005e 0746     		mov	r7, r0
+ 2614 0060 0028     		cmp	r0, #0
+ 2615 0062 E6D0     		beq	.L363
+ 2616 0064 4668     		ldr	r6, [r0, #4]
+ 2617 0066 F036     		adds	r6, r6, #240
+ 2618 0068 0423     		movs	r3, #4
+ 2619 006a 3622     		movs	r2, #54
+ 2620 006c 3146     		mov	r1, r6
+ 2621 006e BDF80A00 		ldrh	r0, [sp, #10]
+ 2622 0072 FFF7FEFF 		bl	dhcp_option
+ 2623 0076 8046     		mov	r8, r0
+ 2624 0078 ADF80A00 		strh	r0, [sp, #10]	@ movhi
+ 2625 007c 0398     		ldr	r0, [sp, #12]
+ 2626 007e FFF7FEFF 		bl	lwip_htonl
+ARM GAS  /tmp/ccBmURlm.s 			page 46
+
+
+ 2627 0082 0246     		mov	r2, r0
+ 2628 0084 3146     		mov	r1, r6
+ 2629 0086 4046     		mov	r0, r8
+ 2630 0088 FFF7FEFF 		bl	dhcp_option_long
+ 2631 008c ADF80A00 		strh	r0, [sp, #10]	@ movhi
+ 2632 0090 3A46     		mov	r2, r7
+ 2633 0092 3146     		mov	r1, r6
+ 2634 0094 FFF7FEFF 		bl	dhcp_option_trailer
+ 2635 0098 0095     		str	r5, [sp]
+ 2636 009a 4323     		movs	r3, #67
+ 2637 009c 03AA     		add	r2, sp, #12
+ 2638 009e 3946     		mov	r1, r7
+ 2639 00a0 0748     		ldr	r0, .L370+4
+ 2640 00a2 0068     		ldr	r0, [r0]
+ 2641 00a4 FFF7FEFF 		bl	udp_sendto_if
+ 2642 00a8 3846     		mov	r0, r7
+ 2643 00aa FFF7FEFF 		bl	pbuf_free
+ 2644 00ae C0E7     		b	.L363
+ 2645              	.L369:
+ 2646 00b0 FFF7FEFF 		bl	dhcp_dec_pcb_refcount
+ 2647 00b4 0023     		movs	r3, #0
+ 2648 00b6 2371     		strb	r3, [r4, #4]
+ 2649 00b8 C7E7     		b	.L361
+ 2650              	.L371:
+ 2651 00ba 00BF     		.align	2
+ 2652              	.L370:
+ 2653 00bc 00000000 		.word	ip_addr_any
+ 2654 00c0 00000000 		.word	.LANCHOR2
+ 2656              		.section	.text.dhcp_start,"ax",%progbits
+ 2657              		.align	1
+ 2658              		.global	dhcp_start
+ 2659              		.syntax unified
+ 2660              		.thumb
+ 2661              		.thumb_func
+ 2662              		.fpu fpv4-sp-d16
+ 2664              	dhcp_start:
+ 2665              		@ args = 0, pretend = 0, frame = 0
+ 2666              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2667 0000 70B5     		push	{r4, r5, r6, lr}
+ 2668 0002 28B3     		cbz	r0, .L383
+ 2669 0004 0446     		mov	r4, r0
+ 2670 0006 90F83130 		ldrb	r3, [r0, #49]	@ zero_extendqisi2
+ 2671 000a 13F0010F 		tst	r3, #1
+ 2672 000e 29D0     		beq	.L384
+ 2673 0010 456A     		ldr	r5, [r0, #36]
+ 2674 0012 038D     		ldrh	r3, [r0, #40]
+ 2675 0014 B3F5107F 		cmp	r3, #576
+ 2676 0018 43D3     		bcc	.L379
+ 2677 001a 6DB3     		cbz	r5, .L385
+ 2678 001c 2B79     		ldrb	r3, [r5, #4]	@ zero_extendqisi2
+ 2679 001e 93BB     		cbnz	r3, .L386
+ 2680              	.L377:
+ 2681 0020 3422     		movs	r2, #52
+ 2682 0022 0021     		movs	r1, #0
+ 2683 0024 2846     		mov	r0, r5
+ 2684 0026 FFF7FEFF 		bl	memset
+ 2685 002a FFF7FEFF 		bl	dhcp_inc_pcb_refcount
+ARM GAS  /tmp/ccBmURlm.s 			page 47
+
+
+ 2686 002e 0646     		mov	r6, r0
+ 2687 0030 0028     		cmp	r0, #0
+ 2688 0032 3CD1     		bne	.L381
+ 2689 0034 0123     		movs	r3, #1
+ 2690 0036 2B71     		strb	r3, [r5, #4]
+ 2691 0038 94F83130 		ldrb	r3, [r4, #49]	@ zero_extendqisi2
+ 2692 003c 13F0040F 		tst	r3, #4
+ 2693 0040 24D0     		beq	.L387
+ 2694 0042 2046     		mov	r0, r4
+ 2695 0044 FFF7FEFF 		bl	dhcp_discover
+ 2696 0048 0646     		mov	r6, r0
+ 2697 004a 20BB     		cbnz	r0, .L388
+ 2698              	.L374:
+ 2699 004c 3046     		mov	r0, r6
+ 2700 004e 70BD     		pop	{r4, r5, r6, pc}
+ 2701              	.L383:
+ 2702 0050 184B     		ldr	r3, .L389
+ 2703 0052 40F2E722 		movw	r2, #743
+ 2704 0056 1849     		ldr	r1, .L389+4
+ 2705 0058 1848     		ldr	r0, .L389+8
+ 2706 005a FFF7FEFF 		bl	printf
+ 2707 005e 6FF00F06 		mvn	r6, #15
+ 2708 0062 F3E7     		b	.L374
+ 2709              	.L384:
+ 2710 0064 134B     		ldr	r3, .L389
+ 2711 0066 4FF43A72 		mov	r2, #744
+ 2712 006a 1549     		ldr	r1, .L389+12
+ 2713 006c 1348     		ldr	r0, .L389+8
+ 2714 006e FFF7FEFF 		bl	printf
+ 2715 0072 6FF00F06 		mvn	r6, #15
+ 2716 0076 E9E7     		b	.L374
+ 2717              	.L385:
+ 2718 0078 3420     		movs	r0, #52
+ 2719 007a FFF7FEFF 		bl	mem_malloc
+ 2720 007e 0546     		mov	r5, r0
+ 2721 0080 90B1     		cbz	r0, .L380
+ 2722 0082 6062     		str	r0, [r4, #36]
+ 2723 0084 CCE7     		b	.L377
+ 2724              	.L386:
+ 2725 0086 FFF7FEFF 		bl	dhcp_dec_pcb_refcount
+ 2726 008a C9E7     		b	.L377
+ 2727              	.L387:
+ 2728 008c 0221     		movs	r1, #2
+ 2729 008e 2846     		mov	r0, r5
+ 2730 0090 FFF7FEFF 		bl	dhcp_set_state
+ 2731 0094 DAE7     		b	.L374
+ 2732              	.L388:
+ 2733 0096 2046     		mov	r0, r4
+ 2734 0098 FFF7FEFF 		bl	dhcp_release_and_stop
+ 2735 009c 4FF0FF36 		mov	r6, #-1
+ 2736 00a0 D4E7     		b	.L374
+ 2737              	.L379:
+ 2738 00a2 4FF0FF36 		mov	r6, #-1
+ 2739 00a6 D1E7     		b	.L374
+ 2740              	.L380:
+ 2741 00a8 4FF0FF36 		mov	r6, #-1
+ 2742 00ac CEE7     		b	.L374
+ARM GAS  /tmp/ccBmURlm.s 			page 48
+
+
+ 2743              	.L381:
+ 2744 00ae 4FF0FF36 		mov	r6, #-1
+ 2745 00b2 CBE7     		b	.L374
+ 2746              	.L390:
+ 2747              		.align	2
+ 2748              	.L389:
+ 2749 00b4 00000000 		.word	.LC0
+ 2750 00b8 00000000 		.word	.LC24
+ 2751 00bc 70000000 		.word	.LC2
+ 2752 00c0 00000000 		.word	.LC28
+ 2754              		.section	.text.dhcp_coarse_tmr,"ax",%progbits
+ 2755              		.align	1
+ 2756              		.global	dhcp_coarse_tmr
+ 2757              		.syntax unified
+ 2758              		.thumb
+ 2759              		.thumb_func
+ 2760              		.fpu fpv4-sp-d16
+ 2762              	dhcp_coarse_tmr:
+ 2763              		@ args = 0, pretend = 0, frame = 0
+ 2764              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2765 0000 10B5     		push	{r4, lr}
+ 2766 0002 174B     		ldr	r3, .L401
+ 2767 0004 1C68     		ldr	r4, [r3]
+ 2768 0006 06E0     		b	.L392
+ 2769              	.L399:
+ 2770 0008 2046     		mov	r0, r4
+ 2771 000a FFF7FEFF 		bl	dhcp_release_and_stop
+ 2772 000e 2046     		mov	r0, r4
+ 2773 0010 FFF7FEFF 		bl	dhcp_start
+ 2774              	.L393:
+ 2775 0014 2468     		ldr	r4, [r4]
+ 2776              	.L392:
+ 2777 0016 14B3     		cbz	r4, .L398
+ 2778 0018 636A     		ldr	r3, [r4, #36]
+ 2779 001a 002B     		cmp	r3, #0
+ 2780 001c FAD0     		beq	.L393
+ 2781 001e 5A79     		ldrb	r2, [r3, #5]	@ zero_extendqisi2
+ 2782 0020 002A     		cmp	r2, #0
+ 2783 0022 F7D0     		beq	.L393
+ 2784 0024 998A     		ldrh	r1, [r3, #20]
+ 2785 0026 29B1     		cbz	r1, .L394
+ 2786 0028 5A8A     		ldrh	r2, [r3, #18]
+ 2787 002a 0132     		adds	r2, r2, #1
+ 2788 002c 92B2     		uxth	r2, r2
+ 2789 002e 5A82     		strh	r2, [r3, #18]	@ movhi
+ 2790 0030 9142     		cmp	r1, r2
+ 2791 0032 E9D0     		beq	.L399
+ 2792              	.L394:
+ 2793 0034 1A8A     		ldrh	r2, [r3, #16]
+ 2794 0036 1AB1     		cbz	r2, .L395
+ 2795 0038 511E     		subs	r1, r2, #1
+ 2796 003a 1982     		strh	r1, [r3, #16]	@ movhi
+ 2797 003c 012A     		cmp	r2, #1
+ 2798 003e 0AD0     		beq	.L400
+ 2799              	.L395:
+ 2800 0040 DA89     		ldrh	r2, [r3, #14]
+ 2801 0042 002A     		cmp	r2, #0
+ARM GAS  /tmp/ccBmURlm.s 			page 49
+
+
+ 2802 0044 E6D0     		beq	.L393
+ 2803 0046 511E     		subs	r1, r2, #1
+ 2804 0048 D981     		strh	r1, [r3, #14]	@ movhi
+ 2805 004a 012A     		cmp	r2, #1
+ 2806 004c E2D1     		bne	.L393
+ 2807 004e 2046     		mov	r0, r4
+ 2808 0050 FFF7FEFF 		bl	dhcp_t1_timeout
+ 2809 0054 DEE7     		b	.L393
+ 2810              	.L400:
+ 2811 0056 2046     		mov	r0, r4
+ 2812 0058 FFF7FEFF 		bl	dhcp_t2_timeout
+ 2813 005c DAE7     		b	.L393
+ 2814              	.L398:
+ 2815 005e 10BD     		pop	{r4, pc}
+ 2816              	.L402:
+ 2817              		.align	2
+ 2818              	.L401:
+ 2819 0060 00000000 		.word	netif_list
+ 2821              		.section	.text.dhcp_timeout,"ax",%progbits
+ 2822              		.align	1
+ 2823              		.syntax unified
+ 2824              		.thumb
+ 2825              		.thumb_func
+ 2826              		.fpu fpv4-sp-d16
+ 2828              	dhcp_timeout:
+ 2829              		@ args = 0, pretend = 0, frame = 0
+ 2830              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2831 0000 10B5     		push	{r4, lr}
+ 2832 0002 0446     		mov	r4, r0
+ 2833 0004 426A     		ldr	r2, [r0, #36]
+ 2834 0006 5379     		ldrb	r3, [r2, #5]	@ zero_extendqisi2
+ 2835 0008 0C2B     		cmp	r3, #12
+ 2836 000a 0DD0     		beq	.L404
+ 2837 000c 062B     		cmp	r3, #6
+ 2838 000e 0BD0     		beq	.L404
+ 2839 0010 012B     		cmp	r3, #1
+ 2840 0012 0DD0     		beq	.L413
+ 2841 0014 082B     		cmp	r3, #8
+ 2842 0016 17D0     		beq	.L414
+ 2843 0018 032B     		cmp	r3, #3
+ 2844 001a 08D1     		bne	.L403
+ 2845 001c 9379     		ldrb	r3, [r2, #6]	@ zero_extendqisi2
+ 2846 001e 012B     		cmp	r3, #1
+ 2847 0020 1BD9     		bls	.L415
+ 2848 0022 FFF7FEFF 		bl	dhcp_discover
+ 2849 0026 02E0     		b	.L403
+ 2850              	.L404:
+ 2851 0028 2046     		mov	r0, r4
+ 2852 002a FFF7FEFF 		bl	dhcp_discover
+ 2853              	.L403:
+ 2854 002e 10BD     		pop	{r4, pc}
+ 2855              	.L413:
+ 2856 0030 9379     		ldrb	r3, [r2, #6]	@ zero_extendqisi2
+ 2857 0032 052B     		cmp	r3, #5
+ 2858 0034 02D8     		bhi	.L408
+ 2859 0036 FFF7FEFF 		bl	dhcp_select
+ 2860 003a F8E7     		b	.L403
+ARM GAS  /tmp/ccBmURlm.s 			page 50
+
+
+ 2861              	.L408:
+ 2862 003c FFF7FEFF 		bl	dhcp_release_and_stop
+ 2863 0040 2046     		mov	r0, r4
+ 2864 0042 FFF7FEFF 		bl	dhcp_start
+ 2865 0046 F2E7     		b	.L403
+ 2866              	.L414:
+ 2867 0048 9379     		ldrb	r3, [r2, #6]	@ zero_extendqisi2
+ 2868 004a 012B     		cmp	r3, #1
+ 2869 004c 02D9     		bls	.L416
+ 2870 004e FFF7FEFF 		bl	dhcp_bind
+ 2871 0052 ECE7     		b	.L403
+ 2872              	.L416:
+ 2873 0054 FFF7FEFF 		bl	dhcp_check
+ 2874 0058 E9E7     		b	.L403
+ 2875              	.L415:
+ 2876 005a FFF7FEFF 		bl	dhcp_reboot
+ 2877 005e E6E7     		b	.L403
+ 2879              		.section	.text.dhcp_fine_tmr,"ax",%progbits
+ 2880              		.align	1
+ 2881              		.global	dhcp_fine_tmr
+ 2882              		.syntax unified
+ 2883              		.thumb
+ 2884              		.thumb_func
+ 2885              		.fpu fpv4-sp-d16
+ 2887              	dhcp_fine_tmr:
+ 2888              		@ args = 0, pretend = 0, frame = 0
+ 2889              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2890 0000 10B5     		push	{r4, lr}
+ 2891 0002 0B4B     		ldr	r3, .L425
+ 2892 0004 1C68     		ldr	r4, [r3]
+ 2893 0006 02E0     		b	.L418
+ 2894              	.L420:
+ 2895 0008 012A     		cmp	r2, #1
+ 2896 000a 0AD0     		beq	.L423
+ 2897              	.L419:
+ 2898 000c 2468     		ldr	r4, [r4]
+ 2899              	.L418:
+ 2900 000e 74B1     		cbz	r4, .L424
+ 2901 0010 636A     		ldr	r3, [r4, #36]
+ 2902 0012 002B     		cmp	r3, #0
+ 2903 0014 FAD0     		beq	.L419
+ 2904 0016 1A89     		ldrh	r2, [r3, #8]
+ 2905 0018 012A     		cmp	r2, #1
+ 2906 001a F5D9     		bls	.L420
+ 2907 001c 013A     		subs	r2, r2, #1
+ 2908 001e 1A81     		strh	r2, [r3, #8]	@ movhi
+ 2909 0020 F4E7     		b	.L419
+ 2910              	.L423:
+ 2911 0022 013A     		subs	r2, r2, #1
+ 2912 0024 1A81     		strh	r2, [r3, #8]	@ movhi
+ 2913 0026 2046     		mov	r0, r4
+ 2914 0028 FFF7FEFF 		bl	dhcp_timeout
+ 2915 002c EEE7     		b	.L419
+ 2916              	.L424:
+ 2917 002e 10BD     		pop	{r4, pc}
+ 2918              	.L426:
+ 2919              		.align	2
+ARM GAS  /tmp/ccBmURlm.s 			page 51
+
+
+ 2920              	.L425:
+ 2921 0030 00000000 		.word	netif_list
+ 2923              		.section	.text.dhcp_release,"ax",%progbits
+ 2924              		.align	1
+ 2925              		.global	dhcp_release
+ 2926              		.syntax unified
+ 2927              		.thumb
+ 2928              		.thumb_func
+ 2929              		.fpu fpv4-sp-d16
+ 2931              	dhcp_release:
+ 2932              		@ args = 0, pretend = 0, frame = 0
+ 2933              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2934 0000 08B5     		push	{r3, lr}
+ 2935 0002 FFF7FEFF 		bl	dhcp_release_and_stop
+ 2936 0006 0020     		movs	r0, #0
+ 2937 0008 08BD     		pop	{r3, pc}
+ 2939              		.section	.text.dhcp_stop,"ax",%progbits
+ 2940              		.align	1
+ 2941              		.global	dhcp_stop
+ 2942              		.syntax unified
+ 2943              		.thumb
+ 2944              		.thumb_func
+ 2945              		.fpu fpv4-sp-d16
+ 2947              	dhcp_stop:
+ 2948              		@ args = 0, pretend = 0, frame = 0
+ 2949              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2950 0000 08B5     		push	{r3, lr}
+ 2951 0002 FFF7FEFF 		bl	dhcp_release_and_stop
+ 2952 0006 08BD     		pop	{r3, pc}
+ 2954              		.comm	dhcp_rx_options_given,10,4
+ 2955              		.comm	dhcp_rx_options_val,40,4
+ 2956              		.section	.bss.dhcp_pcb,"aw",%nobits
+ 2957              		.align	2
+ 2958              		.set	.LANCHOR2,. + 0
+ 2961              	dhcp_pcb:
+ 2962 0000 00000000 		.space	4
+ 2963              		.section	.bss.dhcp_pcb_refcount,"aw",%nobits
+ 2964              		.set	.LANCHOR3,. + 0
+ 2967              	dhcp_pcb_refcount:
+ 2968 0000 00       		.space	1
+ 2969              		.section	.bss.xid.8340,"aw",%nobits
+ 2970              		.align	2
+ 2971              		.set	.LANCHOR0,. + 0
+ 2974              	xid.8340:
+ 2975 0000 00000000 		.space	4
+ 2976              		.section	.rodata.dhcp_bind.str1.4,"aMS",%progbits,1
+ 2977              		.align	2
+ 2978              	.LC11:
+ 2979 0000 64686370 		.ascii	"dhcp_bind: netif != NULL\000"
+ 2979      5F62696E 
+ 2979      643A206E 
+ 2979      65746966 
+ 2979      20213D20 
+ 2980 0019 000000   		.space	3
+ 2981              	.LC12:
+ 2982 001c 64686370 		.ascii	"dhcp_bind: dhcp != NULL\000"
+ 2982      5F62696E 
+ARM GAS  /tmp/ccBmURlm.s 			page 52
+
+
+ 2982      643A2064 
+ 2982      68637020 
+ 2982      213D204E 
+ 2983              		.section	.rodata.dhcp_create_msg.str1.4,"aMS",%progbits,1
+ 2984              		.align	2
+ 2985              	.LC6:
+ 2986 0000 64686370 		.ascii	"dhcp_create_msg: netif != NULL\000"
+ 2986      5F637265 
+ 2986      6174655F 
+ 2986      6D73673A 
+ 2986      206E6574 
+ 2987 001f 00       		.space	1
+ 2988              	.LC7:
+ 2989 0020 64686370 		.ascii	"dhcp_create_msg: dhcp != NULL\000"
+ 2989      5F637265 
+ 2989      6174655F 
+ 2989      6D73673A 
+ 2989      20646863 
+ 2990 003e 0000     		.space	2
+ 2991              	.LC8:
+ 2992 0040 64686370 		.ascii	"dhcp_create_msg: check that first pbuf can hold str"
+ 2992      5F637265 
+ 2992      6174655F 
+ 2992      6D73673A 
+ 2992      20636865 
+ 2993 0073 75637420 		.ascii	"uct dhcp_msg\000"
+ 2993      64686370 
+ 2993      5F6D7367 
+ 2993      00
+ 2994              		.section	.rodata.dhcp_dec_pcb_refcount.str1.4,"aMS",%progbits,1
+ 2995              		.align	2
+ 2996              	.LC13:
+ 2997 0000 64686370 		.ascii	"dhcp_pcb_refcount(): refcount error\000"
+ 2997      5F706362 
+ 2997      5F726566 
+ 2997      636F756E 
+ 2997      7428293A 
+ 2998              		.section	.rodata.dhcp_discover_request_options,"a"
+ 2999              		.align	2
+ 3000              		.set	.LANCHOR1,. + 0
+ 3003              	dhcp_discover_request_options:
+ 3004 0000 01       		.byte	1
+ 3005 0001 03       		.byte	3
+ 3006 0002 1C       		.byte	28
+ 3007 0003 06       		.byte	6
+ 3008              		.section	.rodata.dhcp_inc_pcb_refcount.str1.4,"aMS",%progbits,1
+ 3009              		.align	2
+ 3010              	.LC14:
+ 3011 0000 64686370 		.ascii	"dhcp_inc_pcb_refcount(): memory leak\000"
+ 3011      5F696E63 
+ 3011      5F706362 
+ 3011      5F726566 
+ 3011      636F756E 
+ 3012              		.section	.rodata.dhcp_network_changed.str1.4,"aMS",%progbits,1
+ 3013              		.align	2
+ 3014              	.LC27:
+ 3015 0000 696E7661 		.ascii	"invalid dhcp->state\000"
+ARM GAS  /tmp/ccBmURlm.s 			page 53
+
+
+ 3015      6C696420 
+ 3015      64686370 
+ 3015      2D3E7374 
+ 3015      61746500 
+ 3016              		.section	.rodata.dhcp_option.str1.4,"aMS",%progbits,1
+ 3017              		.align	2
+ 3018              	.LC3:
+ 3019 0000 64686370 		.ascii	"dhcp_option: options_out_len + 2 + option_len <= DH"
+ 3019      5F6F7074 
+ 3019      696F6E3A 
+ 3019      206F7074 
+ 3019      696F6E73 
+ 3020 0033 43505F4F 		.ascii	"CP_OPTIONS_LEN\000"
+ 3020      5054494F 
+ 3020      4E535F4C 
+ 3020      454E00
+ 3021              		.section	.rodata.dhcp_option_byte.str1.4,"aMS",%progbits,1
+ 3022              		.align	2
+ 3023              	.LC4:
+ 3024 0000 64686370 		.ascii	"dhcp_option_byte: options_out_len < DHCP_OPTIONS_LE"
+ 3024      5F6F7074 
+ 3024      696F6E5F 
+ 3024      62797465 
+ 3024      3A206F70 
+ 3025 0033 4E00     		.ascii	"N\000"
+ 3026              		.section	.rodata.dhcp_option_long.str1.4,"aMS",%progbits,1
+ 3027              		.align	2
+ 3028              	.LC5:
+ 3029 0000 64686370 		.ascii	"dhcp_option_long: options_out_len + 4 <= DHCP_OPTIO"
+ 3029      5F6F7074 
+ 3029      696F6E5F 
+ 3029      6C6F6E67 
+ 3029      3A206F70 
+ 3030 0033 4E535F4C 		.ascii	"NS_LEN\000"
+ 3030      454E00
+ 3031              		.section	.rodata.dhcp_option_short.str1.4,"aMS",%progbits,1
+ 3032              		.align	2
+ 3033              	.LC0:
+ 3034 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/core/ipv4/dhcp.c\000"
+ 3034      6C657761 
+ 3034      7265732F 
+ 3034      54686972 
+ 3034      645F5061 
+ 3035 0032 0000     		.space	2
+ 3036              	.LC1:
+ 3037 0034 64686370 		.ascii	"dhcp_option_short: options_out_len + 2 <= DHCP_OPTI"
+ 3037      5F6F7074 
+ 3037      696F6E5F 
+ 3037      73686F72 
+ 3037      743A206F 
+ 3038 0067 4F4E535F 		.ascii	"ONS_LEN\000"
+ 3038      4C454E00 
+ 3039 006f 00       		.space	1
+ 3040              	.LC2:
+ 3041 0070 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ 3041      7274696F 
+ 3041      6E202225 
+ARM GAS  /tmp/ccBmURlm.s 			page 54
+
+
+ 3041      73222066 
+ 3041      61696C65 
+ 3042              		.section	.rodata.dhcp_parse_reply.str1.4,"aMS",%progbits,1
+ 3043              		.align	2
+ 3044              	.LC15:
+ 3045 0000 6C656E20 		.ascii	"len == 4\000"
+ 3045      3D3D2034 
+ 3045      00
+ 3046 0009 000000   		.space	3
+ 3047              	.LC16:
+ 3048 000c 6C656E20 		.ascii	"len >= decode_len\000"
+ 3048      3E3D2064 
+ 3048      65636F64 
+ 3048      655F6C65 
+ 3048      6E00
+ 3049 001e 0000     		.space	2
+ 3050              	.LC17:
+ 3051 0020 6C656E20 		.ascii	"len %% 4 == 0\000"
+ 3051      25252034 
+ 3051      203D3D20 
+ 3051      3000
+ 3052 002e 0000     		.space	2
+ 3053              	.LC18:
+ 3054 0030 6C656E20 		.ascii	"len == 1\000"
+ 3054      3D3D2031 
+ 3054      00
+ 3055 0039 000000   		.space	3
+ 3056              	.LC19:
+ 3057 003c 6F766572 		.ascii	"overload in file/sname\000"
+ 3057      6C6F6164 
+ 3057      20696E20 
+ 3057      66696C65 
+ 3057      2F736E61 
+ 3058 0053 00       		.space	1
+ 3059              	.LC20:
+ 3060 0054 63686563 		.ascii	"check decode_idx\000"
+ 3060      6B206465 
+ 3060      636F6465 
+ 3060      5F696478 
+ 3060      00
+ 3061 0065 000000   		.space	3
+ 3062              	.LC21:
+ 3063 0068 6465636F 		.ascii	"decode_len %% 4 == 0\000"
+ 3063      64655F6C 
+ 3063      656E2025 
+ 3063      25203420 
+ 3063      3D3D2030 
+ 3064 007d 000000   		.space	3
+ 3065              	.LC22:
+ 3066 0080 696E7661 		.ascii	"invalid decode_len\000"
+ 3066      6C696420 
+ 3066      6465636F 
+ 3066      64655F6C 
+ 3066      656E00
+ 3067 0093 00       		.space	1
+ 3068              	.LC23:
+ 3069 0094 6E657874 		.ascii	"next pbuf was null\000"
+ARM GAS  /tmp/ccBmURlm.s 			page 55
+
+
+ 3069      20706275 
+ 3069      66207761 
+ 3069      73206E75 
+ 3069      6C6C00
+ 3070              		.section	.rodata.dhcp_select.str1.4,"aMS",%progbits,1
+ 3071              		.align	2
+ 3072              	.LC9:
+ 3073 0000 64686370 		.ascii	"dhcp_select: netif != NULL\000"
+ 3073      5F73656C 
+ 3073      6563743A 
+ 3073      206E6574 
+ 3073      69662021 
+ 3074 001b 00       		.space	1
+ 3075              	.LC10:
+ 3076 001c 64686370 		.ascii	"dhcp_select: dhcp != NULL\000"
+ 3076      5F73656C 
+ 3076      6563743A 
+ 3076      20646863 
+ 3076      7020213D 
+ 3077              		.section	.rodata.dhcp_set_struct.str1.4,"aMS",%progbits,1
+ 3078              		.align	2
+ 3079              	.LC24:
+ 3080 0000 6E657469 		.ascii	"netif != NULL\000"
+ 3080      6620213D 
+ 3080      204E554C 
+ 3080      4C00
+ 3081 000e 0000     		.space	2
+ 3082              	.LC25:
+ 3083 0010 64686370 		.ascii	"dhcp != NULL\000"
+ 3083      20213D20 
+ 3083      4E554C4C 
+ 3083      00
+ 3084 001d 000000   		.space	3
+ 3085              	.LC26:
+ 3086 0020 6E657469 		.ascii	"netif already has a struct dhcp set\000"
+ 3086      6620616C 
+ 3086      72656164 
+ 3086      79206861 
+ 3086      73206120 
+ 3087              		.section	.rodata.dhcp_start.str1.4,"aMS",%progbits,1
+ 3088              		.align	2
+ 3089              	.LC28:
+ 3090 0000 6E657469 		.ascii	"netif is not up, old style port?\000"
+ 3090      66206973 
+ 3090      206E6F74 
+ 3090      2075702C 
+ 3090      206F6C64 
+ 3091              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccBmURlm.s 			page 56
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 dhcp.c
+     /tmp/ccBmURlm.s:16     .text.dhcp_set_state:0000000000000000 $t
+     /tmp/ccBmURlm.s:23     .text.dhcp_set_state:0000000000000000 dhcp_set_state
+     /tmp/ccBmURlm.s:38     .text.dhcp_option_short:0000000000000000 $t
+     /tmp/ccBmURlm.s:44     .text.dhcp_option_short:0000000000000000 dhcp_option_short
+     /tmp/ccBmURlm.s:73     .text.dhcp_option_short:0000000000000030 $d
+     /tmp/ccBmURlm.s:78     .text.dhcp_option:0000000000000000 $t
+     /tmp/ccBmURlm.s:84     .text.dhcp_option:0000000000000000 dhcp_option
+     /tmp/ccBmURlm.s:114    .text.dhcp_option:0000000000000030 $d
+     /tmp/ccBmURlm.s:119    .text.dhcp_option_byte:0000000000000000 $t
+     /tmp/ccBmURlm.s:125    .text.dhcp_option_byte:0000000000000000 dhcp_option_byte
+     /tmp/ccBmURlm.s:149    .text.dhcp_option_byte:0000000000000024 $d
+     /tmp/ccBmURlm.s:154    .text.dhcp_option_long:0000000000000000 $t
+     /tmp/ccBmURlm.s:160    .text.dhcp_option_long:0000000000000000 dhcp_option_long
+     /tmp/ccBmURlm.s:197    .text.dhcp_option_long:0000000000000044 $d
+     /tmp/ccBmURlm.s:202    .text.dhcp_create_msg:0000000000000000 $t
+     /tmp/ccBmURlm.s:208    .text.dhcp_create_msg:0000000000000000 dhcp_create_msg
+     /tmp/ccBmURlm.s:341    .text.dhcp_create_msg:0000000000000124 $d
+     /tmp/ccBmURlm.s:349    .text.dhcp_option_trailer:0000000000000000 $t
+     /tmp/ccBmURlm.s:355    .text.dhcp_option_trailer:0000000000000000 dhcp_option_trailer
+     /tmp/ccBmURlm.s:384    .text.dhcp_rebind:0000000000000000 $t
+     /tmp/ccBmURlm.s:390    .text.dhcp_rebind:0000000000000000 dhcp_rebind
+     /tmp/ccBmURlm.s:487    .text.dhcp_rebind:00000000000000e0 $d
+     /tmp/ccBmURlm.s:493    .text.dhcp_t2_timeout:0000000000000000 $t
+     /tmp/ccBmURlm.s:499    .text.dhcp_t2_timeout:0000000000000000 dhcp_t2_timeout
+     /tmp/ccBmURlm.s:527    .text.dhcp_reboot:0000000000000000 $t
+     /tmp/ccBmURlm.s:533    .text.dhcp_reboot:0000000000000000 dhcp_reboot
+     /tmp/ccBmURlm.s:643    .text.dhcp_reboot:0000000000000104 $d
+     /tmp/ccBmURlm.s:649    .text.dhcp_select:0000000000000000 $t
+     /tmp/ccBmURlm.s:655    .text.dhcp_select:0000000000000000 dhcp_select
+     /tmp/ccBmURlm.s:803    .text.dhcp_select:000000000000015c $d
+     /tmp/ccBmURlm.s:814    .text.dhcp_handle_offer:0000000000000000 $t
+     /tmp/ccBmURlm.s:820    .text.dhcp_handle_offer:0000000000000000 dhcp_handle_offer
+     /tmp/ccBmURlm.s:847    .text.dhcp_handle_offer:000000000000002c $d
+                            *COM*:000000000000000a dhcp_rx_options_given
+                            *COM*:0000000000000028 dhcp_rx_options_val
+     /tmp/ccBmURlm.s:851    .text.dhcp_discover:0000000000000000 $t
+     /tmp/ccBmURlm.s:857    .text.dhcp_discover:0000000000000000 dhcp_discover
+     /tmp/ccBmURlm.s:956    .text.dhcp_discover:00000000000000e0 $d
+     /tmp/ccBmURlm.s:963    .text.dhcp_decline:0000000000000000 $t
+     /tmp/ccBmURlm.s:969    .text.dhcp_decline:0000000000000000 dhcp_decline
+     /tmp/ccBmURlm.s:1036   .text.dhcp_decline:0000000000000090 $d
+     /tmp/ccBmURlm.s:1041   .text.dhcp_check:0000000000000000 $t
+     /tmp/ccBmURlm.s:1047   .text.dhcp_check:0000000000000000 dhcp_check
+     /tmp/ccBmURlm.s:1071   .text.dhcp_bind:0000000000000000 $t
+     /tmp/ccBmURlm.s:1077   .text.dhcp_bind:0000000000000000 dhcp_bind
+     /tmp/ccBmURlm.s:1215   .text.dhcp_bind:0000000000000114 $d
+     /tmp/ccBmURlm.s:1222   .text.dhcp_handle_nak:0000000000000000 $t
+     /tmp/ccBmURlm.s:1228   .text.dhcp_handle_nak:0000000000000000 dhcp_handle_nak
+     /tmp/ccBmURlm.s:1247   .text.dhcp_handle_nak:0000000000000020 $d
+     /tmp/ccBmURlm.s:1250   .text.dhcp_dec_pcb_refcount:0000000000000000 $t
+     /tmp/ccBmURlm.s:1256   .text.dhcp_dec_pcb_refcount:0000000000000000 dhcp_dec_pcb_refcount
+     /tmp/ccBmURlm.s:1289   .text.dhcp_dec_pcb_refcount:0000000000000034 $d
+     /tmp/ccBmURlm.s:1296   .text.dhcp_inc_pcb_refcount:0000000000000000 $t
+     /tmp/ccBmURlm.s:1302   .text.dhcp_inc_pcb_refcount:0000000000000000 dhcp_inc_pcb_refcount
+     /tmp/ccBmURlm.s:1352   .text.dhcp_inc_pcb_refcount:0000000000000060 $d
+ARM GAS  /tmp/ccBmURlm.s 			page 57
+
+
+     /tmp/ccBmURlm.s:1982   .text.dhcp_recv:0000000000000000 dhcp_recv
+     /tmp/ccBmURlm.s:1361   .text.dhcp_parse_reply:0000000000000000 $t
+     /tmp/ccBmURlm.s:1367   .text.dhcp_parse_reply:0000000000000000 dhcp_parse_reply
+     /tmp/ccBmURlm.s:1466   .text.dhcp_parse_reply:00000000000000cc $d
+     /tmp/ccBmURlm.s:1526   .text.dhcp_parse_reply:00000000000001bc $t
+     /tmp/ccBmURlm.s:1672   .text.dhcp_parse_reply:0000000000000304 $d
+     /tmp/ccBmURlm.s:1681   .text.dhcp_parse_reply:0000000000000324 $t
+     /tmp/ccBmURlm.s:1861   .text.dhcp_parse_reply:00000000000004a8 $d
+     /tmp/ccBmURlm.s:1872   .text.dhcp_handle_ack:0000000000000000 $t
+     /tmp/ccBmURlm.s:1878   .text.dhcp_handle_ack:0000000000000000 dhcp_handle_ack
+     /tmp/ccBmURlm.s:1972   .text.dhcp_handle_ack:00000000000000a4 $d
+     /tmp/ccBmURlm.s:1976   .text.dhcp_recv:0000000000000000 $t
+     /tmp/ccBmURlm.s:2097   .text.dhcp_recv:00000000000000e0 $d
+     /tmp/ccBmURlm.s:2102   .text.dhcp_set_struct:0000000000000000 $t
+     /tmp/ccBmURlm.s:2109   .text.dhcp_set_struct:0000000000000000 dhcp_set_struct
+     /tmp/ccBmURlm.s:2150   .text.dhcp_set_struct:000000000000004c $d
+     /tmp/ccBmURlm.s:2157   .text.dhcp_cleanup:0000000000000000 $t
+     /tmp/ccBmURlm.s:2164   .text.dhcp_cleanup:0000000000000000 dhcp_cleanup
+     /tmp/ccBmURlm.s:2188   .text.dhcp_cleanup:0000000000000024 $d
+     /tmp/ccBmURlm.s:2193   .text.dhcp_inform:0000000000000000 $t
+     /tmp/ccBmURlm.s:2200   .text.dhcp_inform:0000000000000000 dhcp_inform
+     /tmp/ccBmURlm.s:2265   .text.dhcp_inform:000000000000008c $d
+     /tmp/ccBmURlm.s:2272   .text.dhcp_network_changed:0000000000000000 $t
+     /tmp/ccBmURlm.s:2279   .text.dhcp_network_changed:0000000000000000 dhcp_network_changed
+     /tmp/ccBmURlm.s:2291   .text.dhcp_network_changed:0000000000000012 $d
+     /tmp/ccBmURlm.s:2328   .text.dhcp_network_changed:0000000000000048 $d
+     /tmp/ccBmURlm.s:2333   .text.dhcp_arp_reply:0000000000000000 $t
+     /tmp/ccBmURlm.s:2340   .text.dhcp_arp_reply:0000000000000000 dhcp_arp_reply
+     /tmp/ccBmURlm.s:2371   .text.dhcp_arp_reply:0000000000000034 $d
+     /tmp/ccBmURlm.s:2376   .text.dhcp_renew:0000000000000000 $t
+     /tmp/ccBmURlm.s:2383   .text.dhcp_renew:0000000000000000 dhcp_renew
+     /tmp/ccBmURlm.s:2480   .text.dhcp_renew:00000000000000e0 $d
+     /tmp/ccBmURlm.s:2485   .text.dhcp_t1_timeout:0000000000000000 $t
+     /tmp/ccBmURlm.s:2491   .text.dhcp_t1_timeout:0000000000000000 dhcp_t1_timeout
+     /tmp/ccBmURlm.s:2517   .text.dhcp_supplied_address:0000000000000000 $t
+     /tmp/ccBmURlm.s:2524   .text.dhcp_supplied_address:0000000000000000 dhcp_supplied_address
+     /tmp/ccBmURlm.s:2559   .text.dhcp_release_and_stop:0000000000000000 $t
+     /tmp/ccBmURlm.s:2566   .text.dhcp_release_and_stop:0000000000000000 dhcp_release_and_stop
+     /tmp/ccBmURlm.s:2653   .text.dhcp_release_and_stop:00000000000000bc $d
+     /tmp/ccBmURlm.s:2657   .text.dhcp_start:0000000000000000 $t
+     /tmp/ccBmURlm.s:2664   .text.dhcp_start:0000000000000000 dhcp_start
+     /tmp/ccBmURlm.s:2749   .text.dhcp_start:00000000000000b4 $d
+     /tmp/ccBmURlm.s:2755   .text.dhcp_coarse_tmr:0000000000000000 $t
+     /tmp/ccBmURlm.s:2762   .text.dhcp_coarse_tmr:0000000000000000 dhcp_coarse_tmr
+     /tmp/ccBmURlm.s:2819   .text.dhcp_coarse_tmr:0000000000000060 $d
+     /tmp/ccBmURlm.s:2822   .text.dhcp_timeout:0000000000000000 $t
+     /tmp/ccBmURlm.s:2828   .text.dhcp_timeout:0000000000000000 dhcp_timeout
+     /tmp/ccBmURlm.s:2880   .text.dhcp_fine_tmr:0000000000000000 $t
+     /tmp/ccBmURlm.s:2887   .text.dhcp_fine_tmr:0000000000000000 dhcp_fine_tmr
+     /tmp/ccBmURlm.s:2921   .text.dhcp_fine_tmr:0000000000000030 $d
+     /tmp/ccBmURlm.s:2924   .text.dhcp_release:0000000000000000 $t
+     /tmp/ccBmURlm.s:2931   .text.dhcp_release:0000000000000000 dhcp_release
+     /tmp/ccBmURlm.s:2940   .text.dhcp_stop:0000000000000000 $t
+     /tmp/ccBmURlm.s:2947   .text.dhcp_stop:0000000000000000 dhcp_stop
+     /tmp/ccBmURlm.s:2957   .bss.dhcp_pcb:0000000000000000 $d
+     /tmp/ccBmURlm.s:2961   .bss.dhcp_pcb:0000000000000000 dhcp_pcb
+     /tmp/ccBmURlm.s:2967   .bss.dhcp_pcb_refcount:0000000000000000 dhcp_pcb_refcount
+ARM GAS  /tmp/ccBmURlm.s 			page 58
+
+
+     /tmp/ccBmURlm.s:2968   .bss.dhcp_pcb_refcount:0000000000000000 $d
+     /tmp/ccBmURlm.s:2970   .bss.xid.8340:0000000000000000 $d
+     /tmp/ccBmURlm.s:2974   .bss.xid.8340:0000000000000000 xid.8340
+     /tmp/ccBmURlm.s:2977   .rodata.dhcp_bind.str1.4:0000000000000000 $d
+     /tmp/ccBmURlm.s:2984   .rodata.dhcp_create_msg.str1.4:0000000000000000 $d
+     /tmp/ccBmURlm.s:2995   .rodata.dhcp_dec_pcb_refcount.str1.4:0000000000000000 $d
+     /tmp/ccBmURlm.s:2999   .rodata.dhcp_discover_request_options:0000000000000000 $d
+     /tmp/ccBmURlm.s:3003   .rodata.dhcp_discover_request_options:0000000000000000 dhcp_discover_request_options
+     /tmp/ccBmURlm.s:3009   .rodata.dhcp_inc_pcb_refcount.str1.4:0000000000000000 $d
+     /tmp/ccBmURlm.s:3013   .rodata.dhcp_network_changed.str1.4:0000000000000000 $d
+     /tmp/ccBmURlm.s:3017   .rodata.dhcp_option.str1.4:0000000000000000 $d
+     /tmp/ccBmURlm.s:3022   .rodata.dhcp_option_byte.str1.4:0000000000000000 $d
+     /tmp/ccBmURlm.s:3027   .rodata.dhcp_option_long.str1.4:0000000000000000 $d
+     /tmp/ccBmURlm.s:3032   .rodata.dhcp_option_short.str1.4:0000000000000000 $d
+     /tmp/ccBmURlm.s:3043   .rodata.dhcp_parse_reply.str1.4:0000000000000000 $d
+     /tmp/ccBmURlm.s:3071   .rodata.dhcp_select.str1.4:0000000000000000 $d
+     /tmp/ccBmURlm.s:3078   .rodata.dhcp_set_struct.str1.4:0000000000000000 $d
+     /tmp/ccBmURlm.s:3088   .rodata.dhcp_start.str1.4:0000000000000000 $d
+     /tmp/ccBmURlm.s:2302   .text.dhcp_network_changed:000000000000001d $d
+     /tmp/ccBmURlm.s:2302   .text.dhcp_network_changed:000000000000001e $t
+
+UNDEFINED SYMBOLS
+printf
+pbuf_alloc
+memset
+lwip_htonl
+rand
+pbuf_realloc
+udp_sendto_if
+pbuf_free
+ip_addr_broadcast
+udp_sendto_if_src
+ip_addr_any
+etharp_query
+netif_set_addr
+udp_remove
+udp_new
+udp_bind
+udp_connect
+udp_recv
+pbuf_copy_partial
+dns_setserver
+ip_data
+mem_free
+mem_malloc
+netif_list

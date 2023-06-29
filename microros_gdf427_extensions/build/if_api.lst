@@ -1,0 +1,65 @@
+ARM GAS  /tmp/ccFYtMDA.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"if_api.c"
+  14              		.text
+  15              		.section	.text.lwip_if_indextoname,"ax",%progbits
+  16              		.align	1
+  17              		.global	lwip_if_indextoname
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	lwip_if_indextoname:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27              		@ link register save eliminated.
+  28 0000 024B     		ldr	r3, .L2
+  29 0002 0622     		movs	r2, #6
+  30 0004 1A60     		str	r2, [r3]
+  31 0006 0020     		movs	r0, #0
+  32 0008 7047     		bx	lr
+  33              	.L3:
+  34 000a 00BF     		.align	2
+  35              	.L2:
+  36 000c 00000000 		.word	errno
+  38              		.section	.text.lwip_if_nametoindex,"ax",%progbits
+  39              		.align	1
+  40              		.global	lwip_if_nametoindex
+  41              		.syntax unified
+  42              		.thumb
+  43              		.thumb_func
+  44              		.fpu fpv4-sp-d16
+  46              	lwip_if_nametoindex:
+  47              		@ args = 0, pretend = 0, frame = 0
+  48              		@ frame_needed = 0, uses_anonymous_args = 0
+  49              		@ link register save eliminated.
+  50 0000 0020     		movs	r0, #0
+  51 0002 7047     		bx	lr
+  53              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccFYtMDA.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 if_api.c
+     /tmp/ccFYtMDA.s:16     .text.lwip_if_indextoname:0000000000000000 $t
+     /tmp/ccFYtMDA.s:24     .text.lwip_if_indextoname:0000000000000000 lwip_if_indextoname
+     /tmp/ccFYtMDA.s:36     .text.lwip_if_indextoname:000000000000000c $d
+     /tmp/ccFYtMDA.s:39     .text.lwip_if_nametoindex:0000000000000000 $t
+     /tmp/ccFYtMDA.s:46     .text.lwip_if_nametoindex:0000000000000000 lwip_if_nametoindex
+
+UNDEFINED SYMBOLS
+errno

@@ -1,0 +1,830 @@
+ARM GAS  /tmp/ccboNiw6.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"tcpip.c"
+  14              		.text
+  15              		.section	.text.tcpip_timeouts_mbox_fetch,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv4-sp-d16
+  23              	tcpip_timeouts_mbox_fetch:
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  27 0002 0646     		mov	r6, r0
+  28 0004 0F46     		mov	r7, r1
+  29 0006 0EE0     		b	.L2
+  30              	.L8:
+  31 0008 144C     		ldr	r4, .L10
+  32 000a 2046     		mov	r0, r4
+  33 000c FFF7FEFF 		bl	sys_mutex_unlock
+  34 0010 0022     		movs	r2, #0
+  35 0012 3946     		mov	r1, r7
+  36 0014 3046     		mov	r0, r6
+  37 0016 FFF7FEFF 		bl	sys_arch_mbox_fetch
+  38 001a 2046     		mov	r0, r4
+  39 001c FFF7FEFF 		bl	sys_mutex_lock
+  40              	.L1:
+  41 0020 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+  42              	.L9:
+  43 0022 FFF7FEFF 		bl	sys_check_timeouts
+  44              	.L2:
+  45 0026 FFF7FEFF 		bl	sys_timeouts_sleeptime
+  46 002a 0446     		mov	r4, r0
+  47 002c B0F1FF3F 		cmp	r0, #-1
+  48 0030 EAD0     		beq	.L8
+  49 0032 0028     		cmp	r0, #0
+  50 0034 F5D0     		beq	.L9
+  51 0036 094D     		ldr	r5, .L10
+  52 0038 2846     		mov	r0, r5
+  53 003a FFF7FEFF 		bl	sys_mutex_unlock
+  54 003e 2246     		mov	r2, r4
+  55 0040 3946     		mov	r1, r7
+  56 0042 3046     		mov	r0, r6
+  57 0044 FFF7FEFF 		bl	sys_arch_mbox_fetch
+  58 0048 0446     		mov	r4, r0
+ARM GAS  /tmp/ccboNiw6.s 			page 2
+
+
+  59 004a 2846     		mov	r0, r5
+  60 004c FFF7FEFF 		bl	sys_mutex_lock
+  61 0050 B4F1FF3F 		cmp	r4, #-1
+  62 0054 E4D1     		bne	.L1
+  63 0056 FFF7FEFF 		bl	sys_check_timeouts
+  64              	.L3:
+  65 005a E4E7     		b	.L2
+  66              	.L11:
+  67              		.align	2
+  68              	.L10:
+  69 005c 00000000 		.word	lock_tcpip_core
+  71              		.section	.text.tcpip_thread_handle_msg,"ax",%progbits
+  72              		.align	1
+  73              		.syntax unified
+  74              		.thumb
+  75              		.thumb_func
+  76              		.fpu fpv4-sp-d16
+  78              	tcpip_thread_handle_msg:
+  79              		@ args = 0, pretend = 0, frame = 0
+  80              		@ frame_needed = 0, uses_anonymous_args = 0
+  81 0000 10B5     		push	{r4, lr}
+  82 0002 0446     		mov	r4, r0
+  83 0004 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+  84 0006 012B     		cmp	r3, #1
+  85 0008 18D0     		beq	.L13
+  86 000a 5AB2     		sxtb	r2, r3
+  87 000c 42B1     		cbz	r2, .L14
+  88 000e 022B     		cmp	r3, #2
+  89 0010 1CD0     		beq	.L15
+  90 0012 104B     		ldr	r3, .L22
+  91 0014 CF22     		movs	r2, #207
+  92 0016 1049     		ldr	r1, .L22+4
+  93 0018 1048     		ldr	r0, .L22+8
+  94 001a FFF7FEFF 		bl	printf
+  95 001e 08E0     		b	.L12
+  96              	.L14:
+  97 0020 C368     		ldr	r3, [r0, #12]
+  98 0022 8168     		ldr	r1, [r0, #8]
+  99 0024 4068     		ldr	r0, [r0, #4]
+ 100 0026 9847     		blx	r3
+ 101 0028 20B9     		cbnz	r0, .L21
+ 102              	.L17:
+ 103 002a 2146     		mov	r1, r4
+ 104 002c 0920     		movs	r0, #9
+ 105 002e FFF7FEFF 		bl	memp_free
+ 106              	.L12:
+ 107 0032 10BD     		pop	{r4, pc}
+ 108              	.L21:
+ 109 0034 6068     		ldr	r0, [r4, #4]
+ 110 0036 FFF7FEFF 		bl	pbuf_free
+ 111 003a F6E7     		b	.L17
+ 112              	.L13:
+ 113 003c 4368     		ldr	r3, [r0, #4]
+ 114 003e 8068     		ldr	r0, [r0, #8]
+ 115 0040 9847     		blx	r3
+ 116 0042 2146     		mov	r1, r4
+ 117 0044 0820     		movs	r0, #8
+ARM GAS  /tmp/ccboNiw6.s 			page 3
+
+
+ 118 0046 FFF7FEFF 		bl	memp_free
+ 119 004a F2E7     		b	.L12
+ 120              	.L15:
+ 121 004c 4368     		ldr	r3, [r0, #4]
+ 122 004e 8068     		ldr	r0, [r0, #8]
+ 123 0050 9847     		blx	r3
+ 124 0052 EEE7     		b	.L12
+ 125              	.L23:
+ 126              		.align	2
+ 127              	.L22:
+ 128 0054 00000000 		.word	.LC0
+ 129 0058 30000000 		.word	.LC1
+ 130 005c 50000000 		.word	.LC2
+ 132              		.section	.text.tcpip_thread,"ax",%progbits
+ 133              		.align	1
+ 134              		.syntax unified
+ 135              		.thumb
+ 136              		.thumb_func
+ 137              		.fpu fpv4-sp-d16
+ 139              	tcpip_thread:
+ 140              		@ Volatile: function does not return.
+ 141              		@ args = 0, pretend = 0, frame = 8
+ 142              		@ frame_needed = 0, uses_anonymous_args = 0
+ 143 0000 00B5     		push	{lr}
+ 144 0002 83B0     		sub	sp, sp, #12
+ 145 0004 0C48     		ldr	r0, .L31
+ 146 0006 FFF7FEFF 		bl	sys_mutex_lock
+ 147 000a 0C4B     		ldr	r3, .L31+4
+ 148 000c 1B68     		ldr	r3, [r3]
+ 149 000e 4BB1     		cbz	r3, .L26
+ 150 0010 0B4A     		ldr	r2, .L31+8
+ 151 0012 1068     		ldr	r0, [r2]
+ 152 0014 9847     		blx	r3
+ 153 0016 05E0     		b	.L26
+ 154              	.L30:
+ 155 0018 0A4B     		ldr	r3, .L31+12
+ 156 001a 9122     		movs	r2, #145
+ 157 001c 0A49     		ldr	r1, .L31+16
+ 158 001e 0B48     		ldr	r0, .L31+20
+ 159 0020 FFF7FEFF 		bl	printf
+ 160              	.L26:
+ 161 0024 01A9     		add	r1, sp, #4
+ 162 0026 0A48     		ldr	r0, .L31+24
+ 163 0028 FFF7FEFF 		bl	tcpip_timeouts_mbox_fetch
+ 164 002c 0198     		ldr	r0, [sp, #4]
+ 165 002e 0028     		cmp	r0, #0
+ 166 0030 F2D0     		beq	.L30
+ 167 0032 FFF7FEFF 		bl	tcpip_thread_handle_msg
+ 168 0036 F5E7     		b	.L26
+ 169              	.L32:
+ 170              		.align	2
+ 171              	.L31:
+ 172 0038 00000000 		.word	lock_tcpip_core
+ 173 003c 00000000 		.word	.LANCHOR0
+ 174 0040 00000000 		.word	.LANCHOR1
+ 175 0044 00000000 		.word	.LC0
+ 176 0048 30000000 		.word	.LC1
+ARM GAS  /tmp/ccboNiw6.s 			page 4
+
+
+ 177 004c 50000000 		.word	.LC2
+ 178 0050 00000000 		.word	.LANCHOR2
+ 180              		.section	.text.pbuf_free_int,"ax",%progbits
+ 181              		.align	1
+ 182              		.syntax unified
+ 183              		.thumb
+ 184              		.thumb_func
+ 185              		.fpu fpv4-sp-d16
+ 187              	pbuf_free_int:
+ 188              		@ args = 0, pretend = 0, frame = 0
+ 189              		@ frame_needed = 0, uses_anonymous_args = 0
+ 190 0000 08B5     		push	{r3, lr}
+ 191 0002 FFF7FEFF 		bl	pbuf_free
+ 192 0006 08BD     		pop	{r3, pc}
+ 194              		.section	.text.tcpip_inpkt,"ax",%progbits
+ 195              		.align	1
+ 196              		.global	tcpip_inpkt
+ 197              		.syntax unified
+ 198              		.thumb
+ 199              		.thumb_func
+ 200              		.fpu fpv4-sp-d16
+ 202              	tcpip_inpkt:
+ 203              		@ args = 0, pretend = 0, frame = 0
+ 204              		@ frame_needed = 0, uses_anonymous_args = 0
+ 205 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 206 0002 0746     		mov	r7, r0
+ 207 0004 0E46     		mov	r6, r1
+ 208 0006 1546     		mov	r5, r2
+ 209 0008 1348     		ldr	r0, .L42
+ 210 000a FFF7FEFF 		bl	sys_mbox_valid
+ 211 000e 88B1     		cbz	r0, .L40
+ 212              	.L36:
+ 213 0010 0920     		movs	r0, #9
+ 214 0012 FFF7FEFF 		bl	memp_malloc
+ 215 0016 0446     		mov	r4, r0
+ 216 0018 D0B1     		cbz	r0, .L38
+ 217 001a 0023     		movs	r3, #0
+ 218 001c 0370     		strb	r3, [r0]
+ 219 001e 4760     		str	r7, [r0, #4]
+ 220 0020 8660     		str	r6, [r0, #8]
+ 221 0022 C560     		str	r5, [r0, #12]
+ 222 0024 0146     		mov	r1, r0
+ 223 0026 0C48     		ldr	r0, .L42
+ 224 0028 FFF7FEFF 		bl	sys_mbox_trypost
+ 225 002c 0346     		mov	r3, r0
+ 226 002e 40B9     		cbnz	r0, .L41
+ 227              	.L37:
+ 228 0030 1846     		mov	r0, r3
+ 229 0032 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 230              	.L40:
+ 231 0034 094B     		ldr	r3, .L42+4
+ 232 0036 FC22     		movs	r2, #252
+ 233 0038 0949     		ldr	r1, .L42+8
+ 234 003a 0A48     		ldr	r0, .L42+12
+ 235 003c FFF7FEFF 		bl	printf
+ 236 0040 E6E7     		b	.L36
+ 237              	.L41:
+ARM GAS  /tmp/ccboNiw6.s 			page 5
+
+
+ 238 0042 2146     		mov	r1, r4
+ 239 0044 0920     		movs	r0, #9
+ 240 0046 FFF7FEFF 		bl	memp_free
+ 241 004a 4FF0FF33 		mov	r3, #-1
+ 242 004e EFE7     		b	.L37
+ 243              	.L38:
+ 244 0050 4FF0FF33 		mov	r3, #-1
+ 245 0054 ECE7     		b	.L37
+ 246              	.L43:
+ 247 0056 00BF     		.align	2
+ 248              	.L42:
+ 249 0058 00000000 		.word	.LANCHOR2
+ 250 005c 00000000 		.word	.LC0
+ 251 0060 00000000 		.word	.LC3
+ 252 0064 50000000 		.word	.LC2
+ 254              		.section	.text.tcpip_input,"ax",%progbits
+ 255              		.align	1
+ 256              		.global	tcpip_input
+ 257              		.syntax unified
+ 258              		.thumb
+ 259              		.thumb_func
+ 260              		.fpu fpv4-sp-d16
+ 262              	tcpip_input:
+ 263              		@ args = 0, pretend = 0, frame = 0
+ 264              		@ frame_needed = 0, uses_anonymous_args = 0
+ 265 0000 08B5     		push	{r3, lr}
+ 266 0002 91F83130 		ldrb	r3, [r1, #49]	@ zero_extendqisi2
+ 267 0006 13F0180F 		tst	r3, #24
+ 268 000a 03D0     		beq	.L45
+ 269 000c 034A     		ldr	r2, .L48
+ 270 000e FFF7FEFF 		bl	tcpip_inpkt
+ 271              	.L46:
+ 272 0012 08BD     		pop	{r3, pc}
+ 273              	.L45:
+ 274 0014 024A     		ldr	r2, .L48+4
+ 275 0016 FFF7FEFF 		bl	tcpip_inpkt
+ 276 001a FAE7     		b	.L46
+ 277              	.L49:
+ 278              		.align	2
+ 279              	.L48:
+ 280 001c 00000000 		.word	ethernet_input
+ 281 0020 00000000 		.word	ip4_input
+ 283              		.section	.text.tcpip_callback,"ax",%progbits
+ 284              		.align	1
+ 285              		.global	tcpip_callback
+ 286              		.syntax unified
+ 287              		.thumb
+ 288              		.thumb_func
+ 289              		.fpu fpv4-sp-d16
+ 291              	tcpip_callback:
+ 292              		@ args = 0, pretend = 0, frame = 0
+ 293              		@ frame_needed = 0, uses_anonymous_args = 0
+ 294 0000 38B5     		push	{r3, r4, r5, lr}
+ 295 0002 0546     		mov	r5, r0
+ 296 0004 0C46     		mov	r4, r1
+ 297 0006 0E48     		ldr	r0, .L56
+ 298 0008 FFF7FEFF 		bl	sys_mbox_valid
+ARM GAS  /tmp/ccboNiw6.s 			page 6
+
+
+ 299 000c 68B1     		cbz	r0, .L55
+ 300              	.L51:
+ 301 000e 0820     		movs	r0, #8
+ 302 0010 FFF7FEFF 		bl	memp_malloc
+ 303 0014 0146     		mov	r1, r0
+ 304 0016 80B1     		cbz	r0, .L53
+ 305 0018 0123     		movs	r3, #1
+ 306 001a 0370     		strb	r3, [r0]
+ 307 001c 4560     		str	r5, [r0, #4]
+ 308 001e 8460     		str	r4, [r0, #8]
+ 309 0020 0748     		ldr	r0, .L56
+ 310 0022 FFF7FEFF 		bl	sys_mbox_post
+ 311 0026 0020     		movs	r0, #0
+ 312              	.L52:
+ 313 0028 38BD     		pop	{r3, r4, r5, pc}
+ 314              	.L55:
+ 315 002a 064B     		ldr	r3, .L56+4
+ 316 002c 40F23912 		movw	r2, #313
+ 317 0030 0549     		ldr	r1, .L56+8
+ 318 0032 0648     		ldr	r0, .L56+12
+ 319 0034 FFF7FEFF 		bl	printf
+ 320 0038 E9E7     		b	.L51
+ 321              	.L53:
+ 322 003a 4FF0FF30 		mov	r0, #-1
+ 323 003e F3E7     		b	.L52
+ 324              	.L57:
+ 325              		.align	2
+ 326              	.L56:
+ 327 0040 00000000 		.word	.LANCHOR2
+ 328 0044 00000000 		.word	.LC0
+ 329 0048 00000000 		.word	.LC3
+ 330 004c 50000000 		.word	.LC2
+ 332              		.section	.text.tcpip_try_callback,"ax",%progbits
+ 333              		.align	1
+ 334              		.global	tcpip_try_callback
+ 335              		.syntax unified
+ 336              		.thumb
+ 337              		.thumb_func
+ 338              		.fpu fpv4-sp-d16
+ 340              	tcpip_try_callback:
+ 341              		@ args = 0, pretend = 0, frame = 0
+ 342              		@ frame_needed = 0, uses_anonymous_args = 0
+ 343 0000 70B5     		push	{r4, r5, r6, lr}
+ 344 0002 0646     		mov	r6, r0
+ 345 0004 0D46     		mov	r5, r1
+ 346 0006 1348     		ldr	r0, .L65
+ 347 0008 FFF7FEFF 		bl	sys_mbox_valid
+ 348 000c 80B1     		cbz	r0, .L63
+ 349              	.L59:
+ 350 000e 0820     		movs	r0, #8
+ 351 0010 FFF7FEFF 		bl	memp_malloc
+ 352 0014 0446     		mov	r4, r0
+ 353 0016 D0B1     		cbz	r0, .L61
+ 354 0018 0123     		movs	r3, #1
+ 355 001a 0370     		strb	r3, [r0]
+ 356 001c 4660     		str	r6, [r0, #4]
+ 357 001e 8560     		str	r5, [r0, #8]
+ARM GAS  /tmp/ccboNiw6.s 			page 7
+
+
+ 358 0020 0146     		mov	r1, r0
+ 359 0022 0C48     		ldr	r0, .L65
+ 360 0024 FFF7FEFF 		bl	sys_mbox_trypost
+ 361 0028 0346     		mov	r3, r0
+ 362 002a 48B9     		cbnz	r0, .L64
+ 363              	.L60:
+ 364 002c 1846     		mov	r0, r3
+ 365 002e 70BD     		pop	{r4, r5, r6, pc}
+ 366              	.L63:
+ 367 0030 094B     		ldr	r3, .L65+4
+ 368 0032 40F25D12 		movw	r2, #349
+ 369 0036 0949     		ldr	r1, .L65+8
+ 370 0038 0948     		ldr	r0, .L65+12
+ 371 003a FFF7FEFF 		bl	printf
+ 372 003e E6E7     		b	.L59
+ 373              	.L64:
+ 374 0040 2146     		mov	r1, r4
+ 375 0042 0820     		movs	r0, #8
+ 376 0044 FFF7FEFF 		bl	memp_free
+ 377 0048 4FF0FF33 		mov	r3, #-1
+ 378 004c EEE7     		b	.L60
+ 379              	.L61:
+ 380 004e 4FF0FF33 		mov	r3, #-1
+ 381 0052 EBE7     		b	.L60
+ 382              	.L66:
+ 383              		.align	2
+ 384              	.L65:
+ 385 0054 00000000 		.word	.LANCHOR2
+ 386 0058 00000000 		.word	.LC0
+ 387 005c 00000000 		.word	.LC3
+ 388 0060 50000000 		.word	.LC2
+ 390              		.section	.text.tcpip_send_msg_wait_sem,"ax",%progbits
+ 391              		.align	1
+ 392              		.global	tcpip_send_msg_wait_sem
+ 393              		.syntax unified
+ 394              		.thumb
+ 395              		.thumb_func
+ 396              		.fpu fpv4-sp-d16
+ 398              	tcpip_send_msg_wait_sem:
+ 399              		@ args = 0, pretend = 0, frame = 0
+ 400              		@ frame_needed = 0, uses_anonymous_args = 0
+ 401 0000 70B5     		push	{r4, r5, r6, lr}
+ 402 0002 0546     		mov	r5, r0
+ 403 0004 0E46     		mov	r6, r1
+ 404 0006 054C     		ldr	r4, .L69
+ 405 0008 2046     		mov	r0, r4
+ 406 000a FFF7FEFF 		bl	sys_mutex_lock
+ 407 000e 3046     		mov	r0, r6
+ 408 0010 A847     		blx	r5
+ 409 0012 2046     		mov	r0, r4
+ 410 0014 FFF7FEFF 		bl	sys_mutex_unlock
+ 411 0018 0020     		movs	r0, #0
+ 412 001a 70BD     		pop	{r4, r5, r6, pc}
+ 413              	.L70:
+ 414              		.align	2
+ 415              	.L69:
+ 416 001c 00000000 		.word	lock_tcpip_core
+ARM GAS  /tmp/ccboNiw6.s 			page 8
+
+
+ 418              		.section	.text.tcpip_api_call,"ax",%progbits
+ 419              		.align	1
+ 420              		.global	tcpip_api_call
+ 421              		.syntax unified
+ 422              		.thumb
+ 423              		.thumb_func
+ 424              		.fpu fpv4-sp-d16
+ 426              	tcpip_api_call:
+ 427              		@ args = 0, pretend = 0, frame = 0
+ 428              		@ frame_needed = 0, uses_anonymous_args = 0
+ 429 0000 70B5     		push	{r4, r5, r6, lr}
+ 430 0002 0546     		mov	r5, r0
+ 431 0004 0E46     		mov	r6, r1
+ 432 0006 064C     		ldr	r4, .L73
+ 433 0008 2046     		mov	r0, r4
+ 434 000a FFF7FEFF 		bl	sys_mutex_lock
+ 435 000e 3046     		mov	r0, r6
+ 436 0010 A847     		blx	r5
+ 437 0012 0546     		mov	r5, r0
+ 438 0014 2046     		mov	r0, r4
+ 439 0016 FFF7FEFF 		bl	sys_mutex_unlock
+ 440 001a 2846     		mov	r0, r5
+ 441 001c 70BD     		pop	{r4, r5, r6, pc}
+ 442              	.L74:
+ 443 001e 00BF     		.align	2
+ 444              	.L73:
+ 445 0020 00000000 		.word	lock_tcpip_core
+ 447              		.section	.text.tcpip_callbackmsg_new,"ax",%progbits
+ 448              		.align	1
+ 449              		.global	tcpip_callbackmsg_new
+ 450              		.syntax unified
+ 451              		.thumb
+ 452              		.thumb_func
+ 453              		.fpu fpv4-sp-d16
+ 455              	tcpip_callbackmsg_new:
+ 456              		@ args = 0, pretend = 0, frame = 0
+ 457              		@ frame_needed = 0, uses_anonymous_args = 0
+ 458 0000 38B5     		push	{r3, r4, r5, lr}
+ 459 0002 0546     		mov	r5, r0
+ 460 0004 0C46     		mov	r4, r1
+ 461 0006 0820     		movs	r0, #8
+ 462 0008 FFF7FEFF 		bl	memp_malloc
+ 463 000c 0346     		mov	r3, r0
+ 464 000e 18B1     		cbz	r0, .L75
+ 465 0010 0222     		movs	r2, #2
+ 466 0012 0270     		strb	r2, [r0]
+ 467 0014 4560     		str	r5, [r0, #4]
+ 468 0016 8460     		str	r4, [r0, #8]
+ 469              	.L75:
+ 470 0018 1846     		mov	r0, r3
+ 471 001a 38BD     		pop	{r3, r4, r5, pc}
+ 473              		.section	.text.tcpip_callbackmsg_delete,"ax",%progbits
+ 474              		.align	1
+ 475              		.global	tcpip_callbackmsg_delete
+ 476              		.syntax unified
+ 477              		.thumb
+ 478              		.thumb_func
+ARM GAS  /tmp/ccboNiw6.s 			page 9
+
+
+ 479              		.fpu fpv4-sp-d16
+ 481              	tcpip_callbackmsg_delete:
+ 482              		@ args = 0, pretend = 0, frame = 0
+ 483              		@ frame_needed = 0, uses_anonymous_args = 0
+ 484 0000 08B5     		push	{r3, lr}
+ 485 0002 0146     		mov	r1, r0
+ 486 0004 0820     		movs	r0, #8
+ 487 0006 FFF7FEFF 		bl	memp_free
+ 488 000a 08BD     		pop	{r3, pc}
+ 490              		.section	.text.tcpip_callbackmsg_trycallback,"ax",%progbits
+ 491              		.align	1
+ 492              		.global	tcpip_callbackmsg_trycallback
+ 493              		.syntax unified
+ 494              		.thumb
+ 495              		.thumb_func
+ 496              		.fpu fpv4-sp-d16
+ 498              	tcpip_callbackmsg_trycallback:
+ 499              		@ args = 0, pretend = 0, frame = 0
+ 500              		@ frame_needed = 0, uses_anonymous_args = 0
+ 501 0000 10B5     		push	{r4, lr}
+ 502 0002 0446     		mov	r4, r0
+ 503 0004 0848     		ldr	r0, .L84
+ 504 0006 FFF7FEFF 		bl	sys_mbox_valid
+ 505 000a 20B1     		cbz	r0, .L83
+ 506              	.L81:
+ 507 000c 2146     		mov	r1, r4
+ 508 000e 0648     		ldr	r0, .L84
+ 509 0010 FFF7FEFF 		bl	sys_mbox_trypost
+ 510 0014 10BD     		pop	{r4, pc}
+ 511              	.L83:
+ 512 0016 054B     		ldr	r3, .L84+4
+ 513 0018 40F23922 		movw	r2, #569
+ 514 001c 0449     		ldr	r1, .L84+8
+ 515 001e 0548     		ldr	r0, .L84+12
+ 516 0020 FFF7FEFF 		bl	printf
+ 517 0024 F2E7     		b	.L81
+ 518              	.L85:
+ 519 0026 00BF     		.align	2
+ 520              	.L84:
+ 521 0028 00000000 		.word	.LANCHOR2
+ 522 002c 00000000 		.word	.LC0
+ 523 0030 00000000 		.word	.LC3
+ 524 0034 50000000 		.word	.LC2
+ 526              		.section	.text.tcpip_callbackmsg_trycallback_fromisr,"ax",%progbits
+ 527              		.align	1
+ 528              		.global	tcpip_callbackmsg_trycallback_fromisr
+ 529              		.syntax unified
+ 530              		.thumb
+ 531              		.thumb_func
+ 532              		.fpu fpv4-sp-d16
+ 534              	tcpip_callbackmsg_trycallback_fromisr:
+ 535              		@ args = 0, pretend = 0, frame = 0
+ 536              		@ frame_needed = 0, uses_anonymous_args = 0
+ 537 0000 10B5     		push	{r4, lr}
+ 538 0002 0446     		mov	r4, r0
+ 539 0004 0848     		ldr	r0, .L90
+ 540 0006 FFF7FEFF 		bl	sys_mbox_valid
+ARM GAS  /tmp/ccboNiw6.s 			page 10
+
+
+ 541 000a 20B1     		cbz	r0, .L89
+ 542              	.L87:
+ 543 000c 2146     		mov	r1, r4
+ 544 000e 0648     		ldr	r0, .L90
+ 545 0010 FFF7FEFF 		bl	sys_mbox_trypost_fromisr
+ 546 0014 10BD     		pop	{r4, pc}
+ 547              	.L89:
+ 548 0016 054B     		ldr	r3, .L90+4
+ 549 0018 4FF41372 		mov	r2, #588
+ 550 001c 0449     		ldr	r1, .L90+8
+ 551 001e 0548     		ldr	r0, .L90+12
+ 552 0020 FFF7FEFF 		bl	printf
+ 553 0024 F2E7     		b	.L87
+ 554              	.L91:
+ 555 0026 00BF     		.align	2
+ 556              	.L90:
+ 557 0028 00000000 		.word	.LANCHOR2
+ 558 002c 00000000 		.word	.LC0
+ 559 0030 00000000 		.word	.LC3
+ 560 0034 50000000 		.word	.LC2
+ 562              		.section	.text.tcpip_init,"ax",%progbits
+ 563              		.align	1
+ 564              		.global	tcpip_init
+ 565              		.syntax unified
+ 566              		.thumb
+ 567              		.thumb_func
+ 568              		.fpu fpv4-sp-d16
+ 570              	tcpip_init:
+ 571              		@ args = 0, pretend = 0, frame = 0
+ 572              		@ frame_needed = 0, uses_anonymous_args = 0
+ 573 0000 30B5     		push	{r4, r5, lr}
+ 574 0002 83B0     		sub	sp, sp, #12
+ 575 0004 0546     		mov	r5, r0
+ 576 0006 0C46     		mov	r4, r1
+ 577 0008 FFF7FEFF 		bl	lwip_init
+ 578 000c 134B     		ldr	r3, .L98
+ 579 000e 1D60     		str	r5, [r3]
+ 580 0010 134B     		ldr	r3, .L98+4
+ 581 0012 1C60     		str	r4, [r3]
+ 582 0014 0621     		movs	r1, #6
+ 583 0016 1348     		ldr	r0, .L98+8
+ 584 0018 FFF7FEFF 		bl	sys_mbox_new
+ 585 001c 70B9     		cbnz	r0, .L96
+ 586              	.L93:
+ 587 001e 1248     		ldr	r0, .L98+12
+ 588 0020 FFF7FEFF 		bl	sys_mutex_new
+ 589 0024 90B9     		cbnz	r0, .L97
+ 590              	.L94:
+ 591 0026 1823     		movs	r3, #24
+ 592 0028 0093     		str	r3, [sp]
+ 593 002a 4FF48063 		mov	r3, #1024
+ 594 002e 0022     		movs	r2, #0
+ 595 0030 0E49     		ldr	r1, .L98+16
+ 596 0032 0F48     		ldr	r0, .L98+20
+ 597 0034 FFF7FEFF 		bl	sys_thread_new
+ 598 0038 03B0     		add	sp, sp, #12
+ 599              		@ sp needed
+ARM GAS  /tmp/ccboNiw6.s 			page 11
+
+
+ 600 003a 30BD     		pop	{r4, r5, pc}
+ 601              	.L96:
+ 602 003c 0D4B     		ldr	r3, .L98+24
+ 603 003e 40F26122 		movw	r2, #609
+ 604 0042 0D49     		ldr	r1, .L98+28
+ 605 0044 0D48     		ldr	r0, .L98+32
+ 606 0046 FFF7FEFF 		bl	printf
+ 607 004a E8E7     		b	.L93
+ 608              	.L97:
+ 609 004c 094B     		ldr	r3, .L98+24
+ 610 004e 40F26522 		movw	r2, #613
+ 611 0052 0B49     		ldr	r1, .L98+36
+ 612 0054 0948     		ldr	r0, .L98+32
+ 613 0056 FFF7FEFF 		bl	printf
+ 614 005a E4E7     		b	.L94
+ 615              	.L99:
+ 616              		.align	2
+ 617              	.L98:
+ 618 005c 00000000 		.word	.LANCHOR0
+ 619 0060 00000000 		.word	.LANCHOR1
+ 620 0064 00000000 		.word	.LANCHOR2
+ 621 0068 00000000 		.word	lock_tcpip_core
+ 622 006c 00000000 		.word	tcpip_thread
+ 623 0070 48000000 		.word	.LC6
+ 624 0074 00000000 		.word	.LC0
+ 625 0078 00000000 		.word	.LC4
+ 626 007c 50000000 		.word	.LC2
+ 627 0080 24000000 		.word	.LC5
+ 629              		.section	.text.pbuf_free_callback,"ax",%progbits
+ 630              		.align	1
+ 631              		.global	pbuf_free_callback
+ 632              		.syntax unified
+ 633              		.thumb
+ 634              		.thumb_func
+ 635              		.fpu fpv4-sp-d16
+ 637              	pbuf_free_callback:
+ 638              		@ args = 0, pretend = 0, frame = 0
+ 639              		@ frame_needed = 0, uses_anonymous_args = 0
+ 640 0000 08B5     		push	{r3, lr}
+ 641 0002 0146     		mov	r1, r0
+ 642 0004 0148     		ldr	r0, .L102
+ 643 0006 FFF7FEFF 		bl	tcpip_try_callback
+ 644 000a 08BD     		pop	{r3, pc}
+ 645              	.L103:
+ 646              		.align	2
+ 647              	.L102:
+ 648 000c 00000000 		.word	pbuf_free_int
+ 650              		.section	.text.mem_free_callback,"ax",%progbits
+ 651              		.align	1
+ 652              		.global	mem_free_callback
+ 653              		.syntax unified
+ 654              		.thumb
+ 655              		.thumb_func
+ 656              		.fpu fpv4-sp-d16
+ 658              	mem_free_callback:
+ 659              		@ args = 0, pretend = 0, frame = 0
+ 660              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccboNiw6.s 			page 12
+
+
+ 661 0000 08B5     		push	{r3, lr}
+ 662 0002 0146     		mov	r1, r0
+ 663 0004 0148     		ldr	r0, .L106
+ 664 0006 FFF7FEFF 		bl	tcpip_try_callback
+ 665 000a 08BD     		pop	{r3, pc}
+ 666              	.L107:
+ 667              		.align	2
+ 668              	.L106:
+ 669 000c 00000000 		.word	mem_free
+ 671              		.comm	lock_tcpip_core,4,4
+ 672              		.section	.bss.tcpip_init_done,"aw",%nobits
+ 673              		.align	2
+ 674              		.set	.LANCHOR0,. + 0
+ 677              	tcpip_init_done:
+ 678 0000 00000000 		.space	4
+ 679              		.section	.bss.tcpip_init_done_arg,"aw",%nobits
+ 680              		.align	2
+ 681              		.set	.LANCHOR1,. + 0
+ 684              	tcpip_init_done_arg:
+ 685 0000 00000000 		.space	4
+ 686              		.section	.bss.tcpip_mbox,"aw",%nobits
+ 687              		.align	2
+ 688              		.set	.LANCHOR2,. + 0
+ 691              	tcpip_mbox:
+ 692 0000 00000000 		.space	4
+ 693              		.section	.rodata.tcpip_init.str1.4,"aMS",%progbits,1
+ 694              		.align	2
+ 695              	.LC4:
+ 696 0000 6661696C 		.ascii	"failed to create tcpip_thread mbox\000"
+ 696      65642074 
+ 696      6F206372 
+ 696      65617465 
+ 696      20746370 
+ 697 0023 00       		.space	1
+ 698              	.LC5:
+ 699 0024 6661696C 		.ascii	"failed to create lock_tcpip_core\000"
+ 699      65642074 
+ 699      6F206372 
+ 699      65617465 
+ 699      206C6F63 
+ 700 0045 000000   		.space	3
+ 701              	.LC6:
+ 702 0048 74637069 		.ascii	"tcpip_thread\000"
+ 702      705F7468 
+ 702      72656164 
+ 702      00
+ 703              		.section	.rodata.tcpip_inpkt.str1.4,"aMS",%progbits,1
+ 704              		.align	2
+ 705              	.LC3:
+ 706 0000 496E7661 		.ascii	"Invalid mbox\000"
+ 706      6C696420 
+ 706      6D626F78 
+ 706      00
+ 707              		.section	.rodata.tcpip_thread_handle_msg.str1.4,"aMS",%progbits,1
+ 708              		.align	2
+ 709              	.LC0:
+ 710 0000 4D696464 		.ascii	"Middlewares/Third_Party/LwIP/src/api/tcpip.c\000"
+ARM GAS  /tmp/ccboNiw6.s 			page 13
+
+
+ 710      6C657761 
+ 710      7265732F 
+ 710      54686972 
+ 710      645F5061 
+ 711 002d 000000   		.space	3
+ 712              	.LC1:
+ 713 0030 74637069 		.ascii	"tcpip_thread: invalid message\000"
+ 713      705F7468 
+ 713      72656164 
+ 713      3A20696E 
+ 713      76616C69 
+ 714 004e 0000     		.space	2
+ 715              	.LC2:
+ 716 0050 41737365 		.ascii	"Assertion \"%s\" failed at line %d in %s\012\000"
+ 716      7274696F 
+ 716      6E202225 
+ 716      73222066 
+ 716      61696C65 
+ 717              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccboNiw6.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 tcpip.c
+     /tmp/ccboNiw6.s:16     .text.tcpip_timeouts_mbox_fetch:0000000000000000 $t
+     /tmp/ccboNiw6.s:23     .text.tcpip_timeouts_mbox_fetch:0000000000000000 tcpip_timeouts_mbox_fetch
+     /tmp/ccboNiw6.s:69     .text.tcpip_timeouts_mbox_fetch:000000000000005c $d
+                            *COM*:0000000000000004 lock_tcpip_core
+     /tmp/ccboNiw6.s:72     .text.tcpip_thread_handle_msg:0000000000000000 $t
+     /tmp/ccboNiw6.s:78     .text.tcpip_thread_handle_msg:0000000000000000 tcpip_thread_handle_msg
+     /tmp/ccboNiw6.s:128    .text.tcpip_thread_handle_msg:0000000000000054 $d
+     /tmp/ccboNiw6.s:133    .text.tcpip_thread:0000000000000000 $t
+     /tmp/ccboNiw6.s:139    .text.tcpip_thread:0000000000000000 tcpip_thread
+     /tmp/ccboNiw6.s:172    .text.tcpip_thread:0000000000000038 $d
+     /tmp/ccboNiw6.s:181    .text.pbuf_free_int:0000000000000000 $t
+     /tmp/ccboNiw6.s:187    .text.pbuf_free_int:0000000000000000 pbuf_free_int
+     /tmp/ccboNiw6.s:195    .text.tcpip_inpkt:0000000000000000 $t
+     /tmp/ccboNiw6.s:202    .text.tcpip_inpkt:0000000000000000 tcpip_inpkt
+     /tmp/ccboNiw6.s:249    .text.tcpip_inpkt:0000000000000058 $d
+     /tmp/ccboNiw6.s:255    .text.tcpip_input:0000000000000000 $t
+     /tmp/ccboNiw6.s:262    .text.tcpip_input:0000000000000000 tcpip_input
+     /tmp/ccboNiw6.s:280    .text.tcpip_input:000000000000001c $d
+     /tmp/ccboNiw6.s:284    .text.tcpip_callback:0000000000000000 $t
+     /tmp/ccboNiw6.s:291    .text.tcpip_callback:0000000000000000 tcpip_callback
+     /tmp/ccboNiw6.s:327    .text.tcpip_callback:0000000000000040 $d
+     /tmp/ccboNiw6.s:333    .text.tcpip_try_callback:0000000000000000 $t
+     /tmp/ccboNiw6.s:340    .text.tcpip_try_callback:0000000000000000 tcpip_try_callback
+     /tmp/ccboNiw6.s:385    .text.tcpip_try_callback:0000000000000054 $d
+     /tmp/ccboNiw6.s:391    .text.tcpip_send_msg_wait_sem:0000000000000000 $t
+     /tmp/ccboNiw6.s:398    .text.tcpip_send_msg_wait_sem:0000000000000000 tcpip_send_msg_wait_sem
+     /tmp/ccboNiw6.s:416    .text.tcpip_send_msg_wait_sem:000000000000001c $d
+     /tmp/ccboNiw6.s:419    .text.tcpip_api_call:0000000000000000 $t
+     /tmp/ccboNiw6.s:426    .text.tcpip_api_call:0000000000000000 tcpip_api_call
+     /tmp/ccboNiw6.s:445    .text.tcpip_api_call:0000000000000020 $d
+     /tmp/ccboNiw6.s:448    .text.tcpip_callbackmsg_new:0000000000000000 $t
+     /tmp/ccboNiw6.s:455    .text.tcpip_callbackmsg_new:0000000000000000 tcpip_callbackmsg_new
+     /tmp/ccboNiw6.s:474    .text.tcpip_callbackmsg_delete:0000000000000000 $t
+     /tmp/ccboNiw6.s:481    .text.tcpip_callbackmsg_delete:0000000000000000 tcpip_callbackmsg_delete
+     /tmp/ccboNiw6.s:491    .text.tcpip_callbackmsg_trycallback:0000000000000000 $t
+     /tmp/ccboNiw6.s:498    .text.tcpip_callbackmsg_trycallback:0000000000000000 tcpip_callbackmsg_trycallback
+     /tmp/ccboNiw6.s:521    .text.tcpip_callbackmsg_trycallback:0000000000000028 $d
+     /tmp/ccboNiw6.s:527    .text.tcpip_callbackmsg_trycallback_fromisr:0000000000000000 $t
+     /tmp/ccboNiw6.s:534    .text.tcpip_callbackmsg_trycallback_fromisr:0000000000000000 tcpip_callbackmsg_trycallback_fromisr
+     /tmp/ccboNiw6.s:557    .text.tcpip_callbackmsg_trycallback_fromisr:0000000000000028 $d
+     /tmp/ccboNiw6.s:563    .text.tcpip_init:0000000000000000 $t
+     /tmp/ccboNiw6.s:570    .text.tcpip_init:0000000000000000 tcpip_init
+     /tmp/ccboNiw6.s:618    .text.tcpip_init:000000000000005c $d
+     /tmp/ccboNiw6.s:630    .text.pbuf_free_callback:0000000000000000 $t
+     /tmp/ccboNiw6.s:637    .text.pbuf_free_callback:0000000000000000 pbuf_free_callback
+     /tmp/ccboNiw6.s:648    .text.pbuf_free_callback:000000000000000c $d
+     /tmp/ccboNiw6.s:651    .text.mem_free_callback:0000000000000000 $t
+     /tmp/ccboNiw6.s:658    .text.mem_free_callback:0000000000000000 mem_free_callback
+     /tmp/ccboNiw6.s:669    .text.mem_free_callback:000000000000000c $d
+     /tmp/ccboNiw6.s:673    .bss.tcpip_init_done:0000000000000000 $d
+     /tmp/ccboNiw6.s:677    .bss.tcpip_init_done:0000000000000000 tcpip_init_done
+     /tmp/ccboNiw6.s:680    .bss.tcpip_init_done_arg:0000000000000000 $d
+     /tmp/ccboNiw6.s:684    .bss.tcpip_init_done_arg:0000000000000000 tcpip_init_done_arg
+     /tmp/ccboNiw6.s:687    .bss.tcpip_mbox:0000000000000000 $d
+     /tmp/ccboNiw6.s:691    .bss.tcpip_mbox:0000000000000000 tcpip_mbox
+ARM GAS  /tmp/ccboNiw6.s 			page 15
+
+
+     /tmp/ccboNiw6.s:694    .rodata.tcpip_init.str1.4:0000000000000000 $d
+     /tmp/ccboNiw6.s:704    .rodata.tcpip_inpkt.str1.4:0000000000000000 $d
+     /tmp/ccboNiw6.s:708    .rodata.tcpip_thread_handle_msg.str1.4:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+sys_mutex_unlock
+sys_arch_mbox_fetch
+sys_mutex_lock
+sys_check_timeouts
+sys_timeouts_sleeptime
+printf
+memp_free
+pbuf_free
+sys_mbox_valid
+memp_malloc
+sys_mbox_trypost
+ethernet_input
+ip4_input
+sys_mbox_post
+sys_mbox_trypost_fromisr
+lwip_init
+sys_mbox_new
+sys_mutex_new
+sys_thread_new
+mem_free

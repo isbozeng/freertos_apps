@@ -1,0 +1,1218 @@
+ARM GAS  /tmp/cczpTmJo.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_sdio.c"
+  14              		.text
+  15              		.section	.text.sdio_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	sdio_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	sdio_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 40F60B10 		movw	r0, #2315
+  29 0006 FFF7FEFF 		bl	rcu_periph_reset_enable
+  30 000a 40F60B10 		movw	r0, #2315
+  31 000e FFF7FEFF 		bl	rcu_periph_reset_disable
+  32 0012 08BD     		pop	{r3, pc}
+  34              		.section	.text.sdio_clock_config,"ax",%progbits
+  35              		.align	1
+  36              		.global	sdio_clock_config
+  37              		.syntax unified
+  38              		.thumb
+  39              		.thumb_func
+  40              		.fpu fpv4-sp-d16
+  42              	sdio_clock_config:
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 0, uses_anonymous_args = 0
+  45              		@ link register save eliminated.
+  46 0000 30B4     		push	{r4, r5}
+  47 0002 094C     		ldr	r4, .L6
+  48 0004 2568     		ldr	r5, [r4]
+  49 0006 094C     		ldr	r4, .L6+4
+  50 0008 2C40     		ands	r4, r4, r5
+  51 000a FF2B     		cmp	r3, #255
+  52 000c 04D9     		bls	.L4
+  53 000e 44F00044 		orr	r4, r4, #-2147483648
+  54 0012 A3F58073 		sub	r3, r3, #256
+  55 0016 9BB2     		uxth	r3, r3
+  56              	.L4:
+  57 0018 0843     		orrs	r0, r0, r1
+  58 001a 1043     		orrs	r0, r0, r2
+  59 001c 0343     		orrs	r3, r3, r0
+  60 001e 2343     		orrs	r3, r3, r4
+ARM GAS  /tmp/cczpTmJo.s 			page 2
+
+
+  61 0020 014A     		ldr	r2, .L6
+  62 0022 1360     		str	r3, [r2]
+  63 0024 30BC     		pop	{r4, r5}
+  64 0026 7047     		bx	lr
+  65              	.L7:
+  66              		.align	2
+  67              	.L6:
+  68 0028 042C0140 		.word	1073818628
+  69 002c 00D9FF7F 		.word	2147473664
+  71              		.section	.text.sdio_hardware_clock_enable,"ax",%progbits
+  72              		.align	1
+  73              		.global	sdio_hardware_clock_enable
+  74              		.syntax unified
+  75              		.thumb
+  76              		.thumb_func
+  77              		.fpu fpv4-sp-d16
+  79              	sdio_hardware_clock_enable:
+  80              		@ args = 0, pretend = 0, frame = 0
+  81              		@ frame_needed = 0, uses_anonymous_args = 0
+  82              		@ link register save eliminated.
+  83 0000 024A     		ldr	r2, .L9
+  84 0002 1368     		ldr	r3, [r2]
+  85 0004 43F48043 		orr	r3, r3, #16384
+  86 0008 1360     		str	r3, [r2]
+  87 000a 7047     		bx	lr
+  88              	.L10:
+  89              		.align	2
+  90              	.L9:
+  91 000c 042C0140 		.word	1073818628
+  93              		.section	.text.sdio_hardware_clock_disable,"ax",%progbits
+  94              		.align	1
+  95              		.global	sdio_hardware_clock_disable
+  96              		.syntax unified
+  97              		.thumb
+  98              		.thumb_func
+  99              		.fpu fpv4-sp-d16
+ 101              	sdio_hardware_clock_disable:
+ 102              		@ args = 0, pretend = 0, frame = 0
+ 103              		@ frame_needed = 0, uses_anonymous_args = 0
+ 104              		@ link register save eliminated.
+ 105 0000 024A     		ldr	r2, .L12
+ 106 0002 1368     		ldr	r3, [r2]
+ 107 0004 23F48043 		bic	r3, r3, #16384
+ 108 0008 1360     		str	r3, [r2]
+ 109 000a 7047     		bx	lr
+ 110              	.L13:
+ 111              		.align	2
+ 112              	.L12:
+ 113 000c 042C0140 		.word	1073818628
+ 115              		.section	.text.sdio_bus_mode_set,"ax",%progbits
+ 116              		.align	1
+ 117              		.global	sdio_bus_mode_set
+ 118              		.syntax unified
+ 119              		.thumb
+ 120              		.thumb_func
+ 121              		.fpu fpv4-sp-d16
+ 123              	sdio_bus_mode_set:
+ARM GAS  /tmp/cczpTmJo.s 			page 3
+
+
+ 124              		@ args = 0, pretend = 0, frame = 0
+ 125              		@ frame_needed = 0, uses_anonymous_args = 0
+ 126              		@ link register save eliminated.
+ 127 0000 044B     		ldr	r3, .L15
+ 128 0002 1A68     		ldr	r2, [r3]
+ 129 0004 22F4C052 		bic	r2, r2, #6144
+ 130 0008 1A60     		str	r2, [r3]
+ 131 000a 1A68     		ldr	r2, [r3]
+ 132 000c 1043     		orrs	r0, r0, r2
+ 133 000e 1860     		str	r0, [r3]
+ 134 0010 7047     		bx	lr
+ 135              	.L16:
+ 136 0012 00BF     		.align	2
+ 137              	.L15:
+ 138 0014 042C0140 		.word	1073818628
+ 140              		.section	.text.sdio_power_state_set,"ax",%progbits
+ 141              		.align	1
+ 142              		.global	sdio_power_state_set
+ 143              		.syntax unified
+ 144              		.thumb
+ 145              		.thumb_func
+ 146              		.fpu fpv4-sp-d16
+ 148              	sdio_power_state_set:
+ 149              		@ args = 0, pretend = 0, frame = 0
+ 150              		@ frame_needed = 0, uses_anonymous_args = 0
+ 151              		@ link register save eliminated.
+ 152 0000 014B     		ldr	r3, .L18
+ 153 0002 1860     		str	r0, [r3]
+ 154 0004 7047     		bx	lr
+ 155              	.L19:
+ 156 0006 00BF     		.align	2
+ 157              	.L18:
+ 158 0008 002C0140 		.word	1073818624
+ 160              		.section	.text.sdio_power_state_get,"ax",%progbits
+ 161              		.align	1
+ 162              		.global	sdio_power_state_get
+ 163              		.syntax unified
+ 164              		.thumb
+ 165              		.thumb_func
+ 166              		.fpu fpv4-sp-d16
+ 168              	sdio_power_state_get:
+ 169              		@ args = 0, pretend = 0, frame = 0
+ 170              		@ frame_needed = 0, uses_anonymous_args = 0
+ 171              		@ link register save eliminated.
+ 172 0000 014B     		ldr	r3, .L21
+ 173 0002 1868     		ldr	r0, [r3]
+ 174 0004 7047     		bx	lr
+ 175              	.L22:
+ 176 0006 00BF     		.align	2
+ 177              	.L21:
+ 178 0008 002C0140 		.word	1073818624
+ 180              		.section	.text.sdio_clock_enable,"ax",%progbits
+ 181              		.align	1
+ 182              		.global	sdio_clock_enable
+ 183              		.syntax unified
+ 184              		.thumb
+ 185              		.thumb_func
+ARM GAS  /tmp/cczpTmJo.s 			page 4
+
+
+ 186              		.fpu fpv4-sp-d16
+ 188              	sdio_clock_enable:
+ 189              		@ args = 0, pretend = 0, frame = 0
+ 190              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191              		@ link register save eliminated.
+ 192 0000 024A     		ldr	r2, .L24
+ 193 0002 1368     		ldr	r3, [r2]
+ 194 0004 43F48073 		orr	r3, r3, #256
+ 195 0008 1360     		str	r3, [r2]
+ 196 000a 7047     		bx	lr
+ 197              	.L25:
+ 198              		.align	2
+ 199              	.L24:
+ 200 000c 042C0140 		.word	1073818628
+ 202              		.section	.text.sdio_clock_disable,"ax",%progbits
+ 203              		.align	1
+ 204              		.global	sdio_clock_disable
+ 205              		.syntax unified
+ 206              		.thumb
+ 207              		.thumb_func
+ 208              		.fpu fpv4-sp-d16
+ 210              	sdio_clock_disable:
+ 211              		@ args = 0, pretend = 0, frame = 0
+ 212              		@ frame_needed = 0, uses_anonymous_args = 0
+ 213              		@ link register save eliminated.
+ 214 0000 024A     		ldr	r2, .L27
+ 215 0002 1368     		ldr	r3, [r2]
+ 216 0004 23F48073 		bic	r3, r3, #256
+ 217 0008 1360     		str	r3, [r2]
+ 218 000a 7047     		bx	lr
+ 219              	.L28:
+ 220              		.align	2
+ 221              	.L27:
+ 222 000c 042C0140 		.word	1073818628
+ 224              		.section	.text.sdio_command_response_config,"ax",%progbits
+ 225              		.align	1
+ 226              		.global	sdio_command_response_config
+ 227              		.syntax unified
+ 228              		.thumb
+ 229              		.thumb_func
+ 230              		.fpu fpv4-sp-d16
+ 232              	sdio_command_response_config:
+ 233              		@ args = 0, pretend = 0, frame = 0
+ 234              		@ frame_needed = 0, uses_anonymous_args = 0
+ 235              		@ link register save eliminated.
+ 236 0000 30B4     		push	{r4, r5}
+ 237 0002 094B     		ldr	r3, .L31
+ 238 0004 1C68     		ldr	r4, [r3]
+ 239 0006 24F48064 		bic	r4, r4, #1024
+ 240 000a 1C60     		str	r4, [r3]
+ 241 000c 074C     		ldr	r4, .L31+4
+ 242 000e 2568     		ldr	r5, [r4]
+ 243 0010 0025     		movs	r5, #0
+ 244 0012 2560     		str	r5, [r4]
+ 245 0014 2160     		str	r1, [r4]
+ 246 0016 1968     		ldr	r1, [r3]
+ 247 0018 21F0FF01 		bic	r1, r1, #255
+ARM GAS  /tmp/cczpTmJo.s 			page 5
+
+
+ 248 001c 0243     		orrs	r2, r2, r0
+ 249 001e 0A43     		orrs	r2, r2, r1
+ 250 0020 1A60     		str	r2, [r3]
+ 251 0022 30BC     		pop	{r4, r5}
+ 252 0024 7047     		bx	lr
+ 253              	.L32:
+ 254 0026 00BF     		.align	2
+ 255              	.L31:
+ 256 0028 0C2C0140 		.word	1073818636
+ 257 002c 082C0140 		.word	1073818632
+ 259              		.section	.text.sdio_wait_type_set,"ax",%progbits
+ 260              		.align	1
+ 261              		.global	sdio_wait_type_set
+ 262              		.syntax unified
+ 263              		.thumb
+ 264              		.thumb_func
+ 265              		.fpu fpv4-sp-d16
+ 267              	sdio_wait_type_set:
+ 268              		@ args = 0, pretend = 0, frame = 0
+ 269              		@ frame_needed = 0, uses_anonymous_args = 0
+ 270              		@ link register save eliminated.
+ 271 0000 044B     		ldr	r3, .L34
+ 272 0002 1A68     		ldr	r2, [r3]
+ 273 0004 22F44072 		bic	r2, r2, #768
+ 274 0008 1A60     		str	r2, [r3]
+ 275 000a 1A68     		ldr	r2, [r3]
+ 276 000c 1043     		orrs	r0, r0, r2
+ 277 000e 1860     		str	r0, [r3]
+ 278 0010 7047     		bx	lr
+ 279              	.L35:
+ 280 0012 00BF     		.align	2
+ 281              	.L34:
+ 282 0014 0C2C0140 		.word	1073818636
+ 284              		.section	.text.sdio_csm_enable,"ax",%progbits
+ 285              		.align	1
+ 286              		.global	sdio_csm_enable
+ 287              		.syntax unified
+ 288              		.thumb
+ 289              		.thumb_func
+ 290              		.fpu fpv4-sp-d16
+ 292              	sdio_csm_enable:
+ 293              		@ args = 0, pretend = 0, frame = 0
+ 294              		@ frame_needed = 0, uses_anonymous_args = 0
+ 295              		@ link register save eliminated.
+ 296 0000 024A     		ldr	r2, .L37
+ 297 0002 1368     		ldr	r3, [r2]
+ 298 0004 43F48063 		orr	r3, r3, #1024
+ 299 0008 1360     		str	r3, [r2]
+ 300 000a 7047     		bx	lr
+ 301              	.L38:
+ 302              		.align	2
+ 303              	.L37:
+ 304 000c 0C2C0140 		.word	1073818636
+ 306              		.section	.text.sdio_csm_disable,"ax",%progbits
+ 307              		.align	1
+ 308              		.global	sdio_csm_disable
+ 309              		.syntax unified
+ARM GAS  /tmp/cczpTmJo.s 			page 6
+
+
+ 310              		.thumb
+ 311              		.thumb_func
+ 312              		.fpu fpv4-sp-d16
+ 314              	sdio_csm_disable:
+ 315              		@ args = 0, pretend = 0, frame = 0
+ 316              		@ frame_needed = 0, uses_anonymous_args = 0
+ 317              		@ link register save eliminated.
+ 318 0000 024A     		ldr	r2, .L40
+ 319 0002 1368     		ldr	r3, [r2]
+ 320 0004 23F48063 		bic	r3, r3, #1024
+ 321 0008 1360     		str	r3, [r2]
+ 322 000a 7047     		bx	lr
+ 323              	.L41:
+ 324              		.align	2
+ 325              	.L40:
+ 326 000c 0C2C0140 		.word	1073818636
+ 328              		.section	.text.sdio_command_index_get,"ax",%progbits
+ 329              		.align	1
+ 330              		.global	sdio_command_index_get
+ 331              		.syntax unified
+ 332              		.thumb
+ 333              		.thumb_func
+ 334              		.fpu fpv4-sp-d16
+ 336              	sdio_command_index_get:
+ 337              		@ args = 0, pretend = 0, frame = 0
+ 338              		@ frame_needed = 0, uses_anonymous_args = 0
+ 339              		@ link register save eliminated.
+ 340 0000 014B     		ldr	r3, .L43
+ 341 0002 1868     		ldr	r0, [r3]
+ 342 0004 C0B2     		uxtb	r0, r0
+ 343 0006 7047     		bx	lr
+ 344              	.L44:
+ 345              		.align	2
+ 346              	.L43:
+ 347 0008 102C0140 		.word	1073818640
+ 349              		.section	.text.sdio_response_get,"ax",%progbits
+ 350              		.align	1
+ 351              		.global	sdio_response_get
+ 352              		.syntax unified
+ 353              		.thumb
+ 354              		.thumb_func
+ 355              		.fpu fpv4-sp-d16
+ 357              	sdio_response_get:
+ 358              		@ args = 0, pretend = 0, frame = 0
+ 359              		@ frame_needed = 0, uses_anonymous_args = 0
+ 360              		@ link register save eliminated.
+ 361 0000 0328     		cmp	r0, #3
+ 362 0002 0FD8     		bhi	.L52
+ 363 0004 DFE800F0 		tbb	[pc, r0]
+ 364              	.L48:
+ 365 0008 02       		.byte	(.L51-.L48)/2
+ 366 0009 05       		.byte	(.L50-.L48)/2
+ 367 000a 08       		.byte	(.L49-.L48)/2
+ 368 000b 0B       		.byte	(.L47-.L48)/2
+ 369              		.p2align 1
+ 370              	.L51:
+ 371 000c 064B     		ldr	r3, .L53
+ARM GAS  /tmp/cczpTmJo.s 			page 7
+
+
+ 372 000e 1868     		ldr	r0, [r3]
+ 373 0010 7047     		bx	lr
+ 374              	.L50:
+ 375 0012 064B     		ldr	r3, .L53+4
+ 376 0014 1868     		ldr	r0, [r3]
+ 377 0016 7047     		bx	lr
+ 378              	.L49:
+ 379 0018 054B     		ldr	r3, .L53+8
+ 380 001a 1868     		ldr	r0, [r3]
+ 381 001c 7047     		bx	lr
+ 382              	.L47:
+ 383 001e 054B     		ldr	r3, .L53+12
+ 384 0020 1868     		ldr	r0, [r3]
+ 385 0022 7047     		bx	lr
+ 386              	.L52:
+ 387 0024 0020     		movs	r0, #0
+ 388 0026 7047     		bx	lr
+ 389              	.L54:
+ 390              		.align	2
+ 391              	.L53:
+ 392 0028 142C0140 		.word	1073818644
+ 393 002c 182C0140 		.word	1073818648
+ 394 0030 1C2C0140 		.word	1073818652
+ 395 0034 202C0140 		.word	1073818656
+ 397              		.section	.text.sdio_data_config,"ax",%progbits
+ 398              		.align	1
+ 399              		.global	sdio_data_config
+ 400              		.syntax unified
+ 401              		.thumb
+ 402              		.thumb_func
+ 403              		.fpu fpv4-sp-d16
+ 405              	sdio_data_config:
+ 406              		@ args = 0, pretend = 0, frame = 0
+ 407              		@ frame_needed = 0, uses_anonymous_args = 0
+ 408              		@ link register save eliminated.
+ 409 0000 70B4     		push	{r4, r5, r6}
+ 410 0002 0A4D     		ldr	r5, .L57
+ 411 0004 2B68     		ldr	r3, [r5]
+ 412 0006 0023     		movs	r3, #0
+ 413 0008 2B60     		str	r3, [r5]
+ 414 000a 094C     		ldr	r4, .L57+4
+ 415 000c 2368     		ldr	r3, [r4]
+ 416 000e 03F07E43 		and	r3, r3, #-33554432
+ 417 0012 2360     		str	r3, [r4]
+ 418 0014 074B     		ldr	r3, .L57+8
+ 419 0016 1E68     		ldr	r6, [r3]
+ 420 0018 26F0F006 		bic	r6, r6, #240
+ 421 001c 1E60     		str	r6, [r3]
+ 422 001e 2860     		str	r0, [r5]
+ 423 0020 2160     		str	r1, [r4]
+ 424 0022 1968     		ldr	r1, [r3]
+ 425 0024 0A43     		orrs	r2, r2, r1
+ 426 0026 1A60     		str	r2, [r3]
+ 427 0028 70BC     		pop	{r4, r5, r6}
+ 428 002a 7047     		bx	lr
+ 429              	.L58:
+ 430              		.align	2
+ARM GAS  /tmp/cczpTmJo.s 			page 8
+
+
+ 431              	.L57:
+ 432 002c 242C0140 		.word	1073818660
+ 433 0030 282C0140 		.word	1073818664
+ 434 0034 2C2C0140 		.word	1073818668
+ 436              		.section	.text.sdio_data_transfer_config,"ax",%progbits
+ 437              		.align	1
+ 438              		.global	sdio_data_transfer_config
+ 439              		.syntax unified
+ 440              		.thumb
+ 441              		.thumb_func
+ 442              		.fpu fpv4-sp-d16
+ 444              	sdio_data_transfer_config:
+ 445              		@ args = 0, pretend = 0, frame = 0
+ 446              		@ frame_needed = 0, uses_anonymous_args = 0
+ 447              		@ link register save eliminated.
+ 448 0000 034A     		ldr	r2, .L60
+ 449 0002 1368     		ldr	r3, [r2]
+ 450 0004 23F00603 		bic	r3, r3, #6
+ 451 0008 0143     		orrs	r1, r1, r0
+ 452 000a 1943     		orrs	r1, r1, r3
+ 453 000c 1160     		str	r1, [r2]
+ 454 000e 7047     		bx	lr
+ 455              	.L61:
+ 456              		.align	2
+ 457              	.L60:
+ 458 0010 2C2C0140 		.word	1073818668
+ 460              		.section	.text.sdio_dsm_enable,"ax",%progbits
+ 461              		.align	1
+ 462              		.global	sdio_dsm_enable
+ 463              		.syntax unified
+ 464              		.thumb
+ 465              		.thumb_func
+ 466              		.fpu fpv4-sp-d16
+ 468              	sdio_dsm_enable:
+ 469              		@ args = 0, pretend = 0, frame = 0
+ 470              		@ frame_needed = 0, uses_anonymous_args = 0
+ 471              		@ link register save eliminated.
+ 472 0000 024A     		ldr	r2, .L63
+ 473 0002 1368     		ldr	r3, [r2]
+ 474 0004 43F00103 		orr	r3, r3, #1
+ 475 0008 1360     		str	r3, [r2]
+ 476 000a 7047     		bx	lr
+ 477              	.L64:
+ 478              		.align	2
+ 479              	.L63:
+ 480 000c 2C2C0140 		.word	1073818668
+ 482              		.section	.text.sdio_dsm_disable,"ax",%progbits
+ 483              		.align	1
+ 484              		.global	sdio_dsm_disable
+ 485              		.syntax unified
+ 486              		.thumb
+ 487              		.thumb_func
+ 488              		.fpu fpv4-sp-d16
+ 490              	sdio_dsm_disable:
+ 491              		@ args = 0, pretend = 0, frame = 0
+ 492              		@ frame_needed = 0, uses_anonymous_args = 0
+ 493              		@ link register save eliminated.
+ARM GAS  /tmp/cczpTmJo.s 			page 9
+
+
+ 494 0000 024A     		ldr	r2, .L66
+ 495 0002 1368     		ldr	r3, [r2]
+ 496 0004 23F00103 		bic	r3, r3, #1
+ 497 0008 1360     		str	r3, [r2]
+ 498 000a 7047     		bx	lr
+ 499              	.L67:
+ 500              		.align	2
+ 501              	.L66:
+ 502 000c 2C2C0140 		.word	1073818668
+ 504              		.section	.text.sdio_data_write,"ax",%progbits
+ 505              		.align	1
+ 506              		.global	sdio_data_write
+ 507              		.syntax unified
+ 508              		.thumb
+ 509              		.thumb_func
+ 510              		.fpu fpv4-sp-d16
+ 512              	sdio_data_write:
+ 513              		@ args = 0, pretend = 0, frame = 0
+ 514              		@ frame_needed = 0, uses_anonymous_args = 0
+ 515              		@ link register save eliminated.
+ 516 0000 014B     		ldr	r3, .L69
+ 517 0002 1860     		str	r0, [r3]
+ 518 0004 7047     		bx	lr
+ 519              	.L70:
+ 520 0006 00BF     		.align	2
+ 521              	.L69:
+ 522 0008 802C0140 		.word	1073818752
+ 524              		.section	.text.sdio_data_read,"ax",%progbits
+ 525              		.align	1
+ 526              		.global	sdio_data_read
+ 527              		.syntax unified
+ 528              		.thumb
+ 529              		.thumb_func
+ 530              		.fpu fpv4-sp-d16
+ 532              	sdio_data_read:
+ 533              		@ args = 0, pretend = 0, frame = 0
+ 534              		@ frame_needed = 0, uses_anonymous_args = 0
+ 535              		@ link register save eliminated.
+ 536 0000 014B     		ldr	r3, .L72
+ 537 0002 1868     		ldr	r0, [r3]
+ 538 0004 7047     		bx	lr
+ 539              	.L73:
+ 540 0006 00BF     		.align	2
+ 541              	.L72:
+ 542 0008 802C0140 		.word	1073818752
+ 544              		.section	.text.sdio_data_counter_get,"ax",%progbits
+ 545              		.align	1
+ 546              		.global	sdio_data_counter_get
+ 547              		.syntax unified
+ 548              		.thumb
+ 549              		.thumb_func
+ 550              		.fpu fpv4-sp-d16
+ 552              	sdio_data_counter_get:
+ 553              		@ args = 0, pretend = 0, frame = 0
+ 554              		@ frame_needed = 0, uses_anonymous_args = 0
+ 555              		@ link register save eliminated.
+ 556 0000 014B     		ldr	r3, .L75
+ARM GAS  /tmp/cczpTmJo.s 			page 10
+
+
+ 557 0002 1868     		ldr	r0, [r3]
+ 558 0004 7047     		bx	lr
+ 559              	.L76:
+ 560 0006 00BF     		.align	2
+ 561              	.L75:
+ 562 0008 302C0140 		.word	1073818672
+ 564              		.section	.text.sdio_fifo_counter_get,"ax",%progbits
+ 565              		.align	1
+ 566              		.global	sdio_fifo_counter_get
+ 567              		.syntax unified
+ 568              		.thumb
+ 569              		.thumb_func
+ 570              		.fpu fpv4-sp-d16
+ 572              	sdio_fifo_counter_get:
+ 573              		@ args = 0, pretend = 0, frame = 0
+ 574              		@ frame_needed = 0, uses_anonymous_args = 0
+ 575              		@ link register save eliminated.
+ 576 0000 014B     		ldr	r3, .L78
+ 577 0002 1868     		ldr	r0, [r3]
+ 578 0004 7047     		bx	lr
+ 579              	.L79:
+ 580 0006 00BF     		.align	2
+ 581              	.L78:
+ 582 0008 482C0140 		.word	1073818696
+ 584              		.section	.text.sdio_dma_enable,"ax",%progbits
+ 585              		.align	1
+ 586              		.global	sdio_dma_enable
+ 587              		.syntax unified
+ 588              		.thumb
+ 589              		.thumb_func
+ 590              		.fpu fpv4-sp-d16
+ 592              	sdio_dma_enable:
+ 593              		@ args = 0, pretend = 0, frame = 0
+ 594              		@ frame_needed = 0, uses_anonymous_args = 0
+ 595              		@ link register save eliminated.
+ 596 0000 024A     		ldr	r2, .L81
+ 597 0002 1368     		ldr	r3, [r2]
+ 598 0004 43F00803 		orr	r3, r3, #8
+ 599 0008 1360     		str	r3, [r2]
+ 600 000a 7047     		bx	lr
+ 601              	.L82:
+ 602              		.align	2
+ 603              	.L81:
+ 604 000c 2C2C0140 		.word	1073818668
+ 606              		.section	.text.sdio_dma_disable,"ax",%progbits
+ 607              		.align	1
+ 608              		.global	sdio_dma_disable
+ 609              		.syntax unified
+ 610              		.thumb
+ 611              		.thumb_func
+ 612              		.fpu fpv4-sp-d16
+ 614              	sdio_dma_disable:
+ 615              		@ args = 0, pretend = 0, frame = 0
+ 616              		@ frame_needed = 0, uses_anonymous_args = 0
+ 617              		@ link register save eliminated.
+ 618 0000 024A     		ldr	r2, .L84
+ 619 0002 1368     		ldr	r3, [r2]
+ARM GAS  /tmp/cczpTmJo.s 			page 11
+
+
+ 620 0004 23F00803 		bic	r3, r3, #8
+ 621 0008 1360     		str	r3, [r2]
+ 622 000a 7047     		bx	lr
+ 623              	.L85:
+ 624              		.align	2
+ 625              	.L84:
+ 626 000c 2C2C0140 		.word	1073818668
+ 628              		.section	.text.sdio_flag_get,"ax",%progbits
+ 629              		.align	1
+ 630              		.global	sdio_flag_get
+ 631              		.syntax unified
+ 632              		.thumb
+ 633              		.thumb_func
+ 634              		.fpu fpv4-sp-d16
+ 636              	sdio_flag_get:
+ 637              		@ args = 0, pretend = 0, frame = 0
+ 638              		@ frame_needed = 0, uses_anonymous_args = 0
+ 639              		@ link register save eliminated.
+ 640 0000 034B     		ldr	r3, .L89
+ 641 0002 1B68     		ldr	r3, [r3]
+ 642 0004 0342     		tst	r3, r0
+ 643 0006 01D1     		bne	.L88
+ 644 0008 0020     		movs	r0, #0
+ 645 000a 7047     		bx	lr
+ 646              	.L88:
+ 647 000c 0120     		movs	r0, #1
+ 648 000e 7047     		bx	lr
+ 649              	.L90:
+ 650              		.align	2
+ 651              	.L89:
+ 652 0010 342C0140 		.word	1073818676
+ 654              		.section	.text.sdio_flag_clear,"ax",%progbits
+ 655              		.align	1
+ 656              		.global	sdio_flag_clear
+ 657              		.syntax unified
+ 658              		.thumb
+ 659              		.thumb_func
+ 660              		.fpu fpv4-sp-d16
+ 662              	sdio_flag_clear:
+ 663              		@ args = 0, pretend = 0, frame = 0
+ 664              		@ frame_needed = 0, uses_anonymous_args = 0
+ 665              		@ link register save eliminated.
+ 666 0000 014B     		ldr	r3, .L92
+ 667 0002 1860     		str	r0, [r3]
+ 668 0004 7047     		bx	lr
+ 669              	.L93:
+ 670 0006 00BF     		.align	2
+ 671              	.L92:
+ 672 0008 382C0140 		.word	1073818680
+ 674              		.section	.text.sdio_interrupt_enable,"ax",%progbits
+ 675              		.align	1
+ 676              		.global	sdio_interrupt_enable
+ 677              		.syntax unified
+ 678              		.thumb
+ 679              		.thumb_func
+ 680              		.fpu fpv4-sp-d16
+ 682              	sdio_interrupt_enable:
+ARM GAS  /tmp/cczpTmJo.s 			page 12
+
+
+ 683              		@ args = 0, pretend = 0, frame = 0
+ 684              		@ frame_needed = 0, uses_anonymous_args = 0
+ 685              		@ link register save eliminated.
+ 686 0000 024A     		ldr	r2, .L95
+ 687 0002 1368     		ldr	r3, [r2]
+ 688 0004 1843     		orrs	r0, r0, r3
+ 689 0006 1060     		str	r0, [r2]
+ 690 0008 7047     		bx	lr
+ 691              	.L96:
+ 692 000a 00BF     		.align	2
+ 693              	.L95:
+ 694 000c 3C2C0140 		.word	1073818684
+ 696              		.section	.text.sdio_interrupt_disable,"ax",%progbits
+ 697              		.align	1
+ 698              		.global	sdio_interrupt_disable
+ 699              		.syntax unified
+ 700              		.thumb
+ 701              		.thumb_func
+ 702              		.fpu fpv4-sp-d16
+ 704              	sdio_interrupt_disable:
+ 705              		@ args = 0, pretend = 0, frame = 0
+ 706              		@ frame_needed = 0, uses_anonymous_args = 0
+ 707              		@ link register save eliminated.
+ 708 0000 024A     		ldr	r2, .L98
+ 709 0002 1368     		ldr	r3, [r2]
+ 710 0004 23EA0000 		bic	r0, r3, r0
+ 711 0008 1060     		str	r0, [r2]
+ 712 000a 7047     		bx	lr
+ 713              	.L99:
+ 714              		.align	2
+ 715              	.L98:
+ 716 000c 3C2C0140 		.word	1073818684
+ 718              		.section	.text.sdio_interrupt_flag_get,"ax",%progbits
+ 719              		.align	1
+ 720              		.global	sdio_interrupt_flag_get
+ 721              		.syntax unified
+ 722              		.thumb
+ 723              		.thumb_func
+ 724              		.fpu fpv4-sp-d16
+ 726              	sdio_interrupt_flag_get:
+ 727              		@ args = 0, pretend = 0, frame = 0
+ 728              		@ frame_needed = 0, uses_anonymous_args = 0
+ 729              		@ link register save eliminated.
+ 730 0000 034B     		ldr	r3, .L103
+ 731 0002 1B68     		ldr	r3, [r3]
+ 732 0004 0342     		tst	r3, r0
+ 733 0006 01D1     		bne	.L102
+ 734 0008 0020     		movs	r0, #0
+ 735 000a 7047     		bx	lr
+ 736              	.L102:
+ 737 000c 0120     		movs	r0, #1
+ 738 000e 7047     		bx	lr
+ 739              	.L104:
+ 740              		.align	2
+ 741              	.L103:
+ 742 0010 342C0140 		.word	1073818676
+ 744              		.section	.text.sdio_interrupt_flag_clear,"ax",%progbits
+ARM GAS  /tmp/cczpTmJo.s 			page 13
+
+
+ 745              		.align	1
+ 746              		.global	sdio_interrupt_flag_clear
+ 747              		.syntax unified
+ 748              		.thumb
+ 749              		.thumb_func
+ 750              		.fpu fpv4-sp-d16
+ 752              	sdio_interrupt_flag_clear:
+ 753              		@ args = 0, pretend = 0, frame = 0
+ 754              		@ frame_needed = 0, uses_anonymous_args = 0
+ 755              		@ link register save eliminated.
+ 756 0000 014B     		ldr	r3, .L106
+ 757 0002 1860     		str	r0, [r3]
+ 758 0004 7047     		bx	lr
+ 759              	.L107:
+ 760 0006 00BF     		.align	2
+ 761              	.L106:
+ 762 0008 382C0140 		.word	1073818680
+ 764              		.section	.text.sdio_readwait_enable,"ax",%progbits
+ 765              		.align	1
+ 766              		.global	sdio_readwait_enable
+ 767              		.syntax unified
+ 768              		.thumb
+ 769              		.thumb_func
+ 770              		.fpu fpv4-sp-d16
+ 772              	sdio_readwait_enable:
+ 773              		@ args = 0, pretend = 0, frame = 0
+ 774              		@ frame_needed = 0, uses_anonymous_args = 0
+ 775              		@ link register save eliminated.
+ 776 0000 024A     		ldr	r2, .L109
+ 777 0002 1368     		ldr	r3, [r2]
+ 778 0004 43F48073 		orr	r3, r3, #256
+ 779 0008 1360     		str	r3, [r2]
+ 780 000a 7047     		bx	lr
+ 781              	.L110:
+ 782              		.align	2
+ 783              	.L109:
+ 784 000c 2C2C0140 		.word	1073818668
+ 786              		.section	.text.sdio_readwait_disable,"ax",%progbits
+ 787              		.align	1
+ 788              		.global	sdio_readwait_disable
+ 789              		.syntax unified
+ 790              		.thumb
+ 791              		.thumb_func
+ 792              		.fpu fpv4-sp-d16
+ 794              	sdio_readwait_disable:
+ 795              		@ args = 0, pretend = 0, frame = 0
+ 796              		@ frame_needed = 0, uses_anonymous_args = 0
+ 797              		@ link register save eliminated.
+ 798 0000 024A     		ldr	r2, .L112
+ 799 0002 1368     		ldr	r3, [r2]
+ 800 0004 23F48073 		bic	r3, r3, #256
+ 801 0008 1360     		str	r3, [r2]
+ 802 000a 7047     		bx	lr
+ 803              	.L113:
+ 804              		.align	2
+ 805              	.L112:
+ 806 000c 2C2C0140 		.word	1073818668
+ARM GAS  /tmp/cczpTmJo.s 			page 14
+
+
+ 808              		.section	.text.sdio_stop_readwait_enable,"ax",%progbits
+ 809              		.align	1
+ 810              		.global	sdio_stop_readwait_enable
+ 811              		.syntax unified
+ 812              		.thumb
+ 813              		.thumb_func
+ 814              		.fpu fpv4-sp-d16
+ 816              	sdio_stop_readwait_enable:
+ 817              		@ args = 0, pretend = 0, frame = 0
+ 818              		@ frame_needed = 0, uses_anonymous_args = 0
+ 819              		@ link register save eliminated.
+ 820 0000 024A     		ldr	r2, .L115
+ 821 0002 1368     		ldr	r3, [r2]
+ 822 0004 43F40073 		orr	r3, r3, #512
+ 823 0008 1360     		str	r3, [r2]
+ 824 000a 7047     		bx	lr
+ 825              	.L116:
+ 826              		.align	2
+ 827              	.L115:
+ 828 000c 2C2C0140 		.word	1073818668
+ 830              		.section	.text.sdio_stop_readwait_disable,"ax",%progbits
+ 831              		.align	1
+ 832              		.global	sdio_stop_readwait_disable
+ 833              		.syntax unified
+ 834              		.thumb
+ 835              		.thumb_func
+ 836              		.fpu fpv4-sp-d16
+ 838              	sdio_stop_readwait_disable:
+ 839              		@ args = 0, pretend = 0, frame = 0
+ 840              		@ frame_needed = 0, uses_anonymous_args = 0
+ 841              		@ link register save eliminated.
+ 842 0000 024A     		ldr	r2, .L118
+ 843 0002 1368     		ldr	r3, [r2]
+ 844 0004 23F40073 		bic	r3, r3, #512
+ 845 0008 1360     		str	r3, [r2]
+ 846 000a 7047     		bx	lr
+ 847              	.L119:
+ 848              		.align	2
+ 849              	.L118:
+ 850 000c 2C2C0140 		.word	1073818668
+ 852              		.section	.text.sdio_readwait_type_set,"ax",%progbits
+ 853              		.align	1
+ 854              		.global	sdio_readwait_type_set
+ 855              		.syntax unified
+ 856              		.thumb
+ 857              		.thumb_func
+ 858              		.fpu fpv4-sp-d16
+ 860              	sdio_readwait_type_set:
+ 861              		@ args = 0, pretend = 0, frame = 0
+ 862              		@ frame_needed = 0, uses_anonymous_args = 0
+ 863              		@ link register save eliminated.
+ 864 0000 B0F5806F 		cmp	r0, #1024
+ 865 0004 05D0     		beq	.L123
+ 866 0006 064A     		ldr	r2, .L124
+ 867 0008 1368     		ldr	r3, [r2]
+ 868 000a 23F48063 		bic	r3, r3, #1024
+ 869 000e 1360     		str	r3, [r2]
+ARM GAS  /tmp/cczpTmJo.s 			page 15
+
+
+ 870 0010 7047     		bx	lr
+ 871              	.L123:
+ 872 0012 034A     		ldr	r2, .L124
+ 873 0014 1368     		ldr	r3, [r2]
+ 874 0016 43F48063 		orr	r3, r3, #1024
+ 875 001a 1360     		str	r3, [r2]
+ 876 001c 7047     		bx	lr
+ 877              	.L125:
+ 878 001e 00BF     		.align	2
+ 879              	.L124:
+ 880 0020 2C2C0140 		.word	1073818668
+ 882              		.section	.text.sdio_operation_enable,"ax",%progbits
+ 883              		.align	1
+ 884              		.global	sdio_operation_enable
+ 885              		.syntax unified
+ 886              		.thumb
+ 887              		.thumb_func
+ 888              		.fpu fpv4-sp-d16
+ 890              	sdio_operation_enable:
+ 891              		@ args = 0, pretend = 0, frame = 0
+ 892              		@ frame_needed = 0, uses_anonymous_args = 0
+ 893              		@ link register save eliminated.
+ 894 0000 024A     		ldr	r2, .L127
+ 895 0002 1368     		ldr	r3, [r2]
+ 896 0004 43F40063 		orr	r3, r3, #2048
+ 897 0008 1360     		str	r3, [r2]
+ 898 000a 7047     		bx	lr
+ 899              	.L128:
+ 900              		.align	2
+ 901              	.L127:
+ 902 000c 2C2C0140 		.word	1073818668
+ 904              		.section	.text.sdio_operation_disable,"ax",%progbits
+ 905              		.align	1
+ 906              		.global	sdio_operation_disable
+ 907              		.syntax unified
+ 908              		.thumb
+ 909              		.thumb_func
+ 910              		.fpu fpv4-sp-d16
+ 912              	sdio_operation_disable:
+ 913              		@ args = 0, pretend = 0, frame = 0
+ 914              		@ frame_needed = 0, uses_anonymous_args = 0
+ 915              		@ link register save eliminated.
+ 916 0000 024A     		ldr	r2, .L130
+ 917 0002 1368     		ldr	r3, [r2]
+ 918 0004 23F40063 		bic	r3, r3, #2048
+ 919 0008 1360     		str	r3, [r2]
+ 920 000a 7047     		bx	lr
+ 921              	.L131:
+ 922              		.align	2
+ 923              	.L130:
+ 924 000c 2C2C0140 		.word	1073818668
+ 926              		.section	.text.sdio_suspend_enable,"ax",%progbits
+ 927              		.align	1
+ 928              		.global	sdio_suspend_enable
+ 929              		.syntax unified
+ 930              		.thumb
+ 931              		.thumb_func
+ARM GAS  /tmp/cczpTmJo.s 			page 16
+
+
+ 932              		.fpu fpv4-sp-d16
+ 934              	sdio_suspend_enable:
+ 935              		@ args = 0, pretend = 0, frame = 0
+ 936              		@ frame_needed = 0, uses_anonymous_args = 0
+ 937              		@ link register save eliminated.
+ 938 0000 024A     		ldr	r2, .L133
+ 939 0002 1368     		ldr	r3, [r2]
+ 940 0004 43F40063 		orr	r3, r3, #2048
+ 941 0008 1360     		str	r3, [r2]
+ 942 000a 7047     		bx	lr
+ 943              	.L134:
+ 944              		.align	2
+ 945              	.L133:
+ 946 000c 0C2C0140 		.word	1073818636
+ 948              		.section	.text.sdio_suspend_disable,"ax",%progbits
+ 949              		.align	1
+ 950              		.global	sdio_suspend_disable
+ 951              		.syntax unified
+ 952              		.thumb
+ 953              		.thumb_func
+ 954              		.fpu fpv4-sp-d16
+ 956              	sdio_suspend_disable:
+ 957              		@ args = 0, pretend = 0, frame = 0
+ 958              		@ frame_needed = 0, uses_anonymous_args = 0
+ 959              		@ link register save eliminated.
+ 960 0000 024A     		ldr	r2, .L136
+ 961 0002 1368     		ldr	r3, [r2]
+ 962 0004 23F40063 		bic	r3, r3, #2048
+ 963 0008 1360     		str	r3, [r2]
+ 964 000a 7047     		bx	lr
+ 965              	.L137:
+ 966              		.align	2
+ 967              	.L136:
+ 968 000c 0C2C0140 		.word	1073818636
+ 970              		.section	.text.sdio_ceata_command_enable,"ax",%progbits
+ 971              		.align	1
+ 972              		.global	sdio_ceata_command_enable
+ 973              		.syntax unified
+ 974              		.thumb
+ 975              		.thumb_func
+ 976              		.fpu fpv4-sp-d16
+ 978              	sdio_ceata_command_enable:
+ 979              		@ args = 0, pretend = 0, frame = 0
+ 980              		@ frame_needed = 0, uses_anonymous_args = 0
+ 981              		@ link register save eliminated.
+ 982 0000 024A     		ldr	r2, .L139
+ 983 0002 1368     		ldr	r3, [r2]
+ 984 0004 43F48043 		orr	r3, r3, #16384
+ 985 0008 1360     		str	r3, [r2]
+ 986 000a 7047     		bx	lr
+ 987              	.L140:
+ 988              		.align	2
+ 989              	.L139:
+ 990 000c 0C2C0140 		.word	1073818636
+ 992              		.section	.text.sdio_ceata_command_disable,"ax",%progbits
+ 993              		.align	1
+ 994              		.global	sdio_ceata_command_disable
+ARM GAS  /tmp/cczpTmJo.s 			page 17
+
+
+ 995              		.syntax unified
+ 996              		.thumb
+ 997              		.thumb_func
+ 998              		.fpu fpv4-sp-d16
+ 1000              	sdio_ceata_command_disable:
+ 1001              		@ args = 0, pretend = 0, frame = 0
+ 1002              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1003              		@ link register save eliminated.
+ 1004 0000 024A     		ldr	r2, .L142
+ 1005 0002 1368     		ldr	r3, [r2]
+ 1006 0004 23F48043 		bic	r3, r3, #16384
+ 1007 0008 1360     		str	r3, [r2]
+ 1008 000a 7047     		bx	lr
+ 1009              	.L143:
+ 1010              		.align	2
+ 1011              	.L142:
+ 1012 000c 0C2C0140 		.word	1073818636
+ 1014              		.section	.text.sdio_ceata_interrupt_enable,"ax",%progbits
+ 1015              		.align	1
+ 1016              		.global	sdio_ceata_interrupt_enable
+ 1017              		.syntax unified
+ 1018              		.thumb
+ 1019              		.thumb_func
+ 1020              		.fpu fpv4-sp-d16
+ 1022              	sdio_ceata_interrupt_enable:
+ 1023              		@ args = 0, pretend = 0, frame = 0
+ 1024              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1025              		@ link register save eliminated.
+ 1026 0000 024A     		ldr	r2, .L145
+ 1027 0002 1368     		ldr	r3, [r2]
+ 1028 0004 23F40053 		bic	r3, r3, #8192
+ 1029 0008 1360     		str	r3, [r2]
+ 1030 000a 7047     		bx	lr
+ 1031              	.L146:
+ 1032              		.align	2
+ 1033              	.L145:
+ 1034 000c 0C2C0140 		.word	1073818636
+ 1036              		.section	.text.sdio_ceata_interrupt_disable,"ax",%progbits
+ 1037              		.align	1
+ 1038              		.global	sdio_ceata_interrupt_disable
+ 1039              		.syntax unified
+ 1040              		.thumb
+ 1041              		.thumb_func
+ 1042              		.fpu fpv4-sp-d16
+ 1044              	sdio_ceata_interrupt_disable:
+ 1045              		@ args = 0, pretend = 0, frame = 0
+ 1046              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1047              		@ link register save eliminated.
+ 1048 0000 024A     		ldr	r2, .L148
+ 1049 0002 1368     		ldr	r3, [r2]
+ 1050 0004 43F40053 		orr	r3, r3, #8192
+ 1051 0008 1360     		str	r3, [r2]
+ 1052 000a 7047     		bx	lr
+ 1053              	.L149:
+ 1054              		.align	2
+ 1055              	.L148:
+ 1056 000c 0C2C0140 		.word	1073818636
+ARM GAS  /tmp/cczpTmJo.s 			page 18
+
+
+ 1058              		.section	.text.sdio_ceata_command_completion_enable,"ax",%progbits
+ 1059              		.align	1
+ 1060              		.global	sdio_ceata_command_completion_enable
+ 1061              		.syntax unified
+ 1062              		.thumb
+ 1063              		.thumb_func
+ 1064              		.fpu fpv4-sp-d16
+ 1066              	sdio_ceata_command_completion_enable:
+ 1067              		@ args = 0, pretend = 0, frame = 0
+ 1068              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1069              		@ link register save eliminated.
+ 1070 0000 024A     		ldr	r2, .L151
+ 1071 0002 1368     		ldr	r3, [r2]
+ 1072 0004 43F48053 		orr	r3, r3, #4096
+ 1073 0008 1360     		str	r3, [r2]
+ 1074 000a 7047     		bx	lr
+ 1075              	.L152:
+ 1076              		.align	2
+ 1077              	.L151:
+ 1078 000c 0C2C0140 		.word	1073818636
+ 1080              		.section	.text.sdio_ceata_command_completion_disable,"ax",%progbits
+ 1081              		.align	1
+ 1082              		.global	sdio_ceata_command_completion_disable
+ 1083              		.syntax unified
+ 1084              		.thumb
+ 1085              		.thumb_func
+ 1086              		.fpu fpv4-sp-d16
+ 1088              	sdio_ceata_command_completion_disable:
+ 1089              		@ args = 0, pretend = 0, frame = 0
+ 1090              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1091              		@ link register save eliminated.
+ 1092 0000 024A     		ldr	r2, .L154
+ 1093 0002 1368     		ldr	r3, [r2]
+ 1094 0004 23F48053 		bic	r3, r3, #4096
+ 1095 0008 1360     		str	r3, [r2]
+ 1096 000a 7047     		bx	lr
+ 1097              	.L155:
+ 1098              		.align	2
+ 1099              	.L154:
+ 1100 000c 0C2C0140 		.word	1073818636
+ 1102              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/cczpTmJo.s 			page 19
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_sdio.c
+     /tmp/cczpTmJo.s:16     .text.sdio_deinit:0000000000000000 $t
+     /tmp/cczpTmJo.s:24     .text.sdio_deinit:0000000000000000 sdio_deinit
+     /tmp/cczpTmJo.s:35     .text.sdio_clock_config:0000000000000000 $t
+     /tmp/cczpTmJo.s:42     .text.sdio_clock_config:0000000000000000 sdio_clock_config
+     /tmp/cczpTmJo.s:68     .text.sdio_clock_config:0000000000000028 $d
+     /tmp/cczpTmJo.s:72     .text.sdio_hardware_clock_enable:0000000000000000 $t
+     /tmp/cczpTmJo.s:79     .text.sdio_hardware_clock_enable:0000000000000000 sdio_hardware_clock_enable
+     /tmp/cczpTmJo.s:91     .text.sdio_hardware_clock_enable:000000000000000c $d
+     /tmp/cczpTmJo.s:94     .text.sdio_hardware_clock_disable:0000000000000000 $t
+     /tmp/cczpTmJo.s:101    .text.sdio_hardware_clock_disable:0000000000000000 sdio_hardware_clock_disable
+     /tmp/cczpTmJo.s:113    .text.sdio_hardware_clock_disable:000000000000000c $d
+     /tmp/cczpTmJo.s:116    .text.sdio_bus_mode_set:0000000000000000 $t
+     /tmp/cczpTmJo.s:123    .text.sdio_bus_mode_set:0000000000000000 sdio_bus_mode_set
+     /tmp/cczpTmJo.s:138    .text.sdio_bus_mode_set:0000000000000014 $d
+     /tmp/cczpTmJo.s:141    .text.sdio_power_state_set:0000000000000000 $t
+     /tmp/cczpTmJo.s:148    .text.sdio_power_state_set:0000000000000000 sdio_power_state_set
+     /tmp/cczpTmJo.s:158    .text.sdio_power_state_set:0000000000000008 $d
+     /tmp/cczpTmJo.s:161    .text.sdio_power_state_get:0000000000000000 $t
+     /tmp/cczpTmJo.s:168    .text.sdio_power_state_get:0000000000000000 sdio_power_state_get
+     /tmp/cczpTmJo.s:178    .text.sdio_power_state_get:0000000000000008 $d
+     /tmp/cczpTmJo.s:181    .text.sdio_clock_enable:0000000000000000 $t
+     /tmp/cczpTmJo.s:188    .text.sdio_clock_enable:0000000000000000 sdio_clock_enable
+     /tmp/cczpTmJo.s:200    .text.sdio_clock_enable:000000000000000c $d
+     /tmp/cczpTmJo.s:203    .text.sdio_clock_disable:0000000000000000 $t
+     /tmp/cczpTmJo.s:210    .text.sdio_clock_disable:0000000000000000 sdio_clock_disable
+     /tmp/cczpTmJo.s:222    .text.sdio_clock_disable:000000000000000c $d
+     /tmp/cczpTmJo.s:225    .text.sdio_command_response_config:0000000000000000 $t
+     /tmp/cczpTmJo.s:232    .text.sdio_command_response_config:0000000000000000 sdio_command_response_config
+     /tmp/cczpTmJo.s:256    .text.sdio_command_response_config:0000000000000028 $d
+     /tmp/cczpTmJo.s:260    .text.sdio_wait_type_set:0000000000000000 $t
+     /tmp/cczpTmJo.s:267    .text.sdio_wait_type_set:0000000000000000 sdio_wait_type_set
+     /tmp/cczpTmJo.s:282    .text.sdio_wait_type_set:0000000000000014 $d
+     /tmp/cczpTmJo.s:285    .text.sdio_csm_enable:0000000000000000 $t
+     /tmp/cczpTmJo.s:292    .text.sdio_csm_enable:0000000000000000 sdio_csm_enable
+     /tmp/cczpTmJo.s:304    .text.sdio_csm_enable:000000000000000c $d
+     /tmp/cczpTmJo.s:307    .text.sdio_csm_disable:0000000000000000 $t
+     /tmp/cczpTmJo.s:314    .text.sdio_csm_disable:0000000000000000 sdio_csm_disable
+     /tmp/cczpTmJo.s:326    .text.sdio_csm_disable:000000000000000c $d
+     /tmp/cczpTmJo.s:329    .text.sdio_command_index_get:0000000000000000 $t
+     /tmp/cczpTmJo.s:336    .text.sdio_command_index_get:0000000000000000 sdio_command_index_get
+     /tmp/cczpTmJo.s:347    .text.sdio_command_index_get:0000000000000008 $d
+     /tmp/cczpTmJo.s:350    .text.sdio_response_get:0000000000000000 $t
+     /tmp/cczpTmJo.s:357    .text.sdio_response_get:0000000000000000 sdio_response_get
+     /tmp/cczpTmJo.s:365    .text.sdio_response_get:0000000000000008 $d
+     /tmp/cczpTmJo.s:369    .text.sdio_response_get:000000000000000c $t
+     /tmp/cczpTmJo.s:392    .text.sdio_response_get:0000000000000028 $d
+     /tmp/cczpTmJo.s:398    .text.sdio_data_config:0000000000000000 $t
+     /tmp/cczpTmJo.s:405    .text.sdio_data_config:0000000000000000 sdio_data_config
+     /tmp/cczpTmJo.s:432    .text.sdio_data_config:000000000000002c $d
+     /tmp/cczpTmJo.s:437    .text.sdio_data_transfer_config:0000000000000000 $t
+     /tmp/cczpTmJo.s:444    .text.sdio_data_transfer_config:0000000000000000 sdio_data_transfer_config
+     /tmp/cczpTmJo.s:458    .text.sdio_data_transfer_config:0000000000000010 $d
+     /tmp/cczpTmJo.s:461    .text.sdio_dsm_enable:0000000000000000 $t
+     /tmp/cczpTmJo.s:468    .text.sdio_dsm_enable:0000000000000000 sdio_dsm_enable
+     /tmp/cczpTmJo.s:480    .text.sdio_dsm_enable:000000000000000c $d
+ARM GAS  /tmp/cczpTmJo.s 			page 20
+
+
+     /tmp/cczpTmJo.s:483    .text.sdio_dsm_disable:0000000000000000 $t
+     /tmp/cczpTmJo.s:490    .text.sdio_dsm_disable:0000000000000000 sdio_dsm_disable
+     /tmp/cczpTmJo.s:502    .text.sdio_dsm_disable:000000000000000c $d
+     /tmp/cczpTmJo.s:505    .text.sdio_data_write:0000000000000000 $t
+     /tmp/cczpTmJo.s:512    .text.sdio_data_write:0000000000000000 sdio_data_write
+     /tmp/cczpTmJo.s:522    .text.sdio_data_write:0000000000000008 $d
+     /tmp/cczpTmJo.s:525    .text.sdio_data_read:0000000000000000 $t
+     /tmp/cczpTmJo.s:532    .text.sdio_data_read:0000000000000000 sdio_data_read
+     /tmp/cczpTmJo.s:542    .text.sdio_data_read:0000000000000008 $d
+     /tmp/cczpTmJo.s:545    .text.sdio_data_counter_get:0000000000000000 $t
+     /tmp/cczpTmJo.s:552    .text.sdio_data_counter_get:0000000000000000 sdio_data_counter_get
+     /tmp/cczpTmJo.s:562    .text.sdio_data_counter_get:0000000000000008 $d
+     /tmp/cczpTmJo.s:565    .text.sdio_fifo_counter_get:0000000000000000 $t
+     /tmp/cczpTmJo.s:572    .text.sdio_fifo_counter_get:0000000000000000 sdio_fifo_counter_get
+     /tmp/cczpTmJo.s:582    .text.sdio_fifo_counter_get:0000000000000008 $d
+     /tmp/cczpTmJo.s:585    .text.sdio_dma_enable:0000000000000000 $t
+     /tmp/cczpTmJo.s:592    .text.sdio_dma_enable:0000000000000000 sdio_dma_enable
+     /tmp/cczpTmJo.s:604    .text.sdio_dma_enable:000000000000000c $d
+     /tmp/cczpTmJo.s:607    .text.sdio_dma_disable:0000000000000000 $t
+     /tmp/cczpTmJo.s:614    .text.sdio_dma_disable:0000000000000000 sdio_dma_disable
+     /tmp/cczpTmJo.s:626    .text.sdio_dma_disable:000000000000000c $d
+     /tmp/cczpTmJo.s:629    .text.sdio_flag_get:0000000000000000 $t
+     /tmp/cczpTmJo.s:636    .text.sdio_flag_get:0000000000000000 sdio_flag_get
+     /tmp/cczpTmJo.s:652    .text.sdio_flag_get:0000000000000010 $d
+     /tmp/cczpTmJo.s:655    .text.sdio_flag_clear:0000000000000000 $t
+     /tmp/cczpTmJo.s:662    .text.sdio_flag_clear:0000000000000000 sdio_flag_clear
+     /tmp/cczpTmJo.s:672    .text.sdio_flag_clear:0000000000000008 $d
+     /tmp/cczpTmJo.s:675    .text.sdio_interrupt_enable:0000000000000000 $t
+     /tmp/cczpTmJo.s:682    .text.sdio_interrupt_enable:0000000000000000 sdio_interrupt_enable
+     /tmp/cczpTmJo.s:694    .text.sdio_interrupt_enable:000000000000000c $d
+     /tmp/cczpTmJo.s:697    .text.sdio_interrupt_disable:0000000000000000 $t
+     /tmp/cczpTmJo.s:704    .text.sdio_interrupt_disable:0000000000000000 sdio_interrupt_disable
+     /tmp/cczpTmJo.s:716    .text.sdio_interrupt_disable:000000000000000c $d
+     /tmp/cczpTmJo.s:719    .text.sdio_interrupt_flag_get:0000000000000000 $t
+     /tmp/cczpTmJo.s:726    .text.sdio_interrupt_flag_get:0000000000000000 sdio_interrupt_flag_get
+     /tmp/cczpTmJo.s:742    .text.sdio_interrupt_flag_get:0000000000000010 $d
+     /tmp/cczpTmJo.s:745    .text.sdio_interrupt_flag_clear:0000000000000000 $t
+     /tmp/cczpTmJo.s:752    .text.sdio_interrupt_flag_clear:0000000000000000 sdio_interrupt_flag_clear
+     /tmp/cczpTmJo.s:762    .text.sdio_interrupt_flag_clear:0000000000000008 $d
+     /tmp/cczpTmJo.s:765    .text.sdio_readwait_enable:0000000000000000 $t
+     /tmp/cczpTmJo.s:772    .text.sdio_readwait_enable:0000000000000000 sdio_readwait_enable
+     /tmp/cczpTmJo.s:784    .text.sdio_readwait_enable:000000000000000c $d
+     /tmp/cczpTmJo.s:787    .text.sdio_readwait_disable:0000000000000000 $t
+     /tmp/cczpTmJo.s:794    .text.sdio_readwait_disable:0000000000000000 sdio_readwait_disable
+     /tmp/cczpTmJo.s:806    .text.sdio_readwait_disable:000000000000000c $d
+     /tmp/cczpTmJo.s:809    .text.sdio_stop_readwait_enable:0000000000000000 $t
+     /tmp/cczpTmJo.s:816    .text.sdio_stop_readwait_enable:0000000000000000 sdio_stop_readwait_enable
+     /tmp/cczpTmJo.s:828    .text.sdio_stop_readwait_enable:000000000000000c $d
+     /tmp/cczpTmJo.s:831    .text.sdio_stop_readwait_disable:0000000000000000 $t
+     /tmp/cczpTmJo.s:838    .text.sdio_stop_readwait_disable:0000000000000000 sdio_stop_readwait_disable
+     /tmp/cczpTmJo.s:850    .text.sdio_stop_readwait_disable:000000000000000c $d
+     /tmp/cczpTmJo.s:853    .text.sdio_readwait_type_set:0000000000000000 $t
+     /tmp/cczpTmJo.s:860    .text.sdio_readwait_type_set:0000000000000000 sdio_readwait_type_set
+     /tmp/cczpTmJo.s:880    .text.sdio_readwait_type_set:0000000000000020 $d
+     /tmp/cczpTmJo.s:883    .text.sdio_operation_enable:0000000000000000 $t
+     /tmp/cczpTmJo.s:890    .text.sdio_operation_enable:0000000000000000 sdio_operation_enable
+     /tmp/cczpTmJo.s:902    .text.sdio_operation_enable:000000000000000c $d
+ARM GAS  /tmp/cczpTmJo.s 			page 21
+
+
+     /tmp/cczpTmJo.s:905    .text.sdio_operation_disable:0000000000000000 $t
+     /tmp/cczpTmJo.s:912    .text.sdio_operation_disable:0000000000000000 sdio_operation_disable
+     /tmp/cczpTmJo.s:924    .text.sdio_operation_disable:000000000000000c $d
+     /tmp/cczpTmJo.s:927    .text.sdio_suspend_enable:0000000000000000 $t
+     /tmp/cczpTmJo.s:934    .text.sdio_suspend_enable:0000000000000000 sdio_suspend_enable
+     /tmp/cczpTmJo.s:946    .text.sdio_suspend_enable:000000000000000c $d
+     /tmp/cczpTmJo.s:949    .text.sdio_suspend_disable:0000000000000000 $t
+     /tmp/cczpTmJo.s:956    .text.sdio_suspend_disable:0000000000000000 sdio_suspend_disable
+     /tmp/cczpTmJo.s:968    .text.sdio_suspend_disable:000000000000000c $d
+     /tmp/cczpTmJo.s:971    .text.sdio_ceata_command_enable:0000000000000000 $t
+     /tmp/cczpTmJo.s:978    .text.sdio_ceata_command_enable:0000000000000000 sdio_ceata_command_enable
+     /tmp/cczpTmJo.s:990    .text.sdio_ceata_command_enable:000000000000000c $d
+     /tmp/cczpTmJo.s:993    .text.sdio_ceata_command_disable:0000000000000000 $t
+     /tmp/cczpTmJo.s:1000   .text.sdio_ceata_command_disable:0000000000000000 sdio_ceata_command_disable
+     /tmp/cczpTmJo.s:1012   .text.sdio_ceata_command_disable:000000000000000c $d
+     /tmp/cczpTmJo.s:1015   .text.sdio_ceata_interrupt_enable:0000000000000000 $t
+     /tmp/cczpTmJo.s:1022   .text.sdio_ceata_interrupt_enable:0000000000000000 sdio_ceata_interrupt_enable
+     /tmp/cczpTmJo.s:1034   .text.sdio_ceata_interrupt_enable:000000000000000c $d
+     /tmp/cczpTmJo.s:1037   .text.sdio_ceata_interrupt_disable:0000000000000000 $t
+     /tmp/cczpTmJo.s:1044   .text.sdio_ceata_interrupt_disable:0000000000000000 sdio_ceata_interrupt_disable
+     /tmp/cczpTmJo.s:1056   .text.sdio_ceata_interrupt_disable:000000000000000c $d
+     /tmp/cczpTmJo.s:1059   .text.sdio_ceata_command_completion_enable:0000000000000000 $t
+     /tmp/cczpTmJo.s:1066   .text.sdio_ceata_command_completion_enable:0000000000000000 sdio_ceata_command_completion_enable
+     /tmp/cczpTmJo.s:1078   .text.sdio_ceata_command_completion_enable:000000000000000c $d
+     /tmp/cczpTmJo.s:1081   .text.sdio_ceata_command_completion_disable:0000000000000000 $t
+     /tmp/cczpTmJo.s:1088   .text.sdio_ceata_command_completion_disable:0000000000000000 sdio_ceata_command_completion_disable
+     /tmp/cczpTmJo.s:1100   .text.sdio_ceata_command_completion_disable:000000000000000c $d
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable

@@ -1,0 +1,1185 @@
+ARM GAS  /tmp/ccR1laJZ.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_fmc.c"
+  14              		.text
+  15              		.section	.text.fmc_wscnt_set,"ax",%progbits
+  16              		.align	1
+  17              		.global	fmc_wscnt_set
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	fmc_wscnt_set:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27              		@ link register save eliminated.
+  28 0000 034A     		ldr	r2, .L2
+  29 0002 1368     		ldr	r3, [r2]
+  30 0004 23F00F03 		bic	r3, r3, #15
+  31 0008 1843     		orrs	r0, r0, r3
+  32 000a 1060     		str	r0, [r2]
+  33 000c 7047     		bx	lr
+  34              	.L3:
+  35 000e 00BF     		.align	2
+  36              	.L2:
+  37 0010 003C0240 		.word	1073888256
+  39              		.section	.text.fmc_unlock,"ax",%progbits
+  40              		.align	1
+  41              		.global	fmc_unlock
+  42              		.syntax unified
+  43              		.thumb
+  44              		.thumb_func
+  45              		.fpu fpv4-sp-d16
+  47              	fmc_unlock:
+  48              		@ args = 0, pretend = 0, frame = 0
+  49              		@ frame_needed = 0, uses_anonymous_args = 0
+  50              		@ link register save eliminated.
+  51 0000 054B     		ldr	r3, .L7
+  52 0002 1B68     		ldr	r3, [r3]
+  53 0004 002B     		cmp	r3, #0
+  54 0006 00DB     		blt	.L6
+  55              	.L4:
+  56 0008 7047     		bx	lr
+  57              	.L6:
+  58 000a 044B     		ldr	r3, .L7+4
+  59 000c 044A     		ldr	r2, .L7+8
+  60 000e 1A60     		str	r2, [r3]
+ARM GAS  /tmp/ccR1laJZ.s 			page 2
+
+
+  61 0010 02F18832 		add	r2, r2, #-2004318072
+  62 0014 1A60     		str	r2, [r3]
+  63 0016 F7E7     		b	.L4
+  64              	.L8:
+  65              		.align	2
+  66              	.L7:
+  67 0018 103C0240 		.word	1073888272
+  68 001c 043C0240 		.word	1073888260
+  69 0020 23016745 		.word	1164378403
+  71              		.section	.text.fmc_lock,"ax",%progbits
+  72              		.align	1
+  73              		.global	fmc_lock
+  74              		.syntax unified
+  75              		.thumb
+  76              		.thumb_func
+  77              		.fpu fpv4-sp-d16
+  79              	fmc_lock:
+  80              		@ args = 0, pretend = 0, frame = 0
+  81              		@ frame_needed = 0, uses_anonymous_args = 0
+  82              		@ link register save eliminated.
+  83 0000 024A     		ldr	r2, .L10
+  84 0002 1368     		ldr	r3, [r2]
+  85 0004 43F00043 		orr	r3, r3, #-2147483648
+  86 0008 1360     		str	r3, [r2]
+  87 000a 7047     		bx	lr
+  88              	.L11:
+  89              		.align	2
+  90              	.L10:
+  91 000c 103C0240 		.word	1073888272
+  93              		.section	.text.ob_unlock,"ax",%progbits
+  94              		.align	1
+  95              		.global	ob_unlock
+  96              		.syntax unified
+  97              		.thumb
+  98              		.thumb_func
+  99              		.fpu fpv4-sp-d16
+ 101              	ob_unlock:
+ 102              		@ args = 0, pretend = 0, frame = 0
+ 103              		@ frame_needed = 0, uses_anonymous_args = 0
+ 104              		@ link register save eliminated.
+ 105 0000 054B     		ldr	r3, .L14
+ 106 0002 1B68     		ldr	r3, [r3]
+ 107 0004 13F0010F 		tst	r3, #1
+ 108 0008 05D0     		beq	.L12
+ 109 000a 044B     		ldr	r3, .L14+4
+ 110 000c 044A     		ldr	r2, .L14+8
+ 111 000e 1A60     		str	r2, [r3]
+ 112 0010 02F14432 		add	r2, r2, #1145324612
+ 113 0014 1A60     		str	r2, [r3]
+ 114              	.L12:
+ 115 0016 7047     		bx	lr
+ 116              	.L15:
+ 117              		.align	2
+ 118              	.L14:
+ 119 0018 143C0240 		.word	1073888276
+ 120 001c 083C0240 		.word	1073888264
+ 121 0020 3B2A1908 		.word	135866939
+ARM GAS  /tmp/ccR1laJZ.s 			page 3
+
+
+ 123              		.section	.text.ob_lock,"ax",%progbits
+ 124              		.align	1
+ 125              		.global	ob_lock
+ 126              		.syntax unified
+ 127              		.thumb
+ 128              		.thumb_func
+ 129              		.fpu fpv4-sp-d16
+ 131              	ob_lock:
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 0, uses_anonymous_args = 0
+ 134              		@ link register save eliminated.
+ 135 0000 024A     		ldr	r2, .L17
+ 136 0002 1368     		ldr	r3, [r2]
+ 137 0004 43F00103 		orr	r3, r3, #1
+ 138 0008 1360     		str	r3, [r2]
+ 139 000a 7047     		bx	lr
+ 140              	.L18:
+ 141              		.align	2
+ 142              	.L17:
+ 143 000c 143C0240 		.word	1073888276
+ 145              		.section	.text.ob_user_bor_threshold,"ax",%progbits
+ 146              		.align	1
+ 147              		.global	ob_user_bor_threshold
+ 148              		.syntax unified
+ 149              		.thumb
+ 150              		.thumb_func
+ 151              		.fpu fpv4-sp-d16
+ 153              	ob_user_bor_threshold:
+ 154              		@ args = 0, pretend = 0, frame = 0
+ 155              		@ frame_needed = 0, uses_anonymous_args = 0
+ 156              		@ link register save eliminated.
+ 157 0000 034A     		ldr	r2, .L20
+ 158 0002 1368     		ldr	r3, [r2]
+ 159 0004 23F00C03 		bic	r3, r3, #12
+ 160 0008 1843     		orrs	r0, r0, r3
+ 161 000a 1060     		str	r0, [r2]
+ 162 000c 7047     		bx	lr
+ 163              	.L21:
+ 164 000e 00BF     		.align	2
+ 165              	.L20:
+ 166 0010 143C0240 		.word	1073888276
+ 168              		.section	.text.ob_boot_mode_config,"ax",%progbits
+ 169              		.align	1
+ 170              		.global	ob_boot_mode_config
+ 171              		.syntax unified
+ 172              		.thumb
+ 173              		.thumb_func
+ 174              		.fpu fpv4-sp-d16
+ 176              	ob_boot_mode_config:
+ 177              		@ args = 0, pretend = 0, frame = 0
+ 178              		@ frame_needed = 0, uses_anonymous_args = 0
+ 179              		@ link register save eliminated.
+ 180 0000 034A     		ldr	r2, .L23
+ 181 0002 1368     		ldr	r3, [r2]
+ 182 0004 23F01003 		bic	r3, r3, #16
+ 183 0008 1843     		orrs	r0, r0, r3
+ 184 000a 1060     		str	r0, [r2]
+ARM GAS  /tmp/ccR1laJZ.s 			page 4
+
+
+ 185 000c 7047     		bx	lr
+ 186              	.L24:
+ 187 000e 00BF     		.align	2
+ 188              	.L23:
+ 189 0010 143C0240 		.word	1073888276
+ 191              		.section	.text.ob_user_get,"ax",%progbits
+ 192              		.align	1
+ 193              		.global	ob_user_get
+ 194              		.syntax unified
+ 195              		.thumb
+ 196              		.thumb_func
+ 197              		.fpu fpv4-sp-d16
+ 199              	ob_user_get:
+ 200              		@ args = 0, pretend = 0, frame = 0
+ 201              		@ frame_needed = 0, uses_anonymous_args = 0
+ 202              		@ link register save eliminated.
+ 203 0000 024B     		ldr	r3, .L26
+ 204 0002 1868     		ldr	r0, [r3]
+ 205 0004 C0F34210 		ubfx	r0, r0, #5, #3
+ 206 0008 7047     		bx	lr
+ 207              	.L27:
+ 208 000a 00BF     		.align	2
+ 209              	.L26:
+ 210 000c 143C0240 		.word	1073888276
+ 212              		.section	.text.ob_write_protection0_get,"ax",%progbits
+ 213              		.align	1
+ 214              		.global	ob_write_protection0_get
+ 215              		.syntax unified
+ 216              		.thumb
+ 217              		.thumb_func
+ 218              		.fpu fpv4-sp-d16
+ 220              	ob_write_protection0_get:
+ 221              		@ args = 0, pretend = 0, frame = 0
+ 222              		@ frame_needed = 0, uses_anonymous_args = 0
+ 223              		@ link register save eliminated.
+ 224 0000 024B     		ldr	r3, .L29
+ 225 0002 1868     		ldr	r0, [r3]
+ 226 0004 C0F30B40 		ubfx	r0, r0, #16, #12
+ 227 0008 7047     		bx	lr
+ 228              	.L30:
+ 229 000a 00BF     		.align	2
+ 230              	.L29:
+ 231 000c 143C0240 		.word	1073888276
+ 233              		.section	.text.ob_write_protection1_get,"ax",%progbits
+ 234              		.align	1
+ 235              		.global	ob_write_protection1_get
+ 236              		.syntax unified
+ 237              		.thumb
+ 238              		.thumb_func
+ 239              		.fpu fpv4-sp-d16
+ 241              	ob_write_protection1_get:
+ 242              		@ args = 0, pretend = 0, frame = 0
+ 243              		@ frame_needed = 0, uses_anonymous_args = 0
+ 244              		@ link register save eliminated.
+ 245 0000 024B     		ldr	r3, .L32
+ 246 0002 1868     		ldr	r0, [r3]
+ 247 0004 C0F30B40 		ubfx	r0, r0, #16, #12
+ARM GAS  /tmp/ccR1laJZ.s 			page 5
+
+
+ 248 0008 7047     		bx	lr
+ 249              	.L33:
+ 250 000a 00BF     		.align	2
+ 251              	.L32:
+ 252 000c 183C0240 		.word	1073888280
+ 254              		.section	.text.ob_drp0_get,"ax",%progbits
+ 255              		.align	1
+ 256              		.global	ob_drp0_get
+ 257              		.syntax unified
+ 258              		.thumb
+ 259              		.thumb_func
+ 260              		.fpu fpv4-sp-d16
+ 262              	ob_drp0_get:
+ 263              		@ args = 0, pretend = 0, frame = 0
+ 264              		@ frame_needed = 0, uses_anonymous_args = 0
+ 265              		@ link register save eliminated.
+ 266 0000 024B     		ldr	r3, .L35
+ 267 0002 1868     		ldr	r0, [r3]
+ 268 0004 C0F30B40 		ubfx	r0, r0, #16, #12
+ 269 0008 7047     		bx	lr
+ 270              	.L36:
+ 271 000a 00BF     		.align	2
+ 272              	.L35:
+ 273 000c 143C0240 		.word	1073888276
+ 275              		.section	.text.ob_drp1_get,"ax",%progbits
+ 276              		.align	1
+ 277              		.global	ob_drp1_get
+ 278              		.syntax unified
+ 279              		.thumb
+ 280              		.thumb_func
+ 281              		.fpu fpv4-sp-d16
+ 283              	ob_drp1_get:
+ 284              		@ args = 0, pretend = 0, frame = 0
+ 285              		@ frame_needed = 0, uses_anonymous_args = 0
+ 286              		@ link register save eliminated.
+ 287 0000 024B     		ldr	r3, .L38
+ 288 0002 1868     		ldr	r0, [r3]
+ 289 0004 C0F30B40 		ubfx	r0, r0, #16, #12
+ 290 0008 7047     		bx	lr
+ 291              	.L39:
+ 292 000a 00BF     		.align	2
+ 293              	.L38:
+ 294 000c 183C0240 		.word	1073888280
+ 296              		.section	.text.ob_spc_get,"ax",%progbits
+ 297              		.align	1
+ 298              		.global	ob_spc_get
+ 299              		.syntax unified
+ 300              		.thumb
+ 301              		.thumb_func
+ 302              		.fpu fpv4-sp-d16
+ 304              	ob_spc_get:
+ 305              		@ args = 0, pretend = 0, frame = 0
+ 306              		@ frame_needed = 0, uses_anonymous_args = 0
+ 307              		@ link register save eliminated.
+ 308 0000 044B     		ldr	r3, .L43
+ 309 0002 1B68     		ldr	r3, [r3]
+ 310 0004 C3F30723 		ubfx	r3, r3, #8, #8
+ARM GAS  /tmp/ccR1laJZ.s 			page 6
+
+
+ 311 0008 AA2B     		cmp	r3, #170
+ 312 000a 01D0     		beq	.L42
+ 313 000c 0120     		movs	r0, #1
+ 314 000e 7047     		bx	lr
+ 315              	.L42:
+ 316 0010 0020     		movs	r0, #0
+ 317 0012 7047     		bx	lr
+ 318              	.L44:
+ 319              		.align	2
+ 320              	.L43:
+ 321 0014 143C0240 		.word	1073888276
+ 323              		.section	.text.ob_user_bor_threshold_get,"ax",%progbits
+ 324              		.align	1
+ 325              		.global	ob_user_bor_threshold_get
+ 326              		.syntax unified
+ 327              		.thumb
+ 328              		.thumb_func
+ 329              		.fpu fpv4-sp-d16
+ 331              	ob_user_bor_threshold_get:
+ 332              		@ args = 0, pretend = 0, frame = 0
+ 333              		@ frame_needed = 0, uses_anonymous_args = 0
+ 334              		@ link register save eliminated.
+ 335 0000 024B     		ldr	r3, .L46
+ 336 0002 1868     		ldr	r0, [r3]
+ 337 0004 00F00C00 		and	r0, r0, #12
+ 338 0008 7047     		bx	lr
+ 339              	.L47:
+ 340 000a 00BF     		.align	2
+ 341              	.L46:
+ 342 000c 143C0240 		.word	1073888276
+ 344              		.section	.text.fmc_interrupt_enable,"ax",%progbits
+ 345              		.align	1
+ 346              		.global	fmc_interrupt_enable
+ 347              		.syntax unified
+ 348              		.thumb
+ 349              		.thumb_func
+ 350              		.fpu fpv4-sp-d16
+ 352              	fmc_interrupt_enable:
+ 353              		@ args = 0, pretend = 0, frame = 0
+ 354              		@ frame_needed = 0, uses_anonymous_args = 0
+ 355              		@ link register save eliminated.
+ 356 0000 024A     		ldr	r2, .L49
+ 357 0002 1368     		ldr	r3, [r2]
+ 358 0004 1843     		orrs	r0, r0, r3
+ 359 0006 1060     		str	r0, [r2]
+ 360 0008 7047     		bx	lr
+ 361              	.L50:
+ 362 000a 00BF     		.align	2
+ 363              	.L49:
+ 364 000c 103C0240 		.word	1073888272
+ 366              		.section	.text.fmc_interrupt_disable,"ax",%progbits
+ 367              		.align	1
+ 368              		.global	fmc_interrupt_disable
+ 369              		.syntax unified
+ 370              		.thumb
+ 371              		.thumb_func
+ 372              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccR1laJZ.s 			page 7
+
+
+ 374              	fmc_interrupt_disable:
+ 375              		@ args = 0, pretend = 0, frame = 0
+ 376              		@ frame_needed = 0, uses_anonymous_args = 0
+ 377              		@ link register save eliminated.
+ 378 0000 024A     		ldr	r2, .L52
+ 379 0002 1368     		ldr	r3, [r2]
+ 380 0004 23EA0000 		bic	r0, r3, r0
+ 381 0008 1060     		str	r0, [r2]
+ 382 000a 7047     		bx	lr
+ 383              	.L53:
+ 384              		.align	2
+ 385              	.L52:
+ 386 000c 103C0240 		.word	1073888272
+ 388              		.section	.text.fmc_flag_get,"ax",%progbits
+ 389              		.align	1
+ 390              		.global	fmc_flag_get
+ 391              		.syntax unified
+ 392              		.thumb
+ 393              		.thumb_func
+ 394              		.fpu fpv4-sp-d16
+ 396              	fmc_flag_get:
+ 397              		@ args = 0, pretend = 0, frame = 0
+ 398              		@ frame_needed = 0, uses_anonymous_args = 0
+ 399              		@ link register save eliminated.
+ 400 0000 034B     		ldr	r3, .L57
+ 401 0002 1B68     		ldr	r3, [r3]
+ 402 0004 0342     		tst	r3, r0
+ 403 0006 01D1     		bne	.L56
+ 404 0008 0020     		movs	r0, #0
+ 405 000a 7047     		bx	lr
+ 406              	.L56:
+ 407 000c 0120     		movs	r0, #1
+ 408 000e 7047     		bx	lr
+ 409              	.L58:
+ 410              		.align	2
+ 411              	.L57:
+ 412 0010 0C3C0240 		.word	1073888268
+ 414              		.section	.text.fmc_flag_clear,"ax",%progbits
+ 415              		.align	1
+ 416              		.global	fmc_flag_clear
+ 417              		.syntax unified
+ 418              		.thumb
+ 419              		.thumb_func
+ 420              		.fpu fpv4-sp-d16
+ 422              	fmc_flag_clear:
+ 423              		@ args = 0, pretend = 0, frame = 0
+ 424              		@ frame_needed = 0, uses_anonymous_args = 0
+ 425              		@ link register save eliminated.
+ 426 0000 014B     		ldr	r3, .L60
+ 427 0002 1860     		str	r0, [r3]
+ 428 0004 7047     		bx	lr
+ 429              	.L61:
+ 430 0006 00BF     		.align	2
+ 431              	.L60:
+ 432 0008 0C3C0240 		.word	1073888268
+ 434              		.section	.text.fmc_state_get,"ax",%progbits
+ 435              		.align	1
+ARM GAS  /tmp/ccR1laJZ.s 			page 8
+
+
+ 436              		.global	fmc_state_get
+ 437              		.syntax unified
+ 438              		.thumb
+ 439              		.thumb_func
+ 440              		.fpu fpv4-sp-d16
+ 442              	fmc_state_get:
+ 443              		@ args = 0, pretend = 0, frame = 0
+ 444              		@ frame_needed = 0, uses_anonymous_args = 0
+ 445              		@ link register save eliminated.
+ 446 0000 124B     		ldr	r3, .L70
+ 447 0002 1B68     		ldr	r3, [r3]
+ 448 0004 13F4803F 		tst	r3, #65536
+ 449 0008 17D1     		bne	.L64
+ 450 000a 104B     		ldr	r3, .L70
+ 451 000c 1B68     		ldr	r3, [r3]
+ 452 000e 13F0100F 		tst	r3, #16
+ 453 0012 14D1     		bne	.L65
+ 454 0014 0D4B     		ldr	r3, .L70
+ 455 0016 1B68     		ldr	r3, [r3]
+ 456 0018 13F4807F 		tst	r3, #256
+ 457 001c 11D1     		bne	.L66
+ 458 001e 0B4B     		ldr	r3, .L70
+ 459 0020 1B68     		ldr	r3, [r3]
+ 460 0022 13F0EF0F 		tst	r3, #239
+ 461 0026 0ED1     		bne	.L67
+ 462 0028 084B     		ldr	r3, .L70
+ 463 002a 1B68     		ldr	r3, [r3]
+ 464 002c 13F0020F 		tst	r3, #2
+ 465 0030 01D1     		bne	.L69
+ 466 0032 0020     		movs	r0, #0
+ 467 0034 7047     		bx	lr
+ 468              	.L69:
+ 469 0036 0620     		movs	r0, #6
+ 470 0038 7047     		bx	lr
+ 471              	.L64:
+ 472 003a 0120     		movs	r0, #1
+ 473 003c 7047     		bx	lr
+ 474              	.L65:
+ 475 003e 0520     		movs	r0, #5
+ 476 0040 7047     		bx	lr
+ 477              	.L66:
+ 478 0042 0220     		movs	r0, #2
+ 479 0044 7047     		bx	lr
+ 480              	.L67:
+ 481 0046 0720     		movs	r0, #7
+ 482 0048 7047     		bx	lr
+ 483              	.L71:
+ 484 004a 00BF     		.align	2
+ 485              	.L70:
+ 486 004c 0C3C0240 		.word	1073888268
+ 488              		.section	.text.fmc_ready_wait,"ax",%progbits
+ 489              		.align	1
+ 490              		.global	fmc_ready_wait
+ 491              		.syntax unified
+ 492              		.thumb
+ 493              		.thumb_func
+ 494              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccR1laJZ.s 			page 9
+
+
+ 496              	fmc_ready_wait:
+ 497              		@ args = 0, pretend = 0, frame = 0
+ 498              		@ frame_needed = 0, uses_anonymous_args = 0
+ 499 0000 08B5     		push	{r3, lr}
+ 500              	.L73:
+ 501 0002 FFF7FEFF 		bl	fmc_state_get
+ 502 0006 0128     		cmp	r0, #1
+ 503 0008 FBD0     		beq	.L73
+ 504 000a 08BD     		pop	{r3, pc}
+ 506              		.section	.text.fmc_sector_erase,"ax",%progbits
+ 507              		.align	1
+ 508              		.global	fmc_sector_erase
+ 509              		.syntax unified
+ 510              		.thumb
+ 511              		.thumb_func
+ 512              		.fpu fpv4-sp-d16
+ 514              	fmc_sector_erase:
+ 515              		@ args = 0, pretend = 0, frame = 0
+ 516              		@ frame_needed = 0, uses_anonymous_args = 0
+ 517 0000 38B5     		push	{r3, r4, r5, lr}
+ 518 0002 0546     		mov	r5, r0
+ 519 0004 FFF7FEFF 		bl	fmc_ready_wait
+ 520 0008 0346     		mov	r3, r0
+ 521 000a 08B1     		cbz	r0, .L78
+ 522              	.L76:
+ 523 000c 1846     		mov	r0, r3
+ 524 000e 38BD     		pop	{r3, r4, r5, pc}
+ 525              	.L78:
+ 526 0010 0C4C     		ldr	r4, .L79
+ 527 0012 2368     		ldr	r3, [r4]
+ 528 0014 23F0F803 		bic	r3, r3, #248
+ 529 0018 2360     		str	r3, [r4]
+ 530 001a 2068     		ldr	r0, [r4]
+ 531 001c 2843     		orrs	r0, r0, r5
+ 532 001e 40F00200 		orr	r0, r0, #2
+ 533 0022 2060     		str	r0, [r4]
+ 534 0024 2368     		ldr	r3, [r4]
+ 535 0026 43F48033 		orr	r3, r3, #65536
+ 536 002a 2360     		str	r3, [r4]
+ 537 002c FFF7FEFF 		bl	fmc_ready_wait
+ 538 0030 0346     		mov	r3, r0
+ 539 0032 2268     		ldr	r2, [r4]
+ 540 0034 22F00202 		bic	r2, r2, #2
+ 541 0038 2260     		str	r2, [r4]
+ 542 003a 2268     		ldr	r2, [r4]
+ 543 003c 22F0F802 		bic	r2, r2, #248
+ 544 0040 2260     		str	r2, [r4]
+ 545 0042 E3E7     		b	.L76
+ 546              	.L80:
+ 547              		.align	2
+ 548              	.L79:
+ 549 0044 103C0240 		.word	1073888272
+ 551              		.section	.text.fmc_mass_erase,"ax",%progbits
+ 552              		.align	1
+ 553              		.global	fmc_mass_erase
+ 554              		.syntax unified
+ 555              		.thumb
+ARM GAS  /tmp/ccR1laJZ.s 			page 10
+
+
+ 556              		.thumb_func
+ 557              		.fpu fpv4-sp-d16
+ 559              	fmc_mass_erase:
+ 560              		@ args = 0, pretend = 0, frame = 0
+ 561              		@ frame_needed = 0, uses_anonymous_args = 0
+ 562 0000 10B5     		push	{r4, lr}
+ 563 0002 FFF7FEFF 		bl	fmc_ready_wait
+ 564 0006 0346     		mov	r3, r0
+ 565 0008 08B1     		cbz	r0, .L84
+ 566              	.L82:
+ 567 000a 1846     		mov	r0, r3
+ 568 000c 10BD     		pop	{r4, pc}
+ 569              	.L84:
+ 570 000e 0A4C     		ldr	r4, .L85
+ 571 0010 2368     		ldr	r3, [r4]
+ 572 0012 43F40043 		orr	r3, r3, #32768
+ 573 0016 43F00403 		orr	r3, r3, #4
+ 574 001a 2360     		str	r3, [r4]
+ 575 001c 2368     		ldr	r3, [r4]
+ 576 001e 43F48033 		orr	r3, r3, #65536
+ 577 0022 2360     		str	r3, [r4]
+ 578 0024 FFF7FEFF 		bl	fmc_ready_wait
+ 579 0028 0346     		mov	r3, r0
+ 580 002a 2268     		ldr	r2, [r4]
+ 581 002c 22F40042 		bic	r2, r2, #32768
+ 582 0030 22F00402 		bic	r2, r2, #4
+ 583 0034 2260     		str	r2, [r4]
+ 584 0036 E8E7     		b	.L82
+ 585              	.L86:
+ 586              		.align	2
+ 587              	.L85:
+ 588 0038 103C0240 		.word	1073888272
+ 590              		.section	.text.fmc_bank0_erase,"ax",%progbits
+ 591              		.align	1
+ 592              		.global	fmc_bank0_erase
+ 593              		.syntax unified
+ 594              		.thumb
+ 595              		.thumb_func
+ 596              		.fpu fpv4-sp-d16
+ 598              	fmc_bank0_erase:
+ 599              		@ args = 0, pretend = 0, frame = 0
+ 600              		@ frame_needed = 0, uses_anonymous_args = 0
+ 601 0000 10B5     		push	{r4, lr}
+ 602 0002 FFF7FEFF 		bl	fmc_ready_wait
+ 603 0006 0346     		mov	r3, r0
+ 604 0008 08B1     		cbz	r0, .L90
+ 605              	.L88:
+ 606 000a 1846     		mov	r0, r3
+ 607 000c 10BD     		pop	{r4, pc}
+ 608              	.L90:
+ 609 000e 084C     		ldr	r4, .L91
+ 610 0010 2368     		ldr	r3, [r4]
+ 611 0012 43F00403 		orr	r3, r3, #4
+ 612 0016 2360     		str	r3, [r4]
+ 613 0018 2368     		ldr	r3, [r4]
+ 614 001a 43F48033 		orr	r3, r3, #65536
+ 615 001e 2360     		str	r3, [r4]
+ARM GAS  /tmp/ccR1laJZ.s 			page 11
+
+
+ 616 0020 FFF7FEFF 		bl	fmc_ready_wait
+ 617 0024 0346     		mov	r3, r0
+ 618 0026 2268     		ldr	r2, [r4]
+ 619 0028 22F00402 		bic	r2, r2, #4
+ 620 002c 2260     		str	r2, [r4]
+ 621 002e ECE7     		b	.L88
+ 622              	.L92:
+ 623              		.align	2
+ 624              	.L91:
+ 625 0030 103C0240 		.word	1073888272
+ 627              		.section	.text.fmc_bank1_erase,"ax",%progbits
+ 628              		.align	1
+ 629              		.global	fmc_bank1_erase
+ 630              		.syntax unified
+ 631              		.thumb
+ 632              		.thumb_func
+ 633              		.fpu fpv4-sp-d16
+ 635              	fmc_bank1_erase:
+ 636              		@ args = 0, pretend = 0, frame = 0
+ 637              		@ frame_needed = 0, uses_anonymous_args = 0
+ 638 0000 10B5     		push	{r4, lr}
+ 639 0002 FFF7FEFF 		bl	fmc_ready_wait
+ 640 0006 0346     		mov	r3, r0
+ 641 0008 08B1     		cbz	r0, .L96
+ 642              	.L94:
+ 643 000a 1846     		mov	r0, r3
+ 644 000c 10BD     		pop	{r4, pc}
+ 645              	.L96:
+ 646 000e 084C     		ldr	r4, .L97
+ 647 0010 2368     		ldr	r3, [r4]
+ 648 0012 43F40043 		orr	r3, r3, #32768
+ 649 0016 2360     		str	r3, [r4]
+ 650 0018 2368     		ldr	r3, [r4]
+ 651 001a 43F48033 		orr	r3, r3, #65536
+ 652 001e 2360     		str	r3, [r4]
+ 653 0020 FFF7FEFF 		bl	fmc_ready_wait
+ 654 0024 0346     		mov	r3, r0
+ 655 0026 2268     		ldr	r2, [r4]
+ 656 0028 22F40042 		bic	r2, r2, #32768
+ 657 002c 2260     		str	r2, [r4]
+ 658 002e ECE7     		b	.L94
+ 659              	.L98:
+ 660              		.align	2
+ 661              	.L97:
+ 662 0030 103C0240 		.word	1073888272
+ 664              		.section	.text.fmc_word_program,"ax",%progbits
+ 665              		.align	1
+ 666              		.global	fmc_word_program
+ 667              		.syntax unified
+ 668              		.thumb
+ 669              		.thumb_func
+ 670              		.fpu fpv4-sp-d16
+ 672              	fmc_word_program:
+ 673              		@ args = 0, pretend = 0, frame = 0
+ 674              		@ frame_needed = 0, uses_anonymous_args = 0
+ 675 0000 70B5     		push	{r4, r5, r6, lr}
+ 676 0002 0546     		mov	r5, r0
+ARM GAS  /tmp/ccR1laJZ.s 			page 12
+
+
+ 677 0004 0E46     		mov	r6, r1
+ 678 0006 FFF7FEFF 		bl	fmc_ready_wait
+ 679 000a 0346     		mov	r3, r0
+ 680 000c 08B1     		cbz	r0, .L102
+ 681              	.L100:
+ 682 000e 1846     		mov	r0, r3
+ 683 0010 70BD     		pop	{r4, r5, r6, pc}
+ 684              	.L102:
+ 685 0012 0B4C     		ldr	r4, .L103
+ 686 0014 2368     		ldr	r3, [r4]
+ 687 0016 23F44073 		bic	r3, r3, #768
+ 688 001a 2360     		str	r3, [r4]
+ 689 001c 2368     		ldr	r3, [r4]
+ 690 001e 43F40073 		orr	r3, r3, #512
+ 691 0022 2360     		str	r3, [r4]
+ 692 0024 2368     		ldr	r3, [r4]
+ 693 0026 43F00103 		orr	r3, r3, #1
+ 694 002a 2360     		str	r3, [r4]
+ 695 002c 2E60     		str	r6, [r5]
+ 696 002e FFF7FEFF 		bl	fmc_ready_wait
+ 697 0032 0346     		mov	r3, r0
+ 698 0034 2268     		ldr	r2, [r4]
+ 699 0036 22F00102 		bic	r2, r2, #1
+ 700 003a 2260     		str	r2, [r4]
+ 701 003c E7E7     		b	.L100
+ 702              	.L104:
+ 703 003e 00BF     		.align	2
+ 704              	.L103:
+ 705 0040 103C0240 		.word	1073888272
+ 707              		.section	.text.fmc_halfword_program,"ax",%progbits
+ 708              		.align	1
+ 709              		.global	fmc_halfword_program
+ 710              		.syntax unified
+ 711              		.thumb
+ 712              		.thumb_func
+ 713              		.fpu fpv4-sp-d16
+ 715              	fmc_halfword_program:
+ 716              		@ args = 0, pretend = 0, frame = 0
+ 717              		@ frame_needed = 0, uses_anonymous_args = 0
+ 718 0000 70B5     		push	{r4, r5, r6, lr}
+ 719 0002 0546     		mov	r5, r0
+ 720 0004 0E46     		mov	r6, r1
+ 721 0006 FFF7FEFF 		bl	fmc_ready_wait
+ 722 000a 0346     		mov	r3, r0
+ 723 000c 08B1     		cbz	r0, .L108
+ 724              	.L106:
+ 725 000e 1846     		mov	r0, r3
+ 726 0010 70BD     		pop	{r4, r5, r6, pc}
+ 727              	.L108:
+ 728 0012 0B4C     		ldr	r4, .L109
+ 729 0014 2368     		ldr	r3, [r4]
+ 730 0016 23F44073 		bic	r3, r3, #768
+ 731 001a 2360     		str	r3, [r4]
+ 732 001c 2368     		ldr	r3, [r4]
+ 733 001e 43F48073 		orr	r3, r3, #256
+ 734 0022 2360     		str	r3, [r4]
+ 735 0024 2368     		ldr	r3, [r4]
+ARM GAS  /tmp/ccR1laJZ.s 			page 13
+
+
+ 736 0026 43F00103 		orr	r3, r3, #1
+ 737 002a 2360     		str	r3, [r4]
+ 738 002c 2E80     		strh	r6, [r5]	@ movhi
+ 739 002e FFF7FEFF 		bl	fmc_ready_wait
+ 740 0032 0346     		mov	r3, r0
+ 741 0034 2268     		ldr	r2, [r4]
+ 742 0036 22F00102 		bic	r2, r2, #1
+ 743 003a 2260     		str	r2, [r4]
+ 744 003c E7E7     		b	.L106
+ 745              	.L110:
+ 746 003e 00BF     		.align	2
+ 747              	.L109:
+ 748 0040 103C0240 		.word	1073888272
+ 750              		.section	.text.fmc_byte_program,"ax",%progbits
+ 751              		.align	1
+ 752              		.global	fmc_byte_program
+ 753              		.syntax unified
+ 754              		.thumb
+ 755              		.thumb_func
+ 756              		.fpu fpv4-sp-d16
+ 758              	fmc_byte_program:
+ 759              		@ args = 0, pretend = 0, frame = 0
+ 760              		@ frame_needed = 0, uses_anonymous_args = 0
+ 761 0000 70B5     		push	{r4, r5, r6, lr}
+ 762 0002 0546     		mov	r5, r0
+ 763 0004 0E46     		mov	r6, r1
+ 764 0006 FFF7FEFF 		bl	fmc_ready_wait
+ 765 000a 0346     		mov	r3, r0
+ 766 000c 08B1     		cbz	r0, .L114
+ 767              	.L112:
+ 768 000e 1846     		mov	r0, r3
+ 769 0010 70BD     		pop	{r4, r5, r6, pc}
+ 770              	.L114:
+ 771 0012 0A4C     		ldr	r4, .L115
+ 772 0014 2368     		ldr	r3, [r4]
+ 773 0016 23F44073 		bic	r3, r3, #768
+ 774 001a 2360     		str	r3, [r4]
+ 775 001c 2368     		ldr	r3, [r4]
+ 776 001e 2360     		str	r3, [r4]
+ 777 0020 2368     		ldr	r3, [r4]
+ 778 0022 43F00103 		orr	r3, r3, #1
+ 779 0026 2360     		str	r3, [r4]
+ 780 0028 2E70     		strb	r6, [r5]
+ 781 002a FFF7FEFF 		bl	fmc_ready_wait
+ 782 002e 0346     		mov	r3, r0
+ 783 0030 2268     		ldr	r2, [r4]
+ 784 0032 22F00102 		bic	r2, r2, #1
+ 785 0036 2260     		str	r2, [r4]
+ 786 0038 E9E7     		b	.L112
+ 787              	.L116:
+ 788 003a 00BF     		.align	2
+ 789              	.L115:
+ 790 003c 103C0240 		.word	1073888272
+ 792              		.section	.text.ob_start,"ax",%progbits
+ 793              		.align	1
+ 794              		.global	ob_start
+ 795              		.syntax unified
+ARM GAS  /tmp/ccR1laJZ.s 			page 14
+
+
+ 796              		.thumb
+ 797              		.thumb_func
+ 798              		.fpu fpv4-sp-d16
+ 800              	ob_start:
+ 801              		@ args = 0, pretend = 0, frame = 0
+ 802              		@ frame_needed = 0, uses_anonymous_args = 0
+ 803 0000 08B5     		push	{r3, lr}
+ 804 0002 054A     		ldr	r2, .L121
+ 805 0004 1368     		ldr	r3, [r2]
+ 806 0006 43F00203 		orr	r3, r3, #2
+ 807 000a 1360     		str	r3, [r2]
+ 808 000c FFF7FEFF 		bl	fmc_ready_wait
+ 809 0010 00B1     		cbz	r0, .L117
+ 810              	.L119:
+ 811 0012 FEE7     		b	.L119
+ 812              	.L117:
+ 813 0014 08BD     		pop	{r3, pc}
+ 814              	.L122:
+ 815 0016 00BF     		.align	2
+ 816              	.L121:
+ 817 0018 143C0240 		.word	1073888276
+ 819              		.section	.text.ob_erase,"ax",%progbits
+ 820              		.align	1
+ 821              		.global	ob_erase
+ 822              		.syntax unified
+ 823              		.thumb
+ 824              		.thumb_func
+ 825              		.fpu fpv4-sp-d16
+ 827              	ob_erase:
+ 828              		@ args = 0, pretend = 0, frame = 0
+ 829              		@ frame_needed = 0, uses_anonymous_args = 0
+ 830 0000 10B5     		push	{r4, lr}
+ 831 0002 FFF7FEFF 		bl	fmc_ready_wait
+ 832 0006 80B9     		cbnz	r0, .L123
+ 833 0008 0848     		ldr	r0, .L126
+ 834 000a 0268     		ldr	r2, [r0]
+ 835 000c 084C     		ldr	r4, .L126+4
+ 836 000e 2368     		ldr	r3, [r4]
+ 837 0010 22F04042 		bic	r2, r2, #-1073741824
+ 838 0014 22F01002 		bic	r2, r2, #16
+ 839 0018 0649     		ldr	r1, .L126+8
+ 840 001a 1143     		orrs	r1, r1, r2
+ 841 001c 0160     		str	r1, [r0]
+ 842 001e 43F07F63 		orr	r3, r3, #267386880
+ 843 0022 43F47023 		orr	r3, r3, #983040
+ 844 0026 2360     		str	r3, [r4]
+ 845 0028 0160     		str	r1, [r0]
+ 846              	.L123:
+ 847 002a 10BD     		pop	{r4, pc}
+ 848              	.L127:
+ 849              		.align	2
+ 850              	.L126:
+ 851 002c 143C0240 		.word	1073888276
+ 852 0030 183C0240 		.word	1073888280
+ 853 0034 EC00FF0F 		.word	268370156
+ 855              		.section	.text.ob_write_protection_enable,"ax",%progbits
+ 856              		.align	1
+ARM GAS  /tmp/ccR1laJZ.s 			page 15
+
+
+ 857              		.global	ob_write_protection_enable
+ 858              		.syntax unified
+ 859              		.thumb
+ 860              		.thumb_func
+ 861              		.fpu fpv4-sp-d16
+ 863              	ob_write_protection_enable:
+ 864              		@ args = 0, pretend = 0, frame = 0
+ 865              		@ frame_needed = 0, uses_anonymous_args = 0
+ 866 0000 70B5     		push	{r4, r5, r6, lr}
+ 867 0002 0B4B     		ldr	r3, .L133
+ 868 0004 1E68     		ldr	r6, [r3]
+ 869 0006 0B4A     		ldr	r2, .L133+4
+ 870 0008 1568     		ldr	r5, [r2]
+ 871 000a 1B68     		ldr	r3, [r3]
+ 872 000c 002B     		cmp	r3, #0
+ 873 000e 00DA     		bge	.L129
+ 874              	.L130:
+ 875 0010 FEE7     		b	.L130
+ 876              	.L129:
+ 877 0012 0446     		mov	r4, r0
+ 878 0014 FFF7FEFF 		bl	fmc_ready_wait
+ 879 0018 48B9     		cbnz	r0, .L128
+ 880 001a 26EA0446 		bic	r6, r6, r4, lsl #16
+ 881 001e 230C     		lsrs	r3, r4, #16
+ 882 0020 1B04     		lsls	r3, r3, #16
+ 883 0022 25EA0303 		bic	r3, r5, r3
+ 884 0026 024A     		ldr	r2, .L133
+ 885 0028 1660     		str	r6, [r2]
+ 886 002a 0432     		adds	r2, r2, #4
+ 887 002c 1360     		str	r3, [r2]
+ 888              	.L128:
+ 889 002e 70BD     		pop	{r4, r5, r6, pc}
+ 890              	.L134:
+ 891              		.align	2
+ 892              	.L133:
+ 893 0030 143C0240 		.word	1073888276
+ 894 0034 183C0240 		.word	1073888280
+ 896              		.section	.text.ob_write_protection_disable,"ax",%progbits
+ 897              		.align	1
+ 898              		.global	ob_write_protection_disable
+ 899              		.syntax unified
+ 900              		.thumb
+ 901              		.thumb_func
+ 902              		.fpu fpv4-sp-d16
+ 904              	ob_write_protection_disable:
+ 905              		@ args = 0, pretend = 0, frame = 0
+ 906              		@ frame_needed = 0, uses_anonymous_args = 0
+ 907 0000 70B5     		push	{r4, r5, r6, lr}
+ 908 0002 0B4B     		ldr	r3, .L140
+ 909 0004 1D68     		ldr	r5, [r3]
+ 910 0006 0B4A     		ldr	r2, .L140+4
+ 911 0008 1668     		ldr	r6, [r2]
+ 912 000a 1B68     		ldr	r3, [r3]
+ 913 000c 002B     		cmp	r3, #0
+ 914 000e 00DA     		bge	.L136
+ 915              	.L137:
+ 916 0010 FEE7     		b	.L137
+ARM GAS  /tmp/ccR1laJZ.s 			page 16
+
+
+ 917              	.L136:
+ 918 0012 0446     		mov	r4, r0
+ 919 0014 FFF7FEFF 		bl	fmc_ready_wait
+ 920 0018 40B9     		cbnz	r0, .L135
+ 921 001a 45EA0445 		orr	r5, r5, r4, lsl #16
+ 922 001e 230C     		lsrs	r3, r4, #16
+ 923 0020 1B04     		lsls	r3, r3, #16
+ 924 0022 3343     		orrs	r3, r3, r6
+ 925 0024 024A     		ldr	r2, .L140
+ 926 0026 1560     		str	r5, [r2]
+ 927 0028 0432     		adds	r2, r2, #4
+ 928 002a 1360     		str	r3, [r2]
+ 929              	.L135:
+ 930 002c 70BD     		pop	{r4, r5, r6, pc}
+ 931              	.L141:
+ 932 002e 00BF     		.align	2
+ 933              	.L140:
+ 934 0030 143C0240 		.word	1073888276
+ 935 0034 183C0240 		.word	1073888280
+ 937              		.section	.text.ob_drp_enable,"ax",%progbits
+ 938              		.align	1
+ 939              		.global	ob_drp_enable
+ 940              		.syntax unified
+ 941              		.thumb
+ 942              		.thumb_func
+ 943              		.fpu fpv4-sp-d16
+ 945              	ob_drp_enable:
+ 946              		@ args = 0, pretend = 0, frame = 0
+ 947              		@ frame_needed = 0, uses_anonymous_args = 0
+ 948 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 949 0002 154B     		ldr	r3, .L147
+ 950 0004 1D68     		ldr	r5, [r3]
+ 951 0006 154C     		ldr	r4, .L147+4
+ 952 0008 2668     		ldr	r6, [r4]
+ 953 000a 1F68     		ldr	r7, [r3]
+ 954 000c 1A68     		ldr	r2, [r3]
+ 955 000e 1449     		ldr	r1, .L147+8
+ 956 0010 0A40     		ands	r2, r2, r1
+ 957 0012 2368     		ldr	r3, [r4]
+ 958 0014 0B40     		ands	r3, r3, r1
+ 959 0016 002F     		cmp	r7, #0
+ 960 0018 04DA     		bge	.L143
+ 961 001a 8A42     		cmp	r2, r1
+ 962 001c 02D0     		beq	.L143
+ 963 001e 8B42     		cmp	r3, r1
+ 964 0020 00D0     		beq	.L143
+ 965              	.L144:
+ 966 0022 FEE7     		b	.L144
+ 967              	.L143:
+ 968 0024 0446     		mov	r4, r0
+ 969 0026 FFF7FEFF 		bl	fmc_ready_wait
+ 970 002a A0B9     		cbnz	r0, .L142
+ 971 002c 25F07F63 		bic	r3, r5, #267386880
+ 972 0030 23F47023 		bic	r3, r3, #983040
+ 973 0034 26F07F61 		bic	r1, r6, #267386880
+ 974 0038 21F47021 		bic	r1, r1, #983040
+ 975 003c 43EA0442 		orr	r2, r3, r4, lsl #16
+ARM GAS  /tmp/ccR1laJZ.s 			page 17
+
+
+ 976 0040 230C     		lsrs	r3, r4, #16
+ 977 0042 1B04     		lsls	r3, r3, #16
+ 978 0044 0B43     		orrs	r3, r3, r1
+ 979 0046 0449     		ldr	r1, .L147
+ 980 0048 0A60     		str	r2, [r1]
+ 981 004a 044A     		ldr	r2, .L147+4
+ 982 004c 1360     		str	r3, [r2]
+ 983 004e 0B68     		ldr	r3, [r1]
+ 984 0050 43F00043 		orr	r3, r3, #-2147483648
+ 985 0054 0B60     		str	r3, [r1]
+ 986              	.L142:
+ 987 0056 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 988              	.L148:
+ 989              		.align	2
+ 990              	.L147:
+ 991 0058 143C0240 		.word	1073888276
+ 992 005c 183C0240 		.word	1073888280
+ 993 0060 0000FF0F 		.word	268369920
+ 995              		.section	.text.ob_drp_disable,"ax",%progbits
+ 996              		.align	1
+ 997              		.global	ob_drp_disable
+ 998              		.syntax unified
+ 999              		.thumb
+ 1000              		.thumb_func
+ 1001              		.fpu fpv4-sp-d16
+ 1003              	ob_drp_disable:
+ 1004              		@ args = 0, pretend = 0, frame = 0
+ 1005              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1006 0000 38B5     		push	{r3, r4, r5, lr}
+ 1007 0002 0B4B     		ldr	r3, .L152
+ 1008 0004 1C68     		ldr	r4, [r3]
+ 1009 0006 0433     		adds	r3, r3, #4
+ 1010 0008 1D68     		ldr	r5, [r3]
+ 1011 000a FFF7FEFF 		bl	fmc_ready_wait
+ 1012 000e 68B9     		cbnz	r0, .L149
+ 1013 0010 24F00043 		bic	r3, r4, #-2147483648
+ 1014 0014 43F07F63 		orr	r3, r3, #267386880
+ 1015 0018 43F47023 		orr	r3, r3, #983040
+ 1016 001c 044A     		ldr	r2, .L152
+ 1017 001e 1360     		str	r3, [r2]
+ 1018 0020 45F07F65 		orr	r5, r5, #267386880
+ 1019 0024 45F47025 		orr	r5, r5, #983040
+ 1020 0028 0432     		adds	r2, r2, #4
+ 1021 002a 1560     		str	r5, [r2]
+ 1022              	.L149:
+ 1023 002c 38BD     		pop	{r3, r4, r5, pc}
+ 1024              	.L153:
+ 1025 002e 00BF     		.align	2
+ 1026              	.L152:
+ 1027 0030 143C0240 		.word	1073888276
+ 1029              		.section	.text.ob_security_protection_config,"ax",%progbits
+ 1030              		.align	1
+ 1031              		.global	ob_security_protection_config
+ 1032              		.syntax unified
+ 1033              		.thumb
+ 1034              		.thumb_func
+ 1035              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccR1laJZ.s 			page 18
+
+
+ 1037              	ob_security_protection_config:
+ 1038              		@ args = 0, pretend = 0, frame = 0
+ 1039              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1040 0000 10B5     		push	{r4, lr}
+ 1041 0002 0446     		mov	r4, r0
+ 1042 0004 FFF7FEFF 		bl	fmc_ready_wait
+ 1043 0008 30B9     		cbnz	r0, .L154
+ 1044 000a 044B     		ldr	r3, .L157
+ 1045 000c 1868     		ldr	r0, [r3]
+ 1046 000e 20F47F40 		bic	r0, r0, #65280
+ 1047 0012 40EA0420 		orr	r0, r0, r4, lsl #8
+ 1048 0016 1860     		str	r0, [r3]
+ 1049              	.L154:
+ 1050 0018 10BD     		pop	{r4, pc}
+ 1051              	.L158:
+ 1052 001a 00BF     		.align	2
+ 1053              	.L157:
+ 1054 001c 143C0240 		.word	1073888276
+ 1056              		.section	.text.ob_user_write,"ax",%progbits
+ 1057              		.align	1
+ 1058              		.global	ob_user_write
+ 1059              		.syntax unified
+ 1060              		.thumb
+ 1061              		.thumb_func
+ 1062              		.fpu fpv4-sp-d16
+ 1064              	ob_user_write:
+ 1065              		@ args = 0, pretend = 0, frame = 0
+ 1066              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1067 0000 70B5     		push	{r4, r5, r6, lr}
+ 1068 0002 0646     		mov	r6, r0
+ 1069 0004 0D46     		mov	r5, r1
+ 1070 0006 1446     		mov	r4, r2
+ 1071 0008 FFF7FEFF 		bl	fmc_ready_wait
+ 1072 000c 38B9     		cbnz	r0, .L159
+ 1073 000e 044B     		ldr	r3, .L162
+ 1074 0010 1A68     		ldr	r2, [r3]
+ 1075 0012 22F0E002 		bic	r2, r2, #224
+ 1076 0016 3243     		orrs	r2, r2, r6
+ 1077 0018 2A43     		orrs	r2, r2, r5
+ 1078 001a 2243     		orrs	r2, r2, r4
+ 1079 001c 1A60     		str	r2, [r3]
+ 1080              	.L159:
+ 1081 001e 70BD     		pop	{r4, r5, r6, pc}
+ 1082              	.L163:
+ 1083              		.align	2
+ 1084              	.L162:
+ 1085 0020 143C0240 		.word	1073888276
+ 1087              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccR1laJZ.s 			page 19
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_fmc.c
+     /tmp/ccR1laJZ.s:16     .text.fmc_wscnt_set:0000000000000000 $t
+     /tmp/ccR1laJZ.s:24     .text.fmc_wscnt_set:0000000000000000 fmc_wscnt_set
+     /tmp/ccR1laJZ.s:37     .text.fmc_wscnt_set:0000000000000010 $d
+     /tmp/ccR1laJZ.s:40     .text.fmc_unlock:0000000000000000 $t
+     /tmp/ccR1laJZ.s:47     .text.fmc_unlock:0000000000000000 fmc_unlock
+     /tmp/ccR1laJZ.s:67     .text.fmc_unlock:0000000000000018 $d
+     /tmp/ccR1laJZ.s:72     .text.fmc_lock:0000000000000000 $t
+     /tmp/ccR1laJZ.s:79     .text.fmc_lock:0000000000000000 fmc_lock
+     /tmp/ccR1laJZ.s:91     .text.fmc_lock:000000000000000c $d
+     /tmp/ccR1laJZ.s:94     .text.ob_unlock:0000000000000000 $t
+     /tmp/ccR1laJZ.s:101    .text.ob_unlock:0000000000000000 ob_unlock
+     /tmp/ccR1laJZ.s:119    .text.ob_unlock:0000000000000018 $d
+     /tmp/ccR1laJZ.s:124    .text.ob_lock:0000000000000000 $t
+     /tmp/ccR1laJZ.s:131    .text.ob_lock:0000000000000000 ob_lock
+     /tmp/ccR1laJZ.s:143    .text.ob_lock:000000000000000c $d
+     /tmp/ccR1laJZ.s:146    .text.ob_user_bor_threshold:0000000000000000 $t
+     /tmp/ccR1laJZ.s:153    .text.ob_user_bor_threshold:0000000000000000 ob_user_bor_threshold
+     /tmp/ccR1laJZ.s:166    .text.ob_user_bor_threshold:0000000000000010 $d
+     /tmp/ccR1laJZ.s:169    .text.ob_boot_mode_config:0000000000000000 $t
+     /tmp/ccR1laJZ.s:176    .text.ob_boot_mode_config:0000000000000000 ob_boot_mode_config
+     /tmp/ccR1laJZ.s:189    .text.ob_boot_mode_config:0000000000000010 $d
+     /tmp/ccR1laJZ.s:192    .text.ob_user_get:0000000000000000 $t
+     /tmp/ccR1laJZ.s:199    .text.ob_user_get:0000000000000000 ob_user_get
+     /tmp/ccR1laJZ.s:210    .text.ob_user_get:000000000000000c $d
+     /tmp/ccR1laJZ.s:213    .text.ob_write_protection0_get:0000000000000000 $t
+     /tmp/ccR1laJZ.s:220    .text.ob_write_protection0_get:0000000000000000 ob_write_protection0_get
+     /tmp/ccR1laJZ.s:231    .text.ob_write_protection0_get:000000000000000c $d
+     /tmp/ccR1laJZ.s:234    .text.ob_write_protection1_get:0000000000000000 $t
+     /tmp/ccR1laJZ.s:241    .text.ob_write_protection1_get:0000000000000000 ob_write_protection1_get
+     /tmp/ccR1laJZ.s:252    .text.ob_write_protection1_get:000000000000000c $d
+     /tmp/ccR1laJZ.s:255    .text.ob_drp0_get:0000000000000000 $t
+     /tmp/ccR1laJZ.s:262    .text.ob_drp0_get:0000000000000000 ob_drp0_get
+     /tmp/ccR1laJZ.s:273    .text.ob_drp0_get:000000000000000c $d
+     /tmp/ccR1laJZ.s:276    .text.ob_drp1_get:0000000000000000 $t
+     /tmp/ccR1laJZ.s:283    .text.ob_drp1_get:0000000000000000 ob_drp1_get
+     /tmp/ccR1laJZ.s:294    .text.ob_drp1_get:000000000000000c $d
+     /tmp/ccR1laJZ.s:297    .text.ob_spc_get:0000000000000000 $t
+     /tmp/ccR1laJZ.s:304    .text.ob_spc_get:0000000000000000 ob_spc_get
+     /tmp/ccR1laJZ.s:321    .text.ob_spc_get:0000000000000014 $d
+     /tmp/ccR1laJZ.s:324    .text.ob_user_bor_threshold_get:0000000000000000 $t
+     /tmp/ccR1laJZ.s:331    .text.ob_user_bor_threshold_get:0000000000000000 ob_user_bor_threshold_get
+     /tmp/ccR1laJZ.s:342    .text.ob_user_bor_threshold_get:000000000000000c $d
+     /tmp/ccR1laJZ.s:345    .text.fmc_interrupt_enable:0000000000000000 $t
+     /tmp/ccR1laJZ.s:352    .text.fmc_interrupt_enable:0000000000000000 fmc_interrupt_enable
+     /tmp/ccR1laJZ.s:364    .text.fmc_interrupt_enable:000000000000000c $d
+     /tmp/ccR1laJZ.s:367    .text.fmc_interrupt_disable:0000000000000000 $t
+     /tmp/ccR1laJZ.s:374    .text.fmc_interrupt_disable:0000000000000000 fmc_interrupt_disable
+     /tmp/ccR1laJZ.s:386    .text.fmc_interrupt_disable:000000000000000c $d
+     /tmp/ccR1laJZ.s:389    .text.fmc_flag_get:0000000000000000 $t
+     /tmp/ccR1laJZ.s:396    .text.fmc_flag_get:0000000000000000 fmc_flag_get
+     /tmp/ccR1laJZ.s:412    .text.fmc_flag_get:0000000000000010 $d
+     /tmp/ccR1laJZ.s:415    .text.fmc_flag_clear:0000000000000000 $t
+     /tmp/ccR1laJZ.s:422    .text.fmc_flag_clear:0000000000000000 fmc_flag_clear
+     /tmp/ccR1laJZ.s:432    .text.fmc_flag_clear:0000000000000008 $d
+     /tmp/ccR1laJZ.s:435    .text.fmc_state_get:0000000000000000 $t
+ARM GAS  /tmp/ccR1laJZ.s 			page 20
+
+
+     /tmp/ccR1laJZ.s:442    .text.fmc_state_get:0000000000000000 fmc_state_get
+     /tmp/ccR1laJZ.s:486    .text.fmc_state_get:000000000000004c $d
+     /tmp/ccR1laJZ.s:489    .text.fmc_ready_wait:0000000000000000 $t
+     /tmp/ccR1laJZ.s:496    .text.fmc_ready_wait:0000000000000000 fmc_ready_wait
+     /tmp/ccR1laJZ.s:507    .text.fmc_sector_erase:0000000000000000 $t
+     /tmp/ccR1laJZ.s:514    .text.fmc_sector_erase:0000000000000000 fmc_sector_erase
+     /tmp/ccR1laJZ.s:549    .text.fmc_sector_erase:0000000000000044 $d
+     /tmp/ccR1laJZ.s:552    .text.fmc_mass_erase:0000000000000000 $t
+     /tmp/ccR1laJZ.s:559    .text.fmc_mass_erase:0000000000000000 fmc_mass_erase
+     /tmp/ccR1laJZ.s:588    .text.fmc_mass_erase:0000000000000038 $d
+     /tmp/ccR1laJZ.s:591    .text.fmc_bank0_erase:0000000000000000 $t
+     /tmp/ccR1laJZ.s:598    .text.fmc_bank0_erase:0000000000000000 fmc_bank0_erase
+     /tmp/ccR1laJZ.s:625    .text.fmc_bank0_erase:0000000000000030 $d
+     /tmp/ccR1laJZ.s:628    .text.fmc_bank1_erase:0000000000000000 $t
+     /tmp/ccR1laJZ.s:635    .text.fmc_bank1_erase:0000000000000000 fmc_bank1_erase
+     /tmp/ccR1laJZ.s:662    .text.fmc_bank1_erase:0000000000000030 $d
+     /tmp/ccR1laJZ.s:665    .text.fmc_word_program:0000000000000000 $t
+     /tmp/ccR1laJZ.s:672    .text.fmc_word_program:0000000000000000 fmc_word_program
+     /tmp/ccR1laJZ.s:705    .text.fmc_word_program:0000000000000040 $d
+     /tmp/ccR1laJZ.s:708    .text.fmc_halfword_program:0000000000000000 $t
+     /tmp/ccR1laJZ.s:715    .text.fmc_halfword_program:0000000000000000 fmc_halfword_program
+     /tmp/ccR1laJZ.s:748    .text.fmc_halfword_program:0000000000000040 $d
+     /tmp/ccR1laJZ.s:751    .text.fmc_byte_program:0000000000000000 $t
+     /tmp/ccR1laJZ.s:758    .text.fmc_byte_program:0000000000000000 fmc_byte_program
+     /tmp/ccR1laJZ.s:790    .text.fmc_byte_program:000000000000003c $d
+     /tmp/ccR1laJZ.s:793    .text.ob_start:0000000000000000 $t
+     /tmp/ccR1laJZ.s:800    .text.ob_start:0000000000000000 ob_start
+     /tmp/ccR1laJZ.s:817    .text.ob_start:0000000000000018 $d
+     /tmp/ccR1laJZ.s:820    .text.ob_erase:0000000000000000 $t
+     /tmp/ccR1laJZ.s:827    .text.ob_erase:0000000000000000 ob_erase
+     /tmp/ccR1laJZ.s:851    .text.ob_erase:000000000000002c $d
+     /tmp/ccR1laJZ.s:856    .text.ob_write_protection_enable:0000000000000000 $t
+     /tmp/ccR1laJZ.s:863    .text.ob_write_protection_enable:0000000000000000 ob_write_protection_enable
+     /tmp/ccR1laJZ.s:893    .text.ob_write_protection_enable:0000000000000030 $d
+     /tmp/ccR1laJZ.s:897    .text.ob_write_protection_disable:0000000000000000 $t
+     /tmp/ccR1laJZ.s:904    .text.ob_write_protection_disable:0000000000000000 ob_write_protection_disable
+     /tmp/ccR1laJZ.s:934    .text.ob_write_protection_disable:0000000000000030 $d
+     /tmp/ccR1laJZ.s:938    .text.ob_drp_enable:0000000000000000 $t
+     /tmp/ccR1laJZ.s:945    .text.ob_drp_enable:0000000000000000 ob_drp_enable
+     /tmp/ccR1laJZ.s:991    .text.ob_drp_enable:0000000000000058 $d
+     /tmp/ccR1laJZ.s:996    .text.ob_drp_disable:0000000000000000 $t
+     /tmp/ccR1laJZ.s:1003   .text.ob_drp_disable:0000000000000000 ob_drp_disable
+     /tmp/ccR1laJZ.s:1027   .text.ob_drp_disable:0000000000000030 $d
+     /tmp/ccR1laJZ.s:1030   .text.ob_security_protection_config:0000000000000000 $t
+     /tmp/ccR1laJZ.s:1037   .text.ob_security_protection_config:0000000000000000 ob_security_protection_config
+     /tmp/ccR1laJZ.s:1054   .text.ob_security_protection_config:000000000000001c $d
+     /tmp/ccR1laJZ.s:1057   .text.ob_user_write:0000000000000000 $t
+     /tmp/ccR1laJZ.s:1064   .text.ob_user_write:0000000000000000 ob_user_write
+     /tmp/ccR1laJZ.s:1085   .text.ob_user_write:0000000000000020 $d
+
+NO UNDEFINED SYMBOLS

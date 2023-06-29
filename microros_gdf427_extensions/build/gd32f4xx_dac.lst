@@ -1,0 +1,1100 @@
+ARM GAS  /tmp/ccajGABV.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_dac.c"
+  14              		.text
+  15              		.section	.text.dac_deinit,"ax",%progbits
+  16              		.align	1
+  17              		.global	dac_deinit
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	dac_deinit:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27 0000 08B5     		push	{r3, lr}
+  28 0002 40F61D00 		movw	r0, #2077
+  29 0006 FFF7FEFF 		bl	rcu_periph_reset_enable
+  30 000a 40F61D00 		movw	r0, #2077
+  31 000e FFF7FEFF 		bl	rcu_periph_reset_disable
+  32 0012 08BD     		pop	{r3, pc}
+  34              		.section	.text.dac_enable,"ax",%progbits
+  35              		.align	1
+  36              		.global	dac_enable
+  37              		.syntax unified
+  38              		.thumb
+  39              		.thumb_func
+  40              		.fpu fpv4-sp-d16
+  42              	dac_enable:
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 0, uses_anonymous_args = 0
+  45              		@ link register save eliminated.
+  46 0000 28B9     		cbnz	r0, .L4
+  47 0002 064A     		ldr	r2, .L6
+  48 0004 1368     		ldr	r3, [r2]
+  49 0006 43F00103 		orr	r3, r3, #1
+  50 000a 1360     		str	r3, [r2]
+  51 000c 7047     		bx	lr
+  52              	.L4:
+  53 000e 034A     		ldr	r2, .L6
+  54 0010 1368     		ldr	r3, [r2]
+  55 0012 43F48033 		orr	r3, r3, #65536
+  56 0016 1360     		str	r3, [r2]
+  57 0018 7047     		bx	lr
+  58              	.L7:
+  59 001a 00BF     		.align	2
+  60              	.L6:
+ARM GAS  /tmp/ccajGABV.s 			page 2
+
+
+  61 001c 00740040 		.word	1073771520
+  63              		.section	.text.dac_disable,"ax",%progbits
+  64              		.align	1
+  65              		.global	dac_disable
+  66              		.syntax unified
+  67              		.thumb
+  68              		.thumb_func
+  69              		.fpu fpv4-sp-d16
+  71              	dac_disable:
+  72              		@ args = 0, pretend = 0, frame = 0
+  73              		@ frame_needed = 0, uses_anonymous_args = 0
+  74              		@ link register save eliminated.
+  75 0000 28B9     		cbnz	r0, .L9
+  76 0002 064A     		ldr	r2, .L11
+  77 0004 1368     		ldr	r3, [r2]
+  78 0006 23F00103 		bic	r3, r3, #1
+  79 000a 1360     		str	r3, [r2]
+  80 000c 7047     		bx	lr
+  81              	.L9:
+  82 000e 034A     		ldr	r2, .L11
+  83 0010 1368     		ldr	r3, [r2]
+  84 0012 23F48033 		bic	r3, r3, #65536
+  85 0016 1360     		str	r3, [r2]
+  86 0018 7047     		bx	lr
+  87              	.L12:
+  88 001a 00BF     		.align	2
+  89              	.L11:
+  90 001c 00740040 		.word	1073771520
+  92              		.section	.text.dac_dma_enable,"ax",%progbits
+  93              		.align	1
+  94              		.global	dac_dma_enable
+  95              		.syntax unified
+  96              		.thumb
+  97              		.thumb_func
+  98              		.fpu fpv4-sp-d16
+ 100              	dac_dma_enable:
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103              		@ link register save eliminated.
+ 104 0000 28B9     		cbnz	r0, .L14
+ 105 0002 064A     		ldr	r2, .L16
+ 106 0004 1368     		ldr	r3, [r2]
+ 107 0006 43F48053 		orr	r3, r3, #4096
+ 108 000a 1360     		str	r3, [r2]
+ 109 000c 7047     		bx	lr
+ 110              	.L14:
+ 111 000e 034A     		ldr	r2, .L16
+ 112 0010 1368     		ldr	r3, [r2]
+ 113 0012 43F08053 		orr	r3, r3, #268435456
+ 114 0016 1360     		str	r3, [r2]
+ 115 0018 7047     		bx	lr
+ 116              	.L17:
+ 117 001a 00BF     		.align	2
+ 118              	.L16:
+ 119 001c 00740040 		.word	1073771520
+ 121              		.section	.text.dac_dma_disable,"ax",%progbits
+ 122              		.align	1
+ARM GAS  /tmp/ccajGABV.s 			page 3
+
+
+ 123              		.global	dac_dma_disable
+ 124              		.syntax unified
+ 125              		.thumb
+ 126              		.thumb_func
+ 127              		.fpu fpv4-sp-d16
+ 129              	dac_dma_disable:
+ 130              		@ args = 0, pretend = 0, frame = 0
+ 131              		@ frame_needed = 0, uses_anonymous_args = 0
+ 132              		@ link register save eliminated.
+ 133 0000 28B9     		cbnz	r0, .L19
+ 134 0002 064A     		ldr	r2, .L21
+ 135 0004 1368     		ldr	r3, [r2]
+ 136 0006 23F48053 		bic	r3, r3, #4096
+ 137 000a 1360     		str	r3, [r2]
+ 138 000c 7047     		bx	lr
+ 139              	.L19:
+ 140 000e 034A     		ldr	r2, .L21
+ 141 0010 1368     		ldr	r3, [r2]
+ 142 0012 23F08053 		bic	r3, r3, #268435456
+ 143 0016 1360     		str	r3, [r2]
+ 144 0018 7047     		bx	lr
+ 145              	.L22:
+ 146 001a 00BF     		.align	2
+ 147              	.L21:
+ 148 001c 00740040 		.word	1073771520
+ 150              		.section	.text.dac_output_buffer_enable,"ax",%progbits
+ 151              		.align	1
+ 152              		.global	dac_output_buffer_enable
+ 153              		.syntax unified
+ 154              		.thumb
+ 155              		.thumb_func
+ 156              		.fpu fpv4-sp-d16
+ 158              	dac_output_buffer_enable:
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161              		@ link register save eliminated.
+ 162 0000 28B9     		cbnz	r0, .L24
+ 163 0002 064A     		ldr	r2, .L26
+ 164 0004 1368     		ldr	r3, [r2]
+ 165 0006 23F00203 		bic	r3, r3, #2
+ 166 000a 1360     		str	r3, [r2]
+ 167 000c 7047     		bx	lr
+ 168              	.L24:
+ 169 000e 034A     		ldr	r2, .L26
+ 170 0010 1368     		ldr	r3, [r2]
+ 171 0012 23F40033 		bic	r3, r3, #131072
+ 172 0016 1360     		str	r3, [r2]
+ 173 0018 7047     		bx	lr
+ 174              	.L27:
+ 175 001a 00BF     		.align	2
+ 176              	.L26:
+ 177 001c 00740040 		.word	1073771520
+ 179              		.section	.text.dac_output_buffer_disable,"ax",%progbits
+ 180              		.align	1
+ 181              		.global	dac_output_buffer_disable
+ 182              		.syntax unified
+ 183              		.thumb
+ARM GAS  /tmp/ccajGABV.s 			page 4
+
+
+ 184              		.thumb_func
+ 185              		.fpu fpv4-sp-d16
+ 187              	dac_output_buffer_disable:
+ 188              		@ args = 0, pretend = 0, frame = 0
+ 189              		@ frame_needed = 0, uses_anonymous_args = 0
+ 190              		@ link register save eliminated.
+ 191 0000 28B9     		cbnz	r0, .L29
+ 192 0002 064A     		ldr	r2, .L31
+ 193 0004 1368     		ldr	r3, [r2]
+ 194 0006 43F00203 		orr	r3, r3, #2
+ 195 000a 1360     		str	r3, [r2]
+ 196 000c 7047     		bx	lr
+ 197              	.L29:
+ 198 000e 034A     		ldr	r2, .L31
+ 199 0010 1368     		ldr	r3, [r2]
+ 200 0012 43F40033 		orr	r3, r3, #131072
+ 201 0016 1360     		str	r3, [r2]
+ 202 0018 7047     		bx	lr
+ 203              	.L32:
+ 204 001a 00BF     		.align	2
+ 205              	.L31:
+ 206 001c 00740040 		.word	1073771520
+ 208              		.section	.text.dac_output_value_get,"ax",%progbits
+ 209              		.align	1
+ 210              		.global	dac_output_value_get
+ 211              		.syntax unified
+ 212              		.thumb
+ 213              		.thumb_func
+ 214              		.fpu fpv4-sp-d16
+ 216              	dac_output_value_get:
+ 217              		@ args = 0, pretend = 0, frame = 0
+ 218              		@ frame_needed = 0, uses_anonymous_args = 0
+ 219              		@ link register save eliminated.
+ 220 0000 18B9     		cbnz	r0, .L34
+ 221 0002 044B     		ldr	r3, .L36
+ 222 0004 1868     		ldr	r0, [r3]
+ 223 0006 80B2     		uxth	r0, r0
+ 224 0008 7047     		bx	lr
+ 225              	.L34:
+ 226 000a 034B     		ldr	r3, .L36+4
+ 227 000c 1868     		ldr	r0, [r3]
+ 228 000e 80B2     		uxth	r0, r0
+ 229 0010 7047     		bx	lr
+ 230              	.L37:
+ 231 0012 00BF     		.align	2
+ 232              	.L36:
+ 233 0014 2C740040 		.word	1073771564
+ 234 0018 30740040 		.word	1073771568
+ 236              		.section	.text.dac_data_set,"ax",%progbits
+ 237              		.align	1
+ 238              		.global	dac_data_set
+ 239              		.syntax unified
+ 240              		.thumb
+ 241              		.thumb_func
+ 242              		.fpu fpv4-sp-d16
+ 244              	dac_data_set:
+ 245              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/ccajGABV.s 			page 5
+
+
+ 246              		@ frame_needed = 0, uses_anonymous_args = 0
+ 247              		@ link register save eliminated.
+ 248 0000 70B9     		cbnz	r0, .L39
+ 249 0002 0129     		cmp	r1, #1
+ 250 0004 06D0     		beq	.L40
+ 251 0006 11B1     		cbz	r1, .L41
+ 252 0008 0229     		cmp	r1, #2
+ 253 000a 06D0     		beq	.L42
+ 254 000c 7047     		bx	lr
+ 255              	.L41:
+ 256 000e 0C4B     		ldr	r3, .L47
+ 257 0010 1A60     		str	r2, [r3]
+ 258 0012 7047     		bx	lr
+ 259              	.L40:
+ 260 0014 0B4B     		ldr	r3, .L47+4
+ 261 0016 1A60     		str	r2, [r3]
+ 262 0018 7047     		bx	lr
+ 263              	.L42:
+ 264 001a 0B4B     		ldr	r3, .L47+8
+ 265 001c 1A60     		str	r2, [r3]
+ 266 001e 7047     		bx	lr
+ 267              	.L39:
+ 268 0020 0129     		cmp	r1, #1
+ 269 0022 06D0     		beq	.L44
+ 270 0024 11B1     		cbz	r1, .L45
+ 271 0026 0229     		cmp	r1, #2
+ 272 0028 06D0     		beq	.L46
+ 273 002a 7047     		bx	lr
+ 274              	.L45:
+ 275 002c 074B     		ldr	r3, .L47+12
+ 276 002e 1A60     		str	r2, [r3]
+ 277 0030 7047     		bx	lr
+ 278              	.L44:
+ 279 0032 074B     		ldr	r3, .L47+16
+ 280 0034 1A60     		str	r2, [r3]
+ 281 0036 7047     		bx	lr
+ 282              	.L46:
+ 283 0038 064B     		ldr	r3, .L47+20
+ 284 003a 1A60     		str	r2, [r3]
+ 285 003c 7047     		bx	lr
+ 286              	.L48:
+ 287 003e 00BF     		.align	2
+ 288              	.L47:
+ 289 0040 08740040 		.word	1073771528
+ 290 0044 0C740040 		.word	1073771532
+ 291 0048 10740040 		.word	1073771536
+ 292 004c 14740040 		.word	1073771540
+ 293 0050 18740040 		.word	1073771544
+ 294 0054 1C740040 		.word	1073771548
+ 296              		.section	.text.dac_trigger_enable,"ax",%progbits
+ 297              		.align	1
+ 298              		.global	dac_trigger_enable
+ 299              		.syntax unified
+ 300              		.thumb
+ 301              		.thumb_func
+ 302              		.fpu fpv4-sp-d16
+ 304              	dac_trigger_enable:
+ARM GAS  /tmp/ccajGABV.s 			page 6
+
+
+ 305              		@ args = 0, pretend = 0, frame = 0
+ 306              		@ frame_needed = 0, uses_anonymous_args = 0
+ 307              		@ link register save eliminated.
+ 308 0000 28B9     		cbnz	r0, .L50
+ 309 0002 064A     		ldr	r2, .L52
+ 310 0004 1368     		ldr	r3, [r2]
+ 311 0006 43F00403 		orr	r3, r3, #4
+ 312 000a 1360     		str	r3, [r2]
+ 313 000c 7047     		bx	lr
+ 314              	.L50:
+ 315 000e 034A     		ldr	r2, .L52
+ 316 0010 1368     		ldr	r3, [r2]
+ 317 0012 43F48023 		orr	r3, r3, #262144
+ 318 0016 1360     		str	r3, [r2]
+ 319 0018 7047     		bx	lr
+ 320              	.L53:
+ 321 001a 00BF     		.align	2
+ 322              	.L52:
+ 323 001c 00740040 		.word	1073771520
+ 325              		.section	.text.dac_trigger_disable,"ax",%progbits
+ 326              		.align	1
+ 327              		.global	dac_trigger_disable
+ 328              		.syntax unified
+ 329              		.thumb
+ 330              		.thumb_func
+ 331              		.fpu fpv4-sp-d16
+ 333              	dac_trigger_disable:
+ 334              		@ args = 0, pretend = 0, frame = 0
+ 335              		@ frame_needed = 0, uses_anonymous_args = 0
+ 336              		@ link register save eliminated.
+ 337 0000 28B9     		cbnz	r0, .L55
+ 338 0002 064A     		ldr	r2, .L57
+ 339 0004 1368     		ldr	r3, [r2]
+ 340 0006 23F00403 		bic	r3, r3, #4
+ 341 000a 1360     		str	r3, [r2]
+ 342 000c 7047     		bx	lr
+ 343              	.L55:
+ 344 000e 034A     		ldr	r2, .L57
+ 345 0010 1368     		ldr	r3, [r2]
+ 346 0012 23F48023 		bic	r3, r3, #262144
+ 347 0016 1360     		str	r3, [r2]
+ 348 0018 7047     		bx	lr
+ 349              	.L58:
+ 350 001a 00BF     		.align	2
+ 351              	.L57:
+ 352 001c 00740040 		.word	1073771520
+ 354              		.section	.text.dac_trigger_source_config,"ax",%progbits
+ 355              		.align	1
+ 356              		.global	dac_trigger_source_config
+ 357              		.syntax unified
+ 358              		.thumb
+ 359              		.thumb_func
+ 360              		.fpu fpv4-sp-d16
+ 362              	dac_trigger_source_config:
+ 363              		@ args = 0, pretend = 0, frame = 0
+ 364              		@ frame_needed = 0, uses_anonymous_args = 0
+ 365              		@ link register save eliminated.
+ARM GAS  /tmp/ccajGABV.s 			page 7
+
+
+ 366 0000 40B9     		cbnz	r0, .L60
+ 367 0002 094B     		ldr	r3, .L62
+ 368 0004 1A68     		ldr	r2, [r3]
+ 369 0006 22F03802 		bic	r2, r2, #56
+ 370 000a 1A60     		str	r2, [r3]
+ 371 000c 1A68     		ldr	r2, [r3]
+ 372 000e 0A43     		orrs	r2, r2, r1
+ 373 0010 1A60     		str	r2, [r3]
+ 374 0012 7047     		bx	lr
+ 375              	.L60:
+ 376 0014 044B     		ldr	r3, .L62
+ 377 0016 1A68     		ldr	r2, [r3]
+ 378 0018 22F46012 		bic	r2, r2, #3670016
+ 379 001c 1A60     		str	r2, [r3]
+ 380 001e 1A68     		ldr	r2, [r3]
+ 381 0020 42EA0142 		orr	r2, r2, r1, lsl #16
+ 382 0024 1A60     		str	r2, [r3]
+ 383 0026 7047     		bx	lr
+ 384              	.L63:
+ 385              		.align	2
+ 386              	.L62:
+ 387 0028 00740040 		.word	1073771520
+ 389              		.section	.text.dac_software_trigger_enable,"ax",%progbits
+ 390              		.align	1
+ 391              		.global	dac_software_trigger_enable
+ 392              		.syntax unified
+ 393              		.thumb
+ 394              		.thumb_func
+ 395              		.fpu fpv4-sp-d16
+ 397              	dac_software_trigger_enable:
+ 398              		@ args = 0, pretend = 0, frame = 0
+ 399              		@ frame_needed = 0, uses_anonymous_args = 0
+ 400              		@ link register save eliminated.
+ 401 0000 28B9     		cbnz	r0, .L65
+ 402 0002 064A     		ldr	r2, .L67
+ 403 0004 1368     		ldr	r3, [r2]
+ 404 0006 43F00103 		orr	r3, r3, #1
+ 405 000a 1360     		str	r3, [r2]
+ 406 000c 7047     		bx	lr
+ 407              	.L65:
+ 408 000e 034A     		ldr	r2, .L67
+ 409 0010 1368     		ldr	r3, [r2]
+ 410 0012 43F00203 		orr	r3, r3, #2
+ 411 0016 1360     		str	r3, [r2]
+ 412 0018 7047     		bx	lr
+ 413              	.L68:
+ 414 001a 00BF     		.align	2
+ 415              	.L67:
+ 416 001c 04740040 		.word	1073771524
+ 418              		.section	.text.dac_software_trigger_disable,"ax",%progbits
+ 419              		.align	1
+ 420              		.global	dac_software_trigger_disable
+ 421              		.syntax unified
+ 422              		.thumb
+ 423              		.thumb_func
+ 424              		.fpu fpv4-sp-d16
+ 426              	dac_software_trigger_disable:
+ARM GAS  /tmp/ccajGABV.s 			page 8
+
+
+ 427              		@ args = 0, pretend = 0, frame = 0
+ 428              		@ frame_needed = 0, uses_anonymous_args = 0
+ 429              		@ link register save eliminated.
+ 430 0000 28B9     		cbnz	r0, .L70
+ 431 0002 064A     		ldr	r2, .L72
+ 432 0004 1368     		ldr	r3, [r2]
+ 433 0006 23F00103 		bic	r3, r3, #1
+ 434 000a 1360     		str	r3, [r2]
+ 435 000c 7047     		bx	lr
+ 436              	.L70:
+ 437 000e 034A     		ldr	r2, .L72
+ 438 0010 1368     		ldr	r3, [r2]
+ 439 0012 23F00203 		bic	r3, r3, #2
+ 440 0016 1360     		str	r3, [r2]
+ 441 0018 7047     		bx	lr
+ 442              	.L73:
+ 443 001a 00BF     		.align	2
+ 444              	.L72:
+ 445 001c 04740040 		.word	1073771524
+ 447              		.section	.text.dac_wave_mode_config,"ax",%progbits
+ 448              		.align	1
+ 449              		.global	dac_wave_mode_config
+ 450              		.syntax unified
+ 451              		.thumb
+ 452              		.thumb_func
+ 453              		.fpu fpv4-sp-d16
+ 455              	dac_wave_mode_config:
+ 456              		@ args = 0, pretend = 0, frame = 0
+ 457              		@ frame_needed = 0, uses_anonymous_args = 0
+ 458              		@ link register save eliminated.
+ 459 0000 40B9     		cbnz	r0, .L75
+ 460 0002 094B     		ldr	r3, .L77
+ 461 0004 1A68     		ldr	r2, [r3]
+ 462 0006 22F0C002 		bic	r2, r2, #192
+ 463 000a 1A60     		str	r2, [r3]
+ 464 000c 1A68     		ldr	r2, [r3]
+ 465 000e 0A43     		orrs	r2, r2, r1
+ 466 0010 1A60     		str	r2, [r3]
+ 467 0012 7047     		bx	lr
+ 468              	.L75:
+ 469 0014 044B     		ldr	r3, .L77
+ 470 0016 1A68     		ldr	r2, [r3]
+ 471 0018 22F44002 		bic	r2, r2, #12582912
+ 472 001c 1A60     		str	r2, [r3]
+ 473 001e 1A68     		ldr	r2, [r3]
+ 474 0020 42EA0142 		orr	r2, r2, r1, lsl #16
+ 475 0024 1A60     		str	r2, [r3]
+ 476 0026 7047     		bx	lr
+ 477              	.L78:
+ 478              		.align	2
+ 479              	.L77:
+ 480 0028 00740040 		.word	1073771520
+ 482              		.section	.text.dac_wave_bit_width_config,"ax",%progbits
+ 483              		.align	1
+ 484              		.global	dac_wave_bit_width_config
+ 485              		.syntax unified
+ 486              		.thumb
+ARM GAS  /tmp/ccajGABV.s 			page 9
+
+
+ 487              		.thumb_func
+ 488              		.fpu fpv4-sp-d16
+ 490              	dac_wave_bit_width_config:
+ 491              		@ args = 0, pretend = 0, frame = 0
+ 492              		@ frame_needed = 0, uses_anonymous_args = 0
+ 493              		@ link register save eliminated.
+ 494 0000 40B9     		cbnz	r0, .L80
+ 495 0002 094B     		ldr	r3, .L82
+ 496 0004 1A68     		ldr	r2, [r3]
+ 497 0006 22F47062 		bic	r2, r2, #3840
+ 498 000a 1A60     		str	r2, [r3]
+ 499 000c 1A68     		ldr	r2, [r3]
+ 500 000e 0A43     		orrs	r2, r2, r1
+ 501 0010 1A60     		str	r2, [r3]
+ 502 0012 7047     		bx	lr
+ 503              	.L80:
+ 504 0014 044B     		ldr	r3, .L82
+ 505 0016 1A68     		ldr	r2, [r3]
+ 506 0018 22F07062 		bic	r2, r2, #251658240
+ 507 001c 1A60     		str	r2, [r3]
+ 508 001e 1A68     		ldr	r2, [r3]
+ 509 0020 42EA0142 		orr	r2, r2, r1, lsl #16
+ 510 0024 1A60     		str	r2, [r3]
+ 511 0026 7047     		bx	lr
+ 512              	.L83:
+ 513              		.align	2
+ 514              	.L82:
+ 515 0028 00740040 		.word	1073771520
+ 517              		.section	.text.dac_lfsr_noise_config,"ax",%progbits
+ 518              		.align	1
+ 519              		.global	dac_lfsr_noise_config
+ 520              		.syntax unified
+ 521              		.thumb
+ 522              		.thumb_func
+ 523              		.fpu fpv4-sp-d16
+ 525              	dac_lfsr_noise_config:
+ 526              		@ args = 0, pretend = 0, frame = 0
+ 527              		@ frame_needed = 0, uses_anonymous_args = 0
+ 528              		@ link register save eliminated.
+ 529 0000 40B9     		cbnz	r0, .L85
+ 530 0002 094B     		ldr	r3, .L87
+ 531 0004 1A68     		ldr	r2, [r3]
+ 532 0006 22F47062 		bic	r2, r2, #3840
+ 533 000a 1A60     		str	r2, [r3]
+ 534 000c 1A68     		ldr	r2, [r3]
+ 535 000e 0A43     		orrs	r2, r2, r1
+ 536 0010 1A60     		str	r2, [r3]
+ 537 0012 7047     		bx	lr
+ 538              	.L85:
+ 539 0014 044B     		ldr	r3, .L87
+ 540 0016 1A68     		ldr	r2, [r3]
+ 541 0018 22F07062 		bic	r2, r2, #251658240
+ 542 001c 1A60     		str	r2, [r3]
+ 543 001e 1A68     		ldr	r2, [r3]
+ 544 0020 42EA0142 		orr	r2, r2, r1, lsl #16
+ 545 0024 1A60     		str	r2, [r3]
+ 546 0026 7047     		bx	lr
+ARM GAS  /tmp/ccajGABV.s 			page 10
+
+
+ 547              	.L88:
+ 548              		.align	2
+ 549              	.L87:
+ 550 0028 00740040 		.word	1073771520
+ 552              		.section	.text.dac_triangle_noise_config,"ax",%progbits
+ 553              		.align	1
+ 554              		.global	dac_triangle_noise_config
+ 555              		.syntax unified
+ 556              		.thumb
+ 557              		.thumb_func
+ 558              		.fpu fpv4-sp-d16
+ 560              	dac_triangle_noise_config:
+ 561              		@ args = 0, pretend = 0, frame = 0
+ 562              		@ frame_needed = 0, uses_anonymous_args = 0
+ 563              		@ link register save eliminated.
+ 564 0000 40B9     		cbnz	r0, .L90
+ 565 0002 094B     		ldr	r3, .L92
+ 566 0004 1A68     		ldr	r2, [r3]
+ 567 0006 22F47062 		bic	r2, r2, #3840
+ 568 000a 1A60     		str	r2, [r3]
+ 569 000c 1A68     		ldr	r2, [r3]
+ 570 000e 0A43     		orrs	r2, r2, r1
+ 571 0010 1A60     		str	r2, [r3]
+ 572 0012 7047     		bx	lr
+ 573              	.L90:
+ 574 0014 044B     		ldr	r3, .L92
+ 575 0016 1A68     		ldr	r2, [r3]
+ 576 0018 22F07062 		bic	r2, r2, #251658240
+ 577 001c 1A60     		str	r2, [r3]
+ 578 001e 1A68     		ldr	r2, [r3]
+ 579 0020 42EA0142 		orr	r2, r2, r1, lsl #16
+ 580 0024 1A60     		str	r2, [r3]
+ 581 0026 7047     		bx	lr
+ 582              	.L93:
+ 583              		.align	2
+ 584              	.L92:
+ 585 0028 00740040 		.word	1073771520
+ 587              		.section	.text.dac_concurrent_enable,"ax",%progbits
+ 588              		.align	1
+ 589              		.global	dac_concurrent_enable
+ 590              		.syntax unified
+ 591              		.thumb
+ 592              		.thumb_func
+ 593              		.fpu fpv4-sp-d16
+ 595              	dac_concurrent_enable:
+ 596              		@ args = 0, pretend = 0, frame = 0
+ 597              		@ frame_needed = 0, uses_anonymous_args = 0
+ 598              		@ link register save eliminated.
+ 599 0000 024A     		ldr	r2, .L95
+ 600 0002 1368     		ldr	r3, [r2]
+ 601 0004 43F00113 		orr	r3, r3, #65537
+ 602 0008 1360     		str	r3, [r2]
+ 603 000a 7047     		bx	lr
+ 604              	.L96:
+ 605              		.align	2
+ 606              	.L95:
+ 607 000c 00740040 		.word	1073771520
+ARM GAS  /tmp/ccajGABV.s 			page 11
+
+
+ 609              		.section	.text.dac_concurrent_disable,"ax",%progbits
+ 610              		.align	1
+ 611              		.global	dac_concurrent_disable
+ 612              		.syntax unified
+ 613              		.thumb
+ 614              		.thumb_func
+ 615              		.fpu fpv4-sp-d16
+ 617              	dac_concurrent_disable:
+ 618              		@ args = 0, pretend = 0, frame = 0
+ 619              		@ frame_needed = 0, uses_anonymous_args = 0
+ 620              		@ link register save eliminated.
+ 621 0000 024A     		ldr	r2, .L98
+ 622 0002 1368     		ldr	r3, [r2]
+ 623 0004 23F00113 		bic	r3, r3, #65537
+ 624 0008 1360     		str	r3, [r2]
+ 625 000a 7047     		bx	lr
+ 626              	.L99:
+ 627              		.align	2
+ 628              	.L98:
+ 629 000c 00740040 		.word	1073771520
+ 631              		.section	.text.dac_concurrent_software_trigger_enable,"ax",%progbits
+ 632              		.align	1
+ 633              		.global	dac_concurrent_software_trigger_enable
+ 634              		.syntax unified
+ 635              		.thumb
+ 636              		.thumb_func
+ 637              		.fpu fpv4-sp-d16
+ 639              	dac_concurrent_software_trigger_enable:
+ 640              		@ args = 0, pretend = 0, frame = 0
+ 641              		@ frame_needed = 0, uses_anonymous_args = 0
+ 642              		@ link register save eliminated.
+ 643 0000 024A     		ldr	r2, .L101
+ 644 0002 1368     		ldr	r3, [r2]
+ 645 0004 43F00303 		orr	r3, r3, #3
+ 646 0008 1360     		str	r3, [r2]
+ 647 000a 7047     		bx	lr
+ 648              	.L102:
+ 649              		.align	2
+ 650              	.L101:
+ 651 000c 04740040 		.word	1073771524
+ 653              		.section	.text.dac_concurrent_software_trigger_disable,"ax",%progbits
+ 654              		.align	1
+ 655              		.global	dac_concurrent_software_trigger_disable
+ 656              		.syntax unified
+ 657              		.thumb
+ 658              		.thumb_func
+ 659              		.fpu fpv4-sp-d16
+ 661              	dac_concurrent_software_trigger_disable:
+ 662              		@ args = 0, pretend = 0, frame = 0
+ 663              		@ frame_needed = 0, uses_anonymous_args = 0
+ 664              		@ link register save eliminated.
+ 665 0000 024A     		ldr	r2, .L104
+ 666 0002 1368     		ldr	r3, [r2]
+ 667 0004 23F00303 		bic	r3, r3, #3
+ 668 0008 1360     		str	r3, [r2]
+ 669 000a 7047     		bx	lr
+ 670              	.L105:
+ARM GAS  /tmp/ccajGABV.s 			page 12
+
+
+ 671              		.align	2
+ 672              	.L104:
+ 673 000c 04740040 		.word	1073771524
+ 675              		.section	.text.dac_concurrent_output_buffer_enable,"ax",%progbits
+ 676              		.align	1
+ 677              		.global	dac_concurrent_output_buffer_enable
+ 678              		.syntax unified
+ 679              		.thumb
+ 680              		.thumb_func
+ 681              		.fpu fpv4-sp-d16
+ 683              	dac_concurrent_output_buffer_enable:
+ 684              		@ args = 0, pretend = 0, frame = 0
+ 685              		@ frame_needed = 0, uses_anonymous_args = 0
+ 686              		@ link register save eliminated.
+ 687 0000 024A     		ldr	r2, .L107
+ 688 0002 1368     		ldr	r3, [r2]
+ 689 0004 23F00213 		bic	r3, r3, #131074
+ 690 0008 1360     		str	r3, [r2]
+ 691 000a 7047     		bx	lr
+ 692              	.L108:
+ 693              		.align	2
+ 694              	.L107:
+ 695 000c 00740040 		.word	1073771520
+ 697              		.section	.text.dac_concurrent_output_buffer_disable,"ax",%progbits
+ 698              		.align	1
+ 699              		.global	dac_concurrent_output_buffer_disable
+ 700              		.syntax unified
+ 701              		.thumb
+ 702              		.thumb_func
+ 703              		.fpu fpv4-sp-d16
+ 705              	dac_concurrent_output_buffer_disable:
+ 706              		@ args = 0, pretend = 0, frame = 0
+ 707              		@ frame_needed = 0, uses_anonymous_args = 0
+ 708              		@ link register save eliminated.
+ 709 0000 024A     		ldr	r2, .L110
+ 710 0002 1368     		ldr	r3, [r2]
+ 711 0004 43F00213 		orr	r3, r3, #131074
+ 712 0008 1360     		str	r3, [r2]
+ 713 000a 7047     		bx	lr
+ 714              	.L111:
+ 715              		.align	2
+ 716              	.L110:
+ 717 000c 00740040 		.word	1073771520
+ 719              		.section	.text.dac_concurrent_data_set,"ax",%progbits
+ 720              		.align	1
+ 721              		.global	dac_concurrent_data_set
+ 722              		.syntax unified
+ 723              		.thumb
+ 724              		.thumb_func
+ 725              		.fpu fpv4-sp-d16
+ 727              	dac_concurrent_data_set:
+ 728              		@ args = 0, pretend = 0, frame = 0
+ 729              		@ frame_needed = 0, uses_anonymous_args = 0
+ 730              		@ link register save eliminated.
+ 731 0000 0128     		cmp	r0, #1
+ 732 0002 08D0     		beq	.L113
+ 733 0004 10B1     		cbz	r0, .L114
+ARM GAS  /tmp/ccajGABV.s 			page 13
+
+
+ 734 0006 0228     		cmp	r0, #2
+ 735 0008 0AD0     		beq	.L115
+ 736 000a 7047     		bx	lr
+ 737              	.L114:
+ 738 000c 41EA0241 		orr	r1, r1, r2, lsl #16
+ 739 0010 064B     		ldr	r3, .L117
+ 740 0012 1960     		str	r1, [r3]
+ 741 0014 7047     		bx	lr
+ 742              	.L113:
+ 743 0016 41EA0241 		orr	r1, r1, r2, lsl #16
+ 744 001a 054B     		ldr	r3, .L117+4
+ 745 001c 1960     		str	r1, [r3]
+ 746 001e 7047     		bx	lr
+ 747              	.L115:
+ 748 0020 41EA0221 		orr	r1, r1, r2, lsl #8
+ 749 0024 034B     		ldr	r3, .L117+8
+ 750 0026 1960     		str	r1, [r3]
+ 751 0028 7047     		bx	lr
+ 752              	.L118:
+ 753 002a 00BF     		.align	2
+ 754              	.L117:
+ 755 002c 20740040 		.word	1073771552
+ 756 0030 24740040 		.word	1073771556
+ 757 0034 28740040 		.word	1073771560
+ 759              		.section	.text.dac_concurrent_interrupt_enable,"ax",%progbits
+ 760              		.align	1
+ 761              		.global	dac_concurrent_interrupt_enable
+ 762              		.syntax unified
+ 763              		.thumb
+ 764              		.thumb_func
+ 765              		.fpu fpv4-sp-d16
+ 767              	dac_concurrent_interrupt_enable:
+ 768              		@ args = 0, pretend = 0, frame = 0
+ 769              		@ frame_needed = 0, uses_anonymous_args = 0
+ 770              		@ link register save eliminated.
+ 771 0000 024A     		ldr	r2, .L120
+ 772 0002 1368     		ldr	r3, [r2]
+ 773 0004 43F02023 		orr	r3, r3, #536879104
+ 774 0008 1360     		str	r3, [r2]
+ 775 000a 7047     		bx	lr
+ 776              	.L121:
+ 777              		.align	2
+ 778              	.L120:
+ 779 000c 00740040 		.word	1073771520
+ 781              		.section	.text.dac_concurrent_interrupt_disable,"ax",%progbits
+ 782              		.align	1
+ 783              		.global	dac_concurrent_interrupt_disable
+ 784              		.syntax unified
+ 785              		.thumb
+ 786              		.thumb_func
+ 787              		.fpu fpv4-sp-d16
+ 789              	dac_concurrent_interrupt_disable:
+ 790              		@ args = 0, pretend = 0, frame = 0
+ 791              		@ frame_needed = 0, uses_anonymous_args = 0
+ 792              		@ link register save eliminated.
+ 793 0000 024A     		ldr	r2, .L123
+ 794 0002 1368     		ldr	r3, [r2]
+ARM GAS  /tmp/ccajGABV.s 			page 14
+
+
+ 795 0004 23F02023 		bic	r3, r3, #536879104
+ 796 0008 1360     		str	r3, [r2]
+ 797 000a 7047     		bx	lr
+ 798              	.L124:
+ 799              		.align	2
+ 800              	.L123:
+ 801 000c 00740040 		.word	1073771520
+ 803              		.section	.text.dac_interrupt_enable,"ax",%progbits
+ 804              		.align	1
+ 805              		.global	dac_interrupt_enable
+ 806              		.syntax unified
+ 807              		.thumb
+ 808              		.thumb_func
+ 809              		.fpu fpv4-sp-d16
+ 811              	dac_interrupt_enable:
+ 812              		@ args = 0, pretend = 0, frame = 0
+ 813              		@ frame_needed = 0, uses_anonymous_args = 0
+ 814              		@ link register save eliminated.
+ 815 0000 28B9     		cbnz	r0, .L126
+ 816 0002 064A     		ldr	r2, .L128
+ 817 0004 1368     		ldr	r3, [r2]
+ 818 0006 43F40053 		orr	r3, r3, #8192
+ 819 000a 1360     		str	r3, [r2]
+ 820 000c 7047     		bx	lr
+ 821              	.L126:
+ 822 000e 034A     		ldr	r2, .L128
+ 823 0010 1368     		ldr	r3, [r2]
+ 824 0012 43F00053 		orr	r3, r3, #536870912
+ 825 0016 1360     		str	r3, [r2]
+ 826 0018 7047     		bx	lr
+ 827              	.L129:
+ 828 001a 00BF     		.align	2
+ 829              	.L128:
+ 830 001c 00740040 		.word	1073771520
+ 832              		.section	.text.dac_interrupt_disable,"ax",%progbits
+ 833              		.align	1
+ 834              		.global	dac_interrupt_disable
+ 835              		.syntax unified
+ 836              		.thumb
+ 837              		.thumb_func
+ 838              		.fpu fpv4-sp-d16
+ 840              	dac_interrupt_disable:
+ 841              		@ args = 0, pretend = 0, frame = 0
+ 842              		@ frame_needed = 0, uses_anonymous_args = 0
+ 843              		@ link register save eliminated.
+ 844 0000 28B9     		cbnz	r0, .L131
+ 845 0002 064A     		ldr	r2, .L133
+ 846 0004 1368     		ldr	r3, [r2]
+ 847 0006 23F40053 		bic	r3, r3, #8192
+ 848 000a 1360     		str	r3, [r2]
+ 849 000c 7047     		bx	lr
+ 850              	.L131:
+ 851 000e 034A     		ldr	r2, .L133
+ 852 0010 1368     		ldr	r3, [r2]
+ 853 0012 23F00053 		bic	r3, r3, #536870912
+ 854 0016 1360     		str	r3, [r2]
+ 855 0018 7047     		bx	lr
+ARM GAS  /tmp/ccajGABV.s 			page 15
+
+
+ 856              	.L134:
+ 857 001a 00BF     		.align	2
+ 858              	.L133:
+ 859 001c 00740040 		.word	1073771520
+ 861              		.section	.text.dac_flag_get,"ax",%progbits
+ 862              		.align	1
+ 863              		.global	dac_flag_get
+ 864              		.syntax unified
+ 865              		.thumb
+ 866              		.thumb_func
+ 867              		.fpu fpv4-sp-d16
+ 869              	dac_flag_get:
+ 870              		@ args = 0, pretend = 0, frame = 0
+ 871              		@ frame_needed = 0, uses_anonymous_args = 0
+ 872              		@ link register save eliminated.
+ 873 0000 28B9     		cbnz	r0, .L136
+ 874 0002 084B     		ldr	r3, .L140
+ 875 0004 1B68     		ldr	r3, [r3]
+ 876 0006 13F4005F 		tst	r3, #8192
+ 877 000a 07D1     		bne	.L138
+ 878 000c 7047     		bx	lr
+ 879              	.L136:
+ 880 000e 054B     		ldr	r3, .L140
+ 881 0010 1B68     		ldr	r3, [r3]
+ 882 0012 13F0005F 		tst	r3, #536870912
+ 883 0016 03D1     		bne	.L139
+ 884 0018 0020     		movs	r0, #0
+ 885 001a 7047     		bx	lr
+ 886              	.L138:
+ 887 001c 0120     		movs	r0, #1
+ 888 001e 7047     		bx	lr
+ 889              	.L139:
+ 890 0020 0120     		movs	r0, #1
+ 891 0022 7047     		bx	lr
+ 892              	.L141:
+ 893              		.align	2
+ 894              	.L140:
+ 895 0024 34740040 		.word	1073771572
+ 897              		.section	.text.dac_flag_clear,"ax",%progbits
+ 898              		.align	1
+ 899              		.global	dac_flag_clear
+ 900              		.syntax unified
+ 901              		.thumb
+ 902              		.thumb_func
+ 903              		.fpu fpv4-sp-d16
+ 905              	dac_flag_clear:
+ 906              		@ args = 0, pretend = 0, frame = 0
+ 907              		@ frame_needed = 0, uses_anonymous_args = 0
+ 908              		@ link register save eliminated.
+ 909 0000 28B9     		cbnz	r0, .L143
+ 910 0002 064A     		ldr	r2, .L145
+ 911 0004 1368     		ldr	r3, [r2]
+ 912 0006 43F40053 		orr	r3, r3, #8192
+ 913 000a 1360     		str	r3, [r2]
+ 914 000c 7047     		bx	lr
+ 915              	.L143:
+ 916 000e 034A     		ldr	r2, .L145
+ARM GAS  /tmp/ccajGABV.s 			page 16
+
+
+ 917 0010 1368     		ldr	r3, [r2]
+ 918 0012 43F00053 		orr	r3, r3, #536870912
+ 919 0016 1360     		str	r3, [r2]
+ 920 0018 7047     		bx	lr
+ 921              	.L146:
+ 922 001a 00BF     		.align	2
+ 923              	.L145:
+ 924 001c 34740040 		.word	1073771572
+ 926              		.section	.text.dac_interrupt_flag_get,"ax",%progbits
+ 927              		.align	1
+ 928              		.global	dac_interrupt_flag_get
+ 929              		.syntax unified
+ 930              		.thumb
+ 931              		.thumb_func
+ 932              		.fpu fpv4-sp-d16
+ 934              	dac_interrupt_flag_get:
+ 935              		@ args = 0, pretend = 0, frame = 0
+ 936              		@ frame_needed = 0, uses_anonymous_args = 0
+ 937              		@ link register save eliminated.
+ 938 0000 50B9     		cbnz	r0, .L148
+ 939 0002 0F4B     		ldr	r3, .L154
+ 940 0004 1A68     		ldr	r2, [r3]
+ 941 0006 343B     		subs	r3, r3, #52
+ 942 0008 1B68     		ldr	r3, [r3]
+ 943 000a 03F40053 		and	r3, r3, #8192
+ 944 000e 12F4005F 		tst	r2, #8192
+ 945 0012 0DD0     		beq	.L150
+ 946 0014 73B9     		cbnz	r3, .L151
+ 947 0016 7047     		bx	lr
+ 948              	.L148:
+ 949 0018 094B     		ldr	r3, .L154
+ 950 001a 1A68     		ldr	r2, [r3]
+ 951 001c 343B     		subs	r3, r3, #52
+ 952 001e 1B68     		ldr	r3, [r3]
+ 953 0020 03F00053 		and	r3, r3, #536870912
+ 954 0024 12F0005F 		tst	r2, #536870912
+ 955 0028 06D0     		beq	.L152
+ 956 002a 3BB9     		cbnz	r3, .L153
+ 957 002c 0020     		movs	r0, #0
+ 958 002e 7047     		bx	lr
+ 959              	.L150:
+ 960 0030 0020     		movs	r0, #0
+ 961 0032 7047     		bx	lr
+ 962              	.L151:
+ 963 0034 0120     		movs	r0, #1
+ 964 0036 7047     		bx	lr
+ 965              	.L152:
+ 966 0038 0020     		movs	r0, #0
+ 967 003a 7047     		bx	lr
+ 968              	.L153:
+ 969 003c 0120     		movs	r0, #1
+ 970 003e 7047     		bx	lr
+ 971              	.L155:
+ 972              		.align	2
+ 973              	.L154:
+ 974 0040 34740040 		.word	1073771572
+ 976              		.section	.text.dac_interrupt_flag_clear,"ax",%progbits
+ARM GAS  /tmp/ccajGABV.s 			page 17
+
+
+ 977              		.align	1
+ 978              		.global	dac_interrupt_flag_clear
+ 979              		.syntax unified
+ 980              		.thumb
+ 981              		.thumb_func
+ 982              		.fpu fpv4-sp-d16
+ 984              	dac_interrupt_flag_clear:
+ 985              		@ args = 0, pretend = 0, frame = 0
+ 986              		@ frame_needed = 0, uses_anonymous_args = 0
+ 987              		@ link register save eliminated.
+ 988 0000 28B9     		cbnz	r0, .L157
+ 989 0002 064A     		ldr	r2, .L159
+ 990 0004 1368     		ldr	r3, [r2]
+ 991 0006 43F40053 		orr	r3, r3, #8192
+ 992 000a 1360     		str	r3, [r2]
+ 993 000c 7047     		bx	lr
+ 994              	.L157:
+ 995 000e 034A     		ldr	r2, .L159
+ 996 0010 1368     		ldr	r3, [r2]
+ 997 0012 43F00053 		orr	r3, r3, #536870912
+ 998 0016 1360     		str	r3, [r2]
+ 999 0018 7047     		bx	lr
+ 1000              	.L160:
+ 1001 001a 00BF     		.align	2
+ 1002              	.L159:
+ 1003 001c 34740040 		.word	1073771572
+ 1005              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccajGABV.s 			page 18
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_dac.c
+     /tmp/ccajGABV.s:16     .text.dac_deinit:0000000000000000 $t
+     /tmp/ccajGABV.s:24     .text.dac_deinit:0000000000000000 dac_deinit
+     /tmp/ccajGABV.s:35     .text.dac_enable:0000000000000000 $t
+     /tmp/ccajGABV.s:42     .text.dac_enable:0000000000000000 dac_enable
+     /tmp/ccajGABV.s:61     .text.dac_enable:000000000000001c $d
+     /tmp/ccajGABV.s:64     .text.dac_disable:0000000000000000 $t
+     /tmp/ccajGABV.s:71     .text.dac_disable:0000000000000000 dac_disable
+     /tmp/ccajGABV.s:90     .text.dac_disable:000000000000001c $d
+     /tmp/ccajGABV.s:93     .text.dac_dma_enable:0000000000000000 $t
+     /tmp/ccajGABV.s:100    .text.dac_dma_enable:0000000000000000 dac_dma_enable
+     /tmp/ccajGABV.s:119    .text.dac_dma_enable:000000000000001c $d
+     /tmp/ccajGABV.s:122    .text.dac_dma_disable:0000000000000000 $t
+     /tmp/ccajGABV.s:129    .text.dac_dma_disable:0000000000000000 dac_dma_disable
+     /tmp/ccajGABV.s:148    .text.dac_dma_disable:000000000000001c $d
+     /tmp/ccajGABV.s:151    .text.dac_output_buffer_enable:0000000000000000 $t
+     /tmp/ccajGABV.s:158    .text.dac_output_buffer_enable:0000000000000000 dac_output_buffer_enable
+     /tmp/ccajGABV.s:177    .text.dac_output_buffer_enable:000000000000001c $d
+     /tmp/ccajGABV.s:180    .text.dac_output_buffer_disable:0000000000000000 $t
+     /tmp/ccajGABV.s:187    .text.dac_output_buffer_disable:0000000000000000 dac_output_buffer_disable
+     /tmp/ccajGABV.s:206    .text.dac_output_buffer_disable:000000000000001c $d
+     /tmp/ccajGABV.s:209    .text.dac_output_value_get:0000000000000000 $t
+     /tmp/ccajGABV.s:216    .text.dac_output_value_get:0000000000000000 dac_output_value_get
+     /tmp/ccajGABV.s:233    .text.dac_output_value_get:0000000000000014 $d
+     /tmp/ccajGABV.s:237    .text.dac_data_set:0000000000000000 $t
+     /tmp/ccajGABV.s:244    .text.dac_data_set:0000000000000000 dac_data_set
+     /tmp/ccajGABV.s:289    .text.dac_data_set:0000000000000040 $d
+     /tmp/ccajGABV.s:297    .text.dac_trigger_enable:0000000000000000 $t
+     /tmp/ccajGABV.s:304    .text.dac_trigger_enable:0000000000000000 dac_trigger_enable
+     /tmp/ccajGABV.s:323    .text.dac_trigger_enable:000000000000001c $d
+     /tmp/ccajGABV.s:326    .text.dac_trigger_disable:0000000000000000 $t
+     /tmp/ccajGABV.s:333    .text.dac_trigger_disable:0000000000000000 dac_trigger_disable
+     /tmp/ccajGABV.s:352    .text.dac_trigger_disable:000000000000001c $d
+     /tmp/ccajGABV.s:355    .text.dac_trigger_source_config:0000000000000000 $t
+     /tmp/ccajGABV.s:362    .text.dac_trigger_source_config:0000000000000000 dac_trigger_source_config
+     /tmp/ccajGABV.s:387    .text.dac_trigger_source_config:0000000000000028 $d
+     /tmp/ccajGABV.s:390    .text.dac_software_trigger_enable:0000000000000000 $t
+     /tmp/ccajGABV.s:397    .text.dac_software_trigger_enable:0000000000000000 dac_software_trigger_enable
+     /tmp/ccajGABV.s:416    .text.dac_software_trigger_enable:000000000000001c $d
+     /tmp/ccajGABV.s:419    .text.dac_software_trigger_disable:0000000000000000 $t
+     /tmp/ccajGABV.s:426    .text.dac_software_trigger_disable:0000000000000000 dac_software_trigger_disable
+     /tmp/ccajGABV.s:445    .text.dac_software_trigger_disable:000000000000001c $d
+     /tmp/ccajGABV.s:448    .text.dac_wave_mode_config:0000000000000000 $t
+     /tmp/ccajGABV.s:455    .text.dac_wave_mode_config:0000000000000000 dac_wave_mode_config
+     /tmp/ccajGABV.s:480    .text.dac_wave_mode_config:0000000000000028 $d
+     /tmp/ccajGABV.s:483    .text.dac_wave_bit_width_config:0000000000000000 $t
+     /tmp/ccajGABV.s:490    .text.dac_wave_bit_width_config:0000000000000000 dac_wave_bit_width_config
+     /tmp/ccajGABV.s:515    .text.dac_wave_bit_width_config:0000000000000028 $d
+     /tmp/ccajGABV.s:518    .text.dac_lfsr_noise_config:0000000000000000 $t
+     /tmp/ccajGABV.s:525    .text.dac_lfsr_noise_config:0000000000000000 dac_lfsr_noise_config
+     /tmp/ccajGABV.s:550    .text.dac_lfsr_noise_config:0000000000000028 $d
+     /tmp/ccajGABV.s:553    .text.dac_triangle_noise_config:0000000000000000 $t
+     /tmp/ccajGABV.s:560    .text.dac_triangle_noise_config:0000000000000000 dac_triangle_noise_config
+     /tmp/ccajGABV.s:585    .text.dac_triangle_noise_config:0000000000000028 $d
+     /tmp/ccajGABV.s:588    .text.dac_concurrent_enable:0000000000000000 $t
+     /tmp/ccajGABV.s:595    .text.dac_concurrent_enable:0000000000000000 dac_concurrent_enable
+ARM GAS  /tmp/ccajGABV.s 			page 19
+
+
+     /tmp/ccajGABV.s:607    .text.dac_concurrent_enable:000000000000000c $d
+     /tmp/ccajGABV.s:610    .text.dac_concurrent_disable:0000000000000000 $t
+     /tmp/ccajGABV.s:617    .text.dac_concurrent_disable:0000000000000000 dac_concurrent_disable
+     /tmp/ccajGABV.s:629    .text.dac_concurrent_disable:000000000000000c $d
+     /tmp/ccajGABV.s:632    .text.dac_concurrent_software_trigger_enable:0000000000000000 $t
+     /tmp/ccajGABV.s:639    .text.dac_concurrent_software_trigger_enable:0000000000000000 dac_concurrent_software_trigger_enable
+     /tmp/ccajGABV.s:651    .text.dac_concurrent_software_trigger_enable:000000000000000c $d
+     /tmp/ccajGABV.s:654    .text.dac_concurrent_software_trigger_disable:0000000000000000 $t
+     /tmp/ccajGABV.s:661    .text.dac_concurrent_software_trigger_disable:0000000000000000 dac_concurrent_software_trigger_disable
+     /tmp/ccajGABV.s:673    .text.dac_concurrent_software_trigger_disable:000000000000000c $d
+     /tmp/ccajGABV.s:676    .text.dac_concurrent_output_buffer_enable:0000000000000000 $t
+     /tmp/ccajGABV.s:683    .text.dac_concurrent_output_buffer_enable:0000000000000000 dac_concurrent_output_buffer_enable
+     /tmp/ccajGABV.s:695    .text.dac_concurrent_output_buffer_enable:000000000000000c $d
+     /tmp/ccajGABV.s:698    .text.dac_concurrent_output_buffer_disable:0000000000000000 $t
+     /tmp/ccajGABV.s:705    .text.dac_concurrent_output_buffer_disable:0000000000000000 dac_concurrent_output_buffer_disable
+     /tmp/ccajGABV.s:717    .text.dac_concurrent_output_buffer_disable:000000000000000c $d
+     /tmp/ccajGABV.s:720    .text.dac_concurrent_data_set:0000000000000000 $t
+     /tmp/ccajGABV.s:727    .text.dac_concurrent_data_set:0000000000000000 dac_concurrent_data_set
+     /tmp/ccajGABV.s:755    .text.dac_concurrent_data_set:000000000000002c $d
+     /tmp/ccajGABV.s:760    .text.dac_concurrent_interrupt_enable:0000000000000000 $t
+     /tmp/ccajGABV.s:767    .text.dac_concurrent_interrupt_enable:0000000000000000 dac_concurrent_interrupt_enable
+     /tmp/ccajGABV.s:779    .text.dac_concurrent_interrupt_enable:000000000000000c $d
+     /tmp/ccajGABV.s:782    .text.dac_concurrent_interrupt_disable:0000000000000000 $t
+     /tmp/ccajGABV.s:789    .text.dac_concurrent_interrupt_disable:0000000000000000 dac_concurrent_interrupt_disable
+     /tmp/ccajGABV.s:801    .text.dac_concurrent_interrupt_disable:000000000000000c $d
+     /tmp/ccajGABV.s:804    .text.dac_interrupt_enable:0000000000000000 $t
+     /tmp/ccajGABV.s:811    .text.dac_interrupt_enable:0000000000000000 dac_interrupt_enable
+     /tmp/ccajGABV.s:830    .text.dac_interrupt_enable:000000000000001c $d
+     /tmp/ccajGABV.s:833    .text.dac_interrupt_disable:0000000000000000 $t
+     /tmp/ccajGABV.s:840    .text.dac_interrupt_disable:0000000000000000 dac_interrupt_disable
+     /tmp/ccajGABV.s:859    .text.dac_interrupt_disable:000000000000001c $d
+     /tmp/ccajGABV.s:862    .text.dac_flag_get:0000000000000000 $t
+     /tmp/ccajGABV.s:869    .text.dac_flag_get:0000000000000000 dac_flag_get
+     /tmp/ccajGABV.s:895    .text.dac_flag_get:0000000000000024 $d
+     /tmp/ccajGABV.s:898    .text.dac_flag_clear:0000000000000000 $t
+     /tmp/ccajGABV.s:905    .text.dac_flag_clear:0000000000000000 dac_flag_clear
+     /tmp/ccajGABV.s:924    .text.dac_flag_clear:000000000000001c $d
+     /tmp/ccajGABV.s:927    .text.dac_interrupt_flag_get:0000000000000000 $t
+     /tmp/ccajGABV.s:934    .text.dac_interrupt_flag_get:0000000000000000 dac_interrupt_flag_get
+     /tmp/ccajGABV.s:974    .text.dac_interrupt_flag_get:0000000000000040 $d
+     /tmp/ccajGABV.s:977    .text.dac_interrupt_flag_clear:0000000000000000 $t
+     /tmp/ccajGABV.s:984    .text.dac_interrupt_flag_clear:0000000000000000 dac_interrupt_flag_clear
+     /tmp/ccajGABV.s:1003   .text.dac_interrupt_flag_clear:000000000000001c $d
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable

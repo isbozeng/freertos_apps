@@ -1,0 +1,1707 @@
+ARM GAS  /tmp/ccJSDL4i.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gd32f4xx_rcu.c"
+  14              		.text
+  15              		.section	.text.rcu_periph_clock_enable,"ax",%progbits
+  16              		.align	1
+  17              		.global	rcu_periph_clock_enable
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv4-sp-d16
+  24              	rcu_periph_clock_enable:
+  25              		@ args = 0, pretend = 0, frame = 0
+  26              		@ frame_needed = 0, uses_anonymous_args = 0
+  27              		@ link register save eliminated.
+  28 0000 8309     		lsrs	r3, r0, #6
+  29 0002 03F18043 		add	r3, r3, #1073741824
+  30 0006 03F50E33 		add	r3, r3, #145408
+  31 000a 1A68     		ldr	r2, [r3]
+  32 000c 00F01F00 		and	r0, r0, #31
+  33 0010 0121     		movs	r1, #1
+  34 0012 01FA00F0 		lsl	r0, r1, r0
+  35 0016 0243     		orrs	r2, r2, r0
+  36 0018 1A60     		str	r2, [r3]
+  37 001a 7047     		bx	lr
+  39              		.section	.text.rcu_periph_clock_disable,"ax",%progbits
+  40              		.align	1
+  41              		.global	rcu_periph_clock_disable
+  42              		.syntax unified
+  43              		.thumb
+  44              		.thumb_func
+  45              		.fpu fpv4-sp-d16
+  47              	rcu_periph_clock_disable:
+  48              		@ args = 0, pretend = 0, frame = 0
+  49              		@ frame_needed = 0, uses_anonymous_args = 0
+  50              		@ link register save eliminated.
+  51 0000 8309     		lsrs	r3, r0, #6
+  52 0002 03F18043 		add	r3, r3, #1073741824
+  53 0006 03F50E33 		add	r3, r3, #145408
+  54 000a 1A68     		ldr	r2, [r3]
+  55 000c 00F01F00 		and	r0, r0, #31
+  56 0010 0121     		movs	r1, #1
+  57 0012 01FA00F0 		lsl	r0, r1, r0
+  58 0016 22EA0002 		bic	r2, r2, r0
+  59 001a 1A60     		str	r2, [r3]
+  60 001c 7047     		bx	lr
+ARM GAS  /tmp/ccJSDL4i.s 			page 2
+
+
+  62              		.section	.text.rcu_periph_clock_sleep_enable,"ax",%progbits
+  63              		.align	1
+  64              		.global	rcu_periph_clock_sleep_enable
+  65              		.syntax unified
+  66              		.thumb
+  67              		.thumb_func
+  68              		.fpu fpv4-sp-d16
+  70              	rcu_periph_clock_sleep_enable:
+  71              		@ args = 0, pretend = 0, frame = 0
+  72              		@ frame_needed = 0, uses_anonymous_args = 0
+  73              		@ link register save eliminated.
+  74 0000 8309     		lsrs	r3, r0, #6
+  75 0002 03F18043 		add	r3, r3, #1073741824
+  76 0006 03F50E33 		add	r3, r3, #145408
+  77 000a 1A68     		ldr	r2, [r3]
+  78 000c 00F01F00 		and	r0, r0, #31
+  79 0010 0121     		movs	r1, #1
+  80 0012 01FA00F0 		lsl	r0, r1, r0
+  81 0016 0243     		orrs	r2, r2, r0
+  82 0018 1A60     		str	r2, [r3]
+  83 001a 7047     		bx	lr
+  85              		.section	.text.rcu_periph_clock_sleep_disable,"ax",%progbits
+  86              		.align	1
+  87              		.global	rcu_periph_clock_sleep_disable
+  88              		.syntax unified
+  89              		.thumb
+  90              		.thumb_func
+  91              		.fpu fpv4-sp-d16
+  93              	rcu_periph_clock_sleep_disable:
+  94              		@ args = 0, pretend = 0, frame = 0
+  95              		@ frame_needed = 0, uses_anonymous_args = 0
+  96              		@ link register save eliminated.
+  97 0000 8309     		lsrs	r3, r0, #6
+  98 0002 03F18043 		add	r3, r3, #1073741824
+  99 0006 03F50E33 		add	r3, r3, #145408
+ 100 000a 1A68     		ldr	r2, [r3]
+ 101 000c 00F01F00 		and	r0, r0, #31
+ 102 0010 0121     		movs	r1, #1
+ 103 0012 01FA00F0 		lsl	r0, r1, r0
+ 104 0016 22EA0002 		bic	r2, r2, r0
+ 105 001a 1A60     		str	r2, [r3]
+ 106 001c 7047     		bx	lr
+ 108              		.section	.text.rcu_periph_reset_enable,"ax",%progbits
+ 109              		.align	1
+ 110              		.global	rcu_periph_reset_enable
+ 111              		.syntax unified
+ 112              		.thumb
+ 113              		.thumb_func
+ 114              		.fpu fpv4-sp-d16
+ 116              	rcu_periph_reset_enable:
+ 117              		@ args = 0, pretend = 0, frame = 0
+ 118              		@ frame_needed = 0, uses_anonymous_args = 0
+ 119              		@ link register save eliminated.
+ 120 0000 8309     		lsrs	r3, r0, #6
+ 121 0002 03F18043 		add	r3, r3, #1073741824
+ 122 0006 03F50E33 		add	r3, r3, #145408
+ 123 000a 1A68     		ldr	r2, [r3]
+ARM GAS  /tmp/ccJSDL4i.s 			page 3
+
+
+ 124 000c 00F01F00 		and	r0, r0, #31
+ 125 0010 0121     		movs	r1, #1
+ 126 0012 01FA00F0 		lsl	r0, r1, r0
+ 127 0016 0243     		orrs	r2, r2, r0
+ 128 0018 1A60     		str	r2, [r3]
+ 129 001a 7047     		bx	lr
+ 131              		.section	.text.rcu_periph_reset_disable,"ax",%progbits
+ 132              		.align	1
+ 133              		.global	rcu_periph_reset_disable
+ 134              		.syntax unified
+ 135              		.thumb
+ 136              		.thumb_func
+ 137              		.fpu fpv4-sp-d16
+ 139              	rcu_periph_reset_disable:
+ 140              		@ args = 0, pretend = 0, frame = 0
+ 141              		@ frame_needed = 0, uses_anonymous_args = 0
+ 142              		@ link register save eliminated.
+ 143 0000 8309     		lsrs	r3, r0, #6
+ 144 0002 03F18043 		add	r3, r3, #1073741824
+ 145 0006 03F50E33 		add	r3, r3, #145408
+ 146 000a 1A68     		ldr	r2, [r3]
+ 147 000c 00F01F00 		and	r0, r0, #31
+ 148 0010 0121     		movs	r1, #1
+ 149 0012 01FA00F0 		lsl	r0, r1, r0
+ 150 0016 22EA0002 		bic	r2, r2, r0
+ 151 001a 1A60     		str	r2, [r3]
+ 152 001c 7047     		bx	lr
+ 154              		.section	.text.rcu_bkp_reset_enable,"ax",%progbits
+ 155              		.align	1
+ 156              		.global	rcu_bkp_reset_enable
+ 157              		.syntax unified
+ 158              		.thumb
+ 159              		.thumb_func
+ 160              		.fpu fpv4-sp-d16
+ 162              	rcu_bkp_reset_enable:
+ 163              		@ args = 0, pretend = 0, frame = 0
+ 164              		@ frame_needed = 0, uses_anonymous_args = 0
+ 165              		@ link register save eliminated.
+ 166 0000 024A     		ldr	r2, .L8
+ 167 0002 1368     		ldr	r3, [r2]
+ 168 0004 43F48033 		orr	r3, r3, #65536
+ 169 0008 1360     		str	r3, [r2]
+ 170 000a 7047     		bx	lr
+ 171              	.L9:
+ 172              		.align	2
+ 173              	.L8:
+ 174 000c 70380240 		.word	1073887344
+ 176              		.section	.text.rcu_bkp_reset_disable,"ax",%progbits
+ 177              		.align	1
+ 178              		.global	rcu_bkp_reset_disable
+ 179              		.syntax unified
+ 180              		.thumb
+ 181              		.thumb_func
+ 182              		.fpu fpv4-sp-d16
+ 184              	rcu_bkp_reset_disable:
+ 185              		@ args = 0, pretend = 0, frame = 0
+ 186              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccJSDL4i.s 			page 4
+
+
+ 187              		@ link register save eliminated.
+ 188 0000 024A     		ldr	r2, .L11
+ 189 0002 1368     		ldr	r3, [r2]
+ 190 0004 23F48033 		bic	r3, r3, #65536
+ 191 0008 1360     		str	r3, [r2]
+ 192 000a 7047     		bx	lr
+ 193              	.L12:
+ 194              		.align	2
+ 195              	.L11:
+ 196 000c 70380240 		.word	1073887344
+ 198              		.section	.text.rcu_system_clock_source_config,"ax",%progbits
+ 199              		.align	1
+ 200              		.global	rcu_system_clock_source_config
+ 201              		.syntax unified
+ 202              		.thumb
+ 203              		.thumb_func
+ 204              		.fpu fpv4-sp-d16
+ 206              	rcu_system_clock_source_config:
+ 207              		@ args = 0, pretend = 0, frame = 0
+ 208              		@ frame_needed = 0, uses_anonymous_args = 0
+ 209              		@ link register save eliminated.
+ 210 0000 034A     		ldr	r2, .L14
+ 211 0002 1368     		ldr	r3, [r2]
+ 212 0004 23F00303 		bic	r3, r3, #3
+ 213 0008 1843     		orrs	r0, r0, r3
+ 214 000a 1060     		str	r0, [r2]
+ 215 000c 7047     		bx	lr
+ 216              	.L15:
+ 217 000e 00BF     		.align	2
+ 218              	.L14:
+ 219 0010 08380240 		.word	1073887240
+ 221              		.section	.text.rcu_system_clock_source_get,"ax",%progbits
+ 222              		.align	1
+ 223              		.global	rcu_system_clock_source_get
+ 224              		.syntax unified
+ 225              		.thumb
+ 226              		.thumb_func
+ 227              		.fpu fpv4-sp-d16
+ 229              	rcu_system_clock_source_get:
+ 230              		@ args = 0, pretend = 0, frame = 0
+ 231              		@ frame_needed = 0, uses_anonymous_args = 0
+ 232              		@ link register save eliminated.
+ 233 0000 024B     		ldr	r3, .L17
+ 234 0002 1868     		ldr	r0, [r3]
+ 235 0004 00F00C00 		and	r0, r0, #12
+ 236 0008 7047     		bx	lr
+ 237              	.L18:
+ 238 000a 00BF     		.align	2
+ 239              	.L17:
+ 240 000c 08380240 		.word	1073887240
+ 242              		.section	.text.rcu_ahb_clock_config,"ax",%progbits
+ 243              		.align	1
+ 244              		.global	rcu_ahb_clock_config
+ 245              		.syntax unified
+ 246              		.thumb
+ 247              		.thumb_func
+ 248              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccJSDL4i.s 			page 5
+
+
+ 250              	rcu_ahb_clock_config:
+ 251              		@ args = 0, pretend = 0, frame = 0
+ 252              		@ frame_needed = 0, uses_anonymous_args = 0
+ 253              		@ link register save eliminated.
+ 254 0000 034A     		ldr	r2, .L20
+ 255 0002 1368     		ldr	r3, [r2]
+ 256 0004 23F0F003 		bic	r3, r3, #240
+ 257 0008 1843     		orrs	r0, r0, r3
+ 258 000a 1060     		str	r0, [r2]
+ 259 000c 7047     		bx	lr
+ 260              	.L21:
+ 261 000e 00BF     		.align	2
+ 262              	.L20:
+ 263 0010 08380240 		.word	1073887240
+ 265              		.section	.text.rcu_apb1_clock_config,"ax",%progbits
+ 266              		.align	1
+ 267              		.global	rcu_apb1_clock_config
+ 268              		.syntax unified
+ 269              		.thumb
+ 270              		.thumb_func
+ 271              		.fpu fpv4-sp-d16
+ 273              	rcu_apb1_clock_config:
+ 274              		@ args = 0, pretend = 0, frame = 0
+ 275              		@ frame_needed = 0, uses_anonymous_args = 0
+ 276              		@ link register save eliminated.
+ 277 0000 034A     		ldr	r2, .L23
+ 278 0002 1368     		ldr	r3, [r2]
+ 279 0004 23F4E053 		bic	r3, r3, #7168
+ 280 0008 1843     		orrs	r0, r0, r3
+ 281 000a 1060     		str	r0, [r2]
+ 282 000c 7047     		bx	lr
+ 283              	.L24:
+ 284 000e 00BF     		.align	2
+ 285              	.L23:
+ 286 0010 08380240 		.word	1073887240
+ 288              		.section	.text.rcu_apb2_clock_config,"ax",%progbits
+ 289              		.align	1
+ 290              		.global	rcu_apb2_clock_config
+ 291              		.syntax unified
+ 292              		.thumb
+ 293              		.thumb_func
+ 294              		.fpu fpv4-sp-d16
+ 296              	rcu_apb2_clock_config:
+ 297              		@ args = 0, pretend = 0, frame = 0
+ 298              		@ frame_needed = 0, uses_anonymous_args = 0
+ 299              		@ link register save eliminated.
+ 300 0000 034A     		ldr	r2, .L26
+ 301 0002 1368     		ldr	r3, [r2]
+ 302 0004 23F46043 		bic	r3, r3, #57344
+ 303 0008 1843     		orrs	r0, r0, r3
+ 304 000a 1060     		str	r0, [r2]
+ 305 000c 7047     		bx	lr
+ 306              	.L27:
+ 307 000e 00BF     		.align	2
+ 308              	.L26:
+ 309 0010 08380240 		.word	1073887240
+ 311              		.section	.text.rcu_ckout0_config,"ax",%progbits
+ARM GAS  /tmp/ccJSDL4i.s 			page 6
+
+
+ 312              		.align	1
+ 313              		.global	rcu_ckout0_config
+ 314              		.syntax unified
+ 315              		.thumb
+ 316              		.thumb_func
+ 317              		.fpu fpv4-sp-d16
+ 319              	rcu_ckout0_config:
+ 320              		@ args = 0, pretend = 0, frame = 0
+ 321              		@ frame_needed = 0, uses_anonymous_args = 0
+ 322              		@ link register save eliminated.
+ 323 0000 034A     		ldr	r2, .L29
+ 324 0002 1368     		ldr	r3, [r2]
+ 325 0004 23F0EC63 		bic	r3, r3, #123731968
+ 326 0008 1843     		orrs	r0, r0, r3
+ 327 000a 0843     		orrs	r0, r0, r1
+ 328 000c 1060     		str	r0, [r2]
+ 329 000e 7047     		bx	lr
+ 330              	.L30:
+ 331              		.align	2
+ 332              	.L29:
+ 333 0010 08380240 		.word	1073887240
+ 335              		.section	.text.rcu_ckout1_config,"ax",%progbits
+ 336              		.align	1
+ 337              		.global	rcu_ckout1_config
+ 338              		.syntax unified
+ 339              		.thumb
+ 340              		.thumb_func
+ 341              		.fpu fpv4-sp-d16
+ 343              	rcu_ckout1_config:
+ 344              		@ args = 0, pretend = 0, frame = 0
+ 345              		@ frame_needed = 0, uses_anonymous_args = 0
+ 346              		@ link register save eliminated.
+ 347 0000 034A     		ldr	r2, .L32
+ 348 0002 1368     		ldr	r3, [r2]
+ 349 0004 23F07843 		bic	r3, r3, #-134217728
+ 350 0008 1843     		orrs	r0, r0, r3
+ 351 000a 0843     		orrs	r0, r0, r1
+ 352 000c 1060     		str	r0, [r2]
+ 353 000e 7047     		bx	lr
+ 354              	.L33:
+ 355              		.align	2
+ 356              	.L32:
+ 357 0010 08380240 		.word	1073887240
+ 359              		.section	.text.rcu_pll_config,"ax",%progbits
+ 360              		.align	1
+ 361              		.global	rcu_pll_config
+ 362              		.syntax unified
+ 363              		.thumb
+ 364              		.thumb_func
+ 365              		.fpu fpv4-sp-d16
+ 367              	rcu_pll_config:
+ 368              		@ args = 4, pretend = 0, frame = 0
+ 369              		@ frame_needed = 0, uses_anonymous_args = 0
+ 370              		@ link register save eliminated.
+ 371 0000 30B4     		push	{r4, r5}
+ 372 0002 1D4C     		ldr	r4, .L47
+ 373 0004 2468     		ldr	r4, [r4]
+ARM GAS  /tmp/ccJSDL4i.s 			page 7
+
+
+ 374 0006 002C     		cmp	r4, #0
+ 375 0008 23DB     		blt	.L46
+ 376 000a 0024     		movs	r4, #0
+ 377              	.L35:
+ 378 000c 8D1E     		subs	r5, r1, #2
+ 379 000e 3D2D     		cmp	r5, #61
+ 380 0010 26D8     		bhi	.L40
+ 381 0012 4034     		adds	r4, r4, #64
+ 382 0014 9442     		cmp	r4, r2
+ 383 0016 26D8     		bhi	.L41
+ 384 0018 B2F5FA7F 		cmp	r2, #500
+ 385 001c 25D8     		bhi	.L42
+ 386 001e 022B     		cmp	r3, #2
+ 387 0020 05D0     		beq	.L37
+ 388 0022 042B     		cmp	r3, #4
+ 389 0024 03D0     		beq	.L37
+ 390 0026 062B     		cmp	r3, #6
+ 391 0028 01D0     		beq	.L37
+ 392 002a 082B     		cmp	r3, #8
+ 393 002c 1FD1     		bne	.L43
+ 394              	.L37:
+ 395 002e 029C     		ldr	r4, [sp, #8]
+ 396 0030 023C     		subs	r4, r4, #2
+ 397 0032 0D2C     		cmp	r4, #13
+ 398 0034 1DD8     		bhi	.L44
+ 399 0036 41EA8211 		orr	r1, r1, r2, lsl #6
+ 400 003a 5B08     		lsrs	r3, r3, #1
+ 401 003c 013B     		subs	r3, r3, #1
+ 402 003e 41EA0341 		orr	r1, r1, r3, lsl #16
+ 403 0042 0143     		orrs	r1, r1, r0
+ 404 0044 029B     		ldr	r3, [sp, #8]
+ 405 0046 41EA0361 		orr	r1, r1, r3, lsl #24
+ 406 004a 0C4B     		ldr	r3, .L47+4
+ 407 004c 1960     		str	r1, [r3]
+ 408 004e 0120     		movs	r0, #1
+ 409 0050 07E0     		b	.L36
+ 410              	.L46:
+ 411 0052 14F0804F 		tst	r4, #1073741824
+ 412 0056 01D0     		beq	.L39
+ 413 0058 0724     		movs	r4, #7
+ 414 005a D7E7     		b	.L35
+ 415              	.L39:
+ 416 005c 0524     		movs	r4, #5
+ 417 005e D5E7     		b	.L35
+ 418              	.L40:
+ 419 0060 0020     		movs	r0, #0
+ 420              	.L36:
+ 421 0062 30BC     		pop	{r4, r5}
+ 422 0064 7047     		bx	lr
+ 423              	.L41:
+ 424 0066 0020     		movs	r0, #0
+ 425 0068 FBE7     		b	.L36
+ 426              	.L42:
+ 427 006a 0020     		movs	r0, #0
+ 428 006c F9E7     		b	.L36
+ 429              	.L43:
+ 430 006e 0020     		movs	r0, #0
+ARM GAS  /tmp/ccJSDL4i.s 			page 8
+
+
+ 431 0070 F7E7     		b	.L36
+ 432              	.L44:
+ 433 0072 0020     		movs	r0, #0
+ 434 0074 F5E7     		b	.L36
+ 435              	.L48:
+ 436 0076 00BF     		.align	2
+ 437              	.L47:
+ 438 0078 80380240 		.word	1073887360
+ 439 007c 04380240 		.word	1073887236
+ 441              		.section	.text.rcu_plli2s_config,"ax",%progbits
+ 442              		.align	1
+ 443              		.global	rcu_plli2s_config
+ 444              		.syntax unified
+ 445              		.thumb
+ 446              		.thumb_func
+ 447              		.fpu fpv4-sp-d16
+ 449              	rcu_plli2s_config:
+ 450              		@ args = 0, pretend = 0, frame = 0
+ 451              		@ frame_needed = 0, uses_anonymous_args = 0
+ 452              		@ link register save eliminated.
+ 453 0000 A0F13203 		sub	r3, r0, #50
+ 454 0004 B3F5E17F 		cmp	r3, #450
+ 455 0008 09D8     		bhi	.L51
+ 456 000a 8B1E     		subs	r3, r1, #2
+ 457 000c 052B     		cmp	r3, #5
+ 458 000e 08D8     		bhi	.L52
+ 459 0010 0907     		lsls	r1, r1, #28
+ 460 0012 41EA8011 		orr	r1, r1, r0, lsl #6
+ 461 0016 044B     		ldr	r3, .L53
+ 462 0018 1960     		str	r1, [r3]
+ 463 001a 0120     		movs	r0, #1
+ 464 001c 7047     		bx	lr
+ 465              	.L51:
+ 466 001e 0020     		movs	r0, #0
+ 467 0020 7047     		bx	lr
+ 468              	.L52:
+ 469 0022 0020     		movs	r0, #0
+ 470 0024 7047     		bx	lr
+ 471              	.L54:
+ 472 0026 00BF     		.align	2
+ 473              	.L53:
+ 474 0028 84380240 		.word	1073887364
+ 476              		.section	.text.rcu_pllsai_config,"ax",%progbits
+ 477              		.align	1
+ 478              		.global	rcu_pllsai_config
+ 479              		.syntax unified
+ 480              		.thumb
+ 481              		.thumb_func
+ 482              		.fpu fpv4-sp-d16
+ 484              	rcu_pllsai_config:
+ 485              		@ args = 0, pretend = 0, frame = 0
+ 486              		@ frame_needed = 0, uses_anonymous_args = 0
+ 487              		@ link register save eliminated.
+ 488 0000 A0F13203 		sub	r3, r0, #50
+ 489 0004 B3F5E17F 		cmp	r3, #450
+ 490 0008 15D8     		bhi	.L58
+ 491 000a 0229     		cmp	r1, #2
+ARM GAS  /tmp/ccJSDL4i.s 			page 9
+
+
+ 492 000c 05D0     		beq	.L57
+ 493 000e 0429     		cmp	r1, #4
+ 494 0010 03D0     		beq	.L57
+ 495 0012 0629     		cmp	r1, #6
+ 496 0014 01D0     		beq	.L57
+ 497 0016 0829     		cmp	r1, #8
+ 498 0018 0FD1     		bne	.L59
+ 499              	.L57:
+ 500 001a 931E     		subs	r3, r2, #2
+ 501 001c 052B     		cmp	r3, #5
+ 502 001e 0ED8     		bhi	.L60
+ 503 0020 4908     		lsrs	r1, r1, #1
+ 504 0022 0139     		subs	r1, r1, #1
+ 505 0024 0904     		lsls	r1, r1, #16
+ 506 0026 41EA8011 		orr	r1, r1, r0, lsl #6
+ 507 002a 41EA0271 		orr	r1, r1, r2, lsl #28
+ 508 002e 054B     		ldr	r3, .L61
+ 509 0030 1960     		str	r1, [r3]
+ 510 0032 0120     		movs	r0, #1
+ 511 0034 7047     		bx	lr
+ 512              	.L58:
+ 513 0036 0020     		movs	r0, #0
+ 514 0038 7047     		bx	lr
+ 515              	.L59:
+ 516 003a 0020     		movs	r0, #0
+ 517 003c 7047     		bx	lr
+ 518              	.L60:
+ 519 003e 0020     		movs	r0, #0
+ 520 0040 7047     		bx	lr
+ 521              	.L62:
+ 522 0042 00BF     		.align	2
+ 523              	.L61:
+ 524 0044 88380240 		.word	1073887368
+ 526              		.section	.text.rcu_rtc_clock_config,"ax",%progbits
+ 527              		.align	1
+ 528              		.global	rcu_rtc_clock_config
+ 529              		.syntax unified
+ 530              		.thumb
+ 531              		.thumb_func
+ 532              		.fpu fpv4-sp-d16
+ 534              	rcu_rtc_clock_config:
+ 535              		@ args = 0, pretend = 0, frame = 0
+ 536              		@ frame_needed = 0, uses_anonymous_args = 0
+ 537              		@ link register save eliminated.
+ 538 0000 034A     		ldr	r2, .L64
+ 539 0002 1368     		ldr	r3, [r2]
+ 540 0004 23F44073 		bic	r3, r3, #768
+ 541 0008 1843     		orrs	r0, r0, r3
+ 542 000a 1060     		str	r0, [r2]
+ 543 000c 7047     		bx	lr
+ 544              	.L65:
+ 545 000e 00BF     		.align	2
+ 546              	.L64:
+ 547 0010 70380240 		.word	1073887344
+ 549              		.section	.text.rcu_rtc_div_config,"ax",%progbits
+ 550              		.align	1
+ 551              		.global	rcu_rtc_div_config
+ARM GAS  /tmp/ccJSDL4i.s 			page 10
+
+
+ 552              		.syntax unified
+ 553              		.thumb
+ 554              		.thumb_func
+ 555              		.fpu fpv4-sp-d16
+ 557              	rcu_rtc_div_config:
+ 558              		@ args = 0, pretend = 0, frame = 0
+ 559              		@ frame_needed = 0, uses_anonymous_args = 0
+ 560              		@ link register save eliminated.
+ 561 0000 034A     		ldr	r2, .L67
+ 562 0002 1368     		ldr	r3, [r2]
+ 563 0004 23F4F813 		bic	r3, r3, #2031616
+ 564 0008 1843     		orrs	r0, r0, r3
+ 565 000a 1060     		str	r0, [r2]
+ 566 000c 7047     		bx	lr
+ 567              	.L68:
+ 568 000e 00BF     		.align	2
+ 569              	.L67:
+ 570 0010 08380240 		.word	1073887240
+ 572              		.section	.text.rcu_i2s_clock_config,"ax",%progbits
+ 573              		.align	1
+ 574              		.global	rcu_i2s_clock_config
+ 575              		.syntax unified
+ 576              		.thumb
+ 577              		.thumb_func
+ 578              		.fpu fpv4-sp-d16
+ 580              	rcu_i2s_clock_config:
+ 581              		@ args = 0, pretend = 0, frame = 0
+ 582              		@ frame_needed = 0, uses_anonymous_args = 0
+ 583              		@ link register save eliminated.
+ 584 0000 034A     		ldr	r2, .L70
+ 585 0002 1368     		ldr	r3, [r2]
+ 586 0004 23F40003 		bic	r3, r3, #8388608
+ 587 0008 1843     		orrs	r0, r0, r3
+ 588 000a 1060     		str	r0, [r2]
+ 589 000c 7047     		bx	lr
+ 590              	.L71:
+ 591 000e 00BF     		.align	2
+ 592              	.L70:
+ 593 0010 08380240 		.word	1073887240
+ 595              		.section	.text.rcu_ck48m_clock_config,"ax",%progbits
+ 596              		.align	1
+ 597              		.global	rcu_ck48m_clock_config
+ 598              		.syntax unified
+ 599              		.thumb
+ 600              		.thumb_func
+ 601              		.fpu fpv4-sp-d16
+ 603              	rcu_ck48m_clock_config:
+ 604              		@ args = 0, pretend = 0, frame = 0
+ 605              		@ frame_needed = 0, uses_anonymous_args = 0
+ 606              		@ link register save eliminated.
+ 607 0000 034A     		ldr	r2, .L73
+ 608 0002 1368     		ldr	r3, [r2]
+ 609 0004 23F00103 		bic	r3, r3, #1
+ 610 0008 1843     		orrs	r0, r0, r3
+ 611 000a 1060     		str	r0, [r2]
+ 612 000c 7047     		bx	lr
+ 613              	.L74:
+ARM GAS  /tmp/ccJSDL4i.s 			page 11
+
+
+ 614 000e 00BF     		.align	2
+ 615              	.L73:
+ 616 0010 C0380240 		.word	1073887424
+ 618              		.section	.text.rcu_pll48m_clock_config,"ax",%progbits
+ 619              		.align	1
+ 620              		.global	rcu_pll48m_clock_config
+ 621              		.syntax unified
+ 622              		.thumb
+ 623              		.thumb_func
+ 624              		.fpu fpv4-sp-d16
+ 626              	rcu_pll48m_clock_config:
+ 627              		@ args = 0, pretend = 0, frame = 0
+ 628              		@ frame_needed = 0, uses_anonymous_args = 0
+ 629              		@ link register save eliminated.
+ 630 0000 034A     		ldr	r2, .L76
+ 631 0002 1368     		ldr	r3, [r2]
+ 632 0004 23F00203 		bic	r3, r3, #2
+ 633 0008 1843     		orrs	r0, r0, r3
+ 634 000a 1060     		str	r0, [r2]
+ 635 000c 7047     		bx	lr
+ 636              	.L77:
+ 637 000e 00BF     		.align	2
+ 638              	.L76:
+ 639 0010 C0380240 		.word	1073887424
+ 641              		.section	.text.rcu_timer_clock_prescaler_config,"ax",%progbits
+ 642              		.align	1
+ 643              		.global	rcu_timer_clock_prescaler_config
+ 644              		.syntax unified
+ 645              		.thumb
+ 646              		.thumb_func
+ 647              		.fpu fpv4-sp-d16
+ 649              	rcu_timer_clock_prescaler_config:
+ 650              		@ args = 0, pretend = 0, frame = 0
+ 651              		@ frame_needed = 0, uses_anonymous_args = 0
+ 652              		@ link register save eliminated.
+ 653 0000 6FF08073 		mvn	r3, #16777216
+ 654 0004 9842     		cmp	r0, r3
+ 655 0006 04D0     		beq	.L81
+ 656 0008 044A     		ldr	r2, .L82
+ 657 000a 1368     		ldr	r3, [r2]
+ 658 000c 1843     		orrs	r0, r0, r3
+ 659 000e 1060     		str	r0, [r2]
+ 660 0010 7047     		bx	lr
+ 661              	.L81:
+ 662 0012 024A     		ldr	r2, .L82
+ 663 0014 1368     		ldr	r3, [r2]
+ 664 0016 1840     		ands	r0, r0, r3
+ 665 0018 1060     		str	r0, [r2]
+ 666 001a 7047     		bx	lr
+ 667              	.L83:
+ 668              		.align	2
+ 669              	.L82:
+ 670 001c 8C380240 		.word	1073887372
+ 672              		.section	.text.rcu_tli_clock_div_config,"ax",%progbits
+ 673              		.align	1
+ 674              		.global	rcu_tli_clock_div_config
+ 675              		.syntax unified
+ARM GAS  /tmp/ccJSDL4i.s 			page 12
+
+
+ 676              		.thumb
+ 677              		.thumb_func
+ 678              		.fpu fpv4-sp-d16
+ 680              	rcu_tli_clock_div_config:
+ 681              		@ args = 0, pretend = 0, frame = 0
+ 682              		@ frame_needed = 0, uses_anonymous_args = 0
+ 683              		@ link register save eliminated.
+ 684 0000 034A     		ldr	r2, .L85
+ 685 0002 1368     		ldr	r3, [r2]
+ 686 0004 23F44033 		bic	r3, r3, #196608
+ 687 0008 1843     		orrs	r0, r0, r3
+ 688 000a 1060     		str	r0, [r2]
+ 689 000c 7047     		bx	lr
+ 690              	.L86:
+ 691 000e 00BF     		.align	2
+ 692              	.L85:
+ 693 0010 8C380240 		.word	1073887372
+ 695              		.section	.text.rcu_flag_get,"ax",%progbits
+ 696              		.align	1
+ 697              		.global	rcu_flag_get
+ 698              		.syntax unified
+ 699              		.thumb
+ 700              		.thumb_func
+ 701              		.fpu fpv4-sp-d16
+ 703              	rcu_flag_get:
+ 704              		@ args = 0, pretend = 0, frame = 0
+ 705              		@ frame_needed = 0, uses_anonymous_args = 0
+ 706              		@ link register save eliminated.
+ 707 0000 8309     		lsrs	r3, r0, #6
+ 708 0002 03F18043 		add	r3, r3, #1073741824
+ 709 0006 03F50E33 		add	r3, r3, #145408
+ 710 000a 1B68     		ldr	r3, [r3]
+ 711 000c 00F01F00 		and	r0, r0, #31
+ 712 0010 23FA00F0 		lsr	r0, r3, r0
+ 713 0014 10F0010F 		tst	r0, #1
+ 714 0018 01D0     		beq	.L89
+ 715 001a 0120     		movs	r0, #1
+ 716 001c 7047     		bx	lr
+ 717              	.L89:
+ 718 001e 0020     		movs	r0, #0
+ 719 0020 7047     		bx	lr
+ 721              		.section	.text.rcu_all_reset_flag_clear,"ax",%progbits
+ 722              		.align	1
+ 723              		.global	rcu_all_reset_flag_clear
+ 724              		.syntax unified
+ 725              		.thumb
+ 726              		.thumb_func
+ 727              		.fpu fpv4-sp-d16
+ 729              	rcu_all_reset_flag_clear:
+ 730              		@ args = 0, pretend = 0, frame = 0
+ 731              		@ frame_needed = 0, uses_anonymous_args = 0
+ 732              		@ link register save eliminated.
+ 733 0000 024A     		ldr	r2, .L91
+ 734 0002 1368     		ldr	r3, [r2]
+ 735 0004 43F08073 		orr	r3, r3, #16777216
+ 736 0008 1360     		str	r3, [r2]
+ 737 000a 7047     		bx	lr
+ARM GAS  /tmp/ccJSDL4i.s 			page 13
+
+
+ 738              	.L92:
+ 739              		.align	2
+ 740              	.L91:
+ 741 000c 74380240 		.word	1073887348
+ 743              		.section	.text.rcu_interrupt_flag_get,"ax",%progbits
+ 744              		.align	1
+ 745              		.global	rcu_interrupt_flag_get
+ 746              		.syntax unified
+ 747              		.thumb
+ 748              		.thumb_func
+ 749              		.fpu fpv4-sp-d16
+ 751              	rcu_interrupt_flag_get:
+ 752              		@ args = 0, pretend = 0, frame = 0
+ 753              		@ frame_needed = 0, uses_anonymous_args = 0
+ 754              		@ link register save eliminated.
+ 755 0000 8309     		lsrs	r3, r0, #6
+ 756 0002 03F18043 		add	r3, r3, #1073741824
+ 757 0006 03F50E33 		add	r3, r3, #145408
+ 758 000a 1B68     		ldr	r3, [r3]
+ 759 000c 00F01F00 		and	r0, r0, #31
+ 760 0010 23FA00F0 		lsr	r0, r3, r0
+ 761 0014 10F0010F 		tst	r0, #1
+ 762 0018 01D0     		beq	.L95
+ 763 001a 0120     		movs	r0, #1
+ 764 001c 7047     		bx	lr
+ 765              	.L95:
+ 766 001e 0020     		movs	r0, #0
+ 767 0020 7047     		bx	lr
+ 769              		.section	.text.rcu_interrupt_flag_clear,"ax",%progbits
+ 770              		.align	1
+ 771              		.global	rcu_interrupt_flag_clear
+ 772              		.syntax unified
+ 773              		.thumb
+ 774              		.thumb_func
+ 775              		.fpu fpv4-sp-d16
+ 777              	rcu_interrupt_flag_clear:
+ 778              		@ args = 0, pretend = 0, frame = 0
+ 779              		@ frame_needed = 0, uses_anonymous_args = 0
+ 780              		@ link register save eliminated.
+ 781 0000 8309     		lsrs	r3, r0, #6
+ 782 0002 03F18043 		add	r3, r3, #1073741824
+ 783 0006 03F50E33 		add	r3, r3, #145408
+ 784 000a 1A68     		ldr	r2, [r3]
+ 785 000c 00F01F00 		and	r0, r0, #31
+ 786 0010 0121     		movs	r1, #1
+ 787 0012 01FA00F0 		lsl	r0, r1, r0
+ 788 0016 0243     		orrs	r2, r2, r0
+ 789 0018 1A60     		str	r2, [r3]
+ 790 001a 7047     		bx	lr
+ 792              		.section	.text.rcu_interrupt_enable,"ax",%progbits
+ 793              		.align	1
+ 794              		.global	rcu_interrupt_enable
+ 795              		.syntax unified
+ 796              		.thumb
+ 797              		.thumb_func
+ 798              		.fpu fpv4-sp-d16
+ 800              	rcu_interrupt_enable:
+ARM GAS  /tmp/ccJSDL4i.s 			page 14
+
+
+ 801              		@ args = 0, pretend = 0, frame = 0
+ 802              		@ frame_needed = 0, uses_anonymous_args = 0
+ 803              		@ link register save eliminated.
+ 804 0000 8309     		lsrs	r3, r0, #6
+ 805 0002 03F18043 		add	r3, r3, #1073741824
+ 806 0006 03F50E33 		add	r3, r3, #145408
+ 807 000a 1A68     		ldr	r2, [r3]
+ 808 000c 00F01F00 		and	r0, r0, #31
+ 809 0010 0121     		movs	r1, #1
+ 810 0012 01FA00F0 		lsl	r0, r1, r0
+ 811 0016 0243     		orrs	r2, r2, r0
+ 812 0018 1A60     		str	r2, [r3]
+ 813 001a 7047     		bx	lr
+ 815              		.section	.text.rcu_interrupt_disable,"ax",%progbits
+ 816              		.align	1
+ 817              		.global	rcu_interrupt_disable
+ 818              		.syntax unified
+ 819              		.thumb
+ 820              		.thumb_func
+ 821              		.fpu fpv4-sp-d16
+ 823              	rcu_interrupt_disable:
+ 824              		@ args = 0, pretend = 0, frame = 0
+ 825              		@ frame_needed = 0, uses_anonymous_args = 0
+ 826              		@ link register save eliminated.
+ 827 0000 8309     		lsrs	r3, r0, #6
+ 828 0002 03F18043 		add	r3, r3, #1073741824
+ 829 0006 03F50E33 		add	r3, r3, #145408
+ 830 000a 1A68     		ldr	r2, [r3]
+ 831 000c 00F01F00 		and	r0, r0, #31
+ 832 0010 0121     		movs	r1, #1
+ 833 0012 01FA00F0 		lsl	r0, r1, r0
+ 834 0016 22EA0002 		bic	r2, r2, r0
+ 835 001a 1A60     		str	r2, [r3]
+ 836 001c 7047     		bx	lr
+ 838              		.section	.text.rcu_lxtal_drive_capability_config,"ax",%progbits
+ 839              		.align	1
+ 840              		.global	rcu_lxtal_drive_capability_config
+ 841              		.syntax unified
+ 842              		.thumb
+ 843              		.thumb_func
+ 844              		.fpu fpv4-sp-d16
+ 846              	rcu_lxtal_drive_capability_config:
+ 847              		@ args = 0, pretend = 0, frame = 0
+ 848              		@ frame_needed = 0, uses_anonymous_args = 0
+ 849              		@ link register save eliminated.
+ 850 0000 034A     		ldr	r2, .L100
+ 851 0002 1368     		ldr	r3, [r2]
+ 852 0004 23F00803 		bic	r3, r3, #8
+ 853 0008 1843     		orrs	r0, r0, r3
+ 854 000a 1060     		str	r0, [r2]
+ 855 000c 7047     		bx	lr
+ 856              	.L101:
+ 857 000e 00BF     		.align	2
+ 858              	.L100:
+ 859 0010 70380240 		.word	1073887344
+ 861              		.section	.text.rcu_osci_stab_wait,"ax",%progbits
+ 862              		.align	1
+ARM GAS  /tmp/ccJSDL4i.s 			page 15
+
+
+ 863              		.global	rcu_osci_stab_wait
+ 864              		.syntax unified
+ 865              		.thumb
+ 866              		.thumb_func
+ 867              		.fpu fpv4-sp-d16
+ 869              	rcu_osci_stab_wait:
+ 870              		@ args = 0, pretend = 0, frame = 0
+ 871              		@ frame_needed = 0, uses_anonymous_args = 0
+ 872 0000 10B5     		push	{r4, lr}
+ 873 0002 1A28     		cmp	r0, #26
+ 874 0004 00F0A580 		beq	.L130
+ 875 0008 17D9     		bls	.L147
+ 876 000a B0F5E05F 		cmp	r0, #7168
+ 877 000e 45D0     		beq	.L134
+ 878 0010 1CD9     		bls	.L148
+ 879 0012 B0F5E85F 		cmp	r0, #7424
+ 880 0016 73D0     		beq	.L136
+ 881 0018 43F21003 		movw	r3, #12304
+ 882 001c 9842     		cmp	r0, r3
+ 883 001e 27D1     		bne	.L149
+ 884 0020 0020     		movs	r0, #0
+ 885 0022 0446     		mov	r4, r0
+ 886              	.L113:
+ 887 0024 0028     		cmp	r0, #0
+ 888 0026 62D1     		bne	.L120
+ 889 0028 584B     		ldr	r3, .L151
+ 890 002a 9C42     		cmp	r4, r3
+ 891 002c 5FD0     		beq	.L120
+ 892 002e 43F21100 		movw	r0, #12305
+ 893 0032 FFF7FEFF 		bl	rcu_flag_get
+ 894 0036 0134     		adds	r4, r4, #1
+ 895 0038 F4E7     		b	.L113
+ 896              	.L147:
+ 897 003a 1028     		cmp	r0, #16
+ 898 003c 1AD0     		beq	.L131
+ 899 003e 1828     		cmp	r0, #24
+ 900 0040 73D0     		beq	.L132
+ 901 0042 0028     		cmp	r0, #0
+ 902 0044 40D0     		beq	.L133
+ 903 0046 0023     		movs	r3, #0
+ 904              	.L108:
+ 905 0048 1846     		mov	r0, r3
+ 906 004a 10BD     		pop	{r4, pc}
+ 907              	.L148:
+ 908 004c 1C28     		cmp	r0, #28
+ 909 004e 0DD1     		bne	.L150
+ 910 0050 0020     		movs	r0, #0
+ 911 0052 0446     		mov	r4, r0
+ 912              	.L111:
+ 913 0054 0028     		cmp	r0, #0
+ 914 0056 40F09080 		bne	.L128
+ 915 005a 4C4B     		ldr	r3, .L151
+ 916 005c 9C42     		cmp	r4, r3
+ 917 005e 00F08C80 		beq	.L128
+ 918 0062 1D20     		movs	r0, #29
+ 919 0064 FFF7FEFF 		bl	rcu_flag_get
+ 920 0068 0134     		adds	r4, r4, #1
+ARM GAS  /tmp/ccJSDL4i.s 			page 16
+
+
+ 921 006a F3E7     		b	.L111
+ 922              	.L150:
+ 923 006c 0023     		movs	r3, #0
+ 924 006e EBE7     		b	.L108
+ 925              	.L149:
+ 926 0070 0023     		movs	r3, #0
+ 927 0072 E9E7     		b	.L108
+ 928              	.L131:
+ 929 0074 0020     		movs	r0, #0
+ 930 0076 0446     		mov	r4, r0
+ 931              	.L105:
+ 932 0078 40B9     		cbnz	r0, .L114
+ 933 007a 4FF6FF73 		movw	r3, #65535
+ 934 007e 9C42     		cmp	r4, r3
+ 935 0080 04D0     		beq	.L114
+ 936 0082 1120     		movs	r0, #17
+ 937 0084 FFF7FEFF 		bl	rcu_flag_get
+ 938 0088 0134     		adds	r4, r4, #1
+ 939 008a F5E7     		b	.L105
+ 940              	.L114:
+ 941 008c 1120     		movs	r0, #17
+ 942 008e FFF7FEFF 		bl	rcu_flag_get
+ 943 0092 0346     		mov	r3, r0
+ 944 0094 0028     		cmp	r0, #0
+ 945 0096 D7D0     		beq	.L108
+ 946 0098 0123     		movs	r3, #1
+ 947 009a D5E7     		b	.L108
+ 948              	.L134:
+ 949 009c 0020     		movs	r0, #0
+ 950 009e 0446     		mov	r4, r0
+ 951              	.L109:
+ 952 00a0 48B9     		cbnz	r0, .L116
+ 953 00a2 6FF07043 		mvn	r3, #-268435456
+ 954 00a6 9C42     		cmp	r4, r3
+ 955 00a8 05D0     		beq	.L116
+ 956 00aa 41F60140 		movw	r0, #7169
+ 957 00ae FFF7FEFF 		bl	rcu_flag_get
+ 958 00b2 0134     		adds	r4, r4, #1
+ 959 00b4 F4E7     		b	.L109
+ 960              	.L116:
+ 961 00b6 41F60140 		movw	r0, #7169
+ 962 00ba FFF7FEFF 		bl	rcu_flag_get
+ 963 00be 0346     		mov	r3, r0
+ 964 00c0 0028     		cmp	r0, #0
+ 965 00c2 C1D0     		beq	.L108
+ 966 00c4 0123     		movs	r3, #1
+ 967 00c6 BFE7     		b	.L108
+ 968              	.L133:
+ 969 00c8 0020     		movs	r0, #0
+ 970 00ca 0446     		mov	r4, r0
+ 971              	.L107:
+ 972 00cc 38B9     		cbnz	r0, .L118
+ 973 00ce B4F5A06F 		cmp	r4, #1280
+ 974 00d2 04D0     		beq	.L118
+ 975 00d4 0120     		movs	r0, #1
+ 976 00d6 FFF7FEFF 		bl	rcu_flag_get
+ 977 00da 0134     		adds	r4, r4, #1
+ARM GAS  /tmp/ccJSDL4i.s 			page 17
+
+
+ 978 00dc F6E7     		b	.L107
+ 979              	.L118:
+ 980 00de 0120     		movs	r0, #1
+ 981 00e0 FFF7FEFF 		bl	rcu_flag_get
+ 982 00e4 0346     		mov	r3, r0
+ 983 00e6 0028     		cmp	r0, #0
+ 984 00e8 AED0     		beq	.L108
+ 985 00ea 0123     		movs	r3, #1
+ 986 00ec ACE7     		b	.L108
+ 987              	.L120:
+ 988 00ee 43F21100 		movw	r0, #12305
+ 989 00f2 FFF7FEFF 		bl	rcu_flag_get
+ 990 00f6 0346     		mov	r3, r0
+ 991 00f8 0028     		cmp	r0, #0
+ 992 00fa A5D0     		beq	.L108
+ 993 00fc 0123     		movs	r3, #1
+ 994 00fe A3E7     		b	.L108
+ 995              	.L136:
+ 996 0100 0020     		movs	r0, #0
+ 997 0102 0446     		mov	r4, r0
+ 998              	.L112:
+ 999 0104 40B9     		cbnz	r0, .L122
+ 1000 0106 214B     		ldr	r3, .L151
+ 1001 0108 9C42     		cmp	r4, r3
+ 1002 010a 05D0     		beq	.L122
+ 1003 010c 41F60150 		movw	r0, #7425
+ 1004 0110 FFF7FEFF 		bl	rcu_flag_get
+ 1005 0114 0134     		adds	r4, r4, #1
+ 1006 0116 F5E7     		b	.L112
+ 1007              	.L122:
+ 1008 0118 41F60150 		movw	r0, #7425
+ 1009 011c FFF7FEFF 		bl	rcu_flag_get
+ 1010 0120 0346     		mov	r3, r0
+ 1011 0122 0028     		cmp	r0, #0
+ 1012 0124 90D0     		beq	.L108
+ 1013 0126 0123     		movs	r3, #1
+ 1014 0128 8EE7     		b	.L108
+ 1015              	.L132:
+ 1016 012a 0020     		movs	r0, #0
+ 1017 012c 0446     		mov	r4, r0
+ 1018              	.L106:
+ 1019 012e 38B9     		cbnz	r0, .L124
+ 1020 0130 164B     		ldr	r3, .L151
+ 1021 0132 9C42     		cmp	r4, r3
+ 1022 0134 04D0     		beq	.L124
+ 1023 0136 1920     		movs	r0, #25
+ 1024 0138 FFF7FEFF 		bl	rcu_flag_get
+ 1025 013c 0134     		adds	r4, r4, #1
+ 1026 013e F6E7     		b	.L106
+ 1027              	.L124:
+ 1028 0140 1920     		movs	r0, #25
+ 1029 0142 FFF7FEFF 		bl	rcu_flag_get
+ 1030 0146 0346     		mov	r3, r0
+ 1031 0148 0028     		cmp	r0, #0
+ 1032 014a 3FF47DAF 		beq	.L108
+ 1033 014e 0123     		movs	r3, #1
+ 1034 0150 7AE7     		b	.L108
+ARM GAS  /tmp/ccJSDL4i.s 			page 18
+
+
+ 1035              	.L130:
+ 1036 0152 0020     		movs	r0, #0
+ 1037 0154 0446     		mov	r4, r0
+ 1038              	.L103:
+ 1039 0156 38B9     		cbnz	r0, .L126
+ 1040 0158 0C4B     		ldr	r3, .L151
+ 1041 015a 9C42     		cmp	r4, r3
+ 1042 015c 04D0     		beq	.L126
+ 1043 015e 1B20     		movs	r0, #27
+ 1044 0160 FFF7FEFF 		bl	rcu_flag_get
+ 1045 0164 0134     		adds	r4, r4, #1
+ 1046 0166 F6E7     		b	.L103
+ 1047              	.L126:
+ 1048 0168 1B20     		movs	r0, #27
+ 1049 016a FFF7FEFF 		bl	rcu_flag_get
+ 1050 016e 0346     		mov	r3, r0
+ 1051 0170 0028     		cmp	r0, #0
+ 1052 0172 3FF469AF 		beq	.L108
+ 1053 0176 0123     		movs	r3, #1
+ 1054 0178 66E7     		b	.L108
+ 1055              	.L128:
+ 1056 017a 1D20     		movs	r0, #29
+ 1057 017c FFF7FEFF 		bl	rcu_flag_get
+ 1058 0180 0346     		mov	r3, r0
+ 1059 0182 0028     		cmp	r0, #0
+ 1060 0184 3FF460AF 		beq	.L108
+ 1061 0188 0123     		movs	r3, #1
+ 1062 018a 5DE7     		b	.L108
+ 1063              	.L152:
+ 1064              		.align	2
+ 1065              	.L151:
+ 1066 018c FFFF0F00 		.word	1048575
+ 1068              		.section	.text.rcu_deinit,"ax",%progbits
+ 1069              		.align	1
+ 1070              		.global	rcu_deinit
+ 1071              		.syntax unified
+ 1072              		.thumb
+ 1073              		.thumb_func
+ 1074              		.fpu fpv4-sp-d16
+ 1076              	rcu_deinit:
+ 1077              		@ args = 0, pretend = 0, frame = 0
+ 1078              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1079 0000 10B5     		push	{r4, lr}
+ 1080 0002 154C     		ldr	r4, .L155
+ 1081 0004 2368     		ldr	r3, [r4]
+ 1082 0006 43F00103 		orr	r3, r3, #1
+ 1083 000a 2360     		str	r3, [r4]
+ 1084 000c 0020     		movs	r0, #0
+ 1085 000e FFF7FEFF 		bl	rcu_osci_stab_wait
+ 1086 0012 124A     		ldr	r2, .L155+4
+ 1087 0014 1368     		ldr	r3, [r2]
+ 1088 0016 03F44373 		and	r3, r3, #780
+ 1089 001a 1360     		str	r3, [r2]
+ 1090 001c 2368     		ldr	r3, [r4]
+ 1091 001e 23F0A853 		bic	r3, r3, #352321536
+ 1092 0022 23F41023 		bic	r3, r3, #589824
+ 1093 0026 2360     		str	r3, [r4]
+ARM GAS  /tmp/ccJSDL4i.s 			page 19
+
+
+ 1094 0028 2368     		ldr	r3, [r4]
+ 1095 002a 23F48023 		bic	r3, r3, #262144
+ 1096 002e 2360     		str	r3, [r4]
+ 1097 0030 0B4B     		ldr	r3, .L155+8
+ 1098 0032 043A     		subs	r2, r2, #4
+ 1099 0034 1360     		str	r3, [r2]
+ 1100 0036 8032     		adds	r2, r2, #128
+ 1101 0038 0A49     		ldr	r1, .L155+12
+ 1102 003a 1160     		str	r1, [r2]
+ 1103 003c 0432     		adds	r2, r2, #4
+ 1104 003e 1360     		str	r3, [r2]
+ 1105 0040 094B     		ldr	r3, .L155+16
+ 1106 0042 0022     		movs	r2, #0
+ 1107 0044 1A60     		str	r2, [r3]
+ 1108 0046 094A     		ldr	r2, .L155+20
+ 1109 0048 1368     		ldr	r3, [r2]
+ 1110 004a 23F08173 		bic	r3, r3, #16908288
+ 1111 004e 23F48033 		bic	r3, r3, #65536
+ 1112 0052 1360     		str	r3, [r2]
+ 1113 0054 10BD     		pop	{r4, pc}
+ 1114              	.L156:
+ 1115 0056 00BF     		.align	2
+ 1116              	.L155:
+ 1117 0058 00380240 		.word	1073887232
+ 1118 005c 08380240 		.word	1073887240
+ 1119 0060 10300024 		.word	603992080
+ 1120 0064 00300024 		.word	603992064
+ 1121 0068 0C380240 		.word	1073887244
+ 1122 006c 8C380240 		.word	1073887372
+ 1124              		.section	.text.rcu_osci_on,"ax",%progbits
+ 1125              		.align	1
+ 1126              		.global	rcu_osci_on
+ 1127              		.syntax unified
+ 1128              		.thumb
+ 1129              		.thumb_func
+ 1130              		.fpu fpv4-sp-d16
+ 1132              	rcu_osci_on:
+ 1133              		@ args = 0, pretend = 0, frame = 0
+ 1134              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1135              		@ link register save eliminated.
+ 1136 0000 8309     		lsrs	r3, r0, #6
+ 1137 0002 03F18043 		add	r3, r3, #1073741824
+ 1138 0006 03F50E33 		add	r3, r3, #145408
+ 1139 000a 1A68     		ldr	r2, [r3]
+ 1140 000c 00F01F00 		and	r0, r0, #31
+ 1141 0010 0121     		movs	r1, #1
+ 1142 0012 01FA00F0 		lsl	r0, r1, r0
+ 1143 0016 0243     		orrs	r2, r2, r0
+ 1144 0018 1A60     		str	r2, [r3]
+ 1145 001a 7047     		bx	lr
+ 1147              		.section	.text.rcu_osci_off,"ax",%progbits
+ 1148              		.align	1
+ 1149              		.global	rcu_osci_off
+ 1150              		.syntax unified
+ 1151              		.thumb
+ 1152              		.thumb_func
+ 1153              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccJSDL4i.s 			page 20
+
+
+ 1155              	rcu_osci_off:
+ 1156              		@ args = 0, pretend = 0, frame = 0
+ 1157              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1158              		@ link register save eliminated.
+ 1159 0000 8309     		lsrs	r3, r0, #6
+ 1160 0002 03F18043 		add	r3, r3, #1073741824
+ 1161 0006 03F50E33 		add	r3, r3, #145408
+ 1162 000a 1A68     		ldr	r2, [r3]
+ 1163 000c 00F01F00 		and	r0, r0, #31
+ 1164 0010 0121     		movs	r1, #1
+ 1165 0012 01FA00F0 		lsl	r0, r1, r0
+ 1166 0016 22EA0002 		bic	r2, r2, r0
+ 1167 001a 1A60     		str	r2, [r3]
+ 1168 001c 7047     		bx	lr
+ 1170              		.section	.text.rcu_osci_bypass_mode_enable,"ax",%progbits
+ 1171              		.align	1
+ 1172              		.global	rcu_osci_bypass_mode_enable
+ 1173              		.syntax unified
+ 1174              		.thumb
+ 1175              		.thumb_func
+ 1176              		.fpu fpv4-sp-d16
+ 1178              	rcu_osci_bypass_mode_enable:
+ 1179              		@ args = 0, pretend = 0, frame = 0
+ 1180              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1181              		@ link register save eliminated.
+ 1182 0000 1028     		cmp	r0, #16
+ 1183 0002 03D0     		beq	.L160
+ 1184 0004 B0F5E05F 		cmp	r0, #7168
+ 1185 0008 0AD0     		beq	.L161
+ 1186 000a 7047     		bx	lr
+ 1187              	.L160:
+ 1188 000c 094B     		ldr	r3, .L163
+ 1189 000e 1A68     		ldr	r2, [r3]
+ 1190 0010 1968     		ldr	r1, [r3]
+ 1191 0012 21F48031 		bic	r1, r1, #65536
+ 1192 0016 1960     		str	r1, [r3]
+ 1193 0018 42F48022 		orr	r2, r2, #262144
+ 1194 001c 1A60     		str	r2, [r3]
+ 1195 001e 7047     		bx	lr
+ 1196              	.L161:
+ 1197 0020 054B     		ldr	r3, .L163+4
+ 1198 0022 1A68     		ldr	r2, [r3]
+ 1199 0024 1968     		ldr	r1, [r3]
+ 1200 0026 21F00101 		bic	r1, r1, #1
+ 1201 002a 1960     		str	r1, [r3]
+ 1202 002c 42F00402 		orr	r2, r2, #4
+ 1203 0030 1A60     		str	r2, [r3]
+ 1204 0032 7047     		bx	lr
+ 1205              	.L164:
+ 1206              		.align	2
+ 1207              	.L163:
+ 1208 0034 00380240 		.word	1073887232
+ 1209 0038 70380240 		.word	1073887344
+ 1211              		.section	.text.rcu_osci_bypass_mode_disable,"ax",%progbits
+ 1212              		.align	1
+ 1213              		.global	rcu_osci_bypass_mode_disable
+ 1214              		.syntax unified
+ARM GAS  /tmp/ccJSDL4i.s 			page 21
+
+
+ 1215              		.thumb
+ 1216              		.thumb_func
+ 1217              		.fpu fpv4-sp-d16
+ 1219              	rcu_osci_bypass_mode_disable:
+ 1220              		@ args = 0, pretend = 0, frame = 0
+ 1221              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1222              		@ link register save eliminated.
+ 1223 0000 1028     		cmp	r0, #16
+ 1224 0002 03D0     		beq	.L166
+ 1225 0004 B0F5E05F 		cmp	r0, #7168
+ 1226 0008 0AD0     		beq	.L167
+ 1227 000a 7047     		bx	lr
+ 1228              	.L166:
+ 1229 000c 094B     		ldr	r3, .L169
+ 1230 000e 1A68     		ldr	r2, [r3]
+ 1231 0010 1968     		ldr	r1, [r3]
+ 1232 0012 21F48031 		bic	r1, r1, #65536
+ 1233 0016 1960     		str	r1, [r3]
+ 1234 0018 22F48022 		bic	r2, r2, #262144
+ 1235 001c 1A60     		str	r2, [r3]
+ 1236 001e 7047     		bx	lr
+ 1237              	.L167:
+ 1238 0020 054B     		ldr	r3, .L169+4
+ 1239 0022 1A68     		ldr	r2, [r3]
+ 1240 0024 1968     		ldr	r1, [r3]
+ 1241 0026 21F00101 		bic	r1, r1, #1
+ 1242 002a 1960     		str	r1, [r3]
+ 1243 002c 22F00402 		bic	r2, r2, #4
+ 1244 0030 1A60     		str	r2, [r3]
+ 1245 0032 7047     		bx	lr
+ 1246              	.L170:
+ 1247              		.align	2
+ 1248              	.L169:
+ 1249 0034 00380240 		.word	1073887232
+ 1250 0038 70380240 		.word	1073887344
+ 1252              		.section	.text.rcu_hxtal_clock_monitor_enable,"ax",%progbits
+ 1253              		.align	1
+ 1254              		.global	rcu_hxtal_clock_monitor_enable
+ 1255              		.syntax unified
+ 1256              		.thumb
+ 1257              		.thumb_func
+ 1258              		.fpu fpv4-sp-d16
+ 1260              	rcu_hxtal_clock_monitor_enable:
+ 1261              		@ args = 0, pretend = 0, frame = 0
+ 1262              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1263              		@ link register save eliminated.
+ 1264 0000 024A     		ldr	r2, .L172
+ 1265 0002 1368     		ldr	r3, [r2]
+ 1266 0004 43F40023 		orr	r3, r3, #524288
+ 1267 0008 1360     		str	r3, [r2]
+ 1268 000a 7047     		bx	lr
+ 1269              	.L173:
+ 1270              		.align	2
+ 1271              	.L172:
+ 1272 000c 00380240 		.word	1073887232
+ 1274              		.section	.text.rcu_hxtal_clock_monitor_disable,"ax",%progbits
+ 1275              		.align	1
+ARM GAS  /tmp/ccJSDL4i.s 			page 22
+
+
+ 1276              		.global	rcu_hxtal_clock_monitor_disable
+ 1277              		.syntax unified
+ 1278              		.thumb
+ 1279              		.thumb_func
+ 1280              		.fpu fpv4-sp-d16
+ 1282              	rcu_hxtal_clock_monitor_disable:
+ 1283              		@ args = 0, pretend = 0, frame = 0
+ 1284              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1285              		@ link register save eliminated.
+ 1286 0000 024A     		ldr	r2, .L175
+ 1287 0002 1368     		ldr	r3, [r2]
+ 1288 0004 23F40023 		bic	r3, r3, #524288
+ 1289 0008 1360     		str	r3, [r2]
+ 1290 000a 7047     		bx	lr
+ 1291              	.L176:
+ 1292              		.align	2
+ 1293              	.L175:
+ 1294 000c 00380240 		.word	1073887232
+ 1296              		.section	.text.rcu_irc16m_adjust_value_set,"ax",%progbits
+ 1297              		.align	1
+ 1298              		.global	rcu_irc16m_adjust_value_set
+ 1299              		.syntax unified
+ 1300              		.thumb
+ 1301              		.thumb_func
+ 1302              		.fpu fpv4-sp-d16
+ 1304              	rcu_irc16m_adjust_value_set:
+ 1305              		@ args = 0, pretend = 0, frame = 0
+ 1306              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1307              		@ link register save eliminated.
+ 1308 0000 044A     		ldr	r2, .L178
+ 1309 0002 1368     		ldr	r3, [r2]
+ 1310 0004 23F0F803 		bic	r3, r3, #248
+ 1311 0008 C000     		lsls	r0, r0, #3
+ 1312 000a C0B2     		uxtb	r0, r0
+ 1313 000c 1843     		orrs	r0, r0, r3
+ 1314 000e 1060     		str	r0, [r2]
+ 1315 0010 7047     		bx	lr
+ 1316              	.L179:
+ 1317 0012 00BF     		.align	2
+ 1318              	.L178:
+ 1319 0014 00380240 		.word	1073887232
+ 1321              		.section	.text.rcu_voltage_key_unlock,"ax",%progbits
+ 1322              		.align	1
+ 1323              		.global	rcu_voltage_key_unlock
+ 1324              		.syntax unified
+ 1325              		.thumb
+ 1326              		.thumb_func
+ 1327              		.fpu fpv4-sp-d16
+ 1329              	rcu_voltage_key_unlock:
+ 1330              		@ args = 0, pretend = 0, frame = 0
+ 1331              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1332              		@ link register save eliminated.
+ 1333 0000 014B     		ldr	r3, .L181
+ 1334 0002 024A     		ldr	r2, .L181+4
+ 1335 0004 1A60     		str	r2, [r3]
+ 1336 0006 7047     		bx	lr
+ 1337              	.L182:
+ARM GAS  /tmp/ccJSDL4i.s 			page 23
+
+
+ 1338              		.align	2
+ 1339              	.L181:
+ 1340 0008 00390240 		.word	1073887488
+ 1341 000c 4D3C2B1A 		.word	439041101
+ 1343              		.section	.text.rcu_deepsleep_voltage_set,"ax",%progbits
+ 1344              		.align	1
+ 1345              		.global	rcu_deepsleep_voltage_set
+ 1346              		.syntax unified
+ 1347              		.thumb
+ 1348              		.thumb_func
+ 1349              		.fpu fpv4-sp-d16
+ 1351              	rcu_deepsleep_voltage_set:
+ 1352              		@ args = 0, pretend = 0, frame = 0
+ 1353              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1354              		@ link register save eliminated.
+ 1355 0000 00F00700 		and	r0, r0, #7
+ 1356 0004 014B     		ldr	r3, .L184
+ 1357 0006 1860     		str	r0, [r3]
+ 1358 0008 7047     		bx	lr
+ 1359              	.L185:
+ 1360 000a 00BF     		.align	2
+ 1361              	.L184:
+ 1362 000c 34390240 		.word	1073887540
+ 1364              		.section	.text.rcu_spread_spectrum_config,"ax",%progbits
+ 1365              		.align	1
+ 1366              		.global	rcu_spread_spectrum_config
+ 1367              		.syntax unified
+ 1368              		.thumb
+ 1369              		.thumb_func
+ 1370              		.fpu fpv4-sp-d16
+ 1372              	rcu_spread_spectrum_config:
+ 1373              		@ args = 0, pretend = 0, frame = 0
+ 1374              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1375              		@ link register save eliminated.
+ 1376 0000 10B4     		push	{r4}
+ 1377 0002 064C     		ldr	r4, .L188
+ 1378 0004 2368     		ldr	r3, [r4]
+ 1379 0006 03F03043 		and	r3, r3, #-1342177280
+ 1380 000a 1843     		orrs	r0, r0, r3
+ 1381 000c 40EA4130 		orr	r0, r0, r1, lsl #13
+ 1382 0010 1043     		orrs	r0, r0, r2
+ 1383 0012 2060     		str	r0, [r4]
+ 1384 0014 5DF8044B 		ldr	r4, [sp], #4
+ 1385 0018 7047     		bx	lr
+ 1386              	.L189:
+ 1387 001a 00BF     		.align	2
+ 1388              	.L188:
+ 1389 001c 80380240 		.word	1073887360
+ 1391              		.section	.text.rcu_spread_spectrum_enable,"ax",%progbits
+ 1392              		.align	1
+ 1393              		.global	rcu_spread_spectrum_enable
+ 1394              		.syntax unified
+ 1395              		.thumb
+ 1396              		.thumb_func
+ 1397              		.fpu fpv4-sp-d16
+ 1399              	rcu_spread_spectrum_enable:
+ 1400              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/ccJSDL4i.s 			page 24
+
+
+ 1401              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1402              		@ link register save eliminated.
+ 1403 0000 024A     		ldr	r2, .L191
+ 1404 0002 1368     		ldr	r3, [r2]
+ 1405 0004 43F00043 		orr	r3, r3, #-2147483648
+ 1406 0008 1360     		str	r3, [r2]
+ 1407 000a 7047     		bx	lr
+ 1408              	.L192:
+ 1409              		.align	2
+ 1410              	.L191:
+ 1411 000c 80380240 		.word	1073887360
+ 1413              		.section	.text.rcu_spread_spectrum_disable,"ax",%progbits
+ 1414              		.align	1
+ 1415              		.global	rcu_spread_spectrum_disable
+ 1416              		.syntax unified
+ 1417              		.thumb
+ 1418              		.thumb_func
+ 1419              		.fpu fpv4-sp-d16
+ 1421              	rcu_spread_spectrum_disable:
+ 1422              		@ args = 0, pretend = 0, frame = 0
+ 1423              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1424              		@ link register save eliminated.
+ 1425 0000 024A     		ldr	r2, .L194
+ 1426 0002 1368     		ldr	r3, [r2]
+ 1427 0004 23F00043 		bic	r3, r3, #-2147483648
+ 1428 0008 1360     		str	r3, [r2]
+ 1429 000a 7047     		bx	lr
+ 1430              	.L195:
+ 1431              		.align	2
+ 1432              	.L194:
+ 1433 000c 80380240 		.word	1073887360
+ 1435              		.section	.text.rcu_clock_freq_get,"ax",%progbits
+ 1436              		.align	1
+ 1437              		.global	rcu_clock_freq_get
+ 1438              		.syntax unified
+ 1439              		.thumb
+ 1440              		.thumb_func
+ 1441              		.fpu fpv4-sp-d16
+ 1443              	rcu_clock_freq_get:
+ 1444              		@ args = 0, pretend = 0, frame = 32
+ 1445              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1446              		@ link register save eliminated.
+ 1447 0000 30B4     		push	{r4, r5}
+ 1448 0002 88B0     		sub	sp, sp, #32
+ 1449 0004 0546     		mov	r5, r0
+ 1450 0006 304C     		ldr	r4, .L209
+ 1451 0008 94E80F00 		ldm	r4, {r0, r1, r2, r3}
+ 1452 000c 0DF1200C 		add	ip, sp, #32
+ 1453 0010 0CE90F00 		stmdb	ip, {r0, r1, r2, r3}
+ 1454 0014 02AB     		add	r3, sp, #8
+ 1455 0016 1034     		adds	r4, r4, #16
+ 1456 0018 94E80300 		ldm	r4, {r0, r1}
+ 1457 001c 83E80300 		stm	r3, {r0, r1}
+ 1458 0020 6B46     		mov	r3, sp
+ 1459 0022 83E80300 		stm	r3, {r0, r1}
+ 1460 0026 294B     		ldr	r3, .L209+4
+ 1461 0028 1B68     		ldr	r3, [r3]
+ARM GAS  /tmp/ccJSDL4i.s 			page 25
+
+
+ 1462 002a C3F38103 		ubfx	r3, r3, #2, #2
+ 1463 002e 012B     		cmp	r3, #1
+ 1464 0030 1BD0     		beq	.L205
+ 1465 0032 022B     		cmp	r3, #2
+ 1466 0034 1BD1     		bne	.L206
+ 1467 0036 2649     		ldr	r1, .L209+8
+ 1468 0038 0C68     		ldr	r4, [r1]
+ 1469 003a 04F03F04 		and	r4, r4, #63
+ 1470 003e 0A68     		ldr	r2, [r1]
+ 1471 0040 C2F38812 		ubfx	r2, r2, #6, #9
+ 1472 0044 0868     		ldr	r0, [r1]
+ 1473 0046 C0F30140 		ubfx	r0, r0, #16, #2
+ 1474 004a 0130     		adds	r0, r0, #1
+ 1475 004c 4300     		lsls	r3, r0, #1
+ 1476 004e 0968     		ldr	r1, [r1]
+ 1477 0050 11F4800F 		tst	r1, #4194304
+ 1478 0054 07D0     		beq	.L207
+ 1479 0056 1F48     		ldr	r0, .L209+12
+ 1480              	.L198:
+ 1481 0058 B0FBF4F0 		udiv	r0, r0, r4
+ 1482 005c 02FB00F0 		mul	r0, r2, r0
+ 1483 0060 B0FBF3F0 		udiv	r0, r0, r3
+ 1484 0064 04E0     		b	.L197
+ 1485              	.L207:
+ 1486 0066 1C48     		ldr	r0, .L209+16
+ 1487 0068 F6E7     		b	.L198
+ 1488              	.L205:
+ 1489 006a 1A48     		ldr	r0, .L209+12
+ 1490 006c 00E0     		b	.L197
+ 1491              	.L206:
+ 1492 006e 1A48     		ldr	r0, .L209+16
+ 1493              	.L197:
+ 1494 0070 1649     		ldr	r1, .L209+4
+ 1495 0072 0B68     		ldr	r3, [r1]
+ 1496 0074 C3F30313 		ubfx	r3, r3, #4, #4
+ 1497 0078 08AA     		add	r2, sp, #32
+ 1498 007a 1344     		add	r3, r3, r2
+ 1499 007c 13F8102C 		ldrb	r2, [r3, #-16]	@ zero_extendqisi2
+ 1500 0080 20FA02F2 		lsr	r2, r0, r2
+ 1501 0084 0B68     		ldr	r3, [r1]
+ 1502 0086 C3F38223 		ubfx	r3, r3, #10, #3
+ 1503 008a 08AC     		add	r4, sp, #32
+ 1504 008c 2344     		add	r3, r3, r4
+ 1505 008e 13F8183C 		ldrb	r3, [r3, #-24]	@ zero_extendqisi2
+ 1506 0092 22FA03F4 		lsr	r4, r2, r3
+ 1507 0096 0B68     		ldr	r3, [r1]
+ 1508 0098 C3F34233 		ubfx	r3, r3, #13, #3
+ 1509 009c 08A9     		add	r1, sp, #32
+ 1510 009e 0B44     		add	r3, r3, r1
+ 1511 00a0 13F8203C 		ldrb	r3, [r3, #-32]	@ zero_extendqisi2
+ 1512 00a4 22FA03F3 		lsr	r3, r2, r3
+ 1513 00a8 032D     		cmp	r5, #3
+ 1514 00aa 03D8     		bhi	.L199
+ 1515 00ac DFE805F0 		tbb	[pc, r5]
+ 1516              	.L201:
+ 1517 00b0 05       		.byte	(.L196-.L201)/2
+ 1518 00b1 04       		.byte	(.L203-.L201)/2
+ARM GAS  /tmp/ccJSDL4i.s 			page 26
+
+
+ 1519 00b2 08       		.byte	(.L202-.L201)/2
+ 1520 00b3 0A       		.byte	(.L200-.L201)/2
+ 1521              		.p2align 1
+ 1522              	.L199:
+ 1523 00b4 0020     		movs	r0, #0
+ 1524 00b6 00E0     		b	.L196
+ 1525              	.L203:
+ 1526 00b8 1046     		mov	r0, r2
+ 1527              	.L196:
+ 1528 00ba 08B0     		add	sp, sp, #32
+ 1529              		@ sp needed
+ 1530 00bc 30BC     		pop	{r4, r5}
+ 1531 00be 7047     		bx	lr
+ 1532              	.L202:
+ 1533 00c0 2046     		mov	r0, r4
+ 1534 00c2 FAE7     		b	.L196
+ 1535              	.L200:
+ 1536 00c4 1846     		mov	r0, r3
+ 1537 00c6 F8E7     		b	.L196
+ 1538              	.L210:
+ 1539              		.align	2
+ 1540              	.L209:
+ 1541 00c8 00000000 		.word	.LANCHOR0
+ 1542 00cc 08380240 		.word	1073887240
+ 1543 00d0 04380240 		.word	1073887236
+ 1544 00d4 40787D01 		.word	25000000
+ 1545 00d8 0024F400 		.word	16000000
+ 1547              		.section	.rodata
+ 1548              		.align	2
+ 1549              		.set	.LANCHOR0,. + 0
+ 1550              	.LC0:
+ 1551 0000 00       		.byte	0
+ 1552 0001 00       		.byte	0
+ 1553 0002 00       		.byte	0
+ 1554 0003 00       		.byte	0
+ 1555 0004 00       		.byte	0
+ 1556 0005 00       		.byte	0
+ 1557 0006 00       		.byte	0
+ 1558 0007 00       		.byte	0
+ 1559 0008 01       		.byte	1
+ 1560 0009 02       		.byte	2
+ 1561 000a 03       		.byte	3
+ 1562 000b 04       		.byte	4
+ 1563 000c 06       		.byte	6
+ 1564 000d 07       		.byte	7
+ 1565 000e 08       		.byte	8
+ 1566 000f 09       		.byte	9
+ 1567              	.LC1:
+ 1568 0010 00       		.byte	0
+ 1569 0011 00       		.byte	0
+ 1570 0012 00       		.byte	0
+ 1571 0013 00       		.byte	0
+ 1572 0014 01       		.byte	1
+ 1573 0015 02       		.byte	2
+ 1574 0016 03       		.byte	3
+ 1575 0017 04       		.byte	4
+ 1576              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2019-q3-update) 8.3.1 20190703 (release) [gc
+ARM GAS  /tmp/ccJSDL4i.s 			page 27
+
+
+ARM GAS  /tmp/ccJSDL4i.s 			page 28
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32f4xx_rcu.c
+     /tmp/ccJSDL4i.s:16     .text.rcu_periph_clock_enable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:24     .text.rcu_periph_clock_enable:0000000000000000 rcu_periph_clock_enable
+     /tmp/ccJSDL4i.s:40     .text.rcu_periph_clock_disable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:47     .text.rcu_periph_clock_disable:0000000000000000 rcu_periph_clock_disable
+     /tmp/ccJSDL4i.s:63     .text.rcu_periph_clock_sleep_enable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:70     .text.rcu_periph_clock_sleep_enable:0000000000000000 rcu_periph_clock_sleep_enable
+     /tmp/ccJSDL4i.s:86     .text.rcu_periph_clock_sleep_disable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:93     .text.rcu_periph_clock_sleep_disable:0000000000000000 rcu_periph_clock_sleep_disable
+     /tmp/ccJSDL4i.s:109    .text.rcu_periph_reset_enable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:116    .text.rcu_periph_reset_enable:0000000000000000 rcu_periph_reset_enable
+     /tmp/ccJSDL4i.s:132    .text.rcu_periph_reset_disable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:139    .text.rcu_periph_reset_disable:0000000000000000 rcu_periph_reset_disable
+     /tmp/ccJSDL4i.s:155    .text.rcu_bkp_reset_enable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:162    .text.rcu_bkp_reset_enable:0000000000000000 rcu_bkp_reset_enable
+     /tmp/ccJSDL4i.s:174    .text.rcu_bkp_reset_enable:000000000000000c $d
+     /tmp/ccJSDL4i.s:177    .text.rcu_bkp_reset_disable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:184    .text.rcu_bkp_reset_disable:0000000000000000 rcu_bkp_reset_disable
+     /tmp/ccJSDL4i.s:196    .text.rcu_bkp_reset_disable:000000000000000c $d
+     /tmp/ccJSDL4i.s:199    .text.rcu_system_clock_source_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:206    .text.rcu_system_clock_source_config:0000000000000000 rcu_system_clock_source_config
+     /tmp/ccJSDL4i.s:219    .text.rcu_system_clock_source_config:0000000000000010 $d
+     /tmp/ccJSDL4i.s:222    .text.rcu_system_clock_source_get:0000000000000000 $t
+     /tmp/ccJSDL4i.s:229    .text.rcu_system_clock_source_get:0000000000000000 rcu_system_clock_source_get
+     /tmp/ccJSDL4i.s:240    .text.rcu_system_clock_source_get:000000000000000c $d
+     /tmp/ccJSDL4i.s:243    .text.rcu_ahb_clock_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:250    .text.rcu_ahb_clock_config:0000000000000000 rcu_ahb_clock_config
+     /tmp/ccJSDL4i.s:263    .text.rcu_ahb_clock_config:0000000000000010 $d
+     /tmp/ccJSDL4i.s:266    .text.rcu_apb1_clock_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:273    .text.rcu_apb1_clock_config:0000000000000000 rcu_apb1_clock_config
+     /tmp/ccJSDL4i.s:286    .text.rcu_apb1_clock_config:0000000000000010 $d
+     /tmp/ccJSDL4i.s:289    .text.rcu_apb2_clock_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:296    .text.rcu_apb2_clock_config:0000000000000000 rcu_apb2_clock_config
+     /tmp/ccJSDL4i.s:309    .text.rcu_apb2_clock_config:0000000000000010 $d
+     /tmp/ccJSDL4i.s:312    .text.rcu_ckout0_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:319    .text.rcu_ckout0_config:0000000000000000 rcu_ckout0_config
+     /tmp/ccJSDL4i.s:333    .text.rcu_ckout0_config:0000000000000010 $d
+     /tmp/ccJSDL4i.s:336    .text.rcu_ckout1_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:343    .text.rcu_ckout1_config:0000000000000000 rcu_ckout1_config
+     /tmp/ccJSDL4i.s:357    .text.rcu_ckout1_config:0000000000000010 $d
+     /tmp/ccJSDL4i.s:360    .text.rcu_pll_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:367    .text.rcu_pll_config:0000000000000000 rcu_pll_config
+     /tmp/ccJSDL4i.s:438    .text.rcu_pll_config:0000000000000078 $d
+     /tmp/ccJSDL4i.s:442    .text.rcu_plli2s_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:449    .text.rcu_plli2s_config:0000000000000000 rcu_plli2s_config
+     /tmp/ccJSDL4i.s:474    .text.rcu_plli2s_config:0000000000000028 $d
+     /tmp/ccJSDL4i.s:477    .text.rcu_pllsai_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:484    .text.rcu_pllsai_config:0000000000000000 rcu_pllsai_config
+     /tmp/ccJSDL4i.s:524    .text.rcu_pllsai_config:0000000000000044 $d
+     /tmp/ccJSDL4i.s:527    .text.rcu_rtc_clock_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:534    .text.rcu_rtc_clock_config:0000000000000000 rcu_rtc_clock_config
+     /tmp/ccJSDL4i.s:547    .text.rcu_rtc_clock_config:0000000000000010 $d
+     /tmp/ccJSDL4i.s:550    .text.rcu_rtc_div_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:557    .text.rcu_rtc_div_config:0000000000000000 rcu_rtc_div_config
+     /tmp/ccJSDL4i.s:570    .text.rcu_rtc_div_config:0000000000000010 $d
+     /tmp/ccJSDL4i.s:573    .text.rcu_i2s_clock_config:0000000000000000 $t
+ARM GAS  /tmp/ccJSDL4i.s 			page 29
+
+
+     /tmp/ccJSDL4i.s:580    .text.rcu_i2s_clock_config:0000000000000000 rcu_i2s_clock_config
+     /tmp/ccJSDL4i.s:593    .text.rcu_i2s_clock_config:0000000000000010 $d
+     /tmp/ccJSDL4i.s:596    .text.rcu_ck48m_clock_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:603    .text.rcu_ck48m_clock_config:0000000000000000 rcu_ck48m_clock_config
+     /tmp/ccJSDL4i.s:616    .text.rcu_ck48m_clock_config:0000000000000010 $d
+     /tmp/ccJSDL4i.s:619    .text.rcu_pll48m_clock_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:626    .text.rcu_pll48m_clock_config:0000000000000000 rcu_pll48m_clock_config
+     /tmp/ccJSDL4i.s:639    .text.rcu_pll48m_clock_config:0000000000000010 $d
+     /tmp/ccJSDL4i.s:642    .text.rcu_timer_clock_prescaler_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:649    .text.rcu_timer_clock_prescaler_config:0000000000000000 rcu_timer_clock_prescaler_config
+     /tmp/ccJSDL4i.s:670    .text.rcu_timer_clock_prescaler_config:000000000000001c $d
+     /tmp/ccJSDL4i.s:673    .text.rcu_tli_clock_div_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:680    .text.rcu_tli_clock_div_config:0000000000000000 rcu_tli_clock_div_config
+     /tmp/ccJSDL4i.s:693    .text.rcu_tli_clock_div_config:0000000000000010 $d
+     /tmp/ccJSDL4i.s:696    .text.rcu_flag_get:0000000000000000 $t
+     /tmp/ccJSDL4i.s:703    .text.rcu_flag_get:0000000000000000 rcu_flag_get
+     /tmp/ccJSDL4i.s:722    .text.rcu_all_reset_flag_clear:0000000000000000 $t
+     /tmp/ccJSDL4i.s:729    .text.rcu_all_reset_flag_clear:0000000000000000 rcu_all_reset_flag_clear
+     /tmp/ccJSDL4i.s:741    .text.rcu_all_reset_flag_clear:000000000000000c $d
+     /tmp/ccJSDL4i.s:744    .text.rcu_interrupt_flag_get:0000000000000000 $t
+     /tmp/ccJSDL4i.s:751    .text.rcu_interrupt_flag_get:0000000000000000 rcu_interrupt_flag_get
+     /tmp/ccJSDL4i.s:770    .text.rcu_interrupt_flag_clear:0000000000000000 $t
+     /tmp/ccJSDL4i.s:777    .text.rcu_interrupt_flag_clear:0000000000000000 rcu_interrupt_flag_clear
+     /tmp/ccJSDL4i.s:793    .text.rcu_interrupt_enable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:800    .text.rcu_interrupt_enable:0000000000000000 rcu_interrupt_enable
+     /tmp/ccJSDL4i.s:816    .text.rcu_interrupt_disable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:823    .text.rcu_interrupt_disable:0000000000000000 rcu_interrupt_disable
+     /tmp/ccJSDL4i.s:839    .text.rcu_lxtal_drive_capability_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:846    .text.rcu_lxtal_drive_capability_config:0000000000000000 rcu_lxtal_drive_capability_config
+     /tmp/ccJSDL4i.s:859    .text.rcu_lxtal_drive_capability_config:0000000000000010 $d
+     /tmp/ccJSDL4i.s:862    .text.rcu_osci_stab_wait:0000000000000000 $t
+     /tmp/ccJSDL4i.s:869    .text.rcu_osci_stab_wait:0000000000000000 rcu_osci_stab_wait
+     /tmp/ccJSDL4i.s:1066   .text.rcu_osci_stab_wait:000000000000018c $d
+     /tmp/ccJSDL4i.s:1069   .text.rcu_deinit:0000000000000000 $t
+     /tmp/ccJSDL4i.s:1076   .text.rcu_deinit:0000000000000000 rcu_deinit
+     /tmp/ccJSDL4i.s:1117   .text.rcu_deinit:0000000000000058 $d
+     /tmp/ccJSDL4i.s:1125   .text.rcu_osci_on:0000000000000000 $t
+     /tmp/ccJSDL4i.s:1132   .text.rcu_osci_on:0000000000000000 rcu_osci_on
+     /tmp/ccJSDL4i.s:1148   .text.rcu_osci_off:0000000000000000 $t
+     /tmp/ccJSDL4i.s:1155   .text.rcu_osci_off:0000000000000000 rcu_osci_off
+     /tmp/ccJSDL4i.s:1171   .text.rcu_osci_bypass_mode_enable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:1178   .text.rcu_osci_bypass_mode_enable:0000000000000000 rcu_osci_bypass_mode_enable
+     /tmp/ccJSDL4i.s:1208   .text.rcu_osci_bypass_mode_enable:0000000000000034 $d
+     /tmp/ccJSDL4i.s:1212   .text.rcu_osci_bypass_mode_disable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:1219   .text.rcu_osci_bypass_mode_disable:0000000000000000 rcu_osci_bypass_mode_disable
+     /tmp/ccJSDL4i.s:1249   .text.rcu_osci_bypass_mode_disable:0000000000000034 $d
+     /tmp/ccJSDL4i.s:1253   .text.rcu_hxtal_clock_monitor_enable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:1260   .text.rcu_hxtal_clock_monitor_enable:0000000000000000 rcu_hxtal_clock_monitor_enable
+     /tmp/ccJSDL4i.s:1272   .text.rcu_hxtal_clock_monitor_enable:000000000000000c $d
+     /tmp/ccJSDL4i.s:1275   .text.rcu_hxtal_clock_monitor_disable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:1282   .text.rcu_hxtal_clock_monitor_disable:0000000000000000 rcu_hxtal_clock_monitor_disable
+     /tmp/ccJSDL4i.s:1294   .text.rcu_hxtal_clock_monitor_disable:000000000000000c $d
+     /tmp/ccJSDL4i.s:1297   .text.rcu_irc16m_adjust_value_set:0000000000000000 $t
+     /tmp/ccJSDL4i.s:1304   .text.rcu_irc16m_adjust_value_set:0000000000000000 rcu_irc16m_adjust_value_set
+     /tmp/ccJSDL4i.s:1319   .text.rcu_irc16m_adjust_value_set:0000000000000014 $d
+     /tmp/ccJSDL4i.s:1322   .text.rcu_voltage_key_unlock:0000000000000000 $t
+     /tmp/ccJSDL4i.s:1329   .text.rcu_voltage_key_unlock:0000000000000000 rcu_voltage_key_unlock
+ARM GAS  /tmp/ccJSDL4i.s 			page 30
+
+
+     /tmp/ccJSDL4i.s:1340   .text.rcu_voltage_key_unlock:0000000000000008 $d
+     /tmp/ccJSDL4i.s:1344   .text.rcu_deepsleep_voltage_set:0000000000000000 $t
+     /tmp/ccJSDL4i.s:1351   .text.rcu_deepsleep_voltage_set:0000000000000000 rcu_deepsleep_voltage_set
+     /tmp/ccJSDL4i.s:1362   .text.rcu_deepsleep_voltage_set:000000000000000c $d
+     /tmp/ccJSDL4i.s:1365   .text.rcu_spread_spectrum_config:0000000000000000 $t
+     /tmp/ccJSDL4i.s:1372   .text.rcu_spread_spectrum_config:0000000000000000 rcu_spread_spectrum_config
+     /tmp/ccJSDL4i.s:1389   .text.rcu_spread_spectrum_config:000000000000001c $d
+     /tmp/ccJSDL4i.s:1392   .text.rcu_spread_spectrum_enable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:1399   .text.rcu_spread_spectrum_enable:0000000000000000 rcu_spread_spectrum_enable
+     /tmp/ccJSDL4i.s:1411   .text.rcu_spread_spectrum_enable:000000000000000c $d
+     /tmp/ccJSDL4i.s:1414   .text.rcu_spread_spectrum_disable:0000000000000000 $t
+     /tmp/ccJSDL4i.s:1421   .text.rcu_spread_spectrum_disable:0000000000000000 rcu_spread_spectrum_disable
+     /tmp/ccJSDL4i.s:1433   .text.rcu_spread_spectrum_disable:000000000000000c $d
+     /tmp/ccJSDL4i.s:1436   .text.rcu_clock_freq_get:0000000000000000 $t
+     /tmp/ccJSDL4i.s:1443   .text.rcu_clock_freq_get:0000000000000000 rcu_clock_freq_get
+     /tmp/ccJSDL4i.s:1517   .text.rcu_clock_freq_get:00000000000000b0 $d
+     /tmp/ccJSDL4i.s:1521   .text.rcu_clock_freq_get:00000000000000b4 $t
+     /tmp/ccJSDL4i.s:1541   .text.rcu_clock_freq_get:00000000000000c8 $d
+     /tmp/ccJSDL4i.s:1548   .rodata:0000000000000000 $d
+
+NO UNDEFINED SYMBOLS
